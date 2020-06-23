@@ -1,66 +1,66 @@
 
 CREATE TABLE access (
   access_id int(10) NOT NULL AUTO_INCREMENT,
-  access_title varchar(20) DEFAULT NULL,
+  access_title varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (access_id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO access (access_id, access_title) VALUES(1, 'User');
 INSERT INTO access (access_id, access_title) VALUES(2, 'Moderator');
 INSERT INTO access (access_id, access_title) VALUES(3, 'Super Moderator');
 
 CREATE TABLE adminblock (
-  title varchar(250) DEFAULT NULL,
-  content text
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  title varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  content text COLLATE utf8mb4_unicode_ci
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO adminblock (title, content) VALUES
 ('Administration', '<ul><li><a href="admin.php"><i class="fas fa-sign-in-alt fa-2x align-middle"></i> Administration</a></li><li><a href="admin.php?op=logout" class=" text-danger"><i class="fas fa-sign-out-alt fa-2x align-middle"></i> Logout</a></li></ul>');
 
 CREATE TABLE appli_log (
   al_id int(11) NOT NULL DEFAULT '0',
-  al_name varchar(255) DEFAULT NULL,
+  al_name varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   al_subid int(11) NOT NULL DEFAULT '0',
   al_date datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   al_uid int(11) NOT NULL DEFAULT '0',
-  al_data text,
-  al_ip varchar(19) NOT NULL DEFAULT '',
-  al_hostname varchar(255) DEFAULT NULL,
+  al_data text COLLATE utf8mb4_unicode_ci,
+  al_ip varchar(54) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  al_hostname varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   KEY al_id (al_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO appli_log VALUES (1, 'Poll', 2, '2012-07-15 13:35:32', 1, '2', '1.1.76.115', '');
 
 CREATE TABLE authors (
-  aid varchar(30) NOT NULL DEFAULT '',
-  name varchar(50) DEFAULT NULL,
-  url varchar(60) DEFAULT NULL,
-  email varchar(60) DEFAULT NULL,
-  pwd varchar(40) DEFAULT NULL,
+  aid varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  name varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  url varchar(320) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  email varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  pwd varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   counter int(11) NOT NULL DEFAULT '0',
   radminfilem tinyint(2) NOT NULL DEFAULT '0',
   radminsuper tinyint(2) NOT NULL DEFAULT '1',
   PRIMARY KEY (aid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 INSERT INTO authors (aid, name, url, email, pwd, counter, radminfilem, radminsuper) VALUES ('Root', 'Root', '', 'root@npds.org', 'd.8V.L9nSMMvE', 0, 0, 1);
 
 CREATE TABLE autonews (
   anid int(11) NOT NULL AUTO_INCREMENT,
   catid int(11) NOT NULL DEFAULT '0',
-  aid varchar(30) NOT NULL DEFAULT '',
-  title varchar(255) DEFAULT NULL,
-  time varchar(19) NOT NULL DEFAULT '',
-  hometext text NOT NULL,
-  bodytext mediumtext,
+  aid varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  title varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  time varchar(19) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  hometext text COLLATE utf8mb4_unicode_ci NOT NULL,
+  bodytext mediumtext COLLATE utf8mb4_unicode_ci,
   topic int(3) NOT NULL DEFAULT '1',
-  informant varchar(20) NOT NULL DEFAULT '',
-  notes text NOT NULL,
+  informant varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  notes text COLLATE utf8mb4_unicode_ci NOT NULL,
   ihome int(1) NOT NULL DEFAULT '0',
   date_debval datetime DEFAULT NULL,
   date_finval datetime DEFAULT NULL,
   auto_epur tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (anid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE banner (
   bid int(11) NOT NULL AUTO_INCREMENT,
@@ -68,23 +68,23 @@ CREATE TABLE banner (
   imptotal int(11) NOT NULL DEFAULT '0',
   impmade int(11) NOT NULL DEFAULT '0',
   clicks int(11) NOT NULL DEFAULT '0',
-  imageurl varchar(200) NOT NULL DEFAULT '',
-  clickurl varchar(200) NOT NULL DEFAULT '',
+  imageurl varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  clickurl varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   userlevel int(1) NOT NULL DEFAULT '0',
   date datetime DEFAULT NULL,
   PRIMARY KEY (bid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE bannerclient (
   cid int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(60) NOT NULL DEFAULT '',
-  contact varchar(60) NOT NULL DEFAULT '',
-  email varchar(60) NOT NULL DEFAULT '',
-  login varchar(10) NOT NULL DEFAULT '',
-  passwd varchar(10) NOT NULL DEFAULT '',
-  extrainfo text NOT NULL,
+  name varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  contact varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  email varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  login varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  passwd varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  extrainfo text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (cid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE bannerfinish (
   bid int(11) NOT NULL AUTO_INCREMENT,
@@ -94,30 +94,30 @@ CREATE TABLE bannerfinish (
   datestart datetime DEFAULT NULL,
   dateend datetime DEFAULT NULL,
   PRIMARY KEY (bid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE catagories (
   cat_id int(10) NOT NULL AUTO_INCREMENT,
-  cat_title text,
+  cat_title text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (cat_id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO catagories VALUES (1, 'Demo');
 
 CREATE TABLE chatbox (
-  username text,
-  ip varchar(20) NOT NULL DEFAULT '',
-  message text,
+  username text COLLATE utf8mb4_unicode_ci,
+  ip varchar(54) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  message text COLLATE utf8mb4_unicode_ci,
   date int(15) NOT NULL DEFAULT '0',
   id int(10) DEFAULT '0',
   dbname tinyint(4) DEFAULT '0',
   PRIMARY KEY (date)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE compatsujet (
-  id1 varchar(30) NOT NULL DEFAULT '',
+  id1 varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   id2 int(30) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE config (
   allow_html int(2) DEFAULT NULL,
@@ -128,25 +128,25 @@ CREATE TABLE config (
   topics_per_page int(10) DEFAULT NULL,
   allow_upload_forum int(2) unsigned NOT NULL DEFAULT '0',
   allow_forum_hide int(2) unsigned NOT NULL DEFAULT '0',
-  upload_table varchar(50) NOT NULL DEFAULT 'forum_attachments',
-  rank1 varchar(255) DEFAULT NULL,
-  rank2 varchar(255) DEFAULT NULL,
-  rank3 varchar(255) DEFAULT NULL,
-  rank4 varchar(255) DEFAULT NULL,
-  rank5 varchar(255) DEFAULT NULL,
+  upload_table varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'forum_attachments',
+  rank1 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  rank2 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  rank3 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  rank4 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  rank5 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   anti_flood char(3) DEFAULT NULL,
   solved int(2) unsigned NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO config VALUES (1, 1, 1, 10, 10, 10, 0, 0, 'forum_attachments', NULL, NULL, NULL, NULL, NULL, NULL, 0);
 
 CREATE TABLE counter (
   id_stat int(10) unsigned NOT NULL AUTO_INCREMENT,
-  type varchar(80) NOT NULL DEFAULT '',
-  var varchar(80) NOT NULL DEFAULT '',
+  type varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  var varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   count int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (id_stat)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO counter (id_stat, type, var, count) VALUES(1, 'total', 'hits', 0);
 INSERT INTO counter (id_stat, type, var, count) VALUES(2, 'browser', 'WebTV', 0);
@@ -175,65 +175,65 @@ INSERT INTO counter (id_stat, type, var, count) VALUES(22, 'os', 'iOS', 0);
 CREATE TABLE downloads (
   did int(10) NOT NULL AUTO_INCREMENT,
   dcounter int(10) NOT NULL DEFAULT '0',
-  durl varchar(255) DEFAULT NULL,
-  dfilename varchar(255) DEFAULT NULL,
+  durl varchar(320) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  dfilename varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   dfilesize bigint(15) unsigned DEFAULT NULL,
   ddate date NOT NULL DEFAULT '1000-01-01',
-  dweb varchar(255) DEFAULT NULL,
-  duser varchar(30) DEFAULT NULL,
-  dver varchar(6) DEFAULT NULL,
-  dcategory varchar(250) DEFAULT NULL,
-  ddescription text,
-  perms varchar(480) NOT NULL DEFAULT '0',
+  dweb varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  duser varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  dver varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  dcategory varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  ddescription text COLLATE utf8mb4_unicode_ci,
+  perms varchar(480) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (did)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE droits (
-  d_aut_aid varchar(40) NOT NULL COMMENT 'id administrateur',
+  d_aut_aid varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'id administrateur',
   d_fon_fid tinyint(3) unsigned NOT NULL COMMENT 'id fonction',
-  d_droits varchar(5) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Dune_proto';
+  d_droits varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Dune_proto';
 
 CREATE TABLE ephem (
   eid int(11) NOT NULL AUTO_INCREMENT,
   did int(2) NOT NULL DEFAULT '0',
   mid int(2) NOT NULL DEFAULT '0',
   yid int(4) NOT NULL DEFAULT '0',
-  content text NOT NULL,
+  content text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (eid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE faqanswer (
   id int(11) NOT NULL AUTO_INCREMENT,
   id_cat tinyint(4) DEFAULT NULL,
-  question varchar(255) DEFAULT NULL,
-  answer text,
+  question varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  answer text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE faqcategories (
   id_cat tinyint(3) NOT NULL AUTO_INCREMENT,
-  categories varchar(255) DEFAULT NULL,
+  categories varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (id_cat)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE fonctions (
   fid mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id unique auto incrémenté',
-  fnom varchar(40) NOT NULL,
+  fnom varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   fdroits1 tinyint(3) unsigned NOT NULL,
-  fdroits1_descr varchar(40) NOT NULL,
+  fdroits1_descr varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   finterface tinyint(1) unsigned NOT NULL COMMENT '1 ou 0 : la fonction dispose ou non d''une interface',
   fetat tinyint(1) NOT NULL COMMENT '0 ou 1  9 : non active ou installé, installé',
-  fretour varchar(500) NOT NULL COMMENT 'utiliser par les fonctions de categorie Alerte : nombre, ou ',
-  fretour_h varchar(500) NOT NULL,
-  fnom_affich varchar(200) NOT NULL,
-  ficone varchar(40) NOT NULL,
-  furlscript varchar(4000) NOT NULL COMMENT 'attribut et contenu  de balise A : href="xxx", onclick="xxx"  etc',
+  fretour varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'utiliser par les fonctions de categorie Alerte : nombre, ou ',
+  fretour_h varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  fnom_affich varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  ficone varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  furlscript varchar(4000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'attribut et contenu  de balise A : href="xxx", onclick="xxx"  etc',
   fcategorie tinyint(3) unsigned NOT NULL,
-  fcategorie_nom varchar(200) NOT NULL,
+  fcategorie_nom varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   fordre tinyint(2) unsigned NOT NULL,
   PRIMARY KEY (fid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Dune_proto';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Dune_proto';
 
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(1, 'edito', 1, '', 1, 1, '', '', 'Edito', 'edito', 'href="admin.php?op=Edito"', 1, 'Contenu', 0);
 INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, fretour, fretour_h, fnom_affich, ficone, furlscript, fcategorie, fcategorie_nom, fordre) VALUES(2, 'adminStory', 2, '', 1, 1, '', '', 'Nouvel Article', 'postnew', 'href="admin.php?op=adminStory"', 1, 'Contenu', 1);
@@ -288,25 +288,25 @@ INSERT INTO fonctions (fid, fnom, fdroits1, fdroits1_descr, finterface, fetat, f
 
 CREATE TABLE forums (
   forum_id int(10) NOT NULL AUTO_INCREMENT,
-  forum_name varchar(150) DEFAULT NULL,
-  forum_desc text,
+  forum_name varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  forum_desc text COLLATE utf8mb4_unicode_ci,
   forum_access int(10) DEFAULT '1',
-  forum_moderator text,
+  forum_moderator text COLLATE utf8mb4_unicode_ci,
   cat_id int(10) DEFAULT NULL,
   forum_type int(10) DEFAULT '0',
-  forum_pass varchar(60) DEFAULT NULL,
+  forum_pass varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   arbre tinyint(1) unsigned NOT NULL DEFAULT '0',
   attachement tinyint(1) unsigned NOT NULL DEFAULT '0',
   forum_index int(2) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (forum_id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO forums VALUES (1, 'Demo', '', 0, '2', 1, 0, '', 0, 0, 0);
 INSERT INTO forums VALUES (2, 'Arbre', 'un forum &agrave; l''ancienne forme', 0, '2', 1, 0, '', 1, 0, 0);
 
 CREATE TABLE forumtopics (
   topic_id int(10) NOT NULL AUTO_INCREMENT,
-  topic_title varchar(100) DEFAULT NULL,
+  topic_title varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   topic_poster int(10) DEFAULT NULL,
   topic_time datetime DEFAULT NULL,
   topic_views int(10) NOT NULL DEFAULT '0',
@@ -318,7 +318,7 @@ CREATE TABLE forumtopics (
   PRIMARY KEY (topic_id),
   KEY forum_id (forum_id),
   KEY topic_first (topic_first,topic_time)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO forumtopics VALUES (1, 'Demo', 2, '2012-03-05 22:36:00', 27, 1, 0, 0, 2, 1);
 INSERT INTO forumtopics VALUES (2, 'Message 1', 1, '2013-05-14 22:55:00', 8, 2, 0, 0, 1, 1);
@@ -329,12 +329,12 @@ CREATE TABLE forum_attachments (
   topic_id int(11) NOT NULL DEFAULT '0',
   forum_id int(11) NOT NULL DEFAULT '0',
   unixdate int(11) NOT NULL DEFAULT '0',
-  att_name varchar(255) NOT NULL DEFAULT '',
-  att_type varchar(64) NOT NULL DEFAULT '',
+  att_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  att_type varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   att_size int(11) NOT NULL DEFAULT '0',
-  att_path varchar(255) NOT NULL DEFAULT '',
+  att_path varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   inline char(1) NOT NULL DEFAULT '',
-  apli varchar(10) NOT NULL DEFAULT '',
+  apli varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   compteur int(11) NOT NULL DEFAULT '0',
   visible tinyint(1) NOT NULL DEFAULT '0',
   KEY att_id (att_id),
@@ -343,7 +343,7 @@ CREATE TABLE forum_attachments (
   KEY apli (apli),
   KEY visible (visible),
   KEY forum_id (forum_id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 CREATE TABLE forum_read (
@@ -358,31 +358,31 @@ CREATE TABLE forum_read (
   KEY forum_id (forum_id),
   KEY uid (uid),
   KEY forum_read_mcl (forum_id,uid,topicid,status)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO forum_read VALUES (1, 2, 2, 2, 1383416155, 1);
 INSERT INTO forum_read VALUES (2, 1, 1, 2, 1383418761, 1);
 
 CREATE TABLE groupes (
   groupe_id int(3) DEFAULT NULL,
-  groupe_name varchar(30) NOT NULL DEFAULT '',
-  groupe_description varchar(255) NOT NULL DEFAULT '',
+  groupe_name varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  groupe_description varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   groupe_forum int(1) unsigned NOT NULL DEFAULT '0',
   groupe_mns int(1) unsigned NOT NULL DEFAULT '0',
   groupe_chat int(1) unsigned NOT NULL DEFAULT '0',
   groupe_blocnote int(1) unsigned NOT NULL DEFAULT '0',
   groupe_pad int(1) unsigned NOT NULL DEFAULT '0',
   UNIQUE KEY groupe_id (groupe_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE headlines (
   hid int(11) NOT NULL AUTO_INCREMENT,
-  sitename varchar(30) NOT NULL DEFAULT '',
-  url varchar(100) NOT NULL DEFAULT '',
-  headlinesurl varchar(200) NOT NULL DEFAULT '',
+  sitename varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  headlinesurl varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   status tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (hid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO headlines VALUES (1, 'NPDS', 'http://www.npds.org', 'http://www.npds.org/backend.php', 0);
 INSERT INTO headlines VALUES (2, 'Modules', 'http://modules.npds.org', 'http://modules.npds.org/backend.php', 0);
@@ -390,17 +390,17 @@ INSERT INTO headlines VALUES (3, 'Styles', 'http://styles.npds.org', 'http://sty
 
 CREATE TABLE lblocks (
   id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  title varchar(255) DEFAULT NULL,
-  content text,
-  member varchar(60) NOT NULL DEFAULT '0',
+  title varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  content text COLLATE utf8mb4_unicode_ci,
+  member varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   Lindex tinyint(4) NOT NULL DEFAULT '0',
   cache mediumint(8) unsigned NOT NULL DEFAULT '0',
   actif smallint(5) unsigned NOT NULL DEFAULT '1',
   css tinyint(1) NOT NULL DEFAULT '0',
-  aide mediumtext,
+  aide mediumtext COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (id),
   KEY Lindex (Lindex)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO lblocks VALUES (1, 'Un Bloc ...', 'Vous pouvez ajouter, &eacute;diter et supprimer des Blocs &agrave; votre convenance.', '0', 99, 0, 1, 0, '');
 INSERT INTO lblocks VALUES (2, 'Menu', 'function#mainblock', '0', 1, 86400, 1, 0, 'Ce menu contient presque toutes les fonctions de base disponibles dans NPDS');
@@ -417,100 +417,100 @@ INSERT INTO lblocks VALUES (12, '[french]Carte[/french][english]Map[/english][ch
 
 CREATE TABLE links_categories (
   cid int(11) NOT NULL AUTO_INCREMENT,
-  title varchar(255) DEFAULT NULL,
-  cdescription text NOT NULL,
+  title varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  cdescription text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (cid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO links_categories VALUES (1, 'Mod&eacute;le', '');
 
 CREATE TABLE links_editorials (
   linkid int(11) NOT NULL DEFAULT '0',
-  adminid varchar(60) NOT NULL DEFAULT '',
+  adminid varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   editorialtimestamp datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
-  editorialtext text NOT NULL,
-  editorialtitle varchar(100) NOT NULL DEFAULT '',
+  editorialtext text COLLATE utf8mb4_unicode_ci NOT NULL,
+  editorialtitle varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (linkid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE links_links (
   lid int(11) NOT NULL AUTO_INCREMENT,
   cid int(11) NOT NULL DEFAULT '0',
   sid int(11) NOT NULL DEFAULT '0',
-  title varchar(100) NOT NULL DEFAULT '',
-  url varchar(255) NOT NULL DEFAULT '',
-  description text NOT NULL,
+  title varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  description text COLLATE utf8mb4_unicode_ci NOT NULL,
   date datetime DEFAULT NULL,
-  name varchar(60) NOT NULL DEFAULT '',
-  email varchar(60) NOT NULL DEFAULT '',
+  name varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  email varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   hits int(11) NOT NULL DEFAULT '0',
-  submitter varchar(60) NOT NULL DEFAULT '',
+  submitter varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   linkratingsummary double(6,4) NOT NULL DEFAULT '0.0000',
   totalvotes int(11) NOT NULL DEFAULT '0',
   totalcomments int(11) NOT NULL DEFAULT '0',
   topicid_card tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (lid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE links_modrequest (
   requestid int(11) NOT NULL AUTO_INCREMENT,
   lid int(11) NOT NULL DEFAULT '0',
   cid int(11) NOT NULL DEFAULT '0',
   sid int(11) NOT NULL DEFAULT '0',
-  title varchar(100) NOT NULL DEFAULT '',
-  url varchar(100) NOT NULL DEFAULT '',
-  description text NOT NULL,
-  modifysubmitter varchar(60) NOT NULL DEFAULT '',
+  title varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  description text COLLATE utf8mb4_unicode_ci NOT NULL,
+  modifysubmitter varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   brokenlink int(3) NOT NULL DEFAULT '0',
   topicid_card tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (requestid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE links_newlink (
   lid int(11) NOT NULL AUTO_INCREMENT,
   cid int(11) NOT NULL DEFAULT '0',
   sid int(11) NOT NULL DEFAULT '0',
-  title varchar(100) NOT NULL DEFAULT '',
-  url varchar(100) NOT NULL DEFAULT '',
-  description text NOT NULL,
-  name varchar(60) NOT NULL DEFAULT '',
-  email varchar(60) NOT NULL DEFAULT '',
-  submitter varchar(60) NOT NULL DEFAULT '',
+  title varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  description text COLLATE utf8mb4_unicode_ci NOT NULL,
+  name varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  email varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  submitter varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   topicid_card tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (lid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE links_subcategories (
   sid int(11) NOT NULL AUTO_INCREMENT,
   cid int(11) NOT NULL DEFAULT '0',
-  title varchar(250) DEFAULT NULL,
+  title varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (sid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE lnl_body (
   ref int(11) NOT NULL AUTO_INCREMENT,
   html char(1) NOT NULL DEFAULT '1',
-  text text,
+  text text COLLATE utf8mb4_unicode_ci,
   status char(3) NOT NULL DEFAULT 'stb',
   PRIMARY KEY (ref)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE lnl_head_foot (
   ref int(11) NOT NULL AUTO_INCREMENT,
   type char(3) NOT NULL DEFAULT '',
   html char(1) NOT NULL DEFAULT '1',
-  text text,
+  text text COLLATE utf8mb4_unicode_ci,
   status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (ref)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE lnl_outside_users (
-  email varchar(60) NOT NULL DEFAULT '',
-  host_name varchar(60) DEFAULT NULL,
+  email varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  host_name varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   date datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (email)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE lnl_send (
   ref int(11) NOT NULL AUTO_INCREMENT,
@@ -522,26 +522,26 @@ CREATE TABLE lnl_send (
   date datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   status char(3) NOT NULL DEFAULT 'OK',
   PRIMARY KEY (ref)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE mainblock (
-  title varchar(255) DEFAULT NULL,
-  content text
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  title varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  content text COLLATE utf8mb4_unicode_ci
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO mainblock VALUES ('Menu', '<ul><li><a href="modules.php?ModPath=archive-stories&ModStart=archive-stories">[french]Archives[/french][english]Archives[/english][chinese]&#x6863;&#x6848;&#x8D44;&#x6599;[/chinese][spanish]Archivos[/spanish][german]Archives[/german]</a></li><li><a href="forum.php">[french]Forums[/french][english]Forums[/english][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese][spanish]Foros[/spanish][german]Foren[/german]</a></li><li><a href="sections.php">[french]Rubriques[/french][english]Sections[/english][chinese]&#x7CBE;&#x534E;&#x533A;[/chinese][spanish]Secciones[/spanish][german]Rubriken[/german]</a></li><li><a href="topics.php">[french]Sujets actifs[/french][english]Topics[/english][chinese]&#x4E3B;&#x9898;[/chinese][spanish]Asuntos[/spanish][german]Themen[/german]</a></li><li><a href="modules.php?ModPath=links&ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li><li><a href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li><li><a href="faq.php">FAQ</a></li><li><a href="static.php?op=statik.txt&npds=1">[french]Page statique[/french][english]Static page[/english][chinese]&#38745;&#24577;&#39029;&#38754;[/chinese][spanish]p&aacute;gina est&aacute;tica[/spanish][german]Statische Seite[/german]</a></li><li><a href="reviews.php">[french]Critiques[/french][english]Reviews[/english][chinese]&#x8BC4;&#x8BBA;[/chinese][spanish]Criticas[/spanish][german]Kritiken[/german]</a></li><li><a href="memberslist.php">[french]Annuaire[/french][english]Members List[/english][chinese]&#x4F1A;&#x5458;&#x5217;&#x8868;[/chinese][spanish]Lista de miembros[/spanish][german]Liste der registrierten Benutzer[/german]</a></li><li><a href="map.php">[french]Plan du site[/french][english]Site Map[/english][chinese]&#31449;&#28857;&#22320;&#22270;[/chinese][spanish]Mapa del sitio[/spanish][german]Sitemap[/german]</a></li><li><a href="friend.php">[french]Faire notre pub[/french][english]Recommend us[/english][chinese]&#25512;&#33616;&#25105;&#20204;[/chinese][spanish]Recomiendanos[/spanish][german]Empfehlen uns[/german]</a></li><li><a href="user.php">[french]Votre compte[/french][english]Your account[/english][chinese]&#x60A8;&#x7684;&#x5E10;&#x53F7;[/chinese][spanish]Su cuenta[/spanish][german]Ihr Account[/german]</a></li><li><a href="submit.php">[french]Nouvel article[/french][english]Submit News[/english][chinese]&#x63D0;&#x4EA4;&#x6587;&#x7AE0;&#x8BBE;&#x7F6E;[/chinese][spanish]Someter una noticia[/spanish][german]Beitrag freigeben[/german]</a></li><li><a href="admin.php">[french]Administration[/french][english]Administration[/english][chinese]&#31649;&#29702;[/chinese][spanish]Administraci&oacute;n[/spanish][german]Verwaltung[/german]</a></li></ul>');
 
 CREATE TABLE metalang (
-  def varchar(50) NOT NULL DEFAULT '',
-  content text NOT NULL,
-  type_meta varchar(4) NOT NULL DEFAULT 'mot',
+  def varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  content text COLLATE utf8mb4_unicode_ci NOT NULL,
+  type_meta varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'mot',
   type_uri char(1) NOT NULL DEFAULT '-',
-  uri varchar(255) DEFAULT NULL,
-  description text,
+  uri varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  description text COLLATE utf8mb4_unicode_ci,
   obligatoire char(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (def),
   KEY type_meta (type_meta)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('Dev', 'Developpeur', 'mot', '-', NULL, NULL, '0');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('NPDS', '<a href="http://www.npds.org" target="_blank" title="www.npds.org">NPDS</a>', 'mot', '-', NULL, NULL, '1');
@@ -639,7 +639,7 @@ INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, oblig
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('rotate_img', 'function MM_rotate_img($arg) {\r\n   mt_srand((double)microtime()*1000000);\r\n   $arg = arg_filter($arg);\r\n   $tab_img=explode(",",$arg);\r\n\r\nif (count($tab_img)>1) {\r\n   $imgnum = mt_rand(0, count($tab_img)-1);\r\n} else if (count($tab_img)==1) {\r\n   $imgnum = 0;\r\n} else {\r\n   $imgnum = -1;\r\n}\r\nif ($imgnum!=-1) {\r\n   $Xcontent="<img src=\\"".$tab_img[$imgnum]."\\" border=\\"0\\" alt=\\"".$tab_img[$imgnum]."\\" title=\\"".$tab_img[$imgnum]."\\" />";\r\n}\r\n   return ($Xcontent);\r\n}', 'meta', '-', NULL, '[french]Affiche une image al&eacute;atoire - les images de la liste sont s&eacute;par&eacute;e par une virgule / syntaxe rotate_img("http://www.npds.org/users_private/user/1.gif,http://www.npds.org/users_private/user/2.gif, ...")[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('!sql_nbREQ!', 'function MM_sql_nbREQ() {\r\n   global $sql_nbREQ;\r\n\r\n   return ("SQL REQ : $sql_nbREQ");\r\n}', 'meta', '-', NULL, '[french]Affiche le nombre de requ&ecirc;te SQL pour la page courante[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('comment_system', 'function MM_comment_system ($file_name,$topic) {\r\n\r\nglobal $NPDS_Prefix,$anonpost,$moderate,$admin,$user;\r\nob_start();   \r\n   if (file_exists("modules/comments/$file_name.conf.php")) {\r\n      include ("modules/comments/$file_name.conf.php");\r\n      include ("modules/comments/comments.php");\r\n   }\r\n   $output = ob_get_contents();\r\nob_end_clean();\r\nreturn ($output);\r\n}', 'meta', '-', '', '[french]Permet de mettre en oeuvre un syst&egrave;me de commentaire complet / la mise en oeuvre n&eacute;cessite :<br /> - un fichier dans modules/comments/xxxx.conf.php de la m&ecirc;me structure que les autres<br /> - un appel coh&eacute;rent avec la configuration de ce fichier<br /><br />L''appel est du type : comments($file_name, $topic) - exemple comment_system(edito,1) - le fichier s''appel donc edito.conf.php[/french]', '1');
-INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('top_stories', 'function MM_top_stories ($arg) {\r\n   $content='''';\r\n   $arg = arg_filter($arg);\r\n   $xtab=news_aff("libre","ORDER BY counter DESC LIMIT 0, ".$arg*2,0,$arg*2);\r\n   $story_limit=0;\r\n   while (($story_limit<$arg) and ($story_limit<sizeof($xtab))) {\r\n      list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter) = $xtab[$story_limit];\r\n      $story_limit++;\r\n      if($counter>0) {\r\n        $content.=''<li class="ml-4 my-1"><a href="article.php?sid=''.$sid.''" >''.aff_langue($title).''</a>&nbsp;<span class="badge badge-secondary float-right">''.wrh($counter).'' ''.translate("times").''</span></li>'';\r\n     }\r\n   }\r\n   return($content);\r\n}', 'meta', '-', '', '[french]Affiche le titre et un lien sur les Top x articles / syntaxe : top_stories(x)[/french]', '1');
+INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('top_stories', 'function MM_top_stories ($arg) {\r\n   $content='''';\r\n   $arg = arg_filter($arg);\r\n   $xtab=news_aff("libre","ORDER BY counter DESC LIMIT 0, ".$arg*2,0,$arg*2);\r\n   $story_limit=0;\r\n   while (($story_limit<$arg) and ($story_limit<sizeof($xtab))) {\r\n      list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter) = $xtab[$story_limit];\r\n      $story_limit++;\r\n      if($counter>0) {\r\n        $content.=''<li class="ml-4 my-1"><a href="article.php?sid=''.$sid.''" >''.aff_langue($title).''</a>&nbsp;<span class="badge badge-secondary float-right">''.wrh($counter).'' ''.translate("Fois").''</span></li>'';\r\n     }\r\n   }\r\n   return($content);\r\n}', 'meta', '-', '', '[french]Affiche le titre et un lien sur les Top x articles / syntaxe : top_stories(x)[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('top_commented_stories', 'function MM_top_commented_stories ($arg) {\r\n   $content='''';\r\n   $arg = arg_filter($arg);\r\n   $xtab=news_aff("libre","ORDER BY comments DESC  LIMIT 0, ".$arg*2,0,$arg*2);\r\n   $story_limit=0;\r\n   while (($story_limit<$arg) and ($story_limit<sizeof($xtab))) {\r\n      list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments) = $xtab[$story_limit];\r\n      $story_limit++;\r\n      if($comments>0) {\r\n         $content.= ''<li class="ml-4 my-1"><a href="article.php?sid=''.$sid.''" >''.aff_langue($title).''</a>&nbsp;<span class="badge badge-secondary float-right">''.wrh($comments).''</span></li>'';\r\n      }\r\n   }\r\n  return($content);\r\n}', 'meta', '-', '', '[french]Affiche le titre et un lien sur les Top x articles les plus comment&eacute;s / syntaxe : top_commented_stories(x)[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('top_categories', 'function MM_top_categories($arg) {\r\n   global $NPDS_Prefix;\r\n   $content='''';\r\n   $arg = arg_filter($arg);\r\n   $result = sql_query("select catid, title, counter from ".$NPDS_Prefix."stories_cat order by counter DESC limit 0,$arg");\r\n   while (list($catid, $title, $counter) = sql_fetch_row($result)) {\r\n      if ($counter>0) {\r\n         $content.= ''<li class="ml-4 my-1"><a href="index.php?op=newindex&amp;catid=''.$catid.''" >''.aff_langue($title).''</a>&nbsp;<span class="badge badge-secondary float-right">''.wrh($counter).''</span></li>'';\r\n      }\r\n   }\r\n   sql_free_result($result);\r\n   return($content);\r\n}', 'meta', '-', '', '[french]Affiche le titre et un lien sur les Top x cat&eacute;gories des articles / syntaxe : top_categories(x)[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('top_sections', 'function MM_top_sections ($arg) {\r\n   global $NPDS_Prefix;\r\n   $content='''';\r\n   $arg = arg_filter($arg);\r\n   $result = sql_query("SELECT artid, title, counter FROM ".$NPDS_Prefix."seccont ORDER BY counter DESC LIMIT 0,$arg");\r\n   while (list($artid, $title, $counter) = sql_fetch_row($result)) {\r\n      $content.=''<li class="ml-4 my-1"><a href="sections.php?op=viewarticle&amp;artid=''.$artid.''" >''.aff_langue($title).''</a>&nbsp;<span class="badge badge-secondary float-right">''.wrh($counter).'' ''.translate("Fois").''</span></li>'';\r\n   }\r\n   sql_free_result($result);\r\n   return($content);\r\n}', 'meta', '-', '', '[french]Affiche le titre et un lien sur les Top x articles des rubriques / syntaxe : top_sections(x)[/french]', '1');
@@ -695,28 +695,28 @@ INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, oblig
 
 CREATE TABLE modules (
   mid int(10) NOT NULL AUTO_INCREMENT,
-  mnom varchar(255) NOT NULL DEFAULT '',
+  mnom varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   minstall int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (mid),
   KEY mnom (mnom)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE optimy (
   optid int(11) NOT NULL AUTO_INCREMENT,
   optgain decimal(10,3) DEFAULT NULL,
-  optdate varchar(11) DEFAULT NULL,
-  opthour varchar(8) DEFAULT NULL,
+  optdate varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  opthour varchar(8) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   optcount int(11) DEFAULT '0',
   PRIMARY KEY (optid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE poll_data (
   pollID int(11) NOT NULL DEFAULT '0',
-  optionText varchar(255) NOT NULL DEFAULT '',
+  optionText varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   optionCount int(11) NOT NULL DEFAULT '0',
   voteID int(11) NOT NULL DEFAULT '0',
   pollType int(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO poll_data VALUES (2, '', 0, 12, 0);
 INSERT INTO poll_data VALUES (2, '', 0, 11, 0);
@@ -737,27 +737,27 @@ CREATE TABLE poll_desc (
   timeStamp int(11) NOT NULL DEFAULT '0',
   voters mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (pollID)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO poll_desc VALUES (2, 'NPDS', 1004108978, 1);
 
 CREATE TABLE posts (
   post_id int(10) NOT NULL AUTO_INCREMENT,
   post_idH int(10) NOT NULL DEFAULT '0',
-  image varchar(100) NOT NULL DEFAULT '',
+  image varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   topic_id int(10) NOT NULL DEFAULT '0',
   forum_id int(10) NOT NULL DEFAULT '0',
   poster_id int(10) DEFAULT NULL,
-  post_text text,
-  post_time varchar(20) DEFAULT NULL,
-  poster_ip varchar(54) DEFAULT NULL,
-  poster_dns text,
+  post_text text COLLATE utf8mb4_unicode_ci,
+  post_time varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  poster_ip varchar(54) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  poster_dns text COLLATE utf8mb4_unicode_ci,
   post_aff tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (post_id),
   KEY forum_id (forum_id),
   KEY topic_id (topic_id),
   KEY post_aff (post_aff)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO posts VALUES (1, 0, '00.png', 1, 1, 2, 'Demo', '2011-10-26 17:00', '1.1.76.115', '', 1);
 INSERT INTO posts VALUES (2, 0, '01.png', 1, 1, 2, 'R&eacute;ponse', '2012-03-05 22:36', '1.1.76.115', '', 1);
@@ -769,53 +769,53 @@ INSERT INTO posts VALUES (7, 0, '04.png', 2, -2, 2, 'Bien, bien et m&ecirc;me mi
 
 CREATE TABLE priv_msgs (
   msg_id int(10) NOT NULL AUTO_INCREMENT,
-  msg_image varchar(100) DEFAULT NULL,
-  subject varchar(100) DEFAULT NULL,
+  msg_image varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  subject varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   from_userid int(10) NOT NULL DEFAULT '0',
   to_userid int(10) NOT NULL DEFAULT '0',
-  msg_time varchar(20) DEFAULT NULL,
-  msg_text text,
+  msg_time varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  msg_text text COLLATE utf8mb4_unicode_ci,
   read_msg tinyint(10) NOT NULL DEFAULT '0',
   type_msg int(1) NOT NULL DEFAULT '0',
-  dossier varchar(50) NOT NULL DEFAULT '...',
+  dossier varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '...',
   PRIMARY KEY (msg_id),
   KEY to_userid (to_userid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE publisujet (
-  aid varchar(30) NOT NULL DEFAULT '',
+  aid varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   secid2 int(30) NOT NULL DEFAULT '0',
   type int(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE queue (
   qid smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   uid mediumint(9) NOT NULL DEFAULT '0',
-  uname varchar(40) NOT NULL DEFAULT '',
-  subject varchar(255) NOT NULL DEFAULT '',
-  story mediumtext,
-  bodytext mediumtext,
+  uname varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  subject varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  story mediumtext COLLATE utf8mb4_unicode_ci,
+  bodytext mediumtext COLLATE utf8mb4_unicode_ci,
   timestamp datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
-  topic varchar(20) NOT NULL DEFAULT 'Linux',
+  topic varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Linux',
   date_debval datetime DEFAULT NULL,
   date_finval datetime DEFAULT NULL,
   auto_epur tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (qid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE rblocks (
   id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  title varchar(255) DEFAULT NULL,
-  content text,
-  member varchar(60) NOT NULL DEFAULT '0',
+  title varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  content text COLLATE utf8mb4_unicode_ci,
+  member varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   Rindex tinyint(4) NOT NULL DEFAULT '0',
   cache mediumint(8) unsigned NOT NULL DEFAULT '0',
   actif smallint(5) unsigned NOT NULL DEFAULT '1',
   css tinyint(1) NOT NULL DEFAULT '0',
-  aide mediumtext,
+  aide mediumtext COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (id),
   KEY Rindex (Rindex)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO rblocks VALUES (1, 'Un Bloc ...', 'Vous pouvez ajouter, &eacute;diter et supprimer des Blocs &agrave; votre convenance.', '0', 99, 0, 1, 0, '');
 INSERT INTO rblocks VALUES (2, 'Information', '<p align="center"><a href="http://www.npds.org" target="_blank"><img src="images/powered/miniban-bleu.png" border="0" alt="npds_logo" /></a></p>', '0', 0, 0, 1, 0, '');
@@ -827,61 +827,61 @@ INSERT INTO rblocks VALUES (8, 'Article du Jour', 'function#bigstory', '0', 3, 6
 
 CREATE TABLE referer (
   rid int(11) NOT NULL AUTO_INCREMENT,
-  url varchar(100) NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (rid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE related (
   rid int(11) NOT NULL AUTO_INCREMENT,
   tid int(11) NOT NULL DEFAULT '0',
-  name varchar(30) NOT NULL DEFAULT '',
-  url varchar(200) NOT NULL DEFAULT '',
+  name varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (rid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE reviews (
   id int(10) NOT NULL AUTO_INCREMENT,
   date date NOT NULL,
-  title varchar(150) NOT NULL DEFAULT '',
-  text text NOT NULL,
-  reviewer varchar(20) DEFAULT NULL,
-  email varchar(60) DEFAULT NULL,
+  title varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  text text COLLATE utf8mb4_unicode_ci NOT NULL,
+  reviewer varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  email varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   score int(10) NOT NULL DEFAULT '0',
-  cover varchar(100) NOT NULL DEFAULT '',
-  url varchar(100) NOT NULL DEFAULT '',
-  url_title varchar(50) NOT NULL DEFAULT '',
+  cover varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url_title varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   hits int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE reviews_add (
   id int(10) NOT NULL AUTO_INCREMENT,
   date date DEFAULT NULL,
-  title varchar(150) NOT NULL DEFAULT '',
-  text text NOT NULL,
-  reviewer varchar(20) NOT NULL DEFAULT '',
-  email varchar(60) NOT NULL DEFAULT '',
+  title varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  text text COLLATE utf8mb4_unicode_ci NOT NULL,
+  reviewer varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  email varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   score int(10) NOT NULL DEFAULT '0',
-  url varchar(100) NOT NULL DEFAULT '',
-  url_title varchar(50) NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url_title varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE reviews_main (
-  title text,
-  description text
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  title text COLLATE utf8mb4_unicode_ci DEFAULT '',
+  description text COLLATE utf8mb4_unicode_ci
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO reviews_main VALUES ('Votre point de vue nous int&eacute;resse', 'Participez &agrave; la vie du site en apportant vos critiques mais restez toujours positif.');
 
 CREATE TABLE rubriques (
   rubid int(4) NOT NULL AUTO_INCREMENT,
-  rubname varchar(255) NOT NULL DEFAULT '',
-  intro text NOT NULL,
+  rubname varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  intro text COLLATE utf8mb4_unicode_ci NOT NULL,
   enligne tinyint(1) NOT NULL DEFAULT '0',
   ordre int(2) NOT NULL DEFAULT '0',
   UNIQUE KEY rubid (rubid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO rubriques VALUES (1, 'Divers', '', 1, 9998);
 INSERT INTO rubriques VALUES (2, 'Presse-papiers', '', 0, 9999);
@@ -890,81 +890,81 @@ INSERT INTO rubriques VALUES (3, 'Mod&egrave;le', '', 1, 0);
 CREATE TABLE seccont (
   artid int(11) NOT NULL AUTO_INCREMENT,
   secid int(11) NOT NULL DEFAULT '0',
-  title text NOT NULL,
-  content longtext NOT NULL,
+  title text COLLATE utf8mb4_unicode_ci NOT NULL,
+  content longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   counter int(11) NOT NULL DEFAULT '0',
-  author varchar(50) NOT NULL DEFAULT '',
+  author varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   ordre int(2) NOT NULL DEFAULT '0',
-  userlevel varchar(34) NOT NULL DEFAULT '0',
-  timestamp varchar(14) NOT NULL DEFAULT '0',
+  userlevel varchar(34) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  timestamp varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (artid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE seccont_tempo (
   artid int(11) NOT NULL AUTO_INCREMENT,
   secid int(11) NOT NULL DEFAULT '0',
-  title text NOT NULL,
-  content longtext NOT NULL,
+  title text COLLATE utf8mb4_unicode_ci NOT NULL,
+  content longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   counter int(11) NOT NULL DEFAULT '0',
-  author varchar(50) NOT NULL DEFAULT '',
+  author varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   ordre int(2) NOT NULL DEFAULT '0',
-  userlevel varchar(34) NOT NULL DEFAULT '0',
+  userlevel varchar(34) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (artid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE sections (
   secid int(11) NOT NULL AUTO_INCREMENT,
-  secname varchar(255) NOT NULL DEFAULT '',
-  image varchar(255) NOT NULL DEFAULT '',
-  userlevel varchar(34) NOT NULL DEFAULT '0',
+  secname varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  image varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  userlevel varchar(34) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   rubid int(5) NOT NULL DEFAULT '3',
-  intro text,
+  intro text COLLATE utf8mb4_unicode_ci,
   ordre int(2) NOT NULL DEFAULT '0',
   counter int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (secid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO sections VALUES (1, 'Pages statiques', '', '0', 1, NULL, 0, 0);
 INSERT INTO sections VALUES (2, 'En instance', '', '0', 2, NULL, 0, 0);
 INSERT INTO sections VALUES (3, 'Modifications des th&egrave;mes', '', '', 3, '', 1, 0);
 
 CREATE TABLE session (
-  username varchar(54) NOT NULL DEFAULT '',
-  time varchar(14) NOT NULL DEFAULT '',
-  host_addr varchar(54) NOT NULL DEFAULT '',
+  username varchar(54) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  time varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  host_addr varchar(54) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   guest int(1) NOT NULL DEFAULT '0',
-  uri varchar(255) NOT NULL DEFAULT '',
-  agent varchar(255) DEFAULT NULL,
+  uri varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  agent varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   KEY username (username),
   KEY time (time),
   KEY guest (guest)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO session VALUES ('user', '1384102103', '127.0.0.1', 0, '/index.php', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0');
 
 CREATE TABLE sform (
   cpt int(11) NOT NULL AUTO_INCREMENT,
-  id_form text NOT NULL,
-  id_key text NOT NULL,
-  key_value varchar(255) NOT NULL DEFAULT '',
-  passwd text,
-  content longtext NOT NULL,
+  id_form text COLLATE utf8mb4_unicode_ci NOT NULL,
+  id_key text COLLATE utf8mb4_unicode_ci NOT NULL,
+  key_value varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  passwd text COLLATE utf8mb4_unicode_ci,
+  content longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (cpt)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE stories (
   sid int(11) NOT NULL AUTO_INCREMENT,
   catid int(11) NOT NULL DEFAULT '0',
-  aid varchar(30) NOT NULL DEFAULT '',
-  title varchar(255) DEFAULT NULL,
+  aid varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  title varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   time datetime DEFAULT NULL,
-  hometext mediumtext,
-  bodytext mediumtext,
+  hometext mediumtext COLLATE utf8mb4_unicode_ci,
+  bodytext mediumtext COLLATE utf8mb4_unicode_ci,
   comments int(11) DEFAULT '0',
   counter mediumint(8) unsigned DEFAULT NULL,
   topic int(3) NOT NULL DEFAULT '1',
-  informant varchar(20) NOT NULL DEFAULT '',
-  notes text NOT NULL,
+  informant varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  notes text COLLATE utf8mb4_unicode_ci NOT NULL,
   ihome int(1) NOT NULL DEFAULT '0',
   archive tinyint(1) unsigned NOT NULL DEFAULT '0',
   date_finval datetime DEFAULT NULL,
@@ -974,7 +974,7 @@ CREATE TABLE stories (
   KEY topic (topic),
   KEY informant (informant),
   KEY aid (aid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO stories VALUES (1, 0, 'Root', 'Comment modifier et / ou supprimer EDITO', '2012-09-15 05:01:52', '<font face="arial"><b>L''EDITO </b>est l<b>a premi&egrave;re chose que les visiteurs visualiseront</b> en arrivant sur votre nouveau <b>site NPDS</b>.<br />\r\n<br />Vous pouvez l''<b>&eacute;diter</b> pour le personnaliser, ainsi que choisir de l''afficher ou non. <br />\r\nPour toute modification, l''<b>&eacute;diteur int&eacute;gr&eacute; &agrave; NPDS</b> vous simplifiera &eacute;norm&eacute;ment la t&acirc;che !<br />\r\n<br />\r\nEnfin, vous pouvez d&eacute;cider dans les <i>pr&eacute;f&eacute;rences administrateur</i>\r\nde la page que vous souhaitez utiliser <b>comme index de votre site</b>:\r\nce n''est donc pas forc&eacute;ment l''EDITO, et votre imagination laissera\r\nentrevoir bien d''autres possibilit&eacute;s !<br />\r\n</font>', 'Vous pouvez, par exemple:<br />\r\n<ul>\r\n  <li>faire arriver vos visiteurs sur la <b>page des forums</b></li>\r\n  <li>faire arriver vos visiteurs sur <b>une page d&eacute;crivant votre site en utilisant les rubriques</b></li>\r\n  <li>....<br />\r\n  </li>\r\n</ul>', 0, 2, 1, 'user', '', 0, 0, '2112-01-01 00:00:00', 0);
 INSERT INTO stories VALUES (2, 0, 'Root', 'NPDS contient un excellent &eacute;diteur HTML !', '2012-09-19 01:08:39', 'L''<span style="font-weight: bold;">&eacute;diteur HTML</span> int&eacute;gr&eacute; dans <span style="font-weight: bold;">NPDS</span> est vraiment <span style="font-style: italic;">tr&egrave;s puissant</span> ! <span style="font-weight: bold; color: rgb(0, 0, 204);">Tiny MCE</span>, c''est son nom, vous permet de taper et de mettre en forme le texte directement depuis votre navigateur.<br /><p style="text-align: justify;"><br /><span style="font-weight: bold;">L''envoi d''images</span> sur votre site est <span style="font-style: italic;">tr&egrave;s simple</span> si vous souhaitez illustrer vos textes, et vous pouvez aussi faire des <span style="font-weight: bold;">copier/coller</span> depuis nimporte quel logiciel de <span style="font-weight: bold;">traitement de texte</span> !</p>', '', 0, 4, 1, 'user', '', 0, 0, '2112-01-01 00:00:00', 0);
@@ -983,28 +983,28 @@ INSERT INTO stories VALUES (5, 0, 'Root', 'Vous cherchez des th&egrave;mes compl
 
 CREATE TABLE stories_cat (
   catid int(11) NOT NULL AUTO_INCREMENT,
-  title varchar(255) DEFAULT NULL,
+  title varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   counter int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (catid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE subscribe (
   topicid tinyint(3) DEFAULT NULL,
   forumid int(10) DEFAULT NULL,
-  lnlid text,
+  lnlid text COLLATE utf8mb4_unicode_ci,
   uid int(11) NOT NULL DEFAULT '0',
   KEY uid (uid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE topics (
   topicid int(3) NOT NULL AUTO_INCREMENT,
-  topicname varchar(20) DEFAULT NULL,
-  topicimage varchar(20) DEFAULT NULL,
-  topictext varchar(250) DEFAULT NULL,
+  topicname varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  topicimage varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  topictext varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   counter int(11) NOT NULL DEFAULT '0',
-  topicadmin text,
+  topicadmin text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (topicid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO topics VALUES (1, 'npds', 'npds.gif', 'NPDS', 0, NULL);
 INSERT INTO topics VALUES (2, 'modules', 'modules.gif', 'Modules', 0, NULL);
@@ -1012,61 +1012,61 @@ INSERT INTO topics VALUES (3, 'styles', 'styles.gif', 'Styles', 0, NULL);
 
 CREATE TABLE users (
   uid int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(60) NOT NULL DEFAULT '',
-  uname varchar(25) NOT NULL DEFAULT '',
-  email varchar(60) NOT NULL DEFAULT '',
-  femail varchar(60) NOT NULL DEFAULT '',
-  url varchar(100) NOT NULL DEFAULT '',
-  user_avatar varchar(100) DEFAULT NULL,
-  user_regdate varchar(20) NOT NULL DEFAULT '',
-  user_occ varchar(100) DEFAULT NULL,
-  user_from varchar(100) DEFAULT NULL,
-  user_intrest varchar(150) DEFAULT NULL,
-  user_sig varchar(255) DEFAULT NULL,
+  name varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  uname varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  email varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  femail varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  url varchar(320) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  user_avatar varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  user_regdate varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  user_occ varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  user_from varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  user_intrest varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  user_sig varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   user_viewemail tinyint(2) DEFAULT NULL,
-  user_theme varchar(255) DEFAULT NULL,
-  user_journal text NOT NULL,
-  pass varchar(40) NOT NULL DEFAULT '',
+  user_theme varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  user_journal text COLLATE utf8mb4_unicode_ci NOT NULL,
+  pass varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   storynum tinyint(4) NOT NULL DEFAULT '10',
-  umode varchar(10) NOT NULL DEFAULT '',
+  umode varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   uorder tinyint(1) NOT NULL DEFAULT '0',
   thold tinyint(1) NOT NULL DEFAULT '0',
   noscore tinyint(1) NOT NULL DEFAULT '0',
   bio tinytext NOT NULL,
   ublockon tinyint(1) NOT NULL DEFAULT '0',
   ublock tinytext NOT NULL,
-  theme varchar(255) NOT NULL DEFAULT '',
+  theme varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   commentmax int(11) NOT NULL DEFAULT '4096',
   counter int(11) NOT NULL DEFAULT '0',
   send_email tinyint(1) unsigned NOT NULL DEFAULT '0',
   is_visible tinyint(1) unsigned NOT NULL DEFAULT '1',
   mns tinyint(1) unsigned NOT NULL DEFAULT '0',
-  user_langue varchar(20) DEFAULT NULL,
-  user_lastvisit varchar(14) DEFAULT NULL,
+  user_langue varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  user_lastvisit varchar(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   user_lnl tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (uid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO users VALUES (1, '', 'Anonyme', '', '', '', 'blank.gif', '989445600', '', '', '', '', 0, 0, '', '', 10, '', 0, 0, 0, '', 0, '', '', 4096, 0, 0, 1, 0, NULL, NULL, 1);
 INSERT INTO users VALUES (2, 'user', 'user', 'user@user.land', '', 'http://www.userland.com', '014.gif', '989445600', '', '', '', 'User of the Land', 0, 0, '', 'd.q1Wcp0KUqsk', 10, '', 0, 0, 0, '', 1, '<ul><li><a href=http://www.npds.org target=_blank>NPDS.ORG</a></li></ul>', 'npds-boost_sk', 4096, 4, 0, 1, 1, 'french', '1384102103', 1);
 
 CREATE TABLE users_extend (
   uid int(11) NOT NULL AUTO_INCREMENT,
-  C1 varchar(255) DEFAULT NULL,
-  C2 varchar(255) DEFAULT NULL,
-  C3 varchar(255) DEFAULT NULL,
-  C4 varchar(255) DEFAULT NULL,
-  C5 varchar(255) DEFAULT NULL,
-  C6 varchar(255) DEFAULT NULL,
-  C7 varchar(255) DEFAULT NULL,
-  C8 varchar(255) DEFAULT NULL,
-  M1 mediumtext,
-  M2 mediumtext,
-  T1 varchar(10) DEFAULT NULL,
-  T2 varchar(14) DEFAULT NULL,
+  C1 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  C2 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  C3 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  C4 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  C5 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  C6 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  C7 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  C8 varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  M1 mediumtext COLLATE utf8mb4_unicode_ci,
+  M2 mediumtext COLLATE utf8mb4_unicode_ci,
+  T1 varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  T2 varchar(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   B1 blob,
   PRIMARY KEY (uid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO users_extend VALUES (2, '', '', '', '', '', '', '', '', '', '', '15/07/2015', '', 'none');
 
@@ -1077,36 +1077,36 @@ CREATE TABLE users_status (
   rank int(10) DEFAULT '0',
   level int(10) DEFAULT '1',
   open tinyint(1) NOT NULL DEFAULT '1',
-  groupe varchar(34) DEFAULT NULL,
+  groupe varchar(34) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (uid)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO users_status VALUES (1, 19, 0, 0, 1, 1, '');
 INSERT INTO users_status VALUES (2, 3, 0, 0, 2, 1, '');
 
 CREATE TABLE wspad (
   ws_id int(11) NOT NULL AUTO_INCREMENT,
-  page varchar(255) NOT NULL DEFAULT '',
-  content mediumtext NOT NULL,
+  page varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  content mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   modtime int(15) NOT NULL,
-  editedby varchar(40) NOT NULL DEFAULT '',
+  editedby varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   ranq smallint(6) NOT NULL DEFAULT '1',
   member int(11) NOT NULL DEFAULT '1',
-  verrou varchar(60) DEFAULT NULL,
+  verrou varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (ws_id),
   KEY page (page)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE ip_loc (
   ip_id smallint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   ip_long float NOT NULL DEFAULT '0',
   ip_lat float NOT NULL DEFAULT '0',
-  ip_visi_pag varchar(100) NOT NULL DEFAULT '',
+  ip_visi_pag varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   ip_visite mediumint(9) UNSIGNED NOT NULL DEFAULT '0',
-  ip_ip varchar(54) NOT NULL DEFAULT '',
-  ip_country varchar(100) NOT NULL DEFAULT '0',
-  ip_code_country varchar(4) NOT NULL,
-  ip_city varchar(150) NOT NULL DEFAULT '0',
+  ip_ip varchar(54) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  ip_country varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  ip_code_country varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL,
+  ip_city varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (ip_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
