@@ -319,7 +319,7 @@ $tiny_mce = true;
 
 $NPDS_Prefix = "";
 $NPDS_Key = "";
-$Version_Num = "v.16.1";
+$Version_Num = "v.16.2";
 $Version_Id = "NPDS";
 $Version_Sub = "REvolution";
 

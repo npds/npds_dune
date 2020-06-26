@@ -36,7 +36,7 @@ function ablock() {
             <div class="form-group row">
                <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
                <div class="col-12">
-                  <textarea class="form-control" type="text" name="title" id="title" maxlength="250">'.$title.'</textarea>
+                  <textarea class="form-control" type="text" name="title" id="title" maxlength="1000">'.$title.'</textarea>
                   <span class="help-block text-right"><span id="countcar_title"></span></span>
                </div>
             </div>
@@ -55,7 +55,7 @@ function ablock() {
          </form>';
       $arg1='
    var formulid = ["adminblock"];
-   inpandfieldlen("title",255);
+   inpandfieldlen("title",1000);
    ';
       }
    }

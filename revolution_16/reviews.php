@@ -70,7 +70,7 @@ function write_review() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="email_rev">'.translate("Votre adresse Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'" maxlength="60" required="required" />
+            <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'" maxlength="254" required="required" />
             <span class="help-block text-right" id="countcar_email_rev"></span>
          </div>
       </div>';
@@ -85,7 +85,7 @@ function write_review() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="email_rev">'.translate("Votre adresse Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" id="email_rev" name="email" maxlength="60" required="required" />
+            <input type="email" class="form-control" id="email_rev" name="email" maxlength="254" required="required" />
             <span class="help-block text-right" id="countcar_email_rev"></span>
          </div>
       </div>';
@@ -115,7 +115,7 @@ function write_review() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="url_rev">'.translate("Lien relatif").'</label>
          <div class="col-sm-8">
-            <input type="url" class="form-control" id="url_rev" name="url" maxlength="100" />
+            <input type="url" class="form-control" id="url_rev" name="url" maxlength="320" />
             <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-right" id="countcar_url_rev"></span></span>
          </div>
       </div>
@@ -150,8 +150,8 @@ function write_review() {
    $arg1 ='
       var formulid = ["writereview"];
       inpandfieldlen("title_rev",150);
-      inpandfieldlen("email_rev",60);
-      inpandfieldlen("url_rev",100);
+      inpandfieldlen("email_rev",254);
+      inpandfieldlen("url_rev",320);
       inpandfieldlen("url_title_rev",50);
       inpandfieldlen("cover_rev",50);';
    adminfoot('fv','',$arg1,'foo');
@@ -601,7 +601,7 @@ function mod_review($id) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="email_modrev">'.translate("Email").'</label>
          <div class="col-sm-8">
-            <input type="email" class="form-control" id="email_modrev" name="email" value="'.$email.'" maxlength="60" required="required"/>
+            <input type="email" class="form-control" id="email_modrev" name="email" value="'.$email.'" maxlength="254" required="required"/>
             <span class="help-block text-right" id="countcar_email_modrev"></span>
          </div>
       </div>
@@ -625,7 +625,7 @@ function mod_review($id) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="url_modrev">'.translate("Lien").'</label>
          <div class="col-sm-8">
-            <input type="url" class="form-control" id="url_modrev" name="url" maxlength="100" value="'.$url.'" />
+            <input type="url" class="form-control" id="url_modrev" name="url" maxlength="320" value="'.$url.'" />
             <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-right" id="countcar_url_modrev"></span></span>
          </div>
       </div>
@@ -697,8 +697,8 @@ function mod_review($id) {
       var formulid = ["modreview"];
       inpandfieldlen("title_modrev",150);
       inpandfieldlen("reviewer_modrev",25);
-      inpandfieldlen("email_modrev",60);
-      inpandfieldlen("url_modrev",100);
+      inpandfieldlen("email_modrev",254);
+      inpandfieldlen("url_modrev",320);
       inpandfieldlen("url_title_modrev",50);
       inpandfieldlen("cover_modrev",50);';
 

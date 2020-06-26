@@ -149,14 +149,14 @@ function displayadmins() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4 " for="add_email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8">
-               <input id="add_email" class="form-control" type="email" name="add_email" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
+               <input id="add_email" class="form-control" type="email" name="add_email" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
                <span class="help-block text-right"><span id="countcar_add_email"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4 " for="add_url">'.adm_translate("URL").'</label>
             <div class="col-sm-8">
-               <input id="add_url" class="form-control" type="url" name="add_url" maxlength="60" placeholder="'.adm_translate("URL").'" />
+               <input id="add_url" class="form-control" type="url" name="add_url" maxlength="320" placeholder="'.adm_translate("URL").'" />
                <span class="help-block text-right"><span id="countcar_add_url"></span></span>
             </div>
          </div>
@@ -217,8 +217,8 @@ function displayadmins() {
       '.auto_complete ('adminname', 'name', 'authors', '', '0').'
       inpandfieldlen("add_aid",30);
       inpandfieldlen("add_name",50);
-      inpandfieldlen("add_email",60);
-      inpandfieldlen("add_url",60);
+      inpandfieldlen("add_email",254);
+      inpandfieldlen("add_url",320);
       inpandfieldlen("add_pwd",20);
       ';
    $fv_parametres = '
@@ -322,14 +322,14 @@ function modifyadmin($chng_aid) {
          <div class="form-group row">
             <label class="col-sm-4 col-form-label " for="chng_email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8">
-               <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
+               <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
                <span class="help-block text-right"><span id="countcar_chng_email"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="chng_url">'.adm_translate("URL").'</label>
             <div class="col-sm-8">
-               <input id="chng_url" class="form-control" type="url" name="chng_url" value="'.$chng_url.'" maxlength="60" placeholder="'.adm_translate("URL").'" />
+               <input id="chng_url" class="form-control" type="url" name="chng_url" value="'.$chng_url.'" maxlength="320" placeholder="'.adm_translate("URL").'" />
                <span class="help-block text-right"><span id="countcar_chng_url"></span></span>
             </div>
          </div>
@@ -395,8 +395,8 @@ function modifyadmin($chng_aid) {
 $arg1 ='
       var formulid = ["mod_adm"]
          inpandfieldlen("chng_name",50);
-         inpandfieldlen("chng_email",60);
-         inpandfieldlen("chng_url",60);
+         inpandfieldlen("chng_email",254);
+         inpandfieldlen("chng_url",320);
          inpandfieldlen("chng_pwd",20);
          inpandfieldlen("chng_pwd2",20);
       ';

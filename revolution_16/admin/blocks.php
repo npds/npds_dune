@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -41,7 +41,7 @@ function groupe($groupe) {
          <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
       $nbg++;
    }
-   if ($nbg>5) {$nbg=5;}
+   if ($nbg>5) $nbg=5;
    return ('
    <select multiple="multiple" class="form-control" name="Mmember[]" size="'.$nbg.'">
    '.$str.'
@@ -202,7 +202,7 @@ function blocks() {
                            <div class="form-group row">
                               <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
                               <div class="col-sm-12">
-                                 <input class="form-control" type="text" name="title" maxlength="255" value="'.$title.'" />
+                                 <input class="form-control" type="text" name="title" maxlength="1000" value="'.$title.'" />
                               </div>
                            </div>
                            <div class="form-group row">
@@ -348,8 +348,8 @@ function blocks() {
             echo '
          <tr class="table-danger class="mw-100">';
          echo '
-            <td align="left">';
-         echo '<a class="tog" id="show_blodr_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_blodr_'.$id.'" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;';
+            <td align="left">
+               <a class="tog" id="show_blodr_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_blodr_'.$id.'" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;';
          echo aff_langue($title).' '.$funct.'</td>';
          if ($Sactif)
             echo '
@@ -372,7 +372,7 @@ function blocks() {
                            <div class="form-group row">
                               <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
                               <div class="col-sm-12">
-                                 <input class="form-control" type="text" name="title" maxlength="255" value="'.$title.'" />
+                                 <input class="form-control" type="text" name="title" maxlength="1000" value="'.$title.'" />
                               </div>
                            </div>
                            <div class="form-group row">
@@ -470,7 +470,7 @@ function blocks() {
                <div class="form-group row">
                   <label class="col-form-label col-sm-12" for="nblock_title">'.adm_translate("Titre").'</label>
                   <div class="col-sm-12">
-                     <input class="form-control" type="text" name="title" id="nblock_title" maxlength="255" />
+                     <input class="form-control" type="text" name="title" id="nblock_title" maxlength="1000" />
                      <span class="help-block text-right" id="countcar_nblock_title"></span>
                   </div>
                </div>
@@ -546,7 +546,7 @@ function blocks() {
    </form>';
    $arg1='
       var formulid = ["blocknewblock"];
-      inpandfieldlen("nblock_title",255);
+      inpandfieldlen("nblock_title",1000);
 
 ';
    adminfoot('fv','',$arg1,'');

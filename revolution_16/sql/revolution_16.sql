@@ -15,7 +15,7 @@ CREATE TABLE adminblock (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO adminblock (title, content) VALUES
-('Administration', '<ul><li><a href="admin.php"><i class="fas fa-sign-in-alt fa-2x align-middle"></i> Administration</a></li><li><a href="admin.php?op=logout" class=" text-danger"><i class="fas fa-sign-out-alt fa-2x align-middle"></i> Logout</a></li></ul>');
+('Administration', '<ul><li><a href="admin.php"><i class="fas fa-sign-in-alt fa-2x align-middle"></i> Administration</a></li><li><a href="admin.php?op=logout" class=" text-danger"><i class="fas fa-sign-out-alt fa-2x align-middle"></i> [french]Déconnexion[/french][english]Logout[/english][chinese]登出[/chinese][spanish]Cerrar sesión[/spanish][german]Ausloggen[/german]</a></li></ul>');
 
 CREATE TABLE appli_log (
   al_id int(11) NOT NULL DEFAULT '0',
