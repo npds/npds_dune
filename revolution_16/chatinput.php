@@ -58,11 +58,10 @@ include("functions.php");
             <input type="hidden" name="id" value="'.$id.'" />
             <input type="hidden" name="auto" value="'.$auto.'" />';
 
-   if (!isset($cookie[1])) {
-      $pseudo = ((isset($name))?($name):getip());
-   } else {
+   if (!isset($cookie[1]))
+      $pseudo = ((isset($name))?($name):urldecode(getip()));
+   else
       $pseudo = $cookie[1];
-   }
    $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
 
    echo translate("Vous êtes connecté en tant que :").' <strong>'.$pseudo.'</strong>&nbsp;';
