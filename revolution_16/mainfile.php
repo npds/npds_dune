@@ -66,7 +66,9 @@ function session_manage() {
 
    $guest=0;
    $ip=getip();
-   $username=$cookie[1];
+   $username = isset($cookie[1]) ? $cookie[1] : $ip;
+   if($username==$ip)
+      $guest=1;
       //==> mod_geoloc
       include("modules/geoloc/geoloc_conf.php");
       $file_path = array(
@@ -220,10 +222,6 @@ function session_manage() {
          }
       }
       //<== mod_geoloc
-   if (!isset($username)) {
-      $username= $ip;
-      $guest=1;
-   }
 
    $past = time()-300;
    sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE time < '$past'");
@@ -1664,19 +1662,17 @@ function fab_edito() {
       $contentJ=substr($XcontentsT,strpos($XcontentsT,"[jour]")+6,strpos($XcontentsT,"[/jour]")-6);
       $contentN=substr($XcontentsT,strpos($XcontentsT,"[nuit]")+6,strpos($XcontentsT,"[/nuit]")-19-strlen($contentJ));
       $Xcontents='';
-      if ($affichJ) {
+      if (isset($affichJ))
          $Xcontents=$contentJ;
-      }
-      if ($affichN) {
+      if (isset($affichN)) {
          if ($contentN!='')
             $Xcontents=$contentN;
          else
             $Xcontents=$contentJ;
       }
       if ($Xcontents!='') $affich=true;
-   } else {
+   } else
       $affich=true;
-   }
    $Xcontents=meta_lang(aff_langue($Xcontents));
    return array($affich, $Xcontents);
 }
@@ -2019,19 +2015,20 @@ function Q_spambot() {
       // translate
       $tab=explode(' ', str_replace(')','',str_replace('(','',$aff))); 
       $al1=mt_rand(0,count($tab)-1);
-      $aff=str_replace($tab[$al1],translate($tab[$al1]),$aff);
-      
+      if (function_exists("imagepng"))
+         $aff=str_replace($tab[$al1],html_entity_decode(translate($tab[$al1]), ENT_QUOTES | ENT_HTML401, 'UTF-8'),$aff);
+      else
+         $aff=str_replace($tab[$al1],translate($tab[$al1]),$aff);
       // mis en majuscule
       if ($asb_index%2)
          $aff = ucfirst($aff);
    // END ALEA
 
    //Captcha - si GD
-   if (function_exists("imagepng")) {
+   if (function_exists("imagepng"))
       $aff="<img src=\"getfile.php?att_id=".rawurlencode(encrypt($aff." = "))."&amp;apli=captcha\" style=\"vertical-align: middle;\" />";
-   } else {
+   else
       $aff="".anti_spam($aff." = ",0)."";
-   }
 
    $tmp='';
    if ($user=='') {
