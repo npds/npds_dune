@@ -11,7 +11,7 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) die();
 
-global $ModPath, $ModStart, $language, $Default_Theme, $NPDS_Key, $NPDS_Prefix;
+global $ModPath, $ModStart, $language, $Default_Theme, $Default_Skin, $NPDS_Key, $NPDS_Prefix;
 
 if (file_exists("modules/$ModPath/lang/f-manager-$language.php"))
    include ("modules/$ModPath/lang/f-manager-$language.php");
@@ -180,7 +180,6 @@ if ($FmaRep) {
          if ($tab_groupe) {
             // si j'ai au moins un groupe est ce que celui-ci dispose d'un fichier de configuration ?  - je m'arrête au premier groupe !
             foreach($tab_groupe as $gp) {
-//            while (list(,$gp)=each($tab_groupe)) {
                $groupename=Q_select("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gp' ORDER BY `groupe_id` ASC",3600);
                if (file_exists("modules/$ModPath/users/".$groupename[0]['groupe_name'].".conf.php")) {
                   $FmaRep=$groupename[0]['groupe_name'];
@@ -1194,11 +1193,10 @@ if ($inclusion) {
       echo '
       <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
       <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
-      <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" id="fw_css" href="themes/_skins/'.$Default_Skin.'/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
-      <link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />';
-      echo ("
-      <link href=\"$css_fma\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
+      <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$Default_Skin.'/extra.css" />
+      <link rel="stylesheet" href="'.$css_fma.'" title="default" type="text/css" media="all" />';
 
       global $tiny_mce;
       if ($tiny_mce) {

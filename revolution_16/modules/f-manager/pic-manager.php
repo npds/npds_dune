@@ -11,7 +11,7 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
 
-global $ModPath, $ModStart, $language, $Default_Theme, $NPDS_Key;
+global $ModPath, $ModStart, $language, $Default_Theme, $Default_Skin, $NPDS_Key;
 include ("modules/$ModPath/lang/f-manager-$language.php");
 include ("modules/$ModPath/class.navigator.php");
 
@@ -434,10 +434,10 @@ if ($inclusion) {
       echo '
       <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
       <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
-      <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" id="fw_css" href="themes/_skins/'.$Default_Skin.'/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
-      <link id="bsthxtra" rel="stylesheet" href="lib/bootstrap/dist/css/extra.css" />';
-      echo ("<link href=\"$css_fma\" title=\"default\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />\n");
+      <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$Default_Skin.'/extra.css" />
+      <link href="'.$css_fma.'" title="default" rel="stylesheet" type="text/css" media="all" />';
       echo '
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       </head>
