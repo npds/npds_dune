@@ -271,14 +271,6 @@ if ($submitS) {
      else
         $message='';
 
-/*
-   echo '
-   <br />
-   <span class="lead d-none d-sm-block">'.translate("Nickname: ");
-     if (isset($user)) echo $userdata[1].'</span>';
-     else echo $anonymous.'</span>';
-*/
-
    settype($image_subject,'string');
    if ($smilies) {
       echo '
@@ -331,7 +323,7 @@ if ($submitS) {
      if ($allow_bbcode)
         $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
       echo '
-                  <textarea class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
+                  <textarea id="ta_replypost" class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
                   <span class="help-block text-right">
                      <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
                      <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
@@ -339,7 +331,7 @@ if ($submitS) {
                </div>
                <div class="card-footer text-muted">';
      if ($allow_bbcode)
-                  putitems();
+                  putitems('ta_replypost');
       echo '
                </div>
             </div>

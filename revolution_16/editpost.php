@@ -204,14 +204,14 @@ if ($submitS) {
    echo '
                </div>
                <div class="card-body pb-0">
-                  <textarea class="form-control" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
+                  <textarea id="ta_edipost" class="form-control" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
                   <div class="text-right my-3">
                      <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" >'.translate("Prévisualiser").'</button>
                      <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" >'.translate("Annuler").'</button>
                   </div>
                </div>
                <div class="card-footer text-muted">';
-   if ($allow_bbcode) putitems();
+   if ($allow_bbcode) putitems('ta_edipost');
    echo '
                </div>
             </div>

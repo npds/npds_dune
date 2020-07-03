@@ -311,7 +311,7 @@ if ($submitS) {
       if ($allow_bbcode)
          $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
       echo '
-                  <textarea class="form-control" '.$xJava.' name="message" rows="15" >'.$message.'</textarea>
+                  <textarea id="ta_replyh" class="form-control" '.$xJava.' name="message" rows="15" >'.$message.'</textarea>
                   <span class="help-block text-right">
                      <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
                      <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
@@ -319,7 +319,7 @@ if ($submitS) {
                </div>
                <div class="card-footer text-muted">';
       if ($allow_bbcode)
-         putitems();
+         putitems('ta_replyh');
       echo '
                </div>
             </div>

@@ -337,7 +337,7 @@ else {
          if ($allow_bbcode)
             $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
          echo '
-         <textarea class="form-control" '.$xJava.' name="message" rows="15">';
+         <textarea id="ta_replypm" class="form-control" '.$xJava.' name="message" rows="15">';
          if ($Xreply) echo $Xreply;
          echo '
          </textarea>
@@ -348,7 +348,7 @@ else {
                </div>
                <div class="card-footer text-muted">';
          if ($allow_bbcode)
-            putitems();
+            putitems('ta_replypm');
          echo '
                </div>
             </div>

@@ -255,7 +255,7 @@ if (isset($submitS)) {
    echo '
                </div>
                <div class="card-body">
-                  <textarea class="form-control" '.$xJava.' name="message" rows="12">'.stripslashes($reply).'</textarea>
+                  <textarea id="ta_comment" class="form-control" '.$xJava.' name="message" rows="12">'.stripslashes($reply).'</textarea>
                   <span class="help-block text-right">
                      <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
                      <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
@@ -263,7 +263,7 @@ if (isset($submitS)) {
                </div>
                <div class="card-footer text-muted">';
         if ($allow_bbcode)
-           putitems();
+           putitems('ta_comment');
       echo '
                </div>
             </div>
