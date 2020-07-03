@@ -356,30 +356,27 @@ function putitems_more() {
    }
 }
 
-function putitems() {
+#autodoc putitems($targetarea) : appel un popover pour la saisie des emoji (Unicode v13) dans un textarea défini par $targetarea
+function putitems($targetarea) {
    global $theme;
-   echo '<span class ="n-fond_emot" title="'.translate("Click on Smilies to insert it on your Message").'" data-toggle="tooltip">';
-   if ($ibid=theme_image("forum/smilies/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/";} else {$imgtmp="images/forum/smilies/";}
-   if (file_exists($imgtmp."smilies.php")) {
-      include ($imgtmp."smilies.php");
-      foreach ($smilies AS $tab_smilies) {
-         if ($tab_smilies[3]) {
-            echo "<a href=\"javascript: emoticon('".$tab_smilies[0]."');\"><img class=\"n-smil\" src=\"".$imgtmp.$tab_smilies[1]."\" alt=\"$tab_smilies[2]";
-            if ($tab_smilies[2]) echo " => ";
-            echo $tab_smilies[0]."\" /></a> ";
-         }
-      }
-   }
-   echo '</span>';
-//    global $allow_bbcode;
-//    if ($allow_bbcode) {
-      if ($ibid=theme_image("forum/smilies/more/smilies.php")) 
-         $imgtmp="themes/$theme/images/forum/smilies/more/";
-      else 
-         $imgtmp="images/forum/smilies/more/";
-      if (file_exists($imgtmp."smilies.php"))
-         echo '&nbsp;<a href="javascript:void(0);" onclick="window.open(\'more_emoticon.php\',\'EMOTICON\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=250,width=350,toolbar=no,scrollbars=yes,resizable=yes\');" title="'.translate("Plus d'émoticons").'" data-toggle="tooltip"><i class="fa fa-smile-o fa-lg"></i>+</a>';
-//   }
+   echo '
+   <div title="'.translate("Cliquez pour insérer des emoji dans votre message").'" data-toggle="tooltip" class="float-right">
+      <button class="btn btn-primary btn-sm" type="button" id="button-textOne" data-toggle="emojiPopper" data-target="#'.$targetarea.'">
+         <i class="far fa-smile" aria-hidden="true"></i>
+      </button>
+   </div>
+   <script src="lib/emojipopper/js/emojiPopper.min.js"></script>
+   <script type="text/javascript">
+   //<![CDATA[
+      $(function () {
+          "use strict"
+           var emojiPopper = $(\'[data-toggle="emojiPopper"]\').emojiPopper({
+              url: "lib/emojipopper/php/emojicontroller.php",
+              title:"Choisir un emoji"
+          });
+      });
+   //]]>
+   </script>';
 }
 
 function HTML_Add() {
@@ -723,7 +720,6 @@ function forum($rowQ1) {
    // preparation du compteur total_post
    $rowQ0=Q_Select ("SELECT forum_id, COUNT(post_aff) AS total FROM ".$NPDS_Prefix."posts GROUP BY forum_id", 600);
    foreach($rowQ0 as $row0) {
-//   while (list(,$row0)=each($rowQ0)) {
       $tab_total_post[$row0['forum_id']]=$row0['total'];
    }
    $ibid='';
