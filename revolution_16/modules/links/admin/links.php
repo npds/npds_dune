@@ -316,7 +316,7 @@ function links() {
    // Add a New Main Category
    echo '
    <div class="card card-body mb-3">
-   <h3 class="mb-3">'.translate("Add a MAIN Category").'</h3>
+   <h3 class="mb-3">'.translate("Ajouter une catégorie principale").'</h3>
    <form method="post" action="modules.php">
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="titlecatadd">'.translate("Nom").'</label>
