@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -25,21 +25,24 @@ settype($connectes,'integer');
    // Savoir si le 'connecté' a le droit à ce chat ?
    if (!autorisation($id)) die();
 
-   if (isset($user)) {
-      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
-      if (isset($theme)) $cookie[9]=$theme;
-      $tmp_theme=$cookie[9];
-      if (!$file=@opendir("themes/$cookie[9]")) {
+   global $Default_Theme, $Default_Skin, $user;
+   if (isset($user) and $user!='') {
+      global $cookie;
+      if($cookie[9] !='') {
+         $ibix=explode('+', urldecode($cookie[9]));
+         if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
+         if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_skin; //$skin=''; 
+         $tmp_theme=$theme;
+         if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
+      } else 
          $tmp_theme=$Default_Theme;
-         include("themes/$Default_Theme/theme.php");
-      } else {
-         include("themes/$cookie[9]/theme.php");
-      }
    } else {
-      $tmp_theme=$Default_Theme;
-      include("themes/$Default_Theme/theme.php");
+      $theme=$Default_Theme;
+      $skin=$Default_Skin;
+      $tmp_theme=$theme;
    }
-   global $site_font, $NPDS_Prefix;
+
+   global $NPDS_Prefix;
 
    $result = sql_query("SELECT username, message, dbname, date FROM ".$NPDS_Prefix."chatbox WHERE id='$id' AND date>'$repere' ORDER BY date ASC");
    $thing='';
@@ -75,7 +78,7 @@ settype($connectes,'integer');
       settype($Xthing,'string');
       include("meta/meta.php");
       $Xthing.=$l_meta;
-      $Xthing.=str_replace("\n","",import_css_javascript($tmp_theme, $language, $site_font, basename($_SERVER['PHP_SELF']),""));
+      $Xthing.=str_replace("\n","",import_css_javascript($tmp_theme, $language, $skin, basename($_SERVER['PHP_SELF']),""));
       $Xthing.="</head><body id='chat'>";
       $Xthing="\"".str_replace("'","\'",$Xthing)."\"";
    }
@@ -93,7 +96,7 @@ settype($connectes,'integer');
    }
    $commande="self.location='chatrafraich.php?repere=$repere&aff_entetes=0&connectes=$numofchatters&id=$id&auto=$auto'";
    include("meta/meta.php");
-   echo "</head>\n<body style=\"background-color: #F8F8F8;\" id='chat'>
+   echo "</head>\n<body id='chat'>
    <script type='text/javascript'>
    //<![CDATA[
    function scroll_messages() {

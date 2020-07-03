@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -27,7 +27,7 @@
       <frameset rows="1%,60%,240">
          <frame src="chatrafraich.php?repere=0&amp;aff_entetes=1&amp;connectes=-1&amp;id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="no" noresize="noresize" name="rafraich">
          <frame src="chattop.php" frameborder="0" scrolling="yes" noresize="noresize" name="haut">
-         <frame src="chatinput.php?id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="no" noresize="noresize" name="bas">
+         <frame src="chatinput.php?id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="yes" noresize="noresize" name="bas">
       </frameset>
    </html>';
 ?>
