@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -21,7 +21,7 @@ settype($m_description, 'string');
 $skin='';
 
 function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords) {
-   global $slogan, $site_font, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
+   global $slogan, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
    global $topic, $hlpfile, $user, $hr, $bgcolor1, $bgcolor2, $bgcolor3, $bgcolor4, $bgcolor5, $bgcolor6, $textcolor1, $textcolor2, $long_chain;
    global $bargif, $theme_width, $bloc_width, $page_width;
    
@@ -110,7 +110,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    }
    if (file_exists("themes/$tmp_theme/include/header_head.inc")) {include ("themes/$tmp_theme/include/header_head.inc");}
 
-   echo import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css);
+   echo import_css($tmp_theme, $language, '', $css_pages_ref, $css);
 
    // Mod by Jireck - Chargeur de JS via PAGES.PHP
    if ($js) {
@@ -247,11 +247,10 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
       }
       $fin_title=substr($PAGES[$pages_ref]['title'],-1);
       $TitlesitenameX=aff_langue(substr($PAGES[$pages_ref]['title'],0,strlen($PAGES[$pages_ref]['title'])-1));
-      if ($fin_title=="+") {
+      if ($fin_title=="+")
          $Titlesitename=$TitlesitenameX." - ".$Titlesitename;
-      } else if ($fin_title=='-') {
+      else if ($fin_title=='-')
          $Titlesitename=$TitlesitenameX;
-      }
       if ($Titlesitename=='') $Titlesitename=$sitename;
       // globalisation de la variable title pour marquetapage mais protection pour la zone admin
       if ($pages_ref!="admin.php")
@@ -316,12 +315,10 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
       if (array_key_exists('js',$PAGES[$pages_ref])) {
          $js=$PAGES[$pages_ref]['js'];
          if ($js!='') { global $pages_js; $pages_js=$js; }
-      } else {
+      } else
          $js='';
-      }
-   } else {
+   } else
       $js='';
-   }
 
    head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords);
    global $httpref, $nuke_url, $httprefmax, $admin, $NPDS_Prefix;
