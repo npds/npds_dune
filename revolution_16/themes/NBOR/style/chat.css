@@ -1,7 +1,3 @@
-.n-smil {
-width:24px;
-height:24px;
-}
 #chat {
 font-size: 0.9rem;
 margin: 0;
@@ -11,7 +7,6 @@ padding: 0.5rem;
 text-decoration: none;
 }
 #chat .chatmessage {
-background-color: White;
 border-bottom: #C0C0C0 .2px solid;
 padding-bottom: .5rem;
 padding-top: .5rem;
@@ -28,9 +23,5 @@ float: left;
 #chat .chattexte {
   clear:left;
 }
-/* 
-.n-fond_emot {
-  background-color: #DBB489;
-  width: 100%;
-}
- */
+div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
+div[data-type=emojiPopper] div .card-body{padding:.4rem}
