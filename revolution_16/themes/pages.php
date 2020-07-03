@@ -289,8 +289,8 @@ $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['blocs']="0";
 
 // CSS sur fichiers particuliers car n'utilisant pas header.php
 global $nuke_url;
-$PAGES['chatrafraich.php']['css']=array($nuke_url."/lib/bootstrap/dist/css/bootstrap.min.css+","chat.css+");
-$PAGES['chatinput.php']['css']=array($nuke_url."/lib/bootstrap/dist/css/bootstrap.min.css+","chat.css+");
+$PAGES['chatrafraich.php']['css']=array("chat.css+");
+$PAGES['chatinput.php']['css']=array("chat.css+");
 
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['title']="[french]R&eacute;seaux Sociaux[/french][english]Social Networks[/english]";
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['run']="yes";
