@@ -246,7 +246,7 @@ function translate_pass1($phrase) {
    case "Cliquez ici pour revenir à l'index des Forums.": $tmp="点击回到主论坛."; break;
    case "Cliquez ici pour voir la mise à jour": $tmp="点击以观看更新后的页面"; break;
    case "Cliquez ici pour voir le nouveau sujet.": $tmp="点击这里看新的主题。"; break;
-   case "Cliquez pour insérer des émoticons dans votre message": $tmp="点击表情并加入到您的信息中"; break;
+   case "Cliquez pour insérer des emoji dans votre message": $tmp="点击表情并加入到您的信息中"; break;
    case "Cliquez pour voir la liste des articles de ce sujet": $tmp="点击列出本主题的所有文章"; break;
    case "Co-rédaction": $tmp="Co-writing"; break;
    case "Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum.": $tmp="Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum."; break;

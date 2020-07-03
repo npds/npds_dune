@@ -246,7 +246,7 @@ function translate_pass1($phrase) {
    case "Cliquez ici pour revenir à l'index des Forums.": $tmp="Click here to return to the forum index."; break;
    case "Cliquez ici pour voir la mise à jour": $tmp="Click here to view the update"; break;
    case "Cliquez ici pour voir le nouveau sujet.": $tmp="Click here to view the updated topic."; break;
-   case "Cliquez pour insérer des émoticons dans votre message": $tmp="Click on Smilies to insert it on your Message"; break;
+   case "Cliquez pour insérer des emoji dans votre message": $tmp="Click on emoji to insert it on your Message"; break;
    case "Cliquez pour voir la liste des articles de ce sujet": $tmp="Click to list all articles in this topic"; break;
    case "Co-rédaction": $tmp="Co-writing"; break;
    case "Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum.": $tmp="Check me and click on OK button to receive an Email when is a new submission in this forum."; break;
