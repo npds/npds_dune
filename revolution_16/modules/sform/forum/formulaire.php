@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS FORUM                                        */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -58,6 +58,12 @@ $tmp=array(
   "n2"=>array('en'=>"-: NPDS 5.x ", 'selected'=>false),
   "n3"=>array('en'=>"-: NPDS Evolution ", 'selected'=>false),
   "n4"=>array('en'=>"-: NPDS REvolution ", 'selected'=>false),
+  "n5"=>array('en'=>"-: NPDS REvolution 11 ", 'selected'=>false),
+  "n6"=>array('en'=>"-: NPDS RÉvolution 11 WS ", 'selected'=>false),
+  "n7"=>array('en'=>"-: NPDS RÉvolution 13 ", 'selected'=>false),
+  "n8"=>array('en'=>"-: NPDS RÉvolution 16.0 ", 'selected'=>false),
+  "n9"=>array('en'=>"-: NPDS RÉvolution 16.1 ", 'selected'=>false),
+  "n10"=>array('en'=>"-: NPDS RÉvolution 16.2 ", 'selected'=>false),
 );
 $m->add_select('t4', 'Version NPDS (<a href="stats.php">voir statistiques du site</a>)',$tmp,false,4,true);
 
