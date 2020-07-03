@@ -133,7 +133,7 @@ function insertChat($username, $message, $dbname,$id) {
       $ip = getip();
       settype($id, 'integer');
       settype($dbname, 'integer');
-      $result = sql_query("INSERT INTO ".$NPDS_Prefix."chatbox VALUES ('".$username."', '".$ip."', '".$message."', '".time()."', '$id', ".$dbname.")");
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."chatbox VALUES ('".$username."', '".urldecode($ip)."', '".$message."', '".time()."', '$id', ".$dbname.")");
    }
 }
 
