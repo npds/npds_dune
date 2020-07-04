@@ -125,6 +125,7 @@
    //       'edito.txt' => '2,5',
    //       'config.php' => 'admin'
    // );
+   $ficlimit_fma=array ();
 
    // $infos_fma permet d'inclure automatiquement un fichier particulier (par exemple une bannière ...) s'il se trouve dans le répertoire courant
    $infos_fma="infos.txt";

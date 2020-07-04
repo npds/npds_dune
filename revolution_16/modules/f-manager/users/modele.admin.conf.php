@@ -3,7 +3,7 @@
 /* NPDS DUNE : Net Portal Dynamic System .                              */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -125,6 +125,7 @@
    //       'edito.txt' => '2,5',
    //       'config.php' => 'admin'
    // );
+   $ficlimit_fma=array();
 
    // $infos_fma permet d'inclure automatiquement un fichier particulier (par exemple une bannière ...) s'il se trouve dans le répertoire courant
    $infos_fma="infos.txt";
