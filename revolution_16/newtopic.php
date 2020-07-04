@@ -311,23 +311,24 @@ if ($submitS) {
          echo '
          <div class="col-sm-12">
             <div class="card">
-               <div class="card-header">';
+               <div class="card-header">
+                  <div class="float-left">';
+   putitems('ta_newtopic');
+      echo '
+                  </div>';
    if ($allow_html==1)
-      echo '<span class="text-success float-right" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+      echo '<span class="text-success float-right mt-2" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    else
-      echo '<span class="text-danger float-right" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+      echo '<span class="text-danger float-right mt-2" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body">
                   <textarea id="ta_newtopic" class="form-control" '.$xJava.' name="message" rows="12">'.$message.'</textarea>
-                  <span class="help-block text-right">
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
-                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
-                  </span>
                </div>
-               <div class="card-footer text-muted">';
-                 if ($allow_bbcode) putitems('ta_newtopic');
-   echo '
+               <div class="card-footer p-0">
+                  <span class="d-block">
+                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
+                  </span>
                </div>
             </div>
          </div>
