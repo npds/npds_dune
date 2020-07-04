@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -1189,13 +1189,29 @@ if ($inclusion) {
       require_once("themes/pages.php");
       $Titlesitename=aff_langue($PAGES["modules.php?ModPath=$ModPath&ModStart=$ModStart*"]['title']);
 
+      global $Default_Theme, $Default_Skin, $user;
+      if (isset($user) and $user!='') {
+         global $cookie;
+         if($cookie[9] !='') {
+            $ibix=explode('+', urldecode($cookie[9]));
+            if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
+            if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_skin; //$skin=''; 
+            $tmp_theme=$theme;
+            if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
+         } else 
+            $tmp_theme=$Default_Theme;
+      } else {
+         $theme=$Default_Theme;
+         $skin=$Default_Skin;
+         $tmp_theme=$theme;
+      }
       include("meta/meta.php");
       echo '
       <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
       <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
-      <link rel="stylesheet" id="fw_css" href="themes/_skins/'.$Default_Skin.'/bootstrap.min.css" />
+      <link rel="stylesheet" id="fw_css" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
-      <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$Default_Skin.'/extra.css" />
+      <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$skin.'/extra.css" />
       <link rel="stylesheet" href="'.$css_fma.'" title="default" type="text/css" media="all" />';
 
       global $tiny_mce;
