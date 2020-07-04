@@ -3086,10 +3086,14 @@ function theme_image($theme_img) {
        return (false);
     }
 }
-#autodoc import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref, $css) : recherche et affiche la CSS (site, langue courante ou par défaut) / Charge la CSS complémentaire / le HTML ne contient que de simple quote pour être compatible avec javascript
-function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref='', $css='') {
-   // CSS standard 
+#autodoc import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref, $css) : recherche et affiche la CSS (site, langue courante ou par défaut) / Charge la CSS complémentaire / le HTML ne contient que de simple quote pour être compatible avec javascript
+function import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref='', $css='') {
    $tmp='';
+
+   // CSS framework
+   if (file_exists("themes/_skins/$fw_css/bootstrap.min.css"))
+      $tmp.="<link href='themes/_skins/$fw_css/bootstrap.min.css' rel='stylesheet' type='text/css' media='all' />\n";
+   // CSS standard 
    if (file_exists("themes/$tmp_theme/style/$language-style.css")) {
       $tmp.="<link href='themes/$tmp_theme/style/$language-style.css' title='default' rel='stylesheet' type='text/css' media='all' />\n";
       if (file_exists("themes/$tmp_theme/style/$language-style-AA.css"))
@@ -3146,9 +3150,9 @@ function import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref
    return($tmp);
 }
 
-#autodoc import_css($tmp_theme, $language, $site_font, $css_pages_ref, $css) : Fonctionnement identique à import_css_javascript sauf que le code HTML en retour ne contient que de double quote
-function import_css ($tmp_theme, $language, $site_font, $css_pages_ref, $css) {
-   return (str_replace("'","\"",import_css_javascript($tmp_theme, $language, $site_font, $css_pages_ref, $css)));
+#autodoc import_css($tmp_theme, $language, $fw_css, $css_pages_ref, $css) : Fonctionnement identique à import_css_javascript sauf que le code HTML en retour ne contient que de double quote
+function import_css ($tmp_theme, $language, $fw_css, $css_pages_ref, $css) {
+   return (str_replace("'","\"",import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref, $css)));
 }
 
 #autodoc auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) : fabrique un array js à partir de la requete sql et implente un auto complete pour l'input (dependence : jquery.min.js ,jquery-ui.js) $nom_array_js=> nom du tableau javascript; $nom_champ=>nom de champ bd; $nom_tabl=>nom de table bd,$id_inpu=> id de l'input,$temps_cache=>temps de cache de la requête. Si $id_inpu n'est pas défini retourne un array js.
