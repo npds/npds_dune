@@ -235,7 +235,7 @@ if (isset($submitS)) {
                else
                     $reply = $text."\n";
             } else
-               $reply = translate("Error Connecting to DB")."\n";
+               $reply = translate("Erreur de connexion à la base de données")."\n";
         }
         if (!isset($reply)) $reply=$message;
 
@@ -245,26 +245,26 @@ if (isset($submitS)) {
          <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
-               <div class="card-header">';
+               <div class="card-header">
+                  <div class="float-left">';
+   putitems('ta_comment');
+      echo '
+                  </div>';
    if ($allow_html == 1)
       echo '
-                  <span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+                  <span class="text-success float-right mt-2" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    else
       echo '
-                  <span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+                  <span class="text-danger float-right mt-2" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body">
                   <textarea id="ta_comment" class="form-control" '.$xJava.' name="message" rows="12">'.stripslashes($reply).'</textarea>
-                  <span class="help-block text-right">
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
-                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
-                  </span>
                </div>
-               <div class="card-footer text-muted">';
-        if ($allow_bbcode)
-           putitems('ta_comment');
-      echo '
+               <div class="card-footer p-0">
+                  <span class="d-block">
+                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
+                  </span>
                </div>
             </div>
          </div>
