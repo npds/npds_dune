@@ -183,7 +183,7 @@ include_once('modules/geoloc/geoloc_conf.php');
 $m->add_extra('
       <div class="form-group row">
          <div class="col-sm-8 ml-sm-auto" >
-            <button type="submit" class="btn btn-primary">'.translate("Submit").'</button>
+            <button type="submit" class="btn btn-primary">'.translate("Valider").'</button>
          </div>
       </div>
       <script type="text/javascript">
