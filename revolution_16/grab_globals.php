@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2020 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on phpmyadmin.net  grabber library                             */
@@ -18,7 +18,7 @@
 /************************************************************************/
 
 if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
-    define('NPDS_GRAB_GLOBALS_INCLUDED', 1);
+   define('NPDS_GRAB_GLOBALS_INCLUDED', 1);
 
    // Modify the report level of PHP
    // error_reporting(0);// report NO ERROR
@@ -71,23 +71,35 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
           return true;
        }
     }
-    
+
     // First of all : Spam from IP / |5 indicate that the same IP has passed 6 times with status KO in the anti_spambot function
-    if (file_exists("slogs/spam.log"))
-       $tab_spam=str_replace("\r\n","",file("slogs/spam.log"));
-    if (is_array($tab_spam)) {
-      $ipadr = getip();
-      $ip4detail = explode('.', $ipadr);//pour IPV4
-      $ip6detail = explode(':', $ipadr);//pour IPV6
-       if (in_array(getip()."|5",$tab_spam))
+   if (file_exists("slogs/spam.log"))
+      $tab_spam=str_replace("\r\n","",file("slogs/spam.log"));
+   if (is_array($tab_spam)) {
+      $ipadr = urldecode(getip());
+      if (strstr($ipadr, ':'))
+         $ipv='6';
+      else
+         $ipv='4';
+      if (in_array($ipadr."|5",$tab_spam))
           access_denied();
       //=> nous pouvons bannir une plage d'adresse ip en V4 (dans l'admin IPban sous forme x.x.%|5 ou x.x.x.%|5)
-       if (in_array($ip4detail[0].'.'.$ip4detail[1].'.%|5',$tab_spam))
-          access_denied();
-       if (in_array($ip4detail[0].'.'.$ip4detail[1].'.'.$ip4detail[2].'.%|5',$tab_spam))
-          access_denied();
-      //<= nous pouvons bannir une plage d'adresse ip en V4
+      if($ipv=='4') {
+         $ip4detail = explode('.', $ipadr);
+         if (in_array($ip4detail[0].'.'.$ip4detail[1].'.%|5',$tab_spam))
+            access_denied();
+         if (in_array($ip4detail[0].'.'.$ip4detail[1].'.'.$ip4detail[2].'.%|5',$tab_spam))
+            access_denied();
       }
+      //=> nous pouvons bannir une plage d'adresse ip en V6 (dans l'admin IPban sous forme x:x:%|5 ou x:x:x:%|5)
+      if($ipv=='6') {
+         $ip6detail = explode(':', $ipadr);
+         if (in_array($ip6detail[0].':'.$ip6detail[1].':%|5',$tab_spam))
+            access_denied();
+         if (in_array($ip6detail[0].':'.$ip6detail[1].':'.$ip6detail[2].':%|5',$tab_spam))
+            access_denied();
+      }
+   }
 
     if (get_magic_quotes_runtime()==1) {set_magic_quotes_runtime(0);}
     // To prevent SQL Injection when magic_quotes GPC is off 
