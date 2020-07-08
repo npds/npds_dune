@@ -53,4 +53,10 @@
                $('[data-toggle="popover"]').popover();
             });
          });
+         (function(t) {
+            "use strict";
+            t((function() {
+               t(".tooltipbyclass").tooltip();
+            }))
+         })(jQuery);
       //]]>
