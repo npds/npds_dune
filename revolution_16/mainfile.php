@@ -2055,6 +2055,7 @@ function L_spambot($ip, $status) {
    $maj_fic=false;
    if ($ip=='')
       $ip=getip();
+   $ip=urldecode($ip);
    if (file_exists("slogs/spam.log")) {
       $tab_spam=str_replace("\r\n",'',file("slogs/spam.log"));
       if (in_array($ip.'|1',$tab_spam))
