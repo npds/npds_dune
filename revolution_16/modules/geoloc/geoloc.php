@@ -550,15 +550,6 @@ $ecr_scr = '
       ';
    }
 
-/*
-      var user_markers = new ol.layer.Vector({
-         source: new ol.source.Vector({
-            url: "modules/geoloc/include/user.geojson",
-            format: new ol.format.GeoJSON()
-         }),
-         style: iconUser
-      });
-*/
    $ecr_scr .='
       var iconIp = new ol.style.Style({
         text: new ol.style.Text({
@@ -748,8 +739,7 @@ switch ($cartyp) {
       map.addOverlay(popup);
       var zoomslider = new ol.control.ZoomSlider();
       map.addControl(zoomslider);
-      var graticule = new ol.Graticule({showLabels:false});
-      //graticule.setMap(map);
+      var graticule = new ol.layer.Graticule();
 
       var button = document.createElement("button");
       button.innerHTML = "&#xf0d7";
@@ -1055,17 +1045,13 @@ else
       });
 
       $("#grillebox").change("click", function () {
-         console.log(graticule);// debug
-         console.log(map.getLayers());// debug
          if(this.checked) {
-//         graticule = new ol.Graticule({showLabels:true});
             graticule.showLabels=true;
             graticule.strokeStyle_.color_="rgba(0,0,0,0.2)";
             graticule.setMap(map);
          }
          else{
             console.log("aaa"+graticule);// debug
-//graticule = new ol.Graticule({showLabels:false});
             graticule.showLabels=false;
             graticule.setMap(map);
             graticule.strokeStyle_.color_="rgba(0,0,0,0)";
@@ -1157,8 +1143,6 @@ else
             $("#dayslider").addClass("show");
             var datejour="'.$date_jour.'";
             var today = new Date();
-        
-         
 //            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
             fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
 
@@ -1169,14 +1153,7 @@ else
                var datejourFr = datejour.split("-");
                $("#dateimages").html(datejourFr[2]+"/"+datejourFr[1]+"/"+datejourFr[0]);
                fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
-//            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/ASTER_GDEM_Color_Index/default/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
-
             });
-
-//            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
-//            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_DayNightBand_ENCC/default/2019-03-05/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
-//            fond_carte.setSource(new ol.source.XYZ({url:"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_Aerosol/default/2014-04-09/GoogleMapsCompatible_Level6/{z}/{y}/{x}.png"}));
-
             fond_carte.setMinResolution(2);
             fond_carte.setMaxResolution(40000);
             map.getLayers().array_[0].setProperties({"id":cartyp});
