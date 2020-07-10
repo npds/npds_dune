@@ -26,14 +26,12 @@ function localiser_ip($iptoshow) {
          $row = sql_fetch_assoc($ip_location);
          $aff_location .= '
       <div class="col-md-5">
-         <div id="map_ip" style="width:100%; min-height:240px;"></div>
+         <div id="map_ip" style="width:100%; height:240px; min-height:240px;"></div>
       </div>
       <script type="module">
       //<![CDATA[
          $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
-         $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
-
-
+         $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
       // Pour svg
       function pointStyleFunction(feature, resolution) {
         return  new ol.style.Style({
