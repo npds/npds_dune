@@ -525,9 +525,9 @@ function userinfo($uname) {
         }
         var pixel = map.getEventPixel(e.originalEvent);
       });
-               // Create the graticule component
-                  var graticule = new ol.Graticule();
-                  graticule.setMap(map);
+      // Create the graticule component
+         var graticule = new ol.layer.Graticule();
+         graticule.setMap(map);
 
             //]]>
             </script>';
