@@ -72,7 +72,7 @@ $infooo = geoloc_translate('Modification administrateur');
             //construction marker ip géoréférencés
             $ip_o .= 'ip_features.push([['.$ip_lg.','.$ip_lt.'], "'.urldecode($ip_ip1).'","'.$ip_visite.'"]);';
             $tab_ip .='
-         <p class="col p-2 m-1 border rounded flex-column align-items-start list-group-item-action">
+         <p class="col-sm-12 col-md-3 p-2  border rounded flex-column align-items-start list-group-item-action">
             <span class="d-flex w-100 mt-1">
             <span><img class=" img-fluid n-ava-small mr-1 mb-1" src="'.$ch_img.'flags/'.strtolower($ip_code_country1).'.png" alt="'.$ip_country1.'"> '.urldecode($ip_ip1).'</span>
             <span class="ml-auto">
