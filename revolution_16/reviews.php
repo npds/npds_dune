@@ -64,7 +64,7 @@ function write_review() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Votre nom").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" id="reviewer_rev" name="reviewer" value="'.$uname.'" required="required" />
+            <input type="text" class="form-control" id="reviewer_rev" name="reviewer" value="'.$uname.'" maxlength="25" required="required" />
          </div>
       </div>
       <div class="form-group row">
@@ -153,7 +153,7 @@ function write_review() {
       inpandfieldlen("email_rev",254);
       inpandfieldlen("url_rev",320);
       inpandfieldlen("url_title_rev",50);
-      inpandfieldlen("cover_rev",50);';
+      inpandfieldlen("cover_rev",100);';
    adminfoot('fv','',$arg1,'foo');
 }
 
@@ -291,11 +291,8 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    </form>';
    $arg1 ='
       var formulid = ["prevreview"];';
-      
-   adminfoot('fv','',$arg1,'foo');
 
-   
-//   include ("footer.php");
+   adminfoot('fv','',$arg1,'foo');
 }
 
 function reversedate($myrow) {
@@ -381,8 +378,6 @@ function reviews($field, $order) {
       break;
    }
    $numresults = sql_num_rows($result);
-   
-   
 
    echo '
    <h2>'.translate("Critiques").'<span class="badge badge-secondary float-right" title="'.$numresults.' '.translate("Critique(s) trouvée(s).").'" data-toggle="tooltip">'.$numresults.'</span></h2>
@@ -408,8 +403,7 @@ function reviews($field, $order) {
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=ASC"><i class="fa fa-sort-amount-down"></i>Hits</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=DESC"><i class="fa fa-sort-amount-up"></i>Hits</a>
       </div>
-   </div>
-';
+   </div>';
 
    if ($numresults > 0) {
       echo '
@@ -639,7 +633,7 @@ function mod_review($id) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="cover_modrev">'.translate("Image de garde").'</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" id="cover_modrev" name="cover" value="'.$cover.'" maxlength="50"/>
+            <input type="text" class="form-control" id="cover_modrev" name="cover" value="'.$cover.'" maxlength="100"/>
             <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-right" id="countcar_cover_modrev"></span></span>
          </div>
       </div>
@@ -700,7 +694,7 @@ function mod_review($id) {
       inpandfieldlen("email_modrev",254);
       inpandfieldlen("url_modrev",320);
       inpandfieldlen("url_title_modrev",50);
-      inpandfieldlen("cover_modrev",50);';
+      inpandfieldlen("cover_modrev",100);';
 
       sql_free_result($result);
    }

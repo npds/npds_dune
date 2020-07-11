@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -77,14 +77,14 @@ function HeadlinesAdmin() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'</label>
             <div class="col-sm-8">
-               <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="100" required="required" />
+               <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="320" required="required" />
                <span class="help-block text-right"><span id="countcar_url"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
             <div class="col-sm-8">
-                <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="200" required="required" />
+                <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="320" required="required" />
                 <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>
             </div>
          </div>
@@ -110,8 +110,8 @@ function HeadlinesAdmin() {
    //<![CDATA[
          $(document).ready(function() {
          inpandfieldlen("xsitename",30);
-         inpandfieldlen("url",100);
-         inpandfieldlen("headlinesurl",200);
+         inpandfieldlen("url",320);
+         inpandfieldlen("headlinesurl",320);
       });
 
    //]]>
@@ -143,14 +143,14 @@ function HeadlinesEdit($hid) {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'&nbsp;<a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></label>
             <div class="col-sm-8">
-               <input class="form-control" type="url" id="url" name="url" maxlength="100" value="'.$url.'" required="required" />
+               <input class="form-control" type="url" id="url" name="url" maxlength="320" value="'.$url.'" required="required" />
                <span class="help-block text-right"><span id="countcar_url"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'&nbsp;<a href="'.$headlinesurl.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></label>
             <div class="col-sm-8">
-               <input class="form-control" type="url" name="headlinesurl" id="headlinesurl" maxlength="200" value="'.$headlinesurl.'" required="required" />
+               <input class="form-control" type="url" name="headlinesurl" id="headlinesurl" maxlength="320" value="'.$headlinesurl.'" required="required" />
                <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>
             </div>
          </div>
@@ -181,8 +181,8 @@ function HeadlinesEdit($hid) {
    //<![CDATA[
       $(document).ready(function() {
          inpandfieldlen("xsitename",30);
-         inpandfieldlen("url",100);
-         inpandfieldlen("headlinesurl",200);
+         inpandfieldlen("url",320);
+         inpandfieldlen("headlinesurl",320);
       });
    //]]>
    </script>';
