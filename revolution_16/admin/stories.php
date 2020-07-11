@@ -828,7 +828,7 @@ function editStory ($sid) {
    echo aff_editeur('notes', '');
    echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-6" for="Cdate">'.adm_translate("Changer la date ? : ").'</label>
+         <label class="col-form-label col-sm-6" for="Cdate">'.adm_translate("Changer la date").'?</label>
          <div class="col-sm-6 my-2">
             <div class="custom-control custom-checkbox">
                <input class="custom-control-input" type="checkbox" id="Cdate" name="Cdate" value="true" />
