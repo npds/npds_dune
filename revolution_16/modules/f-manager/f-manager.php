@@ -1003,7 +1003,7 @@ while ($obj->NextFile()) {
             $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=editfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ml-2" title="'.$editM.'" data-toggle="tooltip"></i></a>';
       }
       if ($ficcmd_fma[5])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=movefile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-share-square-o fa-lg ml-2" title="'.$moveM.'" data-toggle="tooltip"></i></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=movefile&amp;att_name='.$obj->FieldName.'"><i class="far fa-share-square fa-lg ml-2" title="'.$moveM.'" data-toggle="tooltip"></i></a>';
       if ($ficcmd_fma[3])
          $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmodfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ml-2" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
       if ($ficcmd_fma[2])
