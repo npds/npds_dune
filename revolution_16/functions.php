@@ -360,9 +360,9 @@ function putitems_more() {
 function putitems($targetarea) {
    global $theme;
    echo '
-   <div title="'.translate("Cliquez pour insérer des emoji dans votre message").'" data-toggle="tooltip" class="float-right">
-      <button class="btn btn-primary btn-sm" type="button" id="button-textOne" data-toggle="emojiPopper" data-target="#'.$targetarea.'">
-         <i class="far fa-smile" aria-hidden="true"></i>
+   <div title="'.translate("Cliquez pour insérer des emoji dans votre message").'" data-toggle="tooltip">
+      <button class="btn btn-link pl-0" type="button" id="button-textOne" data-toggle="emojiPopper" data-target="#'.$targetarea.'">
+         <i class="far fa-smile fa-lg" aria-hidden="true"></i>
       </button>
    </div>
    <script src="lib/emojipopper/js/emojiPopper.min.js"></script>
@@ -381,18 +381,18 @@ function putitems($targetarea) {
 
 function HTML_Add() {
    $affich = '
-                  <div>
-                     <a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Gras").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italique").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Souligné").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à gauche").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte centré").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à droite").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte justifié").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Liste non ordonnnée").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg mr-2"></i></a>
-                     <a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Liste ordonnnée").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg mr-2"></i></a>
-                     <div class="dropdown d-inline mr-2" title="'.translate("Lien web").'" data-toggle="tooltip" data-placement="left">
+                  <div class="mt-2">
+                     <a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Gras").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italique").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Souligné").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à gauche").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte centré").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à droite").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte justifié").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Liste non ordonnnée").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg mr-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Liste ordonnnée").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg mr-2 mb-3"></i></a>
+                     <div class="dropdown d-inline mr-2 mb-3" title="'.translate("Lien web").'" data-toggle="tooltip" data-placement="left">
                         <a class=" dropdown-toggle" href="#" role="button" id="protocoletype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-link fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="protocoletype">
                            <a class="dropdown-item" href="javascript: addText(\' http://\',\'\');">http</a>
@@ -401,8 +401,8 @@ function HTML_Add() {
                            <a class="dropdown-item" href="javascript: addText(\' sftp://\',\'\');">sftp</a>
                         </div>
                      </div>
-                     <a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Tableau").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2"></i></a>
-                     <div class="dropdown d-inline mr-2" title="'.translate("Code").'" data-toggle="tooltip" data-placement="left">
+                     <a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Tableau").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2 mb-3"></i></a>
+                     <div class="dropdown d-inline mr-2 mb-3" title="'.translate("Code").'" data-toggle="tooltip" data-placement="left">
                         <a class=" dropdown-toggle" href="#" role="button" id="codeclasslanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-code fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="codeclasslanguage">
                            <h6 class="dropdown-header">Languages</h6>
@@ -414,7 +414,7 @@ function HTML_Add() {
                            <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code sql]\',\'[/code]&lt;/pre&gt;\');">SQL</a>
                         </div>
                      </div>
-                     <div class="dropdown d-inline mr-2" title="'.translate("Vidéos").'" data-toggle="tooltip" data-placement="left">
+                     <div class="dropdown d-inline mr-2 mb-3" title="'.translate("Vidéos").'" data-toggle="tooltip" data-placement="left">
                         <a class=" dropdown-toggle" href="#" role="button" id="typevideo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-film fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="typevideo">
                            <p class="dropdown-header">'.translate("Coller l'ID de votre vidéo entre les deux balises").' : <br />[video_yt]xxxx[/video_yt]<br />[video_vm]xxxx[/video_vm]<br />[video_dm]xxxx[/video_dm]</p>
@@ -831,10 +831,10 @@ function forum($rowQ1) {
                   }
                }
             }
-            if ($ok_affich)
-            $ibid.= '
-            </p>
-         </div>';
+            if(($ok_affich==false and $title_aff==false) or $ok_affich==true)
+               $ibid.= '
+                           </p>
+                        </div>';
          }
       }
    }
