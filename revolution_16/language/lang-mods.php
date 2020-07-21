@@ -5,21 +5,21 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/* ce fichier permet ˆ partir de la version 5.0 de NPDS, la             */
+/* ce fichier permet Ã  partir de la version 5.0 de NPDS, la             */
 /* personnalisation par le webmestre des MESSAGES (sauf ceux de l'admin)*/
 /************************************************************************/
 
 switch($phrase) {
    // EXEMPLES :
-   // case "Prévisualiser": $tmp="Vérifier mes informations"; break;
+   // case "PrÃ©visualiser": $tmp="VÃ©rifier mes informations"; break;
    // case "Preview":   $tmp="Verify my informations"; break;
-   // case "Valider":   $tmp="\"No problème, valide mon garçon !\""; break;
+   // case "Valider":   $tmp="\"No problÃ¨me, valide mon garÃ§on !\""; break;
    // case "Submit":   $tmp="\"Yo, submit Man\""; break;
    // case "One Day like Today...": $tmp=""; break;  
 
