@@ -10,3 +10,13 @@ votre contenu dynamique !
 
 Libre (Open-Source) et gratuit, NPDS est personnalisable grâce à de nombreux thèmes et modules et ne requiert que quelques compétences de base - essentiellement - issues des technologies du web. 
 Ses points forts : sa richesse fonctionnelle, sa sécurité, sa rapidité, sa facilité de mise en œuvre et la qualité, la stabilité et la fiabilité de son fonctionnement.
+
+## Installation
+
+télécharger l'archive  
+uploader sur votre serveur (local ou distant)  
+aller /index.php  
+
+## Required
+php >= 5.6  
+mysql >= 5.5.3
