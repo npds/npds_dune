@@ -13,7 +13,7 @@ Ses points forts : sa richesse fonctionnelle, sa sécurité, sa rapidité, sa fa
 
 ## Installation
 
-télécharger l'archive  
+télécharger [la dernière archive](https://www.example.com)   
 uploader sur votre serveur (local ou distant)  
 aller /index.php  
 
