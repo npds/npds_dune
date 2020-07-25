@@ -13,7 +13,7 @@ Ses points forts : sa richesse fonctionnelle, sa sécurité, sa rapidité, sa fa
 
 ## Installation
 
-télécharger [la dernière archive](https://www.example.com)   
+télécharger [la dernière archive](https://github.com/npds/npds_dune/releases/latest)   
 uploader sur votre serveur (local ou distant)  
 aller /index.php  
 
