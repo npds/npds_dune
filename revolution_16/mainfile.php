@@ -1662,9 +1662,9 @@ function fab_edito() {
       $contentJ=substr($XcontentsT,strpos($XcontentsT,"[jour]")+6,strpos($XcontentsT,"[/jour]")-6);
       $contentN=substr($XcontentsT,strpos($XcontentsT,"[nuit]")+6,strpos($XcontentsT,"[/nuit]")-19-strlen($contentJ));
       $Xcontents='';
-      if (isset($affichJ))
+      if (isset($affichJ) and $affichJ===true)
          $Xcontents=$contentJ;
-      if (isset($affichN)) {
+      if (isset($affichN) and $affichN===true) {
          if ($contentN!='')
             $Xcontents=$contentN;
          else
