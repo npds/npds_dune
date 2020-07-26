@@ -40,7 +40,7 @@ global $NPDS_Prefix, $adminforum;
 //<== droits des admin sur les forums (superadmin et admin avec droit gestion forum)
 
    if (isset($arbre) and ($arbre=='1')) $url_ret="viewtopicH.php"; else $url_ret="viewtopic.php";
-   if($mode!='viewip') {
+//   if($mode!='viewip') {
       $Mmod=false;
       if(isset($user)) {
          $userX = base64_decode($user);
@@ -61,7 +61,7 @@ global $NPDS_Prefix, $adminforum;
       }
       if ((!$Mmod) and ($adminforum==0))
          forumerror('0007');
-   }
+//   }
    if ((isset($submit)) and ($mode=='move')) {
       $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET forum_id='$newforum' WHERE topic_id='$topic'";
       if (!$r = sql_query($sql))
