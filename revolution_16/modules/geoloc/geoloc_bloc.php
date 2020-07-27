@@ -5,7 +5,7 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,8 +14,6 @@
 /* module geoloc version 4.0                                            */
 /* geoloc_bloc.php file 2008-2019 by Jean Pierre Barbary (jpb)          */
 /************************************************************************/
-
-//if(autorisation_block('include#modules/geoloc/geoloc_bloc.php') !='') define('GEO_BL',true);
 
 $ModPath='geoloc';
 $content = '';
@@ -34,8 +32,6 @@ switch ($cartyp_b) {
    case 'natural-earth-hypso-bathy': case 'geography-class':
       $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'"})';
    break;
-//   https://{a-d}.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoiamlwZXh1IiwiYSI6ImNqeGg5aDlvZTBjdXgzdm5yY25tYnU2eXgifQ.9SpaSxWvFrOEIq35wGITXw
-   
    case 'terrain':case 'toner':case 'watercolor':
       $source_fond='new ol.source.Stamen({layer:"'.$cartyp_b.'"})';
    break;
@@ -44,11 +40,12 @@ switch ($cartyp_b) {
 }
  
 $content .='
-<div class="mb-2" id="map_bloc_ol" tabindex="200" style="width:100%; min-height:'.$h_b.'px;"></div>
+<div class="mb-2" id="map_bloc_ol" tabindex="200" style=" min-height:'.$h_b.'px;"></div>
 <script type="text/javascript">
 //<![CDATA[
       $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_bloc.css\' type=\'text/css\' media=\'screen\'>");
 
       var georefUser_icon = new ol.style.Style({
          image: new ol.style.Icon({
