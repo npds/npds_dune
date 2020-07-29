@@ -11,7 +11,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 3.0                                            */
+/* module geoloc version 4.0                                            */
 /* geoloc.lang-german.php file 2008-2019                                */
 /* dev team : Philippe Revilliod (phr)                                  */
 /************************************************************************/
