@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.0                                            */
-/* geoloc_geoloc.php file 2008-2019 by Jean Pierre Barbary (jpb)        */
+/* geoloc_geoloc.php file 2008-2020 by Jean Pierre Barbary (jpb)        */
 /************************************************************************/
 
 /*
@@ -699,7 +699,6 @@ switch ($cartyp) {
         }
       });
       // <== cluster IPs
-      
 
       var src_fond = '.$source_fond.',
           minR='.$min_r.',
@@ -1437,24 +1436,6 @@ $ecr_scr .= '
    geocode_markers=[];
    geocode_adresses=[];
 
-function geocodeAddress(geocoder, map) {
-  var address = document.getElementById("address").value;
-  geocoder.geocode({"address": address}, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-        map: map,
-        icon:icongeocode,
-        animation: google.maps.Animation.DROP,
-        position: results[0].geometry.location
-      });
-      geocode_adresses.push(address);
-      geocode_markers.push(marker);
-    }
-    else
-      bootbox.alert("'.geoloc_translate("Géocodage a échoué pour la raison suivante").' : " + status);
-  });
-}
 
 function setMapOnAll_geo(map) {
   for (var i = 0; i < geocode_markers.length; i++) {
@@ -1585,7 +1566,7 @@ $affi .= '
       </div>
       <ul class="nav nav-tabs mt-4">
          <li class="nav-item"><a id="messinfo-tab" class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Infos carte").'</span></a></li>
-         <li class="nav-item"><a id="geocodage-tab" class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fas fa-map-marker-alt fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Géocodage").'</span></a></li>
+         <!-- <li class="nav-item"><a id="geocodage-tab" class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fas fa-map-marker-alt fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Géocodage").'</span></a></li> -->
          <li class="nav-item"><a id="aide-tab" class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>';
 if(autorisation(-127) and $geo_ip==1)
    $affi .= '
@@ -1597,6 +1578,7 @@ $affi .= '
          <div id="mess_info" class=" col-12 mt-3"></div>
       </div>
       <div class="tab-pane fade" id="aide"></div>
+      <!--
       <div class="tab-pane fade" id="geocodage">
          <div class="form-group mt-3">
             <div class="input-group">
@@ -1608,6 +1590,7 @@ $affi .= '
             </div>
          </div>
       </div>
+     -->
       <div class="tab-pane fade mt-2" id="ipgeolocalisation">
          <h5 class="mt-3">
             <i title="'.geoloc_translate('IP géoréférencées').'" data-toggle="tooltip" style="color:'.$acg_t_co.'; opacity:'.$acg_t_op.';" class="fa fa-desktop fa-lg mr-2 align-middle"></i>
