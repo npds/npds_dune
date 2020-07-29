@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.0                                            */
-/* geoloc_set.php file 2007-2019 by Jean Pierre Barbary (jpb)           */
+/* geoloc_set.php file 2007-2020 by Jean Pierre Barbary (jpb)           */
 /* dev team : Philippe Revilliod (Phr)                                  */
 /************************************************************************/
 
@@ -578,8 +578,8 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    </form>
 </div>
 <div class="col-sm-4">
-   <div id="map_conf" style="height:900px;"></div>
-       Icones en service
+   <div id="map_conf"></div>
+       Icônes en service
    </div>
 
 </div>';
@@ -611,6 +611,7 @@ switch ($cartyp) {
       $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
       $("head").append($("<script />").attr({"type":"text/javascript","src":"modules/geoloc/include/fontawesome.js"}));
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_admin.css\' type=\'text/css\' media=\'screen\'>");
    });
 
 function geoloc_conf() {
@@ -695,7 +696,6 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
    mark_cmbg_svg.setStyle(new ol.style.Style({
      text: new ol.style.Text({
        text: fa("'.$f_mbg.'"),
-//       font: "normal 32px FontAwesome",
        font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
        bottom: "Bottom",
        fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
@@ -705,8 +705,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
    mark_cmbgc_svg.setStyle(new ol.style.Style({
      text: new ol.style.Text({
        text: fa("'.$f_mbg.'"),
-//       font: "normal 32px FontAwesome",
-      font: "900 '.$mbgc_sc.'px \'Font Awesome 5 Free\'",
+       font: "900 '.$mbgc_sc.'px \'Font Awesome 5 Free\'",
        bottom: "Bottom",
        fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
        stroke: new ol.style.Stroke({color: "'.$mbgc_t_co.'", width: '.$mbgc_t_ep.'})
@@ -715,9 +714,7 @@ $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).c
    mark_acg_svg.setStyle(new ol.style.Style({
      text: new ol.style.Text({
        text: fa("'.$f_mbg.'"),
-//       font: "normal 28px FontAwesome",
-              font: "900 '.$acg_sc.'px \'Font Awesome 5 Free\'",
-
+       font: "900 '.$acg_sc.'px \'Font Awesome 5 Free\'",
        bottom: "Bottom",
        fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
        stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
@@ -799,7 +796,6 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
    m.setStyle(new ol.style.Style({
      text: new ol.style.Text({
        text: fa(f_fa),
-//       font: "normal "+sc+"px FontAwesome",
        font: "900 "+sc+"px \'Font Awesome 5 Free\'",
        bottom: "Bottom",
        fill: new ol.style.Fill({color: fc}),
@@ -925,8 +921,6 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
         mark_acg_svg.setIcon(icon_cacg_svg);
     });
 */
-
-
 
     $(".pickcol_tmb").colorpicker().on("changeColor.colorpicker", function(event){
         var coul = event.color.toHex()
