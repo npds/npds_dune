@@ -1,3 +1,18 @@
+changelog-rev16.2  [ révision : 41 - jpb /31-7-2020 ]
+(non exhaustif...)  
+
+- Corrections suite au retour dans forums et tests  
+
+- Evolutions
+   - passage du core en français
+   - consolidation support IP V4 V6
+   - file and pic manager skinable
+
+- Mises à jour des libs externes :
+   - bootstrap 4.5 + skins
+   - tinymce 5.4
+
+
 changelog-rev16.1  [ révision : 40 - jpb /14-5-2020 ]
 (non exhaustif...)
 
