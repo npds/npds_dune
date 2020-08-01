@@ -5,7 +5,7 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -22,7 +22,7 @@ la geolocalisation instantanée est réalisé par les api html5 de géolocalisat
 */
 if (!stristr($_SERVER['PHP_SELF'],"modules.php"))
    die();
-if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta')) 
+if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
 
 global $pdst, $language, $title;
@@ -104,7 +104,7 @@ $av_ch = '';//chemin pour l'avatar
 //cherche info user
 if(isset($cookie)) {
    $result = sql_query('SELECT uid FROM '.$NPDS_Prefix.'users WHERE uname LIKE "'.$username.'"');
-   $row = sql_fetch_array($result); 
+   $row = sql_fetch_array($result);
    $uid = $row['uid'];
    // voir si user existe dans users_extend
    $resul = sql_query('SELECT uid FROM '.$NPDS_Prefix.'users_extend WHERE uid = "'.$uid.'"');
@@ -174,7 +174,7 @@ while ($row = sql_fetch_array($membre)) {
          $imm .= '<a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fas fa-external-link-alt fa-lg mr-2"></i></a>';
       if ($us_mns != '')
          $imm .='<a href="minisite.php?op='.$us_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-lg mr-2"></i></a>';
- 
+
       //==> construction du fichier json
       $cont_json .='{"lat":'.$us_lat.', "lng":'.$us_long.', "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" />&nbsp;'.addslashes($us_uname).'<br /><span class=\\"text-muted\\">'.geoloc_translate("Dernière visite").' : </span>'.$visit.'<br />", "label":"<span>'. addslashes($us_uname) .'</span>", "icon":"icon"},';
       $cont_geojson .='
@@ -266,7 +266,7 @@ while ($row = sql_fetch_array($result)) {
                if (false !== $k) {
                   $my_rs.='<a href="'.$v1[1].$y1[1].'" target="_blank"><i class="fab fa-'.$v1[2].' fa-2x text-primary mr-2"></i></a>&nbsp;';
                   break;
-               } 
+               }
                else $my_rs.='';
             }
          }
@@ -471,7 +471,7 @@ $ecr_scr = '
             if($v[0]==$f_mbg) {
                $fafont = '&#x'.substr($v[1],1).';';
                $fafont_js= '\\'.$v[1];
-            } 
+            }
          }
          $ic_b_mbg ='<span title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$mbg_f_co.';" class="fa fa align-middle">'.$fafont.'</span>';
          $ic_b_mbgc ='<span title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$mbgc_f_co.';" class="fa fa-2x align-middle">'.$fafont.'</span>';
@@ -482,7 +482,7 @@ $ecr_scr = '
          $ic_b_mbgc ='<img src="'.$ch_img.$nm_img_mbcg.'" title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" alt="'.geoloc_translate('Membre géoréférencé en ligne').'" /> ';
          $ic_b_acg ='<img src="'.$ch_img.$nm_img_acg.'" title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" alt="'.geoloc_translate('Anonyme géoréférencé en ligne').'" /> ';
       }
-   
+
    if($mark_typ !== 1) { // marker svg
       $ecr_scr .='
       //==> marker svg
@@ -607,7 +607,7 @@ $ecr_scr = '
              style: stylecountries,
              visible: false
           })
-          
+
           ;';
 
 $source_fond=''; $max_r=''; $min_r='';$layer_id='';
@@ -734,7 +734,7 @@ switch ($cartyp) {
          ],
          view: view
       });
-      
+
       map.addOverlay(popup);
       var zoomslider = new ol.control.ZoomSlider();
       map.addControl(zoomslider);
@@ -820,7 +820,7 @@ switch ($cartyp) {
 //==> construction sidebar
       var uOn_feat = src_userOn.getFeatures(),
           sbuOn=\'<div id="sb_member_on" class="list-group my-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="" data-toggle="collapse" href="#l_sb_memberon"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" /><label class="custom-control-label" for="cbox">'.$ic_b_mbgc.' Membre en ligne</label></div><span class="h5"><span class="badge badge-danger badge-pill float-right">'.$mbcg.'</span></span></div><div class="collapse" id="l_sb_memberon">\';
-      uOn_feat = uOn_feat.sortBy("values_.pseudo"); 
+      uOn_feat = uOn_feat.sortBy("values_.pseudo");
       for (var key in uOn_feat) {
          if (uOn_feat.hasOwnProperty(key)) {
             sbuOn += \'<a id="\'+ uOn_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ uOn_feat[key].id_ +\'\\\');return false;" class="sb_memberon list-group-item list-group-item-action py-1" href="#">'.$ic_b_mbgc.'<span class="ml-2">\' + uOn_feat[key].values_.pseudo + \'</span></a>\';
@@ -830,7 +830,7 @@ switch ($cartyp) {
 
       var u_feat = src_user.getFeatures(),
           sbu=\'<div id="sb_member" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="" data-toggle="collapse" href="#l_sb_member"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" /><label class="custom-control-label" for="memberbox">'.$ic_b_mbg.' Membres</label></div><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$mbgr.'</span></span></div><div class="collapse" id="l_sb_member"><a class="sb_member list-group-item list-group-item-action py-1" ><input id="n_filtremember" placeholder="Filtrer les utilisateurs" class="my-1 form-control form-control-sm" type="text" /></a>\';
-      u_feat = u_feat.sortBy("values_.pseudo"); 
+      u_feat = u_feat.sortBy("values_.pseudo");
       for (var key in u_feat) {
          if (u_feat.hasOwnProperty(key)) {
             sbu += \'<a id="\'+ u_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ u_feat[key].id_ +\'\\\');return false;" class="sb_member list-group-item list-group-item-action py-1" >'.$ic_b_mbg.'<span class="ml-2 nlfilt">\' + u_feat[key].values_.pseudo + \'</span></a>\';
@@ -897,7 +897,7 @@ if ($username !='') {
              coordinate = evt.coordinate,
              coordWgs = ol.proj.transform(evt.coordinate, "EPSG:3857", "EPSG:4326"),
              lat = coordWgs[1],
-             lng = coordWgs[0]; 
+             lng = coordWgs[0];
          $(element).popover("dispose");
          georef_popup.setPosition(coordinate);
          $(element).popover({
@@ -992,27 +992,6 @@ else
          }
          $("#"+u).addClass("animated faa-horizontal faa-slow" );
 
-/*
-         var rotation = map.getView().getRotation();
-         map.getView().animate({
-          center: src_user.idIndex_[u].values_.geometry.flatCoordinates,
-          duration: 2000,
-          zoom:"17"
-
-         duration:1000,
-         zoom:"7",
-
-         rotation:rotation + Math.PI,
-         anchor: src_user.idIndex_[u].values_.geometry.flatCoordinates,
-         },
-         {
-         duration:1000,
-         rotation: rotation + 2 * Math.PI,
-         zoom:"17",
-         anchor: src_user.idIndex_[u].values_.geometry.flatCoordinates
-
-         });
-*/
          map.getView().setZoom(17);
       }
 
@@ -1040,7 +1019,7 @@ else
             userOn_markers.setVisible(true);
             //ip_cluster.setVisible(true);
             ano_markers.setVisible(true);
-         } 
+         }
       });
 
       $("#grillebox").change("click", function () {
@@ -1066,7 +1045,7 @@ else
             userOn_markers.setVisible(false);
             $("#l_sb_memberon").removeClass("show");
             $(".sb_member,.sb_memberon, .sb_ano, .sb_ip").removeClass( "animated faa-horizontal faa-slow" );
-         } 
+         }
       });
       $("#ipbox").change("click", function () {
          if(this.checked) {
@@ -1077,7 +1056,7 @@ else
             ip_cluster.setVisible(false);
             $("#l_sb_ip").removeClass("show");
             $(".sb_member,.sb_memberon, .sb_ano, .sb_ip").removeClass( "animated faa-horizontal faa-slow" );
-         } 
+         }
       });
       $("#acbox").change("click", function () {
          if(this.checked) {
@@ -1088,7 +1067,7 @@ else
             ano_markers.setVisible(false);
             $("#l_sb_ano").removeClass("show");
             $(".sb_member,.sb_memberon, .sb_ano, .sb_ip").removeClass( "animated faa-horizontal faa-slow" );
-         } 
+         }
       });
       $("#memberbox").change("click", function () {
          if(this.checked) {
@@ -1098,14 +1077,14 @@ else
             $("#ol_popup").hide();user_markers.setVisible(false);
             $("#l_sb_member").removeClass("show");
             $(".sb_member,.sb_memberon, .sb_ano, .sb_ip").removeClass( "animated faa-horizontal faa-slow" );
-         } 
+         }
       });
       $("#coastandborder").change("click", function () {
          if(this.checked) {
             countries.setVisible(true);
          } else {
             countries.setVisible(false);
-         } 
+         }
       });
    });
 
@@ -1191,8 +1170,8 @@ else
       map.on("click", function(evt) {
          var element = popup.getElement();
          var coordinate = evt.coordinate;
-         var lat = coordinate[1]; 
-         var lng = coordinate[0]; 
+         var lat = coordinate[1];
+         var lng = coordinate[0];
          var hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
 
          $(element).popover("hide");
@@ -1244,7 +1223,7 @@ else
                     for (var i = 0; i < cfeatures.length; i++) {
                         l_ip += \'<small><a href="#" onclick="centeronMe(\\\'\' + cfeatures[i].id_ + \'\\\')">\' + cfeatures[i].get("ip") + \'</small></a><br />\';
                     }
-                    l_ip += \'</div>\'; 
+                    l_ip += \'</div>\';
                     $(container).append(l_ip);
                 }
                 if (cfeatures.length == 1) {
@@ -1282,7 +1261,7 @@ $ecr_scr .= '
 ';
 */
 
-//==> ecriture des markers pour les membres connectés et les anonymes 
+//==> ecriture des markers pour les membres connectés et les anonymes
 $ecr_scr .= $mb_con_g;
 
 //<==
@@ -1414,9 +1393,9 @@ $ecr_scr .= '
    document.getElementById("geocode_submit").addEventListener("click", function() {
       geocodeAddress(geocoder, map);
    });
-   
+
    */
-   
+
    function checkSize() {
       var small = map.getSize()[0] < 600;
       attribution.setCollapsible(small);
@@ -1429,6 +1408,10 @@ $ecr_scr .= '
    }
    window.addEventListener("resize", checkSize);
    checkSize();
+   $(\'[data-toggle="tooltip"]\').tooltip({container:\'body\'});
+
+   $(".ol-zoom-in, .ol-zoom-out").tooltip({placement: "right", container:"#map",});
+   $(".ol-full-screen-false, .ol-rotate-reset, .ol-attribution button[title]").tooltip({placement: "left", container:"#map",});
 
 } //<= geoloc_load
 
@@ -1612,6 +1595,7 @@ $affi .= '
    </div>';
 //==> affichage des div contenants et écriture du script
 echo $affi.$ecr_scr;
+
 include ('footer.php');
 
 switch ($op) {

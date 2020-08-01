@@ -1,5 +1,5 @@
-      //<![CDATA[
-      /* ce script assure : 
+//<![CDATA[
+      /* ce script assure :
       responsivité des anciens site : forçage des dimensions par la classe img-fluid,
       paramétrages de plugins :  tooltips, popover, toggle, boostrap table, highlight
       */
@@ -24,7 +24,7 @@
             return 0;
          }
       // <== tri boostrap table //
-      
+
          $(document).ready(function(){
             // responsive old data
             $('.article_texte img,.ibid_descr img').addClass('img-fluid');
@@ -32,7 +32,7 @@
             $('iframe').addClass("embed-responsive-item");
 
             $('.fo-post-mes img').addClass('img-fluid');//not sure if usefull to late ...
-            // icon toggle 
+            // icon toggle
             $('a[data-toggle="collapse"]').click(function () {
                $(this).find('i.toggle-icon').toggleClass('fa-caret-up fa-caret-down',6000);
             })
@@ -42,11 +42,7 @@
             // initialisation tooltip et popover (qui ferme au prochain click)
             $('[data-toggle="tooltip"]').tooltip({container:'body'});
             $('[data-toggle="popover"]').popover();
-            $('.popover-dismiss').popover({ trigger: 'click'})
-            // for openlayers
-            $('.ol-zoom-in, .ol-zoom-out').tooltip({placement: 'right'});
-            $('.ol-full-screen-false, .ol-rotate-reset, .ol-attribution button[title]').tooltip({placement: 'left'});
-
+            $('.popover-dismiss').popover({ trigger: 'click'});
             // fix bug tooltip in table
             $('table').on('all.bs.table', function (e, name, args) {
                $('[data-toggle="tooltip"]').tooltip();

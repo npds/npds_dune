@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.0                                            */
-/* geoloc_bloc.php file 2008-2019 by Jean Pierre Barbary (jpb)          */
+/* geoloc_bloc.php file 2008-2020 by Jean Pierre Barbary (jpb)          */
 /************************************************************************/
 
 $ModPath='geoloc';
@@ -87,6 +87,10 @@ $content .='
       }
       window.addEventListener("resize", checkSize);
       checkSize();
+      $(function(){
+         $("#map_bloc_ol .ol-zoom-in, #map_bloc_ol .ol-zoom-out").tooltip({placement: "right", container: "#map_bloc_ol",});
+         $("#map_bloc_ol .ol-full-screen-false, #map_bloc_ol .ol-rotate-reset, #map_bloc_ol .ol-attribution button[title]").tooltip({placement: "left", container: "#map_bloc_ol",});
+      });
 //]]>
 </script>';
 

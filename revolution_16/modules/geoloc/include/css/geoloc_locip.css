@@ -1,0 +1,22 @@
+@charset"utf-8";
+/*==> module geoloc : bloc V4 2019 */
+/*full screen */
+#map_ip {
+   width:100%;
+   height:240px;
+}
+#map_ip:-webkit-full-screen {
+   height: 100%;
+   margin: 0;
+}
+#map_ip:-ms-fullscreen {
+   height: 100%;
+}
+#map_ip:fullscreen {
+   height: 100%;
+}
+/*skin*/
+.ol-control button, .ol-scale-line {
+   background-color: var(--primary);
+   opacity: 0.8;
+}

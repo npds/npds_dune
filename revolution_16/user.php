@@ -484,50 +484,53 @@ function userinfo($uname) {
                    zoom: 12
                  })
                });
-               
                //Adding a marker on the map
                map.addLayer(vectorLayer);
 
+               var element = document.getElementById("ol_popup");
+               var popup = new ol.Overlay({
+                 element: element,
+                 positioning: "bottom-center",
+                 stopEvent: false,
+                 offset: [0, -20]
+               });
+               map.addOverlay(popup);
 
-      var element = document.getElementById("ol_popup");
-      var popup = new ol.Overlay({
-        element: element,
-        positioning: "bottom-center",
-        stopEvent: false,
-        offset: [0, -20]
-      });
-      map.addOverlay(popup);
+       // display popup on click
+            map.on("click", function(evt) {
+              var feature = map.forEachFeatureAtPixel(evt.pixel,
+                function(feature) {
+                  return feature;
+                });
+              if (feature) {
+                var coordinates = feature.getGeometry().getCoordinates();
+                popup.setPosition(coordinates);
+                $(element).popover({
+                  placement: "top",
+                  html: true,
+                  content: feature.get("name")
+                });
+                $(element).popover("show");
+              } else {
+                $(element).popover("hide");
+              }
+            });
+            // change mouse cursor when over marker
+            map.on("pointermove", function(e) {
+              if (e.dragging) {
+                $(element).popover("hide");
+                return;
+              }
+              var pixel = map.getEventPixel(e.originalEvent);
+            });
+            // Create the graticule component
+               var graticule = new ol.layer.Graticule();
+               graticule.setMap(map);
 
- // display popup on click
-      map.on("click", function(evt) {
-        var feature = map.forEachFeatureAtPixel(evt.pixel,
-          function(feature) {
-            return feature;
-          });
-        if (feature) {
-          var coordinates = feature.getGeometry().getCoordinates();
-          popup.setPosition(coordinates);
-          $(element).popover({
-            placement: "top",
-            html: true,
-            content: feature.get("name")
-          });
-          $(element).popover("show");
-        } else {
-          $(element).popover("hide");
-        }
-      });
-      // change mouse cursor when over marker
-      map.on("pointermove", function(e) {
-        if (e.dragging) {
-          $(element).popover("hide");
-          return;
-        }
-        var pixel = map.getEventPixel(e.originalEvent);
-      });
-      // Create the graticule component
-         var graticule = new ol.layer.Graticule();
-         graticule.setMap(map);
+            $(function(){
+               $("#map_user .ol-zoom-in, .ol-zoom-out").tooltip({placement: "right", container: "#map_user",});
+               $(".ol-rotate-reset, .ol-attribution button[title]").tooltip({placement: "left", container: "#map_user",});
+            });
 
             //]]>
             </script>';

@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.0                                            */
-/* geoloc_locip.php file 2008-2019 by Jean Pierre Barbary (jpb)         */
+/* geoloc_locip.php file 2008-2020 by Jean Pierre Barbary (jpb)         */
 /************************************************************************/
 
 #autodoc localiser_ip() : construit la carte pour l'ip géoréférencée ($iptoshow) à localiser
@@ -26,12 +26,13 @@ function localiser_ip($iptoshow) {
          $row = sql_fetch_assoc($ip_location);
          $aff_location .= '
       <div class="col-md-5">
-         <div id="map_ip" style="width:100%; height:240px; min-height:240px;"></div>
+         <div id="map_ip" style=" min-height:240px;"></div>
       </div>
       <script type="module">
       //<![CDATA[
          $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
          $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+         $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'modules/geoloc/include/css/geoloc_locip.css\' type=\'text/css\' media=\'screen\'>");
       // Pour svg
       function pointStyleFunction(feature, resolution) {
         return  new ol.style.Style({
@@ -61,7 +62,7 @@ function localiser_ip($iptoshow) {
         source: vectorSource,
         style: pointStyleFunction
       });
-      
+
       var Controls = new ol.control.defaults;
 
       var map = new ol.Map({
@@ -79,6 +80,10 @@ function localiser_ip($iptoshow) {
           center: ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].']),
           zoom: 12
         })
+      });
+      $(function(){
+        $("#map_ip .ol-zoom-in, #map_ip .ol-zoom-out").tooltip({placement: "right", container: "#map_ip",});
+        $("#map_ip .ol-full-screen-false, #map_ip .ol-rotate-reset, #map_ip .ol-attribution button[title]").tooltip({placement: "left", container: "#map_ip",});
       });
 
       //]]>
