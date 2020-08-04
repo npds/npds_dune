@@ -26,7 +26,7 @@ $hlpfile = "manuels/$language/authors.html";
 // sélection des fonctions sauf les fonctions de type alerte 
    $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND fcategorie < 7 ORDER BY f.fcategorie");
    while(list($fid, $fnom, $fnom_affich, $fcategorie) = sql_fetch_row($R)) {
-    $fnom_affich = adm_translate(utf8_encode($fnom_affich));
+    $fnom_affich = adm_translate($fnom_affich);
       if($fcategorie==6) {
          $listdroitsmodulo .= '
          <div class="col-md-4 col-sm-6">
@@ -285,7 +285,7 @@ function modifyadmin($chng_aid) {
    }
    $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND fcategorie < 7 ORDER BY f.fcategorie");
    while(list($fid, $fnom, $fnom_affich, $fcategorie) = sql_fetch_row($R)) {
-   $fnom_affich= adm_translate(utf8_encode($fnom_affich));
+   $fnom_affich= adm_translate($fnom_affich);
       if (in_array($fid, $datas)) $chec='checked="checked"'; else $chec='';
       if($fcategorie==6) {
          $listdroitsmodulo .='
