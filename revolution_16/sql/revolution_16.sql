@@ -509,7 +509,7 @@ CREATE TABLE lnl_outside_users (
   host_name varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   date datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   status char(3) NOT NULL DEFAULT 'OK',
-  PRIMARY KEY (email)
+  PRIMARY KEY (email(100))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE lnl_send (
