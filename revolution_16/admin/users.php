@@ -623,8 +623,8 @@ switch ($op) {
 
       $user_regdate = time()+((integer)$gmt*3600);
       $sql= 'INSERT INTO '.$NPDS_Prefix.'users ';
-      $sql.= "(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,send_email,is_visible,mns) ";
-      $sql.= "VALUES (NULL,'$add_name','$add_uname','$add_email','$add_femail','$add_url','$user_regdate','$add_user_from','$add_user_occ','$add_user_intrest','$add_user_viewemail','$add_avatar','$add_user_sig','$add_bio','$add_pass','$add_send_email','$add_is_visible','$add_mns')";
+      $sql.= "(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,send_email,is_visible,mns,theme) ";
+      $sql.= "VALUES (NULL,'$add_name','$add_uname','$add_email','$add_femail','$add_url','$user_regdate','$add_user_from','$add_user_occ','$add_user_intrest','$add_user_viewemail','$add_avatar','$add_user_sig','$add_bio','$add_pass','$add_send_email','$add_is_visible','$add_mns','$Default_Theme+$Default_Skin')";
       $result = sql_query($sql);
       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$add_uname'"));
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
