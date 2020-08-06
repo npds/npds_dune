@@ -976,6 +976,7 @@ function translate_pass1($phrase) {
    case "Votre compte": $tmp="Su cuenta"; break;
    case "Votre contribution n'a pas été supprimée car au moins un post est encore rattaché (forum arbre).": $tmp="Su contribución no se pudo suprimir porque una o más respuestas se unen. (foro del ¡RBOL)."; break;
    case "Votre Email": $tmp="Su dirección electrónica"; break;
+   case "Votre fiche d'inscription": $tmp="Su formulario de registro"; break;
    case "Votre lien": $tmp="Su vinculo"; break;
    case "Votre message a été posté": $tmp="Su mensaje fu incluido"; break;
    case "Votre mot de passe est : ": $tmp="Su contraseña es : "; break;

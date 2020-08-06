@@ -975,6 +975,7 @@ function translate_pass1($phrase) {
    case "Votre compte": $tmp="您的帐号"; break;
    case "Votre contribution n'a pas été supprimée car au moins un post est encore rattaché (forum arbre).": $tmp="您的发言没有被删除，因为有其他的发言与此有关联."; break;
    case "Votre Email": $tmp="您的电子邮件地址"; break;
+   case "Votre fiche d'inscription": $tmp="您的注册表"; break;
    case "Votre lien": $tmp="您的链接在"; break;
    case "Votre message a été posté": $tmp="您的消息已经发出"; break;
    case "Votre mot de passe est : ": $tmp="您的密码是： : "; break;

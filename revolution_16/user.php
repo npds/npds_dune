@@ -117,7 +117,10 @@ function showimage() {
    if (!document.images)
       return
       document.images.avatar.src=\n";
-   if ($ibid=theme_image("forum/avatar/blank.gif")) {$imgtmp=substr($ibid,0,strrpos($ibid,"/")+1);} else {$imgtmp="images/forum/avatar/";}
+   if ($ibid=theme_image("forum/avatar/blank.gif"))
+      $imgtmp=substr($ibid,0,strrpos($ibid,"/")+1); 
+   else 
+      $imgtmp="images/forum/avatar/";
    echo "'$imgtmp' + document.Register.user_avatar.options[document.Register.user_avatar.selectedIndex].value\n";
    echo "}
    //]]>
@@ -209,7 +212,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
       echo '
       <h2>'.translate("Utilisateur").'</h2>
       <hr />
-      <h3 class="mb-3"><i class="fa fa-user mr-2"></i>Votre fiche d\'inscription</h3>
+      <h3 class="mb-3"><i class="fa fa-user mr-2"></i>'.translate("Votre fiche d'inscription").'</h3>
       <div class="card">
          <div class="card-body">';
       include ("modules/sform/extend-user/aff_extend-user.php");
@@ -253,7 +256,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
       else
          $cryptpass=$makepass;
 
-      $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass','10','','0','0','0','','0','','','10','0','0','1','0','','','$user_lnl')");
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass','10','','0','0','0','','0','','$Default_Theme+$Default_Skin','10','0','0','1','0','','','$user_lnl')");
       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'"));
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
       if ($user_sig)

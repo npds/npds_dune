@@ -770,7 +770,7 @@ INSERT INTO posts VALUES (7, 0, '04.png', 2, -2, 2, 'Bien, bien et m&ecirc;me mi
 CREATE TABLE priv_msgs (
   msg_id int(10) NOT NULL AUTO_INCREMENT,
   msg_image varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  subject varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  subject varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   from_userid int(10) NOT NULL DEFAULT '0',
   to_userid int(10) NOT NULL DEFAULT '0',
   msg_time varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
