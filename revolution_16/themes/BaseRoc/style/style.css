@@ -22,6 +22,17 @@ body {
 }
 
 a:hover {text-decoration:none;}
+/* pas de contour sur le focus des ancres */
+a:focus {
+   outline: none;
+}
+/* descend vers le bas les targets des ancres pour qu'elle ne soit pas couverte par le navbar*/
+:target:before {
+  content: "";
+  display: block;
+  height: 80px;
+  margin-top: -80px;
+}
 /** <== Balise html                                                         **/
 
 /** ==> Classes BS4                                                         **/
@@ -53,26 +64,32 @@ a:hover {text-decoration:none;}
 .n-ava {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
 }
 .n-ava-small {
   max-width:48px;
   max-height:48px;
+  border-radius:50%!important;
 }
 .n-ava-64 {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
 }
 .n-ava-48 {
   max-width:48px;
   max-height:48px;
+  border-radius:50%!important;
 }
 .n-ava-40 {
   max-width:40px;
   max-height:40px;
+  border-radius:50%!important;
 }
 .n-ava-36 {
   max-width:36px;
   max-height:36px;
+  border-radius:50%!important;
 }
 .n-smil {
   width:24px;
@@ -1597,7 +1614,6 @@ a.tooltip_ws:hover em span {
 }
 
 /* WAVE */
-
 @-webkit-keyframes burst {
   0% {opacity: .6;}
   50% {
@@ -1925,7 +1941,6 @@ border: 1px solid ;
    max-width: 100%;
     height: auto;
 }
-
 /* ==> personalisation responsivité des colonnes de card */
 
 @media (min-width: 576px) and (max-width: 640px) {
@@ -1943,9 +1958,11 @@ border: 1px solid ;
  column-count: 2;
  }
 }
-
-
 @media (min-width: 1200px) { card-columns {
  column-count: 3;
  }}
 /* <== personalisation responsivité des colonnes de card */
+/* ==> pour popover contenant les emoji */
+div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
+div[data-type=emojiPopper] div .card-body{padding:.4rem}
+/* <== pour popover contenant les emoji */

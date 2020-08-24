@@ -19,6 +19,9 @@ font-size: .95rem;
 line-height: 1.5;
 color: #000;}
 a:hover {text-decoration:none;}
+a:focus {
+   outline: none;
+}
 /** <== Balise html
 
 
@@ -1972,7 +1975,6 @@ border: 1px solid ;
    max-width: 100%;
     height: auto;
 }
-
 /* ==> personalisation responsivité des colonnes de card */
 
 @media (min-width: 576px) and (max-width: 640px) {
@@ -1990,10 +1992,11 @@ border: 1px solid ;
  column-count: 2;
  }
 }
-
-
 @media (min-width: 1200px) { card-columns {
  column-count: 3;
  }}
 /* <== personalisation responsivité des colonnes de card */
-
+/* ==> pour popover contenant les emoji */
+div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
+div[data-type=emojiPopper] div .card-body{padding:.4rem}
+/* <== pour popover contenant les emoji */

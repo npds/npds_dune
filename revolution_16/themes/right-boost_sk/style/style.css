@@ -10,19 +10,24 @@
 html{}
 body {}
 a:hover {text-decoration:none;}
+/* pas de contour sur le focus des ancres */
+a:focus {
+   outline: none;
+}
 table{table-layout: fixed;}
+/* descend vers le bas les targets des ancres pour qu'elle ne soit pas couverte par le navbar*/
+:target:before {
+  content: "";
+  display: block;
+  height: 80px;
+  margin-top: -80px;
+}
+
 /** <== Balise html                                                         **/
 
 /** ==> Classes BS4                                                         **/
 /*                                                                           */
-/* ==> élément ayant la class btn (boutons, a, input) */
-/* 
-.btn {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-}
- */
+
 /* ==> hauteur et scroll des modal */
 .modal-body {
   max-height: calc(100vh - 210px);
@@ -36,26 +41,32 @@ table{table-layout: fixed;}
 .n-ava {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
 }
 .n-ava-small {
   max-width:48px;
   max-height:48px;
+  border-radius:50%!important;
 }
 .n-ava-64 {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
 }
 .n-ava-48 {
   max-width:48px;
   max-height:48px;
+  border-radius:50%!important;
 }
 .n-ava-40 {
   max-width:40px;
   max-height:40px;
+  border-radius:50%!important;
 }
 .n-ava-36 {
   max-width:36px;
   max-height:36px;
+  border-radius:50%!important;
 }
 .n-smil {
   width:24px;
@@ -204,8 +215,8 @@ ul.dropdown-menu {
   border-left: 0.25rem solid #eceeef;
 }
 
-.form-control-label {
-  font-weight: 500;
+.col-form-label {
+  font-weight: 400;
 }
 
 /* ombre sur tout les icones
@@ -1725,7 +1736,25 @@ a.tooltip_ws:hover em span {
 input[required='required'] {
 border: 1px solid ;
 }
+textarea[required='required'] {
+border: 1px solid ;
+}
 
+.custom-file-input:lang(fr) ~ .custom-file-label::after {
+    content: "Choisir ..."
+}
+.custom-file-input:lang(es) ~ .custom-file-label::after {
+    content: "Elegir ..."
+}
+.custom-file-input:lang(de) ~ .custom-file-label::after {
+    content: "Wählen ..."
+}
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "Browse ..."
+}
+.custom-file-input:lang(zh) ~ .custom-file-label::after {
+    content: "选择 ..."
+}
 
 /* ==> personalisation responsivité des colonnes de card */
 
@@ -1744,13 +1773,11 @@ border: 1px solid ;
  column-count: 2;
  }
 }
-
-
 @media (min-width: 1200px) { card-columns {
  column-count: 3;
  }}
 /* <== personalisation responsivité des colonnes de card */
-
-.ui-draggable {
-z-index: 10;
-}
+/* ==> pour popover contenant les emoji */
+div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
+div[data-type=emojiPopper] div .card-body{padding:.4rem}
+/* <== pour popover contenant les emoji */
