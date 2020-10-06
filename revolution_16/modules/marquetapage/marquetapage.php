@@ -75,7 +75,7 @@ function marquetapage() {
       $uri=urlencode($REQUEST_URI);
       if ($post) {$title.='/'.$post;}
       if ($title=='') {$title_MTP=basename(urldecode($uri));} else {$title_MTP=$title;}
-      $boxTitle='<span><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="fa fa-bookmark-o " title="'.translate("Ajouter").' '.translate("favori").'" data-toggle="tooltip"></i></a></span>';
+      $boxTitle='<span><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="far fa-bookmark " title="'.translate("Ajouter").' '.translate("favori").'" data-toggle="tooltip"></i></a></span>';
             if ($block_title=='')
          $boxTitle.='&nbsp;MarqueTaPage';
       else
