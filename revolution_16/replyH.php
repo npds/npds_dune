@@ -277,11 +277,15 @@ if ($submitS) {
          <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
-               <div class="card-header">';
+               <div class="card-header">
+                  <div class="float-left">';
+   putitems('ta_replyh');
+      echo '
+                  </div>';
    if ($allow_html == 1) {
-      echo '<span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+      echo '<span class="text-success float-right mt-2" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    } else
-      echo '<span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+      echo '<span class="text-danger float-right mt-2" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
             <div class="card-body">';
@@ -293,34 +297,27 @@ if ($submitS) {
             if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
                $text = smile($text);
                $text = str_replace('<br />', "\n", $text);
-            } else {
+            } else
                $text = htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset);
-            }
             $text = stripslashes($text);
-            if ($m['post_time']!='' && $m['uname']!='') {
+            if ($m['post_time']!='' && $m['uname']!='')
               $reply = '<blockquote class="blockquote">'.translate("Citation").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
-            } else {
+            else
                $reply = $text."\n";
-            }
             $reply = preg_replace("#\[hide\](.*?)\[\/hide\]#si",'',$reply);
-         } else {
+         } else
             $reply = translate("Erreur de connexion à la base de données")."\n";
-         }
          $message = $reply;
       }
       if ($allow_bbcode)
          $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
       echo '
                   <textarea id="ta_replyh" class="form-control" '.$xJava.' name="message" rows="15" >'.$message.'</textarea>
-                  <span class="help-block text-right">
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
-                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
-                  </span>
                </div>
-               <div class="card-footer text-muted">';
-      if ($allow_bbcode)
-         putitems('ta_replyh');
-      echo '
+               <div class="card-footer p-0">
+                  <span class="d-block">
+                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
+                  </span>
                </div>
             </div>
          </div>
@@ -377,7 +374,7 @@ if ($submitS) {
             <input type="hidden" name="topic" value="'.$topic.'" />
             <input type="hidden" name="post" value="'.$post.'" />
             <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" accesskey="s" />'.translate("Valider").'</button>&nbsp;
-            <button class="btn btn-danger" type="submit" value="'.translate("Annuler la contribution").'" name="cancel" title="'.translate("Annuler la contribution").'" data-toggle="tooltip" ><i class="fas fa-times fa-lg"></i>'.translate("Annuler la contribution").'</button>
+            <button class="btn btn-danger" type="submit" value="'.translate("Annuler la contribution").'" name="cancel" title="'.translate("Annuler la contribution").'" data-toggle="tooltip" >'.translate("Annuler la contribution").'</button>
          </div>
       </div>';
    } else {
