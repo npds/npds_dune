@@ -150,9 +150,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
                         else $my_rs.='';
                      }
                   }
-                  $my_rsos[]=$my_rs;
                }
-               else $my_rsos[]='';
             }
          }
       }
@@ -168,11 +166,11 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
          if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend))
             if ($posterdata_extend[$ch_lat] !='')
                $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
+      }
          if ($posterdata['url']!='')
             $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
          if ($posterdata['mns'])
              $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
-      }
       echo '
       <div id="tog_'.$idtog.'" class="row  '.$clas.'">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
@@ -197,7 +195,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
                 if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$posterdata['user_avatar'];
              }
              echo '
-                  <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rsos[$count].'</div> \'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+                  <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rank']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div> \'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
           }
       }
 
