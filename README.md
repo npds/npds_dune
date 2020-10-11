@@ -24,4 +24,7 @@ Uploader sur votre serveur (local ou distant)
 Aller /index.php   
 Suivre l'installation automatique ...
 
+## Communauté
+
+- Besoin d'aide le [forum Npds](http://www.npds.org/forum.php)
 
