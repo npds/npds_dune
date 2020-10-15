@@ -193,6 +193,7 @@ $PAGES['forum.php']['title']="[french]Les forums de discussion[/french][english]
 $PAGES['forum.php']['run']="yes";
 $PAGES['forum.php']['sitemap']="0.9";
 $PAGES['forum.php']['meta-keywords']="forum,forums,discussion,discussions,aide,entraide,Èchange,Èchanges";
+$PAGES['forum.php']['blocs']="0";
 
 $PAGES['viewforum.php']['title']="[french]Forum[/french][english]Forum[/english][spanish]Foro[/spanish][german]Forum[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese] : $title+";
 $PAGES['viewforum.php']['run']="yes";
@@ -224,7 +225,7 @@ $PAGES['reviews.php']['run']="yes";
 
 $PAGES['abla.php']['title']="[french]Admin Blackboard[/french][english]Admin Blackboard[/english][spanish]Admin Blackboard[/spanish][german]Admin Blackboard[/german][chinese]Admin Blackboard[/chinese]+";
 $PAGES['abla.php']['run']="yes";
-$PAGES['abla.php']['blocs']="1";
+$PAGES['abla.php']['blocs']="0";
 
 $PAGES['replypmsg.php']['title']="[french]R&eacute;pondre &agrave; un MP[/french][english]Reply to a MP[/english][spanish]Responder a un MP[/spanish][german]Antwort auf eine MP[/german][chinese]Reply to a MP[/chinese]+";
 $PAGES['replypmsg.php']['run']="yes";
@@ -235,7 +236,7 @@ $PAGES['readpmsg.php']['run']="yes";
 $PAGES['readpmsg.php']['blocs']="1";
 
 $PAGES['map.php']['title']="[french]Plan du Site[/french][english]SiteMap[/english][spanish]Mapa del Sitio[/spanish][german]Site Map[/german][chinese]SiteMap[/chinese]";
-$PAGES['map.php']['blocs']="1";
+$PAGES['map.php']['blocs']="0";
 $PAGES['map.php']['run']="yes";
 
 $PAGES['pollBooth.php']['title']="[french]Les Sondages[/french][english]Opinion poll[/english][spanish]las encuestas[/spanish][german]die Umfragen[/german][chinese]Opinion poll[/chinese]";
@@ -275,7 +276,7 @@ $PAGES['modules.php?ModPath=comments&ModStart=reply*']['blocs']="2";
 $PAGES['modules.php?ModPath=comments&ModStart=reply*']['TinyMce']=0;
 $PAGES['modules.php?ModPath=comments&ModStart=reply*']['TinyMce-theme']="short";
 
-$PAGES['modules.php?ModPath=contact&ModStart=contact']['title']="[french]Nous Contacter[/french][english]Contact us[/english][spanish]Contacte con nosotros[/spanish][german]Kontakt[/german][chinese]Contact us[/chinese]";
+$PAGES['modules.php?ModPath=contact&ModStart=contact']['title']="[french]Nous Contacter[/french][english]Contact us[/english][spanish]Contacte con nosotros[/spanish][german]Kontakt[/german][chinese]Contact us[/chinese]-";
 $PAGES['modules.php?ModPath=contact&ModStart=contact']['run']="yes";
 $PAGES['modules.php?ModPath=contact&ModStart=contact']['blocs']="0";
 
@@ -289,8 +290,8 @@ $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['blocs']="0";
 
 // CSS sur fichiers particuliers car n'utilisant pas header.php
 global $nuke_url;
-$PAGES['chatrafraich.php']['css']=array("chat.css+");
-$PAGES['chatinput.php']['css']=array("chat.css+");
+$PAGES['chatrafraich.php']['css']=array($nuke_url."/lib/bootstrap/dist/css/bootstrap.min.css+","chat.css+");
+$PAGES['chatinput.php']['css']=array($nuke_url."/lib/bootstrap/dist/css/bootstrap.min.css+","chat.css+");
 
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['title']="[french]R&eacute;seaux Sociaux[/french][english]Social Networks[/english]";
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['run']="yes";
@@ -300,7 +301,16 @@ $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']
 // $PAGES['forum=1']['title']="forum.php";
 // $PAGES['forum=1']['run']="user";
 
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['title']="[french]Galerie d'images[/french][english]Pictures galery[/english][spanish]Galeria de imagenes[/spanish]+";
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['js']=array($nuke_url.'/modules/npds_galerie/js/jquery.watermark.min.js');
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['run']="yes";
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['blocs']="0";
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['TinyMce']=1;
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['TinyMce-theme']="short";
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['css']=array($nuke_url.'/modules/npds_galerie/css/galerie.css+');
+
 global $language;
+
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['js']=array($nuke_url.'/lib/ol/ol.js');
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocation[/english][spanish]Geolocalizaci&oacute;n[/spanish][german]Geolocation[/german][chinese]&#22320;&#29702;&#20301;&#32622;[/chinese]+|$title+";
 $PAGES['modules.php?ModPath='.$ModPath.'&ModStart=geoloc*']['run']="yes";
