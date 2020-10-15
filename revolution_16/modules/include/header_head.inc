@@ -3,7 +3,7 @@
 /* NPDS DUNE : Net Portal Dynamic System .                              */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -39,10 +39,12 @@ if(defined('CITRON')){
    tarteaucitron.init({
        "privacyUrl": "", /* Privacy policy url */
        "hashtag": "#tarteaucitron", /* Ouverture automatique du panel avec le hashtag */
-       "cookieName": "tartaucitron", /* Cookie name */
+       "cookieName": "tarteaucitron", /* Cookie name */
        "orientation": "top", /* le bandeau doit être en haut (top) ou en bas (bottom) ? */
        "showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
        "cookieslist": true, /* Afficher la liste des cookies installés ? */
+       "showIcon": false, /* Show cookie icon to manage cookies */
+       "iconPosition": "BottomRight", /* BottomRight, BottomLeft, TopRight and TopLeft */
        "adblocker": false, /* Afficher un message si un adblocker est détecté */
        "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
        "highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
@@ -51,8 +53,8 @@ if(defined('CITRON')){
        "moreInfoLink": true, /* Show more info link */
        "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
        "cookieDomain": "", /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
-       "readmoreLink": "static.php?op=politiqueconf.html&npds=1&metalang=1" /* Change the default readmore link */
-
+       "readmoreLink": "static.php?op=politiqueconf.html&npds=1&metalang=1", /* Change the default readmore link */
+       "mandatory": true, /* Show a message about mandatory cookies */
    });
    //]]
 </script>'; //RGPD tool
