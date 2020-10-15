@@ -1,23 +1,37 @@
-changelog-rev16.2  [ révision : 41 - jpb /31-7-2020 ]
-(non exhaustif...)  
-
-- Corrections suite au retour dans forums et tests  
+changelog-rev16.2 [ révision : 42 - jpb /11-10-2020 ]
+(non exhaustif...)
+pour des informations complètes et détaillées visitez : https://github.com/npds/npds_dune/compare/v16.1...master
 
 - Evolutions
+   - full utf8 support (utf8mb4)
    - passage du core en français
    - consolidation support IP V4 V6
    - file and pic manager skinable
+   - emojipopover (utilisation des emoji dans forums, chat, comment and more)
+   - mysqli par defaut dans config.php
+
+- Corrections et améliorations : suite au retour dans forums et tests (ou pas)
+   - iconographie : correction classes suite maj fontawesome 5
+   - geoloc : meilleur support fullscreen
+   - support IPV6 : consolidation implémentation ipban, chat
+   - notice php : filemanager, header.php, banner.php
+   - edito : date trop ancienne ...
+   - upload admin image oubliée ...
+   - responsive image dans impression des articles des sections
+   - carnet.php mise en page ...
+   - RGPD consolidation dans critique
+
 
 - Mises à jour des libs externes :
    - bootstrap 4.5 + skins
    - tinymce 5.4
 
-
-changelog-rev16.1  [ révision : 40 - jpb /14-5-2020 ]
+changelog-rev16.1 [ révision : 40 - jpb /14-5-2020 ]
 (non exhaustif...)
+pour des informations complètes et détaillées visitez : https://github.com/npds/npds_dune/compare/v16.0...master
 
 - Corrections suite au retour dans forums et tests
-   - dysfonctionnement  de la mise à jour des résaux sociaux en admin
+   - dysfonctionnement  de la mise à jour des réseaux sociaux en admin
    - dysfonctionnement  de la mise à jour des groupes en admin
    - boutons non fonctionnels dans l'édition des fichiers de configuration en admin
    - type de valeur incompatible avec mysql > 5 dans newsletter en admin
@@ -32,7 +46,7 @@ changelog-rev16.1  [ révision : 40 - jpb /14-5-2020 ]
    - interface admin pour configuration upload
    - ajout d'extension de  types de fichier
    - bannissement de plage d'adresse ip en V4 (dans ipban) admin ...
-   - RGPD ajout fichier politique confidentailité  liens  et case à cocher d'acceptation dans formulaires ...
+   - RGPD ajout fichier politique confidentialité  liens  et case à cocher d'acceptation dans formulaires ...
    - revisite du process de choix et de contrôle des avatar perso
    - augmentation de la longueur des champs url du module link dans les formulaires et dans la base 
 
@@ -64,7 +78,7 @@ Implémentations majeures impactant sur tout le portail :
    (soutien et remplacement de l'iconographie du cms) #requis
 - abandon de la librairie toggle-div (désimplémentation)
 - responsive design
-   réécriture de presque TOUS les fichiers du portail (suppression des mise en pages tabulaires) et implémentation de classes (pour grilles/grid) ces classes sont celles de bootstrap4 MAIS elle peuvent très bien se comporter comme des classes génériques à clôner ou modifier en cas de changement de framework..) 
+   réécriture de presque TOUS les fichiers du portail (suppression des mise en pages tabulaires) et implémentation de classes (pour grilles/grid) ces classes sont celles de bootstrap4 MAIS elle peuvent très bien se comporter comme des classes génériques à cloner ou modifier en cas de changement de framework..) 
  
 ## ==> ADMINISTRATION
 
@@ -72,10 +86,10 @@ Implémentations majeures impactant sur tout le portail :
    tous les fichiers (script et langue) sont en utf-8 : la sortie des fichiers langues est donc en utf-8 transformé si nécessaire en entités html
 - nouveaux système de droits appliqué au fonctions
    stockage des fonctions et des droits dans 2 nouvelles tables de la bd
-   abandon du mecanisme géré par extend-modules.txt 
+   abandon du mécanisme géré par extend-modules.txt 
    administration des modules recentralisé pour profiter de la puissance du nouveau système de droits aux fonctions 
       modification des entêtes des fichiers admin des modules (inclusion de la fonction qui gère les droits)
-      modification des fichiers install_conf des modules avec install auto et admin qui doivent envoyer une requete d'identification à la table fonctions
+      modification des fichiers install_conf des modules avec install auto et admin qui doivent envoyer une requête d'identification à la table fonctions
 - système d'alerte/notification de tache d'administration :
    centralisé et disponible dans le bloc admin
 - contrôle des serveurs mails :
@@ -91,13 +105,13 @@ Corrections :
 - lib mysql
    # ajout des fonctions clones de (mysql || mysqli_select_db)
 
-- bug (Rev13) état de l'icone témoin de connection ne fonctionnait pas dans les blocs groupes
+- bug (Rev13) état de l'icône témoin de connection ne fonctionnait pas dans les blocs groupes
 - bug (Rev13)  headlines  (la lib feed creator avait changé mais pas la construction du bloc headline) 
   lib/feedcreator.class.php (corrections conformité dans la lib ATOM) 
  dans backend.php 
  dans admin/headlines.php (remove la suppression des espace avant entrée dans bd) 
  dans mainfile.php (fonction headline) 
- rajout de la possibilité d'avoir un titre de bloc human readable ...) par la modif du système de création de nom des fichier.cache qui était basée sur un nom compatible de fichier (...sans espace) 
+ rajout de la possibilité d'avoir un titre de bloc human readable ...) par la modification du système de création de nom des fichier.cache qui était basée sur un nom compatible de fichier (...sans espace) 
 
 
 Evolutions 
@@ -160,7 +174,7 @@ si l'utilisateur choisit un skin dans header.php on remodifie le(s) lien(s) CSS 
 
 - Support compatibilité MYSQL 5.7 +
    modification de certaine valeur par default dans la bd
-   modification dans les fichiers de requetes où le type de valeur ne correspond pas à celui attendu dans la base ... 
+   modification dans les fichiers de requêtes où le type de valeur ne correspond pas à celui attendu dans la base ... 
    typage precis des entrées dans la bd en fonctions des types définis dans la bd : (on manque encore de test ...)
 
 - Support IPV6
