@@ -481,6 +481,7 @@ function print_form($bg) {
                   }
                   $str.='name="'.$this->form_fields[$i]['name'].'" value="'.$key.'"';
                   $str.=($val['checked'])? ' checked="checked" />&nbsp;' : ' />&nbsp;';
+                  
                   $str.=$val['en'].'&nbsp;&nbsp;';
                }
                if ($num_extender!='no')

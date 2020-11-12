@@ -54,13 +54,13 @@ include("functions.php");
    echo "
       <body id=\"chat\" onload=\"setCookie('chat_info_$id', '1', '');\" onUnload=\"deleteCookie('chat_info_$id');\">";
    echo '
-   <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-   <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-   <link rel="stylesheet" href="lib/font-awesome/css/all.min.css">
-   <form name="coolsus" action="chatinput.php" method="post">
-      <input type="hidden" name="op" value="set" />
-      <input type="hidden" name="id" value="'.$id.'" />
-      <input type="hidden" name="auto" value="'.$auto.'" />';
+         <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+         <link rel="stylesheet" href="lib/font-awesome/css/all.min.css">
+         <form name="coolsus" action="chatinput.php" method="post">
+         <input type="hidden" name="op" value="set" />
+         <input type="hidden" name="id" value="'.$id.'" />
+         <input type="hidden" name="auto" value="'.$auto.'" />';
 
    if (!isset($cookie[1]))
       $pseudo = ((isset($name))?($name):urldecode(getip()));
@@ -70,12 +70,15 @@ include("functions.php");
 
    echo translate("Vous êtes connecté en tant que :").' <strong>'.$pseudo.'</strong>&nbsp;';
    echo '
-            <input type="hidden" name="name" value="'.$pseudo.'" />
-            <textarea id="chatarea" class="form-control my-3" type="text" rows="2" '.$xJava.' placeholder=""></textarea>';
-   putitems("chatarea");
+         <input type="hidden" name="name" value="'.$pseudo.'" />
+         <textarea id="chatarea" class="form-control my-3" type="text" rows="2" '.$xJava.' placeholder=""></textarea>
+         <div class="float-right">';
+         putitems("chatarea");
    echo '
-            <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate("Valider").'" />
+         </div>
+         <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate("Valider").'" />
          </form>
+         <script src="lib/js/npds_adapt.js"></script>
          <script type="text/javascript">
          //<![CDATA[
             document.coolsus.message.focus();
