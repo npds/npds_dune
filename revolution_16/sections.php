@@ -108,7 +108,7 @@ function listsections($rubric) {
                            $nouveau='';
                         $aff2.='<a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a><span class="float-right"><small>'.translate("lu : ").' '.$counter.' '.translate("Fois").'</small>';
                         if ($nouveau=='') {
-                           $aff2.='<i class="fa fa-star-o ml-3 text-success"></i>';
+                           $aff2.='<i class="far fa-star ml-3 text-success"></i>';
                            $aff1 = str_replace('#NEW#','<span class="mr-2 badge badge-success animated faa-flash">N</span>',$aff1);
                            $aff = str_replace('#NEW#','<span class="mr-2 badge badge-success animated faa-flash">N</span>',$aff);
                         }
