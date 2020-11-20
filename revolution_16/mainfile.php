@@ -2329,7 +2329,7 @@ function changetoamp($r) { return str_replace('&','&amp;',$r[0]);}//must work fr
 #autodoc mainblock() : Bloc principal <br />=> syntaxe : function#mainblock
 function mainblock() {
    global $NPDS_Prefix;
-   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."mainblock");
+   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=1");
    list($title, $content) = sql_fetch_row($result);
    global $block_title;
    if ($title=='') $title=$block_title;
@@ -2360,7 +2360,7 @@ function adminblock() {
          </a>';
    }
    
-   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");
+   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2);
    list($title, $content) = sql_fetch_row($result);
    global $block_title;
    if ($title=='') $title=$block_title;
