@@ -28,7 +28,7 @@ function ablock() {
    echo '
       <hr />
       <h3>'.adm_translate("Editer le Bloc Administration").'</h3>';
-   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."adminblock");
+   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2");
    if (sql_num_rows($result) > 0) {
       while (list($title, $content) = sql_fetch_row($result)) {
          echo '
@@ -66,7 +66,7 @@ function changeablock($title, $content) {
    global $NPDS_Prefix;
    $title = stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
-   sql_query("UPDATE ".$NPDS_Prefix."adminblock SET title='$title', content='$content'");
+   sql_query("UPDATE ".$NPDS_Prefix."block SET title='$title', content='$content' WHERE id=2");
    global $aid; Ecr_Log('security', "ChangeAdminBlock() by AID : $aid", '');
    Header("Location: admin.php?op=adminMain");
 }
