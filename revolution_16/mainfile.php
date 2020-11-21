@@ -2360,7 +2360,7 @@ function adminblock() {
          </a>';
    }
    
-   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2);
+   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2");
    list($title, $content) = sql_fetch_row($result);
    global $block_title;
    if ($title=='') $title=$block_title;
