@@ -1724,14 +1724,14 @@ function aff_langue($ibid) {
    }
    return ($ibid);
 }
+
 #autodoc make_tab_langue() : Charge le tableau TAB_LANGUE qui est utilisé par les fonctions multi-langue
 function make_tab_langue() {
    global $language, $languageslist;
-   $languageslocal=$language.' '.str_replace($language,'',$languageslist);
-   $languageslocal=trim(str_replace('  ',' ',$languageslocal));
-   $tab_langue=explode(' ',$languageslocal);
-   return ($tab_langue);
+
+   return explode(' ', $language.' '.str_replace($language.' ', '', rtrim($languageslist)));
 }
+
 #autodoc aff_localzone_langue($ibid) : Charge une zone de formulaire de selection de la langue
 function aff_localzone_langue($ibid) {
    global $tab_langue;
