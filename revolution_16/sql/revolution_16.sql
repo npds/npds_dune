@@ -10,7 +10,7 @@ INSERT INTO access (access_id, access_title) VALUES(2, 'Moderator');
 INSERT INTO access (access_id, access_title) VALUES(3, 'Super Moderator');
 
 CREATE TABLE block (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id tinyint(3) NOT NULL AUTO_INCREMENT,
   title varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   content text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (id)
