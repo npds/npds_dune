@@ -250,10 +250,7 @@ function viewlink($cid, $min, $orderby, $show) {
       </ul>';
       if ($numrows != 0)
          echo $affsouscat;
-
       $orderbyTrans = convertorderbytrans($orderby);
-         $perpage=3;//debug  ####################  
-
       settype($min,"integer");
       settype($perpage,"integer");
       $result=sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE cid='$cid' AND sid=0 ORDER BY $orderby LIMIT $min,$perpage");
