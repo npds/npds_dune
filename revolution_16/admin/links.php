@@ -859,7 +859,7 @@ function LinksModCat($cat) {
             <input type="hidden" name="cid" value="'.$cat[0].'">
             <input type="hidden" name="op" value="LinksModCatS">
             <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <button href="admin.php?op=LinksDelCat&amp;sub=0&amp;cid='.$cat[0].'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <a href="admin.php?op=LinksDelCat&amp;sub=0&amp;cid='.$cat[0].'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
          </div>
       </div>
    </form>';
