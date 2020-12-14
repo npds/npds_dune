@@ -35,7 +35,7 @@ function dochead($a,$b) {
    </head>
    <body class="my-3 mx-3">
       <h1 class="mb-3">Documentation des fonctions NPDS</h1>
-      <p class="h4 my-3"><i class="mr-1 fa fa-file-o"></i>'.$a.' '.$b.' <span class="text-muted">[ Documentation ]</span></p>';
+      <p class="h4 my-3"><i class="mr-1 far fa-file-alt"></i>'.$a.' '.$b.' <span class="text-muted">[ Documentation ]</span></p>';
    }
 }
 
