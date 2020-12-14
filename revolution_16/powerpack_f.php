@@ -126,14 +126,13 @@ function if_chat($pour) {
 #autodoc insertChat($username, $message, $dbname, $id) : Ins&egrave;re un record dans la table Chat / on utilise id pour filtrer les messages - id = l'id du groupe
 function insertChat($username, $message, $dbname,$id) {
    global $NPDS_Prefix;
-
    if ($message!='') {
       $username = removeHack(stripslashes(FixQuotes(strip_tags(trim($username)))));
       $message =  removeHack(stripslashes(FixQuotes(strip_tags(trim($message)))));
       $ip = getip();
       settype($id, 'integer');
       settype($dbname, 'integer');
-      $result = sql_query("INSERT INTO ".$NPDS_Prefix."chatbox VALUES ('".$username."', '".urldecode($ip)."', '".$message."', '".time()."', '$id', ".$dbname.")");
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."chatbox VALUES ('".$username."', '".$ip."', '".$message."', '".time()."', '$id', ".$dbname.")");
    }
 }
 
