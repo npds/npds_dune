@@ -30,62 +30,57 @@ function localiser_ip($iptoshow) {
       </div>
       <script type="module">
       //<![CDATA[
-         $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
+         if (typeof ol=="undefined")
+            $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
          $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
          $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'modules/geoloc/include/css/geoloc_locip.css\' type=\'text/css\' media=\'screen\'>");
-      // Pour svg
-      function pointStyleFunction(feature, resolution) {
-        return  new ol.style.Style({
-          image: new ol.style.Circle({
-            radius: 30,
-            fill: new ol.style.Fill({color: "rgba(255, 0, 0, 0.1)"}),
-            stroke: new ol.style.Stroke({color: "red", width: 1})
-          })
-        });
-      }
-
-      var ipPoint = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].'])),
-        name: "IP"
-      });
-       var iconStyle = new ol.style.Style({
-        image: new ol.style.Icon(({
-          src: "'.$ch_img.'ip_loc.svg",
-          size:[100,100]
-        }))
-      });
-
-      var vectorSource = new ol.source.Vector({
-        features: [ipPoint]
-      });
-      var vectorLayer = new ol.layer.Vector({
-        source: vectorSource,
-        style: pointStyleFunction
-      });
-
-      var Controls = new ol.control.defaults;
-
-      var map = new ol.Map({
-         controls: Controls.extend([
-            new ol.control.FullScreen()
-         ]),
-        target: "map_ip",
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          }),
-          vectorLayer
-        ],
-        view: new ol.View({
-          center: ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].']),
-          zoom: 12
-        })
-      });
-      $(function(){
-        $("#map_ip .ol-zoom-in, #map_ip .ol-zoom-out").tooltip({placement: "right", container: "#map_ip",});
-        $("#map_ip .ol-full-screen-false, #map_ip .ol-rotate-reset, #map_ip .ol-attribution button[title]").tooltip({placement: "left", container: "#map_ip",});
-      });
-
+         function pointStyleFunction(feature, resolution) {
+           return  new ol.style.Style({
+             image: new ol.style.Circle({
+               radius: 30,
+               fill: new ol.style.Fill({color: "rgba(255, 0, 0, 0.1)"}),
+               stroke: new ol.style.Stroke({color: "red", width: 1})
+             })
+           });
+         }
+         var ipPoint = new ol.Feature({
+           geometry: new ol.geom.Point(ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].'])),
+           name: "IP"
+         });
+          var iconStyle = new ol.style.Style({
+           image: new ol.style.Icon(({
+             src: "'.$ch_img.'ip_loc.svg",
+             size:[100,100]
+           }))
+         });
+         var vectorSource = new ol.source.Vector({
+           features: [ipPoint]
+         });
+         var vectorLayer = new ol.layer.Vector({
+           source: vectorSource,
+           style: pointStyleFunction
+         });
+         var Controls = new ol.control.defaults;
+         var map = new ol.Map({
+            controls: Controls.extend([
+               new ol.control.FullScreen()
+            ]),
+           target: "map_ip",
+           layers: [
+             new ol.layer.Tile({
+               source: new ol.source.OSM()
+             }),
+             vectorLayer
+           ],
+           view: new ol.View({
+             center: ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].']),
+             zoom: 12
+           })
+         });
+         $(function(){
+           $("#map_ip .ol-zoom-in, #map_ip .ol-zoom-out").tooltip({placement: "right", container: "#map_ip",});
+           $("#map_ip .ol-full-screen-false, #map_ip .ol-rotate-reset, #map_ip .ol-attribution button[title]").tooltip({placement: "left", container: "#map_ip",});
+         });
       //]]>
       </script>';
       }

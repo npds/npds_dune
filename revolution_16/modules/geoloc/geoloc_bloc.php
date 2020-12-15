@@ -40,12 +40,13 @@ switch ($cartyp_b) {
 }
  
 $content .='
-<div class="mb-2" id="map_bloc_ol" tabindex="200" style=" min-height:'.$h_b.'px;"></div>
+<div class="mb-2" id="map_bloc_ol" tabindex="200" style=" min-height:'.$h_b.'px;" lang="'.language_iso(1,0,0).'"></div>
 <script type="text/javascript">
 //<![CDATA[
-      $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_bloc.css\' type=\'text/css\' media=\'screen\'>");
+      if (typeof ol=="undefined")
+         $("head").append($("<script />").attr({"type":"text/javascript","src":"/lib/ol/ol.js"}));
 
       var georefUser_icon = new ol.style.Style({
          image: new ol.style.Icon({
@@ -87,10 +88,12 @@ $content .='
       }
       window.addEventListener("resize", checkSize);
       checkSize();
+
       $(function(){
          $("#map_bloc_ol .ol-zoom-in, #map_bloc_ol .ol-zoom-out").tooltip({placement: "right", container: "#map_bloc_ol",});
          $("#map_bloc_ol .ol-full-screen-false, #map_bloc_ol .ol-rotate-reset, #map_bloc_ol .ol-attribution button[title]").tooltip({placement: "left", container: "#map_bloc_ol",});
       });
+
 //]]>
 </script>';
 
