@@ -1,4 +1,4 @@
-changelog-rev16.2 [ révision : 42 - jpb /11-10-2020 ]
+changelog-rev16.2 [ révision : 43 - jpb /16-12-2020 ]
 (non exhaustif...)
 pour des informations complètes et détaillées visitez : https://github.com/npds/npds_dune/compare/v16.1...master
 
@@ -20,11 +20,15 @@ pour des informations complètes et détaillées visitez : https://github.com/np
    - responsive image dans impression des articles des sections
    - carnet.php mise en page ...
    - RGPD consolidation dans critique
+   - fusion des champs mainblock et adminblock dans la base
 
 
 - Mises à jour des libs externes :
    - bootstrap 4.5 + skins
    - tinymce 5.4
+   - openlayers 6.4.3
+   - tarteaucitron 1.8.1
+
 
 changelog-rev16.1 [ révision : 40 - jpb /14-5-2020 ]
 (non exhaustif...)
