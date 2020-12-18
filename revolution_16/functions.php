@@ -761,7 +761,7 @@ function forum($rowQ1) {
                               <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start">
                                  <span class="d-flex w-100 mt-1">';
                      if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)
-                        $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("Aucune nouvelle contribution depuis votre dernière visite.").'" data-toggle="tooltip" data-placement="right"></i>';
+                        $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("Les nouvelles contributions depuis votre dernière visite.").'" data-toggle="tooltip" data-placement="right"></i>';
                      else
                         $ibid.='<i class="far fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("Aucune nouvelle contribution depuis votre dernière visite.").'" data-toggle="tooltip" data-placement="right"></i>';
                      $name = stripslashes($myrow['forum_name']);
