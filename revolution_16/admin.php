@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -34,9 +34,8 @@ function admindroits($aid,$f_meta_nom) {
 function adminhead($f_meta_nom, $f_titre, $adminimg) {
    global $admf_ext, $NPDS_Prefix, $f_meta_nom, $ModPath, $adm_img_mod;
    list($furlscript, $ficone)=sql_fetch_row(sql_query("SELECT furlscript, ficone FROM ".$NPDS_Prefix."fonctions WHERE fnom='$f_meta_nom'"));
-   if (file_exists($adminimg.$ficone.'.'.$admf_ext)) {
+   if (file_exists($adminimg.$ficone.'.'.$admf_ext))
       $img_adm ='<img src="'.$adminimg.$ficone.'.'.$admf_ext.'" class="vam " alt="'.$f_titre.'" />';
-   } 
    elseif (stristr($_SERVER['QUERY_STRING'],"Extend-Admin-SubModule")||$adm_img_mod==1) {
       if (file_exists('modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext)) {
          $img_adm ='<img src="modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext.'" class="vam" alt="'.$f_titre.'" />';
@@ -170,7 +169,6 @@ $ibid = explode('|',$v);
 /*   if ($mess) {
       settype($mes_x, 'array');
       $fico ='';
-      
       for ($i=0;$i<count($mess);$i++) {
          $ibid = explode('|',$mess[$i]);
          $mes_x[$i]=$ibid;
@@ -218,23 +216,21 @@ $ibid = explode('|',$v);
    if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."', fretour_h='".adm_translate("Liens rompus à valider.")."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
-   //==> Pour les modules
-   // voir les modules installés sur le nom
-   // le module est installé et a une alerte
-/*
-    $alert_modules=sql_query("SELECT * FROM fonctions f LEFT JOIN modules m ON m.mnom = f.fnom WHERE m.minstall=1");// and fcategorie=9
+   //==> Pour les modules installés produisant des notifications
+   $alert_modules=sql_query("SELECT * FROM fonctions f LEFT JOIN modules m ON m.mnom = f.fnom WHERE m.minstall=1 AND fcategorie=9"); 
    if($alert_modules) {
-      while($am=sql_fetch_row($alert_modules)) {
-      var_dump($am);
-      $ibid=
-      
+      while($am=sql_fetch_array($alert_modules)) {
+         include("modules/".$am['fnom']."/admin/adm_alertes.php");
+         foreach($reqalerte as $v){
+            $ibid = sql_num_rows(sql_query($v));
+            if($ibid)
+               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$ibid."', fretour_h='' WHERE fid=".$am['fid'].""); 
+            else
+               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid=".$am['fid']."");
+         }
       }
    }
-*/
-   //
-   // voir si il ont des alertes
-   // traiter
-   //<== Pour les modules
+   //<== Pour les modules installés produisant des notifications
 
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
@@ -250,8 +246,11 @@ $ibid = explode('|',$v);
       $cat[]=$SAQ['fcategorie'];
       $cat_n[]=$SAQ['fcategorie_nom'];
       $fid_ar[]=$SAQ['fid'];
-      if ($SAQ['fcategorie'] == 6) {
-         if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext)) $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext; else $adminico=$adminimg.'module.'.$admf_ext;
+      if ($SAQ['fcategorie'] == 6 or ($SAQ['fcategorie'] == 9 and strstr($SAQ['furlscript'],"op=Extend-Admin-SubModule"))) {
+         if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['ficone'].'.'.$admf_ext)) 
+            $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['ficone'].'.'.$admf_ext;
+         else
+            $adminico=$adminimg.'module.'.$admf_ext;
       } else
          $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
       if ($SAQ['fcategorie'] == 9) {
@@ -264,17 +263,17 @@ $ibid = explode('|',$v);
       } 
       else {
          $ul_o = '
-         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
+         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate(utf8_encode($SAQ['fcategorie_nom'])).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="'.adm_translate($SAQ['fnom_affich']).'"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
+            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
          if ($admingraphic==1)
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
          else {
             if ($SAQ['fcategorie'] == 6)
                $li_c .= $SAQ['fnom_affich'];
             else
-               $li_c .= adm_translate($SAQ['fnom_affich']);
+               $li_c .= adm_translate(utf8_encode($SAQ['fnom_affich']));
          }
          $li_c .='</a></li>';
          $ul_f='';
