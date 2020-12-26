@@ -129,22 +129,13 @@ function get_moderator($user_id) {
    $user_id=str_replace(",","' or uid='",$user_id);
    if ($user_id == 0)
       return("None");
-
    $rowQ1=Q_Select("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid='$user_id'", 3600);
-//   $myrow['uname']="";
-
    $modslist='';
    foreach($rowQ1 as $modnames) {
       foreach($modnames as $modname) {
          $modslist.= $modname.' ';
       }
    }
-/*
-   while(list(,$uname) = each($rowQ1)) {
-      $myrow['uname'].=$uname['uname']." ";
-   }
-   return(chop($myrow['uname']));
-*/
    return(chop($modslist));
 }
 
@@ -901,11 +892,10 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
       if ($total < 7 + ($adj * 2)) {
          $pagination .= ($current == 1) ? '<li class="page-item active"><a class="page-link" href="#">1</a></li>' : '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'">1</a></li>';
          for ($i=2; $i<=$total; $i++) {
-            if ($i == $current) {
+            if ($i == $current)
                $pagination .= '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-            } else {
+            else
                $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>';
-            }
          }
       }
       //  CAS 2 : au moins 13 pages -> troncature
@@ -1006,13 +996,12 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
          $pagination .= ($current == 0) ? '
             <li class="page-item active"><a class="page-link" href="#">1</a></li>' : '<li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'">1</a></li>';
          for ($i=2; $i<=$total; $i++) {
-            if ($i == $current+1) {
+            if ($i == $current+1)
                $pagination .= '
             <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-            } else {
+            else
                $pagination .= '
             <li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
-            }
          }
       }
       //  CAS 2 : au moins 13 pages -> troncature
