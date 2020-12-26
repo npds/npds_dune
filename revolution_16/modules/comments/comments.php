@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -96,7 +96,7 @@ function Caff_pub($topic, $file_name, $archive) {
    }
    if ($Mmod) $post_aff=' '; else $post_aff=" AND post_aff='1' ";
    $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id = '$topic'".$post_aff."ORDER BY post_id LIMIT $C_start, $comments_per_page";
-   if (!$result = sql_query($sql)) forumerror(0001);
+   if (!$result = sql_query($sql)) forumerror('0001');
    $mycount = sql_num_rows($result);
    $myrow = sql_fetch_assoc($result);
    $count = 0;

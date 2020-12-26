@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -167,7 +167,7 @@ settype($term,'string');
    if (isset($username)&&$username!='') {
       $username = removeHack(stripslashes(htmlspecialchars(urldecode($username),ENT_QUOTES,cur_charset))); // electrobug
       if (!$result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$username'"))
-         forumerror(0001);
+         forumerror('0001');
       list($userid) = sql_fetch_row($result);
       if (isset($addquery))
          $addquery.=" AND p.poster_id='$userid' AND u.uname='$username'";

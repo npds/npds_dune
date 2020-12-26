@@ -42,14 +42,14 @@ include('auth.php');
       }
       $resultID = sql_query($sql);
       if (!$resultID)
-         forumerror(0005);
+         forumerror('0005');
       else {
          $myrow = sql_fetch_assoc($resultID);
          if ($myrow['read_msg']!='1') {
             $sql = "UPDATE ".$NPDS_Prefix."priv_msgs SET read_msg='1' WHERE msg_id='".$myrow['msg_id']."'";
             $result = sql_query($sql);
             if (!$result)
-               forumerror(0005);
+               forumerror('0005');
          }
       }
       $myrow['subject']=strip_tags($myrow['subject']);

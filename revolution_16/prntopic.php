@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -68,7 +68,7 @@ if (isset($user)) {
 
 $sql = "SELECT topic_title, topic_status FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topic'";
 if (!$result = sql_query($sql))
-   forumerror(0001);
+   forumerror('0001');
 $myrow = sql_fetch_assoc($result);
 $topic_subject = stripslashes($myrow['topic_title']);
 $lock_state = $myrow['topic_status'];
@@ -116,7 +116,7 @@ $lock_state = $myrow['topic_status'];
    }
    $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' and post_id='$post_id'".$post_aff;
    if (!$result = sql_query($sql))
-      forumerror(0001);
+      forumerror('0001');
    $myrow = sql_fetch_assoc($result);
 
    if ($allow_upload_forum) {

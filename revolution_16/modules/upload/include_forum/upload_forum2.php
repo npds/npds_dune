@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -73,7 +73,7 @@ global $Titlesitename;
    global $NPDS_Prefix;
    $sql = "SELECT forum_moderator FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'";
    if (!$result = sql_query($sql))
-      forumerror(0001);
+      forumerror('0001');
    $myrow = sql_fetch_assoc($result);
    $moderator=get_moderator($myrow['forum_moderator']);
    $moderator=explode(' ',$moderator);
@@ -84,6 +84,7 @@ global $Titlesitename;
 $thanks_msg='';
 //settype($thanks_msg,'string');
 settype($actiontype,'string');
+settype($visible_att, 'array');
 if ($actiontype) {
    switch ($actiontype) {
       case 'delete' : delete($del_att); break;
@@ -101,7 +102,7 @@ include("modules/upload/include/minigf.php");
 function forum_upload() {
    global $apli, $IdPost, $IdForum, $IdTopic, $pcfile, $pcfile_size, $pcfile_name, $pcfile_type, $att_count, $att_size, $total_att_count, $total_att_size;
    global $MAX_FILE_SIZE, $MAX_FILE_SIZE_TOTAL, $mimetypes, $mimetype_default, $upload_table,$rep_upload_forum;// mine......
-   list($sum)=sql_fetch_row(sql_query("SELECT SUM(att_size ) FROM $upload_table WHERE apli = '$apli' && post_id = '$IdPost'"));
+   list($sum)=sql_fetch_row(sql_query("SELECT SUM(att_size ) FROM $upload_table WHERE apli = '$apli' AND post_id = '$IdPost'"));
 
    // gestion du quota de place d'un post
    if (($MAX_FILE_SIZE_TOTAL - $sum)<$MAX_FILE_SIZE)
@@ -138,7 +139,7 @@ function forum_upload() {
          $pcfile_name = $names;
       }
       $pcfile_size = $att_size;
-      $thanks_msg .= '<div class="alert alert-success" role="alert">'.str_replace ('{NAME}', '<strong>'.$pcfile_name.'</strong>', str_replace('{SIZE}', $pcfile_size, upload_translate("Fichier {NAME} bien reçu ({SIZE} octets transférés)"))).'</div>';
+      $thanks_msg .= '<div class="alert alert-success alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.str_replace ('{NAME}', '<strong>'.$pcfile_name.'</strong>', str_replace('{SIZE}', $pcfile_size, upload_translate("Fichier {NAME} bien reçu ({SIZE} octets transférés)"))).'</div>';
       $total_att_count += $att_count;
       $total_att_size += $att_size;
    }
