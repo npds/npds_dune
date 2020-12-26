@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -192,7 +192,7 @@ include('header.php');
             if ($ibid=theme_image("forum/avatar/".$contri['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$contri['user_avatar'];}
          }
       }
-      echo '<img class="img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
+      echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
    }
    echo '
             </div>
@@ -211,7 +211,7 @@ include('header.php');
           if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mr-1 mb-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
    }
    echo '
             </div>
@@ -255,7 +255,7 @@ include('header.php');
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id LIMIT $start, $posts_per_page";
 
    if (!$result = sql_query($sql))
-      forumerror(0001);
+      forumerror('0001');
    $mycount = sql_num_rows($result);
    $myrow = sql_fetch_assoc($result);
    $count = 0;
