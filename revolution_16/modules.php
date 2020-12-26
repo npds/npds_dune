@@ -17,14 +17,13 @@ function Access_Error () {
   include("admin/die.php");
 }
 function filtre_module($strtmp) {
-   if (strstr($strtmp,"..") || stristr($strtmp,"script") || stristr($strtmp,"cookie") || stristr($strtmp,"iframe") || stristr($strtmp,"applet") || stristr($strtmp,"object"))
+   if (strstr($strtmp,'..') || stristr($strtmp,'script') || stristr($strtmp,'cookie') || stristr($strtmp,'iframe') || stristr($strtmp,'applet') || stristr($strtmp,'object'))
       Access_Error();
    else {
-      if ($strtmp!="") {
+      if ($strtmp!='')
          return (true);
-      } else {
+      else
          return (false);
-      }
    }
 }
 if (filtre_module($ModPath) and filtre_module($ModStart)) {
