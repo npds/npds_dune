@@ -321,10 +321,10 @@ while ($row = sql_fetch_array($result)) {
       $ip_visite = $row1['ip_visite'];
 
       if ($ip_lat1 != 0 and $ip_long1 != 0) {
-      if(!strstr($mb_con_g, $ip_ip1)) {
-         $acg++;
-         $ano_o_conn.= 'ano_features.push([['.$ip_long1.','.$ip_lat1.'],"'.$ip_ip1.'","'.$session_host_addr.'","'.$ip_visi_pag.'","'.$ip_visite.'","'.$ip_city1.'","'.$ip_country1.'","'.$ch_img.'flags/'.strtolower($ip_code_country1).'","'.@gethostbyaddr($ip_ip1).'"]);';
-      }
+         if(!strstr($mb_con_g, $ip_ip1)) {
+            $acg++;
+            $ano_o_conn.= 'ano_features.push([['.$ip_long1.','.$ip_lat1.'],"'.$ip_ip1.'","'.$session_host_addr.'","'.$ip_visi_pag.'","'.$ip_visite.'","'.$ip_city1.'","'.$ip_country1.'","'.$ch_img.'flags/'.strtolower($ip_code_country1).'","'.@gethostbyaddr($ip_ip1).'"]);';
+         }
          $ac++;
          //construction marker anonyme on line
       }
@@ -346,6 +346,8 @@ $fond_provider=array(
    ['Road', geoloc_translate("Plan").' (Bing maps)'],
    ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
    ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
+   ['sat-google', geoloc_translate("Satellite").' (Google maps)']
+
 );
 if($api_key_bing=='' and $api_key_mapbox=='') {unset($fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8],$fond_provider[9]);}
 elseif($api_key_bing=='') {unset($fond_provider[7],$fond_provider[8],$fond_provider[9]);}
@@ -381,13 +383,12 @@ $ecr_scr = '
    var ano_markers={};
    var dd = new Date().toISOString().split("T");
 
-   function geoloc_load() {
+   $(function () {
    //==>  affichage des coordonnées à revoir pour réinverser ....
       var mousePositionControl = new ol.control.MousePosition({
         coordinateFormat: new ol.coordinate.createStringXY(4),
         projection: "EPSG:4326",
         className: "custom-mouse-position",
-        target: document.getElementById("mypoint"),
         undefinedHTML: "&nbsp;"
       });
    //<==
@@ -496,58 +497,54 @@ $ecr_scr = '
         });
       }
       var iconUser = new ol.style.Style({
-        text: new ol.style.Text({
-         text: "'.$fafont_js.'",
-         font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
-
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
-          stroke: new ol.style.Stroke({color: "'.$mbg_t_co.'", width: '.$mbg_t_ep.'})
+         text: new ol.style.Text({
+            text: "'.$fafont_js.'",
+            font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+            bottom: "Bottom",
+            fill: new ol.style.Fill({color: "'.$mbg_f_co.'"}),
+            stroke: new ol.style.Stroke({color: "'.$mbg_t_co.'", width: '.$mbg_t_ep.'})
         })
       });
       var iconUserOn = new ol.style.Style({
-        text: new ol.style.Text({
-         text: "'.$fafont_js.'",
-         font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
-
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
-          stroke: new ol.style.Stroke({color: "'.$mbgc_t_co.'", width: '.$mbgc_t_ep.'})
-        })
+         text: new ol.style.Text({
+            text: "'.$fafont_js.'",
+            font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+            bottom: "Bottom",
+            fill: new ol.style.Fill({color: "'.$mbgc_f_co.'"}),
+            stroke: new ol.style.Stroke({color: "'.$mbgc_t_co.'", width: '.$mbgc_t_ep.'})
+         })
       });
       var iconAnoOn = new ol.style.Style({
-        text: new ol.style.Text({
-          text: "'.$fafont_js.'",
-         font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
-
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
-          stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
-        })
+         text: new ol.style.Text({
+            text: "'.$fafont_js.'",
+            font: "900 '.$mbg_sc.'px \'Font Awesome 5 Free\'",
+            bottom: "Bottom",
+            fill: new ol.style.Fill({color: "'.$acg_f_co.'"}),
+            stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
+         })
       });';
    }
    else { // markers images
       $ecr_scr .='
       //==> markers images
       var iconUser = new ol.style.Style({
-        image: new ol.style.Icon({
-          src: "'.$ch_img.$nm_img_mbg.'",
-           imgSize:['.$w_ico_b.','.$h_ico_b.']
-        })
+         image: new ol.style.Icon({
+            src: "'.$ch_img.$nm_img_mbg.'",
+            imgSize:['.$w_ico_b.','.$h_ico_b.']
+         })
       }),
-      iconUserOn = new ol.style.Style({
-        image: new ol.style.Icon({
-          src: "'.$ch_img.$nm_img_mbcg.'",
-           imgSize:['.$w_ico_b.','.$h_ico_b.']
-        })
-      }),
+         iconUserOn = new ol.style.Style({
+            image: new ol.style.Icon({
+               src: "'.$ch_img.$nm_img_mbcg.'",
+               imgSize:['.$w_ico_b.','.$h_ico_b.']
+            })
+         }),
       iconAnoOn = new ol.style.Style({
         image: new ol.style.Icon({
           src: "'.$ch_img.$nm_img_acg.'",
            imgSize:['.$w_ico_b.','.$h_ico_b.']
         })
-      });
-      ';
+      });';
    }
 
    $ecr_scr .='
@@ -600,21 +597,21 @@ $ecr_scr = '
              source: src_ip,
              style: iconIp,
              visible: false
-          })
-         countries = new ol.layer.Vector({
+          }),
+          countries = new ol.layer.Vector({
              id: "countries",
              source: src_countries,
              style: stylecountries,
              visible: false
-          })
-
-          ;';
+          });';
 
 $source_fond=''; $max_r=''; $min_r='';$layer_id='';
 switch ($cartyp) {
-   case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
-      $source_fond='';
-      $layer_id='';
+   case 'sat-google':
+      $source_fond=' new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"})';
+      $max_r='40000';
+      $min_r='0';
+      $layer_id= $cartyp;
    break;
    case 'Road': case 'Aerial': case 'AerialWithLabels':
       $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
@@ -632,12 +629,6 @@ switch ($cartyp) {
       $source_fond='new ol.source.Stamen({layer:"'.$cartyp.'"})';
       $max_r='40000';
       $min_r='0';
-      $layer_id= $cartyp;
-   break;
-   case 'sat':
-      $source_fond='';
-      $max_r='';
-      $min_r='';
       $layer_id= $cartyp;
    break;
    case 'modisterra':
@@ -715,22 +706,23 @@ switch ($cartyp) {
             center: ol.proj.fromLonLat([13, 46]),
             zoom: 5,
             minZoom:2
-         });
+          }),
+          fullscreen = new ol.control.FullScreen({source: "map-wrapper"});
 
       var map = new ol.Map({
          interactions: new ol.interaction.defaults({
             constrainResolution: true, onFocusOnly: true
          }),
-         controls: new ol.control.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen(), mousePositionControl, new ol.control.ScaleLine]),
+         controls: new ol.control.defaults({attribution: false}).extend([attribution,fullscreen, mousePositionControl, new ol.control.ScaleLine]),
          target: document.getElementById("map"),
          layers: [
             fond_carte,
+            countries,
             user_markers,
             userOn_markers,
             ano_markers,
             ip_markers,
             ip_cluster,
-            countries
          ],
          view: view
       });
@@ -741,9 +733,19 @@ switch ($cartyp) {
       var graticule = new ol.layer.Graticule();
 
       var button = document.createElement("button");
-      button.innerHTML = "&#xf0d7";
+      button.innerHTML = "&#xf0d8";
+      button.setAttribute("title", "Masquer")
       var sidebarSwitch = function(e) {
-         if($("#sidebar").hasClass("show")) {$("#sidebar").collapse("toggle")} else{$("#sidebar").collapse("show")}
+         if($("#sidebar").hasClass("show")) {
+            $("#sidebar").collapse("toggle");
+            button.innerHTML = "&#xf0d7";
+            button.setAttribute("data-original-title", "Voir")
+         }
+         else {
+            $("#sidebar").collapse("show");
+            button.innerHTML = "&#xf0d8";
+            button.setAttribute("data-original-title", "Masquer")
+         }
       };
       button.addEventListener("click", sidebarSwitch, true);
       var element = document.createElement("div");
@@ -754,7 +756,6 @@ switch ($cartyp) {
       });
       map.addControl(sidebarControl);
 
-////////
 
       var select = null; // ref to currently selected interaction
       // select interaction working on "singleclick"
@@ -772,10 +773,6 @@ switch ($cartyp) {
           return ol.events.condition.click(mapBrowserEvent) && ol.events.condition.altKeyOnly(mapBrowserEvent);
         }
       });
-
-/////
-
-////          map.addInteraction(selectPointerMove);
 
 /* source: http://github.com/eneko/Array.sortBy */
    (function(){
@@ -995,10 +992,6 @@ else
          map.getView().setZoom(17);
       }
 
-      $(\'a[data-toggle="collapse"]\').click(function () {
-         $(this).find("i.toggle-icon").toggleClass(\'fa-caret-down fa-caret-up\',6000);
-      });
-
       $("#georefbox").change("click", function () {
          if(this.checked) {
             $("#memberbox, #cbox, #acbox, #ipbox").prop("checked", false);
@@ -1080,11 +1073,7 @@ else
          }
       });
       $("#coastandborder").change("click", function () {
-         if(this.checked) {
-            countries.setVisible(true);
-         } else {
-            countries.setVisible(false);
-         }
+         this.checked ? countries.setVisible(true) : countries.setVisible(false);
       });
    });
 
@@ -1097,8 +1086,9 @@ else
             map.getLayers().array_[0].setProperties({"id":cartyp});
             fond_carte.setMinResolution(1);
          break;
-         case "ROADMAP":case "SATELLITE":case "TERRAIN":case "HYBRID":
-            //map_c.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+         case "sat-google":
+            fond_carte.setSource(new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"}));
+            map.getLayers().array_[0].setProperties({"id":cartyp});
          break;
          case "Road":case "Aerial":case "AerialWithLabels":
             fond_carte.setSource(new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: cartyp }));
@@ -1121,9 +1111,7 @@ else
             $("#dayslider").addClass("show");
             var datejour="'.$date_jour.'";
             var today = new Date();
-//            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/'.$date_jour.'/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
             fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
-
             $("#nasaday").on("input change", function(event) {
                var newDay = new Date(today.getTime());
                newDay.setUTCDate(today.getUTCDate() + Number.parseInt(event.target.value));
@@ -1168,11 +1156,11 @@ else
       var popup = new ol.Overlay({element: document.getElementById("georefpopup")});
       map.addOverlay(popup);
       map.on("click", function(evt) {
-         var element = popup.getElement();
-         var coordinate = evt.coordinate;
-         var lat = coordinate[1];
-         var lng = coordinate[0];
-         var hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
+         var element = popup.getElement(),
+             coordinate = evt.coordinate,
+             lat = coordinate[1],
+             lng = coordinate[0],
+             hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
 
          $(element).popover("hide");
          popup.setPosition(coordinate);
@@ -1266,15 +1254,13 @@ $ecr_scr .= $mb_con_g;
 
 //<==
 $ecr_scr .= '
-   document.getElementById("mess_info").innerHTML = \''.$mess_adm.'\';
-';
+   document.getElementById("mess_info").innerHTML = \''.$mess_adm.'\';';
 
 if($op)
    if ($op[0]=='u') //pour zoom sur user back with u1
       $ecr_scr .= '
    map.getView().setCenter(src_user.idIndex_.'.$op.'.values_.geometry.flatCoordinates);
    map.getView().setZoom(15);';
-
 if($op=='allip' and $geo_ip==1)
    $ecr_scr .= '
    ip_cluster.setVisible(true);
@@ -1282,8 +1268,7 @@ if($op=='allip' and $geo_ip==1)
    ano_markers.setVisible(false);
    userOn_markers.setVisible(false);
    $("#acbox, #cbox, #memberbox").prop("checked", false);
-   $("#ipbox").prop("checked", "checked");
-   ';
+   $("#ipbox").prop("checked", "checked");';
 
 $ecr_scr .= '
 
@@ -1371,50 +1356,89 @@ $ecr_scr .= '
    // <== classe de conversion unit
 
    var co_unit="'.$co_unit.'";
-   /*
-   google.maps.event.addListener(map, "mousemove", function(point){
-      afflatlon = point.latLng.toUrlValue(6);
-      var lalo = afflatlon.split(",");
-      var coords = new Coordinates();
-      coords.setLatitude (lalo[0]);
-      coords.setLongitude (lalo[1]);
-      if (co_unit=="dms") {
-         DMS_Lat = coords.latitude.getDegrees() + "&#xB0;" + coords.latitude.getMinutes() + \'\\\'\' + Math.round(coords.latitude.getSecondsDecimal()) + "&quot; " + coords.latitude.getDirection();
-         DMS_Lng = coords.longitude.getDegrees() + "&#xB0;" + coords.longitude.getMinutes() + \'\\\'\' + Math.round(coords.longitude.getSecondsDecimal()) + "&quot; " + coords.longitude.getDirection();
-      }
-      else {
-         DMS_Lat=lalo[0];
-         DMS_Lng=lalo[1];
-      }
-      document.getElementById("mypoint").innerHTML = DMS_Lat+ " | "+ DMS_Lng;
-   });
-
-   var geocoder = new google.maps.Geocoder();
-   document.getElementById("geocode_submit").addEventListener("click", function() {
-      geocodeAddress(geocoder, map);
-   });
-
-   */
 
    function checkSize() {
       var small = map.getSize()[0] < 600;
       attribution.setCollapsible(small);
       attribution.setCollapsed(small);
-      if ($(".n-media-repere").css("color") == "rgb(255, 0, 0)" ){
-         $("#sidebar").removeClass("show");
-      } else {
-//         $("#sidebar").addClass("show");
-      }
+      $(".n-media-repere").css("color") == "rgb(255, 0, 0)" ? $("#sidebar").removeClass("show") : $("#sidebar").addClass("show");
    }
    window.addEventListener("resize", checkSize);
-   checkSize();
+//   checkSize();
    $(\'[data-toggle="tooltip"]\').tooltip({container:\'body\'});
 
+   const dic = {
+      "attributions": {
+         cla: ".ol-attribution",
+         fr: "Attributions",
+         en: "Attributions",
+         es: "Atribuciones",
+         de: "Zuschreibungen",
+         zh: "归因"
+      },
+      "olzoomin": {
+         cla: ".ol-zoom-in",
+         fr: "Zoom avant",
+         en: "Zoom in",
+         es: "Acercar",
+         de: "Hineinzoomen",
+         zh: "放大"
+      },
+      "olzoomout": {
+         cla: ".ol-zoom-out",
+         fr: "Zoom arrière",
+         en: "Zoom out",
+         es: "Disminuir el zoom",
+         de: "Rauszoomen",
+         zh: "缩小"
+      },
+      "olrotatereset": {
+         cla: ".ol-rotate-reset",
+         fr: "Annuler la rotation",
+         en: "Reset rotation",
+         es: "Restablecer rotación",
+         de: "Drehung zurücksetzen",
+         zh: "重置旋转"
+      },
+      "olfullscreenfalse": {
+         cla: ".ol-full-screen-false",
+         fr: "Plein écran",
+         en: "Fullscreen",
+         es: "Pantalla completa",
+         de: "Ganzer Bildschirm",
+         zh: "全屏"
+      },
+      "olfullscreentrue": {
+         cla: ".ol-full-screen-true",
+         fr: "Quittez plein écran",
+         en: "Quit fullscreen mode",
+         es: "Salga del modo de pantalla completa",
+         de: "Beenden Sie den Vollbildmodus",
+         zh: "退出全屏模式"
+      }
+   }
+
+   const targ = map.getTarget();
+   const lang = targ.lang;
+   for (var i in dic) {
+      if (dic.hasOwnProperty(i)) {
+         $(dic[i].cla).prop("title", dic[i][lang]);
+      }
+   }
+
+   fullscreen.on("enterfullscreen",function(){
+      $(dic.olfullscreentrue.cla).attr("data-original-title", dic["olfullscreentrue"][lang]);
+   })
+   fullscreen.on("leavefullscreen",function(){
+      $(dic.olfullscreenfalse.cla).attr("data-original-title", dic["olfullscreenfalse"][lang]);
+   })
    $(".ol-zoom-in, .ol-zoom-out").tooltip({placement: "right", container:"#map",});
-   $(".ol-full-screen-false, .ol-rotate-reset, .ol-attribution button[title]").tooltip({placement: "left", container:"#map",});
+   $(".ol-sidebar button[title], .ol-full-screen-false, .ol-full-screen-true, .ol-rotate-reset, .ol-attribution button[title]").tooltip({placement: "left", container:"#map",});
+   $(\'a[data-toggle="collapse"]\').click(function () {
+      $(this).find("i.toggle-icon").toggleClass(\'fa-caret-down fa-caret-up\',6000);
+   })
 
-} //<= geoloc_load
-
+});
 
    geocode_markers=[];
    geocode_adresses=[];
@@ -1448,27 +1472,25 @@ $(\'[data-toggle="tab_ajax"]\').click(function(e) {
 });
 
 $(function(){
+   $(\'.n-filtrable p\').each(function(){
+      $(this).attr(\'data-search-term\', $(this).text().toLowerCase());
+   });
+   $(\'.n_filtrbox\').on(\'keyup\', function(){
+      var searchTerm = $(this).val().toLowerCase();
       $(\'.n-filtrable p\').each(function(){
-         $(this).attr(\'data-search-term\', $(this).text().toLowerCase());
-      });
-      $(\'.n_filtrbox\').on(\'keyup\', function(){
-         var searchTerm = $(this).val().toLowerCase();
-         $(\'.n-filtrable p\').each(function(){
-            if ($(this).filter(\'[data-search-term *= \' + searchTerm + \']\').length > 0 || searchTerm.length < 1)
-               $(this).show();
-            else
-               $(this).hide();
-          });
-      });
+         if ($(this).filter(\'[data-search-term *= \' + searchTerm + \']\').length > 0 || searchTerm.length < 1)
+            $(this).show();
+         else
+            $(this).hide();
+       });
+   });
 });
-
-$(document.body).attr("onload", "geoloc_load()");
-
+$(document).ready(function() {
    $(\'a[data-toggle="collapse"]\').click(function () {
       $(this).find("i.toggle-icon").toggleClass(\'fa-caret-down fa-caret-up\',6000);
    });
+});
 
-//$(".page-header").hide();
 //]]>
 </script>';
 //<== construction js
@@ -1479,11 +1501,11 @@ include ('header.php');
 
 $affi='';
 $affi .= '
-<span class="n-media-repere"></span>
-<h3 class="mt-4 mb-3">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right"><span class="badge badge-secondary mr-2" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span><span class="badge badge-danger" data-toggle="tooltip" title="'.geoloc_translate("En ligne").'">'.$total_connect.'</span></span></h3>
-<div class=" mb-4">
-      <div id="map-wrapper" >
-         <div id="map" tabindex="20">
+   <span class="n-media-repere"></span>
+   <h3 class="mt-4 mb-3">'.geoloc_translate("Géolocalisation des membres du site").'<span class="float-right"><span class="badge badge-secondary mr-2" title ="'.geoloc_translate('Membres du site').'" data-toggle="tooltip" data-placement="left">'.$total_membre.'</span><span class="badge badge-danger" data-toggle="tooltip" title="'.geoloc_translate("En ligne").'">'.$total_connect.'</span></span></h3>
+   <div class=" mb-4">
+      <div id="map-wrapper" class="ol-fullscreen my-3">
+         <div id="map" lang="'.language_iso(1,0,0).'" class="map" tabindex="20">
             <div id="ol_popup" class="ol-popup"></div>
             <div style="display: none;">
                <div id="georefpopup"></div>
@@ -1503,27 +1525,42 @@ $affi .= '
    foreach ($fond_provider as $v) {
       if($v[0]==$cartyp) $sel='selected="selected"'; else $sel='';
       switch($j){
-         case '0': $affi .= '<optgroup label="OpenStreetMap">';break;
-         case '1': $affi .= '<optgroup label="Stamen">';break;
-         case '4': $affi .= '<optgroup label="NASA">';break;
-         case '5': if($api_key_mapbox==!'') $affi .= '<optgroup label="Mapbox">'; elseif($api_key_bing==!'') $affi .= '<optgroup label="Bing maps">'; break;
-         case '7': if($api_key_bing==!'' and $api_key_mapbox!=='') $affi .= '<optgroup label="Bing maps">'; break;
+         case '0': $affi .= '
+                              <optgroup label="OpenStreetMap">';break;
+         case '1': $affi .= '
+                              <optgroup label="Stamen">';break;
+         case '4': $affi .= '
+                              <optgroup label="NASA">';break;
+         case '5': if($api_key_mapbox==!'') 
+                     $affi .= '
+                              <optgroup label="Mapbox">';
+                   elseif($api_key_bing==!'')
+                     $affi .= '
+                              <optgroup label="Bing maps">'; break;
+         case '7': if($api_key_bing==!'' and $api_key_mapbox!=='') 
+                     $affi .= '
+                              <optgroup label="Bing maps">'; break;
+         case '10': $affi .= '
+                              <optgroup label="Google">';break;
       }
-      $affi .=  '
-                           <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
+      $affi .= '
+                                 <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0': case '3': case '4': case '9': $affi .= '</optgroup>'; break;
-         case '6': if($api_key_mapbox==!'') $affi .= '</optgroup>'; break;
-         case '7': if($api_key_mapbox=='' and $api_key_bing==!'') $affi .= '</optgroup>'; break;
+         case '0': case '3': case '4': case '11': $affi .= '
+                              </optgroup>'; break;
+         case '6': if($api_key_mapbox==!'') $affi .= '
+                              </optgroup>'; break;
+         case '7': if($api_key_mapbox=='' and $api_key_bing==!'') $affi .= '
+                              </optgroup>'; break;
       }
       $j++;
    }
 $affi .= '
                            </select>
-                           <input type="range" value="1" class="custom-range mt-1" min="0" max="1" step="0.1" id="baselayeropacity">
+                           <input type="range" value="1" class="custom-range mt-1" min="0" max="1" step="0.1" id="baselayeropacity" />
                            <label class="mt-0 float-right small" for="baselayeropacity">Opacity</label>
                            <div id="dayslider" class="collapse">
-                              <input type="range" value="1" class="custom-range mt-1" min="-6" max="0" value="0" id="nasaday">
+                              <input type="range" value="1" class="custom-range mt-1" min="-6" max="0" value="0" id="nasaday" />
                               <label id="dateimages" class="mt-0 float-right small" for="nasaday">'.$date_jour.'</label>
                            </div>
                         </div>
@@ -1544,12 +1581,8 @@ $affi .= '
             </div>
          </div>
       </div>
-      <div class=" pt-1">
-         <span class="small text-muted float-right" id="mypoint"></span>
-      </div>
       <ul class="nav nav-tabs mt-4">
          <li class="nav-item"><a id="messinfo-tab" class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Infos carte").'</span></a></li>
-         <!-- <li class="nav-item"><a id="geocodage-tab" class="nav-link" href="#geocodage" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fas fa-map-marker-alt fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Géocodage").'</span></a></li> -->
          <li class="nav-item"><a id="aide-tab" class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>';
 if(autorisation(-127) and $geo_ip==1)
    $affi .= '
@@ -1561,19 +1594,6 @@ $affi .= '
          <div id="mess_info" class=" col-12 mt-3"></div>
       </div>
       <div class="tab-pane fade" id="aide"></div>
-      <!--
-      <div class="tab-pane fade" id="geocodage">
-         <div class="form-group mt-3">
-            <div class="input-group">
-               <span class="input-group-btn">
-                  <button id="geocode_submit" class="btn btn-primary" type="button">'.geoloc_translate("Géocoder").'</button>
-               </span>
-               <input id="address" type="textbox" class="form-control" placeholder="'.geoloc_translate("Entrez une adresse").'..." />
-               <span class="input-group-btn"><button class="btn btn-outline-danger" type="button" id="trash" onclick="deleteMarkers_geo();"><i class="far fa-trash-alt fa-lg"></i></button></span>
-            </div>
-         </div>
-      </div>
-     -->
       <div class="tab-pane fade mt-2" id="ipgeolocalisation">
          <h5 class="mt-3">
             <i title="'.geoloc_translate('IP géoréférencées').'" data-toggle="tooltip" style="color:'.$acg_t_co.'; opacity:'.$acg_t_op.';" class="fa fa-desktop fa-lg mr-2 align-middle"></i>

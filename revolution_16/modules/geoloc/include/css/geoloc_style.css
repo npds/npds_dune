@@ -3,9 +3,12 @@
 /*==> general*/
 
 #map {
-    position: relative;
-    height: 540px;
-    width: 100%;
+   position: relative;
+   width: 100%;
+}
+#map-wrapper {
+   position: relative;
+   width: 100%;
 }
 #map:-webkit-full-screen {
    height: 100%;
@@ -16,18 +19,6 @@
 }
 #map:fullscreen {
    height: 100%;
-}
-
-#map_bloc {
-     width: 100%;
-     height: 180px;
-}
-
-
-#map-wrapper {
-     position: relative;
-     height: 540px;
-     width: 100%;
 }
 #map-wrapper:-webkit-full-screen {
    height: 100%;
@@ -40,22 +31,50 @@
    height: 100%;
 }
 
+
+#map_bloc {
+   width: 100%;
+   height: 180px;
+}
+
+.map {
+   width: 100%;
+   height:540px;
+}
+.ol-fullscreen:-webkit-full-screen {
+   height: 100%;
+   margin: 0;
+}
+.ol-fullscreen:-ms-fullscreen {
+   height: 100%;
+}
+.ol-fullscreen:fullscreen {
+   height: 100%;
+}
+.ol-fullscreen {
+   margin-bottom: 10px;
+   width: 100%;
+   height: 540px;
+}
+.map {
+   height: 100%;
+}
+
+
+#sidebar {
+   filter : alpha(opacity=90);
+   -moz-opacity : 0.9;
+   opacity : 0.9;
+   position: absolute;
+   top: 46px;
+   right: 8px;
+   min-width: 300px;
+   height: 85%;
+   overflow: auto;
+}
+
 @media (max-width: 576px) {
    .n-media-repere {color:red;}
-}
-#sidebar {
-     filter : alpha(opacity=90);
-     -moz-opacity : 0.9;
-     opacity : 0.9;
-/*
-     background: white;
- */
-     position: absolute;
-     top: 46px;
-     right: 0;
-     min-width: 300px;
-     height: 450px;
-     overflow: auto;
 }
 
 #alert {
@@ -99,21 +118,35 @@ display: block;
 }
 /* openlayers hack */
 
-   .ol-control button, .ol-scale-line {
-      background-color: var(--primary);
-      opacity: 0.8;
-   }
-   .ol-full-screen {
-      right: 2.5em;
-   }
-   .ol-rotate {
-      right: 4.5em;
-      top: .5em;
-   }
-   .ol-sidebar {
-     top: .5em;
-     right: .5em;
-   }
+.ol-control button, .ol-scale-line {
+   background-color: var(--primary);
+   opacity: 0.8;
+}
+.ol-full-screen {
+   right: 3em;
+}
+.ol-rotate {
+   right: 5.5em;
+   top: .5em;
+}
+.ol-sidebar {
+  top: .5em;
+  right: .5em;
+}
+
+.custom-mouse-position {
+   font-family: "Courier New", Lucida, console, Monaco, monospace;
+   font-size: 0.8rem;
+   color: whitesmoke;
+   bottom: 35px;
+   position: absolute;
+   left: 8px;
+   text-shadow: black 0.1em 0.1em 0.2em;
+   font-weight: 700;
+}
+
+
+
 
       .ol-popup {
         position: absolute;

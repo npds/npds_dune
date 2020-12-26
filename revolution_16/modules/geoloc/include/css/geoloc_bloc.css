@@ -20,3 +20,8 @@
    background-color: var(--primary);
    opacity: 0.8;
 }
+/*contrôles*/
+#map_bloc_ol .ol-rotate {
+   right: 3em;
+   top: .5em;
+}

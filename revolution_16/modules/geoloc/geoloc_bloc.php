@@ -23,8 +23,8 @@ switch ($cartyp_b) {
    case 'OSM':
       $source_fond='new ol.source.OSM()';
    break;
-   case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
-      $source_fond='';
+   case 'sat-google':
+      $source_fond=' new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"})';
    break;
    case 'Road':case 'Aerial':case 'AerialWithLabels':
       $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp_b.'"})';
@@ -48,21 +48,21 @@ $content .='
       if (typeof ol=="undefined")
          $("head").append($("<script />").attr({"type":"text/javascript","src":"/lib/ol/ol.js"}));
 
-      var georefUser_icon = new ol.style.Style({
+      var
+      georefUser_icon = new ol.style.Style({
          image: new ol.style.Icon({
             src: "'.$ch_img.$img_mbgb.'",
             imgSize:['.$w_ico_b.','.$h_ico_b.']
          })
-      });
-
-      var georeferencedUsers = new ol.layer.Vector({
+      }),
+      georeferencedUsers = new ol.layer.Vector({
          source: new ol.source.Vector({
             url: "modules/geoloc/include/user.geojson",
             format: new ol.format.GeoJSON()
          }),
          style: georefUser_icon
-      });
-      var attribution = new ol.control.Attribution({collapsible: true});
+      }),
+      attribution = new ol.control.Attribution({collapsible: true});
       var map = new ol.Map({
          interactions: new ol.interaction.defaults({
             constrainResolution: true, onFocusOnly: true
