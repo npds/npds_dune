@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011 and cast MySql engine type        */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -46,7 +46,6 @@ function nmig_copyright() {
    </div>';
    return $display;
 }
-
 // e1
 function nmig_Start($name_module, $txtdeb) {
    include("header.php");
@@ -70,7 +69,6 @@ function nmig_Start($name_module, $txtdeb) {
    </div>
    '.nmig_copyright();
 }
-
 // e2
 function nmig_License($licence_file, $name_module) {
    include("header.php");
@@ -92,12 +90,13 @@ function nmig_License($licence_file, $name_module) {
    '.nmig_copyright();
 }
 //e3
-
-function nmig_AlertSql($sql,$tables, $name_module) {
+function nmig_AlertSql($sql, $name_module) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
    $reqsql='';
-//   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
+   foreach ($sql as $v) {
+      preg_match('#^CREATE TABLE (\w+)#',$v,$tables);
+   }
    $type_engine=5;
    for ($i = 0; $i < count($sql); $i++) {
       for ($j = 0; $j < count($tables); $j++) {
@@ -124,16 +123,15 @@ function nmig_AlertSql($sql,$tables, $name_module) {
    <br />
    '.nmig_copyright();
 }
-
 // e4
-
-function nmig_WriteSql($sql,$tables, $path_adm_module, $name_module, $affich, $icon) {
-//var_dump($tables);//
+function nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix, $path_adm_module,$name_module, $affich, $icon;
    $reqsql='';
-//   $type_engine=(int)substr(mysql_get_server_info(), 0, 1);
-$type_engine= 5;// à revoir
+   foreach ($sql as $v) {
+      preg_match('#^CREATE TABLE (\w+)#',$v,$tables);
+   }
+   $type_engine= 5;// à revoir
    $display = '
    <hr />
    <div class="lead">'.$name_module.'</div>
@@ -146,8 +144,6 @@ $type_engine= 5;// à revoir
       if ($type_engine>=5)
          $sql[$i] = preg_replace('#TYPE=MyISAM#i', 'ENGINE=MyISAM', $sql[$i]);
       sql_query($sql[$i]) or $erreur = sql_error();
-      
-      
    }
    if (isset($erreur)) {
       $display .= '
@@ -171,10 +167,18 @@ $type_engine= 5;// à revoir
          sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', 0, '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 6, 'Modules', 0)") or sql_error();
          $ibid = sql_last_id();
          sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fdroits1 = ".$ibid." WHERE fid=".$ibid."");
+         //==> ajout des alertesadmin
+         if(file_exists("modules/".$name_module."/admin/adm_alertes.php")) {
+            include("modules/".$name_module."/admin/adm_alertes.php");
+            if(count($reqalerte) != 0) {
+               foreach($reqalerte as $v){
+                  sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', ".$ibid.", '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 9, 'Modules', 0)") or sql_error();
+               }
+            }
+         }
+         //<== ajout des alertesadmin
       }
-   
       $display .= '<p class="text-success"><strong>'.adm_translate("La configuration de la base de données MySql a réussie !").'</strong></p>';
-
 }   $display .= '
    </div>
    <div class="text-center">
@@ -182,9 +186,7 @@ $type_engine= 5;// à revoir
    </div><br />
    '.nmig_copyright();
 }
-
 // e5
-
 function nmig_AlertConfig($list_fich) {
    include("header.php");
    global $ModInstall, $display;
@@ -202,9 +204,7 @@ function nmig_AlertConfig($list_fich) {
       <a class="btn btn-primary" href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e6">'.adm_translate("Modifier le(s) fichier(s)").'</a>
    </div>'.nmig_copyright();
 }
-
 // e6
-
 function nmig_WriteConfig($list_fich,$try_Chmod) {
    include("header.php");
    global $ModInstall, $display;
@@ -293,7 +293,6 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
    $display .= nmig_copyright();
 }
 // e7
-
 function nmig_AlertBloc($blocs, $name_module) {
    include("header.php");
    global $ModInstall, $display;
@@ -323,9 +322,7 @@ function nmig_AlertBloc($blocs, $name_module) {
    </div><br /><br />';
    $display .= nmig_copyright();
 }
-
 // e8
-
 function nmig_WriteBloc($blocs, $posbloc, $name_module) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
@@ -381,9 +378,7 @@ function nmig_WriteBloc($blocs, $posbloc, $name_module) {
    </div><br />
    '.nmig_copyright();
 }
-
 // e9
-
 function nmig_txt($txtfin) {
    include("header.php");
    global $ModInstall, $display;
@@ -394,9 +389,7 @@ function nmig_txt($txtfin) {
       <a class="btn btn-primary" href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e10" >'.adm_translate("Etape suivante").'</a><br />
    </div>'.nmig_copyright();
 }
-
 // e10
-
 function nmig_End($name_module, $end_link) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
@@ -451,18 +444,16 @@ function nmig_clean($name_module) {
       settype($icon,'string');
       settype($affich,'string');
 
-
-//      settype($tables,'string');
       switch($nmig) {
          case 'e2':
             nmig_License($licence_file,$name_module);
          break;
          case 'e3':
-            if (isset($sql[0]) && $sql[0] != '') nmig_AlertSql($sql, $tables, $name_module);
+            if (isset($sql[0]) && $sql[0] != '') nmig_AlertSql($sql, $name_module);
             else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>";
          break;
          case 'e4':
-            if (isset($sql[0]) && $sql[0] != '') nmig_WriteSql($sql, $tables, $path_adm_module, $name_module, $affich, $icon);
+            if (isset($sql[0]) && $sql[0] != '') nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon);
             else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>";
          break;
          case 'e5':
@@ -497,7 +488,6 @@ function nmig_clean($name_module) {
       if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
          include("modules/".$ModDesinstall."/install.conf.php");
 
-         //  var_dump($blocs[1][0]);
          // we get the name of the tables !! a tester avec table prefixé
          settype($tabcreated,'array');
          settype($tabinsert,'array');
@@ -514,7 +504,7 @@ function nmig_clean($name_module) {
                   $modulemetamot[]=$met[1];
                // recupere la première valeur de VALUES pour cibler la def d'un metamot, pour les tables autres que metalang unimplemented ...
                }
-               var_dump($met[1]);
+//               var_dump($met[1]);
             }
          }
          foreach ($tabinsert as $v) {
