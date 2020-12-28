@@ -693,7 +693,7 @@ CREATE TABLE modules (
   mnom varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   minstall int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (mid),
-  KEY mnom (mnom)
+  KEY mnom (mnom(100))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE optimy (
@@ -863,8 +863,8 @@ CREATE TABLE reviews_add (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE reviews_main (
-  title text COLLATE utf8mb4_unicode_ci DEFAULT '',
-  description text COLLATE utf8mb4_unicode_ci
+  title text COLLATE utf8mb4_unicode_ci NOT NULL,
+  description text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO reviews_main VALUES ('[french]Votre point de vue nous int&eacute;resse[/french][english]Your point of view interests us[/english][chinese]&#x60A8;&#x7684;&#x89C2;&#x70B9;&#x4F7F;&#x6211;&#x4EEC;&#x611F;&#x5174;&#x8DA3;[/chinese][spanish]Tu punto de vista nos interesa[/spanish][german]Ihr Standpunkt interessiert uns[/german]', '[french]Participez &agrave; la vie du site en apportant vos critiques mais restez toujours positif.[/french][english]Participate in the life of the website by bringing your criticisms but always remain positive.[/english][chinese]&#x901A;&#x8FC7;&#x63D0;&#x51FA;&#x6279;&#x8BC4;&#x6765;&#x53C2;&#x4E0E;&#x7F51;&#x7AD9;&#x7684;&#x751F;&#x6D3B;&#xFF0C;&#x4F46;&#x59CB;&#x7EC8;&#x4FDD;&#x6301;&#x79EF;&#x6781;&#x6001;&#x5EA6;&#x3002;[/chinese][spanish]Participe en la vida del sitio web aportando sus cr&iacute;ticas, pero siempre sea positivo.[/spanish][german]Nehmen Sie am Leben der Website teil, indem Sie Ihre Kritik einbringen, aber immer positiv bleiben.[/german]');
@@ -1089,7 +1089,7 @@ CREATE TABLE wspad (
   member int(11) NOT NULL DEFAULT '1',
   verrou varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (ws_id),
-  KEY page (page)
+  KEY page (page(100))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE ip_loc (
