@@ -263,17 +263,17 @@ $ibid = explode('|',$v);
       } 
       else {
          $ul_o = '
-         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate(utf8_encode($SAQ['fcategorie_nom'])).'</h4>
+         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="'.adm_translate(utf8_encode($SAQ['fnom_affich'])).'"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
+            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="'.adm_translate($SAQ['fnom_affich']).'"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
          if ($admingraphic==1)
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
          else {
             if ($SAQ['fcategorie'] == 6)
                $li_c .= $SAQ['fnom_affich'];
             else
-               $li_c .= adm_translate(utf8_encode($SAQ['fnom_affich']));
+               $li_c .= adm_translate($SAQ['fnom_affich']);
          }
          $li_c .='</a></li>';
          $ul_f='';
