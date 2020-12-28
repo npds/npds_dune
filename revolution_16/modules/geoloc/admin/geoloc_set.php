@@ -88,7 +88,9 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       ['geography-class', geoloc_translate("Carte").' (mapbox)'],
       ['Road', geoloc_translate("Plan").' (Bing maps)'],
       ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
-      ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)']
+      ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
+      ['sat-google', geoloc_translate("Satellite").' (Google maps)']
+
    );
 
    echo '
@@ -188,11 +190,12 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          case '1': echo '<optgroup label="Stamen">';break;
          case '4': echo '<optgroup label="Mapbox">';break;
          case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">';break;
+         case '9': echo '<optgroup label="Google">';break;
          }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0': case '3': case '5': case '8': echo '</optgroup>'; break;
+         case '0': case '3': case '5': case '10': echo '</optgroup>'; break;
          }
       $j++;
    }
@@ -500,7 +503,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0': case '3': case '5': case '12': echo '</optgroup>'; break;
+         case '0': case '3': case '5': case '9': echo '</optgroup>'; break;
          }
       $j++;
    }
@@ -588,8 +591,8 @@ switch ($cartyp) {
    case 'OSM':
       $source_fond='new ol.source.OSM()';
    break;
-   case 'SATELLITE': case 'TERRAIN': case 'HYBRID':
-      $source_fond='';
+   case 'sat-google':
+      $source_fond=' new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"})';
    break;
    case 'Road':case 'Aerial':case 'AerialWithLabels':
       $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
@@ -608,7 +611,8 @@ switch ($cartyp) {
 //<![CDATA[
    $(document).ready(function() {
       $("head").append($("<script />").attr("src","lib/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"));
-      $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
+      if (typeof ol=="undefined")
+         $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
       $("head").append($("<script />").attr({"type":"text/javascript","src":"modules/geoloc/include/fontawesome.js"}));
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_admin.css\' type=\'text/css\' media=\'screen\'>");
@@ -952,6 +956,9 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
          break;
          case "terrain": case "toner": case "watercolor":
             fond_carte.setSource(new ol.source.Stamen({layer:cartyp}));
+         break;
+         case "sat-google":
+            fond_carte.setSource(new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"}));
          break;
       }
    });
