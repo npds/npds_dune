@@ -446,47 +446,45 @@ function userinfo($uname) {
          $content = '';
          $content .='
          <div class="col-md-6">
-            <div id="map_user" tabindex="300" style="width:100%; height:400px;">
+            <div id="map_user" tabindex="300" style="width:100%; height:400px;" lang="'.language_iso(1,0,0).'">
                <div id="ol_popup"></div>
             </div>
             <script type="module">
             //<![CDATA[
-               $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
-               var iconFeature = new ol.Feature({
-                  geometry: new ol.geom.Point(
-                  ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].','.$posterdata_extend[$ch_lat].'])
-                  ),
-                  name: "'.$uname.'"
-               });
-
-               var iconStyle = new ol.style.Style({
-                  image: new ol.style.Icon(({
-                  src: "'.$ch_img.$nm_img_mbcg.'"
-                  }))
-               });
-               iconFeature.setStyle(iconStyle);
-               var vectorSource = new ol.source.Vector({
-                  features: [iconFeature]
-               });
-               var vectorLayer = new ol.layer.Vector({
-                  source: vectorSource
-               });
-
-               var map = new ol.Map({
-                  interactions: new ol.interaction.defaults({
-                     constrainResolution: true, onFocusOnly: true
+               if (typeof ol=="undefined")
+                  $("head").append($("<script />").attr({"type":"text/javascript","src":"/lib/ol/ol.js"}));
+               $(function(){
+               var 
+                  iconFeature = new ol.Feature({
+                     geometry: new ol.geom.Point(
+                     ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].','.$posterdata_extend[$ch_lat].'])
+                     ),
+                     name: "'.$uname.'"
                   }),
-                 target: "map_user",
-                 layers: [
-                   new ol.layer.Tile({
-                     source: new ol.source.OSM()
-                   })
-                 ],
-                 view: new ol.View({
-                   center: ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].', '.$posterdata_extend[$ch_lat].']),
-                   zoom: 12
-                 })
-               });
+                  iconStyle = new ol.style.Style({
+                     image: new ol.style.Icon({
+                     src: "'.$ch_img.$nm_img_mbcg.'"
+                     })
+                  });
+               iconFeature.setStyle(iconStyle);
+               var 
+                  vectorSource = new ol.source.Vector({features: [iconFeature]}),
+                  vectorLayer = new ol.layer.Vector({source: vectorSource}),
+                  map = new ol.Map({
+                     interactions: new ol.interaction.defaults({
+                        constrainResolution: true, onFocusOnly: true
+                     }),
+                    target: document.getElementById("map_user"),
+                    layers: [
+                      new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                      })
+                    ],
+                    view: new ol.View({
+                      center: ol.proj.fromLonLat(['.$posterdata_extend[$ch_lon].', '.$posterdata_extend[$ch_lat].']),
+                      zoom: 12
+                    })
+                  });
                //Adding a marker on the map
                map.addLayer(vectorLayer);
 
@@ -528,11 +526,19 @@ function userinfo($uname) {
             });
             // Create the graticule component
                var graticule = new ol.layer.Graticule();
-               graticule.setMap(map);
+               graticule.setMap(map);';
 
-            $(function(){
-               $("#map_user .ol-zoom-in, .ol-zoom-out").tooltip({placement: "right", container: "#map_user",});
-               $(".ol-rotate-reset, .ol-attribution button[title]").tooltip({placement: "left", container: "#map_user",});
+         $content .= file_get_contents('modules/geoloc/include/ol-dico.js');
+         $content .='
+               const targ = map.getTarget();
+               const lang = targ.lang;
+               for (var i in dic) {
+                  if (dic.hasOwnProperty(i)) {
+                     $("#map_user "+dic[i].cla).prop("title", dic[i][lang]);
+                  }
+               }
+               $("#map_user .ol-zoom-in, #map_user .ol-zoom-out").tooltip({placement: "right", container: "#map_user",});
+               $("#map_user .ol-rotate-reset, #map_user .ol-attribution button[title]").tooltip({placement: "left", container: "#map_user",});
             });
 
             //]]>
