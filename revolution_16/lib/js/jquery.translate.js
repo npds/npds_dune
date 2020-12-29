@@ -14,7 +14,7 @@
   $.fn.translate = function(options) {
 
     var that = this; //a reference to ourselves
-	
+
     var settings = {
       css: "trn",
       lang: "en"/*,
@@ -61,8 +61,6 @@
 
     this.g = this.get;
 
-
-    
     //main
     this.find(settings.css).each(function(i) {
       var $this = $(this);
@@ -75,11 +73,6 @@
 
       $this.html(that.get(trn_key));
     });
-    
-    
-		return this;
-		
-		
-
+    return this;
   };
 })(jQuery);
