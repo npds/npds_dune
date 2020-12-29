@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.0                                            */
-/* geoloc_conf.php file 2008-2019 by Jean Pierre Barbary (jpb)          */
+/* geoloc_conf.php file 2008-2020 by Jean Pierre Barbary (jpb)          */
 /* dev team : Philippe Revilliod (Phr)                                  */
 /************************************************************************/
 $api_key_bing = ""; // clef api bing maps 
@@ -51,10 +51,10 @@ $acg_t_op = "1"; // Opacité trait SVG pour anonyme en ligne
 $acg_f_co = "rgba(32, 32, 26, 0.89)"; // Couleur fond SVG pour anonyme en ligne 
 $acg_f_op = "1"; // Opacité fond SVG pour anonyme en ligne 
 // interface bloc 
-$cartyp_b = "OSM"; // Type de carte pour le bloc 
+$cartyp_b = "sat-google"; // Type de carte pour le bloc 
 $img_mbgb = "mbcg.png"; // Nom fichier image membre géoréférencé pour le bloc 
 $w_ico_b = "28"; // Largeur icone marker dans le bloc 
 $h_ico_b = "28"; // Hauteur icone marker dans le bloc
-$h_b = "300"; // hauteur carte dans bloc
+$h_b = "240"; // hauteur carte dans bloc
 $z_b = "4"; // facteur zoom carte dans bloc
 ?>

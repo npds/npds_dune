@@ -38,16 +38,16 @@ switch ($cartyp_b) {
    default:
    $source_fond='new ol.source.OSM()';
 }
- 
 $content .='
 <div class="mb-2" id="map_bloc_ol" tabindex="200" style=" min-height:'.$h_b.'px;" lang="'.language_iso(1,0,0).'"></div>
 <script type="text/javascript">
 //<![CDATA[
-      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+      if (!$("link[href=\'/lib/ol/ol.css\']").length)
+         $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_bloc.css\' type=\'text/css\' media=\'screen\'>");
       if (typeof ol=="undefined")
          $("head").append($("<script />").attr({"type":"text/javascript","src":"/lib/ol/ol.js"}));
-
+      $(function(){
       var
       georefUser_icon = new ol.style.Style({
          image: new ol.style.Icon({
@@ -62,13 +62,14 @@ $content .='
          }),
          style: georefUser_icon
       }),
-      attribution = new ol.control.Attribution({collapsible: true});
+      attribution = new ol.control.Attribution({collapsible: true}),
+      fullscreen = new ol.control.FullScreen();
       var map = new ol.Map({
          interactions: new ol.interaction.defaults({
             constrainResolution: true, onFocusOnly: true
          }),
-         controls: new ol.control.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen()]),
-         target: "map_bloc_ol",
+         controls: new ol.control.defaults({attribution: false}).extend([attribution, fullscreen]),
+         target: document.getElementById("map_bloc_ol"),
          layers: [
          new ol.layer.Tile({
             source: '.$source_fond.'
@@ -87,12 +88,27 @@ $content .='
         attribution.setCollapsed(small);
       }
       window.addEventListener("resize", checkSize);
-      checkSize();
+      checkSize();';
 
-      $(function(){
-         $("#map_bloc_ol .ol-zoom-in, #map_bloc_ol .ol-zoom-out").tooltip({placement: "right", container: "#map_bloc_ol",});
-         $("#map_bloc_ol .ol-full-screen-false, #map_bloc_ol .ol-rotate-reset, #map_bloc_ol .ol-attribution button[title]").tooltip({placement: "left", container: "#map_bloc_ol",});
-      });
+$content .= file_get_contents('modules/geoloc/include/ol-dico.js');
+$content .='
+      const targ = map.getTarget();
+      const lang = targ.lang;
+      for (var i in dic) {
+         if (dic.hasOwnProperty(i)) {
+            $("#map_bloc_ol "+dic[i].cla).prop("title", dic[i][lang]);
+         }
+      }
+
+      fullscreen.on("enterfullscreen",function(){
+         $(dic.olfullscreentrue.cla).attr("data-original-title", dic["olfullscreentrue"][lang]);
+      })
+      fullscreen.on("leavefullscreen",function(){
+         $(dic.olfullscreenfalse.cla).attr("data-original-title", dic["olfullscreenfalse"][lang]);
+      })
+      $("#map_bloc_ol .ol-zoom-in, #map_bloc_ol .ol-zoom-out").tooltip({placement: "right", container: "#map_bloc_ol",});
+      $("#map_bloc_ol .ol-full-screen-false, #map_bloc_ol .ol-rotate-reset, #map_bloc_ol .ol-attribution button[title]").tooltip({placement: "left", container: "#map_bloc_ol",});
+   });
 
 //]]>
 </script>';

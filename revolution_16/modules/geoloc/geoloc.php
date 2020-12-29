@@ -383,6 +383,12 @@ $ecr_scr = '
    var ano_markers={};
    var dd = new Date().toISOString().split("T");
 
+   if (!$("link[href=\'/lib/ol/ol.css\']").length)
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+   if (!$("link[href=\'modules/geoloc/include/css/geoloc_style.css\']").length)
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
+
+
    $(function () {
    //==>  affichage des coordonnées à revoir pour réinverser ....
       var mousePositionControl = new ol.control.MousePosition({
@@ -527,57 +533,56 @@ $ecr_scr = '
    else { // markers images
       $ecr_scr .='
       //==> markers images
-      var iconUser = new ol.style.Style({
-         image: new ol.style.Icon({
-            src: "'.$ch_img.$nm_img_mbg.'",
-            imgSize:['.$w_ico_b.','.$h_ico_b.']
-         })
-      }),
+      var
+         iconUser = new ol.style.Style({
+            image: new ol.style.Icon({
+               src: "'.$ch_img.$nm_img_mbg.'",
+               imgSize:['.$w_ico_b.','.$h_ico_b.']
+            })
+         }),
          iconUserOn = new ol.style.Style({
             image: new ol.style.Icon({
                src: "'.$ch_img.$nm_img_mbcg.'",
                imgSize:['.$w_ico_b.','.$h_ico_b.']
             })
          }),
-      iconAnoOn = new ol.style.Style({
-        image: new ol.style.Icon({
-          src: "'.$ch_img.$nm_img_acg.'",
-           imgSize:['.$w_ico_b.','.$h_ico_b.']
-        })
-      });';
+         iconAnoOn = new ol.style.Style({
+            image: new ol.style.Icon({
+               src: "'.$ch_img.$nm_img_acg.'",
+               imgSize:['.$w_ico_b.','.$h_ico_b.']
+            })
+         });';
    }
-
    $ecr_scr .='
-      var iconIp = new ol.style.Style({
-        text: new ol.style.Text({
-          text: "\uf108",
-          font: "900 24px \'Font Awesome 5 Free\'",
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: "rgba(0, 0, 0,0.5)"}),
-          stroke: new ol.style.Stroke({color: "rgba(0, 0, 0,0.5)", width: 0.2})
-        })
-      });
-      var iconGeoref = new ol.style.Style({
-        text: new ol.style.Text({
-          text: "\uf192",
-          font: "900 18px \'Font Awesome 5 Free\'",
-          bottom: "Bottom",
-          fill: new ol.style.Fill({color: "rgba(255, 0, 0, 90)"}),
-          stroke: new ol.style.Stroke({color: "rgba(0, 0, 0, 100)", width: 0.1})
-        })
-      });
-
-   var stylecountries = new ol.style.Style({
-      fill: new ol.style.Fill({
-         color: "rgba(255, 255, 255, 0.1)"
-      }),
-      stroke: new ol.style.Stroke({
-         color: "#319FD3",
-         width: 1
-      })
-   });
-
-      var user_markers = new ol.layer.Vector({
+      var 
+         iconIp = new ol.style.Style({
+            text: new ol.style.Text({
+               text: "\uf108",
+               font: "900 24px \'Font Awesome 5 Free\'",
+               bottom: "Bottom",
+               fill: new ol.style.Fill({color: "rgba(0, 0, 0,0.5)"}),
+               stroke: new ol.style.Stroke({color: "rgba(0, 0, 0,0.5)", width: 0.2})
+            })
+         }),
+         iconGeoref = new ol.style.Style({
+            text: new ol.style.Text({
+               text: "\uf192",
+               font: "900 18px \'Font Awesome 5 Free\'",
+               bottom: "Bottom",
+               fill: new ol.style.Fill({color: "rgba(255, 0, 0, 90)"}),
+               stroke: new ol.style.Stroke({color: "rgba(0, 0, 0, 100)", width: 0.1})
+            })
+         }),
+         stylecountries = new ol.style.Style({
+            fill: new ol.style.Fill({
+               color: "rgba(255, 255, 255, 0.1)"
+            }),
+            stroke: new ol.style.Stroke({
+               color: "#319FD3",
+               width: 1
+            })
+         }),
+         user_markers = new ol.layer.Vector({
             id: "utilisateurs",
             source: src_user,
             style: iconUser
@@ -646,49 +651,43 @@ switch ($cartyp) {
 
       $ecr_scr .='
       // ==> cluster IPs
-      var clusterSource = new ol.source.Cluster({
-        distance: "30",
-        source: src_ip
-      });
-
-      var styleCache = {};
-      var ip_cluster = new ol.layer.Vector({
-         id: "cluster_ip",
-         source: clusterSource,
-         visible: false,
-         style: function(feature) {
-            var size = feature.get("features").length;
-            var style = styleCache[size];
-            if (!style) {
-               var r=20;
-               if(size < 10) r=14;
-               else if(size < 100) r=16;
-               if (size > 1) {
-                  style = new ol.style.Style({
-                    image: new ol.style.Circle({
-                      radius: r,
-                      stroke: new ol.style.Stroke({
-                        color: "#fff"
-                      }),
-                      fill: new ol.style.Fill({
-                        color: "rgba(99, 99, 98, 0.7)"
-                      })
-                    }),
-                    text: new ol.style.Text({
-                      text: "\uf108 "+size.toString(),
-                      font: "900 10px \'Font Awesome 5 Free\'",
-                      fill: new ol.style.Fill({
-                        color: "#fff"
-                      })
-                    })
-                  });
+      var
+         clusterSource = new ol.source.Cluster({
+            distance: "30",
+            source: src_ip
+         }),
+         styleCache = {},
+         ip_cluster = new ol.layer.Vector({
+            id: "cluster_ip",
+            source: clusterSource,
+            visible: false,
+            style: function(feature) {
+               var size = feature.get("features").length;
+               var style = styleCache[size];
+               if (!style) {
+                  var r=20;
+                  if(size < 10) r=14;
+                  else if(size < 100) r=16;
+                  if (size > 1) {
+                     style = new ol.style.Style({
+                        image: new ol.style.Circle({
+                           radius: r,
+                           stroke: new ol.style.Stroke({color: "#fff"}),
+                           fill: new ol.style.Fill({color: "rgba(99, 99, 98, 0.7)"})
+                        }),
+                        text: new ol.style.Text({
+                           text: "\uf108 "+size.toString(),
+                           font: "900 10px \'Font Awesome 5 Free\'",
+                           fill: new ol.style.Fill({color: "#fff"})
+                        })
+                     });
+                  }
+                  else {style=iconIp}
+                  styleCache[size] = style;
                }
-               else {style=iconIp}
-            styleCache[size] = style;
-          }
-          return style;
-        }
-      });
+               return style;
+            }
+         });
       // <== cluster IPs
 
       var src_fond = '.$source_fond.',
@@ -1022,7 +1021,6 @@ else
             graticule.setMap(map);
          }
          else{
-            console.log("aaa"+graticule);// debug
             graticule.showLabels=false;
             graticule.setMap(map);
             graticule.strokeStyle_.color_="rgba(0,0,0,0)";
@@ -1251,7 +1249,6 @@ $ecr_scr .= '
 
 //==> ecriture des markers pour les membres connectés et les anonymes
 $ecr_scr .= $mb_con_g;
-
 //<==
 $ecr_scr .= '
    document.getElementById("mess_info").innerHTML = \''.$mess_adm.'\';';
@@ -1271,7 +1268,6 @@ if($op=='allip' and $geo_ip==1)
    $("#ipbox").prop("checked", "checked");';
 
 $ecr_scr .= '
-
    //===> infos cartes
    // ==> classe de conversion unit
    /* Written by Sparky Spider (http://sparkyspider.blogspot.com) */
@@ -1365,66 +1361,20 @@ $ecr_scr .= '
    }
    window.addEventListener("resize", checkSize);
 //   checkSize();
-   $(\'[data-toggle="tooltip"]\').tooltip({container:\'body\'});
+//   $(\'[data-toggle="tooltip"]\').tooltip({container:\'body\'});
+   ';
 
-   const dic = {
-      "attributions": {
-         cla: ".ol-attribution",
-         fr: "Attributions",
-         en: "Attributions",
-         es: "Atribuciones",
-         de: "Zuschreibungen",
-         zh: "归因"
-      },
-      "olzoomin": {
-         cla: ".ol-zoom-in",
-         fr: "Zoom avant",
-         en: "Zoom in",
-         es: "Acercar",
-         de: "Hineinzoomen",
-         zh: "放大"
-      },
-      "olzoomout": {
-         cla: ".ol-zoom-out",
-         fr: "Zoom arrière",
-         en: "Zoom out",
-         es: "Disminuir el zoom",
-         de: "Rauszoomen",
-         zh: "缩小"
-      },
-      "olrotatereset": {
-         cla: ".ol-rotate-reset",
-         fr: "Annuler la rotation",
-         en: "Reset rotation",
-         es: "Restablecer rotación",
-         de: "Drehung zurücksetzen",
-         zh: "重置旋转"
-      },
-      "olfullscreenfalse": {
-         cla: ".ol-full-screen-false",
-         fr: "Plein écran",
-         en: "Fullscreen",
-         es: "Pantalla completa",
-         de: "Ganzer Bildschirm",
-         zh: "全屏"
-      },
-      "olfullscreentrue": {
-         cla: ".ol-full-screen-true",
-         fr: "Quittez plein écran",
-         en: "Quit fullscreen mode",
-         es: "Salga del modo de pantalla completa",
-         de: "Beenden Sie den Vollbildmodus",
-         zh: "退出全屏模式"
-      }
-   }
+$ecr_scr .= file_get_contents('modules/geoloc/include/ol-dico.js');
+$ecr_scr .= '
 
    const targ = map.getTarget();
    const lang = targ.lang;
    for (var i in dic) {
       if (dic.hasOwnProperty(i)) {
-         $(dic[i].cla).prop("title", dic[i][lang]);
+         $("#map "+dic[i].cla).prop("title", dic[i][lang]);
       }
    }
+
 
    fullscreen.on("enterfullscreen",function(){
       $(dic.olfullscreentrue.cla).attr("data-original-title", dic["olfullscreentrue"][lang]);
@@ -1432,7 +1382,7 @@ $ecr_scr .= '
    fullscreen.on("leavefullscreen",function(){
       $(dic.olfullscreenfalse.cla).attr("data-original-title", dic["olfullscreenfalse"][lang]);
    })
-   $(".ol-zoom-in, .ol-zoom-out").tooltip({placement: "right", container:"#map",});
+   $("#map .ol-zoom-in, #map .ol-zoom-out").tooltip({placement: "right", container:"#map",});
    $(".ol-sidebar button[title], .ol-full-screen-false, .ol-full-screen-true, .ol-rotate-reset, .ol-attribution button[title]").tooltip({placement: "left", container:"#map",});
    $(\'a[data-toggle="collapse"]\').click(function () {
       $(this).find("i.toggle-icon").toggleClass(\'fa-caret-down fa-caret-up\',6000);
@@ -1612,7 +1562,8 @@ $affi .= '
          <input type="checkbox" title="'.geoloc_translate('Voir ou masquer les waypoints').'" id="wpobox" />&nbsp;'.geoloc_translate('Voir ou masquer les waypoints').' <span id="envoyer">Ex</span>
          <input type="checkbox" title="'.geoloc_translate('Activer désactiver la géolocalisation').'" id="geolobox" onclick="" />&nbsp;'.geoloc_translate('Activer désactiver la géolocalisation').'
       </div>
-   </div>';
+   </div>
+</div>';
 //==> affichage des div contenants et écriture du script
 echo $affi.$ecr_scr;
 
