@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -54,10 +54,11 @@ function BannersAdmin() {
          $left = adm_translate("Illimité");
       else
          $left = $imptotal-$impmade;
+      //  | <span class="small"><a href="#" class="tooltip">'.basename(aff_langue($imageurl)).'<em><img src="'.$imageurl.'" /></em></a></span>
       echo '
          <tr>
             <td>'.$bid.'</td>
-            <td>'.$name.' | <span class="small"><a href="#" class="tooltip">'.basename(aff_langue($imageurl)).'<em><img src="'.$imageurl.'" /></em></a></span></td>
+            <td>'.$name.'</td>
             <td>'.$impmade.'</td>
             <td>'.$left.'</td>
             <td>'.$clicks.'</td>
@@ -212,14 +213,14 @@ function BannersAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="imageurl" name="imageurl" maxlength="320" />
+            <input class="form-control" type="text" id="imageurl" name="imageurl" maxlength="200" />
             <span class="help-block text-right"><span id="countcar_imageurl"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="clickurl">'.adm_translate("URL du clic").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="clickurl" name="clickurl" maxlength="320" required="required" />
+            <input class="form-control" type="text" id="clickurl" name="clickurl" maxlength="200" required="required" />
             <span class="help-block text-right"><span id="countcar_clickurl"></span></span>
          </div>
       </div>
@@ -260,7 +261,7 @@ function BannersAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="email" id="email" name="email" maxlength="254" required="required" />
+            <input class="form-control" type="email" id="email" name="email" maxlength="60" required="required" />
             <span class="help-block text-right" id="countcar_email"></span>
          </div>
       </div>
@@ -293,11 +294,11 @@ function BannersAdmin() {
    </form>';
    $arg1='
       var formulid = ["bannersnewbanner","bannersnewanno"];
-      inpandfieldlen("imageurl",320);
-      inpandfieldlen("clickurl",320);
+      inpandfieldlen("imageurl",200);
+      inpandfieldlen("clickurl",200);
       inpandfieldlen("name",60);
       inpandfieldlen("contact",60);
-      inpandfieldlen("email",254);
+      inpandfieldlen("email",60);
       inpandfieldlen("login",10);
       inpandfieldlen("passwd",10);
    ';
@@ -429,14 +430,14 @@ function BannerEdit($bid) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="imageurl" name="imageurl" maxlength="320" value="'.$imageurl.'" />
+            <input class="form-control" type="text" id="imageurl" name="imageurl" maxlength="200" value="'.$imageurl.'" />
             <span class="help-block text-right"><span id="countcar_imageurl"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="clickurl">'.adm_translate("URL du clic").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="clickurl" name="clickurl" maxlength="320" value="'.htmlentities($clickurl,ENT_QUOTES,cur_charset).'" />
+            <input class="form-control" type="text" id="clickurl" name="clickurl" maxlength="200" value="'.htmlentities($clickurl,ENT_QUOTES,cur_charset).'" />
             <span class="help-block text-right"><span id="countcar_clickurl"></span></span>
          </div>
       </div>
@@ -458,8 +459,8 @@ function BannerEdit($bid) {
    </form>';
    $arg1='
       var formulid = ["bannersadm"];
-      inpandfieldlen("imageurl",320);
-      inpandfieldlen("clickurl",320);
+      inpandfieldlen("imageurl",200);
+      inpandfieldlen("clickurl",200);
    ';
    adminfoot('fv','',$arg1,'');
    }
@@ -532,7 +533,7 @@ function BannerClientEdit($cid) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="email" id="email" name="email" maxlength="254" value="'.$email.'" required="required" />
+            <input class="form-control" type="email" id="email" name="email" maxlength="60" value="'.$email.'" required="required" />
             <span class="help-block text-right"><span id="countcar_email"></span></span>
          </div>
       </div>
@@ -568,7 +569,7 @@ function BannerClientEdit($cid) {
       var formulid = ["bannersedanno"];
       inpandfieldlen("name",60);
       inpandfieldlen("contact",60);
-      inpandfieldlen("email",254);
+      inpandfieldlen("email",60);
       inpandfieldlen("login",10);
       inpandfieldlen("passwd",10);
    ';
