@@ -16,7 +16,6 @@ $l_meta.="<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n";
 $l_meta.="<meta http-equiv=\"content-script-type\" content=\"text/javascript\" />\n";
 $l_meta.="<meta http-equiv=\"content-style-type\" content=\"text/css\" />\n";
 $l_meta.="<meta http-equiv=\"expires\" content=\"0\" />\n";
-if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.0')
 $l_meta.="<meta http-equiv=\"pragma\" content=\"no-cache\" />\n";
 $l_meta.="<meta http-equiv=\"cache-control\" content=\"no-cache\" />\n";
 $l_meta.="<meta http-equiv=\"identifier-url\" content=\"$nuke_url\" />\n";
