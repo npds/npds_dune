@@ -73,8 +73,8 @@ global $language,$adminimg, $admf_ext;
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."modules ORDER BY mid");
    while ($row = sql_fetch_assoc($result)) {
       $icomod=''; $clatd='';
-      if (file_exists("modules/".$row["mnom"]."/".$row["mnom"].".png"))
-         $icomod='<img class="adm_img" src="modules/'.$row["mnom"].'/'.$row["mnom"].'.png" alt="icon_'.$row["mnom"].'" title="" />';
+      if (file_exists("modules/".$row["mnom"]."/".$row["ficone"].".png"))
+         $icomod='<img class="adm_img" src="modules/'.$row["mnom"].'/'.$row["ficone"].'.png" alt="icon_'.$row["mnom"].'" title="" />';
       else
          $icomod='<img class="adm_img" src="images/admin/module.png" alt="icon_module" title="" />';
 

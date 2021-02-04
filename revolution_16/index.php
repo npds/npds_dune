@@ -155,6 +155,10 @@ function aff_news($op,$catid,$marqeur) {
       $op='categories';
    $news_tab=prepa_aff_news($op,$catid,$marqeur);
    $story_limit=0;
+   
+   // si le tableau $news_tab est vide alors return 
+   if(is_null($news_tab)) return;
+   
    $newscount=sizeof($news_tab);
    while ($story_limit<$newscount) {
       $story_limit++;
