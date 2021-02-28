@@ -99,7 +99,7 @@ function login() {
 }
 
 function GraphicAdmin($hlpfile) {
-   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent;
+   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $httpref, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent;
    $bloc_foncts ='';
    $bloc_foncts_A ='';
 
@@ -201,9 +201,9 @@ $ibid = explode('|',$v);
    $newsuti=sql_num_rows(sql_query("SELECT uid FROM ".$NPDS_Prefix."users_status WHERE uid!='1' AND open='0'"));
    if($newsuti) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newsuti."',fretour_h='".adm_translate("Utilisateur en attente de validation !")."' WHERE fid='44'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='44'");
    //référants à gérer
-   if($httpref = 1) {
+   if($httpref == 1) {
    $result=sql_fetch_assoc(sql_query("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."referer"));
-   if ($result['total']>=$httprefmax) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1', fretour='!!!' WHERE fid='39'");else sql_query("UPDATE fonctions ".$NPDS_Prefix." SET fetat='0' WHERE fid='39'");
+   if ($result['total']>=$httprefmax) sql_query("UPDATE ".$NPDS_Prefix."fonctions set fetat='1', fretour='!!!' WHERE fid='39'");else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='39'");
    }
    //critique en attente
    $critsubs= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."reviews_add"));
