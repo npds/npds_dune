@@ -92,8 +92,8 @@ echo '
          echo '
             <tr>
                <td class="small">'.$username.'</td>
-               <td class="small">'.$host_addr.'</td>
-               <td class="small">'.gethostbyaddr($host_addr).'</td>
+               <td class="small">'.urldecode($host_addr).'</td>
+               <td class="small">'.gethostbyaddr(urldecode($host_addr)).'</td>
                <td class="small">'.$uri.'</td>
                <td class="small">'.$agent.'</td>
            </tr>';
