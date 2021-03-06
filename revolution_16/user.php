@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -240,9 +240,20 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
 }
 
 function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
-   global $NPDS_Prefix;
-   global $makepass, $system, $adminmail, $sitename, $AutoRegUser, $memberpass, $gmt;
-   $stop=userCheck($uname, $email);
+   global $NPDS_Prefix, $makepass, $system, $adminmail, $sitename, $AutoRegUser, $memberpass, $gmt, $NPDS_Key, $nuke_url;
+
+   if(!isset($_SERVER['HTTP_REFERER'])) {
+      Ecr_Log('security','Ghost form in user.php registration. => NO REFERER','');
+      L_spambot('',"false");
+      include('admin/die.php');
+      die();
+   }
+   else if ($_SERVER['HTTP_REFERER'].$NPDS_Key !== $nuke_url.'/user.php'.$NPDS_Key) {
+      Ecr_Log('security','Ghost form in user.php registration. => '.$_SERVER["HTTP_REFERER"],'');
+      L_spambot('',"false");
+      include('admin/die.php');
+      die();
+   }
    $user_regdate = time()+((integer)$gmt*3600);
    $stop=userCheck($uname, $email);
    if (!$stop) {
@@ -335,7 +346,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
 
 function userinfo($uname) {
    global $NPDS_Prefix;
-   global $user, $sitename, $smilies, $short_user, $site_font;
+   global $user, $sitename, $smilies, $short_user;
    global $name, $email, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal;
 
    $uname=removeHack($uname);
