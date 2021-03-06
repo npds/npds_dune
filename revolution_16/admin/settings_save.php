@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011                                   */
-/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -565,7 +565,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
     $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
     if ($NPDS_Key=="") {$NPDS_Key=uniqid("");}
     $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-    $content .= "\$Version_Num = \"v.16.2\";\n";
+    $content .= "\$Version_Num = \"v.16.2.1\";\n";
     $content .= "\$Version_Id = \"NPDS\";\n";
     $content .= "\$Version_Sub = \"REvolution\";\n";
     $content .= "\n";
