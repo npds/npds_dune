@@ -1266,7 +1266,7 @@ function fab_block($title, $member, $content, $Xcache) {
             $tab_pref=explode('&',$tab_pref['query']);
          foreach($tab_uri as $RR_uri) {
             $tab_puri=parse_url($RR_uri);
-            $racine_uri=$tab_puri['path'];//var_dump($racine_uri);var_dump($racine_page);
+            $racine_uri=$tab_puri['path'];
             if ($racine_page==$racine_uri) {
                if(array_key_exists('query', $tab_puri))
                   $tab_puri=explode('&',$tab_puri['query']);
@@ -2351,7 +2351,10 @@ function adminblock() {
       $cat[]=$SAQ['fcategorie'];
       $cat_n[]=$SAQ['fcategorie_nom'];
       $fid_ar[]=$SAQ['fid'];
-      $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
+      if($SAQ['fcategorie'] == 9)
+         $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
+      if ($SAQ['fcategorie'] == 9 and strstr($SAQ['furlscript'],"op=Extend-Admin-SubModule"))
+         if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext)) $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext; else $adminico=$adminimg.'module.'.$admf_ext;
       if ($SAQ['fcategorie'] == 9)
          $bloc_foncts_A .='
          <a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-html="true" data-toggle="tooltip" '.$SAQ['furlscript'].'>
@@ -2365,7 +2368,6 @@ function adminblock() {
    global $block_title;
    if ($title=='') $title=$block_title;
    else $title=aff_langue($title);
-   //must work from php 4 to 7 !..?..
    $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
    $content .= '
       <div class="d-flex justify-content-start flex-wrap" id="adm_block">
