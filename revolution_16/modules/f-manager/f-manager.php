@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -675,7 +675,7 @@ switch ($op) {
                settype($Fcontent, 'string');
                $edit_file.='
                      <div class="col-12">
-                        <textarea class="form-control" id="editfile" name="editfile" rows="18">'.htmlspecialchars($Fcontent,ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
+                        <textarea class="tin form-control" id="editfile" name="editfile" rows="18">'.htmlspecialchars($Fcontent,ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
                      </div>
                   </div>';
                $tabW=explode(' ',$extension_Wysiwyg_fma);
