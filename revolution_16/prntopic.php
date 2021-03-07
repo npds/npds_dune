@@ -138,7 +138,7 @@ $lock_state = $myrow['topic_status'];
 
    echo $posterdata['uname'];
    echo '<br />';
-   echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
+   echo member_qualif($posterdata['uname'], $posts, $posterdata['rang']);
    echo '<br /><br />';
    if ($smilies) {
       if ($posterdata['user_avatar'] != '') {

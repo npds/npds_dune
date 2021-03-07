@@ -109,7 +109,7 @@ function modifyUser($chng_user) {
       <hr />
       <h3>'.adm_translate("Modifier un utilisateur").' : '.$chng_uname.' / '.$chng_uid.'</h3>';
       $op='ModifyUser';
-      $result = sql_query("SELECT level, open, groupe, attachsig, rank FROM ".$NPDS_Prefix."users_status WHERE uid='$chng_uid'");
+      $result = sql_query("SELECT level, open, groupe, attachsig, rang FROM ".$NPDS_Prefix."users_status WHERE uid='$chng_uid'");
       list ($chng_level, $open_user, $groupe, $attach, $chng_rank) = sql_fetch_row($result);
       $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='$chng_uid'");
       list($C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2, $B1) = sql_fetch_row($result);
@@ -252,7 +252,7 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
          }
       }
    }
-   sql_query("UPDATE ".$NPDS_Prefix."users_status SET attachsig='$attach', level='$level', open='$open_user', groupe='$chng_groupe', rank='$chng_rank' WHERE uid='$chng_uid'");
+   sql_query("UPDATE ".$NPDS_Prefix."users_status SET attachsig='$attach', level='$level', open='$open_user', groupe='$chng_groupe', rang='$chng_rank' WHERE uid='$chng_uid'");
    sql_query("UPDATE ".$NPDS_Prefix."users_extend SET C1='$C1', C2='$C2', C3='$C3', C4='$C4', C5='$C5', C6='$C6', C7='$C7', C8='$C8', M1='$M1', M2='$M2', T1='$T1', T2='$T2', B1='$B1' WHERE uid='$chng_uid'");
 
    $contents='';

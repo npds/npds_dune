@@ -1069,7 +1069,7 @@ CREATE TABLE users_status (
   uid int(11) NOT NULL AUTO_INCREMENT,
   posts int(10) DEFAULT '0',
   attachsig int(2) DEFAULT '0',
-  rank int(10) DEFAULT '0',
+  rang int(10) DEFAULT '0',
   level int(10) DEFAULT '1',
   open tinyint(1) NOT NULL DEFAULT '1',
   groupe varchar(34) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
