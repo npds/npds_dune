@@ -183,9 +183,9 @@ function instant_members_message() {
           $result=sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".$ibid[$i]['username']."' $and");
           list($userid)=sql_fetch_row($result);
           if ($userid) {
-             $rowQ1=Q_Select("SELECT rank FROM ".$NPDS_Prefix."users_status WHERE uid='$userid'", 3600);
+             $rowQ1=Q_Select("SELECT rang FROM ".$NPDS_Prefix."users_status WHERE uid='$userid'", 3600);
              $myrow=$rowQ1[0];
-             $rank=$myrow['rank'];
+             $rank=$myrow['rang'];
              $tmpR='';
              if ($rank) {
                 if ($rank1=='') {

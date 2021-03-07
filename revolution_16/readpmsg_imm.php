@@ -84,7 +84,7 @@ function show_imm($op) {
          $myrow['subject']=strip_tags($myrow['subject']);
 
          $posts = $posterdata['posts'];
-         if ($posterdata['uid']<>1) echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
+         if ($posterdata['uid']<>1) echo member_qualif($posterdata['uname'], $posts, $posterdata['rang']);
          echo '<br /><br />';
          if ($smilies) {
             if ($posterdata['user_avatar'] != '') {
