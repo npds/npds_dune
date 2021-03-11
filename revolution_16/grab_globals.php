@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2021 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on phpmyadmin.net  grabber library                             */
@@ -51,9 +51,9 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
        return (urlencode(trim($realip)));
     } 
 
-    function access_denied() {
-       include("admin/die.php");
-    }
+   function access_denied() {
+      include("admin/die.php");
+   }
 
     // Boris 2012 - simulate PHP5 fonction array_walk_recursive / Mod by Dev to realy support PHP4 
     if (!function_exists("array_walk_recursive")) {
@@ -101,19 +101,15 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
       }
    }
 
-    if (get_magic_quotes_runtime()==1) {set_magic_quotes_runtime(0);}
-    // To prevent SQL Injection when magic_quotes GPC is off 
-    $magicquotesGPC=get_magic_quotes_gpc();
-    function addslashes_GPC(&$arr) {
-       $arr=addslashes($arr);
-    }
+   function addslashes_GPC(&$arr) {
+      $arr=addslashes($arr);
+   }
 
-    // include current charset
-    if (file_exists("meta/cur_charset.php"))  {
-       include ("meta/cur_charset.php");
-     }
-    // include url_protect Bad Words and create the filter function
-    include ("modules/include/url_protect.php");
+   // include current charset
+   if (file_exists("meta/cur_charset.php"))
+      include ("meta/cur_charset.php");
+   // include url_protect Bad Words and create the filter function
+   include ("modules/include/url_protect.php");
 
    function url_protect($arr,$key) {
       global $bad_uri_content;
@@ -127,95 +123,76 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
       //==> proposition de correction à suivre de près ... seems ok
       if(in_array($RQ_tmp, $bad_uri_content) OR in_array($RQ_tmp_large, $bad_uri_content))
          access_denied();
-      //<== proposition de correction à suivre de près ... seems ok
-
-      /*
-      //==> old version
-      while($uri_content=each($bad_uri_content)) {
-         $pos=strpos($RQ_tmp,$uri_content[1]);
-         $pos_large=strpos($RQ_tmp_large,$uri_content[1]);
-         if (($pos!==false) OR ($pos_large!==false)) {
-            access_denied();
-         }
-      }
-      //<== old version
-      */
    }
 
-    // Get values, slash, filter and extract
-    if (!empty($_GET)) {
-       if (!$magicquotesGPC)
-          array_walk_recursive($_GET,'addslashes_GPC');
-       reset($_GET);
-       array_walk_recursive($_GET,'url_protect');
-       extract($_GET, EXTR_OVERWRITE);
-    } else if (!empty($HTTP_GET_VARS)) {
-       if (!$magicquotesGPC)
-          array_walk_recursive($HTTP_GET_VARS,'addslashes_GPC');
-       reset($HTTP_GET_VARS);
-       array_walk_recursive($HTTP_GET_VARS,'url_protect');
-       extract($HTTP_GET_VARS, EXTR_OVERWRITE);
-    }
-    
-    if (!empty($_POST)) {
-       if (!$magicquotesGPC)
-          array_walk_recursive($_POST,'addslashes_GPC');
-       reset($_POST);
-       //array_walk_recursive($_POST,'url_protect');
-       extract($_POST, EXTR_OVERWRITE);
-    } else if (!empty($HTTP_POST_VARS)) {
-       if (!$magicquotesGPC)
-          array_walk_recursive($HTTP_POST_VARS,'addslashes_GPC');
-       reset($HTTP_POST_VARS);
-       //array_walk_recursive($HTTP_POST_VARS,'url_protect');
-       extract($HTTP_POST_VARS, EXTR_OVERWRITE);
-    }
+   // Get values, slash, filter and extract
+   if (!empty($_GET)) {
+      array_walk_recursive($_GET,'addslashes_GPC');
+      reset($_GET);
+      array_walk_recursive($_GET,'url_protect');
+      extract($_GET, EXTR_OVERWRITE);
+   } else if (!empty($HTTP_GET_VARS)) {
+      array_walk_recursive($HTTP_GET_VARS,'addslashes_GPC');
+      reset($HTTP_GET_VARS);
+      array_walk_recursive($HTTP_GET_VARS,'url_protect');
+      extract($HTTP_GET_VARS, EXTR_OVERWRITE);
+   }
 
-    // Cookies - analyse et purge - shiney 07-11-2010
-    if (!empty($_COOKIE)) {
-       extract($_COOKIE, EXTR_OVERWRITE);
-    } else if (!empty($HTTP_COOKIE_VARS)) {
-       extract($HTTP_COOKIE_VARS, EXTR_OVERWRITE);
-    }
-    if (isset($user)) {
-       $ibid=explode(':',base64_decode($user));
-       array_walk($ibid,'url_protect');
-       $user=base64_encode(str_replace("%3A",":", urlencode(base64_decode($user))));
-    }
-    if (isset($user_language)) {
-       $ibid=explode(':',$user_language);
-       array_walk($ibid,'url_protect');
-       $user_language=str_replace("%3A",":", urlencode($user_language));
-    }
-    if (isset($admin)) {
-       $ibid=explode(':',base64_decode($admin));
-       array_walk($ibid,'url_protect');
-       $admin=base64_encode(str_replace('%3A',':', urlencode(base64_decode($admin))));
-    }
-    // Cookies - analyse et purge - shiney 07-11-2010
+   if (!empty($_POST)) {
+      array_walk_recursive($_POST,'addslashes_GPC');
+      reset($_POST);
+      //array_walk_recursive($_POST,'url_protect');
+      extract($_POST, EXTR_OVERWRITE);
+   } else if (!empty($HTTP_POST_VARS)) {
+      array_walk_recursive($HTTP_POST_VARS,'addslashes_GPC');
+      reset($HTTP_POST_VARS);
+      //array_walk_recursive($HTTP_POST_VARS,'url_protect');
+      extract($HTTP_POST_VARS, EXTR_OVERWRITE);
+   }
 
-    if (!empty($_SERVER)) {
-       extract($_SERVER, EXTR_OVERWRITE);
-    } else if (!empty($HTTP_SERVER_VARS)) {
-       extract($HTTP_SERVER_VARS, EXTR_OVERWRITE);
-    }
+   // Cookies - analyse et purge - shiney 07-11-2010
+   if (!empty($_COOKIE))
+      extract($_COOKIE, EXTR_OVERWRITE);
+   else if (!empty($HTTP_COOKIE_VARS))
+      extract($HTTP_COOKIE_VARS, EXTR_OVERWRITE);
 
-    if (!empty($_ENV)) {
-       extract($_ENV, EXTR_OVERWRITE);
-    } else if (!empty($HTTP_ENV_VARS)) {
-       extract($HTTP_ENV_VARS, EXTR_OVERWRITE);
-    }
+   if (isset($user)) {
+      $ibid=explode(':',base64_decode($user));
+      array_walk($ibid,'url_protect');
+      $user=base64_encode(str_replace("%3A",":", urlencode(base64_decode($user))));
+   }
+   if (isset($user_language)) {
+      $ibid=explode(':',$user_language);
+      array_walk($ibid,'url_protect');
+      $user_language=str_replace("%3A",":", urlencode($user_language));
+   }
+   if (isset($admin)) {
+      $ibid=explode(':',base64_decode($admin));
+      array_walk($ibid,'url_protect');
+      $admin=base64_encode(str_replace('%3A',':', urlencode(base64_decode($admin))));
+   }
+   // Cookies - analyse et purge - shiney 07-11-2010
 
-    if (!empty($_FILES)) {
+   if (!empty($_SERVER))
+      extract($_SERVER, EXTR_OVERWRITE);
+   else if (!empty($HTTP_SERVER_VARS))
+      extract($HTTP_SERVER_VARS, EXTR_OVERWRITE);
+
+   if (!empty($_ENV))
+      extract($_ENV, EXTR_OVERWRITE);
+   else if (!empty($HTTP_ENV_VARS))
+      extract($HTTP_ENV_VARS, EXTR_OVERWRITE);
+
+   if (!empty($_FILES)) {
       foreach ($_FILES as $key => $value) {
-          $$key=$value['tmp_name'];
-       }
-    } else if (!empty($HTTP_POST_FILES)) {
-       foreach ($HTTP_POST_FILES as $key => $value) {
-          $$key=$value['tmp_name'];
+         $$key=$value['tmp_name'];
       }
-    }
+   } else if (!empty($HTTP_POST_FILES)) {
+      foreach ($HTTP_POST_FILES as $key => $value) {
+         $$key=$value['tmp_name'];
+      }
+   }
 
-    unset($bad_uri_content);
+   unset($bad_uri_content);
 }
 ?>
