@@ -196,7 +196,7 @@ include('header.php');
          echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
       }
       else 
-         echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="images/forum/avatar/blank.gif" alt="Ano" title="Ano" data-toggle="tooltip" />';
+         echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" title="'.$anonymous.'" data-toggle="tooltip" />';
    }
    echo '
             </div>
@@ -348,7 +348,7 @@ include('header.php');
       echo '
       <div class="row mb-3">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
-      if (($count+2)==$mycount) echo '<a name="last-post"></a>';
+      if (($count+2)==$mycount) echo '<a name="lastpost"></a>';
       echo '
          <div class="col-12">
             <div class="card">

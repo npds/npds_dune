@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -105,78 +105,91 @@ if ($mycount) {
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
    do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
-      $posts = $posterdata['posts'];
-
-      $socialnetworks=array(); $posterdata_extend=array(); $res_id=array(); $my_rs='';
-      if (!$short_user) {
-         $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
-         include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-         if($user or autorisation(-127)) {
-            if (array_key_exists('M2', $posterdata_extend)) {
-               if ($posterdata_extend['M2']!='') {
-                  $socialnetworks= explode(';',$posterdata_extend['M2']);
-                  foreach ($socialnetworks as $socialnetwork) {
-                     $res_id[] = explode('|',$socialnetwork);
-                  }
-                  sort($res_id);
-                  sort($rs);
-                  foreach ($rs as $v1) {
-                     foreach($res_id as $y1) {
-                        $k = array_search( $y1[0],$v1);
-                        if (false !== $k) {
-                           $my_rs.='<a class="mr-2" href="'.$v1[1].$y1[1].'" target="_blank"><i class="fab fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a>';
-                           break;
-                        } 
+      if($myrow['poster_id'] !== '0') {
+         $posts = $posterdata['posts'];
+         $socialnetworks=array(); $posterdata_extend=array(); $res_id=array(); $my_rs='';
+         if (!$short_user) {
+            $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
+            include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
+            if($user or autorisation(-127)) {
+               if (array_key_exists('M2', $posterdata_extend)) {
+                  if ($posterdata_extend['M2']!='') {
+                     $socialnetworks= explode(';',$posterdata_extend['M2']);
+                     foreach ($socialnetworks as $socialnetwork) {
+                        $res_id[] = explode('|',$socialnetwork);
+                     }
+                     sort($res_id);
+                     sort($rs);
+                     foreach ($rs as $v1) {
+                        foreach($res_id as $y1) {
+                           $k = array_search( $y1[0],$v1);
+                           if (false !== $k) {
+                              $my_rs.='<a class="mr-2" href="'.$v1[1].$y1[1].'" target="_blank"><i class="fab fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a>';
+                              break;
+                           } 
+                        }
                      }
                   }
                }
             }
          }
-      }
-      include('modules/geoloc/geoloc_conf.php');
-      settype($ch_lat,'string');
+         include('modules/geoloc/geoloc_conf.php');
+         settype($ch_lat,'string');
 
-      $useroutils = '';
-      if($user or autorisation(-127)) {
-         if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-toggle="tooltip"><i class="fa fa-user fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
-         if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
-         if ($posterdata['femail']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
-         if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend)) {
-            if ($posterdata_extend[$ch_lat] !='')
-               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op='.$posterdata['uname'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
+         $useroutils = '';
+         if($user or autorisation(-127)) {
+            if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
+               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-toggle="tooltip"><i class="fa fa-user fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
+            if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
+               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+            if ($posterdata['femail']!='')
+               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
+            if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend)) {
+               if ($posterdata_extend[$ch_lat] !='')
+                  $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op='.$posterdata['uname'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
+            }
          }
+         if ($posterdata['url']!='')
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
+         if ($posterdata['mns'])
+             $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
       }
-      if ($posterdata['url']!='')
-         $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
-      if ($posterdata['mns'])
-          $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
-
       echo '
       <div class="row">
          <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
-      if (($count+2)==$mycount) echo '<a name="last-post"></a>';
+      if (($count+2)==$mycount) echo '<a name="lastpost"></a>';
       echo '
          <div class="col-12 mb-3">
             <div class="card">
                <div class="card-header">';
       global $smilies;
       if ($smilies) {
-          if ($posterdata['user_avatar'] != '') {
-             if (stristr($posterdata['user_avatar'],"users_private")) {
-                $imgtmp=$posterdata['user_avatar'];
-             } else {
-                if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
-             }
-              echo '
-             <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
-          }
+         if($myrow['poster_id'] !== '0') {
+            if ($posterdata['user_avatar'] != '') {
+               if (stristr($posterdata['user_avatar'],"users_private"))
+                   $imgtmp=$posterdata['user_avatar'];
+               else {
+                  if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
+               }
+            }
+            echo '
+            <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>
+            <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+         } else {
+            echo '
+            <a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" /></a>
+            <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$anonymous.'</strong></span>';
+         }
+      } else {
+         if($myrow['poster_id'] !== '0')
+            echo '<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+         else
+            echo '<span class="text-muted"><strong>'.$anonymous.'</strong></span>';
       }
-             echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-      
+      if ($ibid=theme_image("forum/subject/00.png")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/00.png";}
+
       echo '
+                  <span class="float-right"><img class="n-smil" src="'.$imgtmp.'" alt="" /></span>
                </div>';
       $message=stripslashes($myrow['post_text']);
       $date_post=convertdateTOtimestamp($myrow['post_time']);
@@ -187,7 +200,8 @@ if ($mycount) {
          $message = smilie($message);
          $message = aff_video_yt($message);
       }
-      $message=str_replace("[addsig]", '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
+      if(array_key_exists('user_sig', $posterdata))
+         $message=str_replace("[addsig]", '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
          echo '
                      <div class="card-text fo-post-mes">
                         '.nl2br($message).'
