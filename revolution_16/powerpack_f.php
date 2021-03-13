@@ -243,7 +243,7 @@ function instant_members_message() {
                   $M=substr($N,0,$long_chain).'.';
                else
                   $M=$N;
-               $boxstuff .= $M;
+               $boxstuff .= $M.'<br />';
             }
             themesidebox('<i>'.$block_title.'</i>', $boxstuff);
          }
