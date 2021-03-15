@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -96,11 +96,7 @@ if (($myrow['forum_type'] == 5) or ($myrow['forum_type'] == 7)) {
 
 if ($myrow['forum_type'] == 8) $Forum_passwd=$myrow['forum_pass']; else settype($Forum_passwd,'string');
 
-// Forum ARBRE
-if ($myrow['arbre'])
-   $hrefX='viewtopicH.php';
-else
-   $hrefX='viewtopic.php';
+$hrefX= $myrow['arbre']?'viewtopicH.php': 'viewtopic.php';
 
 if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or ($Forum_passwd != $myrow['forum_pass'])) ) {
    include('header.php');
@@ -145,9 +141,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
          inpandfieldlen("forum_pass",60);';
    adminfoot('fv','',$arg1,'');
 }
-   
-   //::ICI 
-   elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
+elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
    if (($myrow['forum_type']== 9) and (!$user)) { header("location: forum.php"); }
    $title=$forum_name;
    include('header.php');
@@ -245,33 +239,30 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                $rowQ1=Q_Select ("SELECT image FROM ".$NPDS_Prefix."posts WHERE topic_id='".$myrow['topic_id']."' AND forum_id='$forum' LIMIT 0,1", 86400);
                $image_subject=$rowQ1[0]['image'];
             }
-            
+
             if (($replys+1) > $posts_per_page) {
-                  $pages=0;
-                  for ($x = 0; $x < ($replys+1); $x += $posts_per_page)
-                     $pages++;
-                  $last_post_url="$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum&amp;start=".(($pages-1)*$posts_per_page);
-               } else {$last_post_url="$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum";}
+               $pages=0;
+               for ($x = 0; $x < ($replys+1); $x += $posts_per_page)
+                  $pages++;
+               $last_post_url="$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum&amp;start=".(($pages-1)*$posts_per_page);
+            } else
+               $last_post_url="$hrefX?topic=".$myrow['topic_id']."&amp;forum=$forum";
 
             if ($user) {
                $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='".$myrow['topic_id']."' AND status!='0'";
-               if ($replys >= $hot_threshold) {
-                  if (sql_num_rows(sql_query($sqlR))==0)
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt faa-shake animated"></i></a>';
-                  else
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
-               } else {
-                  if (sql_num_rows(sql_query($sqlR))==0)
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt faa-shake animated"></i></a>';
-                  else
-                     $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
-               }
-            } else {
                if ($replys >= $hot_threshold)
-                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
+                  $image = sql_num_rows(sql_query($sqlR))==0 ?
+                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt faa-shake animated"></i></a>':
+                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
                else
-                  $image = '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
-            }
+                  $image = sql_num_rows(sql_query($sqlR))==0 ?
+                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt faa-shake animated"></i></a>':
+                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
+            } else
+               $image = ($replys >= $hot_threshold) ?
+                  '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>':
+                  '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
+
             if ($myrow['topic_status']!=0)
                $image = '<i class="fa fa-lg fa-lock text-danger"></i>';
             echo '
@@ -310,20 +301,25 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                }
                echo '<td>&nbsp;</td>';
             } else {
-               $rowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid='".$myrow['topic_poster']."'", 3600);
-               $uname=$rowQ1[0]['uname'];
-               echo '<td>'.userpopover($uname,40).$uname.'</td>';
+               if($myrow['topic_poster']==1)
+                  echo '<td></td>';
+               else {
+                  $rowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid='".$myrow['topic_poster']."'", 3600);
+                  if($rowQ1) {
+                     echo '<td>'.userpopover($rowQ1[0]['uname'],40).$rowQ1[0]['uname'].'</td>';
+                  } else
+                  echo '<td>'.$anonymous.'</td>';
+               }
                echo '<td>'.$myrow['topic_views'].'</td>';
             }
-            if ($Sredirection) {
+            if ($Sredirection)
                echo '
                   <td>&nbsp;</td>
                </tr>';
-            } else {
+            else
                echo '
                   <td class="small">'.get_last_post($myrow['topic_id'],"topic","infos",$Mmod).'</td>
                </tr>';
-            }
          }
       } while($myrow = sql_fetch_assoc($result));
       sql_free_result($result);

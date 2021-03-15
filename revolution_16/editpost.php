@@ -122,7 +122,7 @@ if ($submitS) {
    include("header.php");
    if ($allow_bbcode==1)
       include("lib/formhelp.java.php");
-   $sql = "SELECT p.*, u.uname, u.uid, u.user_sig FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE (p.post_id = '$post_id') AND (p.poster_id = u.uid)";
+   $sql = "SELECT p.*, u.uname, u.uid, u.user_sig FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE (p.post_id = '$post_id') AND ((p.poster_id = u.uid) XOR (p.poster_id=0))";
    if (!$result = sql_query($sql))
       forumerror('0001');
    $myrow = sql_fetch_assoc($result);
@@ -155,9 +155,10 @@ if ($submitS) {
       $message = stripslashes($message);
    }
    if ( (($Mmod) or ($userdata[0]==$myrow['uid'])) and ($forum_access!=9) ) {
+      $qui = $myrow['poster_id'] == 0 ? $anonymous : $myrow['uname'];
       echo '
       <div>
-      <h3>'.translate("Edition de la soumission").' de <span class="text-muted">'.$myrow['uname'].'</span></h3>
+      <h3>'.translate("Edition de la soumission").' de <span class="text-muted">'.$qui.'</span></h3>
       <hr />
       <form action="editpost.php" method="post" name="coolsus">';
       if ($Mmod)
@@ -194,25 +195,26 @@ if ($submitS) {
    echo '
          <div class="col-sm-12">
             <div class="card">
-               <div class="card-header">';
+               <div class="card-header">
+                  <div class="float-left">';
+   putitems('ta_edipost');
+      echo '
+               </div>';
    if ($allow_html == 1)
       echo '
-                  <span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+                  <span class="text-success float-right mt-2" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    else
       echo '
-                  <span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+                  <span class="text-danger float-right mt-2" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
-               <div class="card-body pb-0">
+               <div class="card-body">
                   <textarea id="ta_edipost" class="form-control" '.$xJava.' name="message" rows="10" cols="60">'.$message.'</textarea>
-                  <div class="text-right my-3">
-                     <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" >'.translate("Prévisualiser").'</button>
-                     <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" >'.translate("Annuler").'</button>
-                  </div>
                </div>
-               <div class="card-footer text-muted">';
-   if ($allow_bbcode) putitems('ta_edipost');
-   echo '
+               <div class="card-footer p-0">
+                  <span class="d-block">
+                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
+                  </span>
                </div>
             </div>
          </div>
