@@ -152,38 +152,6 @@ function msg_erreur($message) {
 </html>';
    die();
 }
-/*
-
-function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
-   include_once('config.php');
-   global $system, $system_md5, $minpass, $stage7_ok, $NPDS_Prefix;
-   if ($adminlogin != '') {
-      if($adminpass1 != $adminpass2)
-         $stage7_ok = 2;
-      else {
-         if(strlen($adminpass1) < $minpass)
-            $stage7_ok = 2;
-         else {
-            $stage7_ok = 1;
-            if($system_md5)
-               $adminpwd = crypt($adminpass2, $adminpass1);
-            else
-               $adminpwd = $adminpass1;
-            sql_connect();
-            $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd' WHERE radminsuper='1'");
-            copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
-
-            if(!$result1)
-               $stage7_ok = 0;
-         }
-      }
-   }
-   else
-      $stage7_ok = 2;
-   return($stage7_ok);
-}
-
-*/
 
 function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
    include_once('config.php');
