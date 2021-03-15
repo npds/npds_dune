@@ -244,13 +244,6 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
         $hashkey = 0;
       }
       sql_query("UPDATE ".$NPDS_Prefix."users SET uname='$chng_uname', name='$chng_name', email='$chng_email', femail='$chng_femail', url='$chng_url', user_from='$chng_user_from', user_occ='$chng_user_occ', user_intrest='$chng_user_intrest', user_viewemail='$chng_user_viewemail', user_avatar='$chng_avatar', user_sig='$chng_user_sig', bio='$chng_bio', send_email='$chng_send_email', is_visible='$chng_is_visible', mns='$chng_mns', pass='$cpass', hashkey='$haskey', user_lnl='$chng_lnl' WHERE uid='$chng_uid'");
-/*
-         $cpass = crypt($chng_pass,$chng_pass);
-      else
-         $cpass=$chng_pass;
-      sql_query("UPDATE ".$NPDS_Prefix."users SET uname='$chng_uname', name='$chng_name', email='$chng_email', femail='$chng_femail', url='$chng_url', user_from='$chng_user_from', user_occ='$chng_user_occ', user_intrest='$chng_user_intrest', user_viewemail='$chng_user_viewemail', user_avatar='$chng_avatar', user_sig='$chng_user_sig', bio='$chng_bio', send_email='$chng_send_email', is_visible='$chng_is_visible', mns='$chng_mns', pass='$cpass', user_lnl='$chng_lnl' WHERE uid='$chng_uid'");
-*/
-
    }
    if ($chng_user_viewemail)
       $attach = 1;
