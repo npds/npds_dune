@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -492,7 +492,7 @@ function send_email($email, $subject, $message, $from="", $priority=false, $mime
          $message=nl2br($message);
       else
          $mime='html';
-      $css="<html>\n<head>\n<style type='text/css'>\nbody {\nbackground: #FFFFFF;\nfont-family: Tahoma, Calibri, Arial;\nfont-size: 11px;\ncolor: #000000;\n}\na, a:visited, a:link, a:hover {\ntext-decoration: underline;\n}\n</style>\n</head>\n<body>\n";
+      $css="<html>\n<head>\n<style type='text/css'>\nbody {\nbackground: #FFFFFF;\nfont-family: Tahoma, Calibri, Arial;\nfont-size: 1 rem;\ncolor: #000000;\n}\na, a:visited, a:link, a:hover {\ntext-decoration: underline;\n}\n</style>\n</head>\n<body>\n";
       $message=$css.$message."\n</body>\n</html>";
    }
    if (($mail_fonction==1) or ($mail_fonction=="")) {
@@ -1507,7 +1507,7 @@ function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
          }
          if ($Xtype=='forum') {
             $entete=translate_ml($user_langue, "Vous recevez ce Mail car vous vous êtes abonné à : ").translate_ml($user_langue, "Forum")." => ".strip_tags($abo)."\n\n";
-            $url=translate_ml($user_langue, "L'URL pour cet article est : ")."<a href=\"$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999#last-post\">$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999</a>\n\n";
+            $url=translate_ml($user_langue, "L'URL pour cet article est : ")."<a href=\"$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999#lastpost\">$nuke_url/$hrefX?topic=$Xtopic&forum=$Xforum&start=9999</a>\n\n";
             $resume=translate_ml($user_langue, "Le titre de la dernière publication est")." => ";
             if ($Xresume!='') {
                $resume.=$Xresume."\n\n";
@@ -2640,7 +2640,7 @@ function category() {
 }
 #autodoc headlines() : Bloc HeadLines <br />=> syntaxe :<br />function#headlines<br />params#ID_du_canal
 function headlines($hid='', $block=true) {
-   global $NPDS_Prefix, $Version_Num, $Version_Id, $system, $rss_host_verif, $long_chain;
+   global $NPDS_Prefix, $Version_Num, $Version_Id, $rss_host_verif, $long_chain;
 
    if (file_exists("proxy.conf.php"))
       include("proxy.conf.php");
@@ -3433,6 +3433,18 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
       case 'foo' :
          include ('footer.php');
       break;
+   }
+}
+
+#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) : permet de calculer le cout algorythmique optimum pour la procédure de hashage
+function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) {
+   for ($i = 4; $i < 31; $i++) {
+      $calculCost = [ 'cost' => $i ];
+      $time_start = microtime(true);
+      password_hash($pass, $AlgoCrypt, $calculCost);
+      $time_end = microtime(true);
+      if (($time_end - $time_start) * 1000 > $min_ms)
+         return $i;
    }
 }
 ?>

@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -149,14 +149,14 @@ function displayadmins() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4 " for="add_email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8">
-               <input id="add_email" class="form-control" type="email" name="add_email" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
+               <input id="add_email" class="form-control" type="email" name="add_email" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
                <span class="help-block text-right"><span id="countcar_add_email"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4 " for="add_url">'.adm_translate("URL").'</label>
             <div class="col-sm-8">
-               <input id="add_url" class="form-control" type="url" name="add_url" maxlength="320" placeholder="'.adm_translate("URL").'" />
+               <input id="add_url" class="form-control" type="url" name="add_url" maxlength="60" placeholder="'.adm_translate("URL").'" />
                <span class="help-block text-right"><span id="countcar_add_url"></span></span>
             </div>
          </div>
@@ -217,8 +217,8 @@ function displayadmins() {
       '.auto_complete ('adminname', 'name', 'authors', '', '0').'
       inpandfieldlen("add_aid",30);
       inpandfieldlen("add_name",50);
-      inpandfieldlen("add_email",254);
-      inpandfieldlen("add_url",320);
+      inpandfieldlen("add_email",60);
+      inpandfieldlen("add_url",60);
       inpandfieldlen("add_pwd",20);
       ';
    $fv_parametres = '
@@ -322,14 +322,14 @@ function modifyadmin($chng_aid) {
          <div class="form-group row">
             <label class="col-sm-4 col-form-label " for="chng_email">'.adm_translate("E-mail").'</label>
             <div class="col-sm-8">
-               <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
+               <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="60" placeholder="'.adm_translate("E-mail").'" required="required" />
                <span class="help-block text-right"><span id="countcar_chng_email"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="chng_url">'.adm_translate("URL").'</label>
             <div class="col-sm-8">
-               <input id="chng_url" class="form-control" type="url" name="chng_url" value="'.$chng_url.'" maxlength="320" placeholder="'.adm_translate("URL").'" />
+               <input id="chng_url" class="form-control" type="url" name="chng_url" value="'.$chng_url.'" maxlength="60" placeholder="'.adm_translate("URL").'" />
                <span class="help-block text-right"><span id="countcar_chng_url"></span></span>
             </div>
          </div>
@@ -386,17 +386,18 @@ function modifyadmin($chng_aid) {
          <div class="form-group row">
             <div class="col-sm-8 ml-sm-auto">
                <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Actualiser l'administrateur").'</button>
-               <input type="hidden" name="op" value="UpdateAuthor">
             </div>
          </div>
+         <input type="hidden" name="old_pwd" value="'.$chng_pwd.'" />
+         <input type="hidden" name="op" value="UpdateAuthor" />
       </fieldset>
    </form>';
    echo $scri_check;
 $arg1 ='
       var formulid = ["mod_adm"]
          inpandfieldlen("chng_name",50);
-         inpandfieldlen("chng_email",254);
-         inpandfieldlen("chng_url",320);
+         inpandfieldlen("chng_email",60);
+         inpandfieldlen("chng_url",60);
          inpandfieldlen("chng_pwd",20);
          inpandfieldlen("chng_pwd2",20);
       ';
@@ -437,7 +438,7 @@ function updatedroits($chng_aid) {
    }
 }
 
-function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5, $ad_d_27) {
+function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $ad_d_27, $old_pwd) {
    global $NPDS_Prefix;
 
    if (!($chng_aid && $chng_name && $chng_email))
@@ -468,25 +469,52 @@ function updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radmin
          global $hlpfile;
          include("header.php");
          GraphicAdmin($hlpfile);
-         echo error_handler(adm_translate("Désolé, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez")."<br />");
+         echo error_handler(adm_translate("Désolé, les nouveaux Mots de Passe ne correspondent pas. Cliquez sur retour et recommencez").'<br />');
          include("footer.php");
          exit;
       }
       global $system_md5;
-      if (($system_md5) or ($temp_system_md5))
-         $chng_pwd=crypt($chng_pwd2,$chng_pwd);
+
+      if ($system_md5 == 1) {
+         $AlgoCrypt = PASSWORD_BCRYPT;
+         $min_ms = 250;
+         $options = ['cost' => getOptimalBcryptCostParameter($chng_pwd, $AlgoCrypt, $min_ms)];
+         $hashpass = password_hash($chng_pwd, $AlgoCrypt, $options);
+         $chng_pwd=crypt($chng_pwd, $hashpass);
+         $hashkey = 1;
+      } else
+         $hashkey = 0;
+
+      if ($old_pwd) {
+         global $admin, $admin_cook_duration;
+         $Xadmin = base64_decode($admin);
+         $Xadmin = explode(':', $Xadmin);
+         $aid = urlencode($Xadmin[0]);
+         $AIpwd = $Xadmin[1];
+         if ($aid == $chng_aid) {
+            if (md5($old_pwd) == $AIpwd and $chng_pwd != '') {
+               $admin = base64_encode("$aid:".md5($chng_pwd));
+               if ($admin_cook_duration<=0) 
+                  $admin_cook_duration=1;
+               $timeX=time()+(3600*$admin_cook_duration);
+               setcookie('admin',$admin,$timeX);
+               setcookie('adm_exp',$timeX,$timeX);
+            }
+         }
+      }
+
       if ($chng_radminsuper==1)
-         $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper', pwd='$chng_pwd' WHERE aid='$chng_aid'");
+         $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper', pwd='$chng_pwd', hashkey='$hashkey' WHERE aid='$chng_aid'");
       else
-         $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0', pwd='$chng_pwd' WHERE aid='$chng_aid'");
+         $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0', pwd='$chng_pwd', hashkey='$hashkey' WHERE aid='$chng_aid'");
    } else {
       if ($chng_radminsuper==1) {
          $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='$chng_radminsuper' WHERE aid='$chng_aid'");
          deletedroits($chng_aid);
       } else {
-            $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0' WHERE aid='$chng_aid'");
-            deletedroits($chng_aid);
-            updatedroits($chng_aid);
+         $result = sql_query("UPDATE ".$NPDS_Prefix."authors SET name='$chng_name', email='$chng_email', url='$chng_url', radminsuper='0' WHERE aid='$chng_aid'");
+         deletedroits($chng_aid);
+         updatedroits($chng_aid);
       }
    }
    global $aid; Ecr_Log('security', "ModifyAuthor($chng_name) by AID : $aid", '');
@@ -509,16 +537,15 @@ switch ($op) {
       modifyadmin($chng_aid);
    break;
    case 'UpdateAuthor':
-      settype( $temp_system_md5,'string');
       settype( $chng_radminsuper,'string');
-      updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $temp_system_md5, $ad_d_27);
+      updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $ad_d_27, $old_pwd);
    break;
    case 'AddAuthor':
       if (!($add_aid && $add_name && $add_email && $add_pwd)) {
          global $hlpfile;
          include("header.php");
          GraphicAdmin($hlpfile);
-         echo error_handler(adm_translate("Vous devez remplir tous les Champs")."<br />");
+         echo error_handler(adm_translate("Vous devez remplir tous les Champs").'<br />');
          include("footer.php");
          return;
       }
@@ -531,9 +558,18 @@ switch ($op) {
          include("footer.php");
          return;
       }
-      if ($system_md5)
-         $add_pwdX=crypt($add_pwd,$add_pwdX);
-      $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '0','0', '$add_radminsuper')");
+
+      if ($system_md5 == 1) {
+         $AlgoCrypt = PASSWORD_BCRYPT;
+         $min_ms = 250;
+         $options = ['cost' => getOptimalBcryptCostParameter($add_pwd, $AlgoCrypt, $min_ms)];
+         $hashpass = password_hash($add_pwd, $AlgoCrypt, $options);
+         $add_pwdX=crypt($add_pwd, $hashpass);
+         $hashkey = 1;
+      } else
+         $hashkey = 0;
+
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '$hashkey','0','0', '$add_radminsuper')");
       updatedroits($add_aid);
       // Copie du fichier pour filemanager
       if ($add_radminsuper or $ad_d_27!='')
@@ -541,7 +577,6 @@ switch ($op) {
       global $aid; Ecr_Log('security', "AddAuthor($add_aid) by AID : $aid", '');
       Header("Location: admin.php?op=mod_authors");
    break;
-
    case 'deladmin':
       global $hlpfile;
       include("header.php");

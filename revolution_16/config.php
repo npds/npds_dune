@@ -23,8 +23,8 @@
 # mysql_p:     Persistent connection to MySQL Server (1) or Not (0)
 # mysql_i:     Use MySQLi (1) instead of MySQL interface (0)
 # =======================
-# system:      0 for Unix/Linux, 1 for Windows
-# system_md5:  0 for NOT USED Authors' Password encryption / 1 for USED Author's Password Encryption
+# system:      0 user password encryption DISABLE, 1 user password encryption ENABLE
+# system_md5:  0 admin password encryption DISABLE, 1 admin password encryption ENABLE
 ######################################################################
 
 $dbhost = "localhost";
@@ -34,7 +34,7 @@ $dbname = "revolution";
 $mysql_p = 1;
 $mysql_i = 1;
 # =======================
-$system = 0;
+$system = 1;
 $system_md5 = 1;
 
 /*********************************************************************/

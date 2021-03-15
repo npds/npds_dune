@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -79,16 +79,21 @@ if ($submitS) {
          else {
             $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
-            if (!$system)
-               $passwd=crypt($password,$pass);
-            else
-              $passwd=$password;
-            if ((strcmp($passwd,$pass)==0) and ($pass != '')) {
-               $userdata = get_userdata($username);
-               include('header.php');
+            if ($system == 1) {
+               if ((password_verify($password, $pass)) and ($pass != '')) {
+                  $userdata = get_userdata($username);
+                  include('header.php');
+               }
+               else
+                  forumerror('0028');
+            } else {
+               if ((strcmp($password, $pass)==0) and ($pass != '')) {
+                  $userdata = get_userdata($username);
+                  include('header.php');
+               }
+               else
+                  forumerror('0028');
             }
-            else
-               forumerror('0028');
          }
       }
    } else {
