@@ -74,7 +74,7 @@ function etape_4() {
                         <label class="col-form-label" for="new_system">'.ins_translate('Cryptage des mots de passe utilisateurs').'</label>
                         <select class="custom-select form-control" name="new_system">
                            <option value="0" '.$sel3.'>'.ins_translate('Non').'</option>
-                           <option value="1" '.$sel4.'>'.ins_translate('Oui').'/option>
+                           <option value="1" '.$sel4.'>'.ins_translate('Oui').'</option>
                         </select>
                      </div>';
    $sel5='';$sel6='';
