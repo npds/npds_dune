@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -66,7 +66,7 @@ function ins_translate($phrase) {
   case "Type de connexion au serveur mySQL": $tmp = "MySQL server connection"; break;
   case "Non permanente": $tmp = "Not persistante"; break;
   case "Permanente": $tmp = "Persistante"; break;
-  case "Système hôte": $tmp = "Host system"; break;
+  case "Cryptage des mots de passe utilisateurs": $tmp = "Crypt users passwords"; break;
   case "Cryptage des mots de passe administrateur(s)/auteur(s)": $tmp = "Crypt administrator(s)/author(s) passwords"; break;
   case "Non": $tmp = "No"; break;
   case "Oui": $tmp = "Yes"; break;

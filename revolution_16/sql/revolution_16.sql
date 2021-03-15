@@ -38,13 +38,14 @@ CREATE TABLE authors (
   name varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   url varchar(320) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   email varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  pwd varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  pwd varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  hashkey tinyint(1) NOT NULL DEFAULT '0',
   counter int(11) NOT NULL DEFAULT '0',
   radminfilem tinyint(2) NOT NULL DEFAULT '0',
   radminsuper tinyint(2) NOT NULL DEFAULT '1',
   PRIMARY KEY (aid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-INSERT INTO authors (aid, name, url, email, pwd, counter, radminfilem, radminsuper) VALUES ('Root', 'Root', '', 'root@npds.org', 'd.8V.L9nSMMvE', 0, 0, 1);
+INSERT INTO authors (aid, name, url, email, pwd, hashkey, counter, radminfilem, radminsuper) VALUES ('Root', 'Root', '', 'root@npds.org', 'd.8V.L9nSMMvE', 0, 0, 0, 1);
 
 CREATE TABLE autonews (
   anid int(11) NOT NULL AUTO_INCREMENT,
@@ -1021,7 +1022,8 @@ CREATE TABLE users (
   user_viewemail tinyint(2) DEFAULT NULL,
   user_theme varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   user_journal text COLLATE utf8mb4_unicode_ci NOT NULL,
-  pass varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  pass varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  hashkey tinyint(1) NOT NULL DEFAULT '0',
   storynum tinyint(4) NOT NULL DEFAULT '10',
   umode varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   uorder tinyint(1) NOT NULL DEFAULT '0',
@@ -1043,7 +1045,7 @@ CREATE TABLE users (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO users VALUES (1, '', 'Anonyme', '', '', '', 'blank.gif', '989445600', '', '', '', '', 0, 0, '', '', 10, '', 0, 0, 0, '', 0, '', '', 4096, 0, 0, 1, 0, NULL, NULL, 1);
-INSERT INTO users VALUES (2, 'user', 'user', 'user@user.land', '', 'http://www.userland.com', '014.gif', '989445600', '', '', '', 'User of the Land', 0, 0, '', 'd.q1Wcp0KUqsk', 10, '', 0, 0, 0, '', 1, '<ul><li><a href=http://www.npds.org target=_blank>NPDS.ORG</a></li></ul>', 'npds-boost_sk', 4096, 4, 0, 1, 1, 'french', '1384102103', 1);
+INSERT INTO users VALUES (2, 'user', 'user', 'user@user.land', '', 'http://www.userland.com', '014.gif', '989445600', '', '', '', 'User of the Land', 0, 0, '', 'd.q1Wcp0KUqsk', 0, 10, '', 0, 0, 0, '', 1, '<ul><li><a href=http://www.npds.org target=_blank>NPDS.ORG</a></li></ul>', 'npds-boost_sk', 4096, 4, 0, 1, 1, 'french', '1384102103', 1);
 
 CREATE TABLE users_extend (
   uid int(11) NOT NULL AUTO_INCREMENT,

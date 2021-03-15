@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -152,6 +152,7 @@ function msg_erreur($message) {
 </html>';
    die();
 }
+/*
 
 function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
    include_once('config.php');
@@ -182,6 +183,44 @@ function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
    return($stage7_ok);
 }
 
+*/
+
+function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
+   include_once('config.php');
+   global $system, $system_md5, $minpass, $stage7_ok, $NPDS_Prefix;
+   if ($adminlogin != '') {
+      if($adminpass1 != $adminpass2)
+         $stage7_ok = 2;
+      else {
+         if(strlen($adminpass1) < $minpass)
+            $stage7_ok = 2;
+         else {
+            $stage7_ok = 1;
+            if ($system_md5 == 1) {
+               $AlgoCrypt = PASSWORD_BCRYPT;
+               $min_ms = 250;
+               $options = ['cost' => getOptimalBcryptCostParameter($adminpass1, $AlgoCrypt, $min_ms)];
+               $hashpass = password_hash($adminpass1, $AlgoCrypt, $options);
+               $adminpwd=crypt($adminpass1, $hashpass);
+               $hashkey = 1;
+            } else
+               $hashkey = 0;
+
+            sql_connect();
+            $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd', hashkey='$hashkey' WHERE radminsuper='1'");
+            copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
+
+            if(!$result1)
+               $stage7_ok = 0;
+         }
+      }
+   }
+   else
+      $stage7_ok = 2;
+   return($stage7_ok);
+}
+
+
 function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, $new_racine, $new_rep_upload, $new_rep_cache, $new_rep_log, $new_url_upload)
 {
    global $langue, $nuke_url, $stage8_ok;
@@ -205,7 +244,6 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
    $stage8_ok = 1;
    return($stage8_ok);
 }
-
 
 #autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2  $l=> 0 ou 1(requis), $s, $c=> 0 ou 1 (requis)
 function language_iso($l,$s,$c) {
@@ -404,4 +442,17 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
       break;
    }
 }
+
+#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) : permet de calculer le cout algorythmique optimum pour la procédure de hashage
+function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) {
+   for ($i = 4; $i < 31; $i++) {
+      $calculCost = [ 'cost' => $i ];
+      $time_start = microtime(true);
+      password_hash($pass, $AlgoCrypt, $calculCost);
+      $time_end = microtime(true);
+      if (($time_end - $time_start) * 1000 > $min_ms)
+         return $i;
+   }
+}
+
 ?>

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -63,6 +63,7 @@ function displayUsers() {
     <a href="admin.php?op=checkdnsmail_users&amp;page=0&amp;end=1">'.adm_translate("Serveurs de mail incorrects").'</a><br />';
    adminfoot('','','','');
 }
+
 function extractUserCSV() {
    global $NPDS_Prefix;
 
@@ -230,11 +231,26 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
       sql_query("UPDATE ".$NPDS_Prefix."users SET uname='$chng_uname', name='$chng_name', email='$chng_email', femail='$chng_femail', url='$chng_url', user_from='$chng_user_from', user_occ='$chng_user_occ', user_intrest='$chng_user_intrest', user_viewemail='$chng_user_viewemail', user_avatar='$chng_avatar', user_sig='$chng_user_sig', bio='$chng_bio', send_email='$chng_send_email', is_visible='$chng_is_visible', mns='$chng_mns', user_lnl='$chng_lnl' WHERE uid='$chng_uid'");
    if ($tmp==1) {
       global $system;
-      if (!$system)
+      if ($system == 1) {
+         $AlgoCrypt = PASSWORD_BCRYPT;
+         $min_ms = 250;
+         $options = ['cost' => getOptimalBcryptCostParameter($chng_pass, $AlgoCrypt, $min_ms)]; 
+         $hashpass = password_hash($chng_pass, $AlgoCrypt, $options);
+         $cpass = crypt($chng_pass, $hashpass);
+         $hashkey = 1;
+      }
+      else {
+        $cpass=$chng_pass;
+        $hashkey = 0;
+      }
+      sql_query("UPDATE ".$NPDS_Prefix."users SET uname='$chng_uname', name='$chng_name', email='$chng_email', femail='$chng_femail', url='$chng_url', user_from='$chng_user_from', user_occ='$chng_user_occ', user_intrest='$chng_user_intrest', user_viewemail='$chng_user_viewemail', user_avatar='$chng_avatar', user_sig='$chng_user_sig', bio='$chng_bio', send_email='$chng_send_email', is_visible='$chng_is_visible', mns='$chng_mns', pass='$cpass', hashkey='$haskey', user_lnl='$chng_lnl' WHERE uid='$chng_uid'");
+/*
          $cpass = crypt($chng_pass,$chng_pass);
       else
          $cpass=$chng_pass;
       sql_query("UPDATE ".$NPDS_Prefix."users SET uname='$chng_uname', name='$chng_name', email='$chng_email', femail='$chng_femail', url='$chng_url', user_from='$chng_user_from', user_occ='$chng_user_occ', user_intrest='$chng_user_intrest', user_viewemail='$chng_user_viewemail', user_avatar='$chng_avatar', user_sig='$chng_user_sig', bio='$chng_bio', send_email='$chng_send_email', is_visible='$chng_is_visible', mns='$chng_mns', pass='$cpass', user_lnl='$chng_lnl' WHERE uid='$chng_uid'");
+*/
+
    }
    if ($chng_user_viewemail)
       $attach = 1;
@@ -614,8 +630,16 @@ switch ($op) {
          adminfoot('','','','');
          return;
       }
-      if (!$system)
-         $add_pass = crypt($add_pass,$add_pass);
+      if ($system == 1){
+         $AlgoCrypt = PASSWORD_BCRYPT;
+         $min_ms = 250;
+         $options = ['cost' => getOptimalBcryptCostParameter($add_pass, $AlgoCrypt, $min_ms)];
+         $hashpass = password_hash($add_pass, $AlgoCrypt, $options);
+         $add_pass = crypt($add_pass, $hashpass);
+         $hashkey = 1;
+      } else
+         $hashkey = 0;
+
       if ($add_is_visible=='')
          $add_is_visible='1';
       else
@@ -623,8 +647,8 @@ switch ($op) {
 
       $user_regdate = time()+((integer)$gmt*3600);
       $sql= 'INSERT INTO '.$NPDS_Prefix.'users ';
-      $sql.= "(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,send_email,is_visible,mns,theme) ";
-      $sql.= "VALUES (NULL,'$add_name','$add_uname','$add_email','$add_femail','$add_url','$user_regdate','$add_user_from','$add_user_occ','$add_user_intrest','$add_user_viewemail','$add_avatar','$add_user_sig','$add_bio','$add_pass','$add_send_email','$add_is_visible','$add_mns','$Default_Theme+$Default_Skin')";
+      $sql.= "(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,hashkey,send_email,is_visible,mns,theme) ";
+      $sql.= "VALUES (NULL,'$add_name','$add_uname','$add_email','$add_femail','$add_url','$user_regdate','$add_user_from','$add_user_occ','$add_user_intrest','$add_user_viewemail','$add_avatar','$add_user_sig','$add_bio','$add_pass','$hashkey','$add_send_email','$add_is_visible','$add_mns','$Default_Theme+$Default_Skin')";
       $result = sql_query($sql);
       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$add_uname'"));
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");

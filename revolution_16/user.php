@@ -31,11 +31,13 @@ function message_error($ibid,$op) {
    </div>';
    include("footer.php");
 }
+
 function message_pass($ibid) {
    include("header.php");
    echo $ibid;
    include("footer.php");
 }
+
 function nav($mns) {
    global $op;
    $ed_u='';$ed_j='';$ed_h='';$ch_t='';
@@ -96,8 +98,8 @@ function userCheck($uname, $email) {
 
 function makePass() {
    $makepass='';
-   $syllables='er,in,tia,dun,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,';
-   $syllables.='mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se';
+   $syllables='Er@1,In@2,Ti#a3,D#un4,F_e5,P_re6,V!et7,J!o8,Ne%s9,A%l0,L*en1,So*n2,Ch$a3,I$r4,L^er5,Bo^6,Ok@7,!Tio8,N@ar9,0Sim,1P$le,2B*la,3Te!n,4T~oe,5Ch~o,6Co,7Lat,8Spe,9Ak,0Er,1Po,2Co,3Lor,4Pen,5Cil!,6Li!,7Ght,8_Wh,9_At,T#he0,#He1,@Ck2,Is@3,';
+   $syllables.='M1am@,B2o+,3No@,Fi-4,0Ve!,A9ny#,Wa7y$,P8ol%,Iti^6,Cs~5,Ra*,@Dio,+Sou,-Rce,!Sea,#Rch,$Pa,&Per,^Com,~Bo,*Sp,Eak1*,S2t~,Fi^,R3st&,Gr#,O5up@,!Boy,Ea!,Gle*,4Tr*,+A1il,B0i+,_Bl9e,Br8b_,P7ri#,De6e!,$Ka3y,1En$,2Be-,4Se-';
    $syllable_array=explode(',', $syllables);
    srand((double)microtime()*1000000);
    for ($count=1;$count<=4;$count++) {
@@ -166,6 +168,7 @@ function Only_NewUser() {
    } else
       header("location: user.php");
 }
+
 function hidden_form() {
    global $uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$charte,$user_lnl;
    if (!$user_avatar) {$user_avatar="blank.gif";}
@@ -196,6 +199,7 @@ function hidden_form() {
       <input type="hidden" name="T2" value="'.StripSlashes(removeHack($T2)).'" />
       <input type="hidden" name="B1" value="'.StripSlashes(removeHack($B1)).'" />';
 }
+
 function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass, $vpass,$user_lnl,$C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
    global $smilies, $short_user, $minpass, $memberpass;
    $uname=strip_tags($uname);
@@ -255,19 +259,26 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
       die();
    }
    $user_regdate = time()+((integer)$gmt*3600);
-   $stop=userCheck($uname, $email);
+   $stop = userCheck($uname, $email);
    if (!$stop) {
       include("header.php");
       if (!$memberpass)
          $makepass=makepass();
       else
          $makepass=$pass;
-      if (!$system)
-         $cryptpass=crypt($makepass,$makepass);
-      else
+      if ($system == 1) {
+         $AlgoCrypt = PASSWORD_BCRYPT;
+         $min_ms = 250;
+         $options = ['cost' => getOptimalBcryptCostParameter($makepass, $AlgoCrypt, $min_ms)];
+         $hashpass = password_hash($makepass, $AlgoCrypt, $options);
+         $cryptpass = crypt($makepass, $hashpass);
+         $hashkey = 1;
+      } else {
          $cryptpass=$makepass;
+         $hashkey = 0;
+      }
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass', '$hashkey', '10','','0','0','0','','0','','$Default_Theme+$Default_Skin','10','0','0','1','0','','','$user_lnl')");      
 
-      $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass','10','','0','0','0','','0','','$Default_Theme+$Default_Skin','10','0','0','1','0','','','$user_lnl')");
       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'"));
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
       if ($user_sig)
@@ -279,13 +290,13 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
       else
          $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','0','1','0','')");
       if ($result) {
-         if (($system==1) or ($memberpass)) {
+         if($memberpass or $system==1) { //à revoir
             echo '
             <h2>'.translate("Utilisateur").'</h2>
             <hr />
             <h2><i class="fa fa-user mr-2"></i>'.translate("Inscription").'</h2>
             <p class="lead">'.translate("Votre mot de passe est : ").'<strong>'.$makepass.'</strong></p>
-            <p class="lead">'.translate("Vous pourrez le modifier après vous être connecté sur").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.$makepass.'"><i class="fas fa-sign-in-alt fa-lg mr-2"></i><strong>'.$sitename.'</strong></a></p>';
+            <p class="lead">'.translate("Vous pourrez le modifier après vous être connecté sur").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.urlencode($makepass).'"><i class="fas fa-sign-in-alt fa-lg mr-2"></i><strong>'.$sitename.'</strong></a></p>';
 
             $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")." : \n\n";
             $message .=
@@ -877,11 +888,19 @@ function update_password ($code, $passwd) {
           if ((time()-$ibid[2])<86400) {
              // le mot de passe est-il identique
              if ($ibid[1]==$passwd) {
-                if (!$system)
-                   $cryptpass=crypt($ibid[1],$ibid[1]);
-                else
+                if ($system == 1) {
+                  $AlgoCrypt = PASSWORD_BCRYPT;
+                  $min_ms = 250;
+                  $options = ['cost' => getOptimalBcryptCostParameter($ibid[1], $AlgoCrypt, $min_ms),];
+                  $hashpass = password_hash($ibid[1], $AlgoCrypt, $options);
+                  $cryptpass = crypt($ibid[1], $hashpass);
+                  $hashkey = 1;
+                } else {
                    $cryptpass=$ibid[1];
-                sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass' WHERE uname='$uname'");
+                   $hashkey = 0;
+               }
+                sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass', hashkey='$hashkey' WHERE uname='$uname'");
+
                 message_pass('<div class="alert alert-success lead text-center"><a class="alert-link" href="user.php"><i class="fa fa-exclamation mr-2"></i>'.translate ("Mot de passe mis à jour. Merci de vous re-connecter").'<i class="fas fa-sign-in-alt fa-lg ml-2"></i></a></div>');
                 Ecr_Log('security', 'Lost_password_update OK : '.$uname, '');
              } else {
@@ -915,7 +934,7 @@ function docookie($setuid, $setuname, $setpass, $setstorynum, $setumode, $setuor
 function login($uname, $pass) {
    global $NPDS_Prefix, $setinfo, $system;
 
-   $result = sql_query("SELECT pass, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname = '$uname'");
+   $result = sql_query("SELECT pass, hashkey, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname = '$uname'");
    if (sql_num_rows($result)==1) {
       $setinfo = sql_fetch_assoc($result);
       $result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$setinfo['uid']."'");
@@ -924,43 +943,74 @@ function login($uname, $pass) {
          Header("Location: user.php?stop=99");
          return;
       }
-      $dbpass=$setinfo['pass'];
-      if (cur_charset=="utf-8") {
-         if (!$system)
-            $passwd=crypt($pass,$dbpass);
-         else
-            $passwd=$pass;
-         if (strcmp($dbpass,$passwd)!=0) {
-            $pass=utf8_decode($pass);
-            if (!$system)
-               $passwd=crypt($pass,$dbpass);
-            else
-               $passwd=$pass;
-            if (strcmp($dbpass,$passwd)!=0) {
-               Header("Location: user.php?stop=1");
-               return;
+      $dbpass = $setinfo['pass'];
+      $pass = utf8_decode($pass);
+
+      if ($system == 1) {
+         if ( password_verify($pass, $dbpass) or (strcmp($dbpass, $pass)==0)) {
+            if(!$setinfo['hashkey']) {
+               $AlgoCrypt = PASSWORD_BCRYPT;
+               $min_ms = 250;
+               $options = ['cost' => getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms)];
+               $hashpass = password_hash($pass, $AlgoCrypt, $options);
+               $pass = crypt($pass, $hashpass);
+
+               sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$pass', hashkey='1' WHERE uname='$uname'");
+
+               $result = sql_query("SELECT pass, hashkey, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname = '$uname'");
+               if (sql_num_rows($result)==1)
+                  $setinfo = sql_fetch_assoc($result);
+
+               $dbpass = $setinfo['pass'];
+               $scryptPass = crypt($dbpass, $hashpass);
             }
          }
-         docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue']);
       } else {
-          if (!$system)
-             $passwd=crypt($pass,$dbpass);
-          else
-             $passwd=$pass;
-          if (strcmp($dbpass,$passwd)==0)
-             docookie($setinfo['uid'], $setinfo['uname'], $passwd, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue']);
-          else {
-             Header("Location: user.php?stop=1");
-             return;
+         $passwd = crypt($pass, $dbpass);
+         if (strcmp($dbpass, $passwd)==0) {
+            if(!$setinfo['hashkey']) {
+               sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$pass', hashkey='0' WHERE uname='$uname'");
+
+               $result = sql_query("SELECT pass, hashkey, uid, uname, storynum, umode, uorder, thold, noscore, ublockon, theme, commentmax, user_langue FROM ".$NPDS_Prefix."users WHERE uname = '$uname'");
+               if (sql_num_rows($result)==1)
+                  $setinfo = sql_fetch_assoc($result);
+
+               $dbpass = $setinfo['pass'];
+            }
          }
       }
 
-       $ip = getip();
-       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
-       if (sql_num_rows($result)==1)
+      if($system == 1) {
+         if(password_verify(urldecode($pass), $dbpass) or password_verify($pass, $dbpass))
+            $CryptpPWD = $dbpass;
+         elseif (password_verify($dbpass, $scryptPass) or strcmp($dbpass, $pass)==0)
+            $CryptpPWD = $pass;
+         else {
+            Header("Location: user.php?stop=1");
+            return;
+         }
+      } else {
+         if (password_verify($pass, $dbpass)) {
+            if($setinfo['hashkey'] == 1)
+               sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$pass', hashkey='0' WHERE uname='$uname'");
+            $CryptpPWD = $pass;
+         }
+         else if (strcmp($dbpass,$pass)==0)
+            $CryptpPWD = $pass;
+         else {
+            Header("Location: user.php?stop=1");
+            return;
+         }
+      }
+
+      docookie($setinfo['uid'], $setinfo['uname'], $CryptpPWD, $setinfo['storynum'], $setinfo['umode'], $setinfo['uorder'], $setinfo['thold'], $setinfo['noscore'], $setinfo['ublockon'], $setinfo['theme'], $setinfo['commentmax'], $setinfo['user_langue']);
+
+      $ip = getip();
+      $result = sql_query("SELECT * FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
+      if (sql_num_rows($result)==1)
           sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr='$ip' AND guest='1'");
 
-       Header("Location: index.php");
+      Header("Location: index.php");
    } else
       Header("Location: user.php?stop=1");
 }
@@ -1011,76 +1061,86 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
             if ($uis_visible) $v = 0; else $v = 1;
             if ($user_lnl) $w = 1; else $w = 0;
 
-              include_once("modules/upload/upload.conf.php");
-              global $avatar_size;
-              if (!$avatar_size) {$avatar_size='80*100';}
-              $avatar_limit=explode("*",$avatar_size);
-              if ($DOCUMENTROOT!='')
-                 $rep=$DOCUMENTROOT;
-              else {
-                 global $DOCUMENT_ROOT;
-                 if ($DOCUMENT_ROOT)
-                    $rep=$DOCUMENT_ROOT;
-                 else
-                    $rep=$_SERVER['DOCUMENT_ROOT'];
-              }
-              if ($B1!='none') {
-                 global $language;
-                 include_once("modules/upload/lang/upload.lang-$language.php");
-                 include_once("modules/upload/clsUpload.php");
+            include_once("modules/upload/upload.conf.php");
+            global $avatar_size;
+            if (!$avatar_size) {$avatar_size='80*100';}
+            $avatar_limit=explode("*",$avatar_size);
+            if ($DOCUMENTROOT!='')
+               $rep=$DOCUMENTROOT;
+            else {
+               global $DOCUMENT_ROOT;
+               if ($DOCUMENT_ROOT)
+                  $rep=$DOCUMENT_ROOT;
+               else
+                  $rep=$_SERVER['DOCUMENT_ROOT'];
+            }
+            if ($B1!='none') {
+               global $language;
+               include_once("modules/upload/lang/upload.lang-$language.php");
+               include_once("modules/upload/clsUpload.php");
 
-                 $upload = new Upload();
-                 $upload->maxupload_size=$MAX_FILE_SIZE;
-                 $field1_filename = trim($upload->getFileName("B1"));
-                 $suffix = strtoLower(substr(strrchr($field1_filename,'.'),1));
-                 if (($suffix=='gif') or ($suffix=='jpg') or ($suffix=='png')) {
-                    $field1_filename=removeHack(preg_replace('#[/\\\:\*\?"<>|]#i','', rawurldecode($field1_filename)));
-                    $field1_filename=preg_replace('#\.{2}|config.php|/etc#i','', $field1_filename);
-                    if ($field1_filename) {
-                       if ($autorise_upload_p) {
-                          $user_dir=$racine.'/users_private/'.$uname.'/';
-                          if (!is_dir($rep.$user_dir)) {
-                             @umask("0000");
-                             if (@mkdir($rep.$user_dir,0777)) {
-                                $fp = fopen($rep.$user_dir.'index.html', 'w');
-                                fclose($fp);
-                             }
-                             else
-                                $user_dir=$racine.'/users_private/';
-                          }
-                       }
-                       else
-                          $user_dir=$racine.'/users_private/';
-                       if ($upload->saveAs($uname.'.'.$suffix ,$rep.$user_dir, 'B1',true)) {
-                          $old_user_avatar=$user_avatar;
-                          $user_avatar=$user_dir.$uname.'.'.$suffix;
-                          $img_size = @getimagesize($rep.$user_avatar);
-                          if (($img_size[0]>$avatar_limit[0]) or ($img_size[1]>$avatar_limit[1])) {
-                             $raz_avatar=true;
-                          }
-                          if ($racine=='') $user_avatar=substr($user_avatar,1);
+               $upload = new Upload();
+               $upload->maxupload_size=$MAX_FILE_SIZE;
+               $field1_filename = trim($upload->getFileName("B1"));
+               $suffix = strtoLower(substr(strrchr($field1_filename,'.'),1));
+               if (($suffix=='gif') or ($suffix=='jpg') or ($suffix=='png')) {
+                  $field1_filename=removeHack(preg_replace('#[/\\\:\*\?"<>|]#i','', rawurldecode($field1_filename)));
+                  $field1_filename=preg_replace('#\.{2}|config.php|/etc#i','', $field1_filename);
+                  if ($field1_filename) {
+                     if ($autorise_upload_p) {
+                        $user_dir=$racine.'/users_private/'.$uname.'/';
+                        if (!is_dir($rep.$user_dir)) {
+                           @umask("0000");
+                           if (@mkdir($rep.$user_dir,0777)) {
+                              $fp = fopen($rep.$user_dir.'index.html', 'w');
+                              fclose($fp);
+                           }
+                           else
+                              $user_dir=$racine.'/users_private/';
+                        }
+                     }
+                     else
+                        $user_dir=$racine.'/users_private/';
+                     if ($upload->saveAs($uname.'.'.$suffix ,$rep.$user_dir, 'B1',true)) {
+                        $old_user_avatar=$user_avatar;
+                        $user_avatar=$user_dir.$uname.'.'.$suffix;
+                        $img_size = @getimagesize($rep.$user_avatar);
+                        if (($img_size[0]>$avatar_limit[0]) or ($img_size[1]>$avatar_limit[1])) {
+                           $raz_avatar=true;
+                        }
+                        if ($racine=='') $user_avatar=substr($user_avatar,1);
                        }
                     }
                  }
               }
-              if ($raz_avatar) {
-                 if (strstr($user_avatar,'/users_private')) {
-                    @unlink($rep.$user_avatar);
-                    @unlink($rep.$old_user_avatar);
-                 }
-                 $user_avatar='blank.gif';
-              }
-              if ($pass!='') {
-                 cookiedecode($user);
-                 if (!$system)
-                    $pass=crypt($pass,$pass);
-                 sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', pass='$pass', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
-                 $result = sql_query("SELECT uid, uname, pass, storynum, umode, uorder, thold, noscore, ublockon, theme FROM ".$NPDS_Prefix."users WHERE uname='$uname' AND pass='$pass'");
-                 if (sql_num_rows($result)==1) {
-                    $userinfo = sql_fetch_assoc($result);
-                    docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "",$skin);
-                 }
-              } else {
+            if ($raz_avatar) {
+               if (strstr($user_avatar,'/users_private')) {
+                  @unlink($rep.$user_avatar);
+                  @unlink($rep.$old_user_avatar);
+               }
+               $user_avatar='blank.gif';
+            }
+
+            if ($pass!='') {
+               cookiedecode($user);
+               if ($system == 1){
+                  $AlgoCrypt = PASSWORD_BCRYPT;
+                  $min_ms = 250;
+                  $options = ['cost' => getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms),];
+                  $hashpass = password_hash($pass, PASSWORD_BCRYPT, $options);
+                  $pass = crypt($pass, $hashpass);
+                  $hashkey = 1;
+               }
+               else
+                  $hashkey = 0;
+
+               sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', pass='$pass', hashkey='$hashkey', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
+               $result = sql_query("SELECT uid, uname, pass, storynum, umode, uorder, thold, noscore, ublockon, theme FROM ".$NPDS_Prefix."users WHERE uname='$uname' AND pass='$pass'");
+               if (sql_num_rows($result)==1) {
+                  $userinfo = sql_fetch_assoc($result);
+                  docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], "",$skin);
+               }
+            } else {
                  sql_query("UPDATE ".$NPDS_Prefix."users SET name='$name', email='$email', femail='".removeHack($femail)."', url='".removeHack($url)."', bio='".removeHack($bio)."', user_avatar='$user_avatar', user_occ='".removeHack($user_occ)."', user_from='".removeHack($user_from)."', user_intrest='".removeHack($user_intrest)."', user_sig='".removeHack($user_sig)."', user_viewemail='$a', send_email='$u', is_visible='$v', user_lnl='$w' WHERE uid='$uid'");
               }
               sql_query("UPDATE ".$NPDS_Prefix."users_status SET attachsig='$t' WHERE uid='$uid'");
@@ -1095,12 +1155,12 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
               } else {
                  header("location: user.php?op=edituser");
               }
-           } else {
+            } else {
                message_error($stop, '');
-           }
-        }
-    } else
-       Header("Location: index.php");
+            }
+      }
+   } else
+      Header("Location: index.php");
 }
 
 function edithome() {
@@ -1168,6 +1228,7 @@ function edithome() {
    var formulid=["changehome"];';
    adminfoot('fv',$fv_parametres,$arg1,'foo');
 }
+
 function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
    global $NPDS_Prefix, $user;
    $cookie=cookiedecode($user);
