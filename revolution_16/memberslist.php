@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -32,7 +32,7 @@ if (isset($gr_from_ws) and ($gr_from_ws!=0)) {
 
 function alpha() {
    global $sortby, $list, $gr_from_ws, $uid_from_ws;
-   $alphabet = array (translate("Tous"), "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",translate("Autres"));
+   $alphabet = array (translate("Tous"), 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',translate("Autres"));
    $num = count($alphabet) - 1;
    $counter = 0;
    foreach($alphabet as $ltr) {
@@ -76,21 +76,18 @@ function SortLinks($letter) {
    if ($sortby == "uname ASC" OR !$sortby) {
       echo translate("identifiant").' | ';
       $sort=true;
-   } else {
+   } else
       echo '<a href="memberslist.php?letter='.$letter.'&amp;sortby=uname%20ASC&amp;list='.$list.'&amp;gr_from_ws='.$gr_from_ws.'">'.translate("identifiant").'</a> | ';
-   }
    if ($sortby == 'name ASC') {
       echo translate("vrai nom").' | ';
       $sort=true;
-   } else {
+   } else
       echo '<a href="memberslist.php?letter='.$letter.'&amp;sortby=name%20ASC&amp;list='.$list.'&amp;gr_from_ws='.$gr_from_ws.'">'.translate("vrai nom").'</a> | ';
-   }
    if ($sortby == 'user_avatar ASC') {
       echo translate("Avatar").' | ';
       $sort=true;
-   } else {
+   } else
       echo '<a href="memberslist.php?letter='.$letter.'&amp;sortby=user_avatar%20ASC&amp;list='.$list.'&amp;gr_from_ws='.$gr_from_ws.'">'.translate("Avatar").'</a> | ';
-   }
    if (($sortby == 'femail ASC') or ($sortby == 'email ASC')) {
       echo translate("Email").' | ';
       $sort=true;
@@ -185,7 +182,7 @@ echo '</p>';
 SortLinks($letter);
 echo '
       </div>';
-
+if($page=='') $page=1;
 $min = $pagesize * ($page - 1);
 $max = $pagesize;
 $ws_req='';
@@ -291,11 +288,11 @@ if ( $letter != 'front' ) {
              $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" ><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
          if($user)
             if ($temp_user['uid']!= 1)
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Ajouter à la liste de diffusion").'" ><i class="fa fa-plus-circle fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Liste de diffusion").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Ajouter à la liste de diffusion").'" ><i class="fa fa-plus-circle fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Liste de diffusion").'</span></a>';
 
          if ($temp_user['uid']!= 1 and array_key_exists($ch_lat, $posterdata_extend)) {
             if ($posterdata_extend[$ch_lat] !='')
-               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
+               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
          }
          $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
          list($open_user) = sql_fetch_row($op_result);
@@ -316,11 +313,10 @@ if ( $letter != 'front' ) {
          if ($ibid_avatar=avatar($temp_user['user_avatar']))
          echo '<a tabindex="0" data-toggle="popover" data-placement="right" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-html="true" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" /></a>
             </td>
-            <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.date(translate("dateinternal"),$temp_user['user_regdate']);
-         if ($admin and $temp_user['user_lastvisit']!='') {
-            echo ' => '.date(translate("dateinternal"),$temp_user['user_lastvisit']);
-         }
-         echo '" data-toggle="tooltip">'.$temp_user['uname'].'</a>
+            <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.translate("Inscription").' : '.date(translate("dateinternal"),(integer)$temp_user['user_regdate']);
+         if ($admin and $temp_user['user_lastvisit']!='')
+            echo '<br />'.translate("Connexion").' : '.date(translate("dateinternal"),(integer)$temp_user['user_lastvisit']);
+         echo '"  data-html="true" data-toggle="tooltip" data-placement="right">'.$temp_user['uname'].'</a>
             </td>
             <td>'.$temp_user['name'].'</td>
             ';
@@ -371,72 +367,44 @@ if ( $letter != 'front' ) {
          <td colspan="'.$cols.'"><strong>'.translate("Aucun membre trouvé pour").' '.$letter.'</strong></td>
       </tr>';
    }
-   
-   
    echo '
    </tbody>
 </table>';
 
-      if ($user) {
-         echo '
+   if ($user) {
+      echo '
 <div class="mt-3 card card-block-small">
    <p class=""><strong>'.translate("Liste de diffusion").' :</strong>&nbsp;';
-         if ($list) {
+      if ($list) {
          echo urldecode($list);
-            echo '
+         echo '
             <span class="float-right">
                <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" ><i class="far fa-envelope fa-lg" title="'.translate("Ecrire à la liste").'" data-toggle="tooltip" ></i></a>
                <a class="ml-3" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="far fa-trash-alt fa-lg text-danger" title="'.translate("Raz de la liste").'" data-toggle="tooltip" ></i></a>
             </span>';
-         }
-         echo '</p>
+      }
+      echo '</p>
 </div>';
-      }
-      settype($total_pages,'integer');
-      if ( $num_rows_per_order > $pagesize ) {
-         echo '
-         <div class="mt-3 lead align-middle">
-            <span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés pour").' <strong>'.$letter.'</strong> ('.$total_pages.' '.translate("pages").', '.$num_users.' '.translate("Utilisateurs montrés").').
-         </div>
-         <ul class="pagination pagination-sm my-3 flex-wrap">';
-         $total_pages = ceil($num_rows_per_order / $pagesize);
-         $prev_page = $page - 1;
-         if ( $prev_page > 0 ) {
-            echo '
-            <li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$prev_page.'&amp;gr_from_ws='.$gr_from_ws.'"><i class="fa fa-angle-double-left fa-lg"></i></a></li>';
-         }
-         $next_page = $page + 1;
-         if ( $next_page <= $total_pages ) {
-            echo '
-            <li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$next_page.'&amp;gr_from_ws='.$gr_from_ws.'"><i class="fa fa-angle-double-right fa-lg"></i></a></li>';
-         }
-         for($n=1; $n < $total_pages; $n++) {
-            if ($n == $page) {
-               echo '
-            <li class="page-item active"><a class="page-link" href="#">'.$n.'</a></li>';
-            } else {
-               echo '
-            <li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$n.'&amp;gr_from_ws='.$gr_from_ws.'">'.$n.'</a></li>';
-            }
-            if ($n >= 22) {  // if more than 20 pages are required, break it at 22.
-               $break = true;
-               break;
-            }
-         }
-         if (!isset($break)) {
-            if ($n == $page) {
-               echo '
-            <li class="page-item active"><a class="page-link" href="#">'.$n.'</a></li>';
-            } else {
-               echo '
-            <li class="page-item"><a class="page-link" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;page='.$total_pages.'&amp;gr_from_ws='.$gr_from_ws.'">'.$n.'</a></li>';
-            }
-         }
-         echo '
-         </ul>';
-      } else {
-         echo '<div class="mt-3 lead align-middle"><span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés").'</div>';
-      }
+   }
+   settype($total_pages,'integer');
+   if ( $num_rows_per_order > $pagesize ) {
+      echo '
+      <div class="mt-3 lead align-middle">
+         <span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés pour").' <strong>'.$letter.'</strong> ('.$total_pages.' '.translate("pages").', '.$num_users.' '.translate("Utilisateurs montrés").').
+      </div>
+      <ul class="pagination pagination-sm my-3 flex-wrap">';
+      $total_pages = ceil($num_rows_per_order / $pagesize);
+      $nbPages=ceil($num_rows_per_order / $pagesize);
+      $current = 0;
+      if ($page >= 1)
+         $current = $page;
+      else if ($page < 1)
+         $current=1;
+      else
+         $current = $nbPages;
+      echo paginate_single('memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;gr_from_ws='.$gr_from_ws.'&amp;page=', '', $nbPages, $current, $adj=3, '', '');
+   } else
+      echo '<div class="mt-3 lead align-middle"><span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés").'</div>';
 }
    include("footer.php");
 ?>
