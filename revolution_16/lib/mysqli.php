@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2021 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Multi DataBase Support - MysqlI                                      */
@@ -17,11 +17,9 @@ $sql_nbREQ=0;
 
 // Escape string
    function SQL_escape_string ($arr) {
-  // pas bonnnnn car ne sert à rien ! de plus la fonction DOIT avoir deux arguments !!
+      global $dblink;
       if (function_exists("mysqli_real_escape_string"))
-         @mysqli_real_escape_string($arr);
-      elseif (function_exists("mysqli_escape_string"))
-         @mysqli_escape_string($arr);
+         @mysqli_real_escape_string($dblink, $arr);
       return ($arr);
    }
 // Connexion

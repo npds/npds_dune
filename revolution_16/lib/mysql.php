@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2021 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Multi DataBase Support                                               */
@@ -17,11 +17,9 @@ $sql_nbREQ=0;
 
 // Escape string
    function SQL_escape_string ($arr) {
-  // pas bonnnnn car ne sert ‡ rien !
+      global $dblink;
       if (function_exists("mysql_real_escape_string"))
-         @mysql_real_escape_string($arr);
-      elseif (function_exists("mysql_escape_string"))
-         @mysql_escape_string($arr);
+         @mysql_real_escape_string($arr, $dblink);
       return ($arr);
    }
 // Connexion
