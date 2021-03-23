@@ -3436,9 +3436,9 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    }
 }
 
-#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) : permet de calculer le cout algorythmique optimum pour la procédure de hashage
-function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) {
-   for ($i = 4; $i < 31; $i++) {
+#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) : permet de calculer le coût algorythmique optimum pour la procédure de hashage ($AlgoCrypt) d'un mot de pass ($pass) avec un temps minimum alloué ($min_ms)
+function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) {
+   for ($i = 8; $i < 13; $i++) {
       $calculCost = [ 'cost' => $i ];
       $time_start = microtime(true);
       password_hash($pass, $AlgoCrypt, $calculCost);

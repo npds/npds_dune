@@ -40,55 +40,28 @@ if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
          $pwd = utf8_decode($pwd);
          $scryptPass = null;
          
-         if ($system_md5 == 1) {
-            if ( password_verify($pwd, $dbpass) or (strcmp($dbpass, $pwd)==0)) {
-               if(!$setinfo['hashkey']) {
-                  $AlgoCrypt = PASSWORD_BCRYPT;
-                  $min_ms = 250;
-                  $options = ['cost' => getOptimalBcryptCostParameter($pwd, $AlgoCrypt, $min_ms)];
-                  $hashpass = password_hash($pwd, $AlgoCrypt, $options);
-                  $pwd = crypt($pwd, $hashpass);
-                  sql_query("UPDATE ".$NPDS_Prefix."authors SET pwd='$pwd', hashkey='1' WHERE aid='$aid'");
-                  $result = sql_query("SELECT pwd, hashkey FROM ".$NPDS_Prefix."authors WHERE aid = '$aid'");
-                  if (sql_num_rows($result)==1)
-                     $setinfo = sql_fetch_assoc($result);
-                  $dbpass = $setinfo['pwd'];
-                  $scryptPass = crypt($dbpass, $hashpass);
-               }
-            }
-         } else {
-            $pwdwd = crypt($pwd, $dbpass);
-            if (strcmp($dbpass, $pwdwd)==0) {
-               if(!$setinfo['hashkey']) {
-                  sql_query("UPDATE ".$NPDS_Prefix."authors SET pwd='$pwd', hashkey='0' WHERE aid='$aid'");
-
-                  $result = sql_query("SELECT pwd, hashkey FROM ".$NPDS_Prefix."authors WHERE aid = '$aid'");
-                  if (sql_num_rows($result)==1)
-                     $setinfo = sql_fetch_assoc($result);
-
-                  $dbpass = $setinfo['pwd'];
-               }
+         if ( password_verify($pwd, $dbpass) or (strcmp($dbpass, $pwd)==0)) {
+            if(!$setinfo['hashkey']) {
+               $AlgoCrypt = PASSWORD_BCRYPT;
+               $min_ms = 100;
+               $options = ['cost' => getOptimalBcryptCostParameter($pwd, $AlgoCrypt, $min_ms)];
+               $hashpass = password_hash($pwd, $AlgoCrypt, $options);
+               $pwd = crypt($pwd, $hashpass);
+               sql_query("UPDATE ".$NPDS_Prefix."authors SET pwd='$pwd', hashkey='1' WHERE aid='$aid'");
+               $result = sql_query("SELECT pwd, hashkey FROM ".$NPDS_Prefix."authors WHERE aid = '$aid'");
+               if (sql_num_rows($result)==1)
+                  $setinfo = sql_fetch_assoc($result);
+               $dbpass = $setinfo['pwd'];
+               $scryptPass = crypt($dbpass, $hashpass);
             }
          }
 
-         if($system_md5 == 1) {
-            if(password_verify($pwd, $dbpass))
-               $CryptpPWD = $dbpass;
-            elseif (password_verify($dbpass, $scryptPass) or strcmp($dbpass, $pwd)==0)
-               $CryptpPWD = $pwd;
-            else 
-               Admin_Alert("Passwd not in DB#1 : $aid");
-         } else {
-            if (password_verify($pwd, $dbpass)) {
-               if($setinfo['hashkey'] == 1)
-                  sql_query("UPDATE ".$NPDS_Prefix."authors SET pwd='$pwd', hashkey='0' WHERE aid='$aid'");
-               $CryptpPWD = $pwd;
-            }
-            else if (strcmp($dbpass,$pwd)==0)
-               $CryptpPWD = $pwd;
-            else 
-               Admin_Alert("Passwd not in DB#1 : $aid");
-         }
+         if(password_verify($pwd, $dbpass))
+            $CryptpPWD = $dbpass;
+         elseif (password_verify($dbpass, $scryptPass) or strcmp($dbpass, $pwd)==0)
+            $CryptpPWD = $pwd;
+         else 
+            Admin_Alert("Passwd not in DB#1 : $aid");
 
          $admin = base64_encode("$aid:".md5($CryptpPWD));
          if ($admin_cook_duration<=0) 

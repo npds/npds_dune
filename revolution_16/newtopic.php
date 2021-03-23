@@ -79,21 +79,12 @@ if ($submitS) {
          else {
             $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
-            if ($system == 1) {
-               if ((password_verify($password, $pass)) and ($pass != '')) {
-                  $userdata = get_userdata($username);
-                  include('header.php');
-               }
-               else
-                  forumerror('0028');
-            } else {
-               if ((strcmp($password, $pass)==0) and ($pass != '')) {
-                  $userdata = get_userdata($username);
-                  include('header.php');
-               }
-               else
-                  forumerror('0028');
+            if ((password_verify($password, $pass)) and ($pass != '')) {
+               $userdata = get_userdata($username);
+               include('header.php');
             }
+            else
+               forumerror('0028');
          }
       }
    } else {
