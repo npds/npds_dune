@@ -139,11 +139,11 @@ if($stage == 4) {
    $colorst4 = '-success';
    $colorst5 = ' active';
    require('install/etape_4.php');
-   if(!isset($op)) { $op = 'etape_4'; }
+   if(!isset($op)) $op = 'etape_4';
    switch($op) {
       case 'write_parameters':
          global $stage, $langue, $stage4_ok, $qi;
-         write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $new_NPDS_Prefix, $new_mysql_p, $new_system, $new_system_md5, $new_adminmail);
+         write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $new_NPDS_Prefix, $new_mysql_p, $new_adminmail);
          if($stage4_ok == 1) {
             $msg = '
             <div class="alert alert-success">'.ins_translate("Le fichier de configuration a été écrit avec succès !").'</div>';

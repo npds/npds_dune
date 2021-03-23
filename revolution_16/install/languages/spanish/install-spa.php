@@ -66,8 +66,6 @@ function ins_translate($phrase) {
   case "Type de connexion au serveur mySQL": $tmp = "Tipo de conexión al servidor MySQL"; break;
   case "Non permanente": $tmp = "No es permanente"; break;
   case "Permanente": $tmp = "Permanente"; break;
-  case "Cryptage des mots de passe utilisateurs": $tmp = "Cifrado de contraseñas de usuarios"; break;
-  case "Cryptage des mots de passe administrateur(s)/auteur(s)": $tmp = "Cifrar contraseña de administrador / autor"; break;
   case "Non": $tmp = "No"; break;
   case "Oui": $tmp = "Si"; break;
   case "Adresse e-mail de l'administrateur": $tmp = "Dirección de correo electrónico del administrador"; break;

@@ -65,28 +65,6 @@ function etape_4() {
                            <option value="0" '.$sel1.'>'.ins_translate("Non permanente").'</option>
                            <option value="1" '.$sel2.'>'.ins_translate("Permanente").'</option>
                         </select>
-                     </div>';
-   $sel3='';$sel4='';
-   if($system == 0) {$sel3 = 'selected="selected"';$sel4 = '';}
-   else {$sel3 = '';$sel4 = 'selected="selected"';}
-   echo '
-                     <div class="form-group row">
-                        <label class="col-form-label" for="new_system">'.ins_translate('Cryptage des mots de passe utilisateurs').'</label>
-                        <select class="custom-select form-control" name="new_system">
-                           <option value="0" '.$sel3.'>'.ins_translate('Non').'</option>
-                           <option value="1" '.$sel4.'>'.ins_translate('Oui').'</option>
-                        </select>
-                     </div>';
-   $sel5='';$sel6='';
-   if($system_md5 == 0) {$sel5 = 'selected="selected"';$sel6 = '';}
-   else {$sel5 = '';$sel6 = 'selected="selected"';}
-   echo '
-                     <div class="form-group row">
-                        <label class="col-form-label" for="new_system_md5">'.ins_translate("Cryptage des mots de passe administrateur(s)/auteur(s)").' (MD5)</label>
-                        <select class="custom-select form-control" name="new_system_md5">
-                           <option value="0" '.$sel5.'>'.ins_translate('Non').'</option>
-                           <option value="1" '.$sel6.'>'.ins_translate('Oui').'</option>
-                        </select>
                      </div>
                      <div class="form-group row">
                         <label class="col-form-label" for="new_adminmail">'.ins_translate("Adresse e-mail de l'administrateur").'</label>
