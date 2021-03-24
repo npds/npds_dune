@@ -153,7 +153,7 @@ function msg_erreur($message) {
 
 function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
    include_once('config.php');
-   global $system, $minpass, $stage7_ok, $NPDS_Prefix;
+   global $minpass, $stage7_ok, $NPDS_Prefix;
    if ($adminlogin != '') {
       if($adminpass1 != $adminpass2)
          $stage7_ok = 2;
@@ -167,9 +167,8 @@ function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
                $options = ['cost' => getOptimalBcryptCostParameter($adminpass1, $AlgoCrypt, $min_ms)];
                $hashpass = password_hash($adminpass1, $AlgoCrypt, $options);
                $adminpwd=crypt($adminpass1, $hashpass);
-               $hashkey = 1;
             sql_connect();
-            $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd', hashkey='$hashkey' WHERE radminsuper='1'");
+            $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd', hashkey='1' WHERE radminsuper='1'");
             copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
             if(!$result1)
                $stage7_ok = 0;
