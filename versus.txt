@@ -1,3 +1,4 @@
 Versus|REvolution|v.17.0
-Security|Migration des serveurs NPDS à partir du 15 mars 2016 !.
+Security|Appliquez le patch ghostform !
 Note|Ceci est une note d'information provenant de NPDS.
+Note|CEci est une deuxième note..
