@@ -1,4 +1,4 @@
-Versus|REvolution|v.17.0
+Versus|REvolution|v.16.3
 Security|Appliquez le patch ghostform !|Niveau critique appliquez ce patch !!!!
 Note|Petite info|Ceci est une note d'information provenant de NPDS.
 Note|News du Développement|CEci est une deuxième note..
