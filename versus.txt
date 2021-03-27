@@ -1,7 +1,7 @@
 Versus|REvolution|v.16.3
-Security|Migration des serveurs NPDS à partir du 15 mars 2016 !.
-Note|Ceci est une note d'information provenant de NPDS.
-Note|CEci est une deuxième note..
-Security|patch crypt.
+Security|Migration des serveurs NPDS à partir du 15 mars 2016 !.|il faut bien mêtre a jours ton site coco !
+Note|Ceci est une note d'information provenant de NPDS.|et oui je suis la note note note de trop !!! hihihihi
+Note|CEci est une deuxième note..|pas ml ce portail npds
+Security|patch crypt.|Nouveau systeme de cryptage des mot de passe.
 Note|C'est cool ce sytème d'alerte|je suis le contenue du modal en test !
 Note|Info @Jpb|Système de gestion des alertes opérationnel !!! il carton les alertes...
