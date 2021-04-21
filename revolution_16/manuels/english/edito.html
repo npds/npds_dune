@@ -1,52 +1,47 @@
-<html>
-<head>
-<meta charset="utf-8">
-<title>Administration - Editos</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
-<style>
-body {
-background-color: #f5f5f5;
-}
-</style>
-</head>
-<body>
-<div class="container">
-<h3>
-<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
-  <li><i class="fa fa-lg fa-info-circle text-danger"></i> <a href="men_gen.html">Menu</a></li>
-  <li><a href="men_contenu.html">Content</a></li>
-  <li class="active">Editos</li>
-</ol>
-</h3>
-<p>L'&eacute;dito est la premi&egrave;re chose que les visiteurs visualiseront en arrivant sur votre site, &agrave; moins de modifier dans pr&eacute;f&eacute;rences le lien de la page index.</p>
-<p>Vous pouvez le personnaliser, publier un &eacute;dito diff&eacute;rent le jour et la nuit ainsi que choisir de l'afficher ou non.</p>
-
-<h4 class="card-title">Fonctionnement</h4>
-<p>L'&eacute;dito dispose de fonctionnalit&eacute;s avanc&eacute;es :
-<div class="card card-body">
-<ul class="p-l-1">
-<li class="card-text">Edito anonyme et/ou membre,</li>
-<li>Nombre de jours affich&eacute;s (&agrave; partir de la date de modification)</li>
-<li>Affichage d'un texte pour le jour de 08h00 &agrave; 20h00</li>
-<li>Affichage d'un texte pour la nuit de 20h01 &agrave; 07H59</li>
-</ul>
-A noter que ces horaires sont modifiables dans les <a href="config.html">pr&eacute;f&eacute;rences</a>.
-</div>
-</p>
-<p>Par d&eacute;faut :
-<div class="card card-body">
-<ul class="p-l-1">
-<li>S'il n'existe pas d'&eacute;dito membre, l'&eacute;dito anonyme s'affichera pour les anonymes et les membres</li>
-<li>Le texte du jour ne s'affichera que le jour si la case &agrave; cocher jour est la seule coch&eacute;e</li>
-<li>Le texte du jour s'affichera le jour et la nuit si les deux cases sont coch&eacute;es et s'il n'y a pas de texte de nuit</li>
-<li>Le texte de la nuit ne s'affiche que la nuit</li>
-<li>S'il n'y a pas de textes, les &eacute;ditos ne s'affichent pas.</li></ul></div>
-</p>
-<p>Nota: l'&eacute;dito peut &ecirc;tre affich&eacute; o&ugrave; vous le d&eacute;sirez gr&acirc;ce au <a href="meta_lang.html">m&eacute;taMot</a> : !edito!</p>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</div>
-<br />
-</body>
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - Editos</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">Content</a></li>
+               <li class="breadcrumb-item active">Editos</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Editos</h3>
+         <p>Editorial is the first thing visitors see when they arrive on your site, unless you prefer to change the link to the index page in preferences.</p>
+         <p>You can customize it, publish a different editorial day and night as well as choose to display it or not.</p>
+         <h4 class="card-title">How it work's</h4>
+         <p>The editorial has advanced features :
+            <ul>
+               <li>Anonymous Edito and/or Member Edito</li>
+               <li>Number of days it will be displayed (starting from date/hour of creation)</li>
+               <li>Displays Day time-text (08 AM=>08 PM)</li>
+               <li>Displays Night time-text (08.01 PM =>07.59 AM)</li>
+            </ul>
+            <b>Note</b> that these times can be changed in the <a href="config.html">preferences</a>.
+         </p>
+         <p>Factory settings :
+         <ul>
+            <li>If there is no Edito for Members , members and anonymous will see the Anonymous Edito</li>
+            <li>Daytime-text is only displayed from 08 AM to 08 PM if [day] is only selected</li>
+            <li>Daytime-text will be displayed day and night if both boxes are selected ([day] and [day]) and if there's no Nighttime-text</li>
+            <li>Nighttime-text is only displayed at night</li>
+            <li>If Edito boxes are empty, no Edito will be shown.</li>
+         </ul>
+         </p>
+         <p><b>Note:</b> the editorial can be displayed; wherever you want with the <a href="meta_lang.html">metaMot</a> : !edito!</p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/><span class="text-muted font-italic small float-right">NPDS - Administration manual</span></p>
+      </div>
+   </body>
 </html>

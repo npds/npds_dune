@@ -1,58 +1,55 @@
-<html>
-<head>
-<meta charset="utf-8">
-<title>Administration - Banners</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
-<style>
-body {
-background-color: #f5f5f5;
-}
-</style>
-</head>
-<body>
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - Banners</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_com.html">Communication</a></li>
+               <li class="breadcrumb-item active">Banners</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Banners</h3>
 
-<h3>
-<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
-  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
-  <li><a href="men_com.html">Communication</a></li>
-  <li class="active">Banners</li>
-</ol>
-</h3>
+         <p>NPDS dispose d'un gestionnaire de banni&egrave;res simple mais int&eacute;gr&eacute; au syst&egrave;me.<br />
+         Vous pouvez impl&eacute;menter un autre syst&egrave;me de banni&egrave;res.<br />
+         Celui-ci est suffisamment simple pour que  cette page d'aide suffise.</p>
+         <p>NPDS impl&eacute;mente quand m&ecirc;me une fonction in&eacute;dite, les banni&egrave;res li&eacute;es au niveau de l'utilisateur.<br />
+         Une banni&egrave;re peut effectivement &ecirc;tre visible par tout le monde ou bien par les membres ou bien par les administrateurs. Il est m&ecirc;me possible de d&eacute;sactiver temporairement une banni&egrave;re.<br />
+         L'int&eacute;r&ecirc;t de cette fonction est de pouvoir diff&eacute;rencier le public...</p>
+         <p>Pour <b>activer</b> le syst&egrave;me de banni&egrave;res : administration / Pr&eacute;f&eacute;rences pour le param&egrave;trer.</p>
 
-<p>NPDS dispose d'un gestionnaire de banni&egrave;res simple mais int&eacute;gr&eacute; au syst&egrave;me.<br />
-Vous pouvez impl&eacute;menter un autre syst&egrave;me de banni&egrave;res.<br />
-Celui-ci est suffisamment simple pour que  cette page d'aide suffise.</p>
-<p>NPDS impl&eacute;mente quand m&ecirc;me une fonction in&eacute;dite, les banni&egrave;res li&eacute;es au niveau de l'utilisateur.<br />
-Une banni&egrave;re peut effectivement &ecirc;tre visible par tout le monde ou bien par les membres ou bien par les administrateurs. Il est m&ecirc;me possible de d&eacute;sactiver temporairement une banni&egrave;re.<br />
-L'int&eacute;r&ecirc;t de cette fonction est de pouvoir diff&eacute;rencier le public...</p>
-<p>Pour <b>activer</b> le syst&egrave;me de banni&egrave;res : administration / Pr&eacute;f&eacute;rences pour le param&egrave;trer.</p>
+         <h4>Banni&egrave;res actives actuellement :</h4>
+         <p>Cette liste vous montre l'activit&eacute; des campagnes de banni&egrave;res actuellement en service sur votre site et vous permet de modifier et/ou supprimer une campagne en cours.</p>
 
-<h4>Banni&egrave;res actives actuellement :</h4>
-<p>Cette liste vous montre l'activit&eacute; des campagnes de banni&egrave;res actuellement en service sur votre site et vous permet de modifier et/ou supprimer une campagne en cours.</p>
+         <h4>Banni&egrave;res termin&eacute;es :</h4>
+         <p>Quand une campagne a atteint le nombre d'impression maximale, elle est bascul&eacute;e dans cette liste.<br />
+         Vous pouvez suivre l'efficacit&eacute; de la campagne et la supprimer.</p>
 
-<h4>Banni&egrave;res termin&eacute;es :</h4>
-<p>Quand une campagne a atteint le nombre d'impression maximale, elle est bascul&eacute;e dans cette liste.<br />
-Vous pouvez suivre l'efficacit&eacute; de la campagne et la supprimer.</p>
+         <h4>Clients faisant de la publicit&eacute; :</h4>
+         <p>Cette liste identifie les clients (et leurs informations) ainsi que le nombre de leurs banni&egrave;res en service.<br />
+         Cette liste vous permet de modifier et/ou supprimer les clients.</p>
 
-<h4>Clients faisant de la publicit&eacute; :</h4>
-<p>Cette liste identifie les clients (et leurs informations) ainsi que le nombre de leurs banni&egrave;res en service.<br />
-Cette liste vous permet de modifier et/ou supprimer les clients.</p>
+         <p>Nota bene :</b> Si vous souhaitez mettre une banni&egrave;re en affichage illimit&eacute; (nombre d'impression), saisissez 0 (z&eacute;ro) dans le champ <i>Impressions Achet&eacute;es</i>.</p>
 
-<p>Nota bene :</b> Si vous souhaitez mettre une banni&egrave;re en affichage illimit&eacute; (nombre d'impression), saisissez 0 (z&eacute;ro) dans le champ <i>Impressions Achet&eacute;es</i>.</p>
+         <h4>Gestion des statistiques par vos clients :</h4>
+         <p>Un client peut consulter en temps r&eacute;el sa (ou ses) campagne(s) de publicit&eacute; sur votre site.<br />Pour ce faire il dispose d'un identifiant et d'un mot de passe lui permettant de se connecter sur :
+         <ul>
+         <li>http://votre_site/banners.php?op=login</li>
+         </ul>
+         </p>
 
-<h4>Gestion des statistiques par vos clients :</h4>
-<p>Un client peut consulter en temps r&eacute;el sa (ou ses) campagne(s) de publicit&eacute; sur votre site.<br />Pour ce faire il dispose d'un identifiant et d'un mot de passe lui permettant de se connecter sur :
-<ul>
-<li>http://votre_site/banners.php?op=login</li>
-</ul>
-</p>
-
-<p>Dans ces pages, votre client peut changer les URLs de ses banni&egrave;res (donc la page sur laquelle l'utilisateur est envoy&eacute; lorsqu'il clique sur l'image), voir ses statistiques en temps r&eacute;el et demander un rapport automatique par Email.</p>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</div>
-<br />
-</body>
+         <p>Dans ces pages, votre client peut changer les URLs de ses banni&egrave;res (donc la page sur laquelle l'utilisateur est envoy&eacute; lorsqu'il clique sur l'image), voir ses statistiques en temps r&eacute;el et demander un rapport automatique par Email.</p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/><span class="text-muted font-italic small float-right">NPDS - Administration manual</span></p>
+      </div>
+   </body>
 </html>

@@ -1,92 +1,70 @@
-<html>
-<head>
-<meta charset="utf-8">
-<title>Administration - Metatags</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
-<style>
-body {
-background-color: #f5f5f5;
-}
-</style>
-</head>
-<body>
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - Metatags</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Metatags</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Metatags Management</h3>
+         <h4>META TAGS</h4>
+         <p>META Tags are special tags used in HTML language. They let search engines like Altavista, Yahoo or Hotbot to index your site faster and in a more efficient way. Half of the internet users use search engines so you have to pay attention to your meta-tags.</p>
+         <p>To know META tags must not be cut: don't use &lt;br /&gt; (break space) in your meta tags!.</p>
 
-<h3>
-<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
-  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
-  <li><a href="men_syst.html">System</a></li>
-  <li class="active">Metatags</li>
-</ol>
-</h3>
+         <h4> &lt;title&gt; Tags (special case)</h4>
+         <p><b>Title</b><br />
+         All the pages of a website require a title, this is more efficient for search engine submissions. With NPDS, the site'title is the same for all the pages. You can change this parameter in Preferences and in the pages.php (/themes directory). Don't use more than 100 letters!</p>
+         <p>Tip : Using one of your keywords in the title is a good thing, your site will be indexed in a better way.</p>
+         <h4>META tags configurables (the most common)</h4>
+         <p><b>Meta &quot;Author&quot;</b><br />
+         This tag is not commonly used by search engines. Only Nomade uses this.</p>
+         <p><b>Meta &quot;Owner&quot;</b><br />
+         This tag says who owns the website, equals the name of author.</p>
+         <p><b>Meta &quot;Reply-to&quot;</b><br />
+         This tag indicates the email of the author. It allows visitors who saved your page on the computer to contact you.</p>
+         <p><b>Meta &quot;Language</b>&quot;<br />
+         This tags indicated the language of your website. It is useful as most english search engines have included Languge as search criteria.</p>
+         <p><b>Meta &quot;Description&quot;</b><br />
+         This tag is where you should put the desciption of your website. Just one sentence!. And do not put more than 200 letters!.</p>
+         <p><b>Meta &quot;Keywords&quot;</b><br />
+         This tag deals with keywords refering to the page / website. Use commas to separate them. You can put 100 words (or 1000 letters).</p>
+         <p><b>Meta &quot;Rating&quot;</b><br />
+         This is about the targeted audience. From General to Mature or Restricted or 14 years.</p>
+         <p><b>Meta &quot;Distribution&quot;</b><br />
+         It deals with the website: is it available for everyone (Global) or is it restricted (Local).</p>
+         <p><b>Meta &quot;Copyright&quot;</b> <br />
+         This tag <U>is not used</U> by search engines but it provides the copyright information (the use of the document).</p>
+         <p><b>Meta &quot;Robots&quot;</b><br />
+         This is where ou tell robots (sent by search engines) wether they can index all your pages or not, when do they have to come back and check updates... .</p>
+         <p><b>Meta &quot;Revisit-After&quot;</b><br />
+         When the robot should come back to your site. Can't be before 14 days.</p>
 
-<h4>Les balises META</h4>
-<p>Les balises META sont des balises particuli&egrave;res du langage HTML. Elles permettent notamment de r&eacute;f&eacute;rencer votre site aupr&egrave;s des moteurs de recherche comme Altavista, Yahoo ou Hotbot. Plus de la moiti&eacute; des internautes passent par des moteurs de recherche, il est donc important de soigner le r&eacute;f&eacute;rencement de son site pour y appara&icirc;tre de fa&ccedil;on correcte.</p>
-
-<p>A savoir que les balises META ne doivent pas &ecirc;tre coup&eacute;es : on ne revient pas &agrave; la ligne dans ce type balise !. N'utilisez donc pas &lt;br /&gt; dans les champs du formulaire.</p>
-
-<h4>La balise &lt;TITLE&gt; (cas particulier)</h4>
-<p><b>Title</b><br />
-Les moteurs de recherche tiennent fortement compte du titre des documents. Il faut imp&eacute;rativement en mettre sur toutes les pages d'un site. Dans le cas de NPDS, le titre du site est unique pour toute les pages. Ce param&egrave;tre est modifiable dans les &quot;pr&eacute;f&eacute;rences&quot; de NPDS et dans le fichier pages.php du r&eacute;pertoire themes. Attention toutefois &agrave; ne jamais d&eacute;passer les 100 caract&egrave;res (une lettre accentu&eacute;e valant pour un caract&egrave;re).</p>
-<p>Remarque : le fait de reprendre un ou des mot(s)-cl&eacute;(s) dans le titre des pages d'un site est favorable pour un meilleur classement.</p>
-<h4>META param&eacute;trables (les plus courantes)</h4>
-
-<p><b>Meta &quot;Author&quot;</b><br />
-Cette balise est peu utilis&eacute;e par les moteurs de recherche. Seul Nomade indique le nom de l'auteur.</p>
-
-<p><b>Meta &quot;Owner&quot;</b><br />
-Cette balise indique le nom du propri&eacute;taire du site.</p>
-		
-<p><b>Meta &quot;Reply-to&quot;</b><br />
-Cette balise indique l'adresse e-mail principale de l'auteur du site. Elle permet entre autre aux internautes qui ont enregistr&eacute; votre page de vous contacter.</p>
-
-<p><b>Meta &quot;Language</b>&quot;<br />
-Cette balise d&eacute;clare la langue principale utilis&eacute;e par votre site web. Elle est tr&egrave;s utile puisque d&eacute;sormais de nombreux moteurs de recherche anglophones ont inclus la langue dans leurs crit&egrave;res de recherche.</p>
-
-<p><b>Meta &quot;Description&quot;</b><br />
-Cette balise doit d&eacute;crire le plus fid&egrave;lement possible le contenu du site. Il s'agit d'une phrase !. Attention &agrave; ne jamais d&eacute;passer les 200 caract&egrave;res (une lettre accentu&eacute;e valant pour un caract&egrave;re).</p>
-
-<p><b>Meta &quot;Keywords&quot;</b><br />
-Cette balise permet d'indiquer les principaux mots-cl&eacute;s qui se r&eacute;f&egrave;rent &agrave; la page / au site. Les mots-cl&eacute;s ne doivent pas &ecirc;tre s&eacute;par&eacute;s par des espaces mais par des virgules. On peut mettre jusqu'&agrave; 100 mots (ou 1000 caract&egrave;res). Les majuscules et minuscules ont une importance pour les moteurs de recherche.</p>
-
-<p><b>Meta &quot;Rating&quot;</b><br />
-Cette balise permet de d&eacute;finir le public vis&eacute;. Les appr&eacute;ciations sont General ou Mature ou Restricted ou 14 years pour respectivement tout public, adulte, acc&egrave;s restreint ou 14 ans.</P>
-
-<p><b>Meta &quot;Distribution&quot;</b><br />
-Cette balise indique si le document est largement diffus&eacute; (Global) ou s'il est &agrave; diffusion restreinte (Local).</p>
-
-<p><b>Meta &quot;Copyright&quot;</b> <br />
-Cette balise est <U>peu utilis&eacute;e</U> mais rappelle simplement le copyright lorsqu'elle est pr&eacute;sente (notion implicite &agrave; l'usage de tout document pr&eacute;sent sur la toile mais h&eacute;las trop peu souvent pr&eacute;sente &agrave; l'esprit de nombreux internautes).</p>
-
-<p><b>Meta &quot;Robots&quot;</b><br />
-Cette balise vous permet d'indiquer aux robots des moteurs de recherche la m&eacute;thode qu'ils doivent utiliser lors de l'ind&eacute;xation de votre site.</p>
-
-<p><b>Meta &quot;Revisit-After&quot;</b><br />
-Cette balise indique le d&eacute;lai d'attente du robot avant une prochaine indexation. Elle ne peut &ecirc;tre inf&eacute;rieure &agrave; 14 jours (14 days).</p>
-		
-<h4>Autres META automatiquement param&eacute;tr&eacute;es</h4>
-
-<p><b>Meta &quot;Content-Type&quot;</b><br />
-Cette balise d&eacute;finit la table de caract&egrave;res utilis&eacute;e. Par d&eacute;faut, c'est la table de caract&egrave;res occidentale (text/html; charset=iso-8859-1). Remarque : elle sert uniquement au navigateur.</p>
-
-<p><b>Meta &quot;Content-Script-Type&quot;</b><br />
-Cette balise d&eacute;finit la nature des scripts utilis&eacute;s par le site (ici text/javascript). Remarque : elle sert uniquement au navigateur.</p>
-
-<p><b>Meta &quot;Content-Style-Type&quot;</b><br />
-Cette balise d&eacute;finit la nature des styles utilis&eacute;s par le site (ici text/css). Remarque : elle sert uniquement au navigateur.</p>
-
-<p><b>Meta &quot;Identifier-url&quot;</b><br />
-Cette balise permet d'indiquer l'url principale de votre site. Elle reprend l'adresse principale d&eacute;finit dans le fichier de configuration de NPDS.</p>
-
-<p><b>Meta &quot;Generator&quot;</b><br />
-Cette balise n'a aucun int&eacute;r&ecirc;t pour le r&eacute;f&eacute;rencement aupr&egrave;s des moteurs de recherche. Elle indique seulement le g&eacute;nial outil utilis&eacute; par cr&eacute;er/g&eacute;rer le site web et donc le bien nomm&eacute; NPDS ;-)</p>
-
-<p><b>Meta &quot;Pragma&quot;</b><br />
-Cette balise permet principalement de neutraliser la mise en cache des pages par le navigateur (essentiellement pour Netscape). Cela force donc le chargement de la page &agrave; chaque visite de celle-ci (no-cache).</p>
-<p align="center"><img src="../../images/admin/manuels.gif" border="0" /></p>
-</div>
-<br />
-</body>
-</HTML>
+         <h4>Other META</h4>
+         <p><b>Meta &quot;Content-Type&quot;</b><br />
+         Define the type of content and his character table. D&eacute;fault is unicode (text/html; charset=utf-8). Tip : it is only for the browser.</p>
+         <p><b>Meta &quot;Content-Script-Type&quot;</b><br />
+         This is used by your browser and gives information about the scripts used in the page ( text/javascript). Tip : it is only for the browser.</p>
+         <p><b>Meta &quot;Content-Style-Type&quot;</b><br />
+         This is used by your browser and gives information about the styles used in the page (text/css). Tip : it is only for the browser.</p>
+         <p><b>Meta &quot;Identifier-url&quot;</b><br />
+         This tag gives the information about the URL of your site. It echoes the URL set in NPDS preferences.</p>
+         <p><b>Meta &quot;Generator&quot;</b><br />
+         No real use for search engines. It's about the tool you used to build your site (golive, dreamweaver, NPDS)</p>
+         <p><b>Meta &quot;Pragma&quot;</b><br />
+         Disable the caching of the pages (mostly for Netscape).No-cache means the page won't be cached (useful for PHP pages as there is a constant update)</p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/><span class="text-muted font-italic small float-right">NPDS - Administration manual</span></p>
+      </div>
+   </body>
+</html>

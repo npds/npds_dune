@@ -1,50 +1,45 @@
-<html>
-<head>
-<meta charset="utf-8">
-<title>Administration - Topics manager</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
-<style>
-body {
-background-color: #f5f5f5;
-}
-</style>
-</head>
-<body>
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - Topics manager</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">Content</a></li>
+               <li class="breadcrumb-item active">Topics</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Topics manager</h3>
+         <p>You need to have set up a few topics to create articles.<br />
+         The topics manager allows you to manage your topics. This is a great feature of NPDS<br />
+         Each topic must have a title, a description, possibly an image and one or more administrators.</p>
+         <h4>Add a topic</h4>
+         <p>
+            <ul>
+               <li><strong>Topic Name :</strong> this is for NPDS. Enter just a name without spaces - (max: 20 characters).</li>
+               <li><strong>Topic Text :</strong>This will be the Displayed Text.You can use both lower and upper case and spaces. (max: 250 characters).</li>
+               <li><strong>Image :</strong> NPDS permet de ne pas avoir d'image mais si vous souhaitez en affecter une, saisissez dans cette zone le nom du fichier par exemple : npds.gif. This file has to be in the <i>images/topics</i> folder of your site or in the <i>images/topics</i> folder of your th&egrave;m.</li>
+               <li><strong>Administrator :</strong> NPDS allows to put one or more admin for a topic.<br />
+               If you leave the field blank, ONLY SuperAdmins will be allowed to publish in this category.<br />
+               If it has one or more (use , (commas) to separate the admins) => Only the admin(s)(and SuperAdmin) will get to publish articles in this topic.</li>
+            </ul>
+         </p>
 
-<h3>
-<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
-  <li><i class="fa fa-lg fa-info-circle text-danger"></i> <a href="men_gen.html">Menu</a></li>
-  <li><a href="men_contenu.html">Content</a></li>
-  <li class="active">Topics</li>
-</ol>
-</h3>
-
-<p>Vous devez d&eacute;finir des sujets pour pouvoir publier vos articles.<br />
-C'est un composant essentiel du syst&egrave;me. Le système vous permet d'ajouter, de supprimer ou
-de modifier les sujets.<br />
-Chaque sujet doit avoir un intitul&eacute;, une description, &eacute;ventuellement une image et un ou plusieurs administrateurs.</p>
-
-<h4>Ajouter un sujet :</h4>
-<div class="card card-body">
-<ul class="p-l-1">
-<li><strong>Intitul&eacute; :</strong> c'est l'identifiant qui sera utilis&eacute; par NPDS. Saisissez le en <b>minuscules et sans espace et sans accent</b></li>
-<li><strong>Texte :</strong> c'est le texte qui sera affich&eacute;. Vous pouvez utiliser les majuscules/minuscules et les espaces.(maxi 40 caractères)</li>
-<li><strong>Image :</strong> NPDS permet de ne pas avoir d'image mais si vous souhaitez en affecter une, saisissez dans cette zone le nom du fichier par exemple : npds.gif. Ce fichier doit se trouver dans le r&eacute;pertoire <i>images/topics</i> &agrave; la racine du site ou dans le dossier de votre th&egrave;me.</li>
-<li><strong>Administrateur :</strong> NPDS permet de d&eacute;finir un ou plusieurs administrateurs pour un sujet.<br />
-Si cette zone est laiss&eacute;e vide, seuls les superadmins pourront publier dans ce sujet.<br />
-Si cette zone contient le nom d'un ou plusieurs administrateurs il faut s&eacute;parer les noms par des virgules.</li></ul>
-</div>
-
-<h4>Editer un sujet :</h4>
-<p>Cliquez simplement sur l'image ou le texte dans le tableau r&eacute;capitulatif. Dans la page suivante vous pourrez modifier l'intitul&eacute;, la description et l'image.</p>
-<p class="text-danger"><strong>Vous pouvez aussi supprimer le sujet mais rappelez-vous que cela supprime aussi tous les articles rattach&eacute;s.<br />Un message de confirmation doit &ecirc;tre renseign&eacute;.</strong></p>
-<p>Sur cette page vous pouvez aussi affecter des liens web en rapport avec le sujet.<br />
-Le lien relatif sera affich&eacute; avec les articles du sujet.</p>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</div>
-<br />
-</body>
+         <h4>Edit a Topic</h4>
+         <p>Click on the image or the text. The next page will let you change the Title,the name, the description and the image.</p>
+         <p class="text-danger">You can delete a topic but this will delete all nested articles too!<br />
+         A confirmation message must be entered.</p>
+         <p>You can add links to a topic, like a link to www.microsoft.com for a Windows topic. This link will be available when viewing an article from that category.</p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/><span class="text-muted font-italic small float-right">NPDS - Administration manual</span></p>
+      </div>
+   </body>
 </html>
