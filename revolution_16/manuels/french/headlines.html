@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
    <head>
       <meta charset="utf-8" />
       <title>Administration - Canaux d'informations (Grands Titres)</title>
@@ -10,27 +10,28 @@
    <body>
       <div class="container">
          <nav class="my-3">
-         <ol class="breadcrumb">
-         <li class="breadcrumb-item"><a href="admin.html">Administration</a></li>
-         <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
-         <li class="breadcrumb-item"><a href="men_contenu.html">Contenu</a></li>
-         <li class="breadcrumb-item active" aria-current="page" >News externes</li>
-         </ol>
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">Contenu</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >News externes</li>
+            </ol>
          </nav>
+         <hr class="mt-n3" />
          <h3 class="mb-3">Administration - Canaux d'informations (Grands Titres)</h3>
          <p>Vous pouvez avec cette fonction activer ou d&eacute;sactiver les canaux d'information en provenance d'autres sites.<br />
          Les canaux sont des fichiers RDF/XML et non des fichiers texte.<br />
          Attention cependant, l'activation des canaux d'information va probablement ralentir le serveur.<br />
          Touts les canaux sont rafra&icirc;chis une fois par heure et il n'est pas souhaitable de changer cette valeur car cela consomme de la bande passante.</p>
-         <h4>Ajouter un canal d'information : </h4>
+         <h4>Ajouter un canal d'information</h4>
          <p>Remplissez les champs n&eacute;cessaires (Titre, URL, URL RDF/XML, statut).<br />
          Si vous d&eacute;clarez un canal actif, un nouveau appara&icirc;tra avec les informations s&eacute;lectionn&eacute;es. Les canaux inactifs ne sont pas affich&eacute;s.</p>
-         <h4>Changer le statut d'un canal : </h4>
+         <h4>Changer le statut d'un canal</h4>
          <p>Simplement vous devez cliquer sur le lien <i>Editer</i> et s&eacute;lectionner sur la page suivante le statut
          d&eacute;sir&eacute;.</p>
          <p>Pour supprimer un canal, vous devez simplement cliquer sur le lien <i>Effacer</i>.</p>
          <p>Votre site est peut-&ecirc;tre derri&egrave;re un <b>Proxy Serveur</b>. Dans ce cas, configurez le fichier proxy.conf.php (dans la racine de votre site) pour permettre l'acc&egrave;s &agrave; un (ou plusieurs) canaux d'information.</p>
-         <h4>Configuration des BLOCS int&eacute;grant des canaux :</h4>
+         <h4>Configuration des BLOCS int&eacute;grant des canaux</h4>
          <p>Dans le gestionnaire de bloc (gauche ou droite), vous pouvez int&eacute;grer :
             <ul>
                <li>function#headlines<br />
@@ -40,7 +41,7 @@
                => dans ce cas seul le canal d'ID "ID_du_canal" sera affich&eacute;. Vous pouvez d&eacute;finir autant de blocs que vous le souhaitez ...</li>
             </ul>
          </p>
-         <div class="text-center my-3"><img src="../../images/admin/manuels.gif" alt="logo" /></div>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/><span class="text-muted font-italic small float-right">NPDS - Manuel administration</span></p>
       </div>
    </body>
 </html>
