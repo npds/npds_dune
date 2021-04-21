@@ -1,44 +1,52 @@
-<html>
-<head>NPDS
-<title>Administration - NPDS V</title>
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-</font><center>
-  <font size="2" face="Verdana,Arial,Helvetica"><b>Bienvenidos a las p&aacute;ginas de administraci&oacute;n de NPDS.</b><br />
-  <br />
-  NPDS es un portal de gran alcance en Open-Source escrito en
-licencia (libre) bajo licencia GNU-GPL usando tecnolog&iacute;as de PHP y de MySql.<br />
-  <br />
-  NPDS es una herramienta de gran alcance su lengua materna es
-francesa, aunque puede utilizar otros idiomas (NPDS se ofrece con los archivos ingleses, franceses, Chinos y espa&ntilde;oles)<br />
-  <br />
-  La administraci&oacute;n es el centro de comandos de NPDS.<br />
-  <br /></font>
-  
-  <center>
-    <hr>
-  </center>
-  <font face=Verdana,Arial,Helvetica size=2>NPDS dispone de una capacidad multi-idioma. "ML" indica si esta capacidad esta activada o desactivada (color rojo).<br />
-  <hr>
-  <b>Los modulos de la administracion :</b><br />
-La presencia de m&oacute;dulos se fijan seg&uacute;n el perfil del administrador entrado (v&eacute;ase para corregir el m&oacute;dulo del admin)<br />
-<br />
-<strong>Art&iacute;culos del &uacute;ltimo XX:</strong><br />
-Affiche les XX derniers articles publi&eacute;s sur votre site. Vous devriez voir comme premier enregistrement, le dernier article publi&eacute;.</font><font face=Verdana,Arial,Helvetica size=2><br />
-  Muestra los art&iacute;culos pasados XX publicados en su sitio. La primera l&iacute;nea igual al art&iacute;culo pasado que fue publicado.<br />
-  <br />
-  Algunos art&iacute;culos �est&aacute;n archivados�, esto significan que expiraron (seg&uacute;n su fecha, sistema de vencimiento al escribir el art&iacute;culo).<br />
-  Si necesita ponerlos en el flujo de informaci&oacute;n, solo tendra que corregirlos y cambiar la fecha de publicacion.<br />
-</font></center>
-<p><font face=Verdana,Arial,Helvetica size=2>Haga click sobre el art&iacute;culo para corregirlo o use los vinculos, Editar / Borrar. Tambi&eacute;n puede entrar el ID y luego seleccionar la acci&oacute;n apropiada.<br />
-  <br />
-    
-</font></p>
-<font face=Verdana,Arial,Helvetica size=2>
-<center>
-  <img src="../../images/admin/manuels.gif" border="0" />
-</center>
-</font>
-</body>
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administraci&oacute;n NPDS</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li class=""><img class="mr-3 ml-n3 " width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/></li>
+               <li class="breadcrumb-item active" aria-current="page">Administraci&oacute;n</li>
+               <li class="breadcrumb-item"> <a href="men_gen.html">Men&uacute;</a></li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administraci&oacute;n</h3>
+         <p>Bienvenidos a las p&aacute;ginas de administraci&oacute;n de NPDS.</p>
+         <p>NPDS es un portal de gran alcance en Open-Source escrito en licencia (libre) bajo licencia GNU-GPL usando tecnolog&iacute;as de PHP y de MySql.<br />
+         NPDS es una herramienta de gran alcance su lengua materna es francesa, aunque puede utilizar otros idiomas (NPDS se ofrece con los archivos ingleses, franceses, Chinos y espa&ntilde;oles)</p>
+         <p>El contenido y la interfaz de esta p&aacute;gina dependen obviamente de los derechos que tenga como administrador (el superadministrador, por lo tanto, tendr&aacute; acceso a todas las funciones interconectadas). La interfaz general se divide en 3 bloques principales.</p>
+         <h4>Alertas y notificaciones</h4>
+         <p>El primer bloque recopila las alertas / notificaciones que le permiten ocuparse de las tareas de administrador pendientes. (artículos propuestos, artículos programados, usuarios en espera de validación, enlaces nuevos, enlaces rotos, etc.)</p>
+         <h4>Las funciones</h4>
+         <p>Para administrar NPDS, tiene acceso a muchos botones que están agrupados por filas de acuerdo con una clasificación por tipo. Tienen forma de iconos o texto según la configuración de la interfaz gráfica definida en las preferencias.</p>
+            <ul>
+               <li>Los botones de la primera fila le permiten administrar el contenido de su sitio, una vez que haya hecho clic en un botón debe hacer clic en el botón manual en línea para obtener la documentación relacionada con la función abierta.</li>
+               <li>La segunda fila le permite administrar los usuarios del portal.</li>
+               <li>La tercera fila te permite gestionar todo lo relacionado con la comunicación.</li>
+               <li>La cuarta fila le permite administrar la interfaz de los bloques.</li>
+               <li>La quinta fila le permite actuar en el sistema, el enlace de preferencias es uno de los enlaces más importantes. Tenga en cuenta el enlace que le permite instalar un módulo y averiguar qué módulos ya están instalados o no.</li>
+               <li>Finalmente la última fila que le permite administrar módulos con administración</li>
+            </ul>
+         </p>
+         <h4>Art&iacute;culos del &uacute;ltimo XX</h4>
+         <p>
+            <ul>
+               <li>Muestra la lista de los &uacute;ltimos x art&iacute;culos publicados en su sitio</li>
+               <li>El primer registro es el &uacute;ltimo art&iacute;culo publicado</li>
+               <li>Ciertos art&iacute;culos pueden ser indicados en archivo, estos son los art&iacute;culos que han pasado su fecha de finalizaci&oacute;n de publicaci&oacute;n.</li>
+               <li>Para volver a colocar estos art&iacute;culos en el feed, todo lo que tiene que hacer es editarlos, hacer clic en la opci&oacute;n 'cambiar la fecha' y modificar su fecha de finalizaci&oacute;n.</li>
+               <li>Haga clic en el art&iacute;culo para editarlo o utilice los enlaces Editar, Eliminar.</li>
+               <li>Si desea Editar / Eliminar un elemento antiguo, ingrese su ID y seleccione la acci&oacute;n apropiada.</li>
+            </ul>
+         </p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/><span class="text-muted font-italic small float-right">NPDS - Manual de administración</span></p>
+      </div>
+   </body>
 </html>

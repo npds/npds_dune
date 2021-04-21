@@ -1,146 +1,156 @@
-<html><head>
-<title>Edit / Create block (or box) - NPDS V</title>
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Bloques</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_inter.html">Interfaz</a></li>
+               <li class="breadcrumb-item active">Bloques</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Bloques</h3>
+         <p>NPDS, permite la visualizaci&oacute;n de un bloque (o de varios) sobre las p&aacute;ginas.<br />
+         NPDS (<em>con un tema conveniente</em>) permite indicar estos bloques sobre casi todas las p&aacute;ginas.<br />
+         <br />
+         <p><strong>Un Bloque puede ser reservado a los administradores, a los miembros, a N
+         grupos de miembros,  a los An&oacute;nimos o ser visible por todos.</strong></p>
+         <h4>Modificar un bloque</h4> 
+         <p>Cambie la informaci&oacute;n necesaria en el bloque y seleccione la acci&oacute;n deseada, para terminar presione el bot&oacute;n <strong>OK</strong>.<br />
+         <strong>Solo puede  modificar  un &uacute;nico bloque a la vez.</strong></p>
+         <h4>Borrar un bloque</h4> 
 
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2> 
-<center>
-  <strong>Publicar/crear un bloque
-  </strong>
-</center>
-<br />
-<strong>NPDS</strong>, permite la visualizaci&oacute;n de un bloque (o de varios) sobre las p&aacute;ginas.<br />
-<strong>NPDS</strong> (<em>con un tema conveniente</em>) permite indicar estos bloques sobre casi todas las p&aacute;ginas.<br />
-<br />
-<strong>Un Bloque puede ser reservado a los administradores, a los miembros, a N
-grupos de miembros,  a los An&oacute;nimos o ser visible por todos.</strong><br />
-<strong><br />
-Modificar un bloque:</strong> Cambie la informaci&oacute;n necesaria en el bloque y
-seleccione la acci&oacute;n deseada, para terminar presione el bot&oacute;n <strong>OK</strong>.</font>
-<p><strong>Solo puede  modificar  un &uacute;nico bloque a la vez.</strong></p>
-<p><strong>Borrar un bloque:</strong> Seleccione el bloque y eliga la acci&oacute;n borrar un
-  bloque, para terminar presione el bot&oacute;n <strong>OK</strong>. <br />
-  <strong>Solo puede borrar un &uacute;nico bloque a la vez.</strong></p>
-<p><strong>Crear un bloque (de izquierda o derecha)</strong>: Escoja el t&iacute;tulo del bloque,
-  su &iacute;ndice (lo que va a permitir una visualizaci&oacute;n clasificada as&iacute;
-  como su contenido y presione el bot&oacute;n crear un bloque.... Por defecto
-el bloque recientemente creado sera activo.</p>
-<font face=Verdana,Arial,Helvetica size=2><br />
-<HR width="80%">
-<strong>Bloque y Tampon memorizado:</strong><br />
-- los bloques pueden &quot;imprimirse en memoria tampon &quot; y pueden ser activados o desactivados sin necesidad de tocar el tema actual <br />
-- No se pondra en memoria un bloque con un tiempo de m&aacute;scara de 0 (cero).<br />
-- dispone tambi&eacute;n de una ayuda en l&iacute;nea que quiz&aacute; utilizara
-mediante el m&oacute;dulo 'ayuda-del contexto' o en el cuadro de un
-desarrollo PHP (dejar esta zona vac&iacute;a si no). </font>
-<p><strong>NPDS dispone de un sistema de bloques ancho capaz de indicar o ejecutar
-  mucho mas:</strong><br />
-  - <strong>HTML</strong> (para un bloque que soporta el HTML, seleccionar la opci&oacute;n HTML en el momento de su creaci&oacute;n)<br />
-  - Javascript<br />
-  - C&oacute;digo PHP y/o SSI (Server Side Include)<br />
-- Funci&oacute;n PHP y/o de <strong>NPDS</strong></p>
-<p>La &uacute;nica posibilidad de incluir un c&oacute;digo sera respetando la siguiente
-  sintaxis:<br />
-  . Para el c&oacute;digo PHP y/o SSI:<br />
-  <strong>include#su_carpeta/su_fichero.php (sin ', sin&quot;).</strong><br />
-  Este fichero debe ser en php y debe devolver obligatoriamente
-  <font face=Verdana,Arial,Helvetica size=2><b>$content</b></font>.<br />
-  <br />
-<font face=Verdana,Arial,Helvetica size=2>. Para Funciones PHP y/o funciones de NPDS:<br />
-</font><font face=Verdana,Arial,Helvetica size=2><strong>function#su_funcion =
-function#Xblock</strong> (sin ', sin &quot;, sin () y sin;).</font></p>
-<p>Si su funci&oacute;n dispone de par&aacute;metros: <br />
-  <strong>function#su_funcion=
-  function#XNews</strong> (sin ', sin &quot;, sin () y sin;). <strong>params#sus_param =
-  params#5,10,false</strong> (sin ', sin&quot; pero separados por comas).</p>
-<p>por ejemplo:<strong> function#category</strong></p>
-<p><strong>function#oldNews params#$storynum</strong></p>
-<p>function#RecentForumPosts<br />
-  <font face=Verdana,Arial,Helvetica size=2>params#Forums Infos,15,0,false,10,false,-:&nbsp; <br />
-  </font>Puede tambi&eacute;n poner las 2 fases:<br />
-  <font face=Verdana,Arial,Helvetica size=2>&nbsp;<b>include#su_carpeta/su_fichero.php</b> (Sin ' ").<br />
-&nbsp;despues<br />
-&nbsp;<b>function#su_funcion</b> => function#XNews (Sin ' " ()  ;).<br />
-&nbsp;<b>params#sus_param</b> => params#5,10,false (Sin ' " pero separados por comas).<br />
-&nbsp;=> &iexcl;Esto  le permite cargar un c&oacute;digo y ejecutarlo!<br />
-  <strong><br />
-  Bloque CSS: </strong><br />
-  <strong>class-title#nombre</strong> de una clase en su fichero CSS.<br />
-  <strong>class-content#nombre</strong> de una clase en su fichero CSS. = Estas l&iacute;neas
-permiten asociar para CADA BLOQUE un CSS (t&iacute;tulo y contenido)!<br />
-- <strong>Theme-Dynamic</strong> dispone de dos nuevas palabras meta: B_class_title y
-B_class_content que pueden ser utilizadas en el c&oacute;digo de bloc.html</font> </p>
-<p>- Los temas PHP disponen de dos nuevas variables: <font face=Verdana,Arial,Helvetica size=2><strong>$B_class_title</strong> y<strong> $B_class_content</strong></font> que puede <em><strong>'ser importadas'</strong></em> en la funci&oacute;n
-  <em>themesidebox</em> (mediante una global...)</p>
-<p><font face=Verdana,Arial,Helvetica size=2><BR>
-<br /><br />
-<b>Bloc CSS Specific</b> :<br />
-For having a specific css specifique, you have to:
-<li> check the value in administration</li>
-<li> remember the Bloc' ID</li>
-<li> declare the ID and Class in style.css or by using pages.php (the one of your theme) </li>
-<br /><br />
-<b>Exemple :<br /><br />
-CSS Specific on the Left Bloc ID 2<br />
-</b>  <br />
-<quote>
-#LB_2 .LB_title { <br />
-      color: #FF0000; <br />
-      font-family: Georgia, "Times New Roman", serif; <br />
-      font-size: 1.25em; <br />
-      font-weight: bold;<br />
-      height: 21px;     <br />
-      text-align: center; <br />
-      line-height: 21px;   <br />
-}                      <br />
-#LB_2 .LB_contain ul {  <br />
-       list-style: none;  <br />
-       width: 150px;      <br />
-       margin:0px;       <br />
-       padding:0px;        <br />
-}                      <br />
-#LB_2 .LB_contain li {    <br />
-       margin:0;   <br />
-       padding:0;  <br />
-}               <br />
-#LB_2 .LB_contain li a { <br />
-       min-height: 1.5em;      <br />
-       height: auto !important;  <br />
-       height: 1.5em;        <br />
-       line-height: 1.5em;     <br />
-       margin: 1px 0px 1px 0px;  <br />
-       padding: 0px 5px 0px 5px;  <br />
-       border-bottom: solid 1px #C8C8C8;  <br />
-       border-left: solid 10px #427FBC;   <br />
-       color: #646464;           <br />
-       text-decoration: none;   <br />
-       font-weight: normal;   <br />
-       font-size: 1em; <br />
-}             <br />
+         Seleccione el bloque y eliga la acci&oacute;n borrar un
+           bloque, para terminar presione el bot&oacute;n <strong>OK</strong>. <br />
+         <p>
+         <h4>Crear un bloque (de izquierda o derecha)</h4>
+            Escoja el t&iacute;tulo del bloque,
+           su &iacute;ndice (lo que va a permitir una visualizaci&oacute;n clasificada as&iacute;
+           como su contenido y presione el bot&oacute;n crear un bloque.... Por defecto
+         el bloque recientemente creado sera activo.</p>
+         <br />
+         <hr />
+         <h4>Bloque y Tampon memorizado</h4>
+         - los bloques pueden &quot;imprimirse en memoria tampon &quot; y pueden ser activados o desactivados sin necesidad de tocar el tema actual <br />
+         - No se pondra en memoria un bloque con un tiempo de m&aacute;scara de 0 (cero).<br />
+         - dispone tambi&eacute;n de una ayuda en l&iacute;nea que quiz&aacute; utilizara
+         mediante el m&oacute;dulo 'ayuda-del contexto' o en el cuadro de un
+         desarrollo PHP (dejar esta zona vac&iacute;a si no). </font>
+         <p><strong>NPDS dispone de un sistema de bloques ancho capaz de indicar o ejecutar
+           mucho mas:</strong><br />
+           - <strong>HTML</strong> (para un bloque que soporta el HTML, seleccionar la opci&oacute;n HTML en el momento de su creaci&oacute;n)<br />
+           - Javascript<br />
+           - C&oacute;digo PHP y/o SSI (Server Side Include)<br />
+         - Funci&oacute;n PHP y/o de <strong>NPDS</strong></p>
+         <p>La &uacute;nica posibilidad de incluir un c&oacute;digo sera respetando la siguiente
+           sintaxis:<br />
+           . Para el c&oacute;digo PHP y/o SSI:<br />
+           <strong>include#su_carpeta/su_fichero.php (sin ', sin&quot;).</strong><br />
+           Este fichero debe ser en php y debe devolver obligatoriamente
+           <b>$content</b></font>.<br />
+           <br />
+         . Para Funciones PHP y/o funciones de NPDS:<br />
+         </font><strong>function#su_funcion =
+         function#Xblock</strong> (sin ', sin &quot;, sin () y sin;).</font></p>
+         <p>Si su funci&oacute;n dispone de par&aacute;metros: <br />
+           <strong>function#su_funcion=
+           function#XNews</strong> (sin ', sin &quot;, sin () y sin;). <strong>params#sus_param =
+           params#5,10,false</strong> (sin ', sin&quot; pero separados por comas).</p>
+         <p>por ejemplo:<strong> function#category</strong></p>
+         <p><strong>function#oldNews params#$storynum</strong></p>
+         <p>function#RecentForumPosts<br />
+           params#Forums Infos,15,0,false,10,false,-:&nbsp; <br />
+           </font>Puede tambi&eacute;n poner las 2 fases:<br />
+           &nbsp;<b>include#su_carpeta/su_fichero.php</b> (Sin ' ").<br />
+         &nbsp;despues<br />
+         &nbsp;<b>function#su_funcion</b> => function#XNews (Sin ' " ()  ;).<br />
+         &nbsp;<b>params#sus_param</b> => params#5,10,false (Sin ' " pero separados por comas).<br />
+         &nbsp;=> &iexcl;Esto  le permite cargar un c&oacute;digo y ejecutarlo!<br />
+           <strong><br />
+           Bloque CSS: </strong><br />
+           <strong>class-title#nombre</strong> de una clase en su fichero CSS.<br />
+           <strong>class-content#nombre</strong> de una clase en su fichero CSS. = Estas l&iacute;neas
+         permiten asociar para CADA BLOQUE un CSS (t&iacute;tulo y contenido)!<br />
+         - <strong>Theme-Dynamic</strong> dispone de dos nuevas palabras meta: B_class_title y
+         B_class_content que pueden ser utilizadas en el c&oacute;digo de bloc.html</font> </p>
+         <p>- Los temas PHP disponen de dos nuevas variables: <strong>$B_class_title</strong> y<strong> $B_class_content</strong></font> que puede <em><strong>'ser importadas'</strong></em> en la funci&oacute;n
+           <em>themesidebox</em> (mediante una global...)</p>
+         <p><BR>
+         <br /><br />
+         <b>Bloc CSS Specific</b> :<br />
+         For having a specific css specifique, you have to:
+         <li> check the value in administration</li>
+         <li> remember the Bloc' ID</li>
+         <li> declare the ID and Class in style.css or by using pages.php (the one of your theme) </li>
+         <br /><br />
+         <b>Exemple :<br /><br />
+         CSS Specific on the Left Bloc ID 2<br />
+         </b>  <br />
+         <quote>
+         #LB_2 .LB_title { <br />
+               color: #FF0000; <br />
+               font-family: Georgia, "Times New Roman", serif; <br />
+               font-size: 1.25em; <br />
+               font-weight: bold;<br />
+               height: 21px;     <br />
+               text-align: center; <br />
+               line-height: 21px;   <br />
+         }                      <br />
+         #LB_2 .LB_contain ul {  <br />
+                list-style: none;  <br />
+                width: 150px;      <br />
+                margin:0px;       <br />
+                padding:0px;        <br />
+         }                      <br />
+         #LB_2 .LB_contain li {    <br />
+                margin:0;   <br />
+                padding:0;  <br />
+         }               <br />
+         #LB_2 .LB_contain li a { <br />
+                min-height: 1.5em;      <br />
+                height: auto !important;  <br />
+                height: 1.5em;        <br />
+                line-height: 1.5em;     <br />
+                margin: 1px 0px 1px 0px;  <br />
+                padding: 0px 5px 0px 5px;  <br />
+                border-bottom: solid 1px #C8C8C8;  <br />
+                border-left: solid 10px #427FBC;   <br />
+                color: #646464;           <br />
+                text-decoration: none;   <br />
+                font-weight: normal;   <br />
+                font-size: 1em; <br />
+         }             <br />
 
-#LB_2 .LB_contain li a:hover {  <br />
-       border-left: solid 10px #cccccc;   <br />
-       background: #f0f0f0;       <br />
-       font-weight: bold;  <br />
-       color: #000000; <br />
-       text-decoration: none;    <br />
-}    <br />
-</quote>
-<br />
-<b>Bloque URI</b>:<br />
-&nbsp;<b>uri#uris_separadas_por_un_espacio</b> no indicar el bloque que sobre las URI citadas.<br />
-&nbsp;El tiempo de retenci&oacute;n debe ser igual a 0 (cero) en este caso.<br />
-&nbsp;Ejemplo: uri#index.php user.php forum.php static.php?op=statik.txt&amp;npds=1<br />
-&nbsp;El tag uri# permite el uso del comod&iacute;n *: por ejemplo: viewforum.php?forum=* o viewtopic.php?topic=*&forum=10<br />
-&nbsp;=> Esta sintaxis es la sola soportada!
-<br /><br />
-<b>Bloque Hidden</b> :<br />
-&nbsp;<b>hidden#...</b> para no mostrar el tema de los bloques, pero la carga del contenido.<br />
-&nbsp;Esto permite utilizar el sistema de bloqueo de "carga" de Javascript, los archivos PHP, CSS, ...<br />
-&nbsp;ejemplo : hidden#&lt;script type=&quot;text/javascript&quot; src=&quot;lib/yui/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;<br />
-&nbsp;=> Esta sintaxis es la sola soportada!<br />
-<br /><br />
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+         #LB_2 .LB_contain li a:hover {  <br />
+                border-left: solid 10px #cccccc;   <br />
+                background: #f0f0f0;       <br />
+                font-weight: bold;  <br />
+                color: #000000; <br />
+                text-decoration: none;    <br />
+         }    <br />
+         </quote>
+         <br />
+         <h4>Bloque URI</h4>
+         &nbsp;<b>uri#uris_separadas_por_un_espacio</b> no indicar el bloque que sobre las URI citadas.<br />
+         &nbsp;El tiempo de retenci&oacute;n debe ser igual a 0 (cero) en este caso.<br />
+         &nbsp;Ejemplo: uri#index.php user.php forum.php static.php?op=statik.txt&amp;npds=1<br />
+         &nbsp;El tag uri# permite el uso del comod&iacute;n *: por ejemplo: viewforum.php?forum=* o viewtopic.php?topic=*&forum=10<br />
+         &nbsp;=> Esta sintaxis es la sola soportada!
+         <h4>Bloque Hidden</h4>
+         &nbsp;<b>hidden#...</b> para no mostrar el tema de los bloques, pero la carga del contenido.<br />
+         &nbsp;Esto permite utilizar el sistema de bloqueo de "carga" de Javascript, los archivos PHP, CSS, ...<br />
+         &nbsp;ejemplo : hidden#&lt;script type=&quot;text/javascript&quot; src=&quot;lib/yui/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;<br />
+         &nbsp;=> Esta sintaxis es la sola soportada!<br />
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds"/><span class="text-muted font-italic small float-right">NPDS - Manual de administración</span></p>
+      </div>
+   </body>
 </html>
