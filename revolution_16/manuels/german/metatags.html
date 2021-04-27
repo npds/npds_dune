@@ -1,134 +1,73 @@
-<html>
-<head>
-  <TITLE>METAtags Management - NPDS V</TITLE>
-<STYLE>
- BODY { FONT-FAMILY: arial,sans-serif }
-</STYLE>
-</head>
-<body ALINK="#000000" bgcolor="#ffffff" VLINK="#551a8b">
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="utf-8" />
+      <title>Meta-tags</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li> 
+               <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Meta-tags</li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>Meta-tags</h3>
+         <p><b>Wie ist es zu nutzen?</b><br />
+         Meta-tags sind spezielle Tags used in HTML. Das erleichtert es Suchmaschinen Ihre Seite zu indexieren. Die HÃ¤lfte aller Internetnutzer nutzen Suchmaschinen, nutzen Sie es also.<br />
+         <b>To know</b><br />
+         Meta-tags dÃ¼rfen nicht abgekÃ¼rzt werden: benutzen Sie nicht &lt;br /&gt; (Umbruch) in den Meta Tags!.<br />
+         </p>
 
-<table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#FFFFFF">
-  <TBODY>
-  <tr>
-    <td align="CENTER">
+        <h4>&lt;title&gt; Tags (Sonderfall)</h4>
+        <p><b>Titel</b><br />
+         Alle Seiten einer Webseite benÃ¶tigen einen Titel, das ist effizient fÃ¼r Suchmaschinen. Mit NPDS, ist der Setentitel fÃ¼r alle Seiten gleich. Sie kÃ¶nnen es in den Einstellungen, oder in der pages.php einstellen (/themes directory);. Verwenden Sie nicht mehr als 100 Buchstaben!</p>
+         <p>Notiz : Nutzung von SchlÃ¼sselworten im Titel ist eine gute Idee. Ihre Seite wird so besser indexiert.</p>
 
-      <p><b><font size="+2"> METAtags Management</font></B></P>
+         <h4>Gemeinsamer Meta-tags</h4>
+         <p><b>Meta &quot;Author&quot;</b><br />
+         Dieser Tag <u>wird nicht genutz</u> von Suchmaschinen. Nur Nomade nutzt es.</p>
+         <p><b>Meta &quot;Owner&quot;</b><br />
+         Dieser Tag zeigt den Webseitenbesitzer und den Autor.</p>
+         <p><b>Meta &quot;Reply-to&quot;</b><br />
+         Dieser Tag enthÃ¤lt die E-mail Adresse des Autors. Es erlaubt den Besuchern Ihrer Seite Sie zu kontaktieren</p>
+         <p><b>Meta &quot;Language</b>&quot;<br />
+         Dieser Tag zeigt die Sprache Ihrer Seite an. Es ist sinnvoll, da die meisten englischsprachigen Suchmaschinen diesen Tag verwenden.</p>
+         <p><b>Meta &quot;Description&quot;</b><br />
+         Dieser Tag enthÃ¤lt die Beschreibung Ihrer Webseite. Nur ein Satz!. Und nicht mehr als 200 Buchstaben!.</p>
+         <p><b>Meta &quot;Keywords&quot;</b><br />
+         Dieser Tag enthÃ¤lt die SchlÃ¼sselworte Ihrer Webseite. Benutzen Sie Kommas um sie zu trennen. Sie kÃ¶nnen 100 Worte, oder 100 Buchstaben verwenden.</p>
+         <p><b>Meta &quot;Rating&quot;</b><br />
+         Das ist die Zielgruppe Ihrer Seite. FÃ¼r Alle, fÃ¼r Æ’ltere, oder Â¸ber 14 Jahre</p>
+         <p><b>Meta &quot;Distribution&quot;</b><br />
+         Einstellung der Seite: fÃ¼r Alle (Global) oder eingeschrÃ¤nkt (Lokal).</p>
+         <p><b>Meta &quot;Copyright&quot;</b> <br />
+         Dieser Tag <u>wird nicht verwendet</u> von Suchmaschinen, aber er enthÃ¤lt die Copyright Informationen.</p>
+         <p><b>Meta &quot;Robots&quot;</b><br />
+         Damit informieren Sie die Robots (gesendet von Suchmaschinen) wie sie Ihre Seite indexieren kÃ¶nnen, oder nicht, wenn Sie die Seite wieder durchsuchen... .</p>
+         <p><b>Meta &quot;Revisit-After&quot;</b><br />
+         Wenn die Robots Ihre Seite wieder besuchen. Nicht vor 2 Wochen.</p>
 
-    <p><table border="0" cellpadding="0" cellspacing="0" width="100%"
-    bgcolor="#FFFFFF">
-      <TBODY>
-      <tr>
-        <td>
-        <p><table border="0" cellpadding="2" cellspacing="0" width="100%">
-          <TBODY>
-          <tr>
-                <td bgcolor="#333366" nowrap> <b><font COLOR="#ffffff" FACE="arial,sans-serif"> 
-                  META TAGS</font></B></td>
-          </tr></TBODY>
-        </table><br />
-            <b><U>Wie ist es zu nutzen?</U> </B><br />
-            META Tags sind spezielle Tags used in HTML. Das erleichtert es Suchmaschinen Ihre Seite zu indexieren. Die Hälfte aller Internetuser nutzen Suchmaschinen, nutzen Sie es also. 
-            <p></P>
-
-            <p><b><U>To know</U> </B><br />
-              META Tags dürfen nicht abgekürzt werden: benutzen Sie nicht &lt;BR&gt; (Umbruch) in 
-              den Meta Tags!.<br />
-        </P>
-
-        <p><table border="0" cellpadding="2" cellspacing="0" width="100%">
-          <TBODY>
-          <tr>
-                <td bgcolor="#333366" nowrap> <b><font COLOR="#ffffff" FACE="arial,sans-serif">&lt;TITLE&gt; 
-                  Tags (Sonderfall)</font></B></td>
-          </tr></TBODY>
-        </table><p></P>
-
-        <p><b><U>Titel</U></B><br />
-              Alle Seiten einer Webseite benötigen einen Titel, das ist effizient für Suchmaschinen. Mit NPDS, ist der Setentitel für alle Seiten gleich. Sie können es in den Einstellungen, oder in der pages.php einstellen (/themes directory);
-              . Verwnden Sie nicht mehr als 100 Buchstaben! </P>
-
-            <p>Notiz : Nutzung von Schlüsselworten im Titel ist eine gute Idee. 
-              Ihre Seite wird so besser indexiert.</P>
-
-        <p><table border="0" cellpadding="2" cellspacing="0" width="100%">
-          <TBODY>
-          <tr>
-                <td bgcolor="#333366" nowrap> <b><font COLOR="#ffffff" FACE="arial,sans-serif">Gemeinsamer 
-                  META </font></B></td>
-          </tr></TBODY>
-        </table><p></P>
-
-        <p><b>Meta &quot;Author&quot;</B><br />
-             Dieser Tag <U>wird nicht genutz</U> von Suchmaschinen. Nur Nomade 
-              nutzt es.</P>
-
-        <p><b>Meta &quot;Owner&quot;</B><br />
-              Dieser Tag zeigt den Webseitenbesitzer und den Autor.<br />
-<br />
-        <b>Meta &quot;Reply-to&quot;</B><br />
-              Dieser Tag enthält die E-mail Adresse des Autors. Es erlaubt den Besuchern Ihrer Seite Sie zu kontaktieren<br />
-<br />
-        <b>Meta &quot;Language</B>&quot;<br />
-              Dieser Tag zeigt die Sprache Ihrer Seite an. Es ist sinnvoll, da die meisten englischsprachigen Suchmaschinen diesen Tag verwenden.</P>
-
-        <p><b>Meta &quot;Description&quot;</B><br />
-              Dieser Tag enthält die Beschreibung Ihrer Webseite. 
-              <U>Nur ein Satz!</U>. Und nicht mehr als 200 Buchstaben!.</P>
-
-        <p><b>Meta &quot;Keywords&quot;</B><br />
-              Dieser Tag enthält die Schlüsselworte Ihrer Webseite. Benutzen Sie Kommas um sie zu trennen. Sie können 100 Worte, oder 100 Buchstaben verwenden. 
-            </P>
-
-        <p><b>Meta &quot;Rating&quot;</B><br />
-              Das ist die Zielgruppe Ihrer Seite. Für Alle, für Ältere, oder über 14 Jahre </P>
-
-        <p><b>Meta &quot;Distribution&quot;</B><br />
-              Einstellung der Seite: für Alle (Global) 
-              oder eingeschränkt (Lokal).</P>
-
-        <p><b>Meta &quot;Copyright&quot;</B> <br />
-              Dieser Tag <U>wird nicht verwendet</U> von Suchmaschinen, aber er enthält die Copyright Informationen.</P>
-
-        <p><b>Meta &quot;Robots&quot;</b><br />
-              Damit informieren Sie die Robots (gesendet von Suchmaschinen) wie sie Ihre Seite indexieren können, oder nicht, wenn Sie die Seite wieder durchsuchen... .<br />
-		</p>
-		
-        <p><b>Meta &quot;Revisit-After&quot;</b><br />
-              Wenn die Robots Ihre Seite wieder besuchen. Nicht vor 2 Wochen.<br />	
-		</p>
-		
-        <table border="0" cellpadding="2" cellspacing="0" width="100%">
-          <TBODY>
-          <tr>
-                <td bgcolor="#333366" nowrap> <b><font color="#ffffff" face="arial,sans-serif">Other 
-                  META </font></B></td>
-          </tr></TBODY>
-        </table><p></p>
-
-        <p><b>Meta &quot;Content-Type&quot;</b><br />
-              Informiert den Browser über die Spracheinstellung: zum Beispiel (text/html; 
-              charset=iso-8859-1). </P>
-
-            <p><b>Meta &quot;Content-Script-Type&quot;</B><br />
-              Damit wird der Browser informiert, welche Scripts verwendet werden( text/javascript). <br />
-              <br />
-              <b>Meta &quot;Content-Style-Type&quot;</B><br />
-              Informirert den Browser, welche Style in Ihrer Seite verwendet werden ( text/css). <br />
-              <br />
-              <b>Meta &quot;Identifier-url&quot;</B><br />
-              Dieser Tag enthält die Seiten URL. <br />
-              <br />
-              <b>Meta &quot;Generator&quot;</B><br />
-              Wird nicht von Suchmaschinen verwendet. Zeigt an, womit Sie Ihre Webseite erzeugt haben.<br />
-              <br />
-              <b>Meta &quot;Pragma&quot;</B> <br />
-              Deaktiviert den Seitencache (meist für Netscape).No-cache
-              meint, dass die Seite nicht gecachet wird (sinnvoll für PHP Seiten, wenn es dauernd Updates gibt)
-          </td>
-      </tr></TBODY>
-    </table></td>
-  </tr></TBODY>
-</table><br /><br />
-<p align="CENTER"><IMG src="../../images/admin/manuels.gif" border="0" /></P>
-</body>
-</HTML>
+         <h4>Andere Meta-tags </h4>
+         <p><b>Meta &quot;Content-Type&quot;</b><br />
+         Informiert den Browser Â¸ber die Spracheinstellung: zum Beispiel (text/html; charset=iso-8859-1).</p>
+         <p><b>Meta &quot;Content-Script-Type&quot;</b><br />
+         Damit wird der Browser informiert, welche Scripts verwendet werden( text/javascript).</p>
+         <p><b>Meta &quot;Content-Style-Type&quot;</b><br />
+         Informirert den Browser, welche Style in Ihrer Seite verwendet werden ( text/css).</p>
+         <p><b>Meta &quot;Identifier-url&quot;</b><br />
+         Dieser Tag enthÃ¤lt die Seiten URL.</p>
+         <p><b>Meta &quot;Generator&quot;</b><br />
+         Wird nicht von Suchmaschinen verwendet. Zeigt an, womit Sie Ihre Webseite erzeugt haben.</p>
+         <p><b>Meta &quot;Pragma&quot;</b><br />
+         Deaktiviert den Seitencache (meist fÃ¼r Netscape).No-cache meint, dass die Seite nicht gecachet wird (sinnvoll fÃ¼r PHP Seiten, wenn es dauernd Updates gibt)</p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Administrationshandbuch</span></p>
+      </div>
+   </body>
+</html>

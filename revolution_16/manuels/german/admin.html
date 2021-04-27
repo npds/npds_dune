@@ -1,33 +1,52 @@
-<html>
-<head>
-<title>Administration - NPDS V</title>
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center>
-  <b>Willkommen auf der NPDS Administrationsseite.</b><br />
-  <br />
-  NPDS ist ein mächtiges Open-Source Portal geschrieben in französisch und unterliegt der GNU-GPL (frei) 
-  Lizenz unter verwendung der PHP und MySql Technologien.<br />
-  <br />
-  NPDS ist zwar ursprünglich in französisch, es kann aber auch in anderen Sprachen verwendet werden (NPDS enthält derzeit französisch, englisch und deutsch)<br />
-  <br />
-  Die Administration ist die Kommandozentrale in NPDS.<br />
-  <br /><hr></center>
-Seit der Narval Version, ist NPDS mehrsprachig (multilingual, ML). Die ML Infos zeigen, ob diese Erweiterung AN oder AUS ist(rote Farbe).<br /><hr>
-<b>Administrations Module :</b><br />
-Die Anzahl der Module entspricht den Einstellungen im Login des Administratorprofils (siehe editiere Adminmodule)<br />
-<br />
-<b>Lezte XX Artikel :</b><br />
-Zeige die letzten XX Artikel die auf der Seite publiziert wurden. In der ersten Zeile steht der zuletzt publizierte Artikel.<br />
-<br />
-Einige Artikel sind <i>'archiviert'</i>, das meint, das sie verfallen (je nach Einstellung des Enddatums, das beim erstellen des Artikels eingestellt wurde).<br />
-Wenn Sie sie wieder reaktivieren wollen, müssen Sie sie editieren und entweder das Enddatum ändern, oder das sie unbegrenzt angezeigt werden sollen.<br />
-<br />
-Klicken Sie auf den Artikel, oder benutzen Sie den Link <i>Edit, Delete</i>. Sie können auch die Artikel ID eingeben und dann eine Aktion wählen.<br />
-<br />
-
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></li>
+               <li class="breadcrumb-item active" aria-current="page">Administration</li> 
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>Administrationsseite</h3>
+         <h4>Einf&uuml;hrung</h4>
+         <p>NPDS ist ein franz&ouml;sischer Open-Source-Portalgenerator unter der kostenlosen GNU-GPL-Lizenz mit PHP- und MySql-Technologien, f&uuml;r den in den Einstellungen ein mehrsprachiges Ger&auml;t konfiguriert werden kann. Standardm&auml;&szlig;ig ist das Portal in Franz&ouml;sisch.</p>
+         <p>Der Inhalt und die Benutzeroberfl&auml;che dieser Seite h&auml;ngen offensichtlich von den Rechten ab, die Sie als Administrator haben (der Superadministrator hat daher Zugriff auf alle Schnittstellenfunktionen).<br />
+         Die allgemeine Schnittstelle ist in 3 Hauptbl&ouml;cke unterteilt.</p>
+         <h4>Warnungen und Benachrichtigungen</h4>
+         <p>Der erste Block sammelt die Warnungen / Benachrichtigungen, mit denen Sie ausstehende Administratoraufgaben bearbeiten k&ouml;nnen. (vorgeschlagene Artikel, geplante Artikel, Benutzer, die auf Validierung warten, neue Links, defekte Links usw.)</p>
+         <h4>Die Funktionen</h4>
+         <p>Um NPDS zu verwalten, haben Sie Zugriff auf viele Schaltfl&auml;chen, die nach einer Klassifizierung nach Typ nach Zeilen gruppiert sind. Sie haben die Form von Symbolen oder Text, abh&auml;ngig von der Konfiguration der in den Einstellungen definierten grafischen Oberfl&auml;che.</p>
+            <ol>
+               <li>Mit den Schaltfl&auml;chen in der ersten Zeile k&ouml;nnen Sie den Inhalt Ihrer Website verwalten. Sobald Sie auf eine Schaltfl&auml;che geklickt haben, m&uuml;ssen Sie auf die manuelle Online-Schaltfl&auml;che klicken, um die Dokumentation zur &Ouml;ffnungsfunktion zu erhalten.</li>
+               <li>In der zweiten Zeile k&ouml;nnen Sie Portalbenutzer verwalten</li>
+               <li>In der dritten Zeile k&ouml;nnen Sie alles verwalten, was mit Kommunikation zu tun hat</li>
+               <li>In der vierten Zeile k&ouml;nnen Sie die Schnittstelle der Bl&ouml;cke verwalten</li>
+               <li>In der f&uuml;nften Zeile k&ouml;nnen Sie auf dem System agieren. Der Link "Einstellungen" ist einer der wichtigsten Links. Beachten Sie den Link, &uuml;ber den Sie ein Modul installieren und herausfinden k&ouml;nnen, welche Module bereits installiert sind oder nicht.</li>
+               <li>Schlie&szlig;lich die letzte Zeile, in der Sie die mit einer Verwaltung ausgestatteten Module verwalten k&ouml;nnen.</li>
+            </ol>
+         </p>
+         <h4>Die letzten x Artikel</h4>
+         <p>
+            <ul>
+               <li>Zeigt die Liste der letzten x Artikel an, die auf Ihrer Site ver&ouml;ffentlicht wurden</li>
+               <li>Die erste Aufzeichnung ist der zuletzt ver&ouml;ffentlichte Artikel</li>
+               <li>Bestimmte Artikel k&ouml;nnen im Archiv angegeben werden. Dies sind die Artikel, deren Ver&ouml;ffentlichungsdatum abgelaufen ist.</li>
+               <li>Um diese Artikel wieder in den Feed aufzunehmen, m&uuml;ssen Sie sie nur bearbeiten, auf die Option "Datum &auml;ndern" klicken und ihr Enddatum &auml;ndern.</li>
+               <li>Klicken Sie auf den Artikel, um ihn zu bearbeiten, oder verwenden Sie die Links Bearbeiten, L&ouml;schen.</li>
+               <li>Wenn Sie ein altes Element bearbeiten / l&ouml;schen m&ouml;chten, geben Sie seine ID ein und w&auml;hlen Sie die entsprechende Aktion aus.</li>
+            </ul>
+         </p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Administrationshandbuch</span></p>
+      </div>
+   </body>
 </html>

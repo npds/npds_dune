@@ -1,54 +1,49 @@
-<html><head>
-<title>Edit users - NPDS V</title>
-
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2> 
-<center>
-  <b>Benutzer editieren</b> 
-</center>
-<br />
-<br />
-Diese Anwendung erlaubt es Benutzer (Mitglieder) anzulegen, zu editieren, oder auch zu löschen.<br />
-<br />
-<b>Neuen Benutzer hinzufügen :</b><br />
-Füllen Sie das Formular aus. Pflichtfelder sind mit einem * gekennzeichnet (Nickname, Email, Passwort).<br />
-ANdere Felder sind keine Pflichtfelder. Die verborgene E-mail Adresse ist die, welche für andere Benutzer sichtbar ist(Profile, Foren, Beiträge). <b>GEBEN SIE NIE IHRE RICHTIGE E-MAIL ADRESSE 
-in dieses Feld ein.</b><br />
-Klicken sie auf Benutzer hinzufügen und NPDS wird eine E-mail und ein Passwort an den neuen Benutzer senden.<br />
-<br />
-<b>Benutzer Rolle :</b><br />
-Sie können dem Benutzer eine bestimmte Rolle zuweisen (zum Beispiel : Administrator, hot-line ...). Die Rolle des Benutzers wird im Forum und in der role'list is in forum' Konfiguration angezeigt.
-<br />
-<br />
-<b>Gruppe :</b><br />
-Ein Benutzer kann Mitglied von 0 bis n Gruppen sein und der Gruppenwert ist zwischen
-2(min) und 126(max). Gruppen werden durch Komma in der Datenbank getrennt.<br />
-- Beispiel : 2,25 (Mitglieder der Gruppe 2 und 25)<br />
-<br />
-Die Liste der verfügbaren Gruppen wird angezeigt und erlaubt eine Mehrfachauswahl(shift / Ctrl).<br />
-Die erste Auswahl erlaubt es die Mitgliedschaft in einer Gruppe zu löschen. <br />
-<br />
-Eine Gruppe ist ein Ebenenlink der seine Bestimmung beim anlegen von Blöcken findet (siehe Blöcke). 
-<br />
-<br />
-<b>Verbindung erlauben : </b><br />
-Normalerweise kann sich ein Benutzer nach Erhalt der E-mail mit seinem Passwort anmelden (Grundeinstellung ist YES (JA).<br />
-Ändern Sie die Einstellung auf OFF (AUS) um dem Benutzer den Zugang zu Bereichen die nur für Miglieder sind zu verbieten. <br />
-<br />
-<b>Benutzer editieren :</b><br />
-Geben Sie seinen Nicknamen ein, wählen Sie <i>Benutzer editieren</i> und klicken Sie <i>Ok</i>.<br />
-Sie können alle Angaben verändern (einschliesslich des Passworts).<br />
-<br />
-<b>Benutzer löschen :</b><br />
-Geben Sie den Nicknamen, wählen Sie <i>Benutzer löschen</i> und klicken Sie <i>Ok</i>.<br />
-<br />
-<b>Benutzer abmelden :</b><br />
-Geben Sie den Nicknamen ein, wählen Sie <i>Benutzer abmelden</i> und klicken Sie <i>Ok</i>.<br />
-<br />
-<center>
-  <img src="../../images/admin/manuels.gif" border="0" /> 
-</center>
-</font> 
-</body>
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="utf-8" />
+      <title>Benutzer</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"> <a href="men_gen.html">Men&uuml;</a></li>
+               <li class="breadcrumb-item"><a href="men_utilisateurs.html">Benutzer</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Mitglieder</li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Mitglieder editieren</h3> 
+         <p>Diese Anwendung erlaubt es Benutzer (Mitglieder) anzulegen, zu editieren, oder auch zu l&ouml;schen.</p>
+         <h4>Neuen Benutzer hinzuf&uuml;gen</h4>
+         <p>F&uuml;llen Sie das Formular aus. Pflichtfelder sind mit einem * gekennzeichnet (Nickname, Email, Passwort).<br />
+         Andere Felder sind keine Pflichtfelder. Die verborgene E-mail Adresse ist die, welche f&uuml;r andere Benutzer sichtbar ist(Profile, Foren, Beitr&auml;ge).<br /><span class="text-danger">GEBEN SIE NIE IHRE RICHTIGE E-MAIL ADRESSE 
+         in dieses Feld ein.</span><br />
+         Klicken sie auf Benutzer hinzuf&uuml;gen und NPDS wird eine E-mail und ein Passwort an den neuen Benutzer senden.</p>
+         <h4>Benutzer Rolle</h4>
+         <p>Sie k&ouml;nnen dem Benutzer eine bestimmte Rolle zuweisen (zum Beispiel : Administrator, hot-line ...). Die Rolle des Benutzers wird im Forum und in der role'list is in forum' Konfiguration angezeigt.</p>
+         <h4>Gruppe</h4>
+         <p>Ein Benutzer kann Mitglied von 0 bis n Gruppen sein und der Gruppenwert ist zwischen 2(min) und 126(max). Gruppen werden durch Komma in der Datenbank getrennt.<br />
+         - Beispiel : 2,25 (Mitglieder der Gruppe 2 und 25)<br />
+         Die Liste der verf&uuml;gbaren Gruppen wird angezeigt und erlaubt eine Mehrfachauswahl(shift / Ctrl).<br />
+         Die erste Auswahl erlaubt es die Mitgliedschaft in einer Gruppe zu l&ouml;schen. <br />
+         Eine Gruppe ist ein Ebenenlink der seine Bestimmung beim anlegen von Bl&ouml;cken findet (siehe Bl&ouml;cke).</p>
+         <h4>Verbindung erlauben</h4>
+         <p>Normalerweise kann sich ein Benutzer nach Erhalt der E-mail mit seinem Passwort anmelden (Grundeinstellung ist YES (JA).<br />
+         &Auml;ndern Sie die Einstellung auf OFF (AUS) um dem Benutzer den Zugang zu Bereichen die nur f&uuml;r Miglieder sind zu verbieten. </p>
+         <h4>Benutzer editieren</h4>
+         <p>Geben Sie seinen Nicknamen ein, w&auml;hlen Sie <i>Benutzer editieren</i> und klicken Sie <i>Ok</i>.<br />
+         Sie k&ouml;nnen alle Angaben ver&auml;ndern (einschliesslich des Passworts).</p>
+         <h4>Benutzer l&ouml;schen</h4>
+         <p>Geben Sie den Nicknamen, w&auml;hlen Sie <i>Benutzer l&ouml;schen</i> und klicken Sie <i>Ok</i>.</p>
+         <h4>Benutzer abmelden</h4>
+         <p>Geben Sie den Nicknamen ein, w&auml;hlen Sie <i>Benutzer abmelden</i> und klicken Sie <i>Ok</i>.</p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Administrationshandbuch</span></p>
+      </div>
+   </body>
 </html>
