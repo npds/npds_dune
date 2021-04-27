@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -239,7 +239,7 @@ Function Add_Body() {
 
 Function Add_Body_Submit($Ytext, $Yhtml) {
    global $NPDS_Prefix;
-   sql_query("INSERT INTO ".$NPDS_Prefix."lnl_body VALUES ('', '$Yhtml', '$Ytext', 'OK')");
+   sql_query("INSERT INTO ".$NPDS_Prefix."lnl_body VALUES ('0', '$Yhtml', '$Ytext', 'OK')");
 }
 
 function ShowFooter() {
@@ -335,9 +335,9 @@ Function Add_Header_Footer($ibid) {
 Function Add_Header_Footer_Submit($ibid, $xtext, $xhtml) {
    global $NPDS_Prefix;
    if ($ibid=="HED")
-      sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('', 'HED','$xhtml', '$xtext', 'OK')");
+      sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('0', 'HED','$xhtml', '$xtext', 'OK')");
    else
-      sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('', 'FOT', '$xhtml', '$xtext', 'OK')");
+      sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('0', 'FOT', '$xhtml', '$xtext', 'OK')");
 }
 
 function main() {
@@ -773,7 +773,7 @@ switch ($op) {
                   $timeX=strftime("%Y-%m-%d %H:%M:%S",time());
                   if ($OXtype=="All") {$Xtype="All";}
                   if (($Xtype=="Mbr") and ($Xgroupe!="")) {$Xtype=$Xgroupe;}
-                  sql_query("INSERT INTO ".$NPDS_Prefix."lnl_send VALUES ('', '$Xheader', '$Xbody', '$Xfooter', '$number_send', '$Xtype', '$timeX', 'OK')");
+                  sql_query("INSERT INTO ".$NPDS_Prefix."lnl_send VALUES ('0', '$Xheader', '$Xbody', '$Xfooter', '$number_send', '$Xtype', '$timeX', 'OK')");
                }
                header("location: admin.php?op=lnl");
                break;
