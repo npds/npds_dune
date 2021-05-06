@@ -5,7 +5,7 @@
 /*                                                                      */
 /* BIG mod by JPB for NPDS-WS                                           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -447,7 +447,6 @@ function groupe_edit($groupe_id) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $result=sql_fetch_assoc(sql_query("SELECT groupe_name, groupe_description FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$groupe_id'"));
-
    if ($groupe_id!='groupe_add')
       echo '
       <hr />
@@ -460,6 +459,7 @@ function groupe_edit($groupe_id) {
    <form class="admform" id="groupesaddmod" action="admin.php" method="post">
       <fieldset>
          <legend><i class="fas fa-users fa-2x text-muted"></i></legend>'."\n";
+
    if ($groupe_id!='groupe_add')
       echo '<input type="hidden" name="groupe_id" value="'.$groupe_id.'" />';
    else
@@ -471,12 +471,16 @@ function groupe_edit($groupe_id) {
    echo '
          <div class="form-group">
             <label class="col-form-label" for="grname">'.adm_translate("Nom").'</label>
-            <input type="text" class="form-control" id="grname" name="groupe_name" maxlength="30" value="'.$result['groupe_name'].'" placeholder="'.adm_translate("Nom du groupe").'" required="required" />
+            <input type="text" class="form-control" id="grname" name="groupe_name" maxlength="30" value="';
+   echo isset($result)?$result['groupe_name']:"";
+   echo'" placeholder="'.adm_translate("Nom du groupe").'" required="required" />
             <span class="help-block text-right"><span id="countcar_grname"></span></span>
          </div>
          <div class="form-group">
             <label class="col-form-label" for="grdesc">'.adm_translate("Description").'</label>
-            <textarea class="form-control" name="groupe_description" id="grdesc" rows="11" maxlength="255" placeholder="'.adm_translate("Description du groupe").'" required="required">'.$result['groupe_description'].'</textarea>
+            <textarea class="form-control" name="groupe_description" id="grdesc" rows="11" maxlength="255" placeholder="'.adm_translate("Description du groupe").'" required="required">';
+   echo isset($result)?$result['groupe_description']:"";
+   echo'</textarea>
             <span class="help-block text-right"><span id="countcar_grdesc"></span></span>
          </div>';
    if ($groupe_id != 'groupe_add')
@@ -487,7 +491,7 @@ function groupe_edit($groupe_id) {
          <input type="hidden" name="op" value="groupe_add_finish" />';
    echo '
          <div class="form-group">
-            <button class="btn btn-primary" type="submit" name="sub_op" value="'.adm_translate("Sauver les modifications").'">'.adm_translate("Sauver les modifications").'</button>
+            <input class="btn btn-primary" type="submit" name="sub_op" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </fieldset>
    </form>';
@@ -496,7 +500,7 @@ function groupe_edit($groupe_id) {
    inpandfieldlen("grname",30);
    inpandfieldlen("grdesc",255);
    ';
-   adminfoot('fv','',$arg1,'');
+   adminfoot('','','','');
 }
 function groupe_maj($sub_op) {
    global $hlpfile, $NPDS_Prefix, $groupe_id, $groupe_name, $groupe_description;
