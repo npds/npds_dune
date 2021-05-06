@@ -157,7 +157,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
       if($cookie[9] !='') {
          $ibix=explode('+', urldecode($cookie[9]));
          if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
-         if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_skin; //$skin=''; 
+         if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_Skin; //$skin=''; 
          $tmp_theme=$theme;
          if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
       } else 
