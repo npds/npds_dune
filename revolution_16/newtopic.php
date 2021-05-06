@@ -77,6 +77,7 @@ if ($submitS) {
          if (($username=='') or ($password==''))
             forumerror('0027');
          else {
+            $modo ='';
             $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
             if ((password_verify($password, $pass)) and ($pass != '')) {
