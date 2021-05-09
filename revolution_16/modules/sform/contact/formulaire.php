@@ -2,7 +2,7 @@
 /************************************************************************/
 /* SFORM Extender since NPDS SABLE Contact Example                      */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -22,28 +22,28 @@ settype($act,'string');
 settype($des,'string');
 settype($subok,'string');
 
-$m->add_title("[french]Contactez-nous[/french][english]Contact us[/english]");
-$m->add_field('nom', "[french]Nom / Raison Sociale[/french][english]Name/Corporate name[/english]",$nom,'text',true,150,'','');
+$m->add_title("[french]Contactez-nous[/french][english]Contact us[/english][spanish]Cont&aacute;ctenos[/spanish][german]Melden Sie sich[/german][chinese]&#x8054;&#x7CFB;&#x6211;&#x4EEC;[/chinese]");
+$m->add_field('nom', "[french]Nom / Raison Sociale[/french][english]Name/Corporate name[/english][spanish]Nombre/ Raz&oacute;n Social[/spanish][german]Name / Name der Firma oder Organisation[/german][chinese]&#x540D;&#x79F0;/&#x516C;&#x53F8;&#x540D;&#x79F0;[/chinese]",$nom,'text',true,150,'','');
 $m->add_extender('nom', '', '<span class="help-block text-right" id="countcar_nom"></span>');
-$m->add_field('ad1', "[french]Adresse[/french][english]more address[/english]",$ad1,'text',true,150,'','');
+$m->add_field('ad1', "[french]Adresse[/french][english]Address[/english][spanish]Direcci&oacute;n[/spanish][german]Anschrift[/german][chinese]&#x5730;&#x5740;[/chinese]",$ad1,'text',true,150,'','');
 $m->add_extender('ad1', '', '<span class="help-block text-right" id="countcar_ad1"></span>');
-$m->add_field('ville', "[french]Ville[/french][english]City[/english]",$ville,'text',false,150,'','');
+$m->add_field('ville', "[french]Ville[/french][english]City[/english][spanish]Ciudad[/spanish][german]Stadt[/german][chinese]&#x57CE;&#x5E02;[/chinese]",$ville,'text',false,150,'','');
 $m->add_extender('ville', '', '<span class="help-block text-right" id="countcar_ville"></span>');
-$m->add_field('dpt', "[french]D&#xE9;partement[/french][english]Department[/english]",$dpt,'text',true,50,'','');
+$m->add_field('dpt', "[french]D&#xE9;partement[/french][english]Department[/english][spanish]Provincia[/spanish][german]Department[/german][chinese]&#x5730;&#x533A;[/chinese]",$dpt,'text',true,50,'','');
 $m->add_extender('dpt', '', '<span class="help-block text-right" id="countcar_dpt"></span>');
-$m->add_field('cpt', "[french]Code Postal[/french][english]Postal code[/english]",$cpt,'text',true,5,'','');
+$m->add_field('cpt', "[french]Code Postal[/french][english]Postal code[/english][spanish]C&oacute;digo postal[/spanish][german]Postleitzahl[/german][chinese]&#x90AE;&#x7F16;[/chinese]",$cpt,'text',true,5,'','');
 $m->add_extender('cpt', '', '<span class="help-block text-right" id="countcar_cpt"></span>');
-$m->add_field('tel', "[french]Tel[/french][english]Phone[/english]",$tel,'text',true,25,'',"0-9extend");
+$m->add_field('tel', "[french]Tel[/french][english]Phone[/english][spanish]Tel&eacute;fono[/spanish][german]Telefon[/german][chinese]&#x7535;&#x8BDD;[/chinese]",$tel,'text',true,25,'',"0-9extend");
 $m->add_extender('tel', '', '<span class="help-block text-right" id="countcar_tel"></span>');
-$m->add_field('fax', "[french]Fax[/french][english]Fax[/english]",$fax,'text',false,25,'',"0-9extend");
+$m->add_field('fax', "[french]Fax[/french][english]Fax[/english][spanish]Fax[/spanish][german]Fax[/german][chinese]Fax[/chinese]",$fax,'text',false,25,'',"0-9extend");
 $m->add_extender('fax', '', '<span class="help-block text-right" id="countcar_fax"></span>');
-$m->add_field('mob', "[french]Mobile[/french][english]Gsm[/english]",$mob,'text',false,25,'',"0-9extend");
+$m->add_field('mob', "[french]Mobile[/french][english]Gsm[/english][spanish]Celular[/spanish][german]Gsm[/german][chinese]&#x624B;&#x673A;[/chinese]",$mob,'text',false,25,'',"0-9extend");
 $m->add_extender('mob', '', '<span class="help-block text-right" id="countcar_mob"></span>');
-$m->add_field('email', "[french]Adresse de messagerie[/french][english]Email address[/english]",$email,'text',true,255,'','email');
+$m->add_field('email', "[french]Adresse de messagerie[/french][english]Email address[/english][spanish]Direcci&oacute;n de Email[/spanish][german]E-Mail-Adresse[/german][chinese]&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;[/chinese]",$email,'text',true,255,'','email');
 $m->add_extender('email', '', '<span class="help-block text-right" id="countcar_email"></span>');
-$m->add_field('act', "[french]Activit&#xE9;[/french][english]Activity[/english]",$act,'text',true,150,'','');
+$m->add_field('act', "[french]Activit&#xE9;[/french][english]Activity[/english][spanish]Actividad[/spanish][german]T&auml;tigkeit[/german][chinese]&#x6D3B;&#x52A8;[/chinese]",$act,'text',true,150,'','');
 $m->add_extender('act', '', '<span class="help-block text-right" id="countcar_act"></span>');
-$m->add_field('des', "[french]Description de votre demande[/french][english]Your request[/english]",$des,'textarea',true,430,10,'');
+$m->add_field('des', "[french]Description de votre demande[/french][english]Your request[/english][spanish]Descripci&oacute;n de su solicitud[/spanish][german]Beschreibung Ihres Antrags[/german][chinese]&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x8BF4;&#x660E;[/chinese]",$des,'textarea',true,430,10,'');
 $m->add_extender('des', '', '<span class="help-block text-right" id="countcar_des"></span>');
 
 // ----------------------------------------------------------------
@@ -59,7 +59,7 @@ $m->add_extra('
          <div class="col-sm-8 ml-sm-auto" >');
 $m->add_field('reset','',translate("Annuler"),'reset',false);
 $m->add_extra('&nbsp;');
-$m->add_field('','',"[french]Soumettre[/french][english]Submit[/english]",'submit',false);
+$m->add_field('','',"[french]Soumettre[/french][english]Submit[/english][spanish]Enviar[/spanish][german]Sendet[/german][chinese]&#x53D1;&#x9001;[/chinese]",'submit',false);
 $m->add_extra('
          </div>
       </div>');
