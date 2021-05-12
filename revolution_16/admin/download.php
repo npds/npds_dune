@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -125,11 +125,11 @@ function DownloadAdmin() {
       <thead>
          <tr>
             <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("ID").'</th>
-            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Compt.").'</th>
+            <th data-sortable="true" data-halign="center" data-align="right">'.adm_translate("Compteur").'</th>
             <th data-sortable="true" data-halign="center" data-align="center">Typ.</th>
             <th data-halign="center" data-align="center">'.adm_translate("URL").'</th>
             <th data-sortable="true" data-halign="center" >'.adm_translate("Nom de fichier").'</th>
-            <th data-halign="center" data-align="center">'.adm_translate("Ver.").'</th>
+            <th data-halign="center" data-align="center">'.adm_translate("Version").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Taille de fichier").'</th>
             <th data-halign="center" >'.adm_translate("Date").'</th>
             <th data-halign="center" data-align="center">'.adm_translate("Fonctions").'</th>
@@ -185,7 +185,7 @@ function DownloadAdmin() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="durl" name="durl" maxlength="320" required="required" />
+            <input class="form-control" type="text" id="durl" name="durl" maxlength="255" required="required" />
    &nbsp;<a href="javascript:void(0);" onclick="window.open(\'admin.php?op=FileManagerDisplay\', \'wdir\', \'width=650, height=450, menubar=no, location=no, directories=no, status=no, copyhistory=no, toolbar=no, scrollbars=yes, resizable=yes\');">
    <span class="">['.adm_translate("Parcourir").']</span></a>
             <span class="help-block text-right" id="countcar_durl"></span>
@@ -268,7 +268,7 @@ function DownloadAdmin() {
    </form>';
    $arg1='
          var formulid = ["downloadadd"];
-         inpandfieldlen("durl",320);
+         inpandfieldlen("durl",255);
          inpandfieldlen("dfilename",255);
          inpandfieldlen("dver",6);
          inpandfieldlen("dfilesize",31);
@@ -296,7 +296,7 @@ function DownloadEdit($did) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="durl">'.adm_translate("Télécharger URL").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="durl" name="durl" value="'.$durl.'" maxlength="320" required="required" />
+            <input class="form-control" type="text" id="durl" name="durl" value="'.$durl.'" maxlength="255" required="required" />
             <span class="help-block text-right" id="countcar_durl"></span>
          </div>
       </div>
@@ -383,7 +383,7 @@ function DownloadEdit($did) {
    </form>';
    $arg1='
       var formulid = ["downloaded"];
-      inpandfieldlen("durl",320);
+      inpandfieldlen("durl",255);
       inpandfieldlen("dfilename",255);
       inpandfieldlen("dver",6);
       inpandfieldlen("dfilesize",31);

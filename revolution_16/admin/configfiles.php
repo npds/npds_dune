@@ -58,7 +58,7 @@ function ConfigFiles($contents, $files) {
         </tr>
         <tr>
             <td><code>body_onload.inc</code></td>
-            <td>'.adm_translate("Ce fichier est appelé dans l'évèment ONLOAD de la balise BODY => JAVASCRIPT").'</td>
+            <td>'.adm_translate("Ce fichier est appelé dans l'évènement ONLOAD de la balise BODY => JAVASCRIPT").'</td>
             <td>
                 <a href="admin.php?op=ConfigFiles_load&amp;files=body_onload"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
                 <a href="admin.php?op=delete_configfile&amp;file=body_onload"><i class="far fa-trash-alt fa-lg text-danger ml-3" title="'.adm_translate("Supprimer").'" data-toggle="tooltip" ></i></a>

@@ -56,7 +56,7 @@ function links() {
        echo 
        adm_translate("Lien N° : ").'<b>'.$lid.'</b> - '.adm_translate("Auteur").' : '.$submitter.' <br /><br />
       <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="titleenattente">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="titleenattente">'.adm_translate("Titre de la page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="titleenattente" name="title" value="'.$title.'" maxlength="100" required="required"/>
             <span class="help-block text-right"><span id="countcar_titleenattente"></span></span>
@@ -161,7 +161,7 @@ function links() {
       }
     echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" id="title" maxlength="100" required="required" />
             <span class="help-block text-right"><span id="countcar_title"></span></span>
@@ -408,7 +408,7 @@ function LinksModLink($lid) {
     echo '
    <form action="admin.php" method="post" name="adminForm" id="linksmodlink">
       <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" id="title" value="'.$title.'" maxlength="100" required="required" />
             <span class="help-block text-right"><span id="countcar_title"></span></span>
@@ -1024,7 +1024,7 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
          if ($email!='') {
             global $sitename, $nuke_url;
             $subject = adm_translate("Votre Lien")." : $sitename";
-            $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la Page : ")."$title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
+            $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la page")." : $title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
             include("signat.php");
             send_email($email, $subject, $message, '', false, 'html');
          }

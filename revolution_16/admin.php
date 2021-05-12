@@ -656,8 +656,8 @@ function adminMain($deja_affiches) {
          <label class="mr-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
          <input class="form-control  mr-2 mt-sm-3 mb-2" type="number" name="sid" />
          <select class="custom-select form-control mr-2 mt-sm-3 mb-2" name="op">
-            <option value="EditStory" selected="selected">'.adm_translate(" Editer un Article ").'</option>
-            <option value="RemoveStory">'.adm_translate(" Effacer l'Article").'</option>
+            <option value="EditStory" selected="selected">'.adm_translate("Editer un Article").'</option>
+            <option value="RemoveStory">'.adm_translate("Effacer l'Article").'</option>
          </select>
          <button class="btn btn-primary ml-sm-2 mt-sm-3 mb-2" type="submit">'.adm_translate("Ok").' </button>
       </form>';

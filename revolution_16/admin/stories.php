@@ -521,8 +521,8 @@ function displayStory ($qid) {
       <input type="hidden" name="uid" value="'.$uid.'" />
       <div class="form-group">
          <select class="custom-select form-control" name="op">
-            <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
-            <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+            <option value="DeleteStory">'.adm_translate("Effacer l'Article").'</option>
+            <option value="PreviewAgain" selected="selected">'.adm_translate("Re-prévisualiser").'</option>
             <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
          </select>
       </div>
@@ -653,8 +653,8 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
       <input type="hidden" name="qid" value="'.$qid.'" />
       <input type="hidden" name="uid" value="'.$uid.'" />
       <select class="custom-select form-control" name="op">
-         <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
-         <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+         <option value="DeleteStory">'.adm_translate("Effacer l'Article").'</option>
+         <option value="PreviewAgain" selected="selected">'.adm_translate("Re-prévisualiser").'</option>
          <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
       </select>
       <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
@@ -861,7 +861,7 @@ function editStory ($sid) {
       <input type="hidden" name="theme" value="'.$theme.'" />
       <div class="form-group row">
          <div class="col-12">
-            <input class="btn btn-primary" type="submit" value="'.adm_translate(" Modifier l'Article").'" />
+            <input class="btn btn-primary" type="submit" value="'.adm_translate("Modifier l'Article").'" />
          </div>
       </div>
    </form>';
