@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011 and cast MySql engine type        */
-/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -504,7 +504,6 @@ function nmig_clean($name_module) {
                   $modulemetamot[]=$met[1];
                // recupere la première valeur de VALUES pour cibler la def d'un metamot, pour les tables autres que metalang unimplemented ...
                }
-//               var_dump($met[1]);
             }
          }
          foreach ($tabinsert as $v) {
@@ -525,7 +524,7 @@ function nmig_clean($name_module) {
       //nettoyage
       if ($subop == "desinst") {
          include("header.php");
-         
+
          list($fid)=sql_fetch_row(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
          sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_fon_fid=".$fid."");
          sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'");
@@ -554,28 +553,26 @@ function nmig_clean($name_module) {
       include("header.php");
       $display = '
          <hr />
-         <h4 class="text-danger mb-3">'.adm_translate("Désinstaller le module ").' '.$ModDesinstall.'.</h4>';
+         <h4 class="text-danger mb-3">'.adm_translate("Désinstaller le module").' '.$ModDesinstall.'.</h4>';
       if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
          $display .='
-         <div class="alert alert-danger">Cette opération est irréversible elle va affecter votre base de donnée par la suppression de table(s) ou/et de ligne et la suppression ou modification de certains fichiers.<br /><br />'; 
+         <div class="alert alert-danger">'.adm_translate("Cette opération est irréversible elle va affecter votre base de données par la suppression de table(s) ou/et de ligne(s) et la suppression ou modification de certains fichiers.").'<br /><br />'; 
          if(isset($tabcreated)) {
             $v='';
-            $display.='<strong>Suppression de table(s)</strong><ul>';
-               foreach ($tabcreated as $v){
-                  $display.='<li>'.$NPDS_Prefix.$v.'</li>';
-               }
+            $display.='<strong>'.adm_translate("Suppression de table(s)").'</strong><ul>';
+            foreach ($tabcreated as $v){
+               $display.='<li>'.$NPDS_Prefix.$v.'</li>';
+            }
             $display .='</ul>';
          }
          if(count($othertabinsert)>0 or $tabsblocs!='') {
             $v='';
-            $display.='<strong>Modification de données dans table(s)</strong><ul>';
-               foreach ($othertabinsert as $v){
-                  $display.='<li>'.$NPDS_Prefix.$v.'</li>';
-               }
-               if($lbmod>0)
-                  $display.='<li>lblocs</li>';
-               if($rbmod>0)
-                  $display.='<li>rblocs</li>';
+            $display.='<strong>'.adm_translate("Modification de données dans table(s)").'</strong><ul>';
+            foreach ($othertabinsert as $v){
+               $display.='<li>'.$NPDS_Prefix.$v.'</li>';
+            }
+            $display.= $lbmod>0?'<li>lblocs</li>':'';
+            $display.=$rbmod>0?'<li>rblocs</li>':'';
             $display .='</ul>';
          }
 
