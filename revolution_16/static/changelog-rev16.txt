@@ -1,10 +1,44 @@
+changelog-rev16.3 [ révision : 46 - jpb /14-05-2021 ]
+(non exhaustif...)
+pour des informations complètes et détaillées visitez : https://github.com/npds/npds_dune/compare/v.16.2.1...master
+
+- Corrections et améliorations
+   - travaux sur les traductions :
+      ipban, npds_twi, /admin, contact, manuels admin
+   - [bug] création et modification groupe
+   - compatibilité mysql>5 : lnl
+   - compatibilité mysql8 : (mot réservé rank) comment/reply.php
+   - compatibilité php>7.4 :
+      ordre des arguments implode() (savemysql.php, upload.func.forum.php)
+      deprecated/removed get_magic_quotes_runtime() set_magic_quotes_runtime() (grab_globals.php)
+   - lib mysql : arguments
+   - notice(s) et fonctionnement sur les affichages des contributions des anciens membres
+   - cohérence ancre et urls last-post => lastpost
+   - oubli de tin class pour tinymce dans filemanager.php
+   ...
+
+- Evolutions
+   - Nouveau système de cryptage des mots de passes :
+   Suite au(x) notice(s) dues à l'évolution de la fonction crypt() voici donc la ré-implémentation du système de cryptage et par conséquence des différents login. 
+   Cette ré-implémentation délicate a de plus corrigé d'autres problèmes sporadiques liés au contenu des mots de passe. Elle a été orientée pour que ce soit totalement transparent pour le webmaster et les utilisateurs donc sans campagne de remise à jour des mots de passe. En cas de nouveau site recevant des anciennes données avec donc les mdp en clair ou cryptés avec l'ancien système les mdp seront donc analysés et crypté avec le nouveau système systématiquement au fur et à mesure des connections des utilisateurs ou des administrateurs. 
+   Les obscures options de cryptage des mots de pass ($system et $system_md5) ont été désimplémentées.
+   
+   - alertes et message provenant de npds
+   Finalisation de l'implémentation des fonctions d'envoi de message et alerte (version, sécurité, note) provenenant de npds dans les portails et de la gestion de leur lecture par les superadministrateurs.
+
+- Documentation
+   - manuels admin (still on work)
+
+-Dépendances
+   - fontawesome update to 5.15.2
+
 changelog-rev16.2.1 [ révision : 45 - jpb /06-03-2021 ]
 
-Correction
-patch sécurité ghostform
-notices sur view topics
-Evolution
-icone d'alerte admin pour modules (implémentation)
+- Corrections
+   patch sécurité ghostform
+   notices sur view topics
+   Evolution
+   icone d'alerte admin pour modules (implémentation)
 
 changelog-rev16.2 [ révision : 44 - jpb /28-02-2021 ]
 (non exhaustif...)
