@@ -18,7 +18,7 @@ if (!strstr($_SERVER['PHP_SELF'],'admin.php')) die();
 
 include ('modules/'.$ModPath.'/lang/twi.lang-'.$language.'.php');
 $f_meta_nom ='npds_twi';
-$f_titre='npds_twi';
+$f_titre='npds_twitter';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
