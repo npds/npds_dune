@@ -51,7 +51,7 @@ function ShowHeader() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="far fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -85,7 +85,7 @@ function Detail_Header_Footer($ibid, $type) {
    <hr />
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
-         <label class="col-form-label col-sm-12" for="xtext">Code Detail</label>
+         <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" cols="70" rows="20" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
          </div>
@@ -137,7 +137,7 @@ function ShowBody() {
          <td>'.$ref.'</td>
          <td>'.$text.'</td>
          <td><code>'.$html.'</code></td>
-         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="far fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
       </tr>';
    }
    echo '
@@ -266,7 +266,7 @@ function ShowFooter() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="far fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -520,8 +520,8 @@ function lnl_list() {
             <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.adm_translate("Pied").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Nbre d'envois effectués").'</th>
             <th data-halign="center" data-align="center">'.adm_translate("Type").'</th>
-            <th data-halign="center" data-align="right">Date</th>
-            <th data-halign="center" data-align="center">Status</th>
+            <th data-halign="center" data-align="right">'.adm_translate("Date").'</th>
+            <th data-halign="center" data-align="center">'.adm_translate("Etat").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -565,7 +565,7 @@ function lnl_user_list() {
          <tr>
             <th class="n-t-col-xs-5" data-halign="center" data-sortable="true">'.adm_translate("E-mail").'</th>
             <th class="n-t-col-xs-3" data-halign="center" data-align="right" data-sortable="true">'.adm_translate("Date").'</th>
-            <th class="n-t-col-xs-2" data-halign="center" data-align="center" data-sortable="true">'.adm_translate("Status").'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center" data-sortable="true">'.adm_translate("Etat").'</th>
             <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
@@ -582,7 +582,7 @@ function lnl_user_list() {
          echo '
             <td class="text-success">'.$status.'</td>';
       echo '
-            <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="far fa-trash-alt fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
+            <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="far fa-trash fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
          </tr>';
    }
    echo '
