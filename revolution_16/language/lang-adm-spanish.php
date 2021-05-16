@@ -238,8 +238,6 @@ function adm_translate($phrase) {
   case "Ce fichier est appelé entre le HEAD et /HEAD lors de la génération de la page HTML": $tmp="Este fichero se llama entre el HEAD y /HEAD en la generación de la página HTML"; break;
   case "Ce fichier permet d'envoyer un MI personnalisé lorsqu'un nouveau membre s'inscrit": $tmp="Este fichero permite enviar un MI personalizado cuando un nuevo miembro se inscribe"; break;
   case "Ce fichier permet l'affichage d'informations complémentaires dans la page de login": $tmp="Este fichero permite la visualización de información complementaria en la página del login"; break;
-  case "Ce fichier permet la configuration des fonctions d'upload": $tmp="This file allow you to configure Upload"; break;
-  case "Ce fichier permet la configuration des modules complémentaires de l'administration": $tmp="Este fichero permite la configuración de los módulos complementarios de la administración"; break;
   case "Ce fichier permet la configuration technique de SuperCache": $tmp="Este fichero permite la configuración técnica de la memoria tampon"; break;
   case "Ce META-MOT existe déjà": $tmp="Este META-MOT ya existe"; break;
   case "Ce modérateur": $tmp="Este moderador"; break;
@@ -340,7 +338,6 @@ function adm_translate($phrase) {
   case "Désactiver chat du groupe": $tmp="Desactivar grupo de chat"; break;
   case "Désactiver gestionnaire de fichiers du groupe": $tmp="Desactivar el grupo gestor de archivos"; break;
   case "Désactiver PAD du groupe": $tmp="Desactivar PAD del grupo"; break;
-  case "Description :  (255 caractères max)": $tmp="Descripción: (255 carateres máx)"; break;
   case "Description de l'éphéméride": $tmp="Descripcion de el efemeride:"; break;
   case "Description de la Page des Critiques": $tmp="Descripcion de la página de criticas:"; break;
   case "Description:": $tmp="Descripción:"; break;
@@ -744,7 +741,7 @@ function adm_translate($phrase) {
   case "Oui": $tmp="Si"; break;
   case "Page courante sans liens locaux": $tmp="Página corriente sin vìnculos locales"; break;
   case "Page de démarrage": $tmp="Página de inicio"; break;
-  case "Page(s)": $tmp="página(s)";
+  case "Page(s)": $tmp="página(s)"; break;
   case "Par défaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction": $tmp="By defaut, nothing or All except [no URI] = no limitation"; break;
   case "par exemple : genial.png": $tmp="Por ejemplo: estoeslapera.gif"; break;
   case "par": $tmp="por"; break;
@@ -947,7 +944,7 @@ function adm_translate($phrase) {
   case "Un message privé leur a été envoyé sans réponse à ce message sous 60 jours ces utilisateurs ne pourront plus se connecter au site.": $tmp="Se les ha enviado un mensaje privado sin responder a este mensaje dentro de los 60 días que estos usuarios ya no podrán conectarse al sitio."; break;
   case "Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :": $tmp="Se produjo un error al ejecutar el script SQL. Mysql respondió:"; break;
   case "Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :": $tmp="Se produjo un error al configurar automáticamente el (de los) bloque(s). Mysql respondió:"; break;
-  case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.<br />Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="Una vez que habrá validado esta publicación, será integrada en base temporal, y se avisará al administrador. Leera esta publicación y la pondrá en lÌnea cuanto antes. Es normal que por el momento, esta publicación no aparezca en la estructura"; break;
+  case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais. Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="Una vez que habrá validado esta publicación, será integrada en base temporal, y se avisará al administrador. Leera esta publicación y la pondrá en lÌnea cuanto antes. Es normal que por el momento, esta publicación no aparezca en la estructura"; break;
   case "Upload": $tmp="Upload"; break;
   case "URL : ": $tmp="URL: "; break;
   case "URL de l'image du backend": $tmp="URL de la imagen del Flujo"; break;

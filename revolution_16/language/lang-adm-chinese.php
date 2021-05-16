@@ -238,8 +238,6 @@ function adm_translate($phrase) {
   case "Ce fichier est appelé entre le HEAD et /HEAD lors de la génération de la page HTML": $tmp="本文件将在头文件(HEAD)中被调用"; break;
   case "Ce fichier permet d'envoyer un MI personnalisé lorsqu'un nouveau membre s'inscrit": $tmp="当某新会员注册时，本文件允许发送一个个人化的MI"; break;
   case "Ce fichier permet l'affichage d'informations complémentaires dans la page de login": $tmp="本文件允许在登陆页面上发布补充消息或个人化"; break;
-  case "Ce fichier permet la configuration des fonctions d'upload": $tmp="本文件用于设置上传功能"; break;
-  case "Ce fichier permet la configuration des modules complémentaires de l'administration": $tmp="本文件用于设置管理功能模块插件"; break;
   case "Ce fichier permet la configuration technique de SuperCache": $tmp="本文件用于设置超级缓存的技术性"; break;
   case "Ce META-MOT existe déjà": $tmp="This META-MOTalready exist"; break;
   case "Ce modérateur": $tmp="This moderator"; break;
@@ -340,7 +338,6 @@ function adm_translate($phrase) {
   case "Désactiver chat du groupe": $tmp="Disable Chat for the group"; break;
   case "Désactiver gestionnaire de fichiers du groupe": $tmp="Disable File manager of the group"; break;
   case "Désactiver PAD du groupe": $tmp="Disable PAD of the group"; break;
-  case "Description :  (255 caractères max)": $tmp="描述：（最多255 字符）"; break;
   case "Description de l'éphéméride": $tmp="历史描述:"; break;
   case "Description de la Page des Critiques": $tmp="评论页描述:"; break;
   case "Description:": $tmp="程序簡介:"; break;
@@ -744,7 +741,7 @@ function adm_translate($phrase) {
   case "Oui": $tmp="是"; break;
   case "Page courante sans liens locaux": $tmp="当前页面，不含链接"; break;
   case "Page de démarrage": $tmp="起始页"; break;
-  case "Page(s)": $tmp="页";
+  case "Page(s)": $tmp="页"; break;
   case "Par défaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction": $tmp="By defaut, nothing or All except [no URI] = no limitation"; break;
   case "par exemple : genial.png": $tmp="（例如: games.gif）"; break;
   case "par": $tmp="由"; break;
@@ -947,7 +944,7 @@ function adm_translate($phrase) {
   case "Un message privé leur a été envoyé sans réponse à ce message sous 60 jours ces utilisateurs ne pourront plus se connecter au site.": $tmp="已发送私人消息，但未在60天内回复此消息，这些用户将无法再连接到该网站。"; break;
   case "Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :": $tmp="An error arose during the run of the SQL script. Mysql answered:"; break;
   case "Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :": $tmp="An error arose during the configuration of (the) block(s). Mysql answered:"; break;
-  case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.<br />Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="一旦您使本发表文章确认生效，它将被保存在临时数据库中，系统同时通知管理员。管理员将浏览您的文章并尽快将其在线生效。<br/>因此，您当前在树型结构中还不能看到它。"; break;
+  case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais. Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="一旦您使本发表文章确认生效，它将被保存在临时数据库中，系统同时通知管理员。管理员将浏览您的文章并尽快将其在线生效。<br/>因此，您当前在树型结构中还不能看到它。"; break;
   case "Upload": $tmp="Upload"; break;
   case "URL : ": $tmp="URL地址:"; break;
   case "URL de l'image du backend": $tmp="Backend图片的地址"; break;

@@ -238,8 +238,6 @@ function adm_translate($phrase) {
   case "Ce fichier est appelé entre le HEAD et /HEAD lors de la génération de la page HTML": $tmp="This file is called between HEAD and /HEAD tags"; break;
   case "Ce fichier permet d'envoyer un MI personnalisé lorsqu'un nouveau membre s'inscrit": $tmp="This file allow you to send a specific MI in the 'new member' process"; break;
   case "Ce fichier permet l'affichage d'informations complémentaires dans la page de login": $tmp="This file allow you to customize the login page"; break;
-  case "Ce fichier permet la configuration des fonctions d'upload": $tmp="This file allow you to configure Upload"; break;
-  case "Ce fichier permet la configuration des modules complémentaires de l'administration": $tmp="This file allow you to manage the admin'plugins"; break;
   case "Ce fichier permet la configuration technique de SuperCache": $tmp="This file allow you to configure SuperCache technical points"; break;
   case "Ce META-MOT existe déjà": $tmp="This META-MOT already exist"; break;
   case "Ce modérateur": $tmp="This moderator"; break;
@@ -340,7 +338,6 @@ function adm_translate($phrase) {
   case "Désactiver chat du groupe": $tmp="Disable Chat for the group"; break;
   case "Désactiver gestionnaire de fichiers du groupe": $tmp="Disable File manager of the group"; break;
   case "Désactiver PAD du groupe": $tmp="Disable PAD of the group"; break;
-  case "Description :  (255 caractères max)": $tmp="Description: (255 characters max)"; break;
   case "Description de l'éphéméride": $tmp="Ephemerid Description"; break;
   case "Description de la Page des Critiques": $tmp="Reviews Page Description"; break;
   case "Description:": $tmp="Description:"; break;
