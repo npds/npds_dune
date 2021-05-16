@@ -510,7 +510,7 @@ function nmig_clean($name_module) {
             if(!in_array($v,$tabcreated))
                $othertabinsert[]=$v;
          }
-         
+
          //traitement des blocs avec fonctions de modules
          if($blocs[1][0]!='') {
             preg_match('#^(include\#.[^\\|\s]+)#',$blocs[1][0],$rb);
