@@ -26,7 +26,6 @@ $hlpfile = "manuels/$language/authors.html";
 // sélection des fonctions sauf les fonctions de type alerte 
    $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND fcategorie < 7 ORDER BY f.fcategorie");
    while(list($fid, $fnom, $fnom_affich, $fcategorie) = sql_fetch_row($R)) {
-    $fnom_affich = adm_translate($fnom_affich);
       if($fcategorie==6) {
          $listdroitsmodulo .= '
          <div class="col-md-4 col-sm-6">
@@ -41,7 +40,7 @@ $hlpfile = "manuels/$language/authors.html";
          <div class="col-md-4 col-sm-6">
             <div class="custom-control custom-checkbox">
                <input class="ckbf custom-control-input" id="ad_d_'.$fid.'" type="checkbox" name="ad_d_'.$fid.'" value="'.$fid.'" />
-               <label class="custom-control-label" for="ad_d_'.$fid.'">'.$fnom_affich.'</label>
+               <label class="custom-control-label" for="ad_d_'.$fid.'">'.adm_translate($fnom_affich).'</label>
             </div>
          </div>';
       }
@@ -121,7 +120,7 @@ function displayadmins() {
          echo'
                <a href="'.$url.'"><i class="fas fa-external-link-alt fa-lg" title="'.adm_translate("Visiter le site web").'" data-toggle="tooltip"></i></a>&nbsp;';
          echo '
-               <a href="admin.php?op=deladmin&amp;del_aid='.$a_aid.'" ><i class="far fa-trash-alt fa-lg text-danger" title="'.adm_translate("Effacer l'Auteur").'" data-toggle="tooltip" ></i></a>
+               <a href="admin.php?op=deladmin&amp;del_aid='.$a_aid.'" ><i class="far fa-trash fa-lg text-danger" title="'.adm_translate("Effacer l'Auteur").'" data-toggle="tooltip" ></i></a>
             </td>
          </tr>';
    }
@@ -271,12 +270,7 @@ function modifyadmin($chng_aid) {
 
    $result = sql_query("SELECT aid, name, url, email, pwd, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
    list($chng_aid, $chng_name, $chng_url, $chng_email, $chng_pwd, $chng_radminsuper) = sql_fetch_row($result);
-
-   if ($chng_radminsuper==1)
-      $supadm_inp = ' checked="checked"';
-   else
-      $supadm_inp ='';
-    
+   $supadm_inp = $chng_radminsuper==1? ' checked="checked"':'';
    //==> construction des check-box des droits
    $listdroits ='';$listdroitsmodulo='';
    $result3 = sql_query("SELECT * FROM ".$NPDS_Prefix."droits WHERE d_aut_aid ='$chng_aid'");
@@ -286,7 +280,7 @@ function modifyadmin($chng_aid) {
    }
    $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND fcategorie < 7 ORDER BY f.fcategorie");
    while(list($fid, $fnom, $fnom_affich, $fcategorie) = sql_fetch_row($R)) {
-   $fnom_affich= adm_translate($fnom_affich);
+      //$fnom_affich= adm_translate($fnom_affich);
       if (in_array($fid, $datas)) $chec='checked="checked"'; else $chec='';
       if($fcategorie==6) {
          $listdroitsmodulo .='
@@ -303,7 +297,7 @@ function modifyadmin($chng_aid) {
          <div class="col-md-4 col-sm-6">
             <div class="custom-control custom-checkbox">
                <input class="ckbf custom-control-input" id="ad_d_'.$fid.'" type="checkbox" '.$chec.' name="ad_d_'.$fid.'" value="'.$fid.'" />
-               <label class="custom-control-label" for="ad_d_'.$fid.'">'.$fnom_affich.'</label>
+               <label class="custom-control-label" for="ad_d_'.$fid.'">'.adm_translate($fnom_affich).'</label>
             </div>
          </div>';
       }
