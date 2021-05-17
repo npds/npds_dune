@@ -259,15 +259,13 @@ function GraphicAdmin($hlpfile) {
          <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="'.adm_translate($SAQ['fnom_affich']).'"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
+            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="';
+         $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
+         $li_c .='"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
          if ($admingraphic==1)
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
-         else {
-            if ($SAQ['fcategorie'] == 6)
-               $li_c .= $SAQ['fnom_affich'];
-            else
-               $li_c .= adm_translate($SAQ['fnom_affich']);
-         }
+         else
+            $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
          $li_c .='</a></li>';
          $ul_f='';
          if ($j!==0)
@@ -610,7 +608,7 @@ function adminMain($deja_affiches) {
             echo $title.' <i>(archive)</i>';
          else {
             if ($affiche) {
-               echo '<a data-toggle="popover" data-placement="bottom" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.ucfirst($title).'</a>';
+               echo '<a data-toggle="popover" data-placement="left" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.ucfirst($title).'</a>';
                if($ihome==1)
                   echo '<br /><small><span class="badge badge-secondary" title="'.adm_translate("Catégorie").'" data-toggle="tooltip">'.aff_langue($cat_title).'</span> <span class="text-danger">non publié en index</span></small>';
                else
@@ -631,7 +629,7 @@ function adminMain($deja_affiches) {
             echo '</td>
             <td>
             <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fas fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="far fa-trash-alt fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
+            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="far fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
          else
             echo '</td>
             <td>';
@@ -644,7 +642,7 @@ function adminMain($deja_affiches) {
       </table>
       <div class="d-flex my-2 justify-content-between flex-wrap">
       <ul class="pagination pagination-sm">
-         <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' Articles</a></li>
+         <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' '.adm_translate("Articles").'</a></li>
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbPages.' '.adm_translate("Page(s)").'</a></li>
       </ul>';
       echo paginate('admin.php?op=suite_articles&amp;deja_affiches=', '', $nbPages, $current, 1, $admart, $start);
