@@ -1,0 +1,99 @@
+<html lang="fr">
+   <head>
+      <meta charset="utf-8">
+      <title>Administration - npds_twitter</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="/manuels/french/admin.html"><img class="mr-3 ml-n3" width="32px" height="32px" src="../../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item active" aria-current="page" >npds_twitter</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administration - npds_twitter</h3>
+         <p>Ce module n&eacute;cessite l'ouverture d'un compte twitter et la cr&eacute;ation d'une application Twitter pour l'utilisation des APIs sur votre site.<br />
+         - Si vous n'avez <b>PAS</b> ces &eacute;l&eacute;ments, suivez la proc&eacute;dure I ci-dessous.</p>
+         <h4>I. Proc&eacute;dure Twitter</h4>
+         <h5>Inscriptions</h5>
+         <p>
+            <ol>
+               <li>Inscrivez vous sur twitter en tant qu'utilisateur <a href="http://twitter.com/">ICI</a>.</li>
+               <li>Inscrivez vous en tant que développeur <a href="https://developer.twitter.com/">ICI</a>.</li>
+            </ol>
+         </p>
+         <h5>Cr&eacute;ez et paramétrez l'application</h5>
+         <p><b>1. Cr&eacute;ez l'application (passerelle entre NPDS et Twitter)</b> <a href="https://developer.twitter.com/en/apps/create">ICI</a>.<br />
+            Pendant la cr&eacute;ation de l'application, pour les non-anglophones, les infos REQUISES &agrave; renseigner sont les suivantes :
+            <ul>
+               <li>App Name : Nom au choix de votre application (Exemple, <code>"Passerelle NPDS-Twi"</code>. Seule restriction : Ne doit pas contenir le mot "twitter")</li>
+               <li>Application description : Idem, saisie libre. Par exemple : "Passerelle NPDS-Twitter"</li>
+               <li>Tell us how this app will be used : Par exemple : "This application will be used to automatically publish tweets when there is new publication in our CCMS."</li>
+               <li>Website URL : l'url du site sur lequel vous installez npds_twi</li>
+               <li>Les autres champs sont facultatifs.</li>
+            </ul>
+         </p>
+         <p><b>2. Param&eacute;trage de l'application Twitter :</b>
+            <ul>
+               <li>Une fois l'application cr&eacute;&eacute;e, allez dans l'onglet "Permissions" de l'application.</li>
+               <li>Dans la section "Application type", pour le param&egrave;tre "Access", cochez "Read and write".</li>
+               <li>Cliquez sur "Update this Twitter application's settings" pour valider.</li>
+               <li>Cliquez sur l'onglet "Details"</li>
+               <li>Cliquez sur "Create my access token". Si c'est d&eacute;j&agrave; le cas, cliquez sur "Recreate my access token"<br />
+               Attention! Cela va modifier les clefs "Access token". Si vous les avez d&eacute;j&agrave; saisies pr&eacute;c&eacute;demment dans npds_twi, il faut les ressaisir.</li>
+            </ul>
+         </p>
+         <p><b>3. R&eacute;cup&eacute;rez vos clefs et jetons</b> (requis pour le param&eacute;trage de votre module).</p>
+         <p><b>4. Vous avez maintenant les &eacute;l&eacute;ment n&eacute;cessaires au fonctionnement de cette passerelle :</b><br />
+            <ul>
+               <li>Votre clef de consommateur (Consumer key)</li>
+               <li>Votre code secret de consommateur (Consumer secret)</li>
+               <li>Jeton d'acc&egrave;s pour Open Authentification (Access token)</li>
+               <li>Jeton d'acc&egrave;s secret pour Open Authentification (Access token secret)</li>
+            </ul>
+         </p>
+         <h4>II. Proc&eacute;dure Npds</h4>
+         <p><b>Allez à l'administration du module</b><br />
+            <code>/admin.php?op=Extend-Admin-SubModule&ModPath=npds_twi&ModStart=admin/npds_twi_set</code>
+            <ul>
+               <li>Un message vous informera si la publication est autorisé pour le site (par défaut à Non). (pour modifier cette autorisation supérieure suivez le lien) <code>/admin.php?op=Configure</code><br />
+               Préferences > Configuration des infos en Backend & Réseaux Sociaux > Activer Twitter</li>
+               <li>Activez ou pas la publication des news sur twitter</li>
+               <li>Choisissez un raccourciceur d'url</li>
+               <li>Remplissez les 4 champs avec les paramètres twitter (cf4) ...</li>
+            </ul>
+         </p>
+         <h5>Notes</h5>
+         <p>Si vous souhaitez utiliser npds_twi sur plusieurs sites NPDS, mais avec un seul compte twitter, nous vous conseillons de cr&eacute;er une application twitter par site NPDS. Cela vous permettra d'avoir &agrave; chaque fois les url WebSite et Callback correctement renseign&eacute;es.<br />
+         Il existe trois solutions impl&eacute;ment&eacute;es pour raccourcir les urls sans passer par un service ext&eacute;rieur.<br />
+         Deux de ces solutions (cf.b cf.c) utilisent un fichier .htaccess l'autre est uniquement en php et native pour NPDS (cf.a)
+            <ul>
+               <li>a - La solution recommand&eacute;e (coch&eacute;e par d&eacute;faut) est : R&eacute;&eacute;criture d'url avec contr&ocirc;leur Npds.</li>
+               <li>b - Si vous choisissez: R&eacute;&eacute;criture d'url avec mod_rewrite<br />
+                  Il vous faut modifier (ou cr&eacute;er s'il n'existe pas) le fichier .htaccess (&agrave; la racine de votre site) comme suit :<br />
+                  <code>
+                  RewriteEngine on<br />
+                  RewriteRule ^s([0-9]+)$ /article.php?sid=$1[L]
+                  </code>
+                  <br />
+                  Nota : la premi&egrave;re ligne est inutile si elle existe d&eacute;j&agrave; dans votre fichier, la deuxi&egrave;me ligne est requise.<br />
+               </li>
+               <li>c - Si vous choisissez : R&eacute;&eacute;criture d'url avec ForceType<br />
+                  Il vous faut modifier (ou cr&eacute;er s'il n'existe pas) le fichier .htaccess (&agrave; la racine de votre site) comme suit :<br />
+                  <code>
+                  &lt;FilesMatch "^s$"&gt;<br />
+                  ForceType application/x-httpd- php<br />
+                  SetHandler application/x-httpd-php<br />
+                  &lt;/FilesMatch&gt;
+                  </code>
+               </li>
+            </ul>
+         </p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../../images/admin/message_npds.png" alt="logo_npds"><span class="text-muted font-italic small float-right">npds_twitter - Manuel administration</span></p>
+      </div>
+   </body>
+</html>

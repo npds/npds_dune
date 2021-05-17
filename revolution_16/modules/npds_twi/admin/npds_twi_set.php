@@ -40,9 +40,10 @@ global $adminimg;
 
 
 function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height) {
+   global $language;
    if (file_exists('modules/'.$ModPath.'/twi_conf.php'))
       include ('modules/'.$ModPath.'/twi_conf.php');
-      $hlpfile = 'modules/'.$ModPath.'/doc/aide_admtwi.html';
+      $hlpfile = 'modules/'.$ModPath.'/doc/admtwi-'.$language.'.html';
 
    global $f_meta_nom, $f_titre, $adminimg, $npds_twi;
    $checkarti_y='';$checkarti_n='';$checkpost_y='';$checkpost_n='';$urshort_mr='';$urshort_ft='';$urshort_c='';

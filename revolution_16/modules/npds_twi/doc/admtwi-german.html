@@ -1,0 +1,99 @@
+<html lang="de">
+   <head>
+      <meta charset="utf-8">
+      <title>Administration - npds_twitter</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="/manuels/english/admin.html"><img class="mr-3 ml-n3" width="32px" height="32px" src="../../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item active" aria-current="page" >npds_twitter</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administration - npds_twitter</h3>
+         <p>This module requires to open a twitter account and to create a Twitter application for the use of the APIs on your site.<br />
+         - If you have <b>not</b> these elements, follow the procedure I below.</p>
+         <h4>I.Twitter procedure</h4>
+         <h5>Registration</h5>
+         <p>
+            <ol>
+               <li>Register as user <a href="http://twitter.com/">HERE</a></li>
+               <li>Register as developer <a href="https://developer.twitter.com/">ICI</a>.</li>
+            </ol>
+         </p>
+         <h5>Create the application</h5>
+         <p><b>1. Create the application (bridge between NPDS and Twitter)</b> <a href="https://developer.twitter.com/en/apps/create">HERE</a>:<br />
+         During the creation of the application, informations to enter are:
+            <ul>
+               <li>App Name: Name of your choice for your application (example, "NDPS-Twi bridge." Only one restriction: Must not contain the word "twitter")<br />
+               <li>Application description: Same, free entry. For example: "bridge NPDS-Twitter"<br />
+               <li>Website URL: the url of the site on which you install npds_twi<br />
+               <li>Tell us how this app will be used: for example : "This application will be used to automatically publish tweets when there is new publication in our CCMS."<br />
+               <li>The others fields are not required.<br />
+            </ul>
+         </p>
+         <p><b>2. Setting the twitter application:</b>
+            <ul>
+               <li>Once the application is created, go to the "Settings" tab of the application.</li>
+               <li>In the "Application type" section, for the parameter "Access", check "Read and write."</li>
+               <li>Click on "Update this Twitter application's settings" to confirm.</li>
+               <li>Cliquez on the "Details" tab.</li>
+               <li>Click on "Create my access token". If this is already done, then click on \"Recreate my access token\"<br />
+               Warning! This will change the keys "Access token". If you have already entered them earlier in npds_twi, you must have to re-enter.</li>
+            </ul>
+         </p>
+         <p><b>3. Grab your keys and tokens</b> (required for setting up your module).</p>
+         <p><b>4. You now have the elements necessary for the operation of the bridge:</b><br />
+            <ul>
+               <li>Your Consumer key (Consumer key)</li>
+               <li>Your consumer secret (Consumer Secret)</li>
+               <li>Your token for Open Authentication (Access token)</li>
+               <li>Your secret token for Open Authentication (Access token secret)</li>
+            </ul>
+         </p>
+         <h4>II. Npds Procedure</h4>
+         <p><b>Go to the module administration</b><br />
+            <code>/admin.php?op=Extend-Admin-SubModule&ModPath=npds_twi&ModStart=admin/npds_twi_set</code>
+            <ul>
+               <li>A message will inform you if the publication is authorized for the site (default to No). (to modify this higher authorization follow the link) <code>/admin.php?op=Configure</code><br />
+               Preferences > Configuration for Backend & Social Networks > Activate Twitter</li>
+               <li>Activate or not the publication of news on twitter</li>
+               <li>Choose a url shortcut</li>
+               <li>Fill in the 4 fields with the twitter settings (cf4)</li>
+            </ul>
+         </p>
+         <h5>Tip</h5>
+         <p>If you want to use npds_twi on several NPDS sites, but with a single twitter account, you should create a twitter application for each NPDS site. This will allow you to properly inform the callback url and WebSite url each time.<br />
+         There are three solutions implemented to shorten urls without going through an external service.<br />
+         Two of these solutions (cf.b cf.c) use a .htaccess file the other is only in php and native for NPDS (cf.a)
+            <ul>
+               <li>a - The recommended solution (checked by default) is: Url rewriting with Npds controleur</li>
+               <li>b - If you choose: Url rewriting with mod_rewrite<br />
+                  You must modify (or create if it does not exist) the .htaccess file (at the root of your site) as follows:<br />
+                  <code>
+                  RewriteEngine on<br />
+                  RewriteRule ^s([0-9]+)$ /article.php?sid=$1[L]
+                  </code>
+                  <br />
+                  Note: the first line is useless if it already exists in your file, the second line is required.
+               </li>
+               <li>c - If you choose: Url rewriting with ForceType<br />
+                  You must modify (or create if it does not exist) the .htaccess file (at the root of your site) as follows:<br />
+                  <code>
+                  &lt;FilesMatch "^s$"&gt;<br />
+                  ForceType application/x-httpd- php<br />
+                  SetHandler application/x-httpd-php<br />
+                  &lt;/FilesMatch&gt;
+                  </code>
+               </li>
+            </ul>
+         </p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32px" height="32px" src="../../../images/admin/message_npds.png" alt="logo_npds"><span class="text-muted font-italic small float-right">npds_twitter - Manuel administration</span></p>
+      </div>
+   </body>
+</html>
