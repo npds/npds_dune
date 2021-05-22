@@ -147,115 +147,112 @@ display: block;
    font-weight: 700;
 }
 
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 320px;
+  opacity: 0.9;
+}
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+.ol-popup-closer:after {
+  content: "✖";
+}
+.ol_li {
+   max-height: 180px;
+   overflow:auto;
+}
 
+#map .ol-zoom .ol-zoom-out {
+  margin-top: 204px;
+}
+#map .ol-zoomslider {
+  background-color: transparent;
+  top: 2.3em;
+}
+#map .ol-touch .ol-zoom .ol-zoom-out {
+  margin-top: 212px;
+}
+#map .ol-touch .ol-zoomslider {
+  top: 2.75em;
+}
+#map .ol-zoom-in.ol-has-tooltip:hover [role=tooltip],
+#map .ol-zoom-in.ol-has-tooltip:focus [role=tooltip] {
+  top: 3px;
+}
 
+#map .ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
+#map .ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
+  top: 232px;
+}
 
-      .ol-popup {
-        position: absolute;
-        background-color: white;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-        padding: 15px;
-        border-radius: 10px;
-        border: 1px solid #cccccc;
-        bottom: 12px;
-        left: -50px;
-        min-width: 320px;
-        opacity: 0.9;
-      }
-      .ol-popup:after, .ol-popup:before {
-        top: 100%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-      }
-      .ol-popup:after {
-        border-top-color: white;
-        border-width: 10px;
-        left: 48px;
-        margin-left: -10px;
-      }
-      .ol-popup:before {
-        border-top-color: #cccccc;
-        border-width: 11px;
-        left: 48px;
-        margin-left: -11px;
-      }
-      .ol-popup-closer {
-        text-decoration: none;
-        position: absolute;
-        top: 2px;
-        right: 8px;
-      }
-      .ol-popup-closer:after {
-        content: "✖";
-      }
-      .ol_li {
-         max-height: 180px;
-         overflow:auto;
-      }
+.ol-tooltip {
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  color: white;
+  padding: 4px 8px;
+  opacity: 0.7;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.ol-tooltip-measure {
+  opacity: 1;
+  font-weight: bold;
+}
+.ol-tooltip-static {
+  background-color: #ffcc33;
+  color: black;
+  border: 1px solid white;
+}
+.ol-tooltip-measure:before,
+.ol-tooltip-static:before {
+  border-top: 6px solid rgba(0, 0, 0, 0.5);
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  margin-left: -7px;
+  left: 50%;
+}
+.ol-tooltip-static:before {
+  border-top-color: #ffcc33;
+}
 
-      #map .ol-zoom .ol-zoom-out {
-        margin-top: 204px;
-      }
-      #map .ol-zoomslider {
-        background-color: transparent;
-        top: 2.3em;
-      }
-      #map .ol-touch .ol-zoom .ol-zoom-out {
-        margin-top: 212px;
-      }
-      #map .ol-touch .ol-zoomslider {
-        top: 2.75em;
-      }
-      #map .ol-zoom-in.ol-has-tooltip:hover [role=tooltip],
-      #map .ol-zoom-in.ol-has-tooltip:focus [role=tooltip] {
-        top: 3px;
-      }
-
-      #map .ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
-      #map .ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
-        top: 232px;
-      }
-
-      .ol-tooltip {
-        position: relative;
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 4px;
-        color: white;
-        padding: 4px 8px;
-        opacity: 0.7;
-        white-space: nowrap;
-        font-size: 12px;
-      }
-      .ol-tooltip-measure {
-        opacity: 1;
-        font-weight: bold;
-      }
-      .ol-tooltip-static {
-        background-color: #ffcc33;
-        color: black;
-        border: 1px solid white;
-      }
-      .ol-tooltip-measure:before,
-      .ol-tooltip-static:before {
-        border-top: 6px solid rgba(0, 0, 0, 0.5);
-        border-right: 6px solid transparent;
-        border-left: 6px solid transparent;
-        content: "";
-        position: absolute;
-        bottom: -6px;
-        margin-left: -7px;
-        left: 50%;
-      }
-      .ol-tooltip-static:before {
-        border-top-color: #ffcc33;
-      }
-
+#map #georefpopup .popover-body{min-width: 250px};
 /*<== module geoloc */
-
 
 #markerLayer img {
   -webkit-animation: pulse 1s linear infinite;

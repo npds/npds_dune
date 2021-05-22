@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.0                                            */
-/* geoloc_geoloc.php file 2008-2020 by Jean Pierre Barbary (jpb)        */
+/* geoloc_geoloc.php file 2008-2021 by Jean Pierre Barbary (jpb)        */
 /************************************************************************/
 
 /*
@@ -90,8 +90,10 @@ $infooo = geoloc_translate('Modification administrateur');
 
    }
 }
-
-$username = $cookie[1];//recupere le username
+if(isset($cookie))
+   $username = $cookie[1];//recupere le username
+else
+   $username ='';
 
 if (array_key_exists('lat',$_GET)) $f_new_lat = floatval ($_GET['lat']);// lat du form de géoreferencement
 if (array_key_exists('lng',$_GET)) $f_new_long = floatval ($_GET['lng']);// long du form de géoreferencement
@@ -167,13 +169,13 @@ while ($row = sql_fetch_array($membre)) {
    if ($us_lat !='') {
       $mbgr++;
       //=== menu fenetre info
-      $imm = '<a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-lg mr-2" title="'.translate("Profil").'" data-toggle="tooltip"></i></a>';
+      $imm = '<a href="user.php?op=userinfo&amp;uname='.$us_uname.'"  target="_blank" ><i class="fa fa-user fa-lg mr-2" title="'.translate("Profil").'"></i></a>';
       if ($user)
-         $imm .= '<a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="Envoyez moi un message interne"><i class="far fa-envelope fa-lg mr-2"></i></a>';
+         $imm .= '<a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" title="'.geoloc_translate("Envoyez un message interne").'"><i class="far fa-envelope fa-lg mr-2"></i></a>';
       if ($us_url != '')
-         $imm .= '<a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fas fa-external-link-alt fa-lg mr-2"></i></a>';
+         $imm .= '<a href="'.$us_url.'" target="_blank" title="'.geoloc_translate("Visitez le site").'"><i class="fas fa-external-link-alt fa-lg mr-2"></i></a>';
       if ($us_mns != '')
-         $imm .='<a href="minisite.php?op='.$us_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-lg mr-2"></i></a>';
+         $imm .='<a href="minisite.php?op='.$us_uname.'" target="_blank" title="'.geoloc_translate("Visitez le minisite").'"><i class="fa fa-desktop fa-lg mr-2"></i></a>';
 
       //==> construction du fichier json
       $cont_json .='{"lat":'.$us_lat.', "lng":'.$us_long.', "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" />&nbsp;'.addslashes($us_uname).'<br /><span class=\\"text-muted\\">'.geoloc_translate("Dernière visite").' : </span>'.$visit.'<br />", "label":"<span>'. addslashes($us_uname) .'</span>", "icon":"icon"},';
@@ -278,13 +280,13 @@ while ($row = sql_fetch_array($result)) {
    if ($user_lat !='') { // c un membre géoréférencé
       $mbcg++;
       //=== menu fenetre info
-      $imm = ' <a href="user.php?op=userinfo&amp;uname='.$users_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profil").'" data-toggle="tooltip"></i></a>';
+      $imm = ' <a href="user.php?op=userinfo&amp;uname='.$users_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profil").'"></i></a>';
       if ($user)
-         $imm .= ' <a href="powerpack.php?op=instant_message&to_userid='.$users_uname.'" title="Envoyez moi un message interne"><i class="far fa-envelope fa-2x mr-2"></i></a>';
+         $imm .= ' <a href="powerpack.php?op=instant_message&to_userid='.$users_uname.'" title="'.geoloc_translate("Envoyez un message interne").'"><i class="far fa-envelope fa-2x mr-2"></i></a>';
       if ($us_url != '')
-         $imm .= ' <a href="'.$us_url.'" target="_blank" title="Visitez mon site"><i class="fas fa-external-link-alt fa-2x mr-2"></i></a>';
+         $imm .= ' <a href="'.$us_url.'" target="_blank" title="'.geoloc_translate("Visitez le site").'"><i class="fas fa-external-link-alt fa-2x mr-2"></i></a>';
       if ($us_mns != '')
-         $imm .='&nbsp;<a href="minisite.php?op='.$users_uname.'" target="_blank" title="Visitez le minisite" data-toggle="tooltip"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
+         $imm .='&nbsp;<a href="minisite.php?op='.$users_uname.'" target="_blank" title="'.geoloc_translate("Visitez le minisite").'"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
 
       //construction marker membre on line
       if($mark_typ !==1) $ic_sb_mbgc ='<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse mr-1\"></i>';
@@ -388,16 +390,22 @@ $ecr_scr = '
    if (!$("link[href=\'modules/geoloc/include/css/geoloc_style.css\']").length)
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
 
-
    $(function () {
-   //==>  affichage des coordonnées à revoir pour réinverser ....
-      var mousePositionControl = new ol.control.MousePosition({
-        coordinateFormat: new ol.coordinate.createStringXY(4),
+   //==>  affichage des coordonnées...
+      var co_unit="'.$co_unit.'";
+      var mousePositionControl = new ol.control.MousePosition({';
+$ecr_scr .= $co_unit=='dms'?
+      '
+        coordinateFormat: function(coord) {return ol.coordinate.toStringHDMS(coord,2)},':
+      '
+        coordinateFormat: function(coord) {return ol.coordinate.format(coord, "Lat. {y}, Long. {x}", 4);},';
+$ecr_scr .= '
         projection: "EPSG:4326",
         className: "custom-mouse-position",
         undefinedHTML: "&nbsp;"
       });
    //<==
+
    var ano_features=[];
    '.$ano_o_conn.'
    '.$mbr_geo_off.$mbr_geo_off_v.'
@@ -733,17 +741,17 @@ switch ($cartyp) {
 
       var button = document.createElement("button");
       button.innerHTML = "&#xf0d8";
-      button.setAttribute("title", "Masquer")
+      button.setAttribute("title", "'.geoloc_translate('Masquer').'")
       var sidebarSwitch = function(e) {
          if($("#sidebar").hasClass("show")) {
             $("#sidebar").collapse("toggle");
             button.innerHTML = "&#xf0d7";
-            button.setAttribute("data-original-title", "Voir")
+            button.setAttribute("data-original-title", "'.geoloc_translate('Voir').'")
          }
          else {
             $("#sidebar").collapse("show");
             button.innerHTML = "&#xf0d8";
-            button.setAttribute("data-original-title", "Masquer")
+            button.setAttribute("data-original-title", "'.geoloc_translate('Masquer').'")
          }
       };
       button.addEventListener("click", sidebarSwitch, true);
@@ -815,7 +823,7 @@ switch ($cartyp) {
 
 //==> construction sidebar
       var uOn_feat = src_userOn.getFeatures(),
-          sbuOn=\'<div id="sb_member_on" class="list-group my-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="" data-toggle="collapse" href="#l_sb_memberon"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" /><label class="custom-control-label" for="cbox">'.$ic_b_mbgc.' Membre en ligne</label></div><span class="h5"><span class="badge badge-danger badge-pill float-right">'.$mbcg.'</span></span></div><div class="collapse" id="l_sb_memberon">\';
+          sbuOn=\'<div id="sb_member_on" class="list-group my-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a id="carrets_mb_on" class="" data-toggle="collapse" href="#l_sb_memberon"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés en ligne').'" id="cbox" /><label class="custom-control-label" for="cbox">'.$ic_b_mbgc.' '.geoloc_translate('Membre en ligne').'</label></div><span class="h5"><span class="badge badge-danger badge-pill float-right">'.$mbcg.'</span></span></div><div class="collapse" id="l_sb_memberon">\';
       uOn_feat = uOn_feat.sortBy("values_.pseudo");
       for (var key in uOn_feat) {
          if (uOn_feat.hasOwnProperty(key)) {
@@ -825,7 +833,7 @@ switch ($cartyp) {
       sbuOn += \'</div></div>\'
 
       var u_feat = src_user.getFeatures(),
-          sbu=\'<div id="sb_member" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="" data-toggle="collapse" href="#l_sb_member"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" /><label class="custom-control-label" for="memberbox">'.$ic_b_mbg.' Membres</label></div><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$mbgr.'</span></span></div><div class="collapse" id="l_sb_member"><a class="sb_member list-group-item list-group-item-action py-1" ><input id="n_filtremember" placeholder="Filtrer les utilisateurs" class="my-1 form-control form-control-sm" type="text" /></a>\';
+          sbu=\'<div id="sb_member" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a id="carrets_mb" class="" data-toggle="collapse" href="#l_sb_member"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" /><label class="custom-control-label" for="memberbox">'.$ic_b_mbg.' '.geoloc_translate('Membre').'</label></div><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$mbgr.'</span></span></div><div class="collapse" id="l_sb_member"><a class="sb_member list-group-item list-group-item-action py-1" ><input id="n_filtremember" placeholder="'.geoloc_translate('Filtrer les utilisateurs').'" class="my-1 form-control form-control-sm" type="text" /></a>\';
       u_feat = u_feat.sortBy("values_.pseudo");
       for (var key in u_feat) {
          if (u_feat.hasOwnProperty(key)) {
@@ -835,10 +843,10 @@ switch ($cartyp) {
       sbu +=\'</div></div>\';
 
       var a_feat = src_anno.getFeatures(),i=0;
-      var sba=\'<div id="sb_ano" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="link" data-toggle="collapse" href="#l_sb_ano"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" /><label class="custom-control-label" for="acbox">'.$ic_b_acg.' Anonyme</label></div><span class="h5"><span class="badge badge-danger badge-pill float-right">'.$acg.'</span></span></div><div class="collapse" id="l_sb_ano">'.$test_ip.'\';
+      var sba=\'<div id="sb_ano" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a id="carrets_ac" class="link" data-toggle="collapse" href="#l_sb_ano"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="acbox" /><label class="custom-control-label" for="acbox">'.$ic_b_acg.' '.geoloc_translate('Anonyme').'</label></div><span class="h5"><span class="badge badge-danger badge-pill float-right">'.$acg.'</span></span></div><div class="collapse" id="l_sb_ano">'.$test_ip.'\';
       for (var key in a_feat) {
          if (a_feat.hasOwnProperty(key)) {
-            sba += \'<a id="\'+ a_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ a_feat[key].id_ +\'\\\');return false;" class="sb_ano list-group-item list-group-item-action py-1">'.$ic_b_acg.'<span class="ml-2"> Anonyme \' + i + \'</span></a>\';
+            sba += \'<a id="\'+ a_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ a_feat[key].id_ +\'\\\');return false;" class="sb_ano list-group-item list-group-item-action py-1">'.$ic_b_acg.'<span class="ml-2">'.geoloc_translate('Anonyme').' \' + i + \'</span></a>\';
          }
          i++;
       }
@@ -848,7 +856,7 @@ switch ($cartyp) {
    if(autorisation(-127) and $geo_ip==1)
       $ecr_scr .='
       var i_feat = src_ip.getFeatures(),i=0;
-      sbi+=\'<div id="sb_ip" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="link" data-toggle="collapse" href="#l_sb_ip"><i class="fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer les IP').'" id="ipbox" /><label class="custom-control-label" for="ipbox"><span class="fa fa-desktop fa-lg text-muted"></span> IP</label></div><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$ipnb.'</span></span></div><div class="collapse" id="l_sb_ip">\';
+      sbi+=\'<div id="sb_ip" class="list-group mb-3"><div class="list-group-item bg-light text-dark font-weight-light px-2"><a id="carrets_ip" class="link" data-toggle="collapse" href="#l_sb_ip"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer les IP').'" id="ipbox" /><label class="custom-control-label" for="ipbox"><span class="fa fa-desktop fa-lg text-muted"></span> IP</label></div><span class="h5"><span class="badge badge-secondary badge-pill float-right">'.$ipnb.'</span></span></div><div class="collapse" id="l_sb_ip">\';
       for (var key in i_feat) {
          if (i_feat.hasOwnProperty(key)) {
             sbi += \'<a id="\'+ i_feat[key].id_ +\'" href="#" onclick="centeronMe(\\\'\'+ i_feat[key].id_ +\'\\\');return false;" class="sb_ip list-group-item list-group-item-action py-1"><span class="fa fa-desktop fa-lg text-muted"></span><span class="ml-2 small">\'+ i_feat[key].values_.ip +\'</span></a>\';
@@ -862,16 +870,15 @@ $sb_georef='';
 $sb_layers='<div class="list-group-item list-group-item-action py-1">'.geoloc_translate('Type de carte').'<div class="custom-control custom-radio"><input class="custom-control-input" type="radio" data-toggle="tooltip" title="" name="layername" id="lay_osm" /><label for="lay_osm" class="custom-control-label">Routes (OSM)</label></div><div class="custom-control custom-radio"><input class="custom-control-input" type="radio" data-toggle="tooltip" title="" name="layername" id="lay_bing" /><label for="lay_bing" class="custom-control-label">Aérienne (Bing)</label></div></div>';
 
 if ($username !='') {
-
    if ($ue_lat !='' and $ue_long !='') {
       $infooo ='<div id="oldloc"><strong>'.geoloc_translate("Coordonnées enregistrées :").'</strong><br /><span class="text-muted">Latitude :</span> '.$ue_lat.'<br /><span class="text-muted">Longitude :</span> '.$ue_long.'<br /></div><br /><strong>'.geoloc_translate("Voulez vous changer pour :").'</strong><br />';
       $mess_mb = geoloc_translate('Cliquer sur la carte pour modifier votre position.');
    }
    else {
-      $infooo = '<div id="newloc"><strong>'.geoloc_translate("Vous n\'êtes pas géoréférencé.").'</strong></div><br /><strong>'.geoloc_translate("Voulez vous le faire à cette position:").'</strong><br />';
+      $infooo = '<div id="newloc"><strong>'.geoloc_translate("Vous n'êtes pas géoréférencé.").'</strong></div><br /><strong>'.geoloc_translate("Voulez vous le faire à cette position:").'</strong><br />';
       $mess_mb = geoloc_translate('Cliquer sur la carte pour définir votre géolocalisation.');
    }
-   $sb_georef.='   <div class="list-group-item list-group-item-action py-1"><div class="custom-control custom-switch"><input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate("Définir ou modifier votre position").'" id="georefbox" /><label for="georefbox" class="custom-control-label">'.geoloc_translate("Définir ou modifier votre position").'</label></div><span class="help-block small muted">'.$mess_mb.'</span></div>';
+   $sb_georef.='   <div class="list-group-item list-group-item-action py-1"><div class="custom-control custom-switch"><input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate("Définir ou modifier votre position.").'" id="georefbox" /><label for="georefbox" class="custom-control-label">'.geoloc_translate("Définir ou modifier votre position.").'</label></div><span class="help-block small muted">'.$mess_mb.'</span></div>';
 
    $ecr_scr .= '
 //==> Georeferencement par user
@@ -888,7 +895,6 @@ if ($username !='') {
       var georef_popup = new ol.Overlay({element: document.getElementById("georefpopup")});
       map.on("click", function(evt) {
          pointGeoref.getGeometry().setCoordinates(evt.coordinate);
-         $(".popover").show();
          var element = georef_popup.getElement(),
              coordinate = evt.coordinate,
              coordWgs = ol.proj.transform(evt.coordinate, "EPSG:3857", "EPSG:4326"),
@@ -897,11 +903,12 @@ if ($username !='') {
          $(element).popover("dispose");
          georef_popup.setPosition(coordinate);
          $(element).popover({
+            container: element,
             sanitize:false,
             placement: "top",
             animation: true,
             html: true,
-            title:\'&nbsp;<button type="button" id="close" class="close" onclick="$(\\\'.popover\\\').hide();">&times;</button>\',
+            title:\'&nbsp;Géolocalisation<button type="button" id="close" class="close" onclick="$(\\\'.popover\\\').hide();">&times;</button>\',
             content: \'<form action="" onsubmit=" window.location.href = \\\'modules.php?ModPath=geoloc&ModStart=geoloc&lng=\'+lng+\'&lat=\'+lat+\'&mod=neo&uid=\\\'; return false;">\'
         + \'<legend><img src="'.$the_av_ch.'" class="img-thumbnail n-ava-64" /> '.$username.' </legend>\'
         + \''.$infooo.'\'
@@ -917,7 +924,6 @@ if ($username !='') {
          $(element).popover("show");
       });
 //<== Georeferencement par user
-
 ';
 }
 else
@@ -1029,9 +1035,11 @@ else
 
       $("#cbox").change("click", function () {
          if(this.checked) {
+            $("#carrets_mb_on i").removeClass("fa-caret-down").addClass("fa-caret-up");
             userOn_markers.setVisible(true);
             $("#l_sb_memberon").addClass("show");
          } else {
+            $("#carrets_mb_on i").removeClass("fa-caret-up").addClass("fa-caret-down");
             $("#ol_popup").hide();
             userOn_markers.setVisible(false);
             $("#l_sb_memberon").removeClass("show");
@@ -1040,9 +1048,11 @@ else
       });
       $("#ipbox").change("click", function () {
          if(this.checked) {
+            $("#carrets_ip i").removeClass("fa-caret-down").addClass("fa-caret-up");
             ip_cluster.setVisible(true);
             $("#l_sb_ip").addClass("show");
          } else {
+            $("#carrets_ip i").removeClass("fa-caret-up").addClass("fa-caret-down");
             $("#ol_popup").hide();
             ip_cluster.setVisible(false);
             $("#l_sb_ip").removeClass("show");
@@ -1051,9 +1061,11 @@ else
       });
       $("#acbox").change("click", function () {
          if(this.checked) {
+            $("#carrets_ac i").removeClass("fa-caret-down").addClass("fa-caret-up");
             ano_markers.setVisible(true);
             $("#l_sb_ano").addClass("show");
          } else {
+            $("#carrets_ac i").removeClass("fa-caret-up").addClass("fa-caret-down");
             $("#ol_popup").hide();
             ano_markers.setVisible(false);
             $("#l_sb_ano").removeClass("show");
@@ -1062,9 +1074,11 @@ else
       });
       $("#memberbox").change("click", function () {
          if(this.checked) {
+            $("#carrets_mb i").removeClass("fa-caret-down").addClass("fa-caret-up");
             user_markers.setVisible(true);
             $("#l_sb_member").addClass("show");
          } else {
+            $("#carrets_mb i").removeClass("fa-caret-up").addClass("fa-caret-down");
             $("#ol_popup").hide();user_markers.setVisible(false);
             $("#l_sb_member").removeClass("show");
             $(".sb_member,.sb_memberon, .sb_ano, .sb_ip").removeClass( "animated faa-horizontal faa-slow" );
@@ -1268,91 +1282,6 @@ if($op=='allip' and $geo_ip==1)
    $("#ipbox").prop("checked", "checked");';
 
 $ecr_scr .= '
-   //===> infos cartes
-   // ==> classe de conversion unit
-   /* Written by Sparky Spider (http://sparkyspider.blogspot.com) */
-   function Coordinates() {
-      // Properties
-      this._latitude = 0;
-      this._longitude = 0;
-      this.LATITUDE = 0;
-      this.LONGITUDE = 1;
-      // Constuctor
-      this.latitude = new DMSCalculator(this.LATITUDE, this);
-      this.longitude = new DMSCalculator(this.LONGITUDE, this);
-      // Methods
-      this.setLatitude = function setLatitude(lat) {this._latitude = lat;};
-      this.setLongitude = function setLongitude(lng) {this._longitude = lng;}
-      this.getLatitude = function getLatitude() {return this._latitude;}
-      this.getLongitude = function getLongitude() {return this._longitude;}
-      // SubClasses
-      function DMSCalculator (coordSet, object) {
-         var degrees = new Array (0, 0);
-         var minutes = new Array (0, 0);
-         var seconds = new Array (0, 0);
-         var direction = new Array (\' \', \' \');
-         var lastValue = new Array (0, 0);
-         var hundredths = new Array (0.0, 0.0);
-         var calc = function calc(object) {
-            var val = 0;
-            if (coordSet == object.LATITUDE)
-               val = object._latitude;
-            else
-               val = object._longitude;
-            if (lastValue[coordSet] != val) {
-               lastValue[coordSet] = val;
-               if (val > 0)
-                  direction[coordSet] = (coordSet == object.LATITUDE)?\'N\':\'E\';
-               else
-                  direction[coordSet] = (coordSet == object.LATITUDE)?\'S\':\'W\';
-               val = Math.abs(val);
-               degrees[coordSet] = parseInt (val);
-               var leftover = (val - degrees[coordSet]) * 60;
-               minutes[coordSet] = parseInt (leftover)
-               leftover = (leftover - minutes[coordSet]) * 60;
-               seconds[coordSet] = parseInt (leftover)
-               hundredths[coordSet] = parseInt ((leftover - seconds[coordSet]) * 100);
-            }
-         }
-         this.getDegrees = function getDegrees() {
-            calc(object);
-            return degrees[coordSet];
-         }
-         this.getMinutes = function getMinutes() {
-            calc(object);
-            return minutes[coordSet];
-         }
-         this.getSeconds = function getSeconds() {
-            calc(object);
-            return seconds[coordSet];
-         }
-         this.getDirection = function getDirection() {
-            calc(object);
-            return direction[coordSet];
-         }
-         this.getHundredths = function getHundredths() {
-            calc(object);
-            return hundredths[coordSet];
-         }
-         this.getSecondsDecimal = function getSecondsDecimal() {
-            calc(object);
-            return seconds[coordSet] + (hundredths[coordSet] / 100);
-         }
-         this.setDMS = function setDMS (degrees, minutes, seconds, direction) {
-            var val = degrees + (minutes / 60) + (seconds / 3600);
-            if (direction == \'W\' || direction == \'S\')
-               val *=-1;
-            if (coordSet == object.LATITUDE)
-               object._latitude = val;
-            else
-               object._longitude = val;
-         }
-      }
-   }
-   // <== classe de conversion unit
-
-   var co_unit="'.$co_unit.'";
-
    function checkSize() {
       var small = map.getSize()[0] < 600;
       attribution.setCollapsible(small);
@@ -1360,8 +1289,6 @@ $ecr_scr .= '
       $(".n-media-repere").css("color") == "rgb(255, 0, 0)" ? $("#sidebar").removeClass("show") : $("#sidebar").addClass("show");
    }
    window.addEventListener("resize", checkSize);
-//   checkSize();
-//   $(\'[data-toggle="tooltip"]\').tooltip({container:\'body\'});
    ';
 
 $ecr_scr .= file_get_contents('modules/geoloc/include/ol-dico.js');
@@ -1375,7 +1302,6 @@ $ecr_scr .= '
       }
    }
 
-
    fullscreen.on("enterfullscreen",function(){
       $(dic.olfullscreentrue.cla).attr("data-original-title", dic["olfullscreentrue"][lang]);
    })
@@ -1384,9 +1310,11 @@ $ecr_scr .= '
    })
    $("#map .ol-zoom-in, #map .ol-zoom-out").tooltip({placement: "right", container:"#map",});
    $(".ol-sidebar button[title], .ol-full-screen-false, .ol-full-screen-true, .ol-rotate-reset, .ol-attribution button[title]").tooltip({placement: "left", container:"#map",});
+
    $(\'a[data-toggle="collapse"]\').click(function () {
       $(this).find("i.toggle-icon").toggleClass(\'fa-caret-down fa-caret-up\',6000);
    })
+
 
 });
 
@@ -1435,12 +1363,21 @@ $(function(){
        });
    });
 });
+
 $(document).ready(function() {
    $(\'a[data-toggle="collapse"]\').click(function () {
       $(this).find("i.toggle-icon").toggleClass(\'fa-caret-down fa-caret-up\',6000);
    });
 });
 
+window.addEventListener("load", (event) => {
+  console.log("page is fully loaded");
+     window.scroll({
+     top: 100,
+     left: 100,
+     behavior: "smooth"
+   });
+});
 //]]>
 </script>';
 //<== construction js
@@ -1463,7 +1400,7 @@ $affi .= '
          </div>
          <div id="sidebar" class= "collapse show col-sm-4 col-md-3 col-6 px-0">
             <div id="sb_tools" class="list-group mb-3">
-               <div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="link" data-toggle="collapse" href="#l_sb_tools"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a>Fonctions<span class="float-right">'.$lkadm.'</span></div>
+               <div class="list-group-item bg-light text-dark font-weight-light px-2"><a class="link" data-toggle="collapse" href="#l_sb_tools"><i class="toggle-icon fa fa-caret-down fa-lg mr-2" style="font-size:1.6rem;"></i></a>'.geoloc_translate('Fonctions').'<span class="float-right">'.$lkadm.'</span></div>
                <div class="collapse" id="l_sb_tools">
                   '.$sb_georef.'
                   <div class="list-group-item list-group-item-action py-1">
@@ -1508,7 +1445,7 @@ $affi .= '
 $affi .= '
                            </select>
                            <input type="range" value="1" class="custom-range mt-1" min="0" max="1" step="0.1" id="baselayeropacity" />
-                           <label class="mt-0 float-right small" for="baselayeropacity">Opacity</label>
+                           <label class="mt-0 float-right small" for="baselayeropacity">'.geoloc_translate('Opacité').'</label>
                            <div id="dayslider" class="collapse">
                               <input type="range" value="1" class="custom-range mt-1" min="-6" max="0" value="0" id="nasaday" />
                               <label id="dateimages" class="mt-0 float-right small" for="nasaday">'.$date_jour.'</label>
@@ -1519,12 +1456,12 @@ $affi .= '
                      <div>Couches utilitaires</div>
                      <div class="custom-control custom-switch d-inline">
                         <input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer la grille').'" id="grillebox" />
-                        <label class="custom-control-label" for="grillebox">Grille</label>
+                        <label class="custom-control-label" for="grillebox">'.geoloc_translate('Grille').'</label>
                      </div>
                      <br />
                      <div class="custom-control custom-switch d-inline">
                         <input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer la couche').'" id="coastandborder" />
-                        <label class="custom-control-label" for="coastandborder">Cotes et frontières</label>
+                        <label class="custom-control-label" for="coastandborder">'.geoloc_translate('Côtes et frontières').'</label>
                      </div>
                   </div>
                </div>
@@ -1533,7 +1470,7 @@ $affi .= '
       </div>
       <ul class="nav nav-tabs mt-4">
          <li class="nav-item"><a id="messinfo-tab" class="nav-link active" href="#infocart" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-info fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Infos carte").'</span></a></li>
-         <li class="nav-item"><a id="aide-tab" class="nav-link" href="modules/geoloc/doc/aide_geo.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>';
+         <li class="nav-item"><a id="aide-tab" class="nav-link" href="modules/geoloc/doc/aide_geo-'.$language.'.html" data-target="#aide" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-question fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Aide").'</span></a></li>';
 if(autorisation(-127) and $geo_ip==1)
    $affi .= '
          <li class="nav-item"><a id="iplist-tab" class="nav-link " href="#ipgeolocalisation" data-toggle="tab_ajax"><span class="d-sm-none"><i class=" fa fa-globe fa-lg mr-2"></i><i class=" fa fa-tv fa-lg"></i></span><span class="d-none d-sm-inline">'.geoloc_translate("Ip liste").'</span></a></li>';
@@ -1551,7 +1488,7 @@ $affi .= '
          </h5>
          <div class="form-group row">
             <div class="col-sm-12">
-               <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="Filtrer les résultats" />
+               <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="'.geoloc_translate('Filtrer les résultats').'" />
             </div>
          </div>
          <div class="n-filtrable row mx-0">

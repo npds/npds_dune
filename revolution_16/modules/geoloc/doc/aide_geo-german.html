@@ -1,0 +1,319 @@
+<div class="accordion mt-3" id="accordionaide">
+   <div class="card">
+      <div class="card-header" id="headinggeoloc">
+         <h2 class="mb-0">
+            <button class="btn btn-link text-decoration-none" type="button" data-toggle="collapse" data-target="#geoloc" aria-expanded="true" aria-controls="geoloc">
+            Geoloc, what is it?
+            </button>
+         </h2>
+      </div>
+      <div id="geoloc" class="collapse" aria-labelledby="headinggeoloc" data-parent="#accordionaide">
+         <div class="card-body">
+            <h4 class="card-title">The module in the NPDS environment</h4>
+            <p class="card-text">
+            Geooloc, created by <strong>Jean-Pierre Barbary</strong> (jpb), allows the geolocation of visitors to your site (members and anonymous) <a href="http://npds.org" target="_blank">NPDS</a>.<br />Geoloc uses <a href="https://openlayers.org" target="_blank">Openlayers</a> APIs.<br />
+            The visualization is configurable by the user.<br />
+            </p>
+            <img class="card-img-bottom img-fluid" src="modules/geoloc/doc/images/overview.jpg" alt="Overview" />
+         </div>
+      </div>
+   </div>
+
+   <div class="card">
+      <div class="card-header" id="headingcartes">
+         <h2 class="mb-0">
+            <button class="btn btn-link collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#cartes" aria-expanded="false" aria-controls="cartes">
+            What types of cards can be displayed?
+            </button>
+         </h2>
+      </div>
+      <div id="cartes" class="collapse" aria-labelledby="headingcartes" data-parent="#accordionaide">
+         <div class="card-body">
+            <h4 class="mb-3">What types of cards can be displayed?</h4>
+            <h5>Base map</h5>
+            <p>You have the choice between several data providers offering themselves several types of thematic background:</p>
+            <div class="row my-4 p-2">
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_osmplan.jpg" alt="Type Plan">
+                    <div class="card-body">
+                      <h6 class="card-title">Plan (OSM)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_stamenbw.jpg" alt="Noir et blanc">
+                    <div class="card-body">
+                      <h6 class="card-title">Black and white (Stamen)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_stamendessin.jpg" alt="dessin">
+                    <div class="card-body">
+                      <h6 class="card-title">Drawing (Stamen)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_stamenrelief.jpg" alt="relief">
+                    <div class="card-body">
+                      <h6 class="card-title">Landscape (Stamen)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_mapboxrelief.jpg" alt="relief" />
+                    <div class="card-body">
+                      <h6 class="card-title">Landscape (Mapbox)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_mapboxcarte.jpg" alt="carte" />
+                    <div class="card-body">
+                      <h6 class="card-title">Map (Mapbox)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_nasasat.jpg" alt="satellite" />
+                    <div class="card-body">
+                      <h6 class="card-title">Satellite (Nasa)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_bingsat.jpg" alt="satellite" />
+                    <div class="card-body">
+                      <h6 class="card-title">Satellite (Bing maps)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_bingsatlab.jpg" alt="satellite et labels" />
+                    <div class="card-body">
+                      <h6 class="card-title"> Satellite &amp; labels (Bing maps)</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_bingplan.jpg" alt="plan" />
+                    <div class="card-body">
+                      <h6 class="card-title">Plan (Bing maps)</h6>
+                    </div>
+                  </div>
+               </div>
+            </div>
+            <h5>Utility layer</h5>
+            <p>You have two utility layers that you can superimpose on any background map: a grid of meridians and parralleles and a layer representing the lines of coasts and borders:</p>
+            <div class="row my-4 p-2">
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_grille.jpg" alt="Grille" />
+                    <div class="card-body">
+                      <h6 class="card-title">Grid</h6>
+                    </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                     <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/view_coastandborder.jpg" alt="Coastline and border" />
+                     <div class="card-body">
+                        <h6 class="card-title">Coastline and borders</h6>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="card">
+      <div class="card-header" id="headingutilisateur">
+         <h2 class="mb-0">
+            <button class="btn btn-link collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#utilisateur" aria-expanded="false" aria-controls="utilisateur">
+               What can the user do?
+            </button>
+         </h2>
+      </div>
+      <div id="utilisateur" class="collapse" aria-labelledby="headingutilisateur" data-parent="#accordionaide">
+         <div class="card-body">
+            <h4 class="mb-3"> What can the user do?</h4>
+            <div class="row align-items-center">
+               <div class="col-md-4 col-sm-6 mb-3">
+                  <img class="img-fluid img-thumbnail " src="modules/geoloc/doc/images/sidebar.jpg" alt="sidebar" />
+               </div>
+               <div class="col mb-3">
+                  <p>The user has a number of tools to visualize at its convenience the map. Most of these tools are located in the right side panel. This panel is retractable by clicking on the 
+                     <span class="ol-sidebar ol-unselectable ol-control fa" style="position:relative; top:0; right:0;"><button>&#61655;</button></span>.
+                     <br /><br />This panel is divided into 4 blocks:
+                  </p>
+                  <ul>
+                     <li>Functions</li>
+                     <li>Members online</li>
+                     <li>Anonymous</li>
+                     <li>Members</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="row align-items-center">
+               <div class="col mb-3">
+                  <h5 class="my-2">The Functions block</h5>
+                  <h6 class="my-3">Define or modify its geolocation</h6>
+                  The upper part of the block contains the command allowing the geolocation of the user, as described in the section 
+                  <a class="btn-link collapsed" href="#" data-toggle="collapse" data-target="#geolocalisation" aria-expanded="false" aria-controls="geolocalisation">How do we geolocate?</a>
+                  <h6 class="my-3">Choose the background map</h6>
+                  The user can change the type of displayed maps by clicking on the drop-down menu and then selecting a map background. The opacity of the map backgrounds can be changed with the cursor. For the images provided by NASA a cursor allows to choose the date of the images on the last 7 days.<br />
+                  <h6 class="my-3">Utility layer</h6>
+                  By clicking on the switcher <div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" id="ibid"><label class="custom-control-label" for="ibid"></label></div>you can add or remove one or more utility layers.<br /><br />
+                  The types of available map backgrounds and utility layers were described in the previous section: <a class="btn-link collapsed" href="#" data-toggle="collapse" data-target="#cartes" aria-expanded="false" aria-controls="cartes">
+                  What types of cards can be displayed?
+                  </a>
+               </div>
+               <div class="col-md-4 col-sm-6 mb-3">
+                  <img class="img-fluid img-thumbnail " src="modules/geoloc/doc/images/bloc_fonctions.jpg" alt="bloc fonctions" />
+               </div>
+            </div>
+            <h5 class="my-2">The blocks of visitors</h5>
+            These three retractable blocks present the lists of visitors by type and allow their switcher to display them or not on the map.
+            <h6 class="my-3">Choisir la g&eacute;olocalisation affich&eacute;e</h6>
+            <ul>
+               <li>The members geo-referenced connected.</li>
+               <li>The anonymous geo-referenced connected.</li>
+               <li>The members geo-referenced not connected.</li>
+            </ul>
+            <br />
+            <a class="btn btn-link text-decoration-none" href="#" data-toggle="collapse" data-target="#visualisation" aria-expanded="true" aria-controls="visualisation">How to interpret the visualization of information?</a>
+            <h5 class="my-3">Manipulate the map</h5>
+            <p><span class=" ol-unselectable ol-control" style="position:relative;"><button class="ol-zoom-in d-inline" type="button" title="Zoom in">+</button><button class="ol-zoom-out d-inline" type="button" title="Zoom out">&minus;</button></span><span class="">This control is the tool used to zoom.
+            You can also use the double click, the touchpad or the wheel (which will be active after a first click on the map...)  ...</span>
+            </p>
+            <p>Move the map by holding the click, the map follows the move of the mouse.<br /></p>
+            <p><span class=" ol-unselectable ol-control" style="position:relative;"><button class="ol-full-screen-false d-inline" style="" type="button" title="Toggle full-screen">&#10530;</button></span><span class="">This control allows you to view the map in full screen (depending on your browser&rsquo;s capabilities)...</span></p>
+            <p><span class="">The combination &#8997;&#8679; click allows the map to be rotated. Once the rotation starts this control appears</span> <span class="ol-unselectable ol-control" style="position:relative;"><button class="ol-rotate-reset d-inline" type="button" title="Reset rotation"><span class="ol-compass" style="transform: rotate(-0.3395259006004966rad);">&#8679;</span></button> it allows to redirects the map to the north...</span></p>
+            <h5 class="my-3">Map scale</h5>
+
+            <div class="ol-scale-line ol-unselectable d-inline-block" style="position:relative; left:0; bottom:5px;"><div class="ol-scale-line-inner" style="width: 147px;">500 km</div></div> Each time you change the map zoom, the scale is automatically updated. The distance units are in kilometer.<br />
+            <h5 class="my-3">Technical information of the map</h5>
+            You also have at the left foot of the map the precise geographical coordinates of the position of your mouse pointer on the map.<br />
+         </div>
+      </div>
+   </div>
+
+   <div class="card">
+      <div class="card-header" id="headingvisualisation">
+         <h2 class="mb-0">
+            <button class="btn btn-link collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#visualisation" aria-expanded="false" aria-controls="visualisation">
+               How can the visualization of information be interpreted?
+            </button>
+         </h2>
+      </div>
+      <div id="visualisation" class="collapse" aria-labelledby="headingvisualisation" data-parent="#accordionaide">
+         <div class="card-body">
+            <h4 class="mb-3">How can the visualization of information be interpreted?</h4>
+            <div class="row mb-3">
+               <div class="col-md-7">
+                  <p>
+                     All three blocks have a retractable <i class="align-middle text-primary fa fa-caret-down fa-lg mr-1" style="font-size:1.6rem;"></i> list of georeferenced elements. With the switcher <span class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" id="ibidz"><label class="custom-control-label" for="ibidz"></label></span> these can be displayed or not on the map.<br />
+                     A click on an item in the list will target and center this one on the map, and opens a window.<br />
+                     Clicking on the map icons opens a window with information and commands depending on the georeferenced element type. As described below.
+                     <br /><br />
+                     <i style="color:#ff0000;" class="fa fa-user fa-lg mr-2"></i>The members geo-referenced connected.<br />
+                     <i style="color:#99928e;" class="fa fa-user fa-lg mr-2"></i>The anonymous geo-referenced connected.<br />
+                     <i style="color:#c00000; opacity:0.4;" class="fa fa-user fa-lg mr-2"></i>The members geo-referenced not connected.<br />
+                     <br />
+                     Notice: in the members block you can search and filter...
+                  </p>
+               </div>
+               <div class="col-md-5">
+                  <img class="img-fluid" alt="panneau" src="modules/geoloc/doc/images/blocs.jpg" />
+               </div>
+            </div>
+            <h5>The three types of windows displayed on the map:</h5>
+            <br />
+            <div class="row">
+               <div class="col-md-4 mb-3">
+                  <img class="img-fluid" alt="fenetre info membre en ligne" src="modules/geoloc/doc/images/fenetre_mbc.jpg" />
+                  <p class="text-center my-2"><strong>Online geolocated member window</strong></p>
+                  <p>In this window we find: the member&rsquo;s username and avatar, and links to the user&rsquo;s profile, website or minisite, social networks, as well as direct access to internal messaging if you are a member of the site.</p>
+               </div>
+               <div class="col-md-4 mb-3">
+                  <img class="img-fluid" alt="fenetre info anonyme" src="modules/geoloc/doc/images/fenetre_mb.jpg" />
+                  <p class="text-center my-2"><strong>Geolocated member window</strong></p>
+                  <p>In this window we find: the username and avatar of the member, the date of his last visit, and links allowing to consult the profile, the website or the minisite of this user as well as a direct access to the internal messaging if you are a member of the site.</p>
+               </div>
+               <div class="col-md-4 mb-3">
+                  <img class="img-fluid" alt="fenetre info anonyme" src="modules/geoloc/doc/images/fenetre_ano.jpg" />
+                  <p class="text-center my-2"><strong>Online geolocated anonymous window</strong></p>
+                  <p>In this window we find: the IP address as well as the name of the host, the number of visits of this IP, the page consulted on the site and some geographical information.</p>
+               </div>
+            </div>
+            <br />
+            NB: the shapes and colors of the icons may vary because they depend on the choice of parameters by administrators and/or themes used.<br />
+         </div>
+      </div>
+   </div>
+
+   <div class="card">
+      <div class="card-header" id="headinggeolocalisation">
+         <h2 class="mb-0">
+            <button class="btn btn-link collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#geolocalisation" aria-expanded="false" aria-controls="geolocalisation">
+               How do we geolocate?
+            </button>
+         </h2>
+      </div>
+      <div id="geolocalisation" class="collapse" aria-labelledby="headinggeolocalisation" data-parent="#accordionaide">
+         <div class="card-body">
+            <h4 class="mb-3">How do we geolocate?</h4>
+            To register, you must be a registered member of the site.<br />
+            Two methods are available: <br />
+            - text :<br />
+            go to your profile <code>/user.php?op=edituser</code><br />
+            fill in the latitude and longitude fields (in decimal form: e.g. 34.9936)<br />
+            then validate.<br />
+            NB: only this method, by deleting the latitude and longitude information, makes it possible to no longer be geolocated. <br /><br />
+            - graphic :<br />
+            go to your profile <code>/user.php?op=edituser</code> and click at the bottom of the left page on the icon <span class="fas fa-map-marker-alt fa-2x text-primary align-middle"></span><br />
+            or<br />
+            If the map block exists in the current page click on its map link<br />
+            or<br />
+            go to <code>/modules.php?ModPath=geoloc&amp;ModStart=geoloc</code><br />
+
+            <br />
+            On the map. Unfold the functions block of the sidebar and select the check box "Set or change position" then click on the map at the desired point. A window opens and asks you to confirm your registration. To change the positioning, the same procedure must be used.<br />
+            <br />
+
+            <div class="row my-4 p-2">
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                     <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/georef_new.jpg" alt="new geolocation">
+                     <div class="card-body">
+                        <h4 class="card-title">Localization</h4>
+                        <p class="card-text">To position yourself carefully, it is necessary to zoom the map. Don&rsquo;t forget to click on the save button to validate your position.</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-6 mb-3">
+                  <div class="card">
+                     <img class="card-img-top img-fluid" src="modules/geoloc/doc/images/georef_change.jpg" alt="change geolocation">
+                     <div class="card-body">
+                        <h4 class="card-title">Re-localization</h4>
+                        <p class="card-text">If you want to change your position, the display shows your registered position and proposes to validate the new position.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
