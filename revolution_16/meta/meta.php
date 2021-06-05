@@ -27,11 +27,11 @@ $l_meta.="<meta http-equiv=\"content-language\" content=\"fr, fr-be, fr-ca, fr-l
 if ($m_description!="")
    $l_meta.="<meta name=\"description\" content=\"$m_description\" />\n";
 else
-   $l_meta.="<meta name=\"description\" content=\"G&#xE9;n&#xE9;rateur de portail Fran&#xE7;ais en Open-Source sous licence Gnu-Gpl utilisant Php et MySql\" />\n";
+   $l_meta.="<meta name=\"description\" content=\"Générateur de portail Français en Open-Source sous licence Gnu-Gpl utilisant Php et MySql\" />\n";
 if ($m_keywords!="")
    $l_meta.="<meta name=\"keywords\" content=\"$m_keywords\" />\n";
 else
-   $l_meta.="<meta name=\"keywords\" content=\"solution,solutions,portail,portails,generateur,g&#xC8;n&#xC8;rateur,nouveau,Nouveau,Technologie,technologie,npds,NPDS,Npds,nuke,Nuke,PHP-Nuke,phpnuke,php-nuke,nouvelle,Nouvelle,nouvelles,histoire,Histoire,histoires,article,Article,articles,Linux,linux,Windows,windows,logiciel,Logiciel,t&#xC8;l&#xC8;chargement,t&#xC8;l&#xC8;chargements,T&#xC8;l&#xC8;chargement,T&#xC8;l&#xC8;chargements,gratuit,Gratuit,Communaut&#xC8;,communaut&#xC8;,Forum,forum,Forums,forums,Bulletin,bulletin,application,Application,dynamique,Dynamique,PHP,Php,php,sondage,Sondage,Commentaire,commentaire,Commentaires,commentaires,annonce,annonces,petite,Petite,petite annonce,mailling,mail,faq,Faq,faqs,lien,Lien,liens,france,francais,fran&#xC1;ais,France,Francais,Fran&#xC1;ais,libre,Libre,Open,open,Open Source,OpenSource,Opensource,GNU,gnu,GPL,gpl,License,license,Unix,UNIX,unix,MySQL,mysql,SQL,sql,Database,DataBase,database,Red Hat,RedHat,red hat,Web Site,web site,site,sites,web,Web\" />\n";
+   $l_meta.="<meta name=\"keywords\" content=\"solution,solutions,portail,portails,generateur,générateur,nouveau,Nouveau,Technologie,technologie,npds,NPDS,Npds,nuke,Nuke,PHP-Nuke,phpnuke,php-nuke,nouvelle,Nouvelle,nouvelles,histoire,Histoire,histoires,article,Article,articles,Linux,linux,Windows,windows,logiciel,Logiciel,téléchargement,téléchargements,Téléchargement,Téléchargements,gratuit,Gratuit,Communauté,communauté;,Forum,forum,Forums,forums,Bulletin,bulletin,application,Application,dynamique,Dynamique,PHP,Php,php,sondage,Sondage,Commentaire,commentaire,Commentaires,commentaires,annonce,annonces,petite,Petite,petite annonce,mailling,mail,faq,Faq,faqs,lien,Lien,liens,france,francais,français,France,Francais,Français,libre,Libre,Open,open,Open Source,OpenSource,Opensource,GNU,gnu,GPL,gpl,License,license,Unix,UNIX,unix,MySQL,mysql,SQL,sql,Database,DataBase,database,Red Hat,RedHat,red hat,Web Site,web site,site,sites,web,Web\" />\n";
 $l_meta.="<meta name=\"rating\" content=\"general\" />\n";
 $l_meta.="<meta name=\"distribution\" content=\"global\" />\n";
 $l_meta.="<meta name=\"copyright\" content=\"npds.org 2001-2021\" />\n";
