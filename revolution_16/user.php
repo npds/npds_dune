@@ -271,6 +271,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
       $options = ['cost' => getOptimalBcryptCostParameter($makepass, $AlgoCrypt, $min_ms)];
       $hashpass = password_hash($makepass, $AlgoCrypt, $options);
       $cryptpass = crypt($makepass, $hashpass);
+      $hashkey = 1;
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users VALUES (NULL,'$name','$uname','$email','','','$user_avatar','$user_regdate','$user_occ','$user_from','$user_intrest','$user_sig','$user_viewemail','','','$cryptpass', '1', '10','','0','0','0','','0','','$Default_Theme+$Default_Skin','10','0','0','1','0','','','$user_lnl')");
 
       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$uname'"));
@@ -881,7 +882,7 @@ function update_password ($code, $passwd) {
             // le mot de passe est-il identique
             if ($ibid[1]==$passwd) {
                $AlgoCrypt = PASSWORD_BCRYPT;
-               $min_ms = 100;
+               $min_ms = 250;
                $options = ['cost' => getOptimalBcryptCostParameter($ibid[1], $AlgoCrypt, $min_ms),];
                $hashpass = password_hash($ibid[1], $AlgoCrypt, $options);
                $cryptpass = crypt($ibid[1], $hashpass);
@@ -1358,6 +1359,7 @@ function savejournal($uid, $journal, $datetime){
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($vuid) = sql_fetch_row($result);
    if ($uid == $vuid) {
+      $journal = dataimagetofileurl($journal,'users_private/'.$cookie[1].'/jou');//
       $journal = removeHack(stripslashes(FixQuotes($journal)));
       if ($datetime) {
          $journalentry = $journal;

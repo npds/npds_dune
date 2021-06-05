@@ -1867,7 +1867,7 @@ function aff_editeur($Xzone, $Xactiv) {
             branding:false,
             height: 300,
             theme : 'silver',
-            mobile: { theme: 'mobile' },
+            mobile: { theme: 'mobile', menubar: true },
             language : '".language_iso(1,'','')."',";
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
                $tmp.='
@@ -3538,4 +3538,34 @@ function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) {
          return $i;
    }
 }
+
+#autodoc dataimagetofileurl($base_64_string, $output_path) : Analyse la chaine $base_64_string pour touver "src data:image" SI oui : fabrication de fichiers (gif | png | jpeg) (avec $output_path) et remplacement de "src data:image" par "src url" et retourne $base_64_string modifié ou pas
+function dataimagetofileurl($base_64_string, $output_path) {
+   $rechdataimage = '#src=\\\"(data:image/[^"]+)\\\"#m';
+   preg_match_all($rechdataimage, $base_64_string, $dataimages);
+   $j=0;
+   foreach($dataimages[1] as $imagedata) {
+      $datatodecode = explode(',',$imagedata);
+      $bin = base64_decode($datatodecode[1]);
+      $im = imageCreateFromString($bin);
+      if (!$im)
+        die('Image non valide');
+      $size = getImageSizeFromString($bin);
+      $ext = substr($size['mime'], 6);
+      if (!in_array($ext, ['png', 'gif', 'jpeg']))
+         die('Image non supportée');
+      $output_file = $output_path."_".$j."_".time().".".$ext;
+      $base_64_string = preg_replace($rechdataimage, 'src="'.$output_file.'"', $base_64_string,1);
+      $args = [$im, $output_file];
+      if ($ext == 'png')
+         $args[] = 0;
+      else if ($ext == 'jpeg')
+         $args[] = 100;
+      $fonc = "image{$ext}";
+      call_user_func_array($fonc, $args);
+      $j++;
+   }
+   return $base_64_string;
+}
+
 ?>

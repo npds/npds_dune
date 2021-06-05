@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -667,6 +667,11 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
     global $aid, $ultramode;
     if ($uid == 1) $author = '';
     if ($hometext == $bodytext) $bodytext = '';
+    
+    $hometext = dataimagetofileurl($hometext,'modules/upload/upload/artadin');//
+    $bodytext = dataimagetofileurl($bodytext,'modules/upload/upload/artadco');//
+    $notes = dataimagetofileurl($notes,'modules/upload/upload/artadno');//
+
     $subject = stripslashes(FixQuotes(str_replace('"','&quot;',$subject)));
     $hometext = stripslashes(FixQuotes($hometext));
     $bodytext = stripslashes(FixQuotes($bodytext));
@@ -685,9 +690,8 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
        sql_query("UPDATE ".$NPDS_Prefix."users SET counter=counter+1 WHERE uid='$uid'");
     }
     sql_query("UPDATE ".$NPDS_Prefix."authors SET counter=counter+1 WHERE aid='$aid'");
-    if ($ultramode) {
+    if ($ultramode)
        ultramode();
-    }
     deleteStory($qid);
 
     if ($type_pub=='pub_immediate') {

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -63,7 +63,7 @@ function defaultDisplay() {
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="subject">'.translate("Titre").' </label>
          <div class="col-sm-9">
-            <input type="text" id="subject" name="subject" class="form-control">
+            <input type="text" id="subject" name="subject" class="form-control" autofocus="autofocus">
             <p class="help-block">'.translate ("Faites simple").'! '.translate("Mais ne titrez pas -un article-, ou -à lire-,...").'</p>
          </div>
       </div>
@@ -223,6 +223,12 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
          die();
       }
    }
+
+// là ...
+   $story = dataimagetofileurl($story,'modules/upload/upload/artin');
+   $bodytext = dataimagetofileurl($bodytext,'modules/upload/upload/artco');
+//là ...
+
 
    $subject=removeHack(stripslashes(FixQuotes(str_replace("\"","&quot;",(strip_tags($subject))))));
    $story=removeHack(stripslashes(FixQuotes($story)));
