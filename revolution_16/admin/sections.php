@@ -156,14 +156,19 @@ function sections() {
 
    echo '
    <hr />
-   <ul class="list-group">
+   <ul class="list-group">';
+   if ($nb_rub > 0)
+      echo '
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=sections#ajouter publication"><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une publication").'</a></li>';
+   echo '
       <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=rub"><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une nouvelle Rubrique").'</a></li>';
    if ($nb_rub > 0)
       echo '
       <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=sec" ><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</a></li>';
    if ($radminsuper==1) 
       echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-up fa-lg mr-1"></i>'.adm_translate("Changer l'ordre des rubriques").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-up fa-lg mr-1"></i>'.adm_translate("Changer l'ordre des rubriques").'</a></li>
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=sections#droits des auteurs"><i class="fa fa-edit fa-lg mr-1"></i>'.adm_translate("Droits des auteurs").'</a></li>';
    echo '
    </ul>';
 
@@ -176,7 +181,7 @@ function sections() {
          if ($radminsuper==1) {
             $href1='<a href="admin.php?op=rubriquedit&amp;rubid='.$rubid.'" title="'.adm_translate("Editer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg mr-2"></i>&nbsp;';
             $href2='</a>';
-            $href3='<a href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'" class="text-danger" title="'.adm_translate("Supprimer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="far fa-trash-alt fa-lg"></i></a>';
+            $href3='<a href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'" class="text-danger" title="'.adm_translate("Supprimer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="far fa-trash fa-lg"></i></a>';
          } else {
             $href1=''; $href2=''; $href3='';
          }
@@ -220,7 +225,7 @@ function sections() {
                <a class="" href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg mr-2"></i></a>
                <a class="" href="admin.php?op=sectionedit&amp;secid='.$secid.'" title="'.adm_translate("Editer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
               if (($droit_pub==7) or ($droit_pub==4)) {
-                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="far fa-trash-alt fa-lg text-danger ml-2"></i></a>';
+                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="far fa-trash fa-lg text-danger ml-2"></i></a>';
               }
               echo '</span>
               </div>';
@@ -275,7 +280,7 @@ function sections() {
       if ($autorise_pub) {
          echo '
          <hr />
-         <h3 class="mb-3">'.adm_translate("Ajouter une publication").'</h3>
+         <h3 class="mb-3"><a name="ajouter publication">'.adm_translate("Ajouter une publication").'</a></h3>
          <form action="admin.php" method="post" name="adminForm">
             <div class="form-group row">
                <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
@@ -332,7 +337,7 @@ function sections() {
    if ($radminsuper==1) {
       echo  '
       <hr />
-      <h3 class="mb-3">'.adm_translate("Droits des auteurs").'</h3>';
+      <h3 class="mb-3"><a name="droits des auteurs">'.adm_translate("Droits des auteurs").'</a></h3>';
       $result = sql_query("SELECT aid, name, radminsuper FROM authors");
       echo '<table>';
       while(list($Xaid, $name, $Xradminsuper) = sql_fetch_row($result)) {
@@ -593,8 +598,8 @@ function rubriquedit($rubid) {
 
 function rubriquemake($rubname, $introc) {
    global $NPDS_Prefix;
-
    $rubname = stripslashes(FixQuotes($rubname));
+   $introc = dataimagetofileurl($introc,'modules/upload/upload/rub');
    $introc = stripslashes(FixQuotes($introc));
    sql_query("INSERT INTO ".$NPDS_Prefix."rubriques VALUES (NULL,'$rubname','$introc','0','0')");
 
@@ -603,8 +608,8 @@ function rubriquemake($rubname, $introc) {
 }
 function rubriquechange($rubid,$rubname,$introc,$enligne) {
    global $NPDS_Prefix;
-
    $rubname = stripslashes(FixQuotes($rubname));
+   $introc = dataimagetofileurl($introc,'modules/upload/upload/rub');
    $introc = stripslashes(FixQuotes($introc));
    sql_query("UPDATE ".$NPDS_Prefix."rubriques SET rubname='$rubname', intro='$introc', enligne='$enligne' WHERE rubid='$rubid'");
 
@@ -697,6 +702,7 @@ function sectionmake($secname, $image, $members, $Mmembers, $rubref, $introd) {
    $secname = stripslashes(FixQuotes($secname));
    $rubref = stripslashes(FixQuotes($rubref));
    $image = stripslashes(FixQuotes($image));
+   $introd = dataimagetofileurl($introd,'modules/upload/upload/sec');
    $introd = stripslashes(FixQuotes($introd));
    sql_query("INSERT INTO ".$NPDS_Prefix."sections VALUES (NULL,'$secname', '$image', '$members', '$rubref', '$introd','99','0')");
 
@@ -713,6 +719,7 @@ function sectionchange($secid, $secname, $image, $members, $Mmembers, $rubref, $
 
    $secname = stripslashes(FixQuotes($secname));
    $image = stripslashes(FixQuotes($image));
+   $introd = dataimagetofileurl($introd,'modules/upload/upload/sec');
    $introd = stripslashes(FixQuotes($introd));
    sql_query("UPDATE ".$NPDS_Prefix."sections SET secname='$secname', image='$image', userlevel='$members', rubid='$rubref', intro='$introd' WHERE secid='$secid'");
 
@@ -883,10 +890,11 @@ function secartupdate($artid) {
 function secarticleadd($secid, $title, $content, $autho, $members, $Mmembers) {
    global $NPDS_Prefix;
 
-   if (is_array($Mmembers) and ($members==1)) {
+   if (is_array($Mmembers) and ($members==1))
       $members=implode(',',$Mmembers);
-   }
    $title = stripslashes(FixQuotes($title));
+//   $content = dataimagetofileurl($content,'modules/upload/upload/sec');
+// pas de removehack ???????
    $content = stripslashes(FixQuotes($content));
 
    global $radminsuper;
@@ -907,9 +915,8 @@ function secarticleadd($secid, $title, $content, $autho, $members, $Mmembers) {
 function secartchange($artid, $secid, $title, $content, $members, $Mmembers) {
    global $NPDS_Prefix;
 
-   if (is_array($Mmembers) and ($members==1)) {
+   if (is_array($Mmembers) and ($members==1))
       $members=implode(',',$Mmembers);
-   }
    $title = stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
    $timestamp=time();
