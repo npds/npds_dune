@@ -119,9 +119,9 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
    $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
+   $story = stripslashes(dataimagetofileurl($story, 'cache/ai'));
+   $bodytext = stripslashes(dataimagetofileurl($bodytext, 'cache/ac'));
    $subject = stripslashes(str_replace('"','&quot;',(strip_tags($subject))));
-   $story = stripslashes($story);
-   $bodytext = stripslashes($bodytext);
 
    echo '
    <h2>'.translate("Proposer un article").'</h2>
@@ -224,12 +224,8 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
       }
    }
 
-// là ...
-   $story = dataimagetofileurl($story,'modules/upload/upload/artin');
-   $bodytext = dataimagetofileurl($bodytext,'modules/upload/upload/artco');
-//là ...
-
-
+   $story = dataimagetofileurl($story,'cache/ai');
+   $bodytext = dataimagetofileurl($bodytext,'cache/ac');
    $subject=removeHack(stripslashes(FixQuotes(str_replace("\"","&quot;",(strip_tags($subject))))));
    $story=removeHack(stripslashes(FixQuotes($story)));
    $bodytext=removeHack(stripslashes(FixQuotes($bodytext)));
