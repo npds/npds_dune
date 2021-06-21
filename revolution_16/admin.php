@@ -629,7 +629,7 @@ function adminMain($deja_affiches) {
             echo '</td>
             <td>
             <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fas fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="far fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
+            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
          else
             echo '</td>
             <td>';
