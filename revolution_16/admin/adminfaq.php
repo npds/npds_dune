@@ -33,7 +33,7 @@ function FaqAdmin() {
       <thead class="thead-infos">
          <tr>
             <th data-sortable="true" data-halign="center" class="n-t-col-xs-10">'.adm_translate("Catégories").'</th>
-            <th data-halign="center" data-align="right" class="n-t-col-xs-2">'.adm_translate("Fonctions").'</th>
+            <th data-halign="center" data-align="center" class="n-t-col-xs-2">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -42,7 +42,7 @@ function FaqAdmin() {
       echo '
          <tr>
             <td><span title="ID : '.$id_cat.'">'.aff_langue($categories).'</span><br /><a href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'" class="noir"><i class="fa fa-level-up-alt fa-lg fa-rotate-90 " title="'.adm_translate("Voir").'" data-toggle="tooltip"></i>&nbsp;&nbsp;'.adm_translate("Questions & Réponses").'&nbsp;</a></td>
-            <td><a href="admin.php?op=FaqCatEdit&amp;id_cat='.$id_cat.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a> <a href="admin.php?op=FaqCatDel&amp;id_cat='.$id_cat.'&amp;ok=0"><i class="far fa-trash-alt fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></a></td>
+            <td><a href="admin.php?op=FaqCatEdit&amp;id_cat='.$id_cat.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a><a href="admin.php?op=FaqCatDel&amp;id_cat='.$id_cat.'&amp;ok=0"><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></a></td>
          </tr>';
    }
    echo '
@@ -89,7 +89,7 @@ function FaqCatGo($id_cat) {
          <div class="topi">
             <h5 id="q_'.$id.'" class="list-group-item-heading"><a class="" href="admin.php?op=FaqCatGoEdit&amp;id='.$id.'" title="'.adm_translate("Editer la question réponse").'" data-toggle="tooltip">'.aff_langue($question).'</a></h5>
             <p class="list-group-item-text">'.meta_lang($answer).'</p>
-            <div id="shortcut-tools_'.$id.'" class="n-shortcut-tools" style="display:none;"><a class="text-danger btn" href="admin.php?op=FaqCatGoDel&amp;id='.$id.'&amp;ok=0" ><i class="far fa-trash-alt fa-2x" title="'.adm_translate("Supprimer la question réponse").'" data-toggle="tooltip" data-placement="left"></i></a></div>
+            <div id="shortcut-tools_'.$id.'" class="n-shortcut-tools" style="display:none;"><a class="text-danger btn" href="admin.php?op=FaqCatGoDel&amp;id='.$id.'&amp;ok=0" ><i class="fas fa-trash fa-2x" title="'.adm_translate("Supprimer la question réponse").'" data-toggle="tooltip" data-placement="left"></i></a></div>
          </div>
       </li>';
    }

@@ -161,7 +161,7 @@ function DownloadAdmin() {
             <td class="small">'.$ddate.'</td>
             <td>
                <a href="admin.php?op=DownloadEdit&amp;did='.$did.'" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-edit fa-lg"></i></a>
-               <a href="admin.php?op=DownloadDel&amp;did='.$did.'&amp;ok=0" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="right"><i class="far fa-trash-alt fa-lg text-danger ml-2"></i></a>
+               <a href="admin.php?op=DownloadDel&amp;did='.$did.'&amp;ok=0" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-trash fa-lg text-danger ml-2"></i></a>
             </td>
             </tr>';
        }

@@ -349,7 +349,7 @@ if ( $letter != 'front' ) {
             echo '
             <td>
                <a class="mr-3" href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Editer").'" data-toggle="tooltip"></i></a> 
-               <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="far fa-trash-alt fa-lg text-danger" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a>';
+               <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a>';
             if (!$temp_user['is_visible'])
                echo '<img src="images/admin/ws/user_invisible.gif" alt="'.translate("Membre invisible").'" title="'.translate("Membre invisible").'" />';
             else
@@ -380,7 +380,7 @@ if ( $letter != 'front' ) {
          echo '
             <span class="float-right">
                <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" ><i class="far fa-envelope fa-lg" title="'.translate("Ecrire à la liste").'" data-toggle="tooltip" ></i></a>
-               <a class="ml-3" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="far fa-trash-alt fa-lg text-danger" title="'.translate("Raz de la liste").'" data-toggle="tooltip" ></i></a>
+               <a class="ml-3" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Raz de la liste").'" data-toggle="tooltip" ></i></a>
             </span>';
       }
       echo '</p>

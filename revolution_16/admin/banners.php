@@ -63,7 +63,7 @@ function BannersAdmin() {
             <td>'.$left.'</td>
             <td>'.$clicks.'</td>
             <td>'.$percent.'%</td>
-            <td><a href="admin.php?op=BannerEdit&amp;bid='.$bid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;<a href="admin.php?op=BannerDelete&amp;bid='.$bid.'&amp;ok=0" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="admin.php?op=BannerEdit&amp;bid='.$bid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;<a href="admin.php?op=BannerDelete&amp;bid='.$bid.'&amp;ok=0" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
          </tr>';
    }
    echo '
@@ -106,7 +106,7 @@ function BannersAdmin() {
          <td>'.$clicks.'</td>
          <td>'.$percent.'%</td>
          <td>'.$name.' | <span class="small">'.basename(aff_langue($imageurl)).'</span></td>
-         <td><a href="admin.php?op=BannerEdit&amp;bid='.$bid.'" ><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;<a href="admin.php?op=BannerDelete&amp;bid='.$bid.'&amp;ok=0" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+         <td><a href="admin.php?op=BannerEdit&amp;bid='.$bid.'" ><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;<a href="admin.php?op=BannerDelete&amp;bid='.$bid.'&amp;ok=0" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
          </tr>';
    }
    echo '
@@ -143,7 +143,7 @@ function BannersAdmin() {
             <td>'.$datestart.'</td>
             <td>'.$dateend.'</td>
             <td>'.$name.'</td>
-            <td><a href="admin.php?op=BannerFinishDelete&amp;bid='.$bid.'" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="admin.php?op=BannerFinishDelete&amp;bid='.$bid.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
          </tr>';
    }
    echo '
@@ -174,7 +174,7 @@ function BannersAdmin() {
             <td>'.$numrows.'</td>
             <td>'.$contact.'</td>
             <td>'.$email.'</td>
-            <td><a href="admin.php?op=BannerClientEdit&amp;cid='.$cid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;<a href="admin.php?op=BannerClientDelete&amp;cid='.$cid.'" class="text-danger"><i class="far fa-trash-alt fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="admin.php?op=BannerClientEdit&amp;cid='.$cid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;<a href="admin.php?op=BannerClientDelete&amp;cid='.$cid.'" class="text-danger"><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a></td>
          </tr>';
    }
    echo '

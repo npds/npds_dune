@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -213,10 +213,10 @@ include('auth.php');
             </li>';
          if ($type!='outbox')
             echo '
-            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'" title="'.translate("Supprimer ce message").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a></li>';
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'" title="'.translate("Supprimer ce message").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a></li>';
          else
             echo '
-            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"  title="'.translate("Supprimer ce message").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg text-danger"></i></a></li>';
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"  title="'.translate("Supprimer ce message").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a></li>';
          echo '
          </ul>';
 

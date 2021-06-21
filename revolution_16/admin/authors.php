@@ -120,7 +120,7 @@ function displayadmins() {
          echo'
                <a href="'.$url.'"><i class="fas fa-external-link-alt fa-lg" title="'.adm_translate("Visiter le site web").'" data-toggle="tooltip"></i></a>&nbsp;';
          echo '
-               <a href="admin.php?op=deladmin&amp;del_aid='.$a_aid.'" ><i class="far fa-trash fa-lg text-danger" title="'.adm_translate("Effacer l'Auteur").'" data-toggle="tooltip" ></i></a>
+               <a href="admin.php?op=deladmin&amp;del_aid='.$a_aid.'" ><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer l'Auteur").'" data-toggle="tooltip" ></i></a>
             </td>
          </tr>';
    }

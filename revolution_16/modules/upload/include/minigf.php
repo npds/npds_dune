@@ -38,7 +38,7 @@ function checkForm(f) {
        return true;
     }
   } else {
-    alert(htmlDecode("<?php echo upload_translate("Cette page a déjà été envoyée, veuillez patienter")?>"));
+    bootbox.alert(htmlDecode("<?php echo upload_translate("Cette page a déjà été envoyée, veuillez patienter")?>"));
     return false;
   }
 }
@@ -48,7 +48,7 @@ function uniqueSubmit(f) {
     setTimeout('has_submitted=0', 5000);
     f.submit();
   } else {
-    alert(htmlDecode("<?php echo upload_translate("Cette page a déjà été envoyée, veuillez patienter")?>"));
+    bootbox.alert(htmlDecode("<?php echo upload_translate("Cette page a déjà été envoyée, veuillez patienter")?>"));
     return false;
   }
 }
@@ -65,13 +65,14 @@ function deleteFile(f) {
     bootbox.alert(htmlDecode("<?php echo upload_translate("Vous devez tout d'abord choisir la Pièce jointe à supprimer")?>"));
     return false;
   } else {
-    if (window.confirm(htmlDecode("<?php echo upload_translate("Supprimer les fichiers sélectionnés ?")?>")) ) {
+   bootbox.confirm(htmlDecode("<?php echo upload_translate("Supprimer les fichiers sélectionnés ?")?>"), function(result){ 
+      if (result=== true) {
       f.actiontype.value='delete';
       uniqueSubmit(f);
       return true;
-    } else {
+      } else 
       return false;
-    }
+   });
   }
 }
 function visibleFile(f) {
@@ -98,6 +99,7 @@ function confirmSendFile(f) {
       function(result) {
       if (result === true) {
          uploadFile(f);
+         return true;
       }
    }); 
 }
@@ -110,7 +112,7 @@ function confirmSendFile(f) {
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -121,7 +123,7 @@ function confirmSendFile(f) {
    settype($att_table,'string');
    settype($thanks_msg,'string');
    echo '
-         <form method="post" action="'.$_SERVER['PHP_SELF'].'" enctype="multipart/form-data" name="form0" onsubmit="return checkForm(this);">
+         <form method="post" action="'.$_SERVER['PHP_SELF'].'" enctype="multipart/form-data" name="form0" onsubmit="return checkForm(this);" lang="'.language_iso(1,'','').'">
             <input type="hidden" name="actiontype" value="" />
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />
             <input type="hidden" name="ModStart" value="'.$ModStart.'" />
@@ -144,7 +146,7 @@ function confirmSendFile(f) {
             <table data-toggle="table" data-classes="table table-sm table-no-bordered table-hover table-striped" data-mobile-responsive="true">
                <thead>
                   <tr>
-                     <th class="n-t-col-xs-1"><i class="far fa-trash-alt fa-lg text-muted"></i></th>
+                     <th class="n-t-col-xs-1"><i class="fas fa-trash fa-lg text-danger"></i></th>
                      <th class="n-t-col-xs-3" data-halign="center" data-align="center" data-sortable="true">'.upload_translate("Fichier").'</th>
                      <th data-halign="center" data-align="center" data-sortable="true">'.upload_translate("Type").'</th>
                      <th data-halign="center" data-align="right">'.upload_translate("Taille").'</th>
@@ -180,7 +182,6 @@ function confirmSendFile(f) {
                      '.$visu.'
                   </tr>';
       }
-//      $total_sz = $Fichier->Pretty_Size($tsz);
       $total_sz = $Fichier->file_size_format($tsz,1);
       $visu_button='';
       echo '<input type="hidden" name="visible_list" value="'.$visible_list.'">';
@@ -192,20 +193,25 @@ function confirmSendFile(f) {
                </tbody>
             </table>
             <div class="row p-2">
-               <div class="col-sm-4 col-6 mb-2"><i class="fas fa-level-up-alt fa-2x fa-flip-horizontal text-danger mr-1"></i><a class="text-danger" href="#" onclick="deleteFile(document.form0); return false;"><span class="d-sm-none" title="'.upload_translate("Supprimer les fichiers sélectionnés").'" data-toggle="tooltip" data-placement="right" ><i class="far fa-trash-alt fa-2x ml-1"></i></span><span class="d-none d-sm-inline">'.upload_translate("Supprimer les fichiers sélectionnés").'</span></a></div>
+               <div class="col-sm-4 col-6 mb-2"><i class="fas fa-level-up-alt fa-2x fa-flip-horizontal text-danger mr-1"></i><a class="text-danger" href="#" onclick="deleteFile(document.form0); return false;"><span class="d-sm-none" title="'.upload_translate("Supprimer les fichiers sélectionnés").'" data-toggle="tooltip" data-placement="right" ><i class="fas fa-trash fa-2x ml-1"></i></span><span class="d-none d-sm-inline">'.upload_translate("Supprimer les fichiers sélectionnés").'</span></a></div>
                <div class="col-sm-4 text-right col-6 mb-2"><strong>'.upload_translate("Total :").' '.$total_sz.'</strong></div>
                <div class="col-sm-2 text-center-sm mb-2 col-12 ">'.$att_inline_button.'</div>
                <div class="col-sm-2 text-center-sm mb-2 col-12">'.$visu_button.'</div>
             </div>';
    }
-
+   $tf = new FileManagement;
+   $oo= $tf->file_size_format($MAX_FILE_SIZE,1);
    $att_upload_table='
    <div class="card card-body my-2">
-      <p>'.upload_translate("Extensions autorisées").' : <small class="text-success">'.$bn_allowed_extensions.'</small></p>
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="pcfile">'.upload_translate("Fichier joint").'</label>
          <div class="col-sm-9">
-            <input type="file" class="form-control" id="pcfile" name="pcfile" onchange="confirmSendFile(this.form);" />
+            <div class="input-group mb-2 mr-sm-2">
+               <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="pcfile" id="pcfile" onchange="confirmSendFile(this.form);"/>
+                  <label id="lab" class="custom-file-label" for="pcfile">'.upload_translate("Sélectionner votre fichier").'</label>
+               </div>
+            </div>
          </div>
       </div>
       <div class="form-group row">
@@ -213,11 +219,13 @@ function confirmSendFile(f) {
             <button type="button" class="btn btn-primary" onclick="uploadFile(this.form);">'.upload_translate("Joindre").'</button>
          </div>
       </div>
+      <p class="mb-0">'.upload_translate("Taille maxi du fichier").' : '.$oo.'</p>
+      <p class="mb-0">'.upload_translate("Extensions autorisées").' : <small class="text-success">'.$bn_allowed_extensions.'</small></p>
    </div>';
    $att_form='
          <div class="container-fluid p-3">
             <div class="text-right">
-               <button class="btn btn-outline-secondary btn-sm" onclick="self.close()">X</button>
+               <span class="btn btn-outline-secondary btn-sm" onclick="self.close()">&times;</span>
             </div>
          '.$thanks_msg;
    $att_form.=$att_upload_table.$att_table;

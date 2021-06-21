@@ -57,7 +57,7 @@ function HeadlinesAdmin() {
             <td>
                <a href="admin.php?op=HeadlinesEdit&amp;hid='.$hid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;
                <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg" title="'.adm_translate("Visiter").'" data-toggle="tooltip"></i></a>&nbsp;
-               <a href="admin.php?op=HeadlinesDel&amp;hid='.$hid.'&amp;ok=0" class="text-danger"><i class="far fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
+               <a href="admin.php?op=HeadlinesDel&amp;hid='.$hid.'&amp;ok=0" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
             </td>
          </tr>';
       }

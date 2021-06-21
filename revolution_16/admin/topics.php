@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -46,7 +46,7 @@ function topicsmanager() {
          <div class="">
             <h4 class="my-3"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" ><i class="fa fa-edit mr-1 align-middle"></i>'.aff_langue($topicname).'</a></h4>
             <p>'.aff_langue($topictext).'</p>
-            <div id="shortcut-tools_'.$topicid.'" class="n-shortcut-tools" style="display:none;"><a class="text-danger btn" href="admin.php?op=topicdelete&amp;topicid='.$topicid.'&amp;ok=0" ><i class="far fa-trash-alt fa-2x"></i></a></div>
+            <div id="shortcut-tools_'.$topicid.'" class="n-shortcut-tools" style="display:none;"><a class="text-danger btn" href="admin.php?op=topicdelete&amp;topicid='.$topicid.'&amp;ok=0" ><i class="fas fa-trash fa-2x"></i></a></div>
          </div>
       </div>
    </div>';
@@ -242,7 +242,7 @@ function topicedit($topicid) {
        <input type="hidden" name="topicid" value="'.$topicid.'" />
        <input type="hidden" name="op" value="topicdelete" />
    </form>
-  <button class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Effacer le Sujet !").'</button>
+  <button class="btn btn-danger"><i class="fas fa-trash fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Effacer le Sujet !").'</button>
 */
    
     echo '
@@ -265,7 +265,7 @@ function topicedit($topicid) {
                 <td>
                    <a href="admin.php?op=relatededit&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="fas fa-edit fa-lg" data-toggle="tooltip" title="'.adm_translate("Editer").'"></i></a>&nbsp;
                    <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>&nbsp;
-                   <a href="admin.php?op=relateddelete&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="far fa-trash-alt fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a>
+                   <a href="admin.php?op=relateddelete&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="fas fa-trash fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a>
                 </td>
             </tr>';
     }
