@@ -985,8 +985,8 @@ function LinksListBrokenLinks() {
    <hr class="mb-0"/>
    <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg"></i></a></div>
    <div class="blockquote">
-      <i class="far fa-trash-alt fa-lg text-primary mr-2"></i>'.translate("Ignorer (Efface toutes les demandes pour un lien donné)").'<br />
-      <i class="far fa-trash-alt fa-lg text-danger mr-2"></i>'.translate("Effacer (Efface les liens cassés et les avis pour un lien donné)").'
+      <i class="fas fa-trash fa-lg text-primary mr-2"></i>'.translate("Ignorer (Efface toutes les demandes pour un lien donné)").'<br />
+      <i class="fas fa-trash fa-lg text-danger mr-2"></i>'.translate("Effacer (Efface les liens cassés et les avis pour un lien donné)").'
    </div>
    <table id="tad_linkbrok" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -1025,8 +1025,8 @@ function LinksListBrokenLinks() {
             echo '
             <td><a href="mailto:'.$owneremail.'" >'.$owner.'</a>';
           echo '</td>
-            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="far fa-trash-alt fa-lg" title="'.translate("Ignorer").'" data-toggle="tooltip"></i></a></td>
-            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="far fa-trash-alt text-danger fa-lg" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash fa-lg" title="'.translate("Ignorer").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash text-danger fa-lg" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a></td>
          </tr>';
        }
        echo '
