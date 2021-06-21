@@ -42,8 +42,12 @@ switch ($op) {
    // Purge Chat Box
    case 'admin_chatbox_write':
       if ($admin) {
-         if ($chatbox_clearDB=='OK')
-            sql_query("DELETE FROM ".$NPDS_Prefix."chatbox WHERE date <= ".(time()-(60*5))."");
+         $adminX = base64_decode($admin);
+         $adminR = explode(':', $adminX);
+         $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$adminR[0]' LIMIT 1"));
+         if ($Q['radminsuper']==1)
+            if ($chatbox_clearDB=='OK')
+               sql_query("DELETE FROM ".$NPDS_Prefix."chatbox WHERE date <= ".(time()-(60*5))."");
       }
       Header("Location: index.php");
    break;
