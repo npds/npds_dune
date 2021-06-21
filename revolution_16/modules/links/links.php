@@ -321,7 +321,7 @@ function viewslink($sid, $min, $orderby, $show) {
    global $ModPath, $ModStart, $links_DB, $admin, $perpage;
    $perpage =2;//# to test debug
    include("header.php");
-   include('functions.php');
+   include_once('functions.php');
 
    // Include cache manager
    global $SuperCache;
@@ -359,38 +359,6 @@ function viewslink($sid, $min, $orderby, $show) {
 //      echo "<br />\n";
 
       $orderby = convertorderbyout($orderby);
-      //Calculates how many pages exist.  Which page one should be on, etc...
-/*
-      $linkpagesint = ($totalselectedlinks / $perpage);
-      $linkpageremainder = ($totalselectedlinks % $perpage);
-
-      if ($linkpageremainder != 0) {
-         $linkpages = ceil($linkpagesint);
-         if ($totalselectedlinks < $perpage)
-            $linkpageremainder = 0;
-      }
-      else
-         $linkpages = $linkpagesint;
-
-
-      //Page Numbering
-      if ($linkpages!=1 && $linkpages!=0) {
-         echo "<p align=\"center\">";
-         echo translate("Sélectionner la page")." :&nbsp;&nbsp;";
-         $prev=$min-$perpage;
-         $counter = 1;
-         $currentpage = ($max / $perpage);
-         while ($counter<=$linkpages ) {
-            $cpage = $counter;
-            $mintemp = ($perpage * $counter) - $perpage;
-            if ($counter == $currentpage) echo "<font class=\"rouge\">$counter</font>&nbsp;";
-            else echo "<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid&amp;min=$mintemp&amp;orderby=$orderby&amp;show=$show\">$counter</a>&nbsp;";
-            $counter++;
-         }
-      }
-      echo "</p><br />";
-*/
-      
 
       $nbPages = ceil($totalselectedlinks/$perpage);
       $current = 1;
@@ -403,8 +371,6 @@ function viewslink($sid, $min, $orderby, $show) {
       $start=($current*$perpage);
 
       echo paginate('modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;min=', '&amp;orderby='.$orderby.'&amp;show='.$show, $nbPages, $current, $adj=3, $perpage, $start);
-
-
       FooterOrderBy($cid, $sid, $orderbyTrans, "viewslink");
    }
    if ($SuperCache)
