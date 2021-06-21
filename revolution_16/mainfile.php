@@ -2392,8 +2392,10 @@ function adminblock() {
          sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-toggle=\"modal\" data-target=\"#versusModal\"', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
       $content .= '
       <div class="d-flex justify-content-start flex-wrap" id="adm_block">
-      '.$bloc_foncts_A.'<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.translate("Vider la table chatBox").'" data-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge badge-danger ml-1">X</span></a>
-      </div>
+      '.$bloc_foncts_A;
+      if ($Q['radminsuper']==1)
+         $content .= '<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.translate("Vider la table chatBox").'" data-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge badge-danger ml-1">X</span></a>';
+      $content .= '</div>
       <div class="mt-3">
          <small class="text-muted"><i class="fas fa-user-cog fa-2x align-middle"></i> '.$aid.'</small>
       </div>
@@ -3539,11 +3541,12 @@ function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) {
    }
 }
 
-#autodoc dataimagetofileurl($base_64_string, $output_path) : Analyse la chaine $base_64_string pour touver "src data:image" SI oui : fabrication de fichiers (gif | png | jpeg) (avec $output_path) et remplacement de "src data:image" par "src url" et retourne $base_64_string modifié ou pas
+#autodoc dataimagetofileurl($base_64_string, $output_path) : Analyse la chaine $base_64_string pour touver "src data:image" SI oui : fabrication de fichiers (gif | png | jpeg) (avec $output_path) - redimensionne l'image si supérieure aux dimensions maxi fixées et remplacement de "src data:image" par "src url", et retourne $base_64_string modifié ou pas
 function dataimagetofileurl($base_64_string, $output_path) {
    $rechdataimage = '#src=\\\"(data:image/[^"]+)\\\"#m';
    preg_match_all($rechdataimage, $base_64_string, $dataimages);
-   $j=0;
+   $j=0;$timgw=800;$timgh=600;
+   $ra = random_int(1, 999);
    foreach($dataimages[1] as $imagedata) {
       $datatodecode = explode(',',$imagedata);
       $bin = base64_decode($datatodecode[1]);
@@ -3554,9 +3557,16 @@ function dataimagetofileurl($base_64_string, $output_path) {
       $ext = substr($size['mime'], 6);
       if (!in_array($ext, ['png', 'gif', 'jpeg']))
          die('Image non supportée');
-      $output_file = $output_path."_".$j."_".time().".".$ext;
-      $base_64_string = preg_replace($rechdataimage, 'src="'.$output_file.'"', $base_64_string,1);
-      $args = [$im, $output_file];
+      $output_file = $output_path.$j."_".$ra."_".time().".".$ext;
+      $base_64_string = preg_replace($rechdataimage, 'class="img-fluid" src="'.$output_file.'"', $base_64_string,1);
+      if ($size[0]>$timgw or $size[1]>$timgh){
+         $timgh = round(($timgw / $size[0]) * $size[1]);
+         $timgw = round(($timgh / $size[1]) * $size[0]);
+         $th=imagecreatetruecolor($timgw,$timgh);
+         imagecopyresampled($th,$im,0,0,0,0,$timgw,$timgh, $size[0],$size[1]);
+         $args = [$th, $output_file];
+      } else 
+         $args = [$im, $output_file];
       if ($ext == 'png')
          $args[] = 0;
       else if ($ext == 'jpeg')
