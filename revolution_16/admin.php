@@ -99,9 +99,10 @@ function login() {
 }
 
 function GraphicAdmin($hlpfile) {
-   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $httpref, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent,$nuke_url;
+   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $httpref, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent, $nuke_url;
    $bloc_foncts ='';
    $bloc_foncts_A ='';
+   $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
 
    //==> recupérations des états des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
    //article à valider
@@ -196,6 +197,11 @@ function GraphicAdmin($hlpfile) {
    //lien rompu à valider
    $brokenlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest where brokenlink='1'"));
    if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."', fretour_h='".adm_translate("Liens rompus à valider.")."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
+   //nouvelle publication
+   $newpubli = $Q['radminsuper']==1?
+      sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."seccont_tempo")):
+      sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."seccont_tempo WHERE author='$aid'"));
+   if($newpubli) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newpubli."', fretour_h='".adm_translate("Publication(s) en attente de validation")."' WHERE fid='50'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='50'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
    //==> Pour les modules installés produisant des notifications
@@ -215,7 +221,6 @@ function GraphicAdmin($hlpfile) {
    //<== Pour les modules installés produisant des notifications
 
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
-   $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
    // on prend tout ce qui a une interface 
    if ($Q['radminsuper']==1)
       $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre");
