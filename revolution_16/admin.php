@@ -205,19 +205,26 @@ function GraphicAdmin($hlpfile) {
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
    //==> Pour les modules installés produisant des notifications
+
    $alert_modules=sql_query("SELECT * FROM fonctions f LEFT JOIN modules m ON m.mnom = f.fnom WHERE m.minstall=1 AND fcategorie=9"); 
    if($alert_modules) {
       while($am=sql_fetch_array($alert_modules)) {
          include("modules/".$am['fnom']."/admin/adm_alertes.php");
-         foreach($reqalerte as $v){
-            $ibid = sql_num_rows(sql_query($v));
-            if($ibid)
-               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$ibid."', fretour_h='' WHERE fid=".$am['fid'].""); 
+         $nr=count($reqalertes);
+         $i=0;
+         while($i<$nr){
+            $ibid = sql_num_rows(sql_query($reqalertes[$i][0]));
+            if($ibid) {
+               $fr=$reqalertes[$i][1]!= 1 ? $reqalertes[$i][1] : $ibid;
+               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$fr."', fretour_h='".$reqalertes[$i][2]."' WHERE fid=".$am['fid']."");
+            } 
             else
-               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid=".$am['fid']."");
+               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='' WHERE fid=".$am['fid']."");
+            $i++;
          }
       }
    }
+   
    //<== Pour les modules installés produisant des notifications
 
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
