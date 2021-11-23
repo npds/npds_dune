@@ -557,8 +557,7 @@ function Mess_Check_Mail_interface($username, $class) {
 }
 #autodoc Mess_Check_Mail_Sub($username, $class) : Affiche le groupe check_mail (theme principal de NPDS) / SOUS-Fonction
 function Mess_Check_Mail_Sub($username, $class) {
-   global $NPDS_Prefix;
-   global $user;
+   global $NPDS_Prefix, $user;
    if ($username) {
       $userdata = explode(':', base64_decode($user));
       $total_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND type_msg='0'"));
@@ -607,10 +606,7 @@ function Who_Online_Sub() {
 }
 #autodoc Site_Load() : Maintient les informations de NB connexion (membre, anonyme) - globalise la variable $who_online_num et maintient le fichier cache/site_load.log &agrave; jour<br />Indispensable pour la gestion de la 'clean_limit' de SuperCache
 function Site_Load() {
-   global $NPDS_Prefix;
-   global $SuperCache;
-   // globalise la variable
-   global $who_online_num;
+   global $NPDS_Prefix, $SuperCache, $who_online_num;
    $guest_online_num = 0;
    $member_online_num = 0;
    $result = sql_query("SELECT COUNT(username) AS TheCount, guest FROM ".$NPDS_Prefix."session GROUP BY guest");
@@ -630,8 +626,7 @@ function Site_Load() {
 }
 #autodoc AutoReg() : Si AutoRegUser=true et que le user ne dispose pas du droit de connexion : RAZ du cookie NPDS<br />retourne False ou True
 function AutoReg() {
-   global $NPDS_Prefix;
-   global $AutoRegUser, $user;
+   global $NPDS_Prefix, $AutoRegUser, $user;
    if (!$AutoRegUser) {
       if (isset($user)) {
          $cookie = explode(':', base64_decode($user));
@@ -726,8 +721,7 @@ function closetable2() {
 // Opentable - closetable
 #autodoc ultramode() : Génération des fichiers ultramode.txt et net2zone.txt dans /cache
 function ultramode() {
-   global $NPDS_Prefix;
-   global $nuke_url, $storyhome;
+   global $NPDS_Prefix, $nuke_url, $storyhome;
    $ultra = "cache/ultramode.txt";
    $netTOzone = "cache/net2zone.txt";
    $file = fopen("$ultra", "w");
@@ -2281,48 +2275,6 @@ function mainblock() {
 }
 function changetoampadm($r) { return str_replace('&','&amp;',$r[0]);}
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
-/*function adminblock() {
-   $bloc_foncts_A='';
-   global $NPDS_Prefix, $admin, $aid, $admingraphic, $adminimg, $admf_ext;
-   if ($admin) {
-   $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
-   if ($Q['radminsuper']==1)
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie");
-   else
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
-   while($SAQ=sql_fetch_assoc($R)) {
-      $cat[]=$SAQ['fcategorie'];
-      $cat_n[]=$SAQ['fcategorie_nom'];
-      $fid_ar[]=$SAQ['fid'];
-      if($SAQ['fcategorie'] == 9)
-         $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
-      if ($SAQ['fcategorie'] == 9 and strstr($SAQ['furlscript'],"op=Extend-Admin-SubModule"))
-         if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext)) $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext; else $adminico=$adminimg.'module.'.$admf_ext;
-      if ($SAQ['fcategorie'] == 9)
-         $bloc_foncts_A .='
-         <a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-html="true" data-toggle="tooltip" '.$SAQ['furlscript'].'>
-            <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
-            <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
-         </a>';
-   }
-   
-   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2");
-   list($title, $content) = sql_fetch_row($result);
-   global $block_title;
-   if ($title=='') $title=$block_title;
-   else $title=aff_langue($title);
-   $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
-   $content .= '
-      <div class="d-flex justify-content-start flex-wrap" id="adm_block">
-      '.$bloc_foncts_A.'<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.translate("Vider la table chatBox").'" data-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge badge-danger ml-1">X</span></a>
-      </div>
-      <div class="mt-3">
-         <small class="text-muted"><i class="fas fa-user-cog fa-2x align-middle"></i> '.$aid.'</small>
-      </div>';
-   themesidebox($title, $content);
-   }
-}*/
-
 function adminblock() {
    $bloc_foncts_A='';
    global $NPDS_Prefix, $admin, $aid, $admingraphic, $adminimg, $admf_ext, $Version_Sub, $Version_Num, $nuke_url;
@@ -2352,8 +2304,8 @@ function adminblock() {
                    <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
                    <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
                    </a>';
-               } 
-            } else {
+            } 
+         } else {
             if(preg_match('#versusModal#', $SAQ['furlscript']))
                $furlscript = 'data-toggle="modal" data-target="#bl_versusModal"';
             else 
@@ -2489,10 +2441,7 @@ function ephemblock() {
    }
    $boxstuff .= "<br />\n";
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Ephémérides");
-   else
-      $title=$block_title;
+   $title= $block_title=='' ? translate("Ephémérides") : $block_title;
    themesidebox($title, $boxstuff);
 }
 #autodoc loginbox() : Bloc Login <br />=> syntaxe : function#loginbox
@@ -2519,10 +2468,7 @@ function loginbox() {
          </div>
       </form>';
       global $block_title;
-      if ($block_title=='')
-         $title=translate("Se connecter");
-      else
-         $title=$block_title;
+      $title= $block_title=='' ? translate("Se connecter") : $block_title;
       themesidebox($title, $boxstuff);
    }
 }
@@ -2533,33 +2479,24 @@ function userblock() {
       $getblock = Q_select("SELECT ublock FROM ".$NPDS_Prefix."users WHERE uid='$cookie[0]'",86400);
       $ublock = $getblock[0];
       global $block_title;
-      if ($block_title=='')
-         $title=translate("Menu de").' '.$cookie[1];
-      else
-         $title=$block_title;
+      $title= $block_title=='' ? translate("Menu de").' '.$cookie[1] : $block_title;
       themesidebox($title, $ublock['ublock']);
    }
 }
 #autodoc topdownload() : Bloc topdownload <br />=> syntaxe : function#topdownload
 function topdownload() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Les plus téléchargés");
-   else
-      $title=$block_title;
-      $boxstuff = '<ul>';
-      $boxstuff .= topdownload_data('short','dcounter');
-      $boxstuff .= '</ul>';
-      if ($boxstuff=='<ul></ul>') $boxstuff='';
+   $title= $block_title=='' ? translate("Les plus téléchargés") : $block_title;
+   $boxstuff = '<ul>';
+   $boxstuff .= topdownload_data('short','dcounter');
+   $boxstuff .= '</ul>';
+   if ($boxstuff=='<ul></ul>') $boxstuff='';
    themesidebox($title, $boxstuff);
 }
 #autodoc lastdownload() : Bloc lastdownload <br />=> syntaxe : function#lastdownload
 function lastdownload() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Fichiers les + récents");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Fichiers les + récents") : $block_title;
    $boxstuff = '<ul>';
    $boxstuff .= topdownload_data('short','ddate');
    $boxstuff .= '</ul>';
@@ -2664,10 +2601,7 @@ function oldNews($storynum, $typ_aff='') {
    $boxstuff .='</ul>';
    if ($boxstuff=='<ul></ul>') $boxstuff='';
    global $block_title;
-   if ($block_title=='')
-      $boxTitle=translate("Anciens articles");
-   else
-      $boxTitle=$block_title;
+   $boxTitle = $block_title=='' ? translate("Anciens articles") : $block_title ;
    themesidebox($boxTitle, $boxstuff);
 }
 #autodoc bigstory() : Bloc BigStory <br />=> syntaxe : function#bigstory
@@ -2695,10 +2629,7 @@ function bigstory() {
       $content .= "<a href=\"article.php?sid=$fsid\">".aff_langue($ftitle)."</a>";
    }
    global $block_title;
-   if ($block_title=='')
-      $boxtitle=translate("Article du Jour");
-   else
-      $boxtitle=$block_title;
+   $boxtitle = $block_title=='' ? translate("Article du Jour") : $block_title;
    themesidebox($boxtitle, $content);
 }
 #autodoc category() : Bloc de gestion des catégories <br />=> syntaxe : function#category
@@ -2724,10 +2655,7 @@ function category() {
       }
       $boxstuff .= '</ul>';
       global $block_title;
-      if ($block_title=='')
-         $title=translate("Catégories");
-      else
-         $title=$block_title;
+      $title = $block_title=='' ? translate("Catégories") : $block_title;
       themesidebox($title, $boxstuff);
    }
 }
@@ -2900,10 +2828,7 @@ function PollNewest($id='') {
 #autodoc bloc_langue() : Bloc langue <br />=> syntaxe : function#bloc_langue
 function bloc_langue() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Choisir une langue");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Choisir une langue") : $block_title;
    themesidebox($title,aff_local_langue('' ,"index.php", "choice_user_language"));
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
@@ -2937,10 +2862,7 @@ function bloc_rubrique() {
    }
    $boxstuff .='</ul>';
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Rubriques");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Rubriques") : $block_title;
    themesidebox($title, $boxstuff);
 }
 #autodoc espace_groupe() : Bloc du WorkSpace <br />=> syntaxe :<br />function#bloc_espace_groupe<br />params#ID_du_groupe, Aff_img_groupe(0 ou 1) / Si le bloc n'a pas de titre, Le nom du groupe sera utilisé
