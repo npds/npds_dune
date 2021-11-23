@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -34,15 +34,7 @@ if (filtre_module($ModPath) and filtre_module($ModStart)) {
       die();
    } else
       Access_Error();
-} elseif (filtre_module($name) and filtre_module($file)) {
-   // phpnuke compatibility
-   if (!function_exists("Mysql_Connexion"))
-      include ("mainfile.php");
-   if (file_exists("modules/$name/$file.php")) {
-      include("modules/$name/$file.php");
-      die();
-   } else
-      Access_Error();
-} else
+} 
+else
    Access_Error();
 ?>
