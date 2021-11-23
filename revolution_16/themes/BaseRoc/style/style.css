@@ -684,7 +684,6 @@ input[type="radio"], input[type="checkbox"], input[type="image"] {
 /*bloc admin*/
 .adm_img {
   height: 32px;
-  width: 32px;
 }
 #adm_block li{
   width: 80px;

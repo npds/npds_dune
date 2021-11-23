@@ -896,7 +896,6 @@ border-bottom:0px;
 /*bloc admin*/
 .adm_img {
   height: 32px;
-  width: 32px;
 }
 #adm_block li{
   width: 80px;
@@ -1942,4 +1941,3 @@ border: 1px solid ;
 div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
 div[data-type=emojiPopper] div .card-body{padding:.4rem}
 /* <== pour popover contenant les emoji */
-
