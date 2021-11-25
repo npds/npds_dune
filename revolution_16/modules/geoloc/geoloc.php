@@ -276,13 +276,13 @@ while ($row = sql_fetch_array($result)) {
    if ($user_lat !='') { // c un membre géoréférencé
       $mbcg++;
       //=== menu fenetre info
-      $imm = ' <a href="user.php?op=userinfo&amp;uname='.$users_uname.'"  target="_blank" ><i class="fa fa-user fa-2x mr-2" title="'.translate("Profil").'"></i></a>';
+      $imm = ' <a class="tooltipbyclass" href="user.php?op=userinfo&amp;uname='.$users_uname.'" title="'.translate("Profil").'" target="_blank" ><i class="fa fa-user fa-2x mr-2"></i></a>';
       if ($user)
-         $imm .= ' <a href="powerpack.php?op=instant_message&to_userid='.$users_uname.'" title="'.geoloc_translate("Envoyez un message interne").'"><i class="far fa-envelope fa-2x mr-2"></i></a>';
+         $imm .= ' <a class="tooltipbyclass" href="powerpack.php?op=instant_message&to_userid='.$users_uname.'" title="'.geoloc_translate("Envoyez un message interne").'"><i class="far fa-envelope fa-2x mr-2"></i></a>';
       if ($us_url != '')
-         $imm .= ' <a href="'.$us_url.'" target="_blank" title="'.geoloc_translate("Visitez le site").'"><i class="fas fa-external-link-alt fa-2x mr-2"></i></a>';
+         $imm .= ' <a class="tooltipbyclass" href="'.$us_url.'" target="_blank" title="'.geoloc_translate("Visitez le site").'"><i class="fas fa-external-link-alt fa-2x mr-2"></i></a>';
       if ($us_mns != '')
-         $imm .='&nbsp;<a href="minisite.php?op='.$users_uname.'" target="_blank" title="'.geoloc_translate("Visitez le minisite").'"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
+         $imm .='&nbsp;<a class="tooltipbyclass" href="minisite.php?op='.$users_uname.'" target="_blank" title="'.geoloc_translate("Visitez le minisite").'"><i class="fa fa-desktop fa-2x mr-2"></i></a>';
 
       //construction marker membre on line
       if($mark_typ !==1) $ic_sb_mbgc ='<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse mr-1\"></i>';
@@ -348,32 +348,31 @@ $fond_provider=array(
    ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
    ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
    ['sat-google', geoloc_translate("Satellite").' (Google maps)']
-
 );
 if($api_key_bing=='' and $api_key_mapbox=='') {unset($fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8],$fond_provider[9]);}
 elseif($api_key_bing=='') {unset($fond_provider[7],$fond_provider[8],$fond_provider[9]);}
 elseif($api_key_mapbox=='') {unset($fond_provider[5],$fond_provider[6]);}
 
-   $fonts_svg=array(
-      ['user','uf007','Utilisateur'],
-      ['userCircle','uf2bd','Utilisateur en cercle'],
-      ['userCircle','uf2be','Utilisateur en cercle'],
-      ['users','uf0c0','Utilisateurs'],
-      ['heart','uf004','Coeur'],
-      ['thumbtack','uf08d','Punaise'],
-      ['circle','uf111','Cercle'],
-      ['camera','uf030','Appareil photo'],
-      ['anchor','uf13d','Ancre'],
-      ['mapMarker','uf041','Marqueur carte'],
-      ['plane','uf072','Avion'],
-      ['star','uf005','Etoile'],
-      ['home','uf015','Maison'],
-      ['flag','uf024','Drapeau'],
-      ['crosshairs','uf05b','Croix'],
-      ['asterisk','uf069','Astérisque'],
-      ['fire','uf06d','Flamme'],
-      ['comment','uf075','Commentaire']
-   );
+$fonts_svg=array(
+   ['user','uf007','Utilisateur'],
+   ['userCircle','uf2bd','Utilisateur en cercle'],
+   ['userCircle','uf2be','Utilisateur en cercle'],
+   ['users','uf0c0','Utilisateurs'],
+   ['heart','uf004','Coeur'],
+   ['thumbtack','uf08d','Punaise'],
+   ['circle','uf111','Cercle'],
+   ['camera','uf030','Appareil photo'],
+   ['anchor','uf13d','Ancre'],
+   ['mapMarker','uf041','Marqueur carte'],
+   ['plane','uf072','Avion'],
+   ['star','uf005','Etoile'],
+   ['home','uf015','Maison'],
+   ['flag','uf024','Drapeau'],
+   ['crosshairs','uf05b','Croix'],
+   ['asterisk','uf069','Astérisque'],
+   ['fire','uf06d','Flamme'],
+   ['comment','uf075','Commentaire']
+);
 
 //==> construction js
 $ecr_scr = '
@@ -406,7 +405,8 @@ $ecr_scr .= '
    //<==
    '.$mbr_geo_on.$ano_o_conn.$mbr_geo_off.$mbr_geo_off_v.$ip_o.'
    var popup = new ol.Overlay({
-     element: document.getElementById("ol_popup")
+     element: document.getElementById("ol_popup"),
+     offset : [0,-10]
    });
 
    var src_anno = new ol.source.Vector({});
@@ -451,8 +451,9 @@ $ecr_scr .= '
       });
       iconFeature.setId("on"+mbrOn_features[i][1]);
       src_userOn.addFeature(iconFeature);
-   }
-
+   }';
+if(autorisation(-127) and $geo_ip==1)
+   $ecr_scr .='
    var src_ip = new ol.source.Vector({});
    var src_ip_length = ip_features.length;
    for (var i = 0; i < src_ip_length; i++){
@@ -463,34 +464,34 @@ $ecr_scr .= '
       });
       iconFeature.setId(("ip"+i));
       src_ip.addFeature(iconFeature);
-   }
-
+   }';
+$ecr_scr .='
    var src_countries = new ol.source.Vector({
      url: "/modules/geoloc/include/countries.geojson",
      format: new ol.format.GeoJSON()
    });
    ';
 
-      if($mark_typ !==1) {
-         $fafont=''; $fafont_js='';
-         foreach ($fonts_svg as $v) {
-            if($v[0]==$f_mbg) {
-               $fafont = '&#x'.substr($v[1],1).';';
-               $fafont_js= '\\'.$v[1];
-            }
-         }
-         $ic_b_mbg ='<span title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$mbg_f_co.';" class="fa fa align-middle">'.$fafont.'</span>';
-         $ic_b_mbgc ='<span title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$mbgc_f_co.';" class="fa fa-2x align-middle">'.$fafont.'</span>';
-         $ic_b_acg ='<span title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$acg_f_co.';" class="fa fa-2x align-middle">'.$fafont.'</span>';
+if($mark_typ !==1) {
+   $fafont=''; $fafont_js='';
+   foreach ($fonts_svg as $v) {
+      if($v[0]==$f_mbg) {
+         $fafont = '&#x'.substr($v[1],1).';';
+         $fafont_js= '\\'.$v[1];
       }
-      else {
-         $ic_b_mbg ='<img src="'.$ch_img.$nm_img_mbg.'" title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" alt="'.geoloc_translate('Membre géoréférencé').'" /> ';
-         $ic_b_mbgc ='<img src="'.$ch_img.$nm_img_mbcg.'" title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" alt="'.geoloc_translate('Membre géoréférencé en ligne').'" /> ';
-         $ic_b_acg ='<img src="'.$ch_img.$nm_img_acg.'" title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" alt="'.geoloc_translate('Anonyme géoréférencé en ligne').'" /> ';
-      }
+   }
+   $ic_b_mbg ='<span title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$mbg_f_co.';" class="fa fa align-middle">'.$fafont.'</span>';
+   $ic_b_mbgc ='<span title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$mbgc_f_co.';" class="fa fa-2x align-middle">'.$fafont.'</span>';
+   $ic_b_acg ='<span title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" style="font-size:1.8rem; color:'.$acg_f_co.';" class="fa fa-2x align-middle">'.$fafont.'</span>';
+}
+else {
+   $ic_b_mbg ='<img src="'.$ch_img.$nm_img_mbg.'" title="'.geoloc_translate('Membre géoréférencé').'" data-toggle="tooltip" alt="'.geoloc_translate('Membre géoréférencé').'" /> ';
+   $ic_b_mbgc ='<img src="'.$ch_img.$nm_img_mbcg.'" title="'.geoloc_translate('Membre géoréférencé en ligne').'" data-toggle="tooltip" alt="'.geoloc_translate('Membre géoréférencé en ligne').'" /> ';
+   $ic_b_acg ='<img src="'.$ch_img.$nm_img_acg.'" title="'.geoloc_translate('Anonyme géoréférencé en ligne').'" data-toggle="tooltip" alt="'.geoloc_translate('Anonyme géoréférencé en ligne').'" /> ';
+}
 
-   if($mark_typ !== 1) { // marker svg
-      $ecr_scr .='
+if($mark_typ !== 1) { // marker svg
+   $ecr_scr .='
       //==> marker svg
       function pointStyleFunction(feature, resolution) {
         return new ol.style.Style({
@@ -528,9 +529,9 @@ $ecr_scr .= '
             stroke: new ol.style.Stroke({color: "'.$acg_t_co.'", width: '.$acg_t_ep.'})
          })
       });';
-   }
-   else { // markers images
-      $ecr_scr .='
+}
+else { // markers images
+   $ecr_scr .='
       //==> markers images
       var
          iconUser = new ol.style.Style({
@@ -551,18 +552,10 @@ $ecr_scr .= '
                imgSize:['.$w_ico_b.','.$h_ico_b.']
             })
          });';
-   }
-   $ecr_scr .='
+}
+   
+$ecr_scr .='
       var 
-         iconIp = new ol.style.Style({
-            text: new ol.style.Text({
-               text: "\uf108",
-               font: "900 24px \'Font Awesome 5 Free\'",
-               bottom: "Bottom",
-               fill: new ol.style.Fill({color: "rgba(0, 0, 0,0.5)"}),
-               stroke: new ol.style.Stroke({color: "rgba(0, 0, 0,0.5)", width: 0.2})
-            })
-         }),
          iconGeoref = new ol.style.Style({
             text: new ol.style.Text({
                text: "\uf192",
@@ -571,7 +564,19 @@ $ecr_scr .= '
                fill: new ol.style.Fill({color: "rgba(255, 0, 0, 90)"}),
                stroke: new ol.style.Stroke({color: "rgba(0, 0, 0, 100)", width: 0.1})
             })
-         }),
+         }),';
+if(autorisation(-127) and $geo_ip==1)
+   $ecr_scr .='
+         iconIp = new ol.style.Style({
+            text: new ol.style.Text({
+               text: "\uf108",
+               font: "900 24px \'Font Awesome 5 Free\'",
+               bottom: "Bottom",
+               fill: new ol.style.Fill({color: "rgba(0, 0, 0,0.5)"}),
+               stroke: new ol.style.Stroke({color: "rgba(0, 0, 0,0.5)", width: 0.2})
+            })
+         }),';
+$ecr_scr .='
          stylecountries = new ol.style.Style({
             fill: new ol.style.Fill({
                color: "rgba(255, 255, 255, 0.1)"
@@ -595,13 +600,16 @@ $ecr_scr .= '
             id: "anonymes",
             source: src_anno,
             style: iconAnoOn
-         }),
+         }),';
+if(autorisation(-127) and $geo_ip==1)
+   $ecr_scr .='
          ip_markers = new ol.layer.Vector({
             id: "ipInDb",
             source: src_ip,
             style: iconIp,
             visible: false
-         }),
+         }),';
+$ecr_scr .='
          countries = new ol.layer.Vector({
             id: "countries",
             source: src_countries,
@@ -647,8 +655,8 @@ switch ($cartyp) {
       $min_r='0';
       $layer_id= 'OSM';
 }
-
-      $ecr_scr .='
+if(autorisation(-127) and $geo_ip==1)
+   $ecr_scr .='
       // ==> cluster IPs
       var
          clusterSource = new ol.source.Cluster({
@@ -687,8 +695,8 @@ switch ($cartyp) {
                return style;
             }
          });
-      // <== cluster IPs
-
+      // <== cluster IPs';
+$ecr_scr .='
       var src_fond = '.$source_fond.',
           minR='.$min_r.',
           maxR='.$max_r.',
@@ -718,9 +726,12 @@ switch ($cartyp) {
             countries,
             user_markers,
             userOn_markers,
-            ano_markers,
+            ano_markers,';
+if(autorisation(-127) and $geo_ip==1)
+   $ecr_scr .='
             ip_markers,
-            ip_cluster,
+            ip_cluster,';
+$ecr_scr .='
          ],
          view: view
       });
@@ -843,8 +854,8 @@ switch ($cartyp) {
       sba +=\'</div></div>\';
       var sbi="";
 ';
-   if(autorisation(-127) and $geo_ip==1)
-      $ecr_scr .='
+if(autorisation(-127) and $geo_ip==1)
+   $ecr_scr .='
       var i_feat = src_ip.getFeatures(),i=0;
       sbi+=\'<div id="sb_ip" class="list-group mb-2"><div class="list-group-item bg-light text-dark font-weight-light p-2"><a id="carrets_ip" class="link" data-toggle="collapse" href="#l_sb_ip"><i class="toggle-icon fa sr-only fa-lg mr-2" style="font-size:1.6rem;"></i></a><div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" data-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer les IP').'" id="ipbox" /><label class="custom-control-label" for="ipbox"><span class="fa fa-desktop fa-lg text-muted"></span> IP</label></div><span class="h6"><span class="badge badge-secondary badge-pill float-right">'.$ipnb.'</span></span></div><div class="collapse" id="l_sb_ip">\';
       for (var key in i_feat) {
@@ -919,7 +930,7 @@ if ($username !='') {
 else
    $mess_mb='';
 
-   $ecr_scr .='
+$ecr_scr .='
       $("#sidebar").append(sbuOn+sba+sbu+sbi);
       $(\'.sb_member span:last-child\').each(function(){
          $(this).attr(\'data-search-term\', $(this).text().toLowerCase());
@@ -952,6 +963,7 @@ else
          if(u.substr(0,1) == "u") {
             let ici = src_user.getFeatureById(u).getGeometry().getFlatCoordinates();
             view.setCenter(ici);
+            view.adjustCenter([240,0]);
             map.getView().setZoom(5);
             $("#ol_popup").show();
             container.innerHTML = \'<img class="mr-2 img-thumbnail n-ava" src="\' + src_user.Tu[u].A.ava + \'" align="middle" /><span class="lead">\' + src_user.Tu[u].A.pseudo + \'</span><div class="my-2">'.geoloc_translate("Dernière visite").' : \' + src_user.Tu[u].A.lastvisit + \'</div><hr /><div class="text-center lead">\' + src_user.Tu[u].A.userlinks + \'</div>\';
@@ -959,6 +971,7 @@ else
          }
          $("#"+u).addClass("animated faa-horizontal faa-slow" );
          map.getView().setZoom(17);
+         $("#map .tooltipbyclass").tooltip({placement: "right", container:"#map",});
       }
 
       $("#georefbox").change("click", function () {
@@ -966,8 +979,11 @@ else
             $("#memberbox, #cbox, #acbox, #ipbox").prop("checked", false);
 //            $("#carrets_mb_on i,#carrets_ac i, #carrets_mb i").removeClass("fa-caret-down").addClass("fa-caret-up sr-only");
             user_markers.setVisible(false);
-            userOn_markers.setVisible(false);
-            ip_cluster.setVisible(false);
+            userOn_markers.setVisible(false);';
+if(autorisation(-127) and $geo_ip==1)
+   $ecr_scr .='
+            ip_cluster.setVisible(false);';
+$ecr_scr .='
             ano_markers.setVisible(false);
             map.addOverlay(georef_popup);
             map.addLayer(georef_marker);
@@ -1223,15 +1239,14 @@ $ecr_scr .= '
 $ecr_scr .= $mb_con_g;
 //<==
 $ecr_scr .= '
-   document.getElementById("mess_info").innerHTML = \''.$mess_adm.'\';
-   console.log(src_user.Tu);';
+   document.getElementById("mess_info").innerHTML = \''.$mess_adm.'\';';
 
 if($op)
    if ($op[0]=='u') //pour zoom sur user back with u1
       $ecr_scr .= '
    map.getView().setCenter(src_user.Tu.'.$op.'.A.geometry.flatCoordinates);
    map.getView().setZoom(15);';
-if($op=='allip' and $geo_ip==1)
+if($op=='allip' and $geo_ip==1 and autorisation(-127))
    $ecr_scr .= '
    ip_cluster.setVisible(true);
    user_markers.setVisible(false);
@@ -1247,8 +1262,7 @@ $ecr_scr .= '
       attribution.setCollapsed(small);
       $(".n-media-repere").css("color") == "rgb(255, 0, 0)" ? $("#sidebar").removeClass("show") : $("#sidebar").addClass("show");
    }
-   window.addEventListener("resize", checkSize);
-   ';
+   window.addEventListener("resize", checkSize);';
 
 $ecr_scr .= file_get_contents('modules/geoloc/include/ol-dico.js');
 $ecr_scr .= '
