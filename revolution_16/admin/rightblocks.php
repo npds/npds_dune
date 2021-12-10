@@ -34,7 +34,7 @@ function makerblock($title, $content, $members, $Mmember, $Rindex, $Scache, $BRa
       $content = strip_tags(str_replace('<br />',"\n",$content));
    sql_query("INSERT INTO ".$NPDS_Prefix."rblocks VALUES (NULL,'$title','$content', '$members', '$Rindex', '$Scache', '1', '$css', '$BRaide')");
 
-   global $aid; Ecr_Log('security', "MakeRightBlock($title) by AID : $aid", '');
+   global $aid; Ecr_Log('security', "MakeRightBlock(aff_langue($title)) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
@@ -51,7 +51,7 @@ function changerblock($id, $title, $content, $members, $Mmember, $Rindex, $Scach
    $content = stripslashes(FixQuotes($content));
    sql_query("UPDATE ".$NPDS_Prefix."rblocks SET title='$title', content='$content', member='$members', Rindex='$Rindex', cache='$Scache', actif='$Sactif', css='$css', aide='$BRaide' WHERE id='$id'");
 
-   global $aid; Ecr_Log('security', "ChangeRightBlock($title - $id) by AID : $aid", '');
+   global $aid; Ecr_Log('security', "ChangeRightBlock(aff_langue($title) - $id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
@@ -69,7 +69,7 @@ function changegaucherblock($id, $title, $content, $members, $Mmember, $Rindex, 
    sql_query("INSERT INTO ".$NPDS_Prefix."lblocks VALUES (NULL,'$title','$content','$members', '$Rindex', '$Scache', '$Sactif', '$css', '$BRaide')");
    sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE id='$id'");
 
-   global $aid; Ecr_Log('security', "MoveRightBlockToLeft($title - $id) by AID : $aid", '');
+   global $aid; Ecr_Log('security', "MoveRightBlockToLeft(aff_langue($title) - $id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
