@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -108,7 +108,7 @@ function SelectCategory($cat) {
     }
    echo '
             </select>
-            <p class="help-block text-right"><a href="admin.php?op=AddCategory" class="btn btn-outline-primary btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-outline-primary btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-outline-danger btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="far fa-trash-alt fa-lg"></i></a></p>
+            <p class="help-block text-right"><a href="admin.php?op=AddCategory" class="btn btn-outline-primary btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-outline-primary btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-outline-danger btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg"></i></a></p>
          </div>
       </div>';
 }
@@ -521,8 +521,8 @@ function displayStory ($qid) {
       <input type="hidden" name="uid" value="'.$uid.'" />
       <div class="form-group">
          <select class="custom-select form-control" name="op">
-            <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
-            <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+            <option value="DeleteStory">'.adm_translate("Effacer l'Article").'</option>
+            <option value="PreviewAgain" selected="selected">'.adm_translate("Re-prévisualiser").'</option>
             <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
          </select>
       </div>
@@ -536,18 +536,19 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Articles");
    $hlpfile = "manuels/$language/newarticle.html";
+
    $subject = stripslashes(str_replace('"','&quot;',$subject));
-   $hometext = stripslashes($hometext);
-   $bodytext = stripslashes($bodytext);
-   $notes = stripslashes($notes);
+   $hometext = stripslashes(dataimagetofileurl($hometext,'cache/ai'));
+   $bodytext = stripslashes(dataimagetofileurl($bodytext,'cache/ac'));
+   $notes = stripslashes(dataimagetofileurl($notes,'cache/an'));
 
    if ($topic<1) {$topic = 1;}
    $affiche=false;
    $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
-   if ($radminsuper) {
+   if ($radminsuper)
       $affiche=true;
-   } else {
+   else {
       $topicadminX=explode(',',$topicadmin);
       for ($i = 0; $i < count($topicadminX); $i++) {
          if (trim($topicadminX[$i])==$aid) $affiche=true;
@@ -571,7 +572,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
-      $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="" />';
+         $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="" />';
    }
     code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.meta_lang($hometext).'</div>', meta_lang($bodytext), meta_lang($notes));
 
@@ -653,59 +654,69 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
       <input type="hidden" name="qid" value="'.$qid.'" />
       <input type="hidden" name="uid" value="'.$uid.'" />
       <select class="custom-select form-control" name="op">
-         <option value="DeleteStory">'.adm_translate(" Effacer l'Article ").'</option>
-         <option value="PreviewAgain" selected="selected">'.adm_translate(" Re-prévisualiser ").'</option>
+         <option value="DeleteStory">'.adm_translate("Effacer l'Article").'</option>
+         <option value="PreviewAgain" selected="selected">'.adm_translate("Re-prévisualiser").'</option>
          <option value="PostStory">'.adm_translate("Poster un Article ").'</option>
       </select>
-      <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
+      <input class="btn btn-primary my-2" type="submit" value="'.adm_translate("Ok").'" />
    </form>';
-   include ('footer.php');
+   adminfoot('','','','');
 }
 
 function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur) {
-    global $NPDS_Prefix;
-    global $aid, $ultramode;
-    if ($uid == 1) $author = '';
-    if ($hometext == $bodytext) $bodytext = '';
-    $subject = stripslashes(FixQuotes(str_replace('"','&quot;',$subject)));
-    $hometext = stripslashes(FixQuotes($hometext));
-    $bodytext = stripslashes(FixQuotes($bodytext));
-    $notes = stripslashes(FixQuotes($notes));
-    if (($members==1) and ($Mmembers=='')) $ihome='-127';
-    if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
+   global $NPDS_Prefix, $aid, $ultramode;
+   if ($uid == 1) $author = '';
+   if ($hometext == $bodytext) $bodytext = '';
 
-    if ($type_pub=='pub_immediate') {
-       $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic','$author', '$notes', '$ihome', '0', '$date_finval','$epur')");
-       Ecr_Log("security", "postStory (pub_immediate, $subject) by AID : $aid", "");
-    } else {
-       $result = sql_query("INSERT INTO ".$NPDS_Prefix."autonews VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '$topic', '$author', '$notes', '$ihome','$date_debval','$date_finval','$epur')");
-       Ecr_Log("security", "postStory (autonews, $subject) by AID : $aid", "");
-    }
-    if (($uid!=1) and ($uid!='')) {
-       sql_query("UPDATE ".$NPDS_Prefix."users SET counter=counter+1 WHERE uid='$uid'");
-    }
-    sql_query("UPDATE ".$NPDS_Prefix."authors SET counter=counter+1 WHERE aid='$aid'");
-    if ($ultramode) {
-       ultramode();
-    }
-    deleteStory($qid);
+   $artcomplet=array('hometext'=>$hometext,'bodytext'=>$bodytext,'notes'=>$notes);
+   $rechcacheimage = '#cache/(a[i|c|n]\d+_\d+_\d+.[a-z]{3,4})\\\"#m';
+   foreach($artcomplet as $k => $artpartie) {
+      preg_match_all($rechcacheimage, $artpartie, $cacheimages);
+      foreach($cacheimages[1] as $imagecache) {
+         rename("cache/".$imagecache, "modules/upload/upload/".$imagecache);
+         $$k = preg_replace($rechcacheimage, 'modules/upload/upload/\1"', $artpartie,1);
+      }
+   }
+   $subject = stripslashes(FixQuotes(str_replace('"','&quot;',$subject)));
 
-    if ($type_pub=='pub_immediate') {
-       global $subscribe;
-       if ($subscribe) {
-          subscribe_mail("topic",$topic,'',$subject,'');
-       }
-       // Cluster Paradise
-       if (file_exists("modules/cluster-paradise/cluster-activate.php")) {include ("modules/cluster-paradise/cluster-activate.php");}
-       if (file_exists("modules/cluster-paradise/cluster-M.php")) {include ("modules/cluster-paradise/cluster-M.php");}
-       // Cluster Paradise
-       // Réseaux sociaux
-          if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
-          if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-       // Réseaux sociaux
-    }
-    redirect_url("admin.php?");//    redirect_url("admin.php?op=submissions");
+   $hometext = dataimagetofileurl($hometext,'modules/upload/upload/ai');
+   $bodytext = dataimagetofileurl($bodytext,'modules/upload/upload/ac');
+   $notes = dataimagetofileurl($notes,'modules/upload/upload/an');
 
+   $hometext = stripslashes(FixQuotes($hometext));
+   $bodytext = stripslashes(FixQuotes($bodytext));
+   $notes = stripslashes(FixQuotes($notes));
+   if (($members==1) and ($Mmembers=='')) $ihome='-127';
+   if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
+
+   if ($type_pub=='pub_immediate') {
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic','$author', '$notes', '$ihome', '0', '$date_finval','$epur')");
+      Ecr_Log("security", "postStory (pub_immediate, $subject) by AID : $aid", "");
+   } else {
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."autonews VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '$topic', '$author', '$notes', '$ihome','$date_debval','$date_finval','$epur')");
+      Ecr_Log("security", "postStory (autonews, $subject) by AID : $aid", "");
+   }
+   if (($uid!=1) and ($uid!=''))
+      sql_query("UPDATE ".$NPDS_Prefix."users SET counter=counter+1 WHERE uid='$uid'");
+   sql_query("UPDATE ".$NPDS_Prefix."authors SET counter=counter+1 WHERE aid='$aid'");
+   if ($ultramode)
+      ultramode();
+   deleteStory($qid);
+
+   if ($type_pub=='pub_immediate') {
+      global $subscribe;
+      if ($subscribe)
+         subscribe_mail("topic",$topic,'',$subject,'');
+      // Cluster Paradise
+      if (file_exists("modules/cluster-paradise/cluster-activate.php")) include ("modules/cluster-paradise/cluster-activate.php");
+      if (file_exists("modules/cluster-paradise/cluster-M.php")) include ("modules/cluster-paradise/cluster-M.php");
+      // Cluster Paradise
+      // Réseaux sociaux
+      if (file_exists('modules/npds_twi/npds_to_twi.php')) include ('modules/npds_twi/npds_to_twi.php');
+      if (file_exists('modules/npds_fbk/npds_to_fbk.php')) include ('modules/npds_twi/npds_to_fbk.php');
+      // Réseaux sociaux
+   }
+   redirect_url("admin.php?");
 }
 
 function editStory ($sid) {
@@ -861,7 +872,7 @@ function editStory ($sid) {
       <input type="hidden" name="theme" value="'.$theme.'" />
       <div class="form-group row">
          <div class="col-12">
-            <input class="btn btn-primary" type="submit" value="'.adm_translate(" Modifier l'Article").'" />
+            <input class="btn btn-primary" type="submit" value="'.adm_translate("Modifier l'Article").'" />
          </div>
       </div>
    </form>';
@@ -873,54 +884,66 @@ function editStory ($sid) {
 
 function deleteStory($qid) {
    global $NPDS_Prefix;
-
+   $res=sql_query("SELECT story, bodytext FROM ".$NPDS_Prefix."queue WHERE qid='$qid'");
+   list($story,$bodytext)=sql_fetch_row($res);
+   $artcomplet = $story.$bodytext;
+   $rechcacheimage = '#cache/a[i|c|]\d+_\d+_\d+.[a-z]{3,4}#m';
+   preg_match_all($rechcacheimage, $artcomplet, $cacheimages);
+   foreach($cacheimages[0] as $imagetodelete) {
+      unlink($imagetodelete);
+   }
    $result=sql_query("DELETE FROM ".$NPDS_Prefix."queue WHERE qid='$qid'");
    global $aid; Ecr_Log("security", "deleteStoryfromQueue($qid) by AID : $aid", "");
 }
 
 function removeStory ($sid, $ok=0) {
-    if (($sid=='') or ($sid=='0')) {
-       header("location: admin.php");
-    }
-    global $NPDS_Prefix;
-    global $ultramode, $aid, $radminsuper;
-    $result=sql_query("SELECT topic FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
-    list($topic)=sql_fetch_row($result);
-    $affiche=false;
-    $result2=sql_query("SELECT topicadmin, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
-    list ($topicadmin, $topicname)=sql_fetch_row($result2);
-    if ($radminsuper) {
-       $affiche=true;
-    } else {
-       $topicadminX=explode(',',$topicadmin);
-       for ($i = 0; $i < count($topicadminX); $i++) {
-          if (trim($topicadminX[$i])==$aid) $affiche=true;
-       }
-    }
-    if (!$affiche) { header("location: admin.php");}
+   if (($sid=='') or ($sid=='0'))
+      header("location: admin.php");
+   global $NPDS_Prefix, $ultramode, $aid, $radminsuper;
+   $result=sql_query("SELECT topic FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
+   list($topic)=sql_fetch_row($result);
+   $affiche=false;
+   $result2=sql_query("SELECT topicadmin, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+   list ($topicadmin, $topicname)=sql_fetch_row($result2);
+   if ($radminsuper)
+      $affiche=true;
+   else {
+      $topicadminX=explode(',',$topicadmin);
+      for ($i = 0; $i < count($topicadminX); $i++) {
+         if (trim($topicadminX[$i])==$aid) $affiche=true;
+      }
+   }
+   if (!$affiche) header("location: admin.php");
 
-    if ($ok) {
-       sql_query("DELETE FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
-       // commentaires
-       if (file_exists("modules/comments/article.conf.php")) {
-           include ("modules/comments/article.conf.php");
-           sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
-       }
-       global $aid; Ecr_Log('security', "removeStory ($sid, $ok) by AID : $aid", '');
-       if ($ultramode) {
-          ultramode();
-       }
-       Header("Location: admin.php");
-    } else {
-       global $hlpfile, $language;
-       $hlpfile = "manuels/$language/newarticle.html";
-       include ('header.php');
-       GraphicAdmin($hlpfile);
-       echo '
-       <div class="alert alert-danger">'.adm_translate("Etes-vous sûr de vouloir effacer l'Article N°").' '.$sid.' '.adm_translate("et tous ses Commentaires ?").'</div>
-       <p class=""><a href="admin.php?op=RemoveStory&amp;sid='.$sid.'&amp;ok=1" class="btn btn-danger" >'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php" class="btn btn-secondary" >'.adm_translate("Non").'</a></p>';
-       include("footer.php");
-    }
+   if ($ok) {
+      $res=sql_query("SELECT hometext, bodytext, notes FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
+      list($hometext, $bodytext, $notes)=sql_fetch_row($res);
+      $artcomplet = $hometext.$bodytext.$notes;
+      $rechuploadimage = '#modules/upload/upload/a[i|c|]\d+_\d+_\d+.[a-z]{3,4}#m';
+      preg_match_all($rechuploadimage, $artcomplet, $uploadimages);
+      foreach($uploadimages[0] as $imagetodelete) {
+         unlink($imagetodelete);
+      }
+      sql_query("DELETE FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
+      // commentaires
+      if (file_exists("modules/comments/article.conf.php")) {
+          include ("modules/comments/article.conf.php");
+          sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
+      }
+      global $aid; Ecr_Log('security', "removeStory ($sid, $ok) by AID : $aid", '');
+      if ($ultramode)
+         ultramode();
+      Header("Location: admin.php");
+   } else {
+      global $hlpfile, $language;
+      $hlpfile = "manuels/$language/newarticle.html";
+      include ('header.php');
+      GraphicAdmin($hlpfile);
+      echo '
+      <div class="alert alert-danger">'.adm_translate("Etes-vous sûr de vouloir effacer l'Article N°").' '.$sid.' '.adm_translate("et tous ses Commentaires ?").'</div>
+      <p class=""><a href="admin.php?op=RemoveStory&amp;sid='.$sid.'&amp;ok=1" class="btn btn-danger" >'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php" class="btn btn-secondary" >'.adm_translate("Non").'</a></p>';
+      include("footer.php");
+   }
 }
 
 function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $Cdate, $Csid, $date_finval,$epur,$theme, $dd_pub, $fd_pub, $dh_pub, $fh_pub) {
@@ -1063,24 +1086,25 @@ function adminStory() {
 function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper,$adminimg, $topicimage;
    $hlpfile = "manuels/$language/newarticle.html";
+
    $subject = stripslashes(str_replace('"','&quot;',$subject));
-   $hometext = stripslashes($hometext);
-   $bodytext = stripslashes($bodytext);
+   $hometext = stripslashes(dataimagetofileurl($hometext,'cache/ai'));
+   $bodytext = stripslashes(dataimagetofileurl($bodytext,'cache/ac'));
    settype($sel, 'string');
 
-   if ($topic<1) {$topic = 1;}
+   if ($topic<1) $topic = 1;
    $affiche=false;
    $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
-   if ($radminsuper) {
+   if ($radminsuper)
       $affiche=true;
-   } else {
+   else {
       $topicadminX=explode(',',$topicadmin);
       for ($i = 0; $i < count($topicadminX); $i++) {
          if (trim($topicadminX[$i])==$aid) $affiche=true;
       }
    }
-   if (!$affiche) { header("location: admin.php");}
+   if (!$affiche) header("location: admin.php");
 
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Nouvel Article");
@@ -1105,7 +1129,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
-      $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="" />';
+         $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="" />';
    }
 
    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, '');
@@ -1127,9 +1151,9 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
                   <option value="">'.adm_translate("Tous les Sujets").'</option>';
     while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
        $affiche=false;
-       if ($radminsuper) {
+       if ($radminsuper)
           $affiche=true;
-       } else {
+       else {
           $topicadminX=explode(',',$topicadmin);
           for ($i = 0; $i < count($topicadminX); $i++) {
              if (trim($topicadminX[$i])==$aid) $affiche=true;
@@ -1233,11 +1257,10 @@ switch ($op) {
          $date_finval = $date_debval;
       $temp_new=mktime(substr($date_debval,11,2), substr($date_debval,14,2),0,substr($date_debval,5,2),substr($date_debval,8,2),substr($date_debval,0,4));
       $temp=time();
-      if ($temp>$temp_new) {
+      if ($temp>$temp_new)
          postStory("pub_immediate",$qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur);
-      } else {
+      else
          postStory("pub_automated",$qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $date_debval,$date_finval,$epur);
-      }
    break;
    case 'DeleteStory':
       deleteStory($qid);

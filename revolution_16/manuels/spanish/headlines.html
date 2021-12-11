@@ -1,52 +1,43 @@
-<html>
-<title>Canaux d'informations (Grands Titres) - NPDS V</title>
-<head>
-</head>
-<body bgcolor=FFFFFF text=000000>
-<center>
-  <p><font size="2" face="Verdana,Arial,Helvetica"><strong>Canales de informaci&oacute;n (Grandes T&iacute;tulos)</strong></font></p>
-  <p align="left"><font size="2" face="Verdana,Arial,Helvetica"><br />
-   Ccon esta funci&oacute;n Puede activar o desactivar los canales de
-    informaci&oacute;n procedentes de otras paginas.<br />
-    Los canales son ficheros RDF/XML y no ficheros texto.<br />
-    Atenci&oacute;n sin embargo, la activaci&oacute;n de los canales de informaci&oacute;n
-    va probablemente  retrasar el servidor.<br />
-    Todos los canales est&aacute;n una vez  por hora actualizados y no es deseable
-    cambiar este valor ya que eso consume mucha banda de transmisi&oacute;n.</font><font size="2" face="Verdana,Arial,Helvetica"><br />
-    <br />
-        
-    <strong>A&ntilde;adir un canal de informaci&oacute;n:</strong> <br />
-    Llene los campos necesarios
-  (T&iacute;tulo, URL, URL RDF/XML, estatuto). Si declaran un canal activo, uno
-  nuevo saldra con la informaci&oacute;n seleccionada. No se muestran los
-  canales inactivos.<br />
-  <br />
-      <strong>Cambiar el estatuto de un canal:</strong> <br />
-    Simplemente debe presionar el
-      v&iacute;nculo <strong>publicar </strong>y seleccionar sobre la p&aacute;gina siguiente el estatuto
-  deseado.<br />
-    </font>Para suprimir un canal, deben simplemente presionar el v&iacute;nculo
-  borrar. <br />
-  Su sitio est&aacute; quiz&aacute; detr&aacute;s de un Servidor Proxy . En este caso,
-    configure el fichero proxy.conf.php (en la ra&iacute;z de su portal) para<br />
-    permitir el acceso a uno (o varios) canales de informaci&oacute;n.</p>
-  <p align="left"><font size="2" face="Verdana,Arial,Helvetica"><br />
-      </font><font size="2" face="Verdana,Arial,Helvetica"><strong>Configuraci&oacute;n de los BLOQUES que integran canales:</strong> <br />
-      En el gestor de
-      bloques (izquierda o derecha), puede integrar:<br />
-      - function#headlines = en este caso todos los canales definidos como
-      activos se indicar&aacute;n a la consecuencia unos de otros <br />
-      O<br />
-      - function#headlines<br />
-      - params#$ID_du_canal = en este caso solamente se indicar&aacute; el canal      &Iacute;D de &quot;ID_del_canal&quot;. Puede definir tantos bloques que 
-      deseen...<br />
-                </font><font face="Verdana,Arial,Helvetica">
-                           </font></p>
-  <font face="Verdana,Arial,Helvetica">
-  <center>
-    <font size="2"><img src="../../images/admin/manuels.gif" border="0" /></font>
-  </center>
-  </font>
-</center>
-</body>
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Canales de informaci&oacute;n (Grandes T&iacute;tulos)</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">Contenido</a></li>
+               <li class="breadcrumb-item active">Canales de informaci&oacute;n</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Canales de informaci&oacute;n (Grandes T&iacute;tulos)</h3>
+         <p>Ccon esta funci&oacute;n Puede activar o desactivar los canales de informaci&oacute;n procedentes de otras paginas.<br />
+          Los canales son ficheros RDF/XML y no ficheros texto.<br />
+          Atenci&oacute;n sin embargo, la activaci&oacute;n de los canales de informaci&oacute;n va probablemente  retrasar el servidor.<br />
+          Todos los canales est&aacute;n una vez  por hora actualizados y no es deseable cambiar este valor ya que eso consume mucha banda de transmisi&oacute;n.</p>
+         <h4>A&ntilde;adir un canal de informaci&oacute;n</h4>
+         <p>Llene los campos necesarios (T&iacute;tulo, URL, URL RDF/XML, estatuto). Si declaran un canal activo, uno nuevo saldra con la informaci&oacute;n seleccionada. No se muestran los canales inactivos.</p>
+         <h4>Cambiar el estatuto de un canal</h4>
+         <p>Simplemente debe presionar el v&iacute;nculo <strong>publicar </strong>y seleccionar sobre la p&aacute;gina siguiente el estatuto deseado.<br />
+         Para suprimir un canal, deben simplemente presionar el v&iacute;nculo borrar. <br />
+         Su sitio est&aacute; quiz&aacute; detr&aacute;s de un Servidor Proxy . En este caso, configure el fichero proxy.conf.php (en la ra&iacute;z de su portal) para permitir el acceso a uno (o varios) canales de informaci&oacute;n.</p>
+         <h4>Configuraci&oacute;n de los BLOQUES que integran canales</h4>
+         <p>En el gestor de bloques (izquierda o derecha), puede integrar:<br />
+            <ul>
+               <li>function#headlines = en este caso todos los canales definidos como activos se indicar&aacute;n a la consecuencia unos de otros </li>
+               <li>function#headlines<br />
+               params#$ID_du_canal = en este caso solamente se indicar&aacute; el canal      &Iacute;D de &quot;ID_del_canal&quot;. Puede definir tantos bloques que deseen...</li>
+            </ul>
+         </p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Manual de administración</span></p>
+      </div>
+   </body>
 </html>

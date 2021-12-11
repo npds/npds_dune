@@ -5,7 +5,7 @@
 /*                                                                      */
 /* NEO - 2007                                                           */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -54,7 +54,7 @@ function list_meta($meta, $type_meta) {
 function list_meta_type() {
    $list = '
    <select class="custom-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
-      <option value="">Type</option>
+      <option value="">'.adm_translate("Type").'</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=meta">meta</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=mot">mot</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=smil">smil</option>
@@ -96,7 +96,7 @@ function List_Meta_Lang() {
             <td>
                <input type="hidden" name="nbr" value="'.$ibid.'" />';
       if ($obligatoire == false) 
-         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="far fa-trash-alt fa-lg text-muted" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
+         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="fas fa-trash fa-lg text-muted" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
       else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-toggle="tooltip" ></i></a>';
       $tablmeta_c.='
             </td>
@@ -149,7 +149,7 @@ function List_Meta_Lang() {
    </table>
    <div class="">
       <input type="hidden" name="op" value="Kill_Meta_Lang" />
-      <button class="btn btn-danger my-2" type="submit" value="kill" title="'.adm_translate("Tout supprimer").'" data-toggle="tooltip" data-placement="right"><i class="far fa-trash-alt fa-lg"></i></button>
+      <button class="btn btn-danger my-2" type="submit" value="kill" title="'.adm_translate("Tout supprimer").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-trash fa-lg"></i></button>
    </div>
    </form>';
    echo $tablmeta;
@@ -175,7 +175,7 @@ function Edit_Meta_Lang() {
       <div class="col-sm-9"><code>'.$Q['def'].'</code></div>
    </div>
    <div class="row">
-      <div class="text-muted col-sm-3">Type</div>
+      <div class="text-muted col-sm-3">'.adm_translate("Type").'</div>
       <div class="col-sm-9">'.$Q['type_meta'].'</div>
    </div>
    <div class="row">

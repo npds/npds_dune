@@ -198,15 +198,40 @@ function index() {
 
 function FooterOrderBy($cid, $sid, $orderbyTrans, $linkop) {
    global $ModPath, $ModStart;
-   echo "<p align=\"center\"><span style=\"font-size: 10px;\">".translate("Classement")." : ";
+   echo '<p align="center"><span class="">'.translate("Classement").' : ';
    if ($linkop=="viewlink") {
-      echo translate("Titre")." (<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewlink&amp;cid=$cid&amp;orderby=titleA\">A</a>\<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewlink&amp;cid=$cid&amp;orderby=titleD\">D</a>)
-          ".translate("Date")." (<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewlink&amp;cid=$cid&amp;orderby=dateA\">A</a>\<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewlink&amp;cid=$cid&amp;orderby=dateD\">D</a>)";
+      echo translate("Titre").' (<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;orderby=titleA"><i class="fas fa-sort-alpha-down"></i>A</a>\<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;orderby=titleD">D</a>)
+          '.translate("Date").' (<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;orderby=dateA">A</a>\<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;orderby=dateD">D</a>)';
    } else {
-      echo translate("Titre")." (<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid&amp;orderby=titleA\">A</a>\<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid&amp;orderby=titleD\">D</a>)
-          ".translate("Date")." (<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid&amp;orderby=dateA\">A</a>\<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid&amp;orderby=dateD\">D</a>)";
+      echo translate("Titre").' <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=titleA"><i class="fas fa-sort-alpha-down fa-lg align-middle"></i></a><a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=titleD"><i class="fas fa-sort-alpha-down-alt fa-lg align-middle"></i></a>
+          '.translate("Date").' <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateA"><i class="fas fa-sort-numeric-down fa-lg align-middle"></i></a><a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateD"><i class="fas fa-sort-numeric-down-alt fa-lg align-middle"></i></a>';
    }
-   echo "<br />".translate("Sites classés par")." : $orderbyTrans</span></p>";
+   echo '<br />'.translate("Sites classés par").' : <strong>'.$orderbyTrans.'</strong></span></p>';
+
+
+
+/*
+echo '
+<div class="btn-group">
+   <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   '.translate("Classement").'
+   </button>
+   <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">'.translate("Titre").'<i class="ml-2 fas fa-sort-alpha-down fa-lg align-middle"></i></a>
+      <a class="dropdown-item" href="#">'.translate("Titre").'<i class="ml-2 fas fa-sort-alpha-down-alt fa-lg align-middle"></i></a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">'.translate("Date").'<i class="fas fa-sort-numeric-down fa-lg align-middle"></i></a>
+      <a class="dropdown-item" href="#">'.translate("Date").'<i class="fas fa-sort-numeric-down-alt fa-lg align-middle"></i></a>
+   </div>
+</div>';
+
+*/
+
+
+
+
+
+
 }
 
 function viewlink($cid, $min, $orderby, $show) {
@@ -294,8 +319,10 @@ function viewlink($cid, $min, $orderby, $show) {
 
 function viewslink($sid, $min, $orderby, $show) {
    global $ModPath, $ModStart, $links_DB, $admin, $perpage;
-
+   $perpage =2;//# to test debug
    include("header.php");
+   include_once('functions.php');
+
    // Include cache manager
    global $SuperCache;
    if ($SuperCache) {
@@ -329,36 +356,21 @@ function viewslink($sid, $min, $orderby, $show) {
       echo "<br />\n";
       $link_fiche_detail='';
       include_once("modules/$ModPath/links-view.php");
-      echo "<br />\n";
+//      echo "<br />\n";
 
       $orderby = convertorderbyout($orderby);
-      //Calculates how many pages exist.  Which page one should be on, etc...
-      $linkpagesint = ($totalselectedlinks / $perpage);
-      $linkpageremainder = ($totalselectedlinks % $perpage);
 
-      if ($linkpageremainder != 0) {
-         $linkpages = ceil($linkpagesint);
-         if ($totalselectedlinks < $perpage)
-            $linkpageremainder = 0;
-      }
+      $nbPages = ceil($totalselectedlinks/$perpage);
+      $current = 1;
+      if ($min >= 1)
+         $current=$min/$perpage;
+      else if ($min < 1)
+         $current=0;
       else
-         $linkpages = $linkpagesint;
-      //Page Numbering
-      if ($linkpages!=1 && $linkpages!=0) {
-         echo "<p align=\"center\">";
-         echo translate("Sélectionner la page")." :&nbsp;&nbsp;";
-         $prev=$min-$perpage;
-         $counter = 1;
-         $currentpage = ($max / $perpage);
-         while ($counter<=$linkpages ) {
-            $cpage = $counter;
-            $mintemp = ($perpage * $counter) - $perpage;
-            if ($counter == $currentpage) echo "<font class=\"rouge\">$counter</font>&nbsp;";
-            else echo "<a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModPath&amp;op=viewslink&amp;sid=$sid&amp;min=$mintemp&amp;orderby=$orderby&amp;show=$show\">$counter</a>&nbsp;";
-            $counter++;
-         }
-      }
-      echo "</p><br />";
+         $current = $nbPages;
+      $start=($current*$perpage);
+
+      echo paginate('modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;min=', '&amp;orderby='.$orderby.'&amp;show='.$show, $nbPages, $current, $adj=3, $perpage, $start);
       FooterOrderBy($cid, $sid, $orderbyTrans, "viewslink");
    }
    if ($SuperCache)

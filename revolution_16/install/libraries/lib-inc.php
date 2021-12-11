@@ -86,7 +86,7 @@ function verif_chmod() {
    return $listfich;
 }
 
-function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $new_NPDS_Prefix, $new_mysql_p, $new_system, $new_system_md5, $new_adminmail) {
+function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $new_NPDS_Prefix, $new_mysql_p, $new_adminmail) {
    global $stage4_ok;
    $stage4_ok = 0;
 
@@ -96,8 +96,6 @@ function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $
    $file[31] ="\$dbpass = \"$new_dbpass\";\n";
    $file[32] ="\$dbname = \"$new_dbname\";\n";
    $file[33] ="\$mysql_p = \"$new_mysql_p\";\n";
-   $file[36] ="\$system = $new_system;\n";
-   $file[37] ="\$system_md5 = $new_system_md5;\n";
    $file[214]="\$adminmail = \"$new_adminmail\";\n";
    $file[319]="\$NPDS_Prefix = \"$new_NPDS_Prefix\";\n";
    $NPDS_Key=uniqid("");
@@ -155,7 +153,7 @@ function msg_erreur($message) {
 
 function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
    include_once('config.php');
-   global $system, $system_md5, $minpass, $stage7_ok, $NPDS_Prefix;
+   global $minpass, $stage7_ok, $NPDS_Prefix;
    if ($adminlogin != '') {
       if($adminpass1 != $adminpass2)
          $stage7_ok = 2;
@@ -164,20 +162,14 @@ function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
             $stage7_ok = 2;
          else {
             $stage7_ok = 1;
-            if ($system_md5 == 1) {
                $AlgoCrypt = PASSWORD_BCRYPT;
-               $min_ms = 250;
+               $min_ms = 100;
                $options = ['cost' => getOptimalBcryptCostParameter($adminpass1, $AlgoCrypt, $min_ms)];
                $hashpass = password_hash($adminpass1, $AlgoCrypt, $options);
                $adminpwd=crypt($adminpass1, $hashpass);
-               $hashkey = 1;
-            } else
-               $hashkey = 0;
-
             sql_connect();
-            $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd', hashkey='$hashkey' WHERE radminsuper='1'");
+            $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd', hashkey='1' WHERE radminsuper='1'");
             copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
-
             if(!$result1)
                $stage7_ok = 0;
          }
@@ -411,9 +403,9 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
    }
 }
 
-#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) : permet de calculer le cout algorythmique optimum pour la procédure de hashage
-function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) {
-   for ($i = 4; $i < 31; $i++) {
+#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) : permet de calculer le cout algorythmique optimum pour la procédure de hashage
+function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) {
+   for ($i = 4; $i < 13; $i++) {
       $calculCost = [ 'cost' => $i ];
       $time_start = microtime(true);
       password_hash($pass, $AlgoCrypt, $calculCost);

@@ -1,150 +1,76 @@
-<HTML>
-<HEAD>
-  <TITLE>Metatags - NPDS V</TITLE>
-<STYLE>
- BODY { FONT-FAMILY: arial,sans-serif }
-</STYLE>
-</HEAD>
-<BODY ALINK="#000000" BGCOLOR="#ffffff" VLINK="#551a8b">
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Gestion de los METAtags</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">Sistema</a></li>
+               <li class="breadcrumb-item active">METAtags</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Gestion de los METAtags</h3>
+         <h4>Las balizas META</h4>
+         <p><b>&iquest;para que sirve?</b><br />
+         Las balizas META son balizas particulares del lenguaje HTML. Estas permiten de tener informados los motores de busqueda sobre informaciones de su pagina web como Altavista, Yahoo o Hotbot. M&agrave;s de la mitad de los internautas pasan por motores de busqueda para encontrar una pagina web, es bien necesario de bien informar estos motores de todo el contenido que usted dispone al servicio de sus internautas.<br />
+         <b>A saber</b><br />
+         Las balizasMETA no podran estar cortadas: no hay retornos a la linea en estos tipos de balizas!. No utilize el codigo de retorno de linea &lt;br /&gt; En los campos de este formulario.</p>
 
-<TABLE BORDER="0" CELLPADDING="1" CELLSPACING="0" WIDTH="100%" BGCOLOR="#FFFFFF">
-  <TBODY>
-  <TR>
-    <TD ALIGN="CENTER">
+         <h4>La baliza &lt;TITLE&gt; (Caso particular)</h4>
+         <p><b>Title</b><br />
+         Los motores de busqueda dan una cierta importancia a los titulos de sus documentos..De alli la importancia de darle un titulo a cada uno de estos documentos, para decirle al motor de busqueda que son diferentes. En el caso de NPDS, Los titulos de las paginas son identicas. Este parametro puede ser modificado en &quot;Preferencias&quot; de NPDS y en el fichero pages.php de la carpeta themes. Tenga una particular atencion a no pasar mas de 100 caracteres para esta baliza (una letra accentuada vale por un caracter).</p>
+         <p><strong>Observaci&oacute;n: </strong>el hecho de reanudar una o m&aacute;s palabra (s) clave (s) en el t&iacute;tulo de las p&aacute;ginas de un lugar es favorable para una mejor clasificaci&oacute;n.</p>
 
-    <P><B><FONT SIZE="+2">Gestion de los METAtags</FONT></B></P>
+         <h4>META configurables (lLos mas corrientes)</h4>
+         <p><b>Meta &quot;Author&quot;</b><br />
+         Esta baliza es poco utilizada  por los motores de busqueda. Solo N&oacute;made indica el nombre del autor..</p>
+         <p><b>Meta &quot;Owner&quot;</b><br />
+         Esta baliza indica el propietario de la pagina Web </p>
+         <p><b>Meta &quot;Reply-to&quot;</b><br />
+         Esta baliza indica la direccion electronica del autor. Permite a los internautas que han grabado su pagina en los favoritos de contactarle.</p>
+         <b>Meta &quot;Language</b>&quot;<br />
+         Esta baliza declara a los motores de busqueda que idioma utiliza para comunicar con los internautas. Es muy util, puesto que ya varios motores de busqueda filtran sus hallazgos dependiendo del idioma. </P>
+         <p><b>Meta &quot;Description&quot;</b><br />
+         Esta baliza debe, lo mas fidelmente posible describir el contenido de su pagina web. <u>Como una frase </u>. Cuidado : No mas de 200 caracteres (una letra acentuada vale por 1 caracter).</p>
+         <p><b>Meta &quot;Keywords&quot;</b><br />
+         Esta baliza permite indicar las palabras clave que se refieren a su pagina o sitio web. Laspalabras claves deberan estar separadas por comas. Podra insertar hasta 100 palabras (o 1000 caract&egrave;res). Mayusculas o minusculas tienen su importancia para los motores de busqueda.</p>
+         <p><b>Meta &quot;Rating&quot;</b><br />
+         Esta baliza permite definir el publico adecuado. Segun General (para todo el mundo ) Mature (pagina reservada a un publico adulto) o Restricted (pagina prohibida) o 14 years (paginas para mayores de 14 a&ntilde;os) </p>
+         <p><b>Meta &quot;Distribution&quot;</b><br />
+         Esta baliza indica si el documento esta en larga distribucion (Global) o si esta en distribucion restringida (Local).</p>
+         <p><b>Meta &quot;Copyright&quot;</b><br />
+         Esta baliza  se utiliza poco pero recuerda simplemente el copyright cuando est&aacute; presente (concepto impl&iacute;cito para todo documento presente sobre la tela pero desgraciadamente  raramente presenta en el esp&iacute;ritu de numerosos internautas).</p>
+         <p><b>Meta &quot;Robots&quot;</b><br />
+         Esta baliza les permite indicar a los robots el m&eacute;todo que deben utilizar en el ajuste de su pagina web.</p>
+         <p><b>Meta &quot;Revisit-After&quot;</b><br />
+         Esta baliza indica el plazo de espera del robot antes de un pr&oacute;ximo ajuste. No puede ser inferior a 14 d&iacute;as (14 days).</p>
 
-    <P><TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%"
-    BGCOLOR="#FFFFFF">
-      <TBODY>
-      <TR>
-        <TD>
-        <P><TABLE BORDER="0" CELLPADDING="2" CELLSPACING="0" WIDTH="100%">
-          <TBODY>
-          <TR>
-            <TD BGCOLOR="#333366" NOWRAP>
-            <B><FONT COLOR="#ffffff" FACE="arial,sans-serif">Las balizas 
-            META</FONT></B></TD>
-          </TR></TBODY>
-        </TABLE><BR>
-        <B><U>&iquest;para que sirve?</U> </B><BR>
-        Las balizas META son balizas particulares del lenguaje 
-        HTML. Estas permiten de tener informados los motores de busqueda sobre informaciones de su pagina web como Altavista,
-        Yahoo o Hotbot. M&agrave;s de la mitad de los internautas pasan por motores de busqueda para encontrar una pagina web, es bien necesario de bien informar estos motores de todo el contenido que usted dispone al servicio de sus internautas
-        <P><B><U>A saber </U> </B><BR>
-        Las balizasMETA no podran estar cortadas: no hay retornos a la linea en estos tipos de balizas!. No utilize el codigo de retorno de linea &lt;BR&gt; En los campos de este formulario.<BR>
-        </P>
-
-        <P><TABLE BORDER="0" CELLPADDING="2" CELLSPACING="0" WIDTH="100%">
-          <TBODY>
-          <TR>
-            <TD BGCOLOR="#333366" NOWRAP>
-            <B><FONT COLOR="#ffffff" FACE="arial,sans-serif">La baliza &lt;TITLE&gt;
-            (Caso particular)</FONT></B></TD>
-          </TR></TBODY>
-        </TABLE></P>        <P><B><U>Title</U></B><BR>
-        Los motores de busqueda dan una cierta importancia a los titulos de sus documentos..De alli la importancia de darle un titulo a cada uno de estos documentos, para decirle al motor de busqueda que son diferentes. En el caso de NPDS, Los titulos de las paginas son identicas. Este parametro puede ser modificado en &quot;Preferencias&quot; de NPDS y en el fichero pages.php de la carpeta themes. Tenga una particular atencion a no pasar mas de 100 caracteres para esta baliza 
-        (una letra accentuada vale por un caracter).</P>
-
-        <P><strong>Observaci&oacute;n: </strong>el hecho de reanudar una o m&aacute;s palabra (s) clave (s) en
-          el t&iacute;tulo de las p&aacute;ginas de un lugar es favorable para una mejor
-          clasificaci&oacute;n.</P>
-
-        <P><TABLE BORDER="0" CELLPADDING="2" CELLSPACING="0" WIDTH="100%">
-          <TBODY>
-          <TR>
-            <TD BGCOLOR="#333366" NOWRAP>
-            <B><FONT COLOR="#ffffff" FACE="arial,sans-serif">META configurables
-            (lLos mas corrientes)</FONT></B></TD>
-          </TR></TBODY>
-        </TABLE></P>
-
-        <P><B>Meta &quot;Author&quot;</B><BR>
-        Esta baliza es poco utilizada  por los motores de busqueda.
-        Solo N&oacute;made indica el nombre del autor..</P>
-
-        <P><B>Meta &quot;Owner&quot;</B><BR>
-        Esta baliza indica el propietario de la pagina Web <br />
-        <BR>
-        <B>Meta &quot;Reply-to&quot;</B><BR>
-        Esta baliza indica la direccion electronica del autor. Permite a los internautas que han grabado su pagina en los favoritos de contactarle <BR>
-<BR>
-        <B>Meta &quot;Language</B>&quot;<BR>
-        Esta baliza declara a los motores de busqueda que idioma utiliza para comunicar con los internautas. Es muy util, puesto que ya varios motores de busqueda filtran sus hallazgos dependiendo del idioma. </P>
-
-        <P><B>Meta &quot;Description&quot;</B><BR>
-        Esta baliza debe, lo mas fidelmente posible describir el contenido de su pagina web. <U>Como una frase </U>. Cuidado : No mas de 200 caracteres 
-        (una letra acentuada vale por 1 caracter).</P>
-
-        <P><B>Meta &quot;Keywords&quot;</B><BR>
-        Esta baliza permite indicar las palabras clave que se refieren a su pagina o sitio web. Laspalabras claves deberan estar separadas por comas. Podra insertar hasta 100 palabras (o 1000 caract&egrave;res). Mayusculas o minusculas tienen su importancia para los motores de busqueda..</P>
-
-        <P><B>Meta &quot;Rating&quot;</B><BR>
-        Esta baliza permite definir el publico adecuado.
-        Segun General (para todo el mundo ) Mature (pagina reservada a un publico adulto) o Restricted
-        (pagina prohibida) o 14 years (paginas para mayores de 14 a&ntilde;os) </P>
-
-        <P><B>Meta &quot;Distribution&quot;</B><BR>
-        Esta baliza indica si el documento esta en larga distribucion
-        (Global) o si esta en distribucion restringida (Local).</P>
-
-        <P><B>Meta &quot;Copyright&quot;</B> <BR>
-        Esta baliza  se utiliza poco pero recuerda simplemente el copyright
-        cuando est&aacute; presente (concepto impl&iacute;cito para todo documento
-        presente sobre la tela pero desgraciadamente  raramente
-        presenta en el esp&iacute;ritu de numerosos internautas).</P>
-
-        <P><B>Meta &quot;Robots&quot;</B> <BR>
-        Esta baliza les permite indicar a los robots
-        el m&eacute;todo que deben utilizar en el ajuste de su pagina web.</p>
-		
-        <p><B>Meta &quot;Revisit-After&quot;</B><BR>
-            Esta baliza indica el plazo de espera del robot antes de un pr&oacute;ximo
-            ajuste. No puede ser inferior a 14 d&iacute;as (14 days).
-        </p>
-		
-        <TABLE BORDER="0" CELLPADDING="2" CELLSPACING="0" WIDTH="100%">
-          <TBODY>
-          <TR>
-            <TD BGCOLOR="#333366" NOWRAP>
-            <B><FONT COLOR="#ffffff" FACE="arial,sans-serif">Otras  META
-            automaticamente configuradas </FONT></B></TD>
-          </TR></TBODY>
-        </TABLE><P></P>
-
-        <P><B>Meta &quot;Content-Type&quot;</B><BR>
-        Esta baliza define la tabla de caracteres utilizada. Por defecto, es
-        la tabla de caracteres occidental (text/html; charset=iso-8859-1).<br />
-          <strong>Observaci&oacute;n:</strong> sirve solamente para el internauta.</P>
-
-        <P><B>Meta &quot;Content-Script-Type&quot;</B><BR>
-        Esta baliza define la naturaleza de las escrituras utilizadas por el
-        sitio (aqu&iacute; text/javascript). <strong><br />
-        Observaci&oacute;n:</strong> sirve solamente para el internauta.<BR>
-<BR>
-        <B>Meta &quot;Content-Style-Type&quot;</B><BR>
-        Esta baliza define la naturaleza de los estilos utilizados por el
-        sitio web (aqui text/css). <strong><br />
-        Observaci&oacute;n:</strong> sirve solamente para el internauta.<br />
-        <BR>
-        <B>Meta &quot;Identifier-url&quot;</B><BR>
-        Esta baliza permite indicar el url principal de su sitio web. Recoge la
-        direcci&oacute;n principal definida en el fichero de configuraci&oacute;n de <strong>NPDS</strong>.<BR>
-<BR>
-        <B>Meta &quot;Generator&quot;</B><BR>
-        Esta baliza no tiene ning&uacute;n inter&eacute;s por la referencia en los
-        motores de busqueda. Indica solamente la brillante herramienta
-        utilizada para crear/administrar el sitio web y en consecuencia el bien
-        nombrado <strong>NPDS</strong>; -)<br />
-        <BR>
-        <B>Meta &quot;Pragma&quot;</B> <BR>
-        Esta baliza permite principalmente neutralizar la puesta en memoria tampon 
-        de las p&aacute;ginas por el navegador (esencialmente para Netscape). Eso
-        fuerza  el cargamento de la p&aacute;gina a cada visita de &eacute;sta (no-cache).</TD>
-      </TR></TBODY>
-    </TABLE></TD>
-  </TR></TBODY>
-</TABLE><BR><BR>
-<P ALIGN="CENTER"><IMG src="../../images/admin/manuels.gif" border="0" /></P>
-</BODY>
-</HTML>
+         <h4>Otras  META automaticamente configuradas </h4>
+         <p><b>Meta &quot;Content-Type&quot;</b><br />
+         Esta baliza define la tabla de caracteres utilizada. Por defecto, es la tabla de caracteres Unicode (text/html; charset=UTF-8).<br />
+         <strong>Observaci&oacute;n:</strong> sirve solamente para el internauta.</p>
+         <p><b>Meta &quot;Content-Script-Type&quot;</b><br />
+         Esta baliza define la naturaleza de las escrituras utilizadas por el sitio (aqu&iacute; text/javascript). <strong><br />
+         Observaci&oacute;n:</strong> sirve solamente para el internauta.</p>
+         <p><b>Meta &quot;Content-Style-Type&quot;</b><br />
+         Esta baliza define la naturaleza de los estilos utilizados por el
+         sitio web (aqui text/css). <strong><br />
+         Observaci&oacute;n:</strong> sirve solamente para el internauta.</p>
+         <p><b>Meta &quot;Identifier-url&quot;</b><br />
+         Esta baliza permite indicar el url principal de su sitio web. Recoge la direcci&oacute;n principal definida en el fichero de configuraci&oacute;n de <strong>NPDS</strong>.</p>
+         <p><b>Meta &quot;Generator&quot;</b><br />
+         Esta baliza no tiene ning&uacute;n inter&eacute;s por la referencia en los motores de busqueda. Indica solamente la brillante herramienta utilizada para crear/administrar el sitio web y en consecuencia el bien nombrado <strong>NPDS</strong>; -)</p>
+         <p><b>Meta &quot;Pragma&quot;</b><br />
+         Esta baliza permite principalmente neutralizar la puesta en memoria tampon de las p&aacute;ginas por el navegador (esencialmente para Netscape). Eso fuerza  el cargamento de la p&aacute;gina a cada visita de &eacute;sta (no-cache).</p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Manual de administración</span></p>
+      </div>
+   </body>
+</html>

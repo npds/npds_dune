@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -20,7 +20,6 @@
 /************************************************************************/
 
 global $ModInstall;
-
 #autodoc $name_module: Nom du module #required (no space and exotism)
 $name_module = 'bloc-notes';
 
@@ -44,10 +43,10 @@ $list_fich = array(array(''), array(''));
 #autodoc Synopsis: $sql = array("requête_sql_1","requête_sql_2");
 global $NPDS_Prefix;
 $sql = array("CREATE TABLE ".$NPDS_Prefix."blocnotes (
-bnid tinytext NOT NULL,
-texte text,
+bnid text COLLATE utf8mb4_unicode_ci NOT NULL,
+texte text COLLATE utf8mb4_unicode_ci,
 PRIMARY KEY  (bnid(32))) 
-ENGINE=MyISAM DEFAULT CHARSET=utf8",
+ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
 "INSERT INTO ".$NPDS_Prefix."metalang VALUES ('!blocnote!', 'function MM_blocnote(\$arg) {\r\n      global \$REQUEST_URI;\r\n      if (!stristr(\$REQUEST_URI,\"admin.php\")) {\r\n         return(@oneblock(\$arg,\"RB\"));\r\n      } else {\r\n         return(\"\");\r\n      }\r\n}',
 'meta',
 '-',

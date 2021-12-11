@@ -60,12 +60,12 @@ function marquetapage() {
    <a class="mb-2" data-toggle="collapse" data-target="#lst_fav" id="show_fav" title="'.translate("Déplier la liste").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary mr-2" ></i>&nbsp;</a><span class="align-top">Bookmarks</span><span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
    </h6>
    <div id="lst_fav" class="collapse" >
-   <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="far fa-trash-alt text-danger fa-lg" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a>';
+   <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fas fa-trash text-danger fa-lg" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a>';
          while(list($uri, $topic)=sql_fetch_row($result)) {
             $content.='
             <div class="row">
                <div class="col-10 n-ellipses"><a href="'.$uri.'" class="small ">'.$topic.'</a></div>
-               <div class="col-2 text-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="far fa-trash-alt text-danger" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a></div>
+               <div class="col-2 text-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fas fa-trash text-danger" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a></div>
             </div>';
          }
          $content.='

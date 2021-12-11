@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -56,7 +56,7 @@ function links() {
        echo 
        adm_translate("Lien N° : ").'<b>'.$lid.'</b> - '.adm_translate("Auteur").' : '.$submitter.' <br /><br />
       <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="titleenattente">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="titleenattente">'.adm_translate("Titre de la page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="titleenattente" name="title" value="'.$title.'" maxlength="100" required="required"/>
             <span class="help-block text-right"><span id="countcar_titleenattente"></span></span>
@@ -161,7 +161,7 @@ function links() {
       }
     echo '
       <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" id="title" maxlength="100" required="required" />
             <span class="help-block text-right"><span id="countcar_title"></span></span>
@@ -357,7 +357,7 @@ function links() {
             <td><a href="'.$url.'" target="_blank">'.$url.'</a></td>
             <td>
                <a href="admin.php?op=LinksModLink&amp;lid='.$lid.'" ><i class="fas fa-edit fa-lg"></i></a>
-               <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="text-danger"><i class="far fa-trash-alt fa-lg ml-3"></i></a>
+               <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="text-danger"><i class="fas fa-trash fa-lg ml-3"></i></a>
             </td>
          </tr>';
    }
@@ -408,7 +408,7 @@ function LinksModLink($lid) {
     echo '
    <form action="admin.php" method="post" name="adminForm" id="linksmodlink">
       <div class="form-group row">
-         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la Page").'</label>
+         <label class="col-form-label col-sm-4 " for="title">'.adm_translate("Titre de la page").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="title" id="title" value="'.$title.'" maxlength="100" required="required" />
             <span class="help-block text-right"><span id="countcar_title"></span></span>
@@ -491,7 +491,7 @@ function LinksModLink($lid) {
          <div class="col-sm-8 ml-sm-auto">
             <input type="hidden" name="op" value="LinksModLinkS" />
             <button type="submit" class="btn btn-primary" ><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").' </button>
-            <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
+            <a href="admin.php?op=LinksDelLink&amp;lid='.$lid.'" class="btn btn-danger"><i class="fas fa-trash fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
          </div>
       </div>
    </form>';
@@ -550,7 +550,7 @@ function LinksModLink($lid) {
             <input type="hidden" name="linkid" value="'.$lid.'" />
             <input type="hidden" name="op" value="LinksModEditorial" />
             <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <button href="admin.php?op=LinksDelEditorial&amp;linkid='.$lid.'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
+            <button href="admin.php?op=LinksDelEditorial&amp;linkid='.$lid.'" class="btn btn-danger"><i class="fas fa-trash fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</button>
          </div>
       </div>';
       }
@@ -609,8 +609,8 @@ function LinksListBrokenLinks() {
    <hr />
    <h3>'.adm_translate("Liens cassés rapportés par un ou plusieurs Utilisateurs").' <span class="badge badge-danger float-right">'.$totalbrokenlinks.'</span></h3>
    <div class="blockquote">
-      <i class="far fa-trash-alt fa-lg text-primary mr-2"></i>'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
-      <i class="far fa-trash-alt fa-lg text-danger mr-2"></i>'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'
+      <i class="fas fa-trash fa-lg text-primary mr-2"></i>'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'<br />
+      <i class="fas fa-trash fa-lg text-danger mr-2"></i>'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'
    </div>';
 
    if ($totalbrokenlinks==0) {
@@ -656,8 +656,8 @@ function LinksListBrokenLinks() {
              <td><div>'.$owner.'&nbsp;<span class="float-right"><a href="mailto:'.$owneremail.'"><i class="fa fa-at fa-lg"></i></a></span></div>';
          echo '
             </td>
-            <td><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
-            <td><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="far fa-trash-alt text-danger fa-lg" title="'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href=admin.php?op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash text-danger fa-lg" title="'.adm_translate("Effacer (Efface les Liens cassés et les avis pour un Lien donné)").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
       }
    }
@@ -859,7 +859,7 @@ function LinksModCat($cat) {
             <input type="hidden" name="cid" value="'.$cat[0].'">
             <input type="hidden" name="op" value="LinksModCatS">
             <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <a href="admin.php?op=LinksDelCat&amp;sub=0&amp;cid='.$cat[0].'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
+            <a href="admin.php?op=LinksDelCat&amp;sub=0&amp;cid='.$cat[0].'" class="btn btn-danger"><i class="fas fa-trash fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
          </div>
       </div>
    </form>';
@@ -887,7 +887,7 @@ function LinksModCat($cat) {
             <input type="hidden" name="sid" value="'.$cat[1].'">
             <input type="hidden" name="op" value="LinksModCatS">
             <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Modifier").'</button>
-            <a href="admin.php?op=LinksDelCat&amp;sub=1&amp;cid='.$cat[0].'&amp;sid='.$cat[1].'" class="btn btn-danger"><i class="far fa-trash-alt fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
+            <a href="admin.php?op=LinksDelCat&amp;sub=1&amp;cid='.$cat[0].'&amp;sid='.$cat[1].'" class="btn btn-danger"><i class="fas fa-trash fa-lg"></i>&nbsp;'.adm_translate("Effacer").'</a>
          </div>
       </div>
    </form>';
@@ -1024,7 +1024,7 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
          if ($email!='') {
             global $sitename, $nuke_url;
             $subject = adm_translate("Votre Lien")." : $sitename";
-            $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la Page : ")."$title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
+            $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la page")." : $title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
             include("signat.php");
             send_email($email, $subject, $message, '', false, 'html');
          }

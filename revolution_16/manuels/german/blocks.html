@@ -1,51 +1,59 @@
-<html><head>
-<title>Edit / Create block (or box) - NPDS V</title>
-
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2> 
-<center>
-  <b>Block (oder Box) editieren / erstellen</b>
-</center>
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="utf-8" />
+      <title>BlÃ¶cke</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li>
+               <li class="breadcrumb-item"><a href="men_inter.html">Schnittstelle</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >BlÃ¶cke</li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Block (oder Box) editieren / erstellen</h3>
+         <p>NPDS erlaubt es BlÃ¶cke (oder Boxen) an der Seite Ihrer Webseite anzuzeigen.<br />
+NPDS (mitgeeigneten Templates) zeigt BlÃ¶cke auf den meisten Seiten.<br />
 <br />
+<b>BlÃ¶cke kÃ¶nnen angezeigt werden fÃ¼r Administratoren, registrierten Benutzern, oder Gruppen, nur fÃ¼r Anonyme oder fÃ¼r Alle</b>.<br />
 <br />
-NPDS erlaubt es Blöcke (oder Boxen) an der Seite Ihrer Webseite anzuzeigen.<br />
-NPDS (mitgeeigneten Templates) zeigt Blöcke auf den meisten Seiten.<br />
-<br />
-<b>Blöcke können angezeigt werden für Administratoren, registrierten Benutzern, oder Gruppen, nur für Anonyme oder für Alle</b>.<br />
-<br />
-<b>Block bearbeiten : </b><br />
-Ändern Sie die gewünschten Informationen innerhalb des Blocks, und wählen Sie die entsprechende Aktion und klicken dann auf <i>OK</i>.<br />
-Sie können nur einen Block gleichzeitig bearbeiten.<br />
-<br />
-<b>Block löschen :</b><br />
-Wählen Sie einen Block und klicken Sie dann auf <i>Block löschen</i>, klicken Sie dann auf <i>OK</i>.
-Sie können nur einen Block auf einmal löschen.<br />
-<br />
-<b>Block erstellen (links oder rechts) :</b><br />
-Seinen Titel eingeben, sein <b>index</b> (erlaubt eine sortierte Anzeige) und <i>Block ersellen ...</i>. <br />
-Standardmässig wird der Block automatisch aktiviert.<br />
-<br />
-<hr width="80%">
-<b>Block und SuperCache </b>:<br />
-&nbsp;- Blöcke sind "SuperCached" und können aktiviert oder deaktiviert werden, ohne die Tempatedateien zu verändern.<br />
+         <h4>Block bearbeiten</h4>
+         <p>Ã„ndern Sie die gewÃ¼nschten Informationen innerhalb des Blocks, und wÃ¤hlen Sie die entsprechende Aktion und klicken dann auf <i>OK</i>.<br />
+         Sie kÃ¶nnen nur einen Block gleichzeitig bearbeiten.</p>
+         <h4>Block lÃ¶schen</h4>
+         <p>WÃ¤hlen Sie einen Block und klicken Sie dann auf <i>Block lÃ¶schen</i>, klicken Sie dann auf <i>OK</i>.
+         Sie kÃ¶nnen nur einen Block auf einmal lÃ¶schen.</p>
+         <h4>Block erstellen (links oder rechts)</h4>
+         <p>Seinen Titel eingeben, sein <b>index</b> (erlaubt eine sortierte Anzeige) und <i>Block ersellen ...</i>. <br />
+         standardmÃ¤ÃŸig wird der Block automatisch aktiviert.</p>
+         <h4>Block und SuperCache</h4>
+&nbsp;- BlÃ¶cke sind "SuperCached" und kÃ¶nnen aktiviert oder deaktiviert werden, ohne die Tempatedateien zu verÃ¤ndern.<br />
 &nbsp;- Ein Block mit der Cachezeit 0 (null) wird nicht gecachet.<br />
-&nbsp;- Blöcke haben eine Onlinehilfe, die aufgerufen werden kann unter 'contextual-help' 
-Modul (leer lassen für keine Hilfe). <br />
+&nbsp;- BlÃ¶cke haben eine Onlinehilfe, die aufgerufen werden kann unter 'contextual-help' 
+Modul (leer lassen fÃ¼r keine Hilfe). <br />
 <br />
-<b>NPDS hat ein erweitertes Blocksytem zur Anzeige von </b>:<br />
-- HTML (wenn Sie einen HTML Block erstellen wollen / wählen Sie die HTML Option)<br />
-- Javascript<br />
-- PHP und/oder SSI (Server Side Include)<br />
-- PHP / NPDS Funktion<br />
-<br />
-Wenn Sie Code einbinden wollen müssen Sie diese Syntax verwenden :<br />
-. Für PHP und/oder SSI code :<br />
+         <h4>NPDS hat ein erweitertes Blocksytem zur Anzeige von</h4>
+         <p>
+            <ul>
+               <li>HTML (wenn Sie einen HTML Block erstellen wollen / wÃ¤hlen Sie die HTML Option)</li>
+               <li>Javascript</li>
+               <li>PHP und/oder SSI (Server Side Include)</li>
+               <li>PHP / NPDS Funktion</li>
+            </ul>
+Wenn Sie Code einbinden wollen mÃ¼ssen Sie diese Syntax verwenden :<br />
+. FÃ¼r PHP und/oder SSI code :<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<b>include#ihr_ordner/ihre_datei.php</b> (without ', ohne 
 ").<br />
 &nbsp;&nbsp;&nbsp;&nbsp;ihre_datei.php Muss eine php Datei sein ! Und die Anzeige (no echo "..."; but $content.="...";) Muss im sein <b>$content</b>.<br />
 <br />
-. Für PHP und/oder NPDS Functions :<br />
+. FÃ¼r PHP und/oder NPDS Functions :<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<b>function#ihre_funktionen</b> => function#Xblock (ohne ', ohne", ohne () und ohne ;).<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;Wenn Ihre Funktionen Parameter haben :<br />
@@ -62,7 +70,7 @@ Wenn Sie Code einbinden wollen müssen Sie diese Syntax verwenden :<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;params#Forums Infos,15,0,false,10,false,-:&nbsp; 
 <br />
 <br />
-Sie können auch die zwei Sätze :<br />
+Sie kÃ¶nnen auch die zwei Sï¿½tze :<br />
 &nbsp;<b>include#your_folder/your_file.php</b> (ohne ', ohne").<br />
 &nbsp;und dann<br />
 &nbsp;<b>function#your_function</b> => function#XNews (ohne ', ohne ", ohne () und ohne ;).<br />
@@ -72,21 +80,21 @@ Sie können auch die zwei Sätze :<br />
 <b>Block CSS</b> :<br />
 &nbsp;<b>class-title#name</b> einer Klasse in Ihrer CSS Datei.<br />
 &nbsp;<b>class-content#name</b> einer Klasse in Ihrer CSS Datei.<br />
-&nbsp;=> So können Sie jedem Block eine CSS Klasse zuordnen(Titel und Inhalt) !<br />
+&nbsp;=> So kÃ¶nnen Sie jedem Block eine CSS Klasse zuordnen(Titel und Inhalt) !<br />
 <br />
-&nbsp;- Theme-Dynamic hat wzei neue Schlüsselworte : B_class_title und B_class_content
-die Sie in bloc.html verwenden können<br />
+&nbsp;- Theme-Dynamic hat zwei neue SchlÃ¼sselworte : B_class_title und B_class_content
+die Sie in bloc.html verwenden kÃ¶nnen<br />
 &nbsp;- PHP Templates haben zwei neue Variablen : $B_class_title and $B_class_content
-die Sie in die Templateinside Box Funktion 'importieren' können (benutzen Sie einen globalen  ...)<br />
+die Sie in die Templateinside Box Funktion 'importieren' kÃ¶nnen (benutzen Sie einen globalen  ...)<br />
 <br /><br />
 <b>Block CSS Spezifikation</b> :<br />
-Um eine CSS Spezifikation zu haben, müssen Sie:
-<li> den Wert in der Administration überprüfen</li>
+Um eine CSS Spezifikation zu haben, mÃ¼ssen Sie:
+<li> den Wert in der Administration Ã¼berprÃ¼fen</li>
 <li> die Block ID kennen</li>
-<li> Die ID und Klasse in der style.css  deklarieren oder Sie nutzen die pages.php (die für Ihrem Template gehört ) </li>
+<li> Die ID und Klasse in der style.css  deklarieren oder Sie nutzen die pages.php (die fÃ¼r Ihrem Template gehï¿½rt ) </li>
 <br /><br />
 <b>Beispiel :<br /><br />
-CSS Spezifikation für den linken Bloc ID 2<br />
+CSS Spezifikation fÃ¼r den linken Bloc ID 2<br />
 </b>  <br />
 <quote>
 #LB_2 .LB_title { <br />
@@ -132,7 +140,7 @@ CSS Spezifikation für den linken Bloc ID 2<br />
 }    <br />
 </quote>
 <br /><br />
-<b>Block URI</b> :<br />
+<h4>Block URI</h4>
 &nbsp;<b>uri#list_of_uri_separate_by_space</b> f&uuml;r zeigten Block nur in den Referer URI.<br />
 &nbsp;in diesem Fall der Cache-Time wird auf Null gesetzt werden<br />
 &nbsp;Beispiel: uri#index.php user.php forum.php static.php?op=statik.txt&npds=1<br />
@@ -140,13 +148,12 @@ CSS Spezifikation für den linken Bloc ID 2<br />
 <br />
 &nbsp;=> Das ist die einzige, unterst&uuml;tzte Syntax! <br />
 <br /><br />
-<b>Block Hidden</b> :<br />
+<h4>Versteckter Block</h4>
 &nbsp;hidden#... nicht zeigen, das Thema der Bl&ouml;cke, sondern laden Sie die Inhalte.<br />
 &nbsp;Dies erlaubt es, den Block f&uuml;r &quot;Last&quot; von Javascript, PHP-Dateien, CSS-Dateien verwenden ...<br />
 &nbsp;Beispiel: hidden#&lt;script type=&quot;text/javascript&quot; src=&quot;lib/yui/build/yui/yui-min.js&quot;&gt;&lt;/script&gt;
 <br />&nbsp;=> Das ist die einzige, unterst&uuml;tzte Syntax!
-<br /><br />
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Administrationshandbuch</span></p>
+      </div>
+   </body>
 </html>

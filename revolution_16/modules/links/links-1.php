@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -59,7 +59,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="url">URL</label>
             <div class="col-sm-9">
-               <input class="form-control" type="url" id="url" name="url" maxlength="255" value="http://" required="required" />
+               <input class="form-control" type="url" id="url" name="url" maxlength="320" value="http://" required="required" />
                <span class="help-block text-right" id="countcar_url"></span>
            </div>
         </div>';
@@ -120,7 +120,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="email">'.translate("Votre Email").'</label>
             <div class="col-sm-9">
-               <input type="email" class="form-control" id="email" name="email" maxlength="60" required="required" />
+               <input type="email" class="form-control" id="email" name="email" maxlength="254" required="required" />
                <span class="help-block text-right" id="countcar_email"></span>
             </div>
          </div>';
@@ -139,8 +139,8 @@ function AddLink() {
       $arg1='
       var formulid = ["addlink"];
       inpandfieldlen("title",100);
-      inpandfieldlen("url",255);
-      inpandfieldlen("email",60);
+      inpandfieldlen("url",320);
+      inpandfieldlen("email",254);
       ';
       SearchForm();
       adminfoot('fv','',$arg1,'1');
@@ -205,11 +205,12 @@ function Add($title, $url, $name, $cat, $description, $email, $topicL, $asb_ques
       exit();
    }
    $cat = explode('-', $cat);
-   if (!array_key_exists(1,$cat)) {
+   if (!array_key_exists(1,$cat))
       $cat[1] = 0;
-   }
+   
    $title = removeHack(stripslashes(FixQuotes($title)));
    $url = removeHack(stripslashes(FixQuotes($url)));
+   $description = dataimagetofileurl($description,'modules/upload/upload/lindes');
    $description = removeHack(stripslashes(FixQuotes($description)));
    $name = removeHack(stripslashes(FixQuotes($name)));
    $email = removeHack(stripslashes(FixQuotes($email)));

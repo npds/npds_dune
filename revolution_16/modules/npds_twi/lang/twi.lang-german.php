@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,29 +16,31 @@
 
 function twi_trad($phrase) {
  switch($phrase) {
-  case 'Configuration du module npds_twi': $tmp='Module npds_twi settings'; break;
-  case 'Activation de la publication auto des articles': $tmp='Activate automated publication for news'; break;
-  case 'Activation de la publication auto des posts': $tmp='Activate automated publication for posts'; break;
-  case 'requis': $tmp='required'; break;
-  case 'Largeur de la tweet box': $tmp='Tweet box width'; break;
-  case 'Hauteur de la tweet box': $tmp='Tweet box height:'; break;
-  case 'Enregistrez': $tmp='Save'; break;
+  case 'A propos de': $tmp='Da wir von'; break;
+  case 'Activation de la publication auto des articles': $tmp='Aktivierung der automatischen Veröffentlichung von Artikeln'; break;
+  case 'Activation de la publication auto des posts': $tmp='Aktivierung der automatischen Veröffentlichung von posts'; break;
   case 'Admin': $tmp='Admin'; break;
-  case 'Interface Bloc': $tmp='Bloc settings'; break;
-  case "Réécriture d'url avec mod_rewrite": $tmp='Url rewriting with mod_rewrite'; break;
-  case "Réécriture d'url avec ForceType": $tmp='Url rewriting with ForceType'; break;
-  case "Réécriture d'url avec contrôleur Npds": $tmp='Url rewriting with Npds controleur'; break;
-  case "Méthode pour le raccourciceur d'URL": $tmp='Used methode for the short URL engine'; break;
-  case 'Votre clef de consommateur': $tmp='Consumer key'; break;
-  case 'Votre clef secrète de consommateur': $tmp='Consumer secret key'; break;
-  case "Jeton d'accès pour Open Authentification (oauth_token)": $tmp='Access token for Open Authentication (oauth_token)'; break;
-  case "Jeton d'accès secret pour Open Authentification (oauth_token_secret)": $tmp='Access token  secret for Open Authentication (oauth_token)'; break;
-  case 'Oui': $tmp='Yes'; break;
-  case 'Non': $tmp='No'; break;
-  case 'A propos de': $tmp='About'; break;
-  case 'sur twitter': $tmp='on twitter'; break;
-
-  default: $tmp = "Need to be translated [** $phrase **]"; break;
+  case 'Configuration du module npds_twi': $tmp='Konfiguration des Moduls npds_twi'; break;
+  case 'Enregistrez': $tmp='Speichern'; break;
+  case 'Hauteur de la tweet box': $tmp='Höhe der Tweet Box'; break;
+  case 'Interface Bloc': $tmp='Block Schnittstelle'; break;
+  case 'Largeur de la tweet box': $tmp='Breite der Tweet Box'; break;
+  case 'Non': $tmp='Nein'; break;
+  case 'Oui': $tmp='Ja'; break;
+  case 'requis': $tmp='erforderlich'; break;
+  case 'sur twitter': $tmp='bei Twitter'; break;
+  case 'Votre clef de consommateur': $tmp='Ihr Schlüssel für den Konsumenten'; break;
+  case 'Votre clef secrète de consommateur': $tmp='Ihr geheimer Schlüssel des Konsumenten'; break;
+  case "Ici": $tmp="Hier"; break;
+  case "Jeton d'accès pour Open Authentification (oauth_token)": $tmp='Zugangstoken für Open Authentifikation (oauth_token)'; break;
+  case "Jeton d'accès secret pour Open Authentification (oauth_token_secret)": $tmp='Geheimer Zugangstoken für Open Authentifikation (oauth_token_secret)'; break;
+  case "La publication de vos news sur twitter est autorisée. Vous pouvez révoquer cette autorisation": $tmp="Die Veröffentlichung Ihrer Artikel auf Twitter ist erlaubt. Sie können diese Freigabe widerrufen"; break;
+  case "La publication de vos news sur twitter n'est pas autorisée vous devez l'activer": $tmp="Veröffentlichung Ihrer Artikel auf Twitter ist nicht erlaubt Sie müssen diese aktivieren"; break;
+  case "Méthode pour le raccourciceur d'URL": $tmp='Verfahren zur Verkürzung von URLs'; break;
+  case "Réécriture d'url avec contrôleur Npds": $tmp='Url mit Npds-Controller überschreiben'; break;
+  case "Réécriture d'url avec ForceType": $tmp='Url mit ForceType überschreiben'; break;
+  case "Réécriture d'url avec mod_rewrite": $tmp='Url mit mod_rewrite überschreiben'; break;
+  default: $tmp = "Es gibt keine Übersetzung [** $phrase **]"; break;
  }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
 }

@@ -1,7 +1,3 @@
-Versus|REvolution|v.16.3
-Security|Migration des serveurs NPDS à partir du 15 mars 2016 !.|il faut bien mêtre a jours ton site coco !
-Note|Ceci est une note d'information provenant de NPDS.|et oui je suis la note note note de trop !!! hihihihi
-Note|CEci est une deuxième note..|pas ml ce portail npds
-Security|patch crypt.|Nouveau systeme de cryptage des mot de passe.
-Note|C'est cool ce sytème d'alerte|je suis le contenue du modal en test !
-Note|Info @Jpb|Système de gestion des alertes opérationnel !!! il carton les alertes...
+Versus|REvolution|v.16.2.1
+Security|Appliquez le patch ghostform !|<span class="text-danger">Niveau critique appliquez ce patch !!!!</span><br /> Voici donc et ce n'est pas coutume un patch de sécurité répondant au problème décrit sommairement ci-dessous. Il est disponible ici <a href="http://www.npds.org/download.php?op=mydown&did=197">ghostform-patch-secu.txt</a>.<br /><b>Au vu de la nature du problème nous vous conseillons fortement d'appliquer ce patch sur tous vos sites.</b><br />Problème : sécurité<br />Description : création compte utilisateur hors de contrôle<br /><b>Versions concernées :</b><br /> de 4.7 à 16.2<br /><b>Niveau :</b> sérieux<br /><b>Fichier concerné :</b> user.php<br /><b>NB :</b> l'url de votre site doit être parfaitement renseigné dans vos préférences !
+Note|Les messages de npds|<br /> Ce système nous permet d'envoyer des messages concernant l'actualité de npds et de son développement à tous les webmaster directement dans leur portail.<br /> Il monitore également la version utilisée et emet une alerte quand une nouvelle version de npds est disponible. Du côté de l'interface admin ces messages peuvent être marqués comme lus par chaque admin et donc ne sont plus affichés jusqu'à leur modification ou leur suppression par npds.org.<br /> [@nico2 @jpb].

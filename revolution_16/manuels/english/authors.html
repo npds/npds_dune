@@ -1,59 +1,38 @@
-<html>
-<head>
-<meta charset="utf-8">
-<title>Administration - admins</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
-<style>
-body {
-background-color: #f5f5f5;
-}
-</style>
-</head>
-<body>
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - admins</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_utilisateurs.html">Users</a></li>
+               <li class="breadcrumb-item active">Admins</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3" >Admins</h3>
 
-<h3>
-<ol class="breadcrumb bg-warning" style="margin-bottom: 5px;">
-  <li><i class="fa fa-lg fa-info-circle text-danger"></i>&nbsp;<a href="men_gen.html">Menu</a></li>
-  <li><a href="men_utilisateurs.html">Users</a></li>
-  <li class="active">Admins</li>
-</ol>
-</h3>
+         <p>With this special feature, you can add, modify and delete administrators.</p>
+         <h4>Add a new administrator</h4>
+         <p>Fill out the form. Mandatory fields are marked with an * (Nickname, Name, Email, Password). Other fields are not mandatory. Then pick what kind of features this administrator will handle. Click on <i>Add an Author/Admin</i> to complete this action. </p>
 
-<p>Avec cette fonction, vous pouvez ajouter, modifier et supprimer les administrateurs de votre site.</p>
+         <h4>Edit an administrator</h4>
+         <p>Click on <i>Modify</i> to modify users info/profile. Change what you need to change and click on <i>Refresh Author</i>. </p>
 
-<h4>Ajouter un nouvel administrateur :</h4>
-<p>Remplissez le formulaire. Les champs obligatoires sont marqu&eacute;s d'une * (Surnom, Nom, Email, Mot de Passe).<br />
-Choisissez la ou les fonctions que vous souhaitez confier &agrave; cet administrateur.<br />
-Cliquez sur le bouton <i>Ajouter un administrateur</i> pour finir.</p>
+         <h4>Delete an administrator</h4>
+         <p>Click on Delete Author and validate the message.</p>
 
-<h4>Editer un administrateur :</h4>
-<p>Cliquez sur le lien <i>Modifier l'information</i> de l'administrateur que vous voulez modifier. Changez les informations n&eacute;cessaires et cliquez sur le bouton <i>Actualiser l'administrateur.</i></p>
+         <p><b>Nota bene :</b>  NPDS requires at least one administrator to run.</p>
 
-<h4>Supprimer un administrateur :</h4>
-<p>Cliquez sur le lien <i>Effacer l'administrateur</i> et validez le message de confirmation.</p>
-
-<p>Nota bene :</b> NPDS n&eacute;cessite au moins un administrateur pour fonctionner.</p>
-<div class="alert alert-info">
-<h4>A savoir</h4> 
-<p>Si vous supprimez accidentellement tous les administrateurs, ou si vous avez perdu le mot de passe de votre seul compte administrateur, via votre gestionnaire mysql, g&eacute;n&eacute;ralement PhpMyAdmin, positionnez-vous sur la table authors :
-<ul>
-<li>Si une entr&eacute;e avec le champ aid valant Root existe, supprimez-l&agrave;</li>
-<li>Ex&eacute;cutez la requ&ecirc;te suivante :<br />
-
-INSERT INTO `authors` (`aid`, `name`, `url`, `email`, `pwd`, `counter`, `radminfilem`, `radminsuper`) VALUES
-('Root', 'Root', '', '', 'd.8V.L9nSMMvE', 0, 0, 1);<br />
-
-Cela cr&eacute;era un compte administrateur dont l&rsquo;identifiant sera Root, et le mot de passe Password.</li>
-</ul>
-</p> 
-</div>
-
-
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</div>
-<br />
-</body>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Administration manual</span></p>
+      </div>
+   </body>
 </html>

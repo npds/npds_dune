@@ -5,7 +5,7 @@
 /*                                                                      */
 /* BIG mod by JPB for NPDS-WS                                           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -223,7 +223,7 @@ function group_liste() {
          echo '
          </div>
          <div class="col-lg-3 list-group-item px-0 mt-2 mt-md-0">
-            <a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fas fa-pencil-alt fa-lg"></i></a><a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="javascript:void(0);" onclick="bootbox.alert(\''.adm_translate("Avant de supprimer le groupe").' '.$gp.' '.adm_translate("vous devez supprimer TOUS ses membres !").'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="far fa-trash-alt fa-lg fa-fw"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-user-plus fa-lg fa-fw"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=bloc_groupe_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Créer le bloc WS").' ('.$gp.')" data-toggle="tooltip"  ><i class="fa fa-clone fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
+            <a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fas fa-pencil-alt fa-lg"></i></a><a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="javascript:void(0);" onclick="bootbox.alert(\''.adm_translate("Avant de supprimer le groupe").' '.$gp.' '.adm_translate("vous devez supprimer TOUS ses membres !").'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fas fa-trash fa-lg fa-fw"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-user-plus fa-lg fa-fw"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=bloc_groupe_create&amp;groupe_id='.$gp.'" title="'.adm_translate("Créer le bloc WS").' ('.$gp.')" data-toggle="tooltip"  ><i class="fa fa-clone fa-lg fa-fw"></i><i class="fa fa-plus"></i></a>';
          if ($result['groupe_pad']==1)
             echo'<a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=pad_remove&amp;groupe_id='.$gp.'" title="'.adm_translate("Désactiver PAD du groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fa fa-edit fa-lg fa-fw"></i><i class="fa fa-minus"></i></a>';
          else
@@ -282,7 +282,7 @@ function group_liste() {
                <i class="fa fa-user-o fa-2x text-muted"></i><span class="align-top badge badge-secondary ml-1">0</span>
             </div>
             <div class="col-lg-3 list-group-item px-0 mt-2">
-               <a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fas fa-pencil-alt fa-lg"></i></a><a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="#" onclick="confirm_deleteGroup(\''.$gp.'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-toggle="tooltip" ><i class="far fa-trash-alt fa-lg"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-toggle="tooltip" ><i class="fa fa-user-plus fa-lg"></i></a>
+               <a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-toggle="tooltip"  ><i class="fas fa-pencil-alt fa-lg"></i></a><a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="#" onclick="confirm_deleteGroup(\''.$gp.'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-toggle="tooltip" ><i class="fas fa-trash fa-lg"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-toggle="tooltip" ><i class="fa fa-user-plus fa-lg"></i></a>
             </div>
          </div>';
       }
@@ -447,7 +447,6 @@ function groupe_edit($groupe_id) {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $result=sql_fetch_assoc(sql_query("SELECT groupe_name, groupe_description FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$groupe_id'"));
-
    if ($groupe_id!='groupe_add')
       echo '
       <hr />
@@ -460,6 +459,7 @@ function groupe_edit($groupe_id) {
    <form class="admform" id="groupesaddmod" action="admin.php" method="post">
       <fieldset>
          <legend><i class="fas fa-users fa-2x text-muted"></i></legend>'."\n";
+
    if ($groupe_id!='groupe_add')
       echo '<input type="hidden" name="groupe_id" value="'.$groupe_id.'" />';
    else
@@ -471,12 +471,16 @@ function groupe_edit($groupe_id) {
    echo '
          <div class="form-group">
             <label class="col-form-label" for="grname">'.adm_translate("Nom").'</label>
-            <input type="text" class="form-control" id="grname" name="groupe_name" maxlength="30" value="'.$result['groupe_name'].'" placeholder="'.adm_translate("Nom du groupe").'" required="required" />
+            <input type="text" class="form-control" id="grname" name="groupe_name" maxlength="30" value="';
+   echo isset($result)?$result['groupe_name']:"";
+   echo'" placeholder="'.adm_translate("Nom du groupe").'" required="required" />
             <span class="help-block text-right"><span id="countcar_grname"></span></span>
          </div>
          <div class="form-group">
             <label class="col-form-label" for="grdesc">'.adm_translate("Description").'</label>
-            <textarea class="form-control" name="groupe_description" id="grdesc" rows="11" maxlength="255" placeholder="'.adm_translate("Description du groupe").'" required="required">'.$result['groupe_description'].'</textarea>
+            <textarea class="form-control" name="groupe_description" id="grdesc" rows="11" maxlength="255" placeholder="'.adm_translate("Description du groupe").'" required="required">';
+   echo isset($result)?$result['groupe_description']:"";
+   echo'</textarea>
             <span class="help-block text-right"><span id="countcar_grdesc"></span></span>
          </div>';
    if ($groupe_id != 'groupe_add')
@@ -487,7 +491,7 @@ function groupe_edit($groupe_id) {
          <input type="hidden" name="op" value="groupe_add_finish" />';
    echo '
          <div class="form-group">
-            <button class="btn btn-primary" type="submit" name="sub_op" value="'.adm_translate("Sauver les modifications").'">'.adm_translate("Sauver les modifications").'</button>
+            <input class="btn btn-primary" type="submit" name="sub_op" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </fieldset>
    </form>';
@@ -496,7 +500,7 @@ function groupe_edit($groupe_id) {
    inpandfieldlen("grname",30);
    inpandfieldlen("grdesc",255);
    ';
-   adminfoot('fv','',$arg1,'');
+   adminfoot('','','','');
 }
 function groupe_maj($sub_op) {
    global $hlpfile, $NPDS_Prefix, $groupe_id, $groupe_name, $groupe_description;
@@ -618,14 +622,14 @@ function note_create($groupe_id) {
    else {$type_engine=(int)substr(mysql_get_server_info(), 0, 1);}// a affiner
 
    $sql="CREATE TABLE IF NOT EXISTS ".$NPDS_Prefix."blocnotes (
-   bnid tinytext NOT NULL,
-   texte text,
+   bnid text COLLATE utf8mb4_unicode_ci NOT NULL,
+   texte text COLLATE utf8mb4_unicode_ci,
    PRIMARY KEY (bnid(32))
    )";
    if ($type_engine>=5)
-      $sql.=" ENGINE=MyISAM";
+      $sql.=" ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
    else
-      $sql.=" TYPE=MyISAM";
+      $sql.=" TYPE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
    sql_query($sql);
 
    sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_blocnote = '1' WHERE groupe_id = '$groupe_id';");

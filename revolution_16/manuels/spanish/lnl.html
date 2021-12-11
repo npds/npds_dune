@@ -1,48 +1,54 @@
-<html>
-<title>LNL (Petite Lettre D'information) - NPDS V</title>
-<head>
-</head>
-<body bgcolor=FFFFFF text=000000>
-<center>
-  <font size="2" face="Verdana,Arial,Helvetica">LNL - Litle news letter (Correo de informacion)<br />
-  <br />
-    </font>
-  <div align="left"><font size="2">Este modulo le permite la gestion de la LNL </font><font size="2" face="Verdana,Arial,Helvetica"><br />
-      <br />
-  Las funciones principales de esta funcion son:<br />
-- Gesti&oacute;n de una Carta de informaci&oacute;n en 3 partes: el
-encabezamiento, el cuerpo, el pie.<br />
-- Gesti&oacute;n de una Carta de informaci&oacute;n en en m&eacute;todo texto o HTML.<br />
-  </font>- Gesti&oacute;n de los env&iacute;os para los miembros, los clientes potenciales o los
-      dos.<br />
-      - Seguimiento de las LNL enviadas y de la lista de los clientes potenciales.<font size="2" face="Verdana,Arial,Helvetica"><br />
-    <br />
-    Tipicamente el funcionamiento es :<br />
-&nbsp;- Creacion del encabezado (Texto o Html),<br />
-&nbsp;- Creacion del cuerpo(Texto o Html),<br />
-&nbsp;- Creacion del pie de pagina(Creacion del cuerpo),<br />
-&nbsp;- Test de la LNL(Introduzca el numero para cada uno de los elementos),<br />
-&nbsp;&nbsp;&nbsp;Este test le permite verificar que su LNL esta perfectamente bien editada <br />
-&nbsp;- Enviar LNL(Introduzca el Asunto para los interesados).<br />
-  <br />
-  Puede a&ntilde;adir, modificar o borrar los"componentes" de su LNL.<br />
-  <br />
-  Dispone de un estado de envios de LNL con varias informaciones notamente el Tipo :
-&nbsp;- All => LNL Enviado a todos los miembros y a todos los inscritos a la LNL,<br />
-&nbsp;- Mbr => Solamente para los miembros,<br />
-&nbsp;- Out => Solo para los inscritos la la LNL,<br />
-Asi que la lista de todos los inscritos (Estado OK => El usuario quiere recibir la LNL, NOK,No quiere recibirla).<br />
-  <br />
-  Claro est&agrave;, la funcionMail (o Email) debe de estar activadaen su dominio para poder utilizar esta funcionalidad. <br />
-  <br />
-  Si tiene mas de 50 miembros, la LNL sera enviada por paquetes de 50 en 50 por periodos de 10 segundos cada uno, para no encombrar el servidor. </font></div>
-  <font size="2" face="Verdana,Arial,Helvetica"><br />
-  <br />
-    </font><font face="Verdana,Arial,Helvetica">
-    <center>
-      <font size="2"><img src="../../images/admin/manuels.gif" border="0" /></font>
-    </center>
-    </font>
-</center>
-</body>
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>LNL - Correo de informacion</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_com.html">Comunicaci&oacute;n</a></li>
+               <li class="breadcrumb-item active">LNL</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">LNL - Peque&ntilde;a letra (Correo de informacion)</h3>
+         <p>Este modulo le permite la gestion de la Peque&ntilde;a letra LNL</p>
+         <p><strong>Las funciones principales de esta funcion son:</strong>
+            <ul>
+               <li>Gesti&oacute;n de una Carta de informaci&oacute;n en 3 partes: el encabezamiento, el cuerpo, el pie.</li>
+               <li>Gesti&oacute;n de una Carta de informaci&oacute;n en en m&eacute;todo texto o HTML.</li>
+               <li>Gesti&oacute;n de los env&iacute;os para los miembros, los clientes potenciales o los dos.</li>
+               <li>Seguimiento de las LNL enviadas y de la lista de los clientes potenciales.</li>
+            </ul>
+         </p>
+         <p><strong>Tipicamente el funcionamiento es :</strong>
+            <ul>
+               <li>Creacion del encabezado (Texto o Html),</li>
+               <li>Creacion del cuerpo(Texto o Html),</li>
+               <li>Creacion del pie de pagina(Creacion del cuerpo),</li>
+               <li>Test de la LNL(Introduzca el numero para cada uno de los elementos),<br />
+               Este test le permite verificar que su LNL esta perfectamente bien editada </li>
+               <li>Enviar LNL(Introduzca el Asunto para los interesados).</li>
+            </ul>
+            Puede a&ntilde;adir, modificar o borrar los"componentes" de su LNL.<br />
+         </p>
+         <p><strong>Dispone de un estado de envios de LNL con varias informaciones notamente el Tipo :</strong>
+            <ul>
+               <li>All => LNL Enviado a todos los miembros y a todos los inscritos a la LNL,</li>
+               <li>Mbr => Solamente para los miembros,</li>
+               <li>Out => Solo para los inscritos la la LNL,</li>
+            </ul>
+         Asi que la lista de todos los inscritos (Estado OK => El usuario quiere recibir la LNL, NOK,No quiere recibirla).</p>
+         <p>Claro est&agrave;, la funcionMail (o Email) debe de estar activadaen su dominio para poder utilizar esta funcionalidad. <br />
+         Si tiene mas de 50 miembros, la LNL sera enviada por paquetes de 50 en 50 por periodos de 10 segundos cada uno, para no encombrar el servidor. </p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Manual de administración</span></p>
+      </div>
+   </body>
 </html>

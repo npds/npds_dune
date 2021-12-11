@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Session and log Viewer Copyright (c) 2009 - Tribal-Dolphin           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -48,7 +48,7 @@ function action_log($ThisFile,$logtype) {
       <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$whatlog.'"><i class="fa fa-at mr-1 fa-lg"></i>'.SessionLog_translate("Recevoir le fichier par mail").'</a>
       <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$whatlog.'"><i class="fa fa-times mr-1 fa-lg"></i>'.SessionLog_translate("Vider le fichier").'<br /><small>'.$FileSecure.'</small></a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="far fa-trash-alt mr-1 fa-lg"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="fas fa-trash mr-1 fa-lg"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
    return $task;
 }
 
@@ -92,8 +92,8 @@ echo '
          echo '
             <tr>
                <td class="small">'.$username.'</td>
-               <td class="small">'.urldecode($host_addr).'</td>
-               <td class="small">'.gethostbyaddr(urldecode($host_addr)).'</td>
+               <td class="small">'.$host_addr.'</td>
+               <td class="small">'.gethostbyaddr($host_addr).'</td>
                <td class="small">'.$uri.'</td>
                <td class="small">'.$agent.'</td>
            </tr>';

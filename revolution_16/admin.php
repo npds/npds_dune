@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -99,9 +99,10 @@ function login() {
 }
 
 function GraphicAdmin($hlpfile) {
-   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $httpref, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent;
+   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $httpref, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent, $nuke_url;
    $bloc_foncts ='';
    $bloc_foncts_A ='';
+   $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
 
    //==> recupérations des états des fonctions d'ALERTE ou activable et maj (faire une fonction avec cache court dev ..)
    //article à valider
@@ -113,26 +114,27 @@ function GraphicAdmin($hlpfile) {
    //etat filemanager
    if ($filemanager) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1' WHERE fid='27'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='27'");
 
-   //==> recuperation traitement des messages de NPDS
-   /*
+
+//==> recuperation traitement des messages de NPDS
    $QM=sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
    settype($f_mes, 'array');
    while ($SQM=sql_fetch_assoc($QM)) {
       $f_mes[]=$SQM['fretour_h'];
    }
-   */
-   /*   
+
    //==> recuperation
    $messagerie_npds= file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
    $messages_npds = explode("\n", $messagerie_npds);
    array_pop($messages_npds);
    // traitement specifique car fonction permanente versus
    $versus_info = explode('|', $messages_npds[0]);
-   if ($versus_info[1] != $Version_Sub or $versus_info[2] != $Version_Num) 
-      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
+   if($versus_info[1] == $Version_Sub and $versus_info[2] == $Version_Num)
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
    else
-      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."' WHERE fid='36'");
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-toggle=\"modal\" data-target=\"#versusModal\"', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
+
    $mess=array_slice($messages_npds, 1);
+
    if(empty($mess)) {
       //si pas de message on nettoie la base
       sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
@@ -143,58 +145,39 @@ function GraphicAdmin($hlpfile) {
       $o=0;
       foreach($mess as $v) {
          $ibid = explode('|',$v);
-         if($ibid[0] = 'Note') 
-            $fico='flag_red';
-         else 
-            $fico='flag_green';
-
-//         sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1');\n");
+         $fico = $ibid[0] != 'Note'? 'flag_red':'flag_green';
+         $QM=sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom='mes_npds_".$o."'"));
+         if($QM===false)
+            sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface,fnom_affich,furlscript) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1','".addslashes($ibid[2])."','data-toggle=\"modal\" data-target=\"#messageModal\");\n");
          $o++;
       }
    }
-   */   
-   
-/*$o=0;
-foreach($mess as $v){
-$ibid = explode('|',$v);
-   if($ibid[0] = 'Note') 
-      $fico='flag_red';
-   else $fico='flag_green';
-   sql_query('INSERT INTO '.$NPDS_Prefix.'fonctions(fnom,fretour_h,fcategorie,ficone,fetat,finterface) VALUES("mes_npds_'.$o.'","'.$ibid['1'].'",9,"Alerte","'.$fico.'",1,1)');
-   $o++;
-}
-*/
 
-// si message on compare avec la base
-/*   if ($mess) {
-      settype($mes_x, 'array');
+  // si message on compare avec la base
+   if ($mess) {
       $fico ='';
       for ($i=0;$i<count($mess);$i++) {
          $ibid = explode('|',$mess[$i]);
-         $mes_x[$i]=$ibid;
-
-         if($mes_x[0] = 'Note') $fico='flag_red';
-         else $fico='flag_green';
-
-         if (in_array ($ibid[$i][1],$f_mes,true)) {//si on trouve le contenu du fichier dans la requete
-
-            $k=(array_search ($ibid[$i][1], $f_mes));
+         $fico = $ibid[0] != 'Note'? 'flag_red':'flag_green';
+         //si on trouve le contenu du fichier dans la requete
+         if (in_array($ibid[1],$f_mes,true)) {
+            $k=(array_search ($ibid[1], $f_mes));
             unset ($f_mes[$k]);
-         } else {
-         sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$ibid[($i)].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1"');
-         }
+            $result=sql_query("SELECT fnom_affich FROM ".$NPDS_Prefix."fonctions WHERE fnom='mes_npds_$i'");
+            if (sql_num_rows($result)==1) {
+               $alertinfo = sql_fetch_assoc($result);
+               if ($alertinfo['fnom_affich'] != $ibid[2])
+                  sql_query('UPDATE '.$NPDS_Prefix.'fonctions SET fdroits1_descr="", fnom_affich="'.addslashes($ibid[2]).'" WHERE fnom="mes_npds_'.$i.'"');
+            }
+         } else
+            sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$ibid[1].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1", fnom_affich="'.addslashes($ibid[2]).'", furlscript="data-toggle=\"modal\" data-target=\"#messageModal\"",fdroits1_descr=""');
       }
-      
-               var_dump($mes_x);
-
-      
       if(count ($f_mes)!==0) {
          foreach ( $f_mes as $v ) {
-//                   sql_query('DELETE from '.$NPDS_Prefix.'fonctions where fretour_h="'.$v.'" and fcategorie="9"');
+            sql_query('DELETE from '.$NPDS_Prefix.'fonctions where fretour_h="'.$v.'" and fcategorie="9"');
          }
       }
    }
-*/
    //<== recuperation traitement des messages de NPDS
 
    //utilisateur à valider
@@ -214,26 +197,37 @@ $ibid = explode('|',$v);
    //lien rompu à valider
    $brokenlink= sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."links_modrequest where brokenlink='1'"));
    if($brokenlink) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$brokenlink."', fretour_h='".adm_translate("Liens rompus à valider.")."' WHERE fid='42'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='42'");
+   //nouvelle publication
+   $newpubli = $Q['radminsuper']==1?
+      sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."seccont_tempo")):
+      sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."seccont_tempo WHERE author='$aid'"));
+   if($newpubli) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newpubli."', fretour_h='".adm_translate("Publication(s) en attente de validation")."' WHERE fid='50'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='50'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
    //==> Pour les modules installés produisant des notifications
+
    $alert_modules=sql_query("SELECT * FROM fonctions f LEFT JOIN modules m ON m.mnom = f.fnom WHERE m.minstall=1 AND fcategorie=9"); 
    if($alert_modules) {
       while($am=sql_fetch_array($alert_modules)) {
          include("modules/".$am['fnom']."/admin/adm_alertes.php");
-         foreach($reqalerte as $v){
-            $ibid = sql_num_rows(sql_query($v));
-            if($ibid)
-               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$ibid."', fretour_h='' WHERE fid=".$am['fid'].""); 
+         $nr=count($reqalertes);
+         $i=0;
+         while($i<$nr){
+            $ibid = sql_num_rows(sql_query($reqalertes[$i][0]));
+            if($ibid) {
+               $fr=$reqalertes[$i][1]!= 1 ? $reqalertes[$i][1] : $ibid;
+               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$fr."', fretour_h='".$reqalertes[$i][2]."' WHERE fid=".$am['fid']."");
+            } 
             else
-               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid=".$am['fid']."");
+               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='' WHERE fid=".$am['fid']."");
+            $i++;
          }
       }
    }
+   
    //<== Pour les modules installés produisant des notifications
 
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
-   $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
    // on prend tout ce qui a une interface 
    if ($Q['radminsuper']==1)
       $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre");
@@ -246,6 +240,8 @@ $ibid = explode('|',$v);
       $cat[]=$SAQ['fcategorie'];
       $cat_n[]=$SAQ['fcategorie_nom'];
       $fid_ar[]=$SAQ['fid'];
+      $adm_lecture = explode('|',$SAQ['fdroits1_descr']);
+
       if ($SAQ['fcategorie'] == 6 or ($SAQ['fcategorie'] == 9 and strstr($SAQ['furlscript'],"op=Extend-Admin-SubModule"))) {
          if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['ficone'].'.'.$admf_ext)) 
             $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['ficone'].'.'.$admf_ext;
@@ -254,8 +250,17 @@ $ibid = explode('|',$v);
       } else
          $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
       if ($SAQ['fcategorie'] == 9) {
-         $bloc_foncts_A .='
-         <a class=" btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-html="true" data-toggle="tooltip" '.$SAQ['furlscript'].' >
+         if(preg_match('#mes_npds_\d#', $SAQ['fnom'])) {
+            if(!in_array($aid, $adm_lecture, true))
+               $bloc_foncts_A .='
+         <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$SAQ['furlscript'].' >
+            <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+            <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
+         </a>';
+         }
+         else
+            $bloc_foncts_A .='
+         <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$SAQ['furlscript'].' >
             <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
             <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
          </a>';
@@ -266,15 +271,13 @@ $ibid = explode('|',$v);
          <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="'.adm_translate($SAQ['fnom_affich']).'"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
+            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="';
+         $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
+         $li_c .='"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
          if ($admingraphic==1)
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
-         else {
-            if ($SAQ['fcategorie'] == 6)
-               $li_c .= $SAQ['fnom_affich'];
-            else
-               $li_c .= adm_translate($SAQ['fnom_affich']);
-         }
+         else
+            $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
          $li_c .='</a></li>';
          $ul_f='';
          if ($j!==0)
@@ -297,13 +300,11 @@ $ibid = explode('|',$v);
       $j++;
    }
 
-   if($cat_n) {
+   if(isset($cat_n)) {
       $ca=array();
       $ca=array_unique($cat_n);
       $ca=array_pop($ca);
-   }
-
-   $bloc_foncts .= '
+      $bloc_foncts .= '
    </ul>
    <script type="text/javascript">
       //<![CDATA[
@@ -312,6 +313,7 @@ $ibid = explode('|',$v);
       })
       //]]>
    </script>';
+   }
 
    echo "
    <script type=\"text/javascript\">
@@ -427,6 +429,30 @@ $ibid = explode('|',$v);
         }
        });
    };
+
+      $(function () {
+        $('#messageModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); 
+            var id = button.data('id');
+            $('#messageModalId').val(id);
+            $('#messageModalForm').attr('action', '".$nuke_url."/npds_api.php?op=alerte_update');
+            $.ajax({
+               url:\"".$nuke_url."/npds_api.php?op=alerte_api\",
+               method: \"POST\",
+               data:{id:id},
+               dataType:\"JSON\",
+               success:function(data) {
+                  var fnom_affich = JSON.stringify(data['fnom_affich']),
+                      fretour_h = JSON.stringify(data['fretour_h']),
+                      ficone = JSON.stringify(data['ficone']);
+                  $('#messageModalLabel').html(JSON.parse(fretour_h));
+                  $('#messageModalContent').html(JSON.parse(fnom_affich));
+                  $('#messageModalIcon').html('<img src=\"images/admin/'+JSON.parse(ficone)+'.png\" />');
+               }
+            });
+         });
+      });
+
    //]]>
    </script>\n";
    $adm_ent ='';
@@ -468,13 +494,59 @@ $ibid = explode('|',$v);
         return;
      }
      echo '
-    <div id="adm_men_corps" class="my-3" >
-      <div id="lst_men_main">
-         '.$bloc_foncts.'
+      <div id="adm_men_corps" class="my-3" >
+         <div id="lst_men_main">
+            '.$bloc_foncts.'
+         </div>
       </div>
-     </div>
-    </div>';
-    return ($Q['radminsuper']);
+   </div>
+   
+   <div class="modal fade" id="versusModal" tabindex="-1" aria-labelledby="versusModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="versusModalLabel"><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" />'.adm_translate("Version").' NPDS</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Vous utilisez NPDS '.$Version_Sub.' '.$Version_Num.'</p>
+               <p>'.adm_translate("Une nouvelle version de NPDS est disponible !").'</p>
+               <p class="lead mt-3">'.$versus_info[1].' '.$versus_info[2].'</p>
+               <p class="my-3">
+                  <a class="mr-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x mr-1"></i>.zip</a>
+                  <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x mr-1"></i>.tar.gz</a>
+               </p>
+            </div>
+            <div class="modal-footer">
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id=""><span id="messageModalIcon" class="mr-2"></span><span id="messageModalLabel"></span></h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p id="messageModalContent"></p>
+               <form class="mt-3" id="messageModalForm" action="" method="POST">
+                  <input type="hidden" name="id" id="messageModalId" value="0" />
+                  <button type="submit" class="btn btn btn-primary btn-sm">'.adm_translate("Confirmation lecture").'</button>
+               </form>
+            </div>
+            <div class="modal-footer">
+            <span class="small text-muted">Information de npds.org</span><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" />
+            </div>
+         </div>
+      </div>
+   </div>';
+   return ($Q['radminsuper']);
 }
 
 function adminMain($deja_affiches) {
@@ -548,7 +620,7 @@ function adminMain($deja_affiches) {
             echo $title.' <i>(archive)</i>';
          else {
             if ($affiche) {
-               echo '<a data-toggle="popover" data-placement="bottom" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.ucfirst($title).'</a>';
+               echo '<a data-toggle="popover" data-placement="left" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.ucfirst($title).'</a>';
                if($ihome==1)
                   echo '<br /><small><span class="badge badge-secondary" title="'.adm_translate("Catégorie").'" data-toggle="tooltip">'.aff_langue($cat_title).'</span> <span class="text-danger">non publié en index</span></small>';
                else
@@ -569,7 +641,7 @@ function adminMain($deja_affiches) {
             echo '</td>
             <td>
             <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fas fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="far fa-trash-alt fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
+            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
          else
             echo '</td>
             <td>';
@@ -582,7 +654,7 @@ function adminMain($deja_affiches) {
       </table>
       <div class="d-flex my-2 justify-content-between flex-wrap">
       <ul class="pagination pagination-sm">
-         <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' Articles</a></li>
+         <li class="page-item disabled"><a class="page-link" href="#">'.$nbre_articles.' '.adm_translate("Articles").'</a></li>
          <li class="page-item disabled"><a class="page-link" href="#">'.$nbPages.' '.adm_translate("Page(s)").'</a></li>
       </ul>';
       echo paginate('admin.php?op=suite_articles&amp;deja_affiches=', '', $nbPages, $current, 1, $admart, $start);
@@ -594,8 +666,8 @@ function adminMain($deja_affiches) {
          <label class="mr-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
          <input class="form-control  mr-2 mt-sm-3 mb-2" type="number" name="sid" />
          <select class="custom-select form-control mr-2 mt-sm-3 mb-2" name="op">
-            <option value="EditStory" selected="selected">'.adm_translate(" Editer un Article ").'</option>
-            <option value="RemoveStory">'.adm_translate(" Effacer l'Article").'</option>
+            <option value="EditStory" selected="selected">'.adm_translate("Editer un Article").'</option>
+            <option value="RemoveStory">'.adm_translate("Effacer l'Article").'</option>
          </select>
          <button class="btn btn-primary ml-sm-2 mt-sm-3 mb-2" type="submit">'.adm_translate("Ok").' </button>
       </form>';

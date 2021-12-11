@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -119,8 +119,8 @@ function MetaTagAdmin($saved = false) {
             <span class="help-block">'.adm_translate("(Ex. : 16 days. Remarque : ne définissez pas de fréquence inférieure à 14 jours !)").'<span class="float-right ml-1" id="countcar_newtagrevisitafter"></span></span>
          </div>
       </div>';
-
-   if (function_exists("utf8_encode")) {
+// no need as this fonction is available since php4 !
+//   if (function_exists("utf8_encode")) {
       echo '
       <div class="form-group row">
          <label class="col-form-label col-12" for="newtagcontenttype">'.adm_translate("Encodage").'</label>
@@ -131,18 +131,19 @@ function MetaTagAdmin($saved = false) {
             </select>
          </div>
       </div>';
+// no need as this fonction is available since php4 !
+/*
    } else {
       echo '
          <label class="col-form-label" >'.adm_translate("Encodage").'</label>
          <span class="text-danger">utf8_encode() '.adm_translate("non disponible").'</span>';
    }
+*/
    echo '
       <div class="form-group row">
          <label class="col-form-label col-12" for="newtagdoctype">DOCTYPE</label>
          <div class="col-12">
             <select class="custom-select form-control" id="newtagdoctype" name="newtag[doctype]">
-               <option value="HTML 4.01 Transitional"'.(!strcasecmp(doctype, 'HTML 4.01 Transitional') ? ' selected="selected"' : '').'>HTML 4.01 '.adm_translate("Transitional").' (deprecated)</option>
-               <option value="HTML 4.01 Strict"'.(!strcasecmp(doctype, 'HTML 4.01 Strict') ? ' selected="selected"' : '').'>HTML 4.01 '.adm_translate("Strict").' (deprecated)</option>
                <option value="XHTML 1.0 Transitional"'.(!strcasecmp(doctype, 'XHTML 1.0 Transitional') ? ' selected="selected"' : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
                <option value="XHTML 1.0 Strict"'.(!strcasecmp(doctype, 'XHTML 1.0 Strict') ? ' selected="selected"' : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
                <option value="HTML 5.0"'.(!strcasecmp(doctype, 'HTML 5.0') ? ' selected="selected"' : '').'>HTML 5.0</option>

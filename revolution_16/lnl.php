@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -78,33 +78,28 @@ function subscribe_ok($xemail) {
             sql_query("INSERT INTO ".$NPDS_Prefix."lnl_outside_users VALUES ('$xemail', '$host_name', '$timeX', 'OK')");
             // Email validation + url to unsubscribe
             global $sitename, $nuke_url;
-            $subject = "".translate("La lettre")." / $sitename";
-            $message = "".translate("Merci d'avoir consacré du temps pour vous enregistrer.")."\n\n";
-            $message .= "".translate("Pour supprimer votre abonnement à notre lettre, merci d'utiliser")." :\n $nuke_url/lnl.php?op=unsubscribe&email=$xemail\n\n";
+            $subject = translate("La lettre").' / '.$sitename;
+            $message = translate("Merci d'avoir consacré du temps pour vous enregistrer.").'<br /><br />'.translate("Pour supprimer votre abonnement à notre lettre, merci d'utiliser").' : <br />'.$nuke_url.'/lnl.php?op=unsubscribe&email='.$xemail.'<br /><br />';
             include("signat.php");
-            send_email($xemail, $subject, $message, '', true, 'text');
-            opentable();
+            send_email($xemail, $subject, $message, '', true, 'html');
             echo translate("Merci d'avoir consacré du temps pour vous enregistrer.")."<br /><br />";
-            echo "<a href=\"index.php\" class=\"noir\">".translate("Retour en arrière")."</a>";
-            closetable();
+            echo '<a href="index.php">'.translate("Retour en arrière").'</a>';
         } else {
             $stop=translate("Compte ou adresse IP désactivée. Cet émetteur a participé plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage.")."<br />";
             error_handler($stop);
         }
-      } else {
+      } else
          error_handler($stop);
-      }
-   } else {
+   } else
      error_handler(translate("Cette donnée ne doit pas être vide.")."<br />");
-   }
    include("footer.php");
 }
 
 function unsubscribe($xemail) {
    global $NPDS_Prefix;
 
-   if ($xemail!="") {
-      if ((!$xemail) || ($xemail=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$xemail))) header("location: index.php");
+   if ($xemail!='') {
+      if ((!$xemail) || ($xemail=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$xemail))) header("location: index.php");
       if (strrpos($xemail,' ') > 0) header("location: index.php");
       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$xemail'")) > 0) {
          $host_name=getip();
@@ -114,10 +109,8 @@ function unsubscribe($xemail) {
          if ($troll < 6) {
             sql_query("UPDATE ".$NPDS_Prefix."lnl_outside_users SET status='NOK'  WHERE email='$xemail'");
             include("header.php");
-            opentable();
-            echo translate("Merci")."<br /><br />";
+            echo translate("Merci").'<br /><br />';
             echo "<a href=\"index.php\" class=\"noir\">".translate("Retour en arrière")."</a>";
-            closetable();
             include("footer.php");
          } else {
             include("header.php");
@@ -125,12 +118,10 @@ function unsubscribe($xemail) {
             error_handler($stop);
             include("footer.php");
          }
-      } else {
+      } else
          redirect_url("index.php");
-      }
-   } else {
+   } else
       redirect_url("index.php");
-   }
 }
 
 settype($op,'string');

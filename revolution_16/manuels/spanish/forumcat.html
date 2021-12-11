@@ -1,75 +1,90 @@
-<html>
-<title> Edition des Forums - NPDS V</title>
-<head>
-</head>
-<body bgcolor=FFFFFF text=000000>
-<div align="center"><strong>Edicion de los foros
-  </strong>
-</div>
-<center><font size="2" face="Verdana,Arial,Helvetica"><b> </b></font></center>
-<font face=Verdana,Arial,Helvetica size=2><br />
-Esta funci&oacute;n le permitir&aacute; garantizar la gesti&oacute;n de sus Foros.<br />
-La primera lista indicada es en realidad la representaci&oacute;n de las
-categor&iacute;as y foros activos en su pagina web.<br /><br />
-<b>Edicion de los foros :</b><br />
-Una segunda p&aacute;gina  indica con la lista de los foros presentes en
-la categor&iacute;a.<br />
-Pueden a&ntilde;adir un foro:<br />
- - &Iacute;ndex: de la misma manera que para los bloques, esto le da la 
- posibilidad de clasificar sus distintos foros.<br />
- - Nombre del foro <br />
- - Descripcion del foro(No ponga nombres muy largos)<br />
- - identificante del moderador (es) (obligatorio): si hay varios
- moderadores para un mismo foro, separe los  nombres por, (comas).<br /><br />
- - <b>Nivel de acceso para la publicacion </b> :<br />
- => Publicacion anonima autorizada <br />
- => Publicaci&oacute;n Usuario registrado solamente<br />
- => Publicaci&oacute;n Moderador solamente<br />
- => Cerrado (se cierra el foro a toda nueva publicaci&oacute;n o modificaci&oacute;n)<br /><br />
- - <b>Tipo de foro </b> : P&uacute;blico, Privado, PHP script, Texto extendido, Grupo u Ocultado<br />
- => Publico = acceso a todo el mundo <br />
- => Privado = acceso por contrase&ntilde;a<br />
- => PHP Script=Foro que permite almacenar e indicar  c&oacute;digo (php, perl, c...).<br />
- Atenci&oacute;n algunas cosas no funcionan con este foro (Caritas etc...)<br />
- => Texto extendido= Permite asociar a un foro, un formulario SFORM<br />
- => Grupo = Permite asociar un foro a N grupos de miembro<br />
- => Texte escondido = visible que para los miembros<br />
- => El Campo siguiente toma distintos valores:<br />
-&nbsp;&nbsp;&nbsp;&nbsp;-> Contrase&ntilde;a (si Foro Privado)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;-> El nombre del fichero de formulario (si Foro Texto extendido)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;en modules/sform/forum (por ejemplo: formulaire.php)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;-> El identificador de los Grupos de miembro (si Foro Grupo) separar los
-nombres por, (comas)/ejemplo: 5,12,56<br /><br />
- - <b>Modo del foro </b> : Standard o arbol <br />
- => El m&eacute;todo &aacute;rbol permite una gesti&oacute;n particular (arborescente) de
- los posts pero puede requerir una determinada potencia de c&aacute;lculo<br />
- - <b>Documentos adjuntos </b> : Si en Administraci&oacute;n/Configuraci&oacute;n de los Foros, la opci&oacute;n &quot;Activar
- el upload en los foros&quot; est&aacute; sobre S&iacute;<br />
- => podr&aacute; especificar si autoriza, para este foro, los documentos
- adjuntos.<br />
-<br />
-<strong>&iexcl;Para hacer una redirecci&oacute;n hacia un foro externo</strong> (una clase de
-v&iacute;nculo), inserte simplemente una url en el Nombre del Foro!<br />
-<br />
-<b>Sub-Forum :</b><br />A forum isn't visible if it's name start with &lt;!&gt;. One new meta-mot give you the reading status of one forum : forum_subfolder(ID_of_forum).<br />
-=> Imagine one forum with id = 3 and with this name : "&lt;!&gt;Only for NPDS" / Imagine the comment-text of forum with id 1 like : forum_subfolder(3) &lt;a href="viewforum.php?forum=3"&gt;Only for NPDS&lt;/a&gt;<br />
-<br />
-<br />
-Puede publicar un foro para modificarlo.<br />
-Puede suprimir un foro (mensaje de confirmaci&oacute;n).<br />
-<strong><br />
-A&ntilde;adir una categor&iacute;a:</strong><br />
-Le permite a&ntilde;adir una categor&iacute;a en la cual podr&aacute; insertar foros.
-Presione A&ntilde;adir para terminar.<br /><br />
-
-<strong>Edicion (la categor&iacute;a):</strong><br />
-Les permite modificar la categor&iacute;a: su t&iacute;tulo Y su &Iacute;D (lo que
-permite clasificar las categor&iacute;as). Presione Ok para terminar.<br /><br />
-
-<strong>Borrar (la categor&iacute;a):</strong><br />
-Esta funci&oacute;n le permite suprimir una categor&iacute;a, todos los foros
-adjuntos as&iacute; como todas las contribuciones.<br />
-Se indica a pesar de todo un mensaje de confirmaci&oacute;n...<br /><br />
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Edicion de los foros</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_com.html">Comunicaci&oacute;n</a></li>
+               <li class="breadcrumb-item active">Edicion de los foros</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Edicion de los foros</h3>
+         <p>Esta funci&oacute;n le permitir&aacute; garantizar la gesti&oacute;n de sus Foros.<br />
+         La primera lista indicada es en realidad la representaci&oacute;n de las categor&iacute;as y foros activos en su pagina web.</p>
+         <h4>Edicion de los foros</h4>
+         <p>Una segunda p&aacute;gina indica con la lista de los foros presentes en la categor&iacute;a.<br />
+         Pueden a&ntilde;adir un foro:<br />
+         <ul>
+            <li>&Iacute;ndex: de la misma manera que para los bloques, esto le da la posibilidad de clasificar sus distintos foros.</li>
+            <li>Nombre del foro </li>
+            <li>Descripcion del foro(No ponga nombres muy largos)</li>
+            <li>Identificante del moderador (es) (obligatorio): si hay varios moderadores para un mismo foro, separe los  nombres por, (comas).</li>
+            <li><b>Nivel de acceso para la publicacion </b> :
+               <ul>
+                  <li>Publicacion anonima autorizada</li>
+                  <li>Publicaci&oacute;n Usuario registrado solamente</li>
+                  <li>Publicaci&oacute;n Moderador solamente</li>
+                  <li>Cerrado (se cierra el foro a toda nueva publicaci&oacute;n o modificaci&oacute;n)</li>
+               </ul>
+            </li>
+            <li><b>Tipo de foro </b> : P&uacute;blico, Privado, PHP script, Texto extendido, Grupo u Ocultado
+               <ul>
+                  <li>Publico = acceso a todo el mundo </li>
+                  <li>Privado = acceso por contrase&ntilde;a</li>
+                  <li>PHP Script=Foro que permite almacenar e indicar  c&oacute;digo (php, perl, c...).<br />
+                  Atenci&oacute;n algunas cosas no funcionan con este foro (Caritas etc...)</li>
+                  <li>Texto extendido= Permite asociar a un foro, un formulario SFORM</li>
+                  <li>Grupo = Permite asociar un foro a N grupos de miembro</li>
+                  <li>Texte escondido = visible que para los miembros</li>
+                  <li>El Campo siguiente toma distintos valores:
+                     <ul>
+                        <li>Contrase&ntilde;a (si Foro Privado)</li>
+                        <li>El nombre del fichero de formulario (si Foro Texto extendido)<br />en modules/sform/forum (por ejemplo: formulaire.php)</li>
+                        <li>El identificador de los Grupos de miembro (si Foro Grupo) separar los nombres por, (comas)/ejemplo: 5,12,56</li>
+                     </ul>
+                  </li>
+               </ul>
+            </li>
+            <li><b>Modo del foro </b> : Standard o arbol
+               <ul>
+                  <li>El m&eacute;todo &aacute;rbol permite una gesti&oacute;n particular (arborescente) de los posts pero puede requerir una determinada potencia de c&aacute;lculo</li>
+               </ul>
+            </li>
+            <li><b>Documentos adjuntos </b> : Si en Administraci&oacute;n/Configuraci&oacute;n de los Foros, la opci&oacute;n &quot;Activar el upload en los foros&quot; est&aacute; sobre S&iacute;
+               <ul>
+                  <li>podr&aacute; especificar si autoriza, para este foro, los documentos adjuntos.</li>
+               </ul>
+            </li>
+         </ul>
+         <p><strong>&iexcl;Para hacer una redirecci&oacute;n hacia un foro externo</strong> (una clase de v&iacute;nculo), inserte simplemente una url en el Nombre del Foro!</p>
+         <p><strong>Sub-Forum :</strong><br />
+         Un foro no es visible si su nombre comienza con &lt;!&gt;.<br />
+         Un nuevo meta-mot te da el estado de lectura de un foro: forum_subfolder(ID_del_foro).
+         <ul>
+            <li>Imagina un foro con id = 3 y con este nombre: "&lt;!&gt;Only for NPDS"</li>
+            <li>Imagina el comentario-texto del foro con id 1 como: forum_subfolder(3) &lt;a href="viewforum.php?forum=3"&gt;Only for NPDS&lt;/a&gt;</li>
+         </ul>
+         </p>
+         <p>Puede publicar un foro para modificarlo.<br />
+         Puede suprimir un foro (mensaje de confirmaci&oacute;n).</p>
+         <h4>A&ntilde;adir una categor&iacute;a</h4>
+         <p>Le permite a&ntilde;adir una categor&iacute;a en la cual podr&aacute; insertar foros. Presione A&ntilde;adir para terminar.</p>
+         <h4>Edicion (la categor&iacute;a)</h4>
+         <p>Les permite modificar la categor&iacute;a: su t&iacute;tulo Y su &Iacute;D (lo que permite clasificar las categor&iacute;as). Presione Ok para terminar.</p>
+         <h4>Borrar (la categor&iacute;a)</h4>
+         <p>Esta funci&oacute;n le permite suprimir una categor&iacute;a, todos los foros adjuntos as&iacute; como todas las contribuciones.<br />
+         Se indica a pesar de todo un mensaje de confirmaci&oacute;n...</p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Manual de administración</span></p>
+      </div>
+   </body>
 </html>

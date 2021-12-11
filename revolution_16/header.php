@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -21,7 +21,7 @@ settype($m_description, 'string');
 $skin='';
 
 function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords) {
-   global $slogan, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
+   global $slogan, $site_font, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
    global $topic, $hlpfile, $user, $hr, $bgcolor1, $bgcolor2, $bgcolor3, $bgcolor4, $bgcolor5, $bgcolor6, $textcolor1, $textcolor2, $long_chain;
    global $bargif, $theme_width, $bloc_width, $page_width;
    
@@ -152,12 +152,12 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    // take the right theme location !
    // nouvel version de la gestion des Themes et Skins
    global $Default_Theme, $Default_Skin, $user;
-   if (isset($user) and $user!='') {
+   if (isset($user) and $user !='') {
       global $cookie;
       if($cookie[9] !='') {
          $ibix=explode('+', urldecode($cookie[9]));
          if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
-         if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_skin; //$skin=''; 
+         if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_Skin; //$skin=''; 
          $tmp_theme=$theme;
          if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
       } else 

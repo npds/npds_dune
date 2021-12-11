@@ -1,45 +1,55 @@
-<html><head>
-<title>Banner Administration - NPDS V</title>
-
-</head>
-<body bgcolor=FFFFFF text=000000>
-<div align="center">
-  <p><font face="Verdana,Arial,Helvetica" size="2"><b>Banner Administration</b> </font></p>
-  <p align="left"><font face="Verdana,Arial,Helvetica" size="2"><br />
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="utf-8" />
+      <title>Banner</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li>
+               <li class="breadcrumb-item"><a href="men_com.html">Kommunication</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Banner</li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Banner Administration</h3>
+         <p>NPDS kommt mit einem kleinen, einfachen Bannersystem, damit Sie ihre eigenen Banner hinzufÂ¸gen und kontrollieren kÃ¶nnen. Diese Anwendung ist selbsterklâ€°rend und benË†tigt keine groï¬‚artige Beschreibung.<br />
     <br />
-    NPDS kommt mit einem kleinen, einfachen Bannersystem, damit Sie ihre eigenen Banner hinzufügen und kontrollieren können. Diese Anwendung ist selbsterklärend und benötigt keine großartige Beschreibung.<br />
-    <br />
-    NPDS hat eine ganz neue Funktion : Banner können nach dem Benutzerstatus eingestellt werden.<br />
-    Ein Banner kann für alle Besucher/Benutzer der Seite, oder nur für registrierte Benutzer und Administratoren sichtbar sein. Zudem kann eingestellt werden, das ein Banner für eine vorgegebene Zeit nicht angezeigt wird.<br />
-    Sie können diese Einstellungen für verschiedene Kunden nutzen. <br />
+    NPDS hat eine ganz neue Funktion : Banner kÃ¶nnen nach dem Benutzerstatus eingestellt werden.<br />
+    Ein Banner kann fÃ¼r alle Besucher/Benutzer der Seite, oder nur fÃ¼r registrierte Benutzer und Administratoren sichtbar sein. Zudem kann eingestellt werden, das ein Banner fÃ¼r eine vorgegebene Zeit nicht angezeigt wird.<br />
+    Sie kÃ¶nnen diese Einstellungen fÃ¼r verschiedene Kunden nutzen. <br />
     <br />
     Um Banner zu  <b>aktivieren</b> : Admininistration / Einstellungen <br />
     <br />
     Um die Banner zu administrieren : Klicken Sie auf Banner Administration<br />
     <br />
-    <b>Derzeit aktive Banner:</b> Anzeigen der Banner, die derzeit auf Ihrer Seite angezeigt werden. Das Feld Einstellungen zeigt Ihnen alle Einstellungen für diesen Banner an, Imp. Left zeigt die Einstellungen, Clicks ist die Anzahl an Klicks auf diesen Banner, % Click ist die prozentuale Anzeige, je nach gemachten Einstellungen, Client Name und Funktionen sind selbsterklärend. In den Funktionen können Sie den gewählten Banner editieren , oder löschen.<br />
+    <b>Derzeit aktive Banner:</b> Anzeigen der Banner, die derzeit auf Ihrer Seite angezeigt werden. Das Feld Einstellungen zeigt Ihnen alle Einstellungen fÃ¼r diesen Banner an, Imp. Left zeigt die Einstellungen, Clicks ist die Anzahl an Klicks auf diesen Banner, % Click ist die prozentuale Anzeige, je nach gemachten Einstellungen, Client Name und Funktionen sind selbsterklâ€°rend. In den Funktionen kÃ¶nnen Sie den gewâ€°hlten Banner editieren , oder lÃ¶schen.<br />
     <br />
-    <b>'Zeit vorbei' Banner:</b> Erreicht ein Banner seine Ablaufzeit, wird er automatisch hierher verschoben. In dieser Tabelle können Sie die Einstellungen sehen, wie oft der Banner angeklickt wurde, % der Klicks, Start- und Enddatum des Banners, Kundenname und die Option ihn zu löschen<br />
+    <b>'Zeit vorbei' Banner:</b> Erreicht ein Banner seine Ablaufzeit, wird er automatisch hierher verschoben. In dieser Tabelle kÃ¶nnen Sie die Einstellungen sehen, wie oft der Banner angeklickt wurde, % der Klicks, Start- und Enddatum des Banners, Kundenname und die Option ihn zu lË†schen<br />
     <br />
     <b>Werbekunden:</b> Hier werden die Daten der Werbekunden und die Anzahl der aktiven Banner angezeigt.<br />
     <br />
-    <b>Notiz wenn Sie einen Banner hinzufügen wollen:</b> Wenn Sie den Banner unbegrenzt anzeigen lassen wollen, geben Sie <b>0</b> in das Feld <i>Impressions Purchased</i> ein. 
+    <b>Notiz wenn Sie einen Banner hinzufÂ¸gen wollen:</b> Wenn Sie den Banner unbegrenzt anzeigen lassen wollen, geben Sie <b>0</b> in das Feld <i>Impressions Purchased</i> ein. 
     <br />
     <br />
-    <b>Kunden Statistiken:</b> Wenn Sie einen neuen Kunden anlegen, können Sie ihm ein Login und ein Passwort zuweisen. Mit diesen Informationen kann der Kunde in Echtzeit den Status seines Banners ansehen, wenn er diese URL besucht:<br />
+    <b>Kunden Statistiken:</b> Wenn Sie einen neuen Kunden anlegen, kË†nnen Sie ihm ein Login und ein Passwort zuweisen. Mit diesen Informationen kann der Kunde in Echtzeit den Status seines Banners ansehen, wenn er diese URL besucht:<br />
     <br />
     </font> </p>
-</div>
-<div align="left">
   <ul>
     <font face="Verdana,Arial,Helvetica" size="2"> http://ihreseite.com/banners.php?op=login 
     </font> 
   </ul>
   <font face="Verdana,Arial,Helvetica" size="2"><br />
-  In dieser Seite kann der Kunde die URL des Banner ändern und den Status in Echtzeit ansehen. Zudem kann sich der Kunde eineStatistik des Banner per E-mail zusenden lassen. Und das, ohne das Sie als Administrator etwas tun mpssen.</font><font face="Verdana,Arial,Helvetica" size="2"><br />
+  In dieser Seite kann der Kunde die URL des Banner â€°ndern und den Status in Echtzeit ansehen. Zudem kann sich der Kunde eineStatistik des Banner per E-mail zusenden lassen. Und das, ohne das Sie als Administrator etwas tun mpssen.</font><font face="Verdana,Arial,Helvetica" size="2"><br />
   <br />
   </font>
-</div>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</body>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Administrationshandbuch</span></p>
+      </div>
+   </body>
 </html>

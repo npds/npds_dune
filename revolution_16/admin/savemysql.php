@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -20,8 +20,9 @@ $f_meta_nom ='SavemySQL';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-
+$name=$aid;
    include("lib/archive.php");
+         mysqli_set_charset($dblink,"utf8mb4");
 
    function PrepareString($a_string = '') {
       $search       = array('\\','\'',"\x00", "\x0a", "\x0d", "\x1a"); //\x08\\x09, not required
@@ -30,7 +31,7 @@ admindroits($aid,$f_meta_nom);
    }
 
    function get_table_def($table) {
-      global $dbname, $crlf, $crlf2;
+      global $dbname, $crlf, $crlf2, $dblink;
       settype($index, 'array');
       $k = 0;
       $result = sql_query("SELECT * FROM $table LIMIT 1");
@@ -38,7 +39,7 @@ admindroits($aid,$f_meta_nom);
 
       $schema_create = '';
       $schema_create .= "DROP TABLE IF EXISTS $table;$crlf";
-      $schema_create .= "CREATE TABLE $table ($crlf";
+      $schema_create .= "CREATE TABLE $table ($crlf";//
       $result = sql_query("SHOW FIELDS FROM $table");
       while($row = sql_fetch_assoc($result)) {
          $schema_create .= " ".$row['Field']." ".$row['Type'];
@@ -63,15 +64,15 @@ admindroits($aid,$f_meta_nom);
       foreach($index as $x => $columns) {
          $schema_create .= ",$crlf";
          if($x == "PRIMARY")
-            $schema_create .= " PRIMARY KEY (".implode($columns, ", ").")";
+            $schema_create .= " PRIMARY KEY (".implode(", ", $columns).")";
          elseif (substr($x,0,6) == "UNIQUE")
-            $schema_create .= " UNIQUE ".substr($x,7)." (".implode($columns, ", ").")";
+            $schema_create .= " UNIQUE ".substr($x,7)." (".implode(", ", $columns).")";
          else
-            $schema_create .= " KEY $x (".implode($columns, ", ").")";
+            $schema_create .= " KEY $x (".implode(", ", $columns).")";
       }
       $schema_create .= "$crlf)";
       $schema_create = stripslashes($schema_create);
-      $schema_create .= ";";
+      $schema_create .= " ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;";
       sql_free_result($result);
       return($schema_create);
    }
@@ -103,7 +104,7 @@ admindroits($aid,$f_meta_nom);
                $schema_insert .= ",";
             }
          }
-         $schema_insert .= ");$crlf";
+         $schema_insert .= ");$crlf";//
       }
       if($schema_insert != "")
       {

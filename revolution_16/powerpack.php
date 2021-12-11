@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -28,7 +28,7 @@ switch ($op) {
       settype($messages,'string');
          if ($user) {
             $rowQ1=Q_Select("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'", 3600);
-            list(,$uid)=each($rowQ1);
+            $uid = $rowQ1[0];
             $from_userid=$uid['uid'];
             if (($subject!='') or ($message!='')) {
                $subject=FixQuotes($subject).'';
@@ -42,9 +42,12 @@ switch ($op) {
    // Purge Chat Box
    case 'admin_chatbox_write':
       if ($admin) {
-         if ($chatbox_clearDB=='OK') {
-            sql_query("DELETE FROM ".$NPDS_Prefix."chatbox WHERE date <= ".(time()-(60*5))."");
-         }
+         $adminX = base64_decode($admin);
+         $adminR = explode(':', $adminX);
+         $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$adminR[0]' LIMIT 1"));
+         if ($Q['radminsuper']==1)
+            if ($chatbox_clearDB=='OK')
+               sql_query("DELETE FROM ".$NPDS_Prefix."chatbox WHERE date <= ".(time()-(60*5))."");
       }
       Header("Location: index.php");
    break;

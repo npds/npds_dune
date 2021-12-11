@@ -1,64 +1,99 @@
-<html>
-<head>
-<title>Administration - NPDS</title>
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face="Verdana,Arial,Helvetica" size="2">
-<center><b>Abschnitte</b></center>
-<div><br />Der Neue Abschnitte Manager hat eine grosse Funktionalität. <br />
-<br />Die wichtigsten Funktionen sind:<br />
-&nbsp;- eine bessere Baumstruktur: Abschnitt/Unter-Abschnitt/Publikation<br />
-&nbsp;- minis-workflow der Publikation<br />
-&nbsp;- eine gute Administration der Autorenrechte<br />
-&nbsp;- eine gute Administration der Visualisierungsrechte<br />
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="utf-8" />
+      <title>Abschnitte</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">MenÃ¼</a></li> 
+               <li class="breadcrumb-item"><a href="men_contenu.html">Inhalt</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Abschnitte</li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Abschnitte</h3>
+         <p>Der Abschnitte Manager hat eine grosse FunktionalitÃ¤t.<br />
+         Die wichtigsten Funktionen sind:
+            <ul>
+               <li>eine bessere Baumstruktur: Abschnitt/Unter-Abschnitt/Publikation</li>
+               <li>minis-workflow der Publikation</li>
+               <li>eine gute Administration der Autorenrechte</li>
+               <li>eine gute Administration der Visualisierungsrechte</li>
+            </ul>
+         </p>
 
-<br />Bevor Sie beginnen:<br />
-&nbsp;- zwei Positionen werden automatisch zum Zeitpunkt der Installation hinzugefügt:<br />
-&nbsp;&nbsp;&nbsp;- Various erlaubt das erstellen einer Einzelseite (zum Beispiel)<br />
-&nbsp;&nbsp;&nbsp;- Paper weight für die Dokumentenrechte, die Tests, die Einstellungen auf standby...<br />
-&nbsp;- Ihre alten Abschnitte sind in Form von Sub-Kategorien verfügbar (ohne Titel) und die Autorenrechte sind einstellbar.<br />
-&nbsp;- Es kann auch ein horizontales Javascript Menu undein spezifischer Block erzeugt werden(function#bloc_rubric)<br />
-<br /><center>::--::</center><br />
-<strong>Abschnitte:<br /></strong>
-Es erzeugt einen Titel, eine Einführung und ein Statut: aktiv (ja oder nein).<br />Ein inaktiver Abscnitt wird nicht angezeigt in NPDS. Durch defekt erstellter nicht aktiver Abschnitt <br />
+         <h4>Bevor Sie beginnen</h4>
+         <p>
+            <ul>
+               <li>zwei Positionen werden automatisch zum Zeitpunkt der Installation hinzugefÃ¼gt:</li>
+               <li>Various erlaubt das erstellen einer Einzelseite (zum Beispiel)</li>
+               <li>Paper weight fÃ¼r die Dokumentenrechte, die Tests, die Einstellungen auf standby...</li>
+               <li>Ihre alten Abschnitte sind in Form von Sub-Kategorien verfÃ¼gbar (ohne Titel) und die Autorenrechte sind einstellbar.</li>
+               <li>Es kann auch ein horizontales Javascript Menu undein spezifischer Block erzeugt werden(function#bloc_rubric)</li>
+            </ul>
+         </p>
 
-<br /><strong>Unter-Abschnitt:</strong><br />Er ist eienm Abschnitt zugeordnet, zeigt einen Titel und (wenn nötig) ein Bild (Flash wird unterstützt :: speichern unter: images/sections), eine Einführung und Verwaltung der Benutzerrechte.<br />
+         <h4>Abschnitte</h4>
+         <p>Es erzeugt einen Titel, eine EinfÃ¼hrung und ein Statut: aktiv (ja oder nein).<br />
+         Ein inaktiver Abschnitt wird nicht angezeigt in NPDS. Durch defekt erstellter nicht aktiver Abschnitt </p>
 
-<br /><strong>Publikation:<br /></strong>Ist einem Unter-Abschnitt zugeordnet und zeigt einen Titel It is attached to a sub-section and lays out a title, wenn nötig mit einem Link zu anderen Publikationen,&nbsp;Inhalte und die Benutzerverwaltung.<br />
-&nbsp;NPDS Berechtigungen für den Inhalt:&nbsp;<br />
-&nbsp;- Code einfügen PHP, C, Perl.... Es ist nötig den Code zwischen Klammern zu setzten: Beispiel [code]your_source[/code ].<br />
-&nbsp;- Die Administration mehrerer Seiten.&nbsp; Es ist notwendig, die Seiten zu kennzeichnen via [ pageX ] wobei X folgendermassen aussehen soll [ page1 ] dann [ page2 ]...). <br />
+         <h4>Unter-Abschnitt</h4>
+         <p>Er ist eienm Abschnitt zugeordnet, zeigt einen Titel und (wenn nÃ¶tig) ein Bild (Flash wird unterstÃ¼tzt : speichern unter: images/sections), eine EinfÃ¼hrung und Verwaltung der Benutzerrechte.</p>
 
-<br /><strong>Neue Publikation:<br /></strong>
-&nbsp;- Für den SuperAdmin: <br />
-&nbsp;&nbsp; Die neue Publikation wird sofort veröffentlicht.<br />
-&nbsp;- Für einen Administrator des Abschnitts:<br />
-&nbsp;&nbsp;&nbsp;Die neue Publikation wartet auf die Veröffentlichung durch den Superadmin. <br />
+         <h4>Publikation</h4>
+         <p>Ist einem Unter-Abschnitt zugeordnet und zeigt einen Titel It is attached to a sub-section and lays out a title, wenn nÃ¶tig mit einem Link zu anderen Publikationen, Inhalte und die Benutzerverwaltung.<br />
+            NPDS Berechtigungen fÃ¼r den Inhalt:
+            <ul>
+               <li>Code einfÂ¸gen PHP, C, Perl.... Es ist nÃ¶tig den Code zwischen Klammern zu setzten: Beispiel [code]your_source[/code ].</li>
+               <li>Die Administration mehrerer Seiten. Es ist notwendig, die Seiten zu kennzeichnen via [ pageX ] wobei X folgendermassen aussehen soll [ page1 ] dann [ page2 ]...). </li>
+            </ul>
+         </p>
 
-<br /><strong>Pblikation im Zusammenhang mit:<br /></strong>Diese Funktion erlaubt eine Quer-Navigation zwischen verschiedenen Abschniten und Unter-Abschnitten. <br />
+         <h4>Neue Publikation</h4>
+         <p>
+            <ul>
+               <li>FÃ¼r den SuperAdmin: Die neue Publikation wird sofort verÃ¶ffentlicht.</li>
+               <li>FÃ¼r einen Administrator des Abschnitts: Die neue Publikation wartet auf die VerÃ¶ffentlichung durch den Superadmin.</li>
+            </ul>
+         </p>
 
-<br /><strong>Administration der Reihenfolge:<br /></strong>Da sind die Abschnitte, die Unterkategorien und die Publikationen. NPDS erlaubt Ihnen die Einordnung. <br />
+         <h4>Publikation im Zusammenhang mit</h4>
+         <p>Diese Funktion erlaubt eine Quer-Navigation zwischen verschiedenen Abschniten und Unter-Abschnitten.</p>
 
-<br /><strong>Status und Ausblenden: <br /></strong>Der Status eines Abschnitts wird angezeigt. Zur Erinnerung, ein Abschnitt mit dem Status 'Off' wird nichtt&nbsp;angezeigt in NPDS.<br />Das Ausblenden von Abschnitten, Unter-abschnitten und Publikationen wird nach einer Bestätigung.<br />
+         <h4>Administration der Reihenfolge</h4>
+         <p>Da sind die Abschnitte, die Unterkategorien und die Publikationen. NPDS erlaubt Ihnen die Einordnung.</p>
 
-<br /><strong>Publkationen warten auf Veröffentlichung:<br /></strong>Die Liste zeigt die wartenden Publikationen und Sie sind in der lage diese zu: sehen, modifizieren, löschen oder freizugeben. <br />
+         <h4>Status und Ausblenden</h4>
+         <p>Der Status eines Abschnitts wird angezeigt. Zur Erinnerung, ein Abschnitt mit dem Status 'Off' wird nicht angezeigt in NPDS.<br />
+         Das Ausblenden von Abschnitten, Unter-abschnitten und Publikationen wird nach einer BestÃ¤tigung.</p>
 
-<br /><strong>Autoren:<br /></strong>
-&nbsp;- Für den SuperAdmin:<br />
-&nbsp;&nbsp; Alles ist erlaubt <br /><br />
-&nbsp;- Für den Administrator des Abschnitts:<br />
-&nbsp;&nbsp; Die Rechtevergabe muss, Unter-Kategorie für Unter-Kategorie vergeben werden(Vorsicht, wenn Sie eine neue Kategorie anlegen, die Unter-Kategorie : hat keine Rechte&nbsp;ist durch defect betroffen) beeinflusst durch 4 Kategorien: <br />
-&nbsp;&nbsp; - Zu erstellen: Erlaube das Erstllen&nbsp;einer Publikation die dann auf Freigebe wartet<br />
-&nbsp;&nbsp; - Zur Freigabe: Erlaube das Hinzufügen einer Publikation in die Warteschleife<br />
-&nbsp;&nbsp; - Zu editieren: Erlaube das Editieren<br />
-&nbsp;&nbsp; - Zu löschen: Erlaube das löschen <br />
-<br />Jeder Autor kann seine Rechte an Kategorien und Unter-Kategorien einsehen.<br />&nbsp;<br />
+         <h4>Publikationen warten auf VerÃ¶ffentlichung</h4>
+         <p>Die Liste zeigt die wartenden Publikationen und Sie sind in der lage diese zu: sehen, modifizieren, lÃ¶schen oder freizugeben.</p>
 
-<strong>Um die Baumstruktur zu aktivieren:<br /></strong>It&nbsp;Rechte zur Umsetzung der Anzeige von Unterkategorien und der Publikationen in der Baumstruktur..<br />
-<br />
-
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</div></font>
-</body>
+         <h4>Autoren</h4>
+         <p>
+            <ul>
+               <li>FÃ¼r den SuperAdmin: Alles ist erlaubt </li>
+               <li>FÃ¼r den Administrator des Abschnitts:<br />
+                  Die Rechtevergabe muss, Unter-Kategorie fÃ¼r Unter-Kategorie vergeben werden(Vorsicht, wenn Sie eine neue Kategorie anlegen, die Unter-Kategorie : hat keine Rechte ist durch defect betroffen) beeinflusst durch 4 Kategorien: <br />
+                  <ul>
+                     <li>Zu erstellen: Erlaube das Erstllen einer Publikation die dann auf Freigebe wartet</li>
+                     <li>Zur Freigabe: Erlaube das HinzufÃ¼gen einer Publikation in die Warteschleife</li>
+                     <li>Zu editieren: Erlaube das Editieren</li>
+                     <li>Zu lÃ¶schen: Erlaube das lÃ¶schen </li>
+                  </ul>
+               </li>
+            </ul>
+         Jeder Autor kann seine Rechte an Kategorien und Unter-Kategorien einsehen.
+         </p>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Administrationshandbuch</span></p>
+      </div>
+   </body>
 </html>
-

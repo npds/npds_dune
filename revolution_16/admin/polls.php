@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -49,7 +49,7 @@ function poll_createPoll() {
                <td>'.$object["voters"].'</td>
                <td>
                   <a href="admin.php?op=editpollPosted&amp;id='.$object["pollID"].'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer ce sondage").'" data-toggle="tooltip"></i></a>
-                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="far fa-trash-alt fa-lg text-danger ml-2" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
+                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fas fa-trash fa-lg text-danger ml-2" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
                </td>
             </tr>';
         $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='".$object["pollID"]."'");

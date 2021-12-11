@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -185,7 +185,7 @@ if (isset($submitS)) {
                   if ($ibid=theme_image("forum/avatar/".$theposterdata['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$theposterdata['user_avatar'];
                }
                 echo '
-                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$theposterdata['uname'].'" data-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rang']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$theposterdata['uname'].'" data-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rank']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
             }
          }
                echo'
@@ -222,7 +222,7 @@ if (isset($submitS)) {
             $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
 
          if (isset($citation) && !isset($submitP)) {
-            $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id='$post' AND p.poster_id = u.uid";
+            $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id='$post' AND ((p.poster_id = u.uid) XOR (p.poster_id=0))";
             if ($r = sql_query($sql)) {
                $m = sql_fetch_assoc($r);
                $text = $m['post_text'];
@@ -341,7 +341,7 @@ if (isset($submitS)) {
                echo $posterdata['uname'];
             echo '<br />';
             $posts = $posterdata['posts'];
-            echo member_qualif($posterdata['uname'], $posts, $posterdata['rang']);
+            echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
             echo '<br /><br />';
             if ($smilies) {
                if ($posterdata['user_avatar'] != '') {

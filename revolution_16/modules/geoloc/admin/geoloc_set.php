@@ -5,7 +5,7 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -62,7 +62,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    $fonts_svg=array(
       ['user','uf007','Utilisateur'],
       ['userCircle','uf2bd','Utilisateur en cercle'],
-      ['userCircle','uf2be','Utilisateur en cercle'],
       ['users','uf0c0','Utilisateurs'],
       ['heart','uf004','Coeur'],
       ['thumbtack','uf08d','Punaise'],
@@ -90,7 +89,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
       ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
       ['sat-google', geoloc_translate("Satellite").' (Google maps)']
-
    );
 
    echo '
@@ -149,14 +147,14 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             </div>
          </div>
          <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="api_key_ipdata">'.geoloc_translate("Clef d'API").' Ipdata</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" name="api_key_ipdata" id="api_key_ipdata" placeholder="" value="'.$api_key_ipdata.'" />
-            <span class="help-block small muted">'.$api_key_ipdata.'</span>
+            <label class="col-form-label col-sm-4" for="api_key_ipdata">'.geoloc_translate("Clef d'API").' Ipdata</label>
+            <div class="col-sm-8">
+               <input type="text" class="form-control" name="api_key_ipdata" id="api_key_ipdata" placeholder="" value="'.$api_key_ipdata.'" />
+               <span class="help-block small muted">'.$api_key_ipdata.'</span>
+            </div>
          </div>
-         </div>
-         <div class="form-group row">
-            <div class="col-sm-12"><span class="form-control-label">'.geoloc_translate('Taille de la table').' ip_loc '.$row['TailleMo'].'</span> <span class="float-right"><a href="admin.php?op=Extend-Admin-SubModule&ModPath='.$ModPath.'&ModStart='.$ModStart.'&subop=vidip" title="'.geoloc_translate('Vider la table des IP géoréférencées').'" data-toggle="tooltip" data-placement="left"><i class="far fa-trash-alt fa-lg text-danger"></i></a></span></div>
+         <div class="form-group border border-light alert-secondary">
+            <div class="w-100 p-2"><span class="col-form-label">'.geoloc_translate('Taille de la table').'<code> ip_loc </code><b>'.$row['TailleMo'].'</b></span> <span class="float-right"><a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=vidip" title="'.geoloc_translate('Vider la table des IP géoréférencées').'" data-toggle="tooltip" data-placement="left"><i class="fas fa-trash fa-lg text-danger"></i></a></span></div>
          </div>
       </fieldset>
       <hr />
@@ -1048,7 +1046,7 @@ if ($admin) {
    switch ($subop) {
       case 'vidip':
           vidip();
-          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip);
+          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata);
       break;
       case 'SaveSetgeoloc':
          SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);

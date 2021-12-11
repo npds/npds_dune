@@ -1,65 +1,69 @@
-<html><head>
-<title>File Manager - NPDS V</title>
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Gestor de ficheros integrado</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="mr-3 ml-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">Sistema</a></li>
+               <li class="breadcrumb-item active">Gestor de ficheros</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Gestor de ficheros integrado</h3>
+         <p><strong>NPDS File Manager</strong> es un gestor de fichero simple (pero potente). Para poder utilizarlo, todos sus directorios deben estar en chmod 777. eso les permitir&aacute; evitar problemas para: escribir en los ficheros, crear nuevos ficheros y directorios.<br />
+         <br />
+         <strong>Nota:</strong> No deje el FileManager activo (Admininistracion/Preferencias) cuando no lo necesite.<br />
+         File Manager ya tiene su propia ayuda, esta zona de ayuda servira solo para saber rapidamente para que sirven algunos iconos. </p>
 
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=Verdana,Arial,Helvetica size=2>
-<center>
-  <strong>Gestor de ficheros integrado</strong>
-</center>
-<br />
-<br />
-<br />
-<strong>NPDS File Manager</strong> es un gestor de fichero simple (pero potente). Para
-poder utilizarlo, todos sus directorios deben estar en chmod 777. eso
-les permitir&aacute; evitar problemas para: escribir en los ficheros, crear
-nuevos ficheros y directorios.<br />
-<br />
-Nota: No deje el FileManager activo (Admininistracion/Preferencias)
-cuando no lo necesite.<br /><br />
-
-File Manager ya tiene su propia ayuda, esta zona de ayuda servira solo para saber rapidamente para que sirven algunos iconos. <br />
-
-<strong>Tipo de ficheros</strong> (la mayor&iacute;a de los iconos pueden ser pulsados)
+<h4>Tipo de ficheros</h4> (la mayor&iacute;a de los iconos pueden ser pulsados)
 <ul>
   <table border="0">
     <tr> 
       <td valign="top"><img src="../../images/admin/filemanager/folder.gif"></td>
-      <td><font face=Verdana,Arial,Helvetica size=2>Indica que este objeto es un directorio (expediente).<br />
+      <td>Indica que este objeto es un directorio (expediente).<br />
       Pulsar para acceder al contenido del directorio</font></td>
     </tr>
     <tr> 
       <td valign="top"><img src="../../images/admin/filemanager/security.gif"></td>
-      <td><font face=Verdana,Arial,Helvetica size=2>Este fichero es un fichero de seguridad de NPDS (solamente en consulta).<br />
+      <td>Este fichero es un fichero de seguridad de NPDS (solamente en consulta).<br />
       </font><font size="2">Pulsar para ver</font></td>
     </tr>
     <tr> 
       <td valign="top"><img src="../../images/admin/filemanager/audio.gif"></td>
-      <td><font face=Verdana,Arial,Helvetica size=2>Este fichero es un fichero audio </font></td>
+      <td>Este fichero es un fichero audio </font></td>
     </tr>
     <tr> 
       <td valign="top"><img src="../../images/admin/filemanager/webpage.gif"></td>
-      <td><font face=Verdana,Arial,Helvetica size=2>Este fichero es o un fichero HTML o un fichero HTM. Consultable
+      <td>Este fichero es o un fichero HTML o un fichero HTM. Consultable
         directamente en su navegador.<br />
       Pulsar para ver el c&oacute;digo fuente</font></td>
     </tr>
     <tr> 
       <td valign="top"><img src="../../images/admin/filemanager/webscript.gif"></td>
-      <td><font face=Verdana,Arial,Helvetica size=2>Este fichero puede ser un fichero PHP, PHPS, PHP2, PHP3, PHP4, ASP,<br />
+      <td>Este fichero puede ser un fichero PHP, PHPS, PHP2, PHP3, PHP4, ASP,<br />
         ASA, CGI, PL ou SHTML. Este fichero necesita ser ejecutado desde el servidor antes de ser consultado por un navegador. Por
         ejemplo: admin.php es un fichero PHP.<br />
       Pulsar para ver el c&oacute;digo fuente</font></td>
     </tr>
     <tr> 
       <td valign="top"><img src="../../images/admin/filemanager/image.gif"></td>
-      <td><font face=Verdana,Arial,Helvetica size=2>Este fichero es o un fichero GIF o un JPG. Imagen consultable en
+      <td>Este fichero es o un fichero GIF o un JPG. Imagen consultable en
         cualquier navegador.<br />
       Pulsar para ver.</font></td>
     </tr>
   </table>
 </ul>
 
-<b>Descripciones de las acciones </b>
+<h4>Descripciones de las acciones </h4>
 <ul>
 <table border="0">
 <tr>
@@ -67,21 +71,30 @@ File Manager ya tiene su propia ayuda, esta zona de ayuda servira solo para sabe
 <td><font size="2">Remontar en la estructura de los directorios.</font></td>
 </tr>
 <tr>
-<td valign="top"><img src="../../images/admin/filemanager/delete.gif"></td>
-<td><font size="2">Borra el fichero o el directorio. Se pide una confirmaci&oacute;n.</font></td>
+<td valign="top"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-trash text-danger ml-2" title="" data-toggle="tooltip" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-original-title="Supprimer">
+           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+           <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+         </svg></td>
+<td>Borra el fichero o el directorio. Se pide una confirmaci&oacute;n.</td>
 </tr>
 <tr>
 <td valign="top"><img src="../../images/admin/filemanager/browse.gif"></td>
-<td><font face=Verdana,Arial,Helvetica size=2>Muestra el fichero en el navegador </font></td>
+<td>Muestra el fichero en el navegador </font></td>
 </tr>
 <tr>
-<td valign="top"><img src="../../images/admin/filemanager/edit.gif"></td>
-<td><font face=Verdana,Arial,Helvetica size=2>Editar el fichero (Plain text) </font></td>
+<td valign="top">
+<svg title="" data-toggle="tooltip" class="bi ml-2" width="24" height="24" fill="currentColor" data-original-title="Editer">
+           <use xlink:href="../../images/bootstrap-icons.svg#pencil"></use>
+         </svg></td>
+<td>Editar el fichero (Plain text) </font></td>
 </tr>
 <tr>
-<td valign="top"><img src="../../images/admin/filemanager/move.gif"></td>
-<td><font size="2">Desplaza el fichero o el directorio hacia una localizaci&oacute;n que debe
-  definirse.</font></td>
+
+<td valign="top"><svg title data-toggle="tooltip" class="bi ml-2" width="24" height="24" fill="currentColor" data-original-title="Déplacer / Copier">
+<use xlink:href="../../images/bootstrap-icons.svg#box-arrow-up-left">…</use>
+</svg></td>
+<td>Desplaza el fichero o el directorio hacia una localizaci&oacute;n que debe
+  definirse.</td>
 </tr>
 <tr>
 <td valign="top"><img src="../../images/admin/filemanager/touch.gif"></td>
@@ -90,8 +103,7 @@ File Manager ya tiene su propia ayuda, esta zona de ayuda servira solo para sabe
 </tr>
 </table>
 </ul>
-<br />
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+         <p class="border-top mt-5"><img class="mr-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-right">NPDS - Manual de administración</span></p>
+      </div>
+   </body>
 </html>

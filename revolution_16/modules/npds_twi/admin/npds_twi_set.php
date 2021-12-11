@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -18,7 +18,7 @@ if (!strstr($_SERVER['PHP_SELF'],'admin.php')) die();
 
 include ('modules/'.$ModPath.'/lang/twi.lang-'.$language.'.php');
 $f_meta_nom ='npds_twi';
-$f_titre='npds_twi';
+$f_titre='npds_twitter';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -40,9 +40,10 @@ global $adminimg;
 
 
 function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height) {
+   global $language;
    if (file_exists('modules/'.$ModPath.'/twi_conf.php'))
       include ('modules/'.$ModPath.'/twi_conf.php');
-      $hlpfile = 'modules/'.$ModPath.'/doc/aide_admtwi.html';
+      $hlpfile = 'modules/'.$ModPath.'/doc/admtwi-'.$language.'.html';
 
    global $f_meta_nom, $f_titre, $adminimg, $npds_twi;
    $checkarti_y='';$checkarti_n='';$checkpost_y='';$checkpost_n='';$urshort_mr='';$urshort_ft='';$urshort_c='';
@@ -60,11 +61,11 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '<hr />';
    if ($npds_twi!==1) 
-      echo "
-   <div class=\"alert alert-danger\">La publication de vos news sur twitter n'est pas autorisée vous devez l'activer <a class=\"alert-link\" href=\"admin.php?op=Configure\">Ici</a></div>";
+      echo '
+   <div class="alert alert-danger">'.twi_trad("La publication de vos news sur twitter n'est pas autorisée vous devez l'activer").' <a class="alert-link" href="admin.php?op=Configure">'.twi_trad("Ici").'</a></div>';
    else 
       echo'
-   <div class="alert alert-success">La publication de vos news sur twitter est autorisée. Vous pouvez révoquer cette autorisation <a class="alert-link" href="admin.php?op=Configure">Ici</a></div>';
+   <div class="alert alert-success">'.twi_trad("La publication de vos news sur twitter est autorisée. Vous pouvez révoquer cette autorisation").' <a class="alert-link" href="admin.php?op=Configure">'.twi_trad("Ici").'</a></div>';
 
    echo '
    <h3 class="mb-3">'.twi_trad('Configuration du module npds_twi').'</h3>
@@ -192,7 +193,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
    $content .= "/* DUNE by NPDS                                                         */\n";
    $content .= "/* ===========================                                          */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
+   $content .= "/* NPDS Copyright (c) 2002-".date('Y')." by Philippe Brunier                     */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -235,7 +236,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/* DUNE by NPDS                                                         */\n";
      $content .= "/* ===========================                                          */\n";
      $content .= "/*                                                                      */\n";
-     $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
+     $content .= "/* NPDS Copyright (c) 2002-".date('Y')." by Philippe Brunier                     */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";
@@ -259,7 +260,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/* DUNE by NPDS                                                         */\n";
      $content .= "/* ===========================                                          */\n";
      $content .= "/*                                                                      */\n";
-     $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
+     $content .= "/* NPDS Copyright (c) 2002-".date('Y')." by Philippe Brunier                     */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";

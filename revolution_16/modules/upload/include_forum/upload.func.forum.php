@@ -392,12 +392,12 @@ function update_visibilite($visible_att,$visible_list) {
       sql_query($sql);
       $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list)-1));
       $result=array_diff($visible_lst,$visible_att);
-      $unvisible=implode($result, ",");
+      $unvisible=implode(",", $result);
       $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
       sql_query($sql);
    } else {
       $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list)-1));
-      $unvisible=implode($visible_lst, ',');
+      $unvisible=implode(',', $visible_lst);
       $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
       sql_query($sql);
    }

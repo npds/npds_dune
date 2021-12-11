@@ -9,7 +9,7 @@
 ## Ce Module permet :
 ##   au niveau du site :
 ##    - d'envoyer automatiquement un tweet quand un article est publié. 
-##      Ce tweet contient le titre et l'intro de l'article dans la limite des 140 caractères dont un linkback vers le site.
+##      Ce tweet contient le titre et l'intro de l'article dans la limite de 280 caractères dont un linkback vers le site.
 ##
 ###################################################################################
 !!!Attention !!! seule la publication automatique des articles est implémentée et testée
@@ -27,17 +27,7 @@ I. Notes techniques :
     PHP 5.2.x (non testé dans les versions inférieures), cURL, OpenSSL, PHP sessions activées.
 
 - implémentation dans le core NPDS (déjà réalisée)
-    admin/stories.php
-       // Réseaux sociaux
-          if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
-          if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-       // Réseaux sociaux
-       // Réseaux sociaux
-          if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
-          if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
-       // R»seaux sociaux
-    index.php
-      ligne 83 :
+    index.php, admin/stories.php, cluster-E.php
        // Réseaux sociaux
           if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
           if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}

@@ -72,10 +72,10 @@ function session_manage() {
       //==> mod_geoloc
       include("modules/geoloc/geoloc_conf.php");
       $file_path = array(
-      'https://ipapi.co/'.$ip.'/json',
-      'https://api.ipdata.co/'.$ip.'?api-key='.$api_key_ipdata,
-      'https://extreme-ip-lookup.com/json/'.$ip,
-      'http://ip-api.com/json/'.$ip
+      'https://ipapi.co/'.urldecode($ip).'/json',
+      'https://api.ipdata.co/'.urldecode($ip).'?api-key='.$api_key_ipdata,
+      'https://extreme-ip-lookup.com/json/'.urldecode($ip),
+      'http://ip-api.com/json/'.urldecode($ip)
       );
       $file = file("modules/geoloc/geoloc_conf.php");
       if(strstr($file[25],'geo_ip = 1')) {
@@ -97,26 +97,11 @@ function session_manage() {
                   if($loc_obj) {
                      if(!property_exists($loc_obj, "error")) {
                         $ibid=true;
-                        if (!empty($loc_obj->country_name))
-                           $pay=removeHack($loc_obj->country_name);
-                        else 
-                           $pay='';
-                        if (!empty($loc_obj->country))
-                           $codepay=removeHack($loc_obj->country);
-                        else 
-                           $codepay='';
-                        if (!empty($loc_obj->city))
-                           $vi=removeHack($loc_obj->city);
-                        else
-                           $vi='';
-                        if (!empty($loc_obj->latitude))
-                           $lat=(float)$loc_obj->latitude;
-                        else
-                           $lat='';
-                        if (!empty($loc_obj->longitude))
-                           $long=(float)$loc_obj->longitude;
-                        else
-                           $long='';
+                        $pay= !empty($loc_obj->country_name)? removeHack($loc_obj->country_name): '';
+                        $codepay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
+                        $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
+                        $lat= !empty($loc_obj->latitude)? (float)$loc_obj->latitude: ''; 
+                        $long= !empty($loc_obj->longitude)? (float)$loc_obj->longitude: '';
                         sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
                         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
                      }
@@ -129,26 +114,11 @@ function session_manage() {
                      if($loc_obj) {
                         if(!property_exists($loc_obj, "message")) {
                            $ibid=true;
-                           if (!empty($loc_obj->country_name))
-                              $pay=removeHack($loc_obj->country_name);
-                           else 
-                              $pay='';
-                           if (!empty($loc_obj->country_code))
-                              $codepay=removeHack($loc_obj->country_code);
-                           else 
-                              $codepay='';
-                           if (!empty($loc_obj->city))
-                              $vi=removeHack($loc_obj->city);
-                           else
-                              $vi='';
-                           if (!empty($loc_obj->latitude))
-                              $lat=(float)$loc_obj->latitude;
-                           else
-                              $lat='';
-                           if (!empty($loc_obj->longitude))
-                              $long=(float)$loc_obj->longitude;
-                           else
-                              $long='';
+                           $pay= !empty($loc_obj->country_name)? removeHack($loc_obj->country_name): '';
+                           $codepay= !empty($loc_obj->country_code)? removeHack($loc_obj->country_code): '';
+                           $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
+                           $lat= !empty($loc_obj->latitude)? (float)$loc_obj->latitude: '';
+                           $long= !empty($loc_obj->longitude)? (float)$loc_obj->longitude: '';
                            sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
                            sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
                         }
@@ -160,26 +130,11 @@ function session_manage() {
                         $loc_obj = json_decode($loc);
                         if ($loc_obj->status=='success') {
                            $ibid=true;
-                           if (!empty($loc_obj->country))
-                              $pay=removeHack($loc_obj->country);
-                           else 
-                              $pay='';
-                           if (!empty($loc_obj->countryCode))
-                              $codepay=removeHack($loc_obj->countryCode);
-                           else 
-                              $codepay='';
-                           if (!empty($loc_obj->city))
-                              $vi=removeHack($loc_obj->city);
-                           else
-                              $vi='';
-                           if (!empty($loc_obj->lat))
-                              $lat=(float)$loc_obj->lat;
-                           else
-                              $lat='';
-                           if (!empty($loc_obj->lon))
-                              $long=(float)$loc_obj->lon;
-                           else
-                              $long='';
+                           $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
+                           $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
+                           $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
+                           $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
+                           $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
                            sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
                            sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
                         }
@@ -193,26 +148,11 @@ function session_manage() {
                   $loc_obj = json_decode($loc);
                   if($loc_obj) {
                      if ($loc_obj->status=='success') {
-                        if (!empty($loc_obj->country))
-                           $pay=removeHack($loc_obj->country);
-                        else 
-                           $pay='';
-                        if (!empty($loc_obj->countryCode))
-                           $codepay=removeHack($loc_obj->countryCode);
-                        else 
-                           $codepay='';
-                        if (!empty($loc_obj->city))
-                           $vi=removeHack($loc_obj->city);
-                        else
-                           $vi='';
-                        if (!empty($loc_obj->lat))
-                           $lat=(float)$loc_obj->lat;
-                        else
-                           $lat='';
-                        if (!empty($loc_obj->lon))
-                           $long=(float)$loc_obj->lon;
-                        else
-                           $long='';
+                        $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
+                        $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
+                        $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
+                        $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
+                        $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
                         sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
                         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
                      }
@@ -555,6 +495,9 @@ function SC_infos() {
    global $SuperCache, $npds_sc;
    $infos='';
    if ($SuperCache) {
+/*
+      $infos = $npds_sc ? '<span class="small">'.translate(".:Page >> Super-Cache:.").'</span>':'';
+*/
       if ($npds_sc) {
          $infos='<span class="small">'.translate(".:Page >> Super-Cache:.").'</span>';
       } else {
@@ -614,8 +557,7 @@ function Mess_Check_Mail_interface($username, $class) {
 }
 #autodoc Mess_Check_Mail_Sub($username, $class) : Affiche le groupe check_mail (theme principal de NPDS) / SOUS-Fonction
 function Mess_Check_Mail_Sub($username, $class) {
-   global $NPDS_Prefix;
-   global $user;
+   global $NPDS_Prefix, $user;
    if ($username) {
       $userdata = explode(':', base64_decode($user));
       $total_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND type_msg='0'"));
@@ -664,10 +606,7 @@ function Who_Online_Sub() {
 }
 #autodoc Site_Load() : Maintient les informations de NB connexion (membre, anonyme) - globalise la variable $who_online_num et maintient le fichier cache/site_load.log &agrave; jour<br />Indispensable pour la gestion de la 'clean_limit' de SuperCache
 function Site_Load() {
-   global $NPDS_Prefix;
-   global $SuperCache;
-   // globalise la variable
-   global $who_online_num;
+   global $NPDS_Prefix, $SuperCache, $who_online_num;
    $guest_online_num = 0;
    $member_online_num = 0;
    $result = sql_query("SELECT COUNT(username) AS TheCount, guest FROM ".$NPDS_Prefix."session GROUP BY guest");
@@ -687,8 +626,7 @@ function Site_Load() {
 }
 #autodoc AutoReg() : Si AutoRegUser=true et que le user ne dispose pas du droit de connexion : RAZ du cookie NPDS<br />retourne False ou True
 function AutoReg() {
-   global $NPDS_Prefix;
-   global $AutoRegUser, $user;
+   global $NPDS_Prefix, $AutoRegUser, $user;
    if (!$AutoRegUser) {
       if (isset($user)) {
          $cookie = explode(':', base64_decode($user));
@@ -783,8 +721,7 @@ function closetable2() {
 // Opentable - closetable
 #autodoc ultramode() : Génération des fichiers ultramode.txt et net2zone.txt dans /cache
 function ultramode() {
-   global $NPDS_Prefix;
-   global $nuke_url, $storyhome;
+   global $NPDS_Prefix, $nuke_url, $storyhome;
    $ultra = "cache/ultramode.txt";
    $netTOzone = "cache/net2zone.txt";
    $file = fopen("$ultra", "w");
@@ -1735,14 +1672,14 @@ function make_tab_langue() {
 #autodoc aff_localzone_langue($ibid) : Charge une zone de formulaire de selection de la langue
 function aff_localzone_langue($ibid) {
    global $tab_langue;
-//   reset ($tab_langue);
+   $flag = array('french'=>'🇫🇷','spanish'=>'🇪🇸','german'=>'🇩🇪','english'=>'🇺🇸','chinese'=>'🇨🇳');
    $M_langue= '
    <div class="form-group">
       <select name="'.$ibid.'" class="custom-select form-control" onchange="this.form.submit()">
          <option value="">'.translate("Choisir une langue").'</option>';
    foreach($tab_langue as $bidon => $langue) {
       $M_langue.='
-            <option value="'.$langue.'">'.translate("$langue").'</option>';
+            <option value="'.$langue.'">'.$flag[$langue].' '.translate("$langue").'</option>';
    }
    $M_langue.='
             <option value="">- '.translate("Aucune langue").'</option>
@@ -1924,7 +1861,7 @@ function aff_editeur($Xzone, $Xactiv) {
             branding:false,
             height: 300,
             theme : 'silver',
-            mobile: { theme: 'mobile' },
+            mobile: { theme: 'mobile', menubar: true },
             language : '".language_iso(1,'','')."',";
                include ("editeur/tinymce/themes/advanced/npds.conf.php");
                $tmp.='
@@ -2340,45 +2277,153 @@ function changetoampadm($r) { return str_replace('&','&amp;',$r[0]);}
 #autodoc adminblock() : Bloc Admin <br />=> syntaxe : function#adminblock
 function adminblock() {
    $bloc_foncts_A='';
-   global $NPDS_Prefix, $admin, $aid, $admingraphic, $adminimg, $admf_ext;
+   global $NPDS_Prefix, $admin, $aid, $admingraphic, $adminimg, $admf_ext, $Version_Sub, $Version_Num, $nuke_url;
    if ($admin) {
-   $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
-   if ($Q['radminsuper']==1)
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie");
-   else
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
-   while($SAQ=sql_fetch_assoc($R)) {
-      $cat[]=$SAQ['fcategorie'];
-      $cat_n[]=$SAQ['fcategorie_nom'];
-      $fid_ar[]=$SAQ['fid'];
-      if($SAQ['fcategorie'] == 9)
-         $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
-      if ($SAQ['fcategorie'] == 9 and strstr($SAQ['furlscript'],"op=Extend-Admin-SubModule"))
-         if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext)) $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext; else $adminico=$adminimg.'module.'.$admf_ext;
-      if ($SAQ['fcategorie'] == 9)
-         $bloc_foncts_A .='
-         <a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.$SAQ['fretour_h'].'" data-html="true" data-toggle="tooltip" '.$SAQ['furlscript'].'>
-            <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
-            <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
-         </a>';
-   }
-   
-   $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2");
-   list($title, $content) = sql_fetch_row($result);
-   global $block_title;
-   if ($title=='') $title=$block_title;
-   else $title=aff_langue($title);
-   $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
-   $content .= '
+      $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
+      if ($Q['radminsuper']==1)
+         $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie");
+      else
+         $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
+      while($SAQ=sql_fetch_assoc($R)) {
+         $arraylecture = explode('|', $SAQ['fdroits1_descr']);
+         $cat[]=$SAQ['fcategorie'];
+         $cat_n[]=$SAQ['fcategorie_nom'];
+         $fid_ar[]=$SAQ['fid'];
+         if($SAQ['fcategorie'] == 9)
+            $adminico=$adminimg.$SAQ['ficone'].'.'.$admf_ext;
+         if ($SAQ['fcategorie'] == 9 and strstr($SAQ['furlscript'],"op=Extend-Admin-SubModule"))
+            if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext)) $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['fnom'].'.'.$admf_ext; else $adminico=$adminimg.'module.'.$admf_ext;
+         if ($SAQ['fcategorie'] == 9) {
+           if(preg_match('#messageModal#', $SAQ['furlscript']))
+             $furlscript = 'data-toggle="modal" data-target="#bl_messageModal"';
+
+         if(preg_match('#mes_npds_\d#', $SAQ['fnom'])) {
+            if(!in_array($aid, $arraylecture, true)) {
+               $bloc_foncts_A .='
+                   <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$furlscript.' >
+                   <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+                   <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
+                   </a>';
+            } 
+         } else {
+            if(preg_match('#versusModal#', $SAQ['furlscript']))
+               $furlscript = 'data-toggle="modal" data-target="#bl_versusModal"';
+            else 
+               $furlscript = $SAQ['furlscript'];
+
+            if(preg_match('#NPDS#', $SAQ['fretour_h'])) {
+               $SAQ['fretour_h'] = str_replace('NPDS', 'NPDS^', $SAQ['fretour_h']);
+             }
+
+             $bloc_foncts_A .='
+               <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$furlscript.' >
+                 <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+                 <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
+               </a>';
+            }
+         }
+      }
+
+      $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2");
+      list($title, $content) = sql_fetch_row($result);
+      global $block_title;
+      if ($title=='') $title=$block_title;
+      else $title=aff_langue($title);
+      $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
+
+      //==> recuperation
+      $messagerie_npds= file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
+      $messages_npds = explode("\n", $messagerie_npds);
+      array_pop($messages_npds);
+
+      // traitement specifique car fonction permanente versus
+      $versus_info = explode('|', $messages_npds[0]);
+      if($versus_info[1] == $Version_Sub and $versus_info[2] == $Version_Num)
+         sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
+      else
+         sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-toggle=\"modal\" data-target=\"#versusModal\"', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
+      $content .= '
       <div class="d-flex justify-content-start flex-wrap" id="adm_block">
-      '.$bloc_foncts_A.'<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.translate("Vider la table chatBox").'" data-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge badge-danger ml-1">X</span></a>
-      </div>
+      '.$bloc_foncts_A;
+      if ($Q['radminsuper']==1)
+         $content .= '<a class="btn btn-outline-primary btn-sm mr-2 my-1" title="'.translate("Vider la table chatBox").'" data-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge badge-danger ml-1">X</span></a>';
+      $content .= '</div>
       <div class="mt-3">
          <small class="text-muted"><i class="fas fa-user-cog fa-2x align-middle"></i> '.$aid.'</small>
-      </div>';
-   themesidebox($title, $content);
+      </div>
+   <div class="modal fade" id="bl_versusModal" tabindex="-1" aria-labelledby="bl_versusModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="bl_versusModalLabel"><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" />'.translate("Version").' NPDS^</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p>Vous utilisez NPDS^ '.$Version_Sub.' '.$Version_Num.'</p>
+               <p>'.translate("Une nouvelle version de NPDS^ est disponible !").'</p>
+               <p class="lead mt-3">'.$versus_info[1].' '.$versus_info[2].'</p>
+               <p class="my-3">
+                  <a class="mr-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x mr-1"></i>.zip</a>
+                  <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x mr-1"></i>.tar.gz</a>
+               </p>
+            </div>
+            <div class="modal-footer">
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal fade" id="bl_messageModal" tabindex="-1" aria-labelledby="bl_messageModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id=""><span id="bl_messageModalIcon" class="mr-2"></span><span id="bl_messageModalLabel"></span></h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p id="bl_messageModalContent"></p>
+               <form class="mt-3" id="bl_messageModalForm" action="" method="POST">
+                  <input type="hidden" name="id" id="bl_messageModalId" value="0" />
+                  <button type="submit" class="btn btn btn-primary btn-sm">'.translate("Confirmation lecture").'</button>
+               </form>
+            </div>
+            <div class="modal-footer">
+            <span class="small text-muted">Information de npds.org</span><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" />
+            </div>
+         </div>
+      </div>
+   </div>
+   <script>
+      $(function () {
+        $("#bl_messageModal").on("show.bs.modal", function (event) {
+            var button = $(event.relatedTarget); 
+            var id = button.data("id");
+            $("#bl_messageModalId").val(id);
+            $("#bl_messageModalForm").attr("action", "'.$nuke_url.'/npds_api.php?op=alerte_update");
+            $.ajax({
+               url:"'.$nuke_url.'/npds_api.php?op=alerte_api",
+               method: "POST",
+               data:{id:id},
+               dataType:"JSON",
+               success:function(data) {
+                  var fnom_affich = JSON.stringify(data["fnom_affich"]),
+                      fretour_h = JSON.stringify(data["fretour_h"]),
+                      ficone = JSON.stringify(data["ficone"]);
+                  $("#bl_messageModalLabel").html(JSON.parse(fretour_h));
+                  $("#bl_messageModalContent").html(JSON.parse(fnom_affich));
+                  $("#bl_messageModalIcon").html("<img src=\"images/admin/"+JSON.parse(ficone)+".png\" />");
+               }
+            });
+         });
+      });
+   </script>';
+      themesidebox($title, $content);
    }
 }
+
 #autodoc ephemblock() : Bloc ephemerid <br />=> syntaxe : function#ephemblock
 function ephemblock() {
    global $NPDS_Prefix, $gmt;
@@ -2396,10 +2441,7 @@ function ephemblock() {
    }
    $boxstuff .= "<br />\n";
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Ephémérides");
-   else
-      $title=$block_title;
+   $title= $block_title=='' ? translate("Ephémérides") : $block_title;
    themesidebox($title, $boxstuff);
 }
 #autodoc loginbox() : Bloc Login <br />=> syntaxe : function#loginbox
@@ -2426,10 +2468,7 @@ function loginbox() {
          </div>
       </form>';
       global $block_title;
-      if ($block_title=='')
-         $title=translate("Se connecter");
-      else
-         $title=$block_title;
+      $title= $block_title=='' ? translate("Se connecter") : $block_title;
       themesidebox($title, $boxstuff);
    }
 }
@@ -2440,33 +2479,24 @@ function userblock() {
       $getblock = Q_select("SELECT ublock FROM ".$NPDS_Prefix."users WHERE uid='$cookie[0]'",86400);
       $ublock = $getblock[0];
       global $block_title;
-      if ($block_title=='')
-         $title=translate("Menu de").' '.$cookie[1];
-      else
-         $title=$block_title;
+      $title= $block_title=='' ? translate("Menu de").' '.$cookie[1] : $block_title;
       themesidebox($title, $ublock['ublock']);
    }
 }
 #autodoc topdownload() : Bloc topdownload <br />=> syntaxe : function#topdownload
 function topdownload() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Les plus téléchargés");
-   else
-      $title=$block_title;
-      $boxstuff = '<ul>';
-      $boxstuff .= topdownload_data('short','dcounter');
-      $boxstuff .= '</ul>';
-      if ($boxstuff=='<ul></ul>') $boxstuff='';
+   $title= $block_title=='' ? translate("Les plus téléchargés") : $block_title;
+   $boxstuff = '<ul>';
+   $boxstuff .= topdownload_data('short','dcounter');
+   $boxstuff .= '</ul>';
+   if ($boxstuff=='<ul></ul>') $boxstuff='';
    themesidebox($title, $boxstuff);
 }
 #autodoc lastdownload() : Bloc lastdownload <br />=> syntaxe : function#lastdownload
 function lastdownload() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Fichiers les + récents");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Fichiers les + récents") : $block_title;
    $boxstuff = '<ul>';
    $boxstuff .= topdownload_data('short','ddate');
    $boxstuff .= '</ul>';
@@ -2571,10 +2601,7 @@ function oldNews($storynum, $typ_aff='') {
    $boxstuff .='</ul>';
    if ($boxstuff=='<ul></ul>') $boxstuff='';
    global $block_title;
-   if ($block_title=='')
-      $boxTitle=translate("Anciens articles");
-   else
-      $boxTitle=$block_title;
+   $boxTitle = $block_title=='' ? translate("Anciens articles") : $block_title ;
    themesidebox($boxTitle, $boxstuff);
 }
 #autodoc bigstory() : Bloc BigStory <br />=> syntaxe : function#bigstory
@@ -2602,10 +2629,7 @@ function bigstory() {
       $content .= "<a href=\"article.php?sid=$fsid\">".aff_langue($ftitle)."</a>";
    }
    global $block_title;
-   if ($block_title=='')
-      $boxtitle=translate("Article du Jour");
-   else
-      $boxtitle=$block_title;
+   $boxtitle = $block_title=='' ? translate("Article du Jour") : $block_title;
    themesidebox($boxtitle, $content);
 }
 #autodoc category() : Bloc de gestion des catégories <br />=> syntaxe : function#category
@@ -2631,10 +2655,7 @@ function category() {
       }
       $boxstuff .= '</ul>';
       global $block_title;
-      if ($block_title=='')
-         $title=translate("Catégories");
-      else
-         $title=$block_title;
+      $title = $block_title=='' ? translate("Catégories") : $block_title;
       themesidebox($title, $boxstuff);
    }
 }
@@ -2807,10 +2828,7 @@ function PollNewest($id='') {
 #autodoc bloc_langue() : Bloc langue <br />=> syntaxe : function#bloc_langue
 function bloc_langue() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Choisir une langue");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Choisir une langue") : $block_title;
    themesidebox($title,aff_local_langue('' ,"index.php", "choice_user_language"));
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
@@ -2844,10 +2862,7 @@ function bloc_rubrique() {
    }
    $boxstuff .='</ul>';
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Rubriques");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Rubriques") : $block_title;
    themesidebox($title, $boxstuff);
 }
 #autodoc espace_groupe() : Bloc du WorkSpace <br />=> syntaxe :<br />function#bloc_espace_groupe<br />params#ID_du_groupe, Aff_img_groupe(0 ou 1) / Si le bloc n'a pas de titre, Le nom du groupe sera utilisé
@@ -3436,9 +3451,9 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    }
 }
 
-#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) : permet de calculer le cout algorythmique optimum pour la procédure de hashage
-function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) {
-   for ($i = 4; $i < 31; $i++) {
+#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) : permet de calculer le coût algorythmique optimum pour la procédure de hashage ($AlgoCrypt) d'un mot de pass ($pass) avec un temps minimum alloué ($min_ms)
+function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) {
+   for ($i = 8; $i < 13; $i++) {
       $calculCost = [ 'cost' => $i ];
       $time_start = microtime(true);
       password_hash($pass, $AlgoCrypt, $calculCost);
@@ -3447,4 +3462,42 @@ function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=250) {
          return $i;
    }
 }
+
+#autodoc dataimagetofileurl($base_64_string, $output_path) : Analyse la chaine $base_64_string pour touver "src data:image" SI oui : fabrication de fichiers (gif | png | jpeg) (avec $output_path) - redimensionne l'image si supérieure aux dimensions maxi fixées et remplacement de "src data:image" par "src url", et retourne $base_64_string modifié ou pas
+function dataimagetofileurl($base_64_string, $output_path) {
+   $rechdataimage = '#src=\\\"(data:image/[^"]+)\\\"#m';
+   preg_match_all($rechdataimage, $base_64_string, $dataimages);
+   $j=0;$timgw=800;$timgh=600;
+   $ra = random_int(1, 999);
+   foreach($dataimages[1] as $imagedata) {
+      $datatodecode = explode(',',$imagedata);
+      $bin = base64_decode($datatodecode[1]);
+      $im = imageCreateFromString($bin);
+      if (!$im)
+        die('Image non valide');
+      $size = getImageSizeFromString($bin);
+      $ext = substr($size['mime'], 6);
+      if (!in_array($ext, ['png', 'gif', 'jpeg']))
+         die('Image non supportée');
+      $output_file = $output_path.$j."_".$ra."_".time().".".$ext;
+      $base_64_string = preg_replace($rechdataimage, 'class="img-fluid" src="'.$output_file.'"', $base_64_string,1);
+      if ($size[0]>$timgw or $size[1]>$timgh){
+         $timgh = round(($timgw / $size[0]) * $size[1]);
+         $timgw = round(($timgh / $size[1]) * $size[0]);
+         $th=imagecreatetruecolor($timgw,$timgh);
+         imagecopyresampled($th,$im,0,0,0,0,$timgw,$timgh, $size[0],$size[1]);
+         $args = [$th, $output_file];
+      } else 
+         $args = [$im, $output_file];
+      if ($ext == 'png')
+         $args[] = 0;
+      else if ($ext == 'jpeg')
+         $args[] = 100;
+      $fonc = "image{$ext}";
+      call_user_func_array($fonc, $args);
+      $j++;
+   }
+   return $base_64_string;
+}
+
 ?>

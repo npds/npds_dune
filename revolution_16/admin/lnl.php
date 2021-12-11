@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -51,7 +51,7 @@ function ShowHeader() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -85,7 +85,7 @@ function Detail_Header_Footer($ibid, $type) {
    <hr />
    <form action="admin.php" method="post" name="adminForm">
       <div class="form-group row">
-         <label class="col-form-label col-sm-12" for="xtext">Code Detail</label>
+         <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" cols="70" rows="20" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
          </div>
@@ -137,7 +137,7 @@ function ShowBody() {
          <td>'.$ref.'</td>
          <td>'.$text.'</td>
          <td><code>'.$html.'</code></td>
-         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
       </tr>';
    }
    echo '
@@ -239,7 +239,7 @@ Function Add_Body() {
 
 Function Add_Body_Submit($Ytext, $Yhtml) {
    global $NPDS_Prefix;
-   sql_query("INSERT INTO ".$NPDS_Prefix."lnl_body VALUES ('', '$Yhtml', '$Ytext', 'OK')");
+   sql_query("INSERT INTO ".$NPDS_Prefix."lnl_body VALUES ('0', '$Yhtml', '$Ytext', 'OK')");
 }
 
 function ShowFooter() {
@@ -266,7 +266,7 @@ function ShowFooter() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="far fa-trash-alt fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -335,9 +335,9 @@ Function Add_Header_Footer($ibid) {
 Function Add_Header_Footer_Submit($ibid, $xtext, $xhtml) {
    global $NPDS_Prefix;
    if ($ibid=="HED")
-      sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('', 'HED','$xhtml', '$xtext', 'OK')");
+      sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('0', 'HED','$xhtml', '$xtext', 'OK')");
    else
-      sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('', 'FOT', '$xhtml', '$xtext', 'OK')");
+      sql_query("INSERT INTO ".$NPDS_Prefix."lnl_head_foot VALUES ('0', 'FOT', '$xhtml', '$xtext', 'OK')");
 }
 
 function main() {
@@ -520,8 +520,8 @@ function lnl_list() {
             <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.adm_translate("Pied").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Nbre d'envois effectués").'</th>
             <th data-halign="center" data-align="center">'.adm_translate("Type").'</th>
-            <th data-halign="center" data-align="right">Date</th>
-            <th data-halign="center" data-align="center">Status</th>
+            <th data-halign="center" data-align="right">'.adm_translate("Date").'</th>
+            <th data-halign="center" data-align="center">'.adm_translate("Etat").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -565,7 +565,7 @@ function lnl_user_list() {
          <tr>
             <th class="n-t-col-xs-5" data-halign="center" data-sortable="true">'.adm_translate("E-mail").'</th>
             <th class="n-t-col-xs-3" data-halign="center" data-align="right" data-sortable="true">'.adm_translate("Date").'</th>
-            <th class="n-t-col-xs-2" data-halign="center" data-align="center" data-sortable="true">'.adm_translate("Status").'</th>
+            <th class="n-t-col-xs-2" data-halign="center" data-align="center" data-sortable="true">'.adm_translate("Etat").'</th>
             <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
@@ -582,7 +582,7 @@ function lnl_user_list() {
          echo '
             <td class="text-success">'.$status.'</td>';
       echo '
-            <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="far fa-trash-alt fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
+            <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="fas fa-trash fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
          </tr>';
    }
    echo '
@@ -773,7 +773,7 @@ switch ($op) {
                   $timeX=strftime("%Y-%m-%d %H:%M:%S",time());
                   if ($OXtype=="All") {$Xtype="All";}
                   if (($Xtype=="Mbr") and ($Xgroupe!="")) {$Xtype=$Xgroupe;}
-                  sql_query("INSERT INTO ".$NPDS_Prefix."lnl_send VALUES ('', '$Xheader', '$Xbody', '$Xfooter', '$number_send', '$Xtype', '$timeX', 'OK')");
+                  sql_query("INSERT INTO ".$NPDS_Prefix."lnl_send VALUES ('0', '$Xheader', '$Xbody', '$Xfooter', '$number_send', '$Xtype', '$timeX', 'OK')");
                }
                header("location: admin.php?op=lnl");
                break;

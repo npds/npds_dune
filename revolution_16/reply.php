@@ -62,27 +62,15 @@ if ($submitS) {
             $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
 
-           if ($system == 1) {
-              if ((password_verify($password, $pass)) and ($pass != '')) {
-                 $userdata = get_userdata($username);
-                 if ($userdata['uid']==1)
-                    forumerror('0027');
-                 else
-                    include("header.php");
-              }
+           if ((password_verify($password, $pass)) and ($pass != '')) {
+              $userdata = get_userdata($username);
+              if ($userdata['uid']==1)
+                 forumerror('0027');
               else
-                 forumerror('0028');
-            } else {
-              if ((strcmp($password, $pass)==0) and ($pass != '')) {
-                 $userdata = get_userdata($username);
-                 if ($userdata['uid']==1)
-                    forumerror('0027');
-                 else
-                    include("header.php");
-              }
-              else
-                 forumerror('0028');
-            }
+                 include("header.php");
+           }
+           else
+              forumerror('0028');
 
             $modo=user_is_moderator($username,$pass,$forum_access);
             if ($forum_access==2) {
@@ -169,10 +157,8 @@ if ($submitS) {
          $message .= translate_ml($m['user_langue'], "Pour lire la réponse")." : ";
          $message .= "<a href=\"$nuke_url/viewtopic.php?topic=$topic&forum=$forum&start=9999#lastpost\">$nuke_url/viewtopic.php?topic=$topic&forum=$forum&start=9999</a>\n\n";
          include("signat.php");
-         if ($system == 1) {
-            send_email($m['email'], $subject, $message, '', true, "html");
-            $sauf=$m['uid'];
-         }
+         send_email($m['email'], $subject, $message, '', true, "html");
+         $sauf=$m['uid'];
       }
       global $subscribe;
       if ($subscribe) {

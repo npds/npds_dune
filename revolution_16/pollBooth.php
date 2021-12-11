@@ -207,6 +207,8 @@ if (!isset($pollID)) {
    include ('footer.php');
 }
 settype($pollID,'integer');
+settype($op,'string');
+
 if (isset($forwarder)) {
    if (isset($voteID))
       pollCollector($pollID, $voteID, $forwarder);
@@ -216,7 +218,7 @@ if (isset($forwarder)) {
    list($ibid,$pollClose)=pollSecur($pollID);
    if ($pollID==$ibid) {
       include ("header.php");
-      echo '<h2>'.translate("Survey").'</h2><hr />';
+      echo '<h2>'.translate("Sondage").'</h2><hr />';
       pollResults($pollID);
       if (!$pollClose) {
          $block_title= '<h3>'.translate("Voter").'</h3>';
