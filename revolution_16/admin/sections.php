@@ -151,25 +151,26 @@ function sections() {
    if ($radminsuper==1)
       $result = sql_query("SELECT rubid, rubname, enligne, ordre FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
    else
-      $result = sql_query("SELECT distinct rubriques.rubid, rubriques.rubname, rubriques.enligne, rubriques.ordre FROM ".$NPDS_Prefix."rubriques, ".$NPDS_Prefix."sections, ".$NPDS_Prefix."publisujet WHERE rubriques.rubid=sections.rubid AND sections.secid=publisujet.secid2 AND publisujet.aid='$aid' ORDER BY ordre");
-   $nb_rub=@sql_num_rows($result);
+      $result = sql_query("SELECT DISTINCT r.rubid, r.rubname, r.enligne, r.ordre FROM ".$NPDS_Prefix."rubriques r, ".$NPDS_Prefix."sections s, ".$NPDS_Prefix."publisujet p WHERE (r.rubid=s.rubid AND s.secid=p.secid2 AND p.aid='$aid') ORDER BY ordre");
+   $nb_rub=sql_num_rows($result);
 
    echo '
    <hr />
    <ul class="list-group">';
    if ($nb_rub > 0)
       echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=sections#ajouter publication"><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une publication").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=sections#ajouter publication"><i class="fa fa-plus-square fa-lg mr-2"></i>'.adm_translate("Ajouter une publication").'</a></li>';
    echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=rub"><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une nouvelle Rubrique").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=rub"><i class="fa fa-plus-square fa-lg mr-2"></i>'.adm_translate("Ajouter une nouvelle Rubrique").'</a></li>';
    if ($nb_rub > 0)
       echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=sec" ><i class="fa fa-plus-square fa-lg mr-1"></i>'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=sec" ><i class="fa fa-plus-square fa-lg mr-2"></i>'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</a></li>';
    if ($radminsuper==1) 
       echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-up fa-lg mr-1"></i>'.adm_translate("Changer l'ordre des rubriques").'</a></li>
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=sections#droits des auteurs"><i class="fa fa-user-edit fa-lg mr-1"></i>'.adm_translate("Droits des auteurs").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-up fa-lg mr-2"></i>'.adm_translate("Changer l'ordre des rubriques").'</a></li>
+      <li class="list-group-item list-group-item-action"><a href="#droits des auteurs"><i class="fa fa-user-edit fa-lg mr-2"></i>'.adm_translate("Droits des auteurs").'</a></li>';
    echo '
+      <li class="list-group-item list-group-item-action"><a href="#publications en attente"><i class="fa fa-clock fa-lg mr-2"></i>'.adm_translate("Publication(s) en attente de validation").'</a></li>
    </ul>';
 
    if ($nb_rub > 0) {
@@ -200,7 +201,7 @@ function sections() {
 
          if (sql_num_rows($result2) > 0) {
             echo '
-            <div id="srub'.$i.'" class=" mb-3 collapse show">
+            <div id="srub'.$i.'" class=" mb-3 collapse ">
                <div class="list-group-item d-flex"><span class="badge badge-secondary mr-2 p-2">'.sql_num_rows($result2).'</span><strong class="">'.adm_translate("Sous-rubriques").'</strong>';
                if ($radminsuper==1)
                   echo '<span class="ml-auto"><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre des sous-rubriques").'" data-toggle="tooltip" data-placement="left" ><i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
@@ -283,8 +284,8 @@ function sections() {
          <h3 class="mb-3"><a name="ajouter publication">'.adm_translate("Ajouter une publication").'</a></h3>
          <form action="admin.php" method="post" name="adminForm">
             <div class="form-group row">
-               <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
-               <div class="col-sm-8">
+               <label class="col-form-label col-12" for="secid">'.adm_translate("Sous-rubrique").'</label>
+               <div class="col-12">
                '.$autorise_pub.'
                </div>
             </div>
@@ -315,22 +316,27 @@ function sections() {
       }
    }
 
-   echo '
-   <hr />
-   <h3 class="mb-3">'.adm_translate("Publication(s) en attente de validation").'</h3>
-   <ul class="list-group">';
+   $enattente='';
    if ($radminsuper==1) {
       $result = sql_query("SELECT distinct artid, secid, title, content, author FROM ".$NPDS_Prefix."seccont_tempo ORDER BY artid");
-      while(list($artid, $secid, $title, $content, $author) = @sql_fetch_row($result)) {
-         echo '<li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pr-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg mr-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
+      $nb_enattente=sql_num_rows($result);
+      while(list($artid, $secid, $title, $content, $author) = sql_fetch_row($result)) {
+         $enattente .= '
+         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pr-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg mr-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
       }
    } else {
       $result = sql_query("SELECT distinct seccont_tempo.artid, seccont_tempo.title, seccont_tempo.author FROM ".$NPDS_Prefix."seccont_tempo, ".$NPDS_Prefix."publisujet WHERE seccont_tempo.secid=publisujet.secid2 AND publisujet.aid='$aid' AND (publisujet.type='1' OR publisujet.type='2')");
+      $nb_enattente=sql_num_rows($result);
       while(list($artid, $title, $author) = sql_fetch_row($result)) {
-         echo '<li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pr-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg mr-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
+         $enattente .= '
+         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pr-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg mr-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
       }
    }
    echo '
+   <hr />
+   <h3 class="mb-3"><a name="publications en attente"><i class="far fa-clock fa-lg mr-1"></i>'.adm_translate("Publication(s) en attente de validation").'</a><span class="badge badge-danger float-right">'.$nb_enattente.'</span></h3>
+   <ul class="list-group">
+   '.$enattente.'
    </ul>';
 
    if ($radminsuper==1) {
@@ -338,17 +344,21 @@ function sections() {
       <hr />
       <h3 class="mb-3"><a name="droits des auteurs"><i class="fa fa-user-edit mr-2"></i>'.adm_translate("Droits des auteurs").'</a></h3>';
       $result = sql_query("SELECT aid, name, radminsuper FROM authors");
-      echo '<table>';
+      echo '<div class="row">';
       while(list($Xaid, $name, $Xradminsuper) = sql_fetch_row($result)) {
          if (!$Xradminsuper) {
             echo '
-            <tr>
-               <td width="50%"><i class="fa fa-user fa-lg mr-1"></i>'.$Xaid.'&nbsp;&nbsp;/&nbsp;&nbsp;'.$name.'</td>
-               <td align="right"><a href="admin.php?op=droitauteurs&amp;author='.$Xaid.'">'.adm_translate("Modifier l'information").'</a></td>
-            </tr>';
+            <div class="col-sm-4">
+               <div class="card my-2 p-1">
+                  <div class="card-body p-1">
+                     <i class="fa fa-user fa-lg mr-1"></i><br />'.$Xaid.'&nbsp;/&nbsp;'.$name.'<br />
+                     <a href="admin.php?op=droitauteurs&amp;author='.$Xaid.'">'.adm_translate("Modifier l'information").'</a>
+                  </div>
+               </div>
+            </div>';
          }
       }
-      echo '</table>';
+      echo '</div>';
    }
    adminfoot('','','','');
 }
@@ -410,7 +420,6 @@ function new_rub_section($type) {
          inpandfieldlen("secname",255);';
 
    } else if ($type=="rub") {
-      if ($radminsuper==1) {
          echo '
          <hr />
          <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Rubrique").'</h3>
@@ -435,8 +444,6 @@ function new_rub_section($type) {
          $arg1='
          var formulid = ["newrub"];
          inpandfieldlen("rubname",255);';
-      } else
-         redirect_url("admin.php?op=sections");
    }
    adminfoot('fv','',$arg1,'');
 }
@@ -595,13 +602,27 @@ function rubriquedit($rubid) {
 }
 
 function rubriquemake($rubname, $introc) {
-   global $NPDS_Prefix;
+   global $NPDS_Prefix, $radminsuper, $aid;
    $rubname = stripslashes(FixQuotes($rubname));
-   $introc = dataimagetofileurl($introc,'modules/upload/upload/rub');
-   $introc = stripslashes(FixQuotes($introc));
+   $introc = stripslashes(FixQuotes(dataimagetofileurl($introc,'modules/upload/upload/rub')));
    sql_query("INSERT INTO ".$NPDS_Prefix."rubriques VALUES (NULL,'$rubname','$introc','0','0')");
 
-   global $aid; Ecr_Log('security', "CreateRubriques($rubname) by AID : $aid", '');
+ //mieux ? création automatique d'une sous rubrique avec droits ... ?
+   if($radminsuper != 1) {
+      $result=sql_query("SELECT rubid FROM ".$NPDS_Prefix."rubriques ORDER BY rubid DESC LIMIT 1");
+      list($rublast) = sql_fetch_row($result);
+
+      sql_query("INSERT INTO ".$NPDS_Prefix."sections VALUES (NULL,'A modifier !', '', '', '$rublast', '<p>Cette sous-rubrique a été créé automatiquement. <br />Vous pouvez la personaliser et ensuite rattacher les publications que vous souhaitez.</p>','99','0')");
+      $result=sql_query("SELECT secid FROM ".$NPDS_Prefix."sections ORDER BY secid DESC LIMIT 1");
+      list($seclast) = sql_fetch_row($result);
+      droitsalacreation($aid, $seclast);
+      Ecr_Log('security', "CreateSections(Vide) by AID : $aid (via system)", '');
+
+   }
+ //mieux ... ?
+
+
+   Ecr_Log('security', "CreateRubriques($rubname) by AID : $aid", '');
    Header("Location: admin.php?op=ordremodule");
 }
 
@@ -619,7 +640,7 @@ function rubriquechange($rubid,$rubname,$introc,$enligne) {
 
 // Fonctions SECTIONS
 function sectionedit($secid) {
-   global $hlpfile, $radminsuper, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $radminsuper, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg, $aid;
 
    include("header.php");
    GraphicAdmin($hlpfile);
@@ -640,23 +661,49 @@ function sectionedit($secid) {
          <form id="sectionsedit" action="admin.php" method="post" name="adminForm">
          <div class="form-group">
             <label class="col-form-label" for="rubref">'.adm_translate("Rubriques").'</label>';
+
+
+         if ($radminsuper==1)
+            $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
+         else
+            $result = sql_query("SELECT DISTINCT r.rubid, r.rubname FROM ".$NPDS_Prefix."rubriques r LEFT JOIN ".$NPDS_Prefix."sections s on r.rubid= s.rubid LEFT JOIN ".$NPDS_Prefix."publisujet p on s.secid= p.secid2 WHERE p.aid='$aid'");
+         echo '
+            <select class="custom-select form-control" id="rubref" name="rubref">';
+      while(list($rubid, $rubname) = sql_fetch_row($result)) {
+         $sel = $rubref==$rubid?'selected="selected"':'';
+         echo '
+               <option value="'.$rubid.'" '.$sel.'>'.aff_langue($rubname).'</option>';
+      }
+      echo '
+            </select>
+      </div>';
+
+
+
+
+// ici on a(vait) soit le select qui permet de changer la sous rubrique de rubrique (ca c'est good) soit un input caché avec la valeur fixé de la rubrique...donc ICI un author ne peut pas changer sa sous rubrique de rubrique ...il devrait pouvoir le faire dans une sous-rubrique ou il a des "droits" ??
+
+/*
    if ($radminsuper==1) {
       echo '
-      <select class="custom-select form-control" id="rubref" name="rubref">';
-         $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
-         while(list($rubid, $rubname) = sql_fetch_row($result)) {
-            if ($rubref==$rubid) {$sel='selected="selected"';} else {$sel='';}
-               echo '<option value="'.$rubid.'" '.$sel.'>'.aff_langue($rubname).'</option>';
-            }
+            <select class="custom-select form-control" id="rubref" name="rubref">';
+      $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
+      while(list($rubid, $rubname) = sql_fetch_row($result)) {
+         $sel = $rubref==$rubid?'selected="selected"':'';
+         echo '
+               <option value="'.$rubid.'" '.$sel.'>'.aff_langue($rubname).'</option>';
+         }
       echo '
-      </select>
+            </select>
       </div>';
    } else {
       echo '<input type="hidden" name="rubref" value="'.$rubref.'" />';
       $result = sql_query("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubref'");
       list($rubname) = sql_fetch_row($result);
-      echo aff_langue($rubname);
+      echo '<pan class="ml-2">'.aff_langue($rubname).'</span>';
    }
+*/
+   //ici
    echo '
    <div class="form-group">
       <label class="col-form-label" for="secname">'.adm_translate("Sous-rubrique").'</label>
@@ -724,8 +771,7 @@ function sectionchange($secid, $secname, $image, $members, $Mmembers, $rubref, $
 
    $secname = stripslashes(FixQuotes($secname));
    $image = stripslashes(FixQuotes($image));
-   $introd = dataimagetofileurl($introd,'modules/upload/upload/sec');
-   $introd = stripslashes(FixQuotes($introd));
+   $introd = stripslashes(FixQuotes(dataimagetofileurl($introd,'modules/upload/upload/sec')));
    sql_query("UPDATE ".$NPDS_Prefix."sections SET secname='$secname', image='$image', userlevel='$members', rubid='$rubref', intro='$introd' WHERE secid='$secid'");
 
    global $aid; Ecr_Log('security', "UpdateSections($secid, $secname) by AID : $aid", '');
@@ -735,9 +781,7 @@ function sectionchange($secid, $secname, $image, $members, $Mmembers, $rubref, $
 
 // Fonction ARTICLES
 function secartedit($artid) {
-   global $radminsuper, $radminsection, $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
-//   if ($radminsuper!=1 and $radminsection!=1)
-//      Header("Location: admin.php?op=sections");
+   global $radminsuper, $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    $result2 = sql_query("SELECT author, artid, secid, title, content, userlevel FROM ".$NPDS_Prefix."seccont WHERE artid='$artid'");
    list($author, $artid, $secid, $title, $content, $userlevel) = sql_fetch_row($result2);
    if (!$artid)
@@ -758,7 +802,7 @@ function secartedit($artid) {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubriques").'</label>
             <div class="col-sm-8">';
-
+// la on déraille ???
    $tmp_autorise=sousrub_select($secid);
    if ($tmp_autorise)
       echo $tmp_autorise;
@@ -860,7 +904,7 @@ function secartupdate($artid) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
          <div class="col-sm-8">';
-      $tmp_autorise=sousrub_select($secid);
+      $tmp_autorise=sousrub_select($secid);/// a affiner pas bon car dans certain cas on peut donc publier dans une sous rubrique sur laquelle on n'a pas les droits
       if ($tmp_autorise)
          echo $tmp_autorise;
       else {
@@ -1420,9 +1464,12 @@ function publishrights($author) {
 function droitsalacreation($chng_aid, $secid){
    global $NPDS_Prefix;
       $lesdroits = array('1','2','3');
-      foreach($lesdroits as $droit) {
-         sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$secid','$droit')");
-      }
+//      if($secid > 0)
+         foreach($lesdroits as $droit) {
+            sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$secid','$droit')");
+         }
+//      else
+//         sql_query("INSERT INTO ".$NPDS_Prefix."publisujet VALUES ('$chng_aid','$secid','1')");
 }
 
 function updaterights($chng_aid, $maxindex, $creation, $publication, $modification, $suppression) {
