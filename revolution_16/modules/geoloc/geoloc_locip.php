@@ -5,14 +5,15 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.0                                            */
-/* geoloc_locip.php file 2008-2020 by Jean Pierre Barbary (jpb)         */
+/* module geoloc version 4.1                                            */
+/* geoloc_locip.php file 2008-2021 by Jean Pierre Barbary (jpb)         */
+/* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
 #autodoc localiser_ip() : construit la carte pour l'ip géoréférencée ($iptoshow) à localiser

@@ -5,14 +5,15 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.0                                            */
-/* geoloc_bloc.php file 2008-2020 by Jean Pierre Barbary (jpb)          */
+/* module geoloc version 4.1                                            */
+/* geoloc_bloc.php file 2008-2021 by Jean Pierre Barbary (jpb)          */
+/* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
 $ModPath='geoloc';
@@ -55,11 +56,12 @@ $content .='
             imgSize:['.$w_ico_b.','.$h_ico_b.']
          })
       }),
+      srcUsers = new ol.source.Vector({
+         url: "modules/geoloc/include/user.geojson",
+         format: new ol.format.GeoJSON()
+      }),
       georeferencedUsers = new ol.layer.Vector({
-         source: new ol.source.Vector({
-            url: "modules/geoloc/include/user.geojson",
-            format: new ol.format.GeoJSON()
-         }),
+         source: srcUsers,
          style: georefUser_icon
       }),
       attribution = new ol.control.Attribution({collapsible: true}),
@@ -81,6 +83,8 @@ $content .='
           zoom: '.$z_b.'
         })
       });
+      
+//            console.log(georeferencedUsers.getSource().getExtent());
 
       function checkSize() {
         var small = map.getSize()[0] < 600;

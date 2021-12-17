@@ -11,9 +11,9 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.0                                            */
-/* geoloc_set.php file 2007-2020 by Jean Pierre Barbary (jpb)           */
-/* dev team : Philippe Revilliod (Phr)                                  */
+/* module geoloc version 4.1                                            */
+/* geoloc_set.php file 2007-2021 by Jean Pierre Barbary (jpb)           */
+/* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
 if (!strstr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
@@ -989,9 +989,9 @@ function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
    $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* module geoloc version 4.0                                            */\n";
+   $content .= "/* module geoloc version 4.1                                            */\n";
    $content .= "/* geoloc_conf.php file 2008-".date('Y')." by Jean Pierre Barbary (jpb)          */\n";
-   $content .= "/* dev team : Philippe Revilliod (Phr)                                  */\n";
+   $content .= "/* dev team : Philippe Revilliod (Phr), A.NICOL                         */\n";
    $content .= "/************************************************************************/\n";
    $content .= "\$api_key_bing = \"$api_key_bing\"; // clef api bing maps \n";
    $content .= "\$api_key_mapbox = \"$api_key_mapbox\"; // clef api mapbox \n";

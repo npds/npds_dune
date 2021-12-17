@@ -11,14 +11,16 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.0                                            */
+/* module geoloc version 4.1                                            */
 /* geoloc.lang-english.php file 2008-2021 by Jean Pierre Barbary (jpb)  */
-/* dev team : Philippe Revilliod (phr)                                  */
+/* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
 function geoloc_translate($phrase) {
    switch($phrase) {
       case "Admin": $tmp="Admin"; break;
+      case "Adresse IP bannie !": $tmp="IP address banned!"; break;
+      case "Adresse IP signalée par l’antispam !": $tmp="IP address reported by Antispam !"; break;
       case "Aide": $tmp="Help"; break;
       case "Anonyme en ligne": $tmp="Anonymous on line"; break;
       case "Anonyme géoréférencé en ligne": $tmp="Georeferenced anonymous on line"; break;
@@ -39,6 +41,7 @@ function geoloc_translate($phrase) {
       case "Coordonnées en pixel :": $tmp="Pixels coordinates:"; break;
       case "Coordonnées enregistrées :": $tmp="Registered coordinates:"; break;
       case "Côtes et frontières": $tmp="Coasts and borders"; break;
+      case "Couches utilitaires": $tmp="Utility layers"; break;
       case "Couleur du trait": $tmp="Line color"; break;
       case "Couleur fond": $tmp="Background color"; break;
       case "Définir ou modifier votre position.": $tmp="Define or change your location."; break;
@@ -51,8 +54,8 @@ function geoloc_translate($phrase) {
       case "Entrez une adresse": $tmp="Enter an address"; break;
       case "Envoyez un message interne": $tmp="Send an internal message"; break;
       case "Epaisseur du trait": $tmp="Line thickness"; break;
-      case "Filtrer les utilisateurs": $tmp="Filter users"; break;
       case "Filtrer les résultats": $tmp="Filter results"; break;
+      case "Filtrer les utilisateurs": $tmp="Filter users"; break;
       case "Fonctions": $tmp="Functions"; break;
       case "Géocodage a échoué pour la raison suivante": $tmp="Geocode was not successful for the following reason"; break;
       case "Géocodage": $tmp="Geocoding"; break;
@@ -84,12 +87,12 @@ function geoloc_translate($phrase) {
       case "Marqueur images de type png, gif, jpeg.": $tmp="Marker image png, gif, jpeg."; break;
       case "Marqueur SVG font ou objet vectoriel.": $tmp=" Marker SVG font or vector object."; break;
       case "Masquer": $tmp="Hide"; break;
-      case "Membres du site": $tmp="Website members"; break;
       case "Membre en ligne": $tmp="Member on line"; break;
       case "Membre géoréférencé en ligne": $tmp="Georeferenced member on line"; break;
       case "Membre géoréférencé": $tmp="Georeferenced member"; break;
       case "Membre": $tmp="Member"; break;
       case "Membre(s) :": $tmp="Member:"; break;
+      case "Membres du site": $tmp="Website members"; break;
       case "Modification administrateur": $tmp="Admin mode"; break;
       case "Noir et blanc": $tmp="Black and white"; break;
       case "Non géoréférencés : ": $tmp="Ungeoreferenced:"; break;
@@ -101,9 +104,10 @@ function geoloc_translate($phrase) {
       case "Paramètres système": $tmp="System parameters"; break;
       case "Pays": $tmp="Country"; break;
       case "Plan": $tmp="Plan"; break;
+      case "Posts/Commentaires": $tmp="Posts/Comments"; break;
       case "Rappel : vous êtes en mode administrateur !": $tmp="Notice: you are in admin mode !"; break;
-      case "requis": $tmp="required"; break;
       case "Relief": $tmp="Terrain"; break;
+      case "requis": $tmp="required"; break;
       case "Satellite": $tmp="Satellite"; break;
       case "Sauver": $tmp="Save"; break;
       case "Taille de la table": $tmp="Size of the database table"; break;
@@ -120,15 +124,16 @@ function geoloc_translate($phrase) {
       case "Voir ou masquer les IP": $tmp="Show or hide IP"; break;
       case "Voir ou masquer membres géoréférencés en ligne": $tmp="Show or hide georeferenced member on line"; break;
       case "Voir ou masquer membres géoréférencés": $tmp="Show or hide georeferenced member"; break;
+      case "Voir sur la carte": $tmp="Show on the map"; break;
       case "Voir": $tmp="Show"; break;
       case "Voulez vous changer pour :": $tmp="Would you change to:"; break;
       case "Voulez vous le faire à cette position :": $tmp="Would you get one at this position:"; break;
       case "Vous n'êtes pas géoréférencé.": $tmp="You have not geolocation."; break;
-      case "Zoom": $tmp="Zoom"; break;
       case "Zoom arrière ici": $tmp="Zoom out here"; break;
       case "Zoom arrière": $tmp="Zoom out"; break;
       case "Zoom avant ici": $tmp="Zoom in here"; break;
       case "Zoom avant": $tmp="Zoom in"; break;
+      case "Zoom": $tmp="Zoom"; break;
       default: $tmp = "Need to be translated [** $phrase **]"; break;
    }
    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));

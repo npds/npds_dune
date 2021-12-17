@@ -11,9 +11,9 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.0                                            */
+/* module geoloc version 4.1                                            */
 /* geoloc.lang-french.php file 2007-2021 by Jean Pierre Barbary (jpb)   */
-/* dev team : Philippe Revilliod (phr)                                  */
+/* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
 function geoloc_translate($phrase) {
