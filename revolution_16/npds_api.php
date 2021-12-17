@@ -11,7 +11,8 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-   include ("mainfile.php");
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) include('admin/die.php');
+
 /*
 function stripslashes_deep($value) {
    $value = is_array($value) ?
@@ -75,7 +76,7 @@ function api_getdownload() {
 }
 */
 function alerte_api() {
-   global $NPDS_Prefix;
+   global $NPDS_Prefix,$admin;
    if (isset($_POST['id'])) {
       $id = $_POST['id'];
       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fid='$id'");
