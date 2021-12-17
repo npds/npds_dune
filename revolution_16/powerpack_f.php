@@ -200,7 +200,7 @@ function instant_members_message() {
                 }
                 if ($ibidR=theme_image("forum/rank/".$rank.".gif")) {$imgtmpA=$ibidR;} else {$imgtmpA="images/forum/rank/".$rank.".gif";}
                 $messR='rank'.$rank;
-                $tmpR="<img src=\"".$imgtmpA."\" border=\"0\" alt=\"".aff_langue($$messR)."\" title=\"".aff_langue($$messR)."\" />";
+                $tmpR="<img src=\"".$imgtmpA."\" border=\"0\" alt=\"".aff_langue($$messR)."\" title=\"".aff_langue($$messR)."\" loading=\"lazy\" />";
              } else
                 $tmpR='&nbsp;';
              $new_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userid' AND read_msg='0' AND type_msg='0'"));

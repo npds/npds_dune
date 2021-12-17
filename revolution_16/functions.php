@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2021 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
@@ -232,7 +232,7 @@ function smilie($message) {
       foreach ($smilies AS $tab_smilies) {
          $suffix=strtoLower(substr(strrchr($tab_smilies[1],'.'),1));
          if (($suffix=="gif") or ($suffix=="png"))
-            $message = str_replace($tab_smilies[0], "<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' />", $message);
+            $message = str_replace($tab_smilies[0], "<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' loading='lazy' />", $message);
          else
             $message = str_replace($tab_smilies[0], $tab_smilies[1], $message);
       }
@@ -241,7 +241,7 @@ function smilie($message) {
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
       foreach ($smilies AS $tab_smilies) {
-         $message = str_replace($tab_smilies[0], "<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' />", $message);
+         $message = str_replace($tab_smilies[0], "<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' loading='lazy' />", $message);
       }
    }
    return($message);
@@ -254,14 +254,14 @@ function smile($message) {
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
       foreach ($smilies AS $tab_smilies) {
-         $message = str_replace("<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' />", $tab_smilies[0], $message);
+         $message = str_replace("<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' loading='lazy' />", $tab_smilies[0], $message);
       }
    }
    if ($ibid=theme_image("forum/smilies/more/smilies.php")) {$imgtmp="themes/$theme/images/forum/smilies/more/";} else {$imgtmp="images/forum/smilies/more/";}
    if (file_exists($imgtmp."smilies.php")) {
       include ($imgtmp."smilies.php");
       foreach ($smilies AS $tab_smilies) {
-         $message = str_replace("<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' />", $tab_smilies[0],  $message);
+         $message = str_replace("<img class='n-smil' src='".$imgtmp.$tab_smilies[1]."' loading='lazy' />", $tab_smilies[0],  $message);
       }
    }
    return($message);
@@ -339,7 +339,7 @@ function putitems_more() {
             echo '
          <span class ="d-inline-block m-2"><a href="#" onclick="javascript: DoAdd(\'true\',\'message\',\' '.$tab_smilies[0]. '\');"><img src="'.$imgtmp.$tab_smilies[1].'" width="32" height="32" alt="'.$tab_smilies[2];
             if ($tab_smilies[2]) echo ' => ';
-            echo $tab_smilies[0].'" /></a></span>';
+            echo $tab_smilies[0].'" loading="lazy" /></a></span>';
          }
       }
       echo '
@@ -445,7 +445,7 @@ function emotion_add($image_subject) {
             <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="custom-control-input" checked="checked" />';
          $image_subject='no image';
       }
-      $temp .= '<label class="custom-control-label" for="image_subject'.$j.'" ><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" /></label>
+      $temp .= '<label class="custom-control-label" for="image_subject'.$j.'" ><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" loading="lazy" /></label>
          </div>';
       $j++;
    }
@@ -490,7 +490,7 @@ function member_qualif($poster, $posts, $rank) {
    global $anonymous;
    $tmp='';
    if ($ibid=theme_image('forum/rank/post.gif')) $imgtmpP=$ibid; else $imgtmpP='images/forum/rank/post.gif';
-   $tmp='<img class="n-smil" src="'.$imgtmpP.'" alt="" />'.$posts.'&nbsp;';
+   $tmp='<img class="n-smil" src="'.$imgtmpP.'" alt="" loading="lazy" />'.$posts.'&nbsp;';
    if ($poster!=$anonymous) {
       $nux=0;
       if ($posts>=10 and $posts<30) $nux=1;
@@ -505,7 +505,7 @@ function member_qualif($poster, $posts, $rank) {
          if ($ibid=theme_image("forum/rank/".$rank.".gif") or $ibid=theme_image("forum/rank/".$rank.".png")) $imgtmpA=$ibid; else $imgtmpA="images/forum/rank/".$rank.".png";
          $rank='rank'.$rank;
          global $$rank;
-         $tmp.='<div class="my-2"><img class="n-smil" src="'.$imgtmpA.'" alt="logo rôle" />&nbsp;'.aff_langue($$rank).'</div>';
+         $tmp.='<div class="my-2"><img class="n-smil" src="'.$imgtmpA.'" alt="logo rôle" loading="lazy" />&nbsp;'.aff_langue($$rank).'</div>';
       }
    }
    return ($tmp);
@@ -860,9 +860,9 @@ function sub_forum_folder($forum) {
    if ($ibid=theme_image("forum/icons/sub_folder.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/sub_folder.gif";}
 
    if (($totalT-$totalF)>0)
-      $ibid='<img src="'.$imgtmpR.'" alt="" />';
+      $ibid='<img src="'.$imgtmpR.'" alt="" loading="lazy" />';
    else
-      $ibid='<img src="'.$imgtmp.'" alt="" />';
+      $ibid='<img src="'.$imgtmp.'" alt="" loading="lazy" />';
    return ($ibid);
 }
 #autodoc paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_page, $start) : Retourne un bloc de pagination

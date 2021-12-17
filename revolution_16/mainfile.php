@@ -2301,7 +2301,7 @@ function adminblock() {
             if(!in_array($aid, $arraylecture, true)) {
                $bloc_foncts_A .='
                    <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$furlscript.' >
-                   <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+                   <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
                    <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
                    </a>';
             } 
@@ -2317,7 +2317,7 @@ function adminblock() {
 
              $bloc_foncts_A .='
                <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$furlscript.' >
-                 <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+                 <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" loading="lazy" />
                  <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
                </a>';
             }
@@ -2355,7 +2355,7 @@ function adminblock() {
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id="bl_versusModalLabel"><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" />'.translate("Version").' NPDS^</h5>
+               <h5 class="modal-title" id="bl_versusModalLabel"><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" loading="lazy" />'.translate("Version").' NPDS^</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                </button>
@@ -2391,7 +2391,7 @@ function adminblock() {
                </form>
             </div>
             <div class="modal-footer">
-            <span class="small text-muted">Information de npds.org</span><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" />
+            <span class="small text-muted">Information de npds.org</span><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" loading="lazy" />
             </div>
          </div>
       </div>
@@ -2402,9 +2402,9 @@ function adminblock() {
             var button = $(event.relatedTarget); 
             var id = button.data("id");
             $("#bl_messageModalId").val(id);
-            $("#bl_messageModalForm").attr("action", "'.$nuke_url.'/npds_api.php?op=alerte_update");
+            $("#bl_messageModalForm").attr("action", "'.$nuke_url.'/admin.php?op=alerte_update");
             $.ajax({
-               url:"'.$nuke_url.'/npds_api.php?op=alerte_api",
+               url:"'.$nuke_url.'/admin.php?op=alerte_api",
                method: "POST",
                data:{id:id},
                dataType:"JSON",
@@ -2902,7 +2902,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $content.= '<span style="font-size: 120%; font-weight:bolder;">'.aff_langue($rsql['groupe_name']).'</span>'."\n";
    $content.='<p>'.aff_langue($rsql['groupe_description']).'</p>'."\n";
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
-      $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-fluid mx-auto d-block rounded" alt="'.translate("Groupe").'" />';
+      $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-fluid mx-auto d-block rounded" alt="'.translate("Groupe").'" loading="lazy" />';
 
    //=> liste des membres
    $li_mb=''; $li_ic='';
@@ -2980,14 +2980,14 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       }
       if (($timex!==false) and ($timex<60))
          $conn= '<i class="fa fa-plug faa-flash animated text-primary" title="'.$uname.' '.translate("est connecté").'" data-toggle="tooltip" ></i>';
-      $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" />';
+      $li_ic.='<img class="n-smil" src="'.$imgtmp.'" alt="avatar" loading="lazy" />';
       $li_mb.= '
             <li class="list-group-item list-group-item-action d-flex flex-row p-2">
                <div id="li_mb_'.$uname.'_'.$gr.'" class="n-ellipses">
                   '.$conn.'<a class="ml-2" tabindex="0" data-title="'.$uname.'" data-toggle="popover" data-trigger="focus" data-html="true" data-content=\'<div class="list-group mb-3">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">';
       if (!$short_user)
          $li_mb.= $my_rsos[$count];
-      $li_mb.= '</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" /></a><span class="ml-2">'.$uname.'</span>
+      $li_mb.= '</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" loading="lazy" /></a><span class="ml-2">'.$uname.'</span>
                </div>
             </li>';
    $count++;
