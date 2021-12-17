@@ -113,8 +113,6 @@ function GraphicAdmin($hlpfile) {
    if($newauto) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newauto."',fretour_h='".adm_translate("Articles programmés pour la publication.")."' WHERE fid=37"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0',fretour_h='' WHERE fid=37");
    //etat filemanager
    if ($filemanager) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1' WHERE fid='27'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='27'");
-
-
 //==> recuperation traitement des messages de NPDS
    $QM=sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
    settype($f_mes, 'array');
@@ -126,7 +124,7 @@ function GraphicAdmin($hlpfile) {
    $messagerie_npds= file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
    $messages_npds = explode("\n", $messagerie_npds);
    array_pop($messages_npds);
-   // traitement specifique car fonction permanente versus
+   // traitement specifique car message permanent versus
    $versus_info = explode('|', $messages_npds[0]);
    if($versus_info[1] == $Version_Sub and $versus_info[2] == $Version_Num)
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
@@ -145,7 +143,7 @@ function GraphicAdmin($hlpfile) {
       $o=0;
       foreach($mess as $v) {
          $ibid = explode('|',$v);
-         $fico = $ibid[0] != 'Note'? 'flag_red':'flag_green';
+         $fico = $ibid[0] != 'Note'? 'message_npds_a':'message_npds_i';
          $QM=sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom='mes_npds_".$o."'"));
          if($QM===false)
             sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface,fnom_affich,furlscript) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1','".addslashes($ibid[2])."','data-toggle=\"modal\" data-target=\"#messageModal\");\n");
@@ -158,7 +156,7 @@ function GraphicAdmin($hlpfile) {
       $fico ='';
       for ($i=0;$i<count($mess);$i++) {
          $ibid = explode('|',$mess[$i]);
-         $fico = $ibid[0] != 'Note'? 'flag_red':'flag_green';
+         $fico = $ibid[0] != 'Note'? 'message_a':'message_i';
          //si on trouve le contenu du fichier dans la requete
          if (in_array($ibid[1],$f_mes,true)) {
             $k=(array_search ($ibid[1], $f_mes));
@@ -254,14 +252,14 @@ function GraphicAdmin($hlpfile) {
             if(!in_array($aid, $adm_lecture, true))
                $bloc_foncts_A .='
          <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$SAQ['furlscript'].' >
-            <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+            <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
             <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
          </a>';
          }
          else
             $bloc_foncts_A .='
          <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$SAQ['furlscript'].' >
-            <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />
+            <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
             <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
          </a>';
          array_pop($cat_n);
@@ -275,7 +273,7 @@ function GraphicAdmin($hlpfile) {
          $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
          $li_c .='"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
          if ($admingraphic==1)
-            $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" />';
+            $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" loading="lazy" />';
          else
             $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
          $li_c .='</a></li>';
@@ -333,7 +331,6 @@ function GraphicAdmin($hlpfile) {
       });
    });
    
-
    $( window ).unload(function() {
       $( '#lst_men_main ul' ).each(function( index ) {
          var idi= $(this).attr('id'),
@@ -387,9 +384,7 @@ function GraphicAdmin($hlpfile) {
       $(function () {
          var dae = Cookies.get('adm_exp')*1000,
           dajs = new Date(dae);
-          
-                     console.log(Cookies.get('adm_exp'));
-
+          console.log(Cookies.get('adm_exp'));//
 
       $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
 
@@ -435,9 +430,9 @@ function GraphicAdmin($hlpfile) {
             var button = $(event.relatedTarget); 
             var id = button.data('id');
             $('#messageModalId').val(id);
-            $('#messageModalForm').attr('action', '".$nuke_url."/npds_api.php?op=alerte_update');
+            $('#messageModalForm').attr('action', '".$nuke_url."/admin.php?op=alerte_update');
             $.ajax({
-               url:\"".$nuke_url."/npds_api.php?op=alerte_api\",
+               url:\"".$nuke_url."/admin.php?op=alerte_api\",
                method: \"POST\",
                data:{id:id},
                dataType:\"JSON\",
@@ -487,21 +482,8 @@ function GraphicAdmin($hlpfile) {
      </div>
       <div id ="mes_perm" class="contenair-fluid text-muted" >
           <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="tempsconnection" class="car"></span>
-      </div>';
-      echo $adm_ent;
-     if ($short_menu_admin!=false) {
-        echo '</div>';
-        return;
-     }
-     echo '
-      <div id="adm_men_corps" class="my-3" >
-         <div id="lst_men_main">
-            '.$bloc_foncts.'
-         </div>
       </div>
-   </div>
-   
-   <div class="modal fade" id="versusModal" tabindex="-1" aria-labelledby="versusModalLabel" aria-hidden="true">
+         <div class="modal fade" id="versusModal" tabindex="-1" aria-labelledby="versusModalLabel" aria-hidden="true">
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
@@ -546,6 +528,20 @@ function GraphicAdmin($hlpfile) {
          </div>
       </div>
    </div>';
+      echo $adm_ent;
+     if ($short_menu_admin!=false) {
+        echo '</div>';
+        return;
+     }
+     echo '
+      <div id="adm_men_corps" class="my-3" >
+         <div id="lst_men_main">
+            '.$bloc_foncts.'
+         </div>
+      </div>
+   </div>
+   
+';
    return ($Q['radminsuper']);
 }
 
@@ -1237,6 +1233,10 @@ if ($admintest) {
       break;
       case 'Module-Install':
          include("admin/module-install.php");
+      break;
+      case 'alerte_api':
+      case 'alerte_update':
+         include("npds_api.php");
       break;
       // NPDS-Admin-Main
       case 'suite_articles':
