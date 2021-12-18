@@ -522,31 +522,48 @@ foreach ($fond_provider as $v) {
 $source_fond=''; $max_r=''; $min_r='';$layer_id='';
 switch ($cartyp) {
    case 'sat-google':
-      $source_fond=' new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"})';
+      $source_fond='
+      new ol.source.XYZ({
+         url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous",
+         attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"
+      })';
       $max_r='40000';
       $min_r='0';
       $layer_id= $cartyp;
    break;
    case 'Road': case 'Aerial': case 'AerialWithLabels':
-      $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
+      $source_fond='
+      new ol.source.BingMaps({
+         key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"
+      })';
       $max_r='40000';
       $min_r='0';
       $layer_id= $cartyp;
    break;
    case 'natural-earth-hypso-bathy': case 'geography-class':
-      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp.'.json?access_token='.$api_key_mapbox.'"})';
+      $source_fond='
+      new ol.source.TileJSON({
+         url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp.'.json?access_token='.$api_key_mapbox.'",
+         attributions: "© <a href=\"https://www.mapbox.com/about/maps/\">Mapbox</a> © <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> <strong><a href=\"https://www.mapbox.com/map-feedback/\" target=\"_blank\">Improve this map</a></strong>"
+      })';
       $max_r='40000';
       $min_r='2000';
       $layer_id= $cartyp;
    break;
    case 'terrain':case 'toner':case 'watercolor':
-      $source_fond='new ol.source.Stamen({layer:"'.$cartyp.'"})';
+      $source_fond='
+      new ol.source.Stamen({
+         layer:"'.$cartyp.'"
+      })';
       $max_r='40000';
       $min_r='0';
       $layer_id= $cartyp;
    break;
    case 'modisterra':
-      $source_fond='new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/2013-06-15/GoogleMapsCompatible_Level13/{z}/{y}/{x}.jpg"})';
+      $source_fond=
+      'new ol.source.XYZ({
+         url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/2013-06-15/GoogleMapsCompatible_Level13/{z}/{y}/{x}.jpg"
+      })';
       $max_r='40000';
       $min_r='0';
       $layer_id= $cartyp;
@@ -888,16 +905,9 @@ $ecr_scr .='
           }),
           fullscreen = new ol.control.FullScreen({
              source: "map-wrapper",
-/*
-             label: "",
-             inactiveClassName: "fa fa-expand",
-             labelActive: "",
-             activeClassName: "fa fa-compress"
-*/
           }),
           scaleline = new ol.control.ScaleLine,
-          zoomslider = new ol.control.ZoomSlider()
-          ;
+          zoomslider = new ol.control.ZoomSlider();
 
       var map = new ol.Map({
          interactions: new ol.interaction.defaults({
@@ -944,21 +954,6 @@ $ecr_scr .='
       var sidebarControl = new ol.control.Control({
           element: element
       });
-      
-      
-      
-/*
-      var contenu = document.getElementById("sidebar");
-      contenu.className = "ol-unselectable ol-control";
-      console.log(contenu);
-      var sidebarC = new ol.control.Control({
-          element: contenu
-      });
-      map.addControl(sidebarC);
-      console.log(sidebarC);
-*/
-
-      
       map.addControl(sidebarControl);
       var select = null; // ref to currently selected interaction
       // select interaction working on "singleclick"
@@ -1019,21 +1014,20 @@ if ($username !='') {
          $(element).popover({
             container: element,
             sanitize:false,
-            placement: "left",
+            placement: "auto",
             offset:"0,18",
-            animation: true,
+            animation: false,
             html: true,
-            title:\''.geoloc_translate("Géolocalisation").'<button style="transform:rotate(45deg);" type="button" id="close" class="close" onclick="$(\\\'.popover\\\').hide();"><i class="bi bi-plus-circle"></i></button>\',
+            title:\'<span class="font-weight-light">'.geoloc_translate("Géolocalisation").'</span><button style="transform:rotate(45deg);" type="button" id="close" class="close" onclick="$(\\\'.popover\\\').hide();"><i class="bi bi-plus-circle"></i></button>\',
             content: \'<form action="" onsubmit=" window.location.href = \\\'modules.php?ModPath=geoloc&ModStart=geoloc&lng=\'+lng.toFixed(6)+\'&lat=\'+lat.toFixed(6)+\'&mod=neo&uid=\\\'; return false;">\'
-        + \'<legend><img src="'.$the_av_ch.'" class="img-thumbnail n-ava-48" /> '.$username.' </legend>\'
+        + \'<img src="'.$the_av_ch.'" class="img-thumbnail n-ava-40 mr-2" loading="lazy" /><span class="lead">'.$username.'</span>\'
         + \''.$infooo.'\'
         + \'<div id="lalo"><span class="text-muted">'.geoloc_translate("Latitude").' : </span>\' + lat.toFixed(6) + \'<br /><span class="text-muted">'.geoloc_translate("Longitude").' : </span>\' + lng.toFixed(6) + \'</div>\'
-        + \'<br />\'
-        + \'<button type="submit" class ="btn btn-primary btn-sm">'.geoloc_translate("Enregistrez").'</button>\'
+        + \'<button type="submit" class ="btn btn-primary btn-sm mt-2">'.geoloc_translate("Enregistrez").'</button>\'
         + \'<input type="hidden" id="html" value="'.addslashes($user_from).'" />\'
-        + \'<input type="hidden" id="longitude" value="\' + lng.toFixed(6) + \'"/>\'
-        + \'<input type="hidden" id="latitude" value="\' + lat.toFixed(6) + \'"/>\'
-        + \'<input type="hidden" id="modgeo" value="neo"/>\'
+        + \'<input type="hidden" id="longitude" value="\' + lng.toFixed(6) + \'" />\'
+        + \'<input type="hidden" id="latitude" value="\' + lat.toFixed(6) + \'" />\'
+        + \'<input type="hidden" id="modgeo" value="neo" />\'
         + \'</form>\'
          });
          $(element).popover("show");
@@ -1200,16 +1194,24 @@ $ecr_scr .='
             fond_carte.setMinResolution(1);
          break;
          case "sat-google":
-            fond_carte.setSource(new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"}));
+            fond_carte.setSource(new ol.source.XYZ({
+               url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous",
+               attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"
+            }));
             map.getLayers().R[0].setProperties({"id":cartyp});
          break;
          case "Road":case "Aerial":case "AerialWithLabels":
-            fond_carte.setSource(new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: cartyp }));
+            fond_carte.setSource(new ol.source.BingMaps({
+               key: "'.$api_key_bing.'",imagerySet: cartyp
+            }));
             map.getLayers().R[0].setProperties({"id":cartyp});
             fond_carte.setMinResolution(1);
          break;
          case "natural-earth-hypso-bathy": case "geography-class":
-            fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox."+cartyp+".json?access_token='.$api_key_mapbox.'"}));
+            fond_carte.setSource(new ol.source.TileJSON({
+               url: "https://api.tiles.mapbox.com/v4/mapbox."+cartyp+".json?access_token='.$api_key_mapbox.'",
+               attributions:"© <a href=\"https://www.mapbox.com/about/maps/\">Mapbox</a> © <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> <strong><a href=\"https://www.mapbox.com/map-feedback/\" target=\"_blank\">Improve this map</a></strong>"
+            }));
             fond_carte.setMinResolution(3000);
             fond_carte.setMaxResolution(40000);
             map.getLayers().R[0].setProperties({"id":cartyp});
