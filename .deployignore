@@ -1,8 +1,14 @@
 revolution_16
 revolution_16/install
 revolution_16/install/**
+revolution_16/install.php
+revolution_16/slogs
+revolution_16/slogs/**
+revolution_16/users_private
+revolution_16/users_private/**
 .gitignore
 .gitattributes
 .github
+.deployignore
 LICENSE
 versus.text
