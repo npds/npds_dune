@@ -9,6 +9,7 @@ revolution_16/users_private/**
 .gitignore
 .gitattributes
 .github
+.github/**
 .deployignore
 LICENSE
 versus.text
