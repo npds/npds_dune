@@ -1226,14 +1226,20 @@ $ecr_scr .='
             $("#dayslider").addClass("show");
             var datejour="'.$date_jour.'";
             var today = new Date();
-            fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
+            fond_carte.setSource(new ol.source.XYZ({
+               url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg",
+               attributions: "We acknowledge the use of imagery provided by services from NASA\'s Global Imagery Browse Services (GIBS), part of NASA\'s Earth Observing System Data and Information System (EOSDIS)."
+            }));
             $("#nasaday").on("input change", function(event) {
                var newDay = new Date(today.getTime());
                newDay.setUTCDate(today.getUTCDate() + Number.parseInt(event.target.value));
                datejour = newDay.toISOString().split("T")[0];
                var datejourFr = datejour.split("-");
                $("#dateimages").html(datejourFr[2]+"/"+datejourFr[1]+"/"+datejourFr[0]);
-               fond_carte.setSource(new ol.source.XYZ({url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg"}));
+               fond_carte.setSource(new ol.source.XYZ({
+                  url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/"+datejour+"/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg",
+                  attributions: "We acknowledge the use of imagery provided by services from NASA\'s Global Imagery Browse Services (GIBS), part of NASA\'s Earth Observing System Data and Information System (EOSDIS)."
+               }));
             });
             fond_carte.setMinResolution(2);
             fond_carte.setMaxResolution(40000);
