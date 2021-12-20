@@ -341,7 +341,7 @@ if (isset($submitS)) {
                echo $posterdata['uname'];
             echo '<br />';
             $posts = $posterdata['posts'];
-            echo member_qualif($posterdata['uname'], $posts, $posterdata['rank']);
+            echo member_qualif($posterdata['uname'], $posts, $posterdata['rang']);
             echo '<br /><br />';
             if ($smilies) {
                if ($posterdata['user_avatar'] != '') {
