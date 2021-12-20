@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -166,9 +166,8 @@ function getAttDisplayMode ($att_type, $att_inline="A") {
       } else {
           $display_mode = $mime_dspfmt[$mimetype_default];
       }
-   } else {
+   } else
        $display_mode = ATT_DSP_LINK;
-   }
 
    return $display_mode;
 }
@@ -251,8 +250,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    switch ($display_mode) {
       case ATT_DSP_IMG: // display as an embedded image
          $size = @getImageSize ("$att_path");
-//         $img_size = verifsize( $size );
-         $img_size = 'style="max-width: 100%; height:auto;"';
+         $img_size = 'style="max-width: 100%; height:auto;" loading="lazy" ';
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_IMG]);
          eval ("\$ret=stripSlashes(\"$text\");");
          break;

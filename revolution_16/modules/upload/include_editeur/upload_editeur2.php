@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -39,7 +39,7 @@ if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
          if ($ret!='') {
             $suffix=strtoLower(substr(strrchr($ret,'.'),1));
             if ($suffix=='gif' or  $suffix=='jpg' or  $suffix=='jpeg' or $suffix=='png') {
-               $js .= "parent.tinymce.activeEditor.selection.setContent('<img class=\"img-fluid\" src=\"$ret\" alt=".basename($ret)." />');";
+               $js .= "parent.tinymce.activeEditor.selection.setContent('<img class=\"img-fluid\" src=\"$ret\" alt=".basename($ret)." loading=\"lazy\" />');";
             } else {
                $js .= "parent.tinymce.activeEditor.selection.setContent('<a href=\"$ret\" target=\"_blank\">".basename($ret)."</a>');";
             }
