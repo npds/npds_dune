@@ -1,6 +1,6 @@
-Revolution_16
-Revolution_16/install
-Revolution_16/install/**
+revolution_16
+revolution_16/install
+revolution_16/install/**
 .gitignore
 .gitattributes
 .github
