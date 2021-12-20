@@ -168,26 +168,23 @@ if ($mycount) {
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],"users_private"))
                    $imgtmp=$posterdata['user_avatar'];
-               else {
-                  if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
-               }
+               else
+                  $imgtmp = $ibid=theme_image("forum/avatar/".$posterdata['user_avatar']) ?
+                     $ibid :
+                     "images/forum/avatar/".$posterdata['user_avatar'];
             }
             echo '
-            <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>
+            <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" loading="lazy" /></a>
             <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-         } else {
+         } else
             echo '
-            <a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" /></a>
+            <a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" loading="lazy" /></a>
             <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$anonymous.'</strong></span>';
-         }
-      } else {
-         if($myrow['poster_id'] !== '0')
-            echo '<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-         else
-            echo '<span class="text-muted"><strong>'.$anonymous.'</strong></span>';
-      }
-      if ($ibid=theme_image("forum/subject/00.png")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/00.png";}
-
+      } else
+         echo $myrow['poster_id'] !== '0' ?
+            '<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>' :
+            '<span class="text-muted"><strong>'.$anonymous.'</strong></span>';
+      $imgtmp = $ibid=theme_image("forum/subject/00.png") ? $ibid : 'images/forum/subject/00.png';
       echo '
                   <span class="float-right"><img class="n-smil" src="'.$imgtmp.'" alt="" /></span>
                </div>';
