@@ -3480,7 +3480,7 @@ function dataimagetofileurl($base_64_string, $output_path) {
       if (!in_array($ext, ['png', 'gif', 'jpeg']))
          die('Image non supportée');
       $output_file = $output_path.$j."_".$ra."_".time().".".$ext;
-      $base_64_string = preg_replace($rechdataimage, 'class="img-fluid" src="'.$output_file.'"', $base_64_string,1);
+      $base_64_string = preg_replace($rechdataimage, 'class="img-fluid" src="'.$output_file.'" loading="lazy"', $base_64_string,1);
       if ($size[0]>$timgw or $size[1]>$timgh){
          $timgh = round(($timgw / $size[0]) * $size[1]);
          $timgw = round(($timgh / $size[1]) * $size[0]);
