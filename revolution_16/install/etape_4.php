@@ -42,12 +42,12 @@ function etape_4() {
                      </div>
                      <div class="form-group row">
                         <label class="col-form-label" for="new_dbpass">'.ins_translate("Mot de passe").'</label>
-                        <input class="form-control" type="password" name="new_dbpass" id="new_dbpass" maxlength="80" value="'.$dbpass.'" required="required" />
+                        <input class="form-control" type="password" name="new_dbpass" id="new_dbpass" maxlength="80" required="required" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_dbpass"></div>
                      </div>
                      <div class="form-group row">
                         <label class="col-form-label" for="new_dbname">'.ins_translate("Nom de la base de données").'</label>
-                        <input class="form-control" type="text" name="new_dbname" id="new_dbname" maxlength="80" value="'.$dbname.'" required="required" />
+                        <input class="form-control" type="text" name="new_dbname" id="new_dbname" maxlength="80" required="required" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_dbname"></div>
                      </div>
                      <div class="form-group row">
