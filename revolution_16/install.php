@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2018 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -133,10 +133,9 @@ if(($stage == 3) or ($stage == 2 and $qi==1)){
 */
 if($stage == 4) {
    $out='';
-   $colorst1 = '-success';
-   $colorst2 = '-success';
-   $colorst3 = '-success';
-   $colorst4 = '-success';
+   for($i=1;$i<=4;$i++) {
+      ${"colorst".$i} ='-success';
+   }
    $colorst5 = ' active';
    require('install/etape_4.php');
    if(!isset($op)) $op = 'etape_4';
@@ -194,11 +193,9 @@ if($stage == 4) {
 */
 if($stage == 5){
    $out='';
-   $colorst1 = '-success';
-   $colorst2 = '-success';
-   $colorst3 = '-success';
-   $colorst4 = '-success';
-   $colorst5 = '-success';
+   for($i=1;$i<=5;$i++) {
+      ${"colorst".$i} ='-success';
+   }
    $colorst6 = ' active';
    require('install/etape_5.php');
    if(!isset($op)) $op = 'etape_5';
@@ -253,12 +250,9 @@ if($stage == 5){
 if($stage == 6) {
    require('install/etape_6.php');
    if(!isset($op)) $op = 'etape_6';
-   $colorst1 = '-success';
-   $colorst2 = '-success';
-   $colorst3 = '-success';
-   $colorst4 = '-success';
-   $colorst5 = '-success';
-   $colorst6 = '-success';
+   for($i=1;$i<=6;$i++) {
+      ${"colorst".$i} ='-success';
+   }
    $colorst7 = ' active';
 
    switch($op) {
@@ -277,13 +271,13 @@ if($stage == 6) {
             fclose($file);
             $colorst7 = ' active';
             $msg = '
-                  <div class="alert alert-success">'.ins_translate('La base de données a été créée avec succès !').'</div>';
+                  <div class="alert alert-success">'.ins_translate('La base de données a été mise à jour avec succès !').'</div>';
             if($qi == 1) {Header('Location: install.php?stage=7&qi=1&langue='.$langue);exit;};
          }
          elseif($stage6_ok == 0) {
             $colorst7 = '-danger';
             $msg = '
-                  <div class="alert alert-danger">'.ins_translate("La base de données n'a pas pu être créée. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
+                  <div class="alert alert-danger">'.ins_translate("La base de données n'a pas pu être modifiée. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
          }
          entete();
          menu();
@@ -319,13 +313,9 @@ if($stage == 6) {
 # Définition du mot de passe administrateur et premier utilisateur
 */
 if($stage == 7) {
-   $colorst1 = '-success';
-   $colorst2 = '-success';
-   $colorst3 = '-success';
-   $colorst4 = '-success';
-   $colorst5 = '-success';
-   $colorst6 = '-success';
-   $colorst7 = '-success';
+   for($i=1;$i<=7;$i++) {
+      ${"colorst".$i} ='-success';
+   }
    $colorst8 = ' active';
 
    require('install/etape_7.php');
@@ -394,14 +384,9 @@ if($stage == 7) {
 # Configuration du module Upload
 */
 if($stage == 8) {
-   $colorst1 = '-success';
-   $colorst2 = '-success';
-   $colorst3 = '-success';
-   $colorst4 = '-success';
-   $colorst5 = '-success';
-   $colorst6 = '-success';
-   $colorst7 = '-success';
-   $colorst8 = '-success';
+   for($i=1;$i<=8;$i++) {
+      ${"colorst".$i} ='-success';
+   }
    $colorst9 = ' active';
 
    require('install/etape_8.php');
@@ -457,16 +442,11 @@ if($stage == 8) {
 # Fin
 */
 if($stage == 9) {
-   $colorst1 = '-success';
-   $colorst2 = '-success';
-   $colorst3 = '-success';
-   $colorst4 = '-success';
-   $colorst5 = '-success';
-   $colorst6 = '-success';
-   $colorst7 = '-success';
-   $colorst8 = '-success';
-   $colorst9 = '-success';
+   for($i=1;$i<=9;$i++) {
+      ${"colorst".$i} ='-success';
+   }
    $colorst10 = ' active';
+
    entete();
    menu();
    echo $menu;
