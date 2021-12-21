@@ -170,8 +170,8 @@ function nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon) {
          //==> ajout des alertesadmin
          if(file_exists("modules/".$name_module."/admin/adm_alertes.php")) {
             include("modules/".$name_module."/admin/adm_alertes.php");
-            if(count($reqalerte) != 0) {
-               foreach($reqalerte as $v){
+            if(count($reqalertes) != 0) {
+               foreach($reqalertes as $v){
                   sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', ".$ibid.", '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 9, 'Modules', 0)") or sql_error();
                }
             }
