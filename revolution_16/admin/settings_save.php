@@ -261,8 +261,8 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
    $content .= "# mysql_p:     Persistent connection to MySQL Server (1) or Not (0)\n";
    $content .= "# mysql_i:     Use MySQLi (1) instead of MySQL interface (0)\n";
    $content .= "# =======================\n";
-   $content .= "# system:      0 user password encryption DISABLE, 1 user password encryption ENABLE\n";
-   $content .= "# system_md5:  0 admin password encryption DISABLE, 1 admin password encryption ENABLE\n";
+   $content .= "# not_used1:  unused\n";
+   $content .= "# not_used2:  unused\n";
    $content .= "$line";
    $content .= "\n";
    $content .= "\$dbhost = \"$dbhost\";\n";
@@ -271,12 +271,11 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
    $content .= "\$dbname = \"$dbname\";\n";
    if (!isset($mysql_p)) $mysql_p=1;
    $content .= "\$mysql_p = $mysql_p;\n";
-   if (!isset($mysql_i)) {$mysql_i=0;}
+   if (!isset($mysql_i)) $mysql_i=0;
    $content .= "\$mysql_i = $mysql_i;\n";
    $content .= "# =======================\n";
-   $content .= "\$system = $system;\n";
-   if (!$system_md5) $system_md5=1;
-   $content .= "\$system_md5 = $system_md5;\n";
+   $content .= "\$not_used1 = '';\n";
+   $content .= "\$not_used2 = '';\n";
    $content .= "\n";
    $content .= "/*********************************************************************/\n";
    $content .= "/* You finished to configure the Database. Now you can change all    */\n";
@@ -589,7 +588,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
    $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
    $content .= "# ===================================================\n";
    $content .= "#\n";
-   $content .= "# This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier\n";
+   $content .= "# This version name NPDS Copyright (c) 2001-".date("Y")." by Philippe Brunier\n";
    $content .= "#\n";
    $content .= "# This module is to configure Footer of Email send By NPDS\n";
    $content .= "#\n";
