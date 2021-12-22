@@ -1,6 +1,6 @@
 changelog-rev16.3 [ révision : 46 - jpb /20-12-2021 ]
 (non exhaustif...)
-pour des informations complètes et détaillées visitez : https://github.com/npds/npds_dune/compare/v.16.2.1...master
+pour des informations complètes et détaillées visitez la page de comparaison entre cette version et la précédente : https://github.com/npds/npds_dune/compare/v.16.2.1...master
 
 - Corrections et améliorations
    - travaux sur les traductions :
@@ -21,14 +21,14 @@ pour des informations complètes et détaillées visitez : https://github.com/np
 - Evolutions
    - Nouveau système de cryptage des mots de passes :
    Suite au(x) notice(s) dues à l'évolution de la fonction crypt() voici donc la ré-implémentation du système de cryptage et par conséquence des différents login. 
-   Cette ré-implémentation délicate a de plus corrigé d'autres problèmes sporadiques liés au contenu des mots de passe. Elle a été orientée pour que ce soit totalement transparent pour le webmaster et les utilisateurs donc sans campagne de remise à jour des mots de passe. En cas de nouveau site recevant des anciennes données avec donc les mdp en clair ou cryptés avec l'ancien système les mdp seront donc analysés et crypté avec le nouveau système systématiquement au fur et à mesure des connections des utilisateurs ou des administrateurs. 
+   Cette ré-implémentation délicate a de plus corrigé d'autres problèmes sporadiques liés au contenu des mots de passe. Elle a été orientée pour que ce soit totalement transparent pour le webmaster et les utilisateurs donc sans campagne de remise à jour des mots de passe. En cas de nouveau site recevant des anciennes données avec donc les mdp en clair ou cryptés avec l'ancien système les mdp seront donc analysés et cryptés avec le nouveau système systématiquement au fur et à mesure des connections des utilisateurs ou des administrateurs. 
    Les obscures options de cryptage des mots de pass ($system et $system_md5) ont été désimplémentées.
 
    - alertes et message provenant de npds
-   Finalisation de l'implémentation des fonctions d'envoi de message et alerte (version, sécurité, note) provenenant de npds dans les portails et de la gestion de leur lecture par les superadministrateurs.
+   Finalisation de l'implémentation des fonctions d'envoi de message et alerte (version, sécurité, note) provenant de npds dans les portails et de la gestion de leur lecture par les superadministrateurs.
 
    - traitement des images data:image en base64
-   les media portables ainsi que tinymce (qui les transforme en blob js) utilise cette technique ce qui posait de nombreux problèmes (fonctionnement (données non acceptées et donc justement modifié par removehack()), stockage, manipulation ...etc)... Nous avons donc créé une fonction (dans mainfile.php) qui retransforme tout "data:image en base64" en une url et donc un fichier (contrôlant au passage la sécurité et la taille de l'image - réduction si nécessaire). Celle-ci a été implémentée dans les 2 systèmes de publications principaux (articles et sections) et dans d'autres pages ou ce type de données peut être entrée (en clair dans tout les formulaires utilisant tiniymce (ou pas)) (nous en avons profiter pour implémenter un système de nettoyage des images inutilisées => encore en cours d'amélioration) ...
+   les media portables ainsi que tinymce (qui les transforme en blob js) utilise cette technique ce qui posait de nombreux problèmes (fonctionnement (données non acceptées et donc justement modifié par removehack()), stockage, manipulation ...etc)... Nous avons donc créé une fonction (dans mainfile.php) qui retransforme tout "data:image en base64" en une url et donc un fichier (contrôlant au passage la sécurité et la taille de l'image - réduction si nécessaire). Celle-ci a été implémentée dans les 2 systèmes de publications principaux (articles et sections) et dans d'autres pages ou ce type de données peut être entrée (en clair dans tout les formulaires utilisant tinymce (ou pas)) (nous en avons profiter pour implémenter un système de nettoyage des images inutilisées => encore en cours d'amélioration) ...
    Pour résumer cette amélioration résoud les problèmes de publication d'image depuis un media portable, et améliore le nettoyage de ressources non utilisées...
    
    - be lazy ... utilisation de l'attribut loading pour les images et iframe qui permet simplement (pas de js car maintenant interprété/executé par tous les navigateurs modernes...) un gain de rapidité considérable ... les images ne sont chargées que quand elles sont visible dans le viewport ...
@@ -37,7 +37,7 @@ pour des informations complètes et détaillées visitez : https://github.com/np
       ajout d'une alerte pour les publications en attente de validation
 
 - Documentation
-   - manuels admin (still on work)
+   - manuels admin (encore en travaux)
 
 - Dépendances
    - fontawesome update to 5.15.2
