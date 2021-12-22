@@ -94,7 +94,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xnuke_url">'.adm_translate("URL du site").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="url" name="xnuke_url" id="xnuke_url"  value="'.$nuke_url.'" maxlength="200" />
+               <input class="form-control" type="url" name="xnuke_url" id="xnuke_url" value="'.$nuke_url.'" data-fv-uri___allow-local="true" maxlength="200" />
                <span class="help-block text-right" id="countcar_xnuke_url"></span>
             </div>
          </div>
