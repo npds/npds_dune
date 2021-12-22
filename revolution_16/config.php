@@ -3,7 +3,7 @@
 # DUNE by NPDS : Net Portal Dynamic System
 # ===================================================
 #
-# This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier
+# This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier
 #
 # This module is to configure the main options for your site
 #
@@ -23,8 +23,8 @@
 # mysql_p:     Persistent connection to MySQL Server (1) or Not (0)
 # mysql_i:     Use MySQLi (1) instead of MySQL interface (0)
 # =======================
-# system:      0 user password encryption DISABLE, 1 user password encryption ENABLE
-# system_md5:  0 admin password encryption DISABLE, 1 admin password encryption ENABLE
+# not_used1:  unused
+# not_used2:  unused
 ######################################################################
 
 $dbhost = "localhost";
@@ -34,8 +34,8 @@ $dbname = "revolution";
 $mysql_p = 1;
 $mysql_i = 1;
 # =======================
-$system = 1;
-$system_md5 = 1;
+$not_used1 = '';
+$not_used2 = '';
 
 /*********************************************************************/
 /* You finished to configure the Database. Now you can change all    */
@@ -93,7 +93,7 @@ $Titlesitename = "NPDS - Gestion de Contenu et de Communaut&eacute; - Open Sourc
 $nuke_url = "http://localhost";
 $site_logo = "images/npds_p.gif";
 $slogan = "NPDS REvolution 16";
-$startdate = "21/08/2017";
+$startdate = "21/12/2021";
 $anonpost = 1;
 $troll_limit = 5;
 $moderate = 1;
