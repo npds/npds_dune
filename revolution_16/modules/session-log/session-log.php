@@ -45,10 +45,10 @@ function action_log($ThisFile,$logtype) {
    $whatlog='security';$whatfile='';
    if($FileUpload!=$FileSecure) $whatlog='upload';
    $task= '
-      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$whatlog.'"><i class="fa fa-at mr-1 fa-lg"></i>'.SessionLog_translate("Recevoir le fichier par mail").'</a>
-      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$whatlog.'"><i class="fa fa-times mr-1 fa-lg"></i>'.SessionLog_translate("Vider le fichier").'<br /><small>'.$FileSecure.'</small></a>
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$whatlog.'"><i class="fa fa-at me-1 fa-lg"></i>'.SessionLog_translate("Recevoir le fichier par mail").'</a>
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$whatlog.'"><i class="fa fa-times me-1 fa-lg"></i>'.SessionLog_translate("Vider le fichier").'<br /><small>'.$FileSecure.'</small></a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="fas fa-trash mr-1 fa-lg"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="fas fa-trash me-1 fa-lg"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
    return $task;
 }
 
@@ -63,7 +63,7 @@ echo '
    <li class="nav-item"><a href="'.$ThisFile.'&subop=session" class="nav-link '.$cl_a_ses.'">'.SessionLog_translate("Liste des Sessions").'</a></li>
    <li class="nav-item"><a href="'.$ThisFile.'&subop=security" class="nav-link '.$cl_a_sec.'">'.SessionLog_translate("Liste des Logs").'</a>
    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench fa-lg"></i></a>
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench fa-lg"></i></a>
       <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
       '.action_log($ThisFile,'').'
       </div>
@@ -204,7 +204,7 @@ echo '
          }
       }
       echo '
-      <h3 class="my-3"><a data-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ml-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <code>security.log</code></span></h3>
+      <h3 class="my-3"><a data-bs-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ml-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <code>security.log</code></span></h3>
       <div id="tog_tad_slog" class="collapse">
          <table id="tad_slog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true">
             <thead>
@@ -219,7 +219,7 @@ echo '
             </tbody>
          </table>
       </div>
-      <h3 class="mt-3"><a data-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ml-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code>security.log</code></span></h3>
+      <h3 class="mt-3"><a data-bs-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ml-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code>security.log</code></span></h3>
       <div id="tog_tad_tlog" class="collapse">
          <table id="tad_tlog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
             <thead>

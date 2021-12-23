@@ -38,13 +38,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($parse==0) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xparse_fix" name="xparse" value="0" '.$cky.' />
-                  <label class="custom-control-label" for="xparse_fix">FixQuotes</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xparse_fix" name="xparse" value="0" '.$cky.' />
+                  <label class="form-check-label" for="xparse_fix">FixQuotes</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xparse_str" name="xparse" value="1" '.$ckn.' />
-                  <label class="custom-control-label" for="xparse_str">StripSlashes</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xparse_str" name="xparse" value="1" '.$ckn.' />
+                  <label class="form-check-label" for="xparse_str">StripSlashes</label>
                </div>
             </div>
          </div>
@@ -55,13 +55,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($filemanager==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xfilemanager_y" name="xfilemanager" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xfilemanager_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xfilemanager_y" name="xfilemanager" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xfilemanager_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xfilemanager_n" name="xfilemanager" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xfilemanager_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xfilemanager_n" name="xfilemanager" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xfilemanager_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -81,42 +81,42 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xsitename" id="xsitename" value="'.$sitename.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xsitename"></span>
+               <span class="help-block text-end" id="countcar_xsitename"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xTitlesitename">'.adm_translate("Nom du site pour la balise title").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xTitlesitename" id="xTitlesitename" value="'.$Titlesitename.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xTitlesitename"></span>
+               <span class="help-block text-end" id="countcar_xTitlesitename"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xnuke_url">'.adm_translate("URL du site").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="xnuke_url" id="xnuke_url" value="'.$nuke_url.'" data-fv-uri___allow-local="true" maxlength="200" />
-               <span class="help-block text-right" id="countcar_xnuke_url"></span>
+               <span class="help-block text-end" id="countcar_xnuke_url"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xsite_logo">'.adm_translate("Logo du site pour les impressions").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xsite_logo" id="xsite_logo" value="'.$site_logo.'" maxlength="255" />
-               <span class="help-block text-right" id="countcar_xsite_logo"></span>
+               <span class="help-block text-end" id="countcar_xsite_logo"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xslogan">'.adm_translate("Slogan du site").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xslogan" id="xslogan" value="'.$slogan.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xslogan"></span>
+               <span class="help-block text-end" id="countcar_xslogan"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xstartdate">'.adm_translate("Date de démarrage du site").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xstartdate" id="xstartdate" value="'.$startdate.'" maxlength="30" />
-               <span class="help-block text-right" id="countcar_xstartdate"></span>
+               <span class="help-block text-end" id="countcar_xstartdate"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -141,49 +141,49 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xanonymous">'.adm_translate("Nom d'utilisateur anonyme").'</label>
             <div class="col-sm-8">
                <input class="form-control" id="xanonymous" type="text" name="xanonymous" value="'.$anonymous.'" maxlength="25" />
-               <span class="help-block text-right" id="countcar_xanonymous"></span>
+               <span class="help-block text-end" id="countcar_xanonymous"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xmod_admin_news">'.adm_translate("Autoriser la création de news pour").'</label>
             <div class="col-sm-8">
-               <div class="custom-control custom-radio">';
+               <div class="form-check">';
    if ($mod_admin_news==1) {
       echo '
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" checked="checked" />
-                  <label class="custom-control-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" checked="checked" />
+                  <label class="form-check-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
                </div>
-               <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" />
-                  <label class="custom-control-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" />
+                  <label class="form-check-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
                </div>
-               <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" />
-                  <label class="custom-control-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" />
+                  <label class="form-check-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
    } elseif ($mod_admin_news==2) {
       echo '
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" />
-                  <label class="custom-control-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" />
+                  <label class="form-check-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
                </div>
-               <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" checked="checked" />
-                  <label class="custom-control-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" checked="checked" />
+                  <label class="form-check-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
                </div>
-               <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" />
-                  <label class="custom-control-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" />
+                  <label class="form-check-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
    } else {
       echo '
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" />
-                  <label class="custom-control-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" />
+                  <label class="form-check-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
                </div>
-               <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" />
-                  <label class="custom-control-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" />
+                  <label class="form-check-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
                </div>
-               <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" checked="checked" />
-                  <label class="custom-control-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" checked="checked" />
+                  <label class="form-check-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
    }
    echo '
                </div>
@@ -195,20 +195,20 @@ function Configure() {
    $cky='';$ckn='';
    if ($not_admin_count==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xnot_admin_count_y" name="xnot_admin_count" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xnot_admin_count_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xnot_admin_count_y" name="xnot_admin_count" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xnot_admin_count_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xnot_admin_count_n" name="xnot_admin_count" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xnot_admin_count_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xnot_admin_count_n" name="xnot_admin_count" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xnot_admin_count_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xDefault_Theme">'.adm_translate("Thème d'affichage par défaut").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="xDefault_Theme" name="xDefault_Theme">';
+               <select class="form-select" id="xDefault_Theme" name="xDefault_Theme">';
    include("themes/list.php");
    $themelist = explode(" ", $themelist);
    for ($i=0; $i < sizeof($themelist); $i++) {
@@ -226,7 +226,7 @@ function Configure() {
          <div class="form-group row" id="skin_choice">
             <label class="col-form-label col-sm-4" for="xDefault_Skin">'.adm_translate("Skin d'affichage par défaut").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="xDefault_Skin" name="xDefault_Skin">';
+               <select class="form-select" id="xDefault_Skin" name="xDefault_Skin">';
       // les skins disponibles
       $handle=opendir('themes/_skins');
        while (false!==($file = readdir($handle))) {
@@ -270,13 +270,13 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xstart_page">'.adm_translate("Page de démarrage").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xstart_page" id="xstart_page" value="'.$Start_Page.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xstart_page"></span>
+               <span class="help-block text-end" id="countcar_xstart_page"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xlanguage">'.adm_translate("Sélectionner la langue du site").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="xlanguage" name="xlanguage">';
+               <select class="form-select" id="xlanguage" name="xlanguage">';
     include("manuels/list.php");
     $languageslist = explode(' ', $languageslist);
     for ($i=0; $i < sizeof($languageslist); $i++) {
@@ -297,13 +297,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($multi_langue==true) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmulti_langue_y" name="xmulti_langue" value="true" '.$cky.' />
-                  <label class="custom-control-label" for="xmulti_langue_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmulti_langue_y" name="xmulti_langue" value="true" '.$cky.' />
+                  <label class="form-check-label" for="xmulti_langue_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmulti_langue_n" name="xmulti_langue" value="false" '.$ckn.' />
-                  <label class="custom-control-label" for="xmulti_langue_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmulti_langue_n" name="xmulti_langue" value="false" '.$ckn.' />
+                  <label class="form-check-label" for="xmulti_langue_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -311,7 +311,7 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xlocale">'.adm_translate("Heure locale").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xlocale" id="xlocale" value="'.$locale.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xlocale"></span>
+               <span class="help-block text-end" id="countcar_xlocale"></span>
             </div>
          </div>';
       if ($lever=='') $lever='08:00';
@@ -321,20 +321,20 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xlever">'.adm_translate("Le jour commence à").'</label>
             <div class="col-sm-8">
                <input class="form-control js-hhmm" type="text" name="xlever" id="xlever" value="'.$lever.'" maxlength="5" required="required" />
-               <span class="help-block">(HH:MM)<span class="float-right ml-1" id="countcar_xlever"></span></span>
+               <span class="help-block">(HH:MM)<span class="float-right ms-1" id="countcar_xlever"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xcoucher">'.adm_translate("La nuit commence à").'</label>
             <div class="col-sm-8">
                <input class="form-control js-hhmm" type="text" name="xcoucher" id="xcoucher" value="'.$coucher.'" maxlength="5" required="required" />
-               <span class="help-block">(HH:MM)<span class="float-right ml-1" id="countcar_xcoucher"></span></span>
+               <span class="help-block">(HH:MM)<span class="float-right ms-1" id="countcar_xcoucher"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xgmt">UTC</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="xgmt" name="xgmt">
+               <select class="form-select" id="xgmt" name="xgmt">
                   <option value="'.$gmt.'" selected="selected">'.$gmt.'</option>
                   <option value="-1">UTC-01:00</option>
                   <option value="-2">UTC-02:00</option>
@@ -393,13 +393,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($banners==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xbanners_y" name="xbanners" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xbanners_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xbanners_y" name="xbanners" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xbanners_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xbanners_n" name="xbanners" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xbanners_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xbanners_n" name="xbanners" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xbanners_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -457,21 +457,21 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xbackend_title">'.adm_translate("Titre du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xbackend_title" id="xbackend_title" value="'.$backend_title.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xbackend_title"></span>
+               <span class="help-block text-end" id="countcar_xbackend_title"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xbackend_language">'.adm_translate("Langue du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xbackend_language" id="xbackend_language" value="'.$backend_language.'" maxlength="10" />
-               <span class="help-block text-right" id="countcar_xbackend_language"></span>
+               <span class="help-block text-end" id="countcar_xbackend_language"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xbackend_image">'.adm_translate("URL de l'image du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="xbackend_image" id="xbackend_image" value="'.$backend_image.'" maxlength="200" />
-               <span class="help-block text-right" id="countcar_xbackend_image"></span>
+               <span class="help-block text-end" id="countcar_xbackend_image"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -492,13 +492,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($ultramode==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xultramode_y" name="xultramode" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xultramode_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xultramode_y" name="xultramode" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xultramode_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xultramode_n" name="xultramode" value="0" '.$ckn.'/>
-                  <label class="custom-control-label" for="xultramode_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xultramode_n" name="xultramode" value="0" '.$ckn.'/>
+                  <label class="form-check-label" for="xultramode_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -508,13 +508,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($npds_twi==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xnpds_twi_y" name="xnpds_twi" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xnpds_twi_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xnpds_twi_y" name="xnpds_twi" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xnpds_twi_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xnpds_twi_n" name="xnpds_twi" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xnpds_twi_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xnpds_twi_n" name="xnpds_twi" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xnpds_twi_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -524,13 +524,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($npds_fcb==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xnpds_fcb_y" name="xnpds_fcb" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xnpds_fcb_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xnpds_fcb_y" name="xnpds_fcb" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xnpds_fcb_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xnpds_fcb_n" name="xnpds_fcb" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xnpds_fcb_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xnpds_fcb_n" name="xnpds_fcb" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xnpds_fcb_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -547,7 +547,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xperpage">'.adm_translate("Nombre de liens par page").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xperpage" name="xperpage">
+               <select class="form-select" id="xperpage" name="xperpage">
                   <option  value="'.$perpage.'" selected="selected">'.$perpage.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -561,7 +561,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xpopular">'.adm_translate("Nombre de clics sur un lien pour qu'il soit populaire").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xpopular" name="xpopular">
+               <select class="form-select" id="xpopular" name="xpopular">
                   <option value="'.$popular.'" selected="selected">'.$popular.'</option>
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -575,7 +575,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xnewlinks">'.adm_translate("Nombre de Liens 'Nouveaux'").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xnewlinks" name="xnewlinks">
+               <select class="form-select" id="xnewlinks" name="xnewlinks">
                   <option value="'.$newlinks.'" selected="selected">'.$newlinks.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -589,7 +589,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xtoplinks">'.adm_translate("Nombre de Liens 'Meilleur'").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xtoplinks" name="xtoplinks">
+               <select class="form-select" id="xtoplinks" name="xtoplinks">
                   <option value="'.$toplinks.'" selected="selected">'.$toplinks.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -603,7 +603,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xlinksresults">'.adm_translate("Nombre de liens dans les résultats des recherches").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xlinksresults" name="xlinksresults">
+               <select class="form-select" id="xlinksresults" name="xlinksresults">
                   <option value="'.$linksresults.'" selected="selected">'.$linksresults.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -620,13 +620,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($links_anonaddlinklock==0) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xlinks_anonaddlinklock_y" name="xlinks_anonaddlinklock" value="0" '.$cky.' />
-                  <label class="custom-control-label" for="xlinks_anonaddlinklock_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xlinks_anonaddlinklock_y" name="xlinks_anonaddlinklock" value="0" '.$cky.' />
+                  <label class="form-check-label" for="xlinks_anonaddlinklock_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xlinks_anonaddlinklock_n" name="xlinks_anonaddlinklock" value="1" '.$ckn.'/>
-                  <label class="custom-control-label" for="xlinks_anonaddlinklock_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xlinks_anonaddlinklock_n" name="xlinks_anonaddlinklock" value="1" '.$ckn.'/>
+                  <label class="form-check-label" for="xlinks_anonaddlinklock_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -636,13 +636,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($linkmainlogo==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xlinkmainlogo_y" name="xlinkmainlogo" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xlinkmainlogo_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xlinkmainlogo_y" name="xlinkmainlogo" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xlinkmainlogo_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xlinkmainlogo_n" name="xlinkmainlogo" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xlinkmainlogo_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xlinkmainlogo_n" name="xlinkmainlogo" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xlinkmainlogo_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -652,13 +652,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($OnCatNewLink==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xOnCatNewLink_y" name="xOnCatNewLink" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xOnCatNewLink_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xOnCatNewLink_y" name="xOnCatNewLink" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xOnCatNewLink_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xOnCatNewLink_n" name="xOnCatNewLink" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xOnCatNewLink_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xOnCatNewLink_n" name="xOnCatNewLink" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xOnCatNewLink_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -676,7 +676,7 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xadminmail">'.adm_translate("Adresse E-mail de l'administrateur").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xadminmail" id="xadminmail" value="'.$adminmail.'" maxlength="100" required="required" />
-               <span class="help-block text-right" id="countcar_xadminmail"></span>
+               <span class="help-block text-end" id="countcar_xadminmail"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -686,13 +686,13 @@ function Configure() {
    if (!$mail_fonction) $mail_fonction=1;
    if ($mail_fonction==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmail_fonction1" name="xmail_fonction" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xmail_fonction1">function (fonction) => mail</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmail_fonction1" name="xmail_fonction" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xmail_fonction1">function (fonction) => mail</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmail_fonction2" name="xmail_fonction" value="2" '.$ckn.' />
-                  <label class="custom-control-label" for="xmail_fonction2">function (fonction) => email</label>';
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmail_fonction2" name="xmail_fonction" value="2" '.$ckn.' />
+                  <label class="form-check-label" for="xmail_fonction2">function (fonction) => email</label>';
 
    // Footer of Email send by NPDS
    settype($message,'string');
@@ -713,13 +713,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($notify==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                 <input type="radio" class="custom-control-input" id="xnotify_y" name="xnotify" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xnotify_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                 <input type="radio" class="form-check-input" id="xnotify_y" name="xnotify" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xnotify_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xnotify_n" name="xnotify" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xnotify_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xnotify_n" name="xnotify" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xnotify_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -727,14 +727,14 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xnotify_email">'.adm_translate("Adresse E-mail où envoyer le message").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xnotify_email" id="xnotify_email" value="'.$notify_email.'" maxlength="100" required="required" />
-               <span class="help-block text-right" id="countcar_xnotify_email"></span>
+               <span class="help-block text-end" id="countcar_xnotify_email"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xnotify_subject">'.adm_translate("Sujet de l'E-mail").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xnotify_subject" id="xnotify_subject" value="'.$notify_subject.'" maxlength="100" required="required" />
-               <span class="help-block text-right" id="countcar_xnotify_subject"></span>
+               <span class="help-block text-end" id="countcar_xnotify_subject"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -747,7 +747,7 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xnotify_from">'.adm_translate("Compte E-mail (Provenance)").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xnotify_from" id="xnotify_from" value="'.$notify_from.'" maxlength="100" required="required" />
-               <span class="help-block text-right" id="countcar_xnotify_from"></span>
+               <span class="help-block text-end" id="countcar_xnotify_from"></span>
             </div>
          </div>
       </div>
@@ -763,7 +763,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-7" for="xmoderate">'.adm_translate("Type de modération").'</label>
             <div class="col-sm-5">
-               <select class="custom-select form-control" id="xmoderate" name="xmoderate">';
+               <select class="form-select" id="xmoderate" name="xmoderate">';
    if ($moderate==1) {
       echo '
                   <option value="1" selected="selected">'.adm_translate("Modération par l'Administrateur").'</option>
@@ -790,13 +790,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($anonpost==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xanonpost_y" name="xanonpost" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xanonpost_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xanonpost_y" name="xanonpost" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xanonpost_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xanonpost_n" name="xanonpost" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xanonpost_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xanonpost_n" name="xanonpost" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xanonpost_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -821,7 +821,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xmaxOptions">'.adm_translate("Nombre maximum de choix pour les sondages").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xmaxOptions" name="xmaxOptions">
+               <select class="form-select" id="xmaxOptions" name="xmaxOptions">
                   <option value="'.$maxOptions.'">'.$maxOptions.'</option>
                   <option value="10">10</option>
                   <option value="12">12</option>
@@ -836,13 +836,13 @@ function Configure() {
    $cky='';$ckn='';//???? valeur inversé ???
    if ($setCookies==0) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xsetCookies_y" name="xsetCookies" value="0" '.$cky.' />
-                  <label class="custom-control-label" for="xsetCookies_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xsetCookies_y" name="xsetCookies" value="0" '.$cky.' />
+                  <label class="form-check-label" for="xsetCookies_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xsetCookies_n" name="xsetCookies" value="1" '.$ckn.'/>
-                  <label class="custom-control-label" for="xsetCookies_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xsetCookies_n" name="xsetCookies" value="1" '.$ckn.'/>
+                  <label class="form-check-label" for="xsetCookies_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -852,13 +852,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($pollcomm==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xpollcomm_y" name="xpollcomm" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xpollcomm_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xpollcomm_y" name="xpollcomm" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xpollcomm_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xpollcomm_n" name="xpollcomm" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xpollcomm_n" >'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xpollcomm_n" name="xpollcomm" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xpollcomm_n" >'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -876,21 +876,21 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xtipath">'.adm_translate("Chemin des images des sujets").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xtipath" id="xtipath" value="'.$tipath.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xtipath"></span>
+               <span class="help-block text-end" id="countcar_xtipath"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xuserimg">'.adm_translate("Chemin de certaines images (vote, ...)").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xuserimg" id="xuserimg" value="'.$userimg.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xuserimg"></span>
+               <span class="help-block text-end" id="countcar_xuserimg"></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xadminimg">'.adm_translate("Chemin des images du menu administrateur").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xadminimg" id="xadminimg" value="'.$adminimg.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_xadminimg"></span>
+               <span class="help-block text-end" id="countcar_xadminimg"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -899,13 +899,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($admingraphic==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xadmingraphic_y" name="xadmingraphic" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xadmingraphic_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xadmingraphic_y" name="xadmingraphic" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xadmingraphic_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xadmingraphic_n" name="xadmingraphic" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xadmingraphic_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xadmingraphic_n" name="xadmingraphic" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xadmingraphic_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>';
@@ -915,7 +915,7 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xadmf_ext">'.adm_translate("Extension des fichiers d'image").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xadmf_ext" id="xadmf_ext" value="'.$admf_ext.'" maxlength="3" />
-               <span class="help-block text-right" id="countcar_xadmf_ext"></span>
+               <span class="help-block text-end" id="countcar_xadmf_ext"></span>
             </div>
          </div>
          <div class="form-group row">
@@ -924,13 +924,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($short_menu_admin==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xshort_menu_admin_y" name="xshort_menu_admin" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xshort_menu_admin_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xshort_menu_admin_y" name="xshort_menu_admin" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xshort_menu_admin_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xshort_menu_admin_n" name="xshort_menu_admin" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xshort_menu_admin_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xshort_menu_admin_n" name="xshort_menu_admin" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xshort_menu_admin_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -953,7 +953,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xadmart">'.adm_translate("Nombres d'articles en mode administration").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xadmart" name="xadmart">
+               <select class="form-select" id="xadmart" name="xadmart">
                   <option value="'.$admart.'">'.$admart.'</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -966,7 +966,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xminpass">'.adm_translate("Longueur minimum du mot de passe des utilisateurs").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xminpass" name="xminpass">
+               <select class="form-select" id="xminpass" name="xminpass">
                   <option value="'.$minpass.'">'.$minpass.'</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -979,7 +979,7 @@ function Configure() {
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xshow_user">'.adm_translate("Nombre d'utilisateurs listés").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xshow_user" name="xshow_user">
+               <select class="form-select" id="xshow_user" name="xshow_user">
                   <option value="'.$show_user.'">'.$show_user.'</option>
                   <option value="10">10</option>
                   <option value="20">20</option>
@@ -994,13 +994,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($smilies==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xsmilies_y" name="xsmilies" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xsmilies_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xsmilies_y" name="xsmilies" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xsmilies_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xsmilies_n" name="xsmilies" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xsmilies_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xsmilies_n" name="xsmilies" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xsmilies_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1018,13 +1018,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($short_user==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xshort_user_y" name="xshort_user" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xshort_user_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xshort_user_y" name="xshort_user" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xshort_user_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xshort_user_n" name="xshort_user" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xshort_user_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xshort_user_n" name="xshort_user" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xshort_user_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1035,13 +1035,13 @@ function Configure() {
    if (($AutoRegUser=='') and ($AutoRegUser!=0)) $AutoRegUser=1;
    if ($AutoRegUser==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xAutoRegUser_y" name="xAutoRegUser" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xAutoRegUser_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xAutoRegUser_y" name="xAutoRegUser" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xAutoRegUser_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xAutoRegUser_n" name="xAutoRegUser" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xAutoRegUser_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xAutoRegUser_n" name="xAutoRegUser" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xAutoRegUser_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1052,13 +1052,13 @@ function Configure() {
    if (($memberpass=='') and ($memberpass!=0)) $memberpass=1;
    if ($memberpass==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmemberpass_y" name="xmemberpass" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xmemberpass_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmemberpass_y" name="xmemberpass" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xmemberpass_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmemberpass_n" name="xmemberpass" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xmemberpass_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmemberpass_n" name="xmemberpass" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xmemberpass_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1068,13 +1068,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($subscribe==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xsubscribe_y" name="xsubscribe" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xsubscribe_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xsubscribe_y" name="xsubscribe" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xsubscribe_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xsubscribe_n" name="xsubscribe" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xsubscribe_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xsubscribe_n" name="xsubscribe" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xsubscribe_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1084,13 +1084,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($member_invisible==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmember_invisible_y" name="xmember_invisible" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xmember_invisible_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmember_invisible_y" name="xmember_invisible" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xmember_invisible_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmember_invisible_n" name="xmember_invisible" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xmember_invisible_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmember_invisible_n" name="xmember_invisible" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xmember_invisible_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1101,13 +1101,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($CloseRegUser==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xCloseRegUser_y" name="xCloseRegUser" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xCloseRegUser_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xCloseRegUser_y" name="xCloseRegUser" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xCloseRegUser_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xCloseRegUser_n" name="xCloseRegUser" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xCloseRegUser_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xCloseRegUser_n" name="xCloseRegUser" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xCloseRegUser_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1117,20 +1117,20 @@ function Configure() {
    $cky='';$ckn='';
    if ($httpref==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo'
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xhttpref_y" name="xhttpref" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xhttpref_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xhttpref_y" name="xhttpref" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xhttpref_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xhttpref_n" name="xhttpref" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xhttpref_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xhttpref_n" name="xhttpref" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xhttpref_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xhttprefmax">'.adm_translate("Combien de référants au maximum").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xhttprefmax" name="xhttprefmax">
+               <select class="form-select" id="xhttprefmax" name="xhttprefmax">
                   <option value="'.$httprefmax.'">'.$httprefmax.'</option>
                   <option value="100">100</option>
                   <option value="250">250</option>
@@ -1148,20 +1148,20 @@ function Configure() {
    $cky='';$ckn='';
    if ($member_list==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo'
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmember_list_y" name="xmember_list" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xmember_list_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmember_list_y" name="xmember_list" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xmember_list_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xmember_list_n" name="xmember_list" value="0" '.$ckn.' />
-                  <label class="custom-control-label" for="xmember_list_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xmember_list_n" name="xmember_list" value="0" '.$ckn.' />
+                  <label class="form-check-label" for="xmember_list_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-8" for="xdownload_cat">'.adm_translate("Rubrique de téléchargement").'</label>
             <div class="col-sm-4">
-               <select class="custom-select form-control" id="xdownload_cat" name="xdownload_cat">
+               <select class="form-select" id="xdownload_cat" name="xdownload_cat">
                   <option value="'.$download_cat.'">'.aff_langue($download_cat).'</option>';
    $result = sql_query("SELECT distinct dcategory FROM ".$NPDS_Prefix."downloads");
    while (list($category) = sql_fetch_row($result)) {
@@ -1181,13 +1181,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($short_review==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo'
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xshort_review_y" name="xshort_review" value="1" '.$cky.' />
-                  <label class="custom-control-label" for="xshort_review_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xshort_review_y" name="xshort_review" value="1" '.$cky.' />
+                  <label class="form-check-label" for="xshort_review_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xshort_review_n" name="xshort_review" value="0" '.$ckn.'/>
-                  <label class="custom-control-label" for="xshort_review_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xshort_review_n" name="xshort_review" value="0" '.$ckn.'/>
+                  <label class="form-check-label" for="xshort_review_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1207,13 +1207,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($rss_host_verif==true) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo'
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xrss_host_verif_y" name="xrss_host_verif" value="true" '.$cky.' />
-                  <label class="custom-control-label" for="xrss_host_verif_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xrss_host_verif_y" name="xrss_host_verif" value="true" '.$cky.' />
+                  <label class="form-check-label" for="xrss_host_verif_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xrss_host_verif_n" name="xrss_host_verif" value="false" '.$ckn.' />
-                  <label class="custom-control-label" for="xrss_host_verif_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xrss_host_verif_n" name="xrss_host_verif" value="false" '.$ckn.' />
+                  <label class="form-check-label" for="xrss_host_verif_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1223,13 +1223,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($cache_verif==true) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo'
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xcache_verif_y" name="xcache_verif" value="true" '.$cky.' />
-                  <label class="custom-control-label" for="xcache_verif_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xcache_verif_y" name="xcache_verif" value="true" '.$cky.' />
+                  <label class="form-check-label" for="xcache_verif_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xcache_verif_n" name="xcache_verif" value="false" '.$ckn.' />
-                  <label class="custom-control-label" for="xcache_verif_n">'.adm_translate("Non").'</label> <span class="small help-text">(Multimania)</span>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xcache_verif_n" name="xcache_verif" value="false" '.$ckn.' />
+                  <label class="form-check-label" for="xcache_verif_n">'.adm_translate("Non").'</label> <span class="small help-text">(Multimania)</span>
                </div>
             </div>
          </div>
@@ -1238,13 +1238,13 @@ function Configure() {
    $cky='';$ckn='';
    if ($dns_verif==true) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
         echo '<div class="col-sm-4 my-2">
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xdns_verif_y" name="xdns_verif" value="true" '.$cky.' />
-                  <label class="custom-control-label" for="xdns_verif_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xdns_verif_y" name="xdns_verif" value="true" '.$cky.' />
+                  <label class="form-check-label" for="xdns_verif_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" class="custom-control-input" id="xdns_verif_n" name="xdns_verif" value="false" '.$ckn.' />
-                  <label class="custom-control-label" for="xdns_verif_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="xdns_verif_n" name="xdns_verif" value="false" '.$ckn.' />
+                  <label class="form-check-label" for="xdns_verif_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -1269,7 +1269,7 @@ function Configure() {
    <div class="form-group row">
       <label class="col-form-label col-sm-4" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
       <div class="col-sm-8">
-         <select class="custom-select form-control" id="xsavemysql_size" name="xsavemysql_size">
+         <select class="form-select" id="xsavemysql_size" name="xsavemysql_size">
             <option value="256" '.$sel_size256.'>256 Ko</option>
             <option value="512" '.$sel_size512.'>512 Ko</option>
             <option value="1024" '.$sel_size1024.'>1024 Ko</option>
@@ -1287,7 +1287,7 @@ function Configure() {
    <div class="form-group row">
       <label class="col-form-label col-sm-4" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
       <div class="col-sm-8">
-         <select class="custom-select form-control" id="xsavemysql_mode" name="xsavemysql_mode">
+         <select class="form-select" id="xsavemysql_mode" name="xsavemysql_mode">
             <option value="1" '.$type_save1.'>'.adm_translate("Toute tables. Fichier envoyé au navigateur. Pas de limite de taille").'</option>
             <option value="2" '.$type_save2.'>'.adm_translate("Fichiers dans /slogs. table par table, tables non scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
             <option value="3" '.$type_save3.'>'.adm_translate("Fichiers dans /slogs. table par table, lignes par lignes, tables scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
@@ -1300,13 +1300,13 @@ function Configure() {
    if ($tiny_mce) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
       <div class="col-sm-8 my-2">
-         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input" id="xtiny_mce_y" name="xtiny_mce" value="true" '.$cky.' />
-            <label class="custom-control-label" for="xtiny_mce_y">'.adm_translate("Oui").'</label>
+         <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="xtiny_mce_y" name="xtiny_mce" value="true" '.$cky.' />
+            <label class="form-check-label" for="xtiny_mce_y">'.adm_translate("Oui").'</label>
          </div>
-         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input" id="xtiny_mce_n" name="xtiny_mce" value="false" '.$ckn.' />
-            <label class="custom-control-label" for="xtiny_mce_n">'.adm_translate("Non").'</label>
+         <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="xtiny_mce_n" name="xtiny_mce" value="false" '.$ckn.' />
+            <label class="form-check-label" for="xtiny_mce_n">'.adm_translate("Non").'</label>
          </div>
       </div>
    </div>

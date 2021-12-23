@@ -95,7 +95,7 @@ function clientlogin() {
    header_page();
    echo '
       <div class="card card-body mb-3">
-      <h3 class="mb-4"><i class="fas fa-sign-in-alt fa-lg mr-3"></i>'.translate("Connection").'</h3>
+      <h3 class="mb-4"><i class="fas fa-sign-in-alt fa-lg me-3"></i>'.translate("Connection").'</h3>
          <form action="banners.php" method="post">
             <fieldset>
                <div class="form-group row">
@@ -112,7 +112,7 @@ function clientlogin() {
                   </div>
                </div>
                <div class="form-group row">
-                  <div class="col-sm-8 ml-sm-auto">
+                  <div class="col-sm-8 ms-sm-auto">
                      <input type="hidden" name="op" value="Ok" />
                      <button class="btn btn-primary col-sm-6 col-12" type="submit">'.translate("Valider").'</button>
                   </div>
@@ -211,7 +211,7 @@ function bannerstats($login, $pass) {
                   <td>'.$left.'</td>
                   <td>'.$clicks.'</td>
                   <td>'.$percent.'%</td>
-                  <td><a href="banners.php?op=EmailStats&amp;login='.$login.'&amp;cid='.$cid.'&amp;bid='.$bid.'" ><i class="far fa-envelope fa-lg mr-2" title="E-mail Stats"></i></a></td>
+                  <td><a href="banners.php?op=EmailStats&amp;login='.$login.'&amp;cid='.$cid.'&amp;bid='.$bid.'" ><i class="far fa-envelope fa-lg me-2" title="E-mail Stats"></i></a></td>
                </tr>';
          }
          

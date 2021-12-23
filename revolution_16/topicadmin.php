@@ -96,7 +96,7 @@ global $NPDS_Prefix, $adminforum;
          <div class="form-group row">
             <label class="form-control-label col-sm-12" for="newforum">'.translate("Déplacer le sujet vers : ").'</label>
             <div class="col-sm-12">
-               <select class="custom-select form-control" name="newforum">';
+               <select class="form-select" name="newforum">';
                $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums WHERE forum_id!='$forum' ORDER BY cat_id,forum_index,forum_id";
                if ($result = sql_query($sql)) {
                   if ($myrow = sql_fetch_assoc($result)) {

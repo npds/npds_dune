@@ -51,7 +51,7 @@ function SearchForm() {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="topicL" >'.translate("Sélectionner un sujet").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="topicL" name="topicL">';
+               <select class="form-select" id="topicL" name="topicL">';
       $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
       echo '
                   <option value="">'.translate("Tous les sujets").'</option>';
@@ -72,7 +72,7 @@ function SearchForm() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 ml-sm-auto">
+            <div class="col-sm-8 ms-sm-auto">
                <button class="btn btn-primary" type="submit">'.translate("Recherche").'</button>
             </div>
          </div>
@@ -93,7 +93,7 @@ function autorise_mod($lid,$aff) {
       list($radminsuper) = sql_fetch_row($result);
       if ($radminsuper==1) {// faut remettre le controle des droits probablement pour les admin qui ont le droit link ??!!
          if ($aff)
-            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modifier").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
+            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author=-9" title="'.translate("Modifier").'" data-bs-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          return(true);
       }
    } elseif ($user!='') {
@@ -102,7 +102,7 @@ function autorise_mod($lid,$aff) {
       list($submitter) = sql_fetch_row($resultX);
       if ($submitter==$cookie[1]) {
          if ($aff)
-            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author='.$cookie[1].'" title="'.translate("Modifier").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
+            echo '<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=modifylinkrequest&amp;lid='.$lid.'&amp;author='.$cookie[1].'" title="'.translate("Modifier").'" data-bs-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>';
          return(true);
       } else
          return(false);
@@ -138,7 +138,7 @@ function index() {
             echo '
          <tr>
             <td>
-               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'">'.aff_langue($title).'</a> <span class="badge badge-secondary float-right">'.$cnumrows.'</span></h4>';
+               <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'">'.aff_langue($title).'</a> <span class="badge bg-secondary float-end">'.$cnumrows.'</span></h4>';
             categorynewlinkgraphic($cid);
             if ($cdescription)
                 echo '
@@ -148,7 +148,7 @@ function index() {
                $cresult3 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
                $cnumrows= sql_num_rows($cresult3);
                echo '
-               <h5 class="ml-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge badge-secondary float-right">'.$cnumrows.'</span></h5>';
+               <h5 class="ml-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge bg-secondary float-end">'.$cnumrows.'</span></h5>';
             }
             echo '
             </td>
@@ -163,9 +163,9 @@ function index() {
          $numrows = sql_num_rows($result);
          echo '
          <p class="lead" align="center"><span>'.translate("Il y a").' <b>'.$numrows.'</b> '.translate("Liens").'
-            <span class="btn btn-danger btn-sm" title="'.translate("Les nouveaux liens de cette catégorie ajoutés aujourd'hui").'" data-toggle="tooltip" >N</span>&nbsp;
-            <span class="btn btn-success btn-sm" title="'.translate("Les nouveaux liens ajoutés dans cette catégorie dans les 3 derniers jours").'" data-toggle="tooltip" >N</span>&nbsp;
-            <span class="btn btn-primary btn-sm" title="'.translate("Les nouveaux Liens ajoutés dans cette catégorie cette semaine").'" data-toggle="tooltip" >N</span>
+            <span class="btn btn-danger btn-sm" title="'.translate("Les nouveaux liens de cette catégorie ajoutés aujourd'hui").'" data-bs-toggle="tooltip" >N</span>&nbsp;
+            <span class="btn btn-success btn-sm" title="'.translate("Les nouveaux liens ajoutés dans cette catégorie dans les 3 derniers jours").'" data-bs-toggle="tooltip" >N</span>&nbsp;
+            <span class="btn btn-primary btn-sm" title="'.translate("Les nouveaux Liens ajoutés dans cette catégorie cette semaine").'" data-bs-toggle="tooltip" >N</span>
          </p>';
       }
       SearchForm();
@@ -183,10 +183,10 @@ function index() {
          $num = sql_num_rows($result);
          echo '
       <p class="lead p-2 text-center border rounded bg-light">
-         <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'/admin"><i class="fa fa-cogs fa-2x mr-2 align-middle" title="Admin" data-toggle="tooltip"></i></a> '.translate("Liens").' : 
-         <span class="badge badge-danger ml-2" title="'.translate("Lien(s) en attente de validation").'" data-toggle="tooltip">'.$num.'</span> 
-         <span class="badge badge-danger ml-2" title="'.translate("Liens cassés rapportés par un ou plusieurs utilisateurs").'" data-toggle="tooltip">'.$totalbrokenlinks.'</span> 
-         <span class="badge badge-danger ml-2" title="'.translate("Proposition de modification").'" data-toggle="tooltip">'.$totalmodrequests.'</span>';
+         <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'/admin"><i class="fa fa-cogs fa-2x me-2 align-middle" title="Admin" data-bs-toggle="tooltip"></i></a> '.translate("Liens").' : 
+         <span class="badge bg-danger ms-2" title="'.translate("Lien(s) en attente de validation").'" data-bs-toggle="tooltip">'.$num.'</span> 
+         <span class="badge bg-danger ms-2" title="'.translate("Liens cassés rapportés par un ou plusieurs utilisateurs").'" data-bs-toggle="tooltip">'.$totalbrokenlinks.'</span> 
+         <span class="badge bg-danger ms-2" title="'.translate("Proposition de modification").'" data-bs-toggle="tooltip">'.$totalmodrequests.'</span>';
          if($links_DB!='') echo 'Ref Tables => <strong>'.$links_DB.'</strong>';
          echo '
       </p>';
@@ -213,7 +213,7 @@ function FooterOrderBy($cid, $sid, $orderbyTrans, $linkop) {
 /*
 echo '
 <div class="btn-group">
-   <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    '.translate("Classement").'
    </button>
    <div class="dropdown-menu">
@@ -264,7 +264,7 @@ function viewlink($cid, $min, $orderby, $show) {
       settype($numrows_lst,'integer');
       $affsouscat .= '
       <ul class="list-group">
-         <li class="list-group-item "><h4 class="w-100">'.translate("Sous-catégories").'<span class="badge badge-secondary float-right"> '.$numrows.'</span></h4></li>';
+         <li class="list-group-item "><h4 class="w-100">'.translate("Sous-catégories").'<span class="badge bg-secondary float-end"> '.$numrows.'</span></h4></li>';
          while(list($sid, $title) = sql_fetch_row($subresult)) {
             $result2 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
             $numrows_lst=sql_num_rows($result2);
@@ -416,9 +416,9 @@ function categorynewlinkgraphic($cat) {
 }
 
 function popgraphics($count) {
-   if ($count<1) echo '<span class="btn btn-danger btn-sm float-right" title="'.translate("Les nouveaux liens de cette catégorie ajoutés aujourd'hui").'" data-toggle="tooltip" data-placement="left">N</span>';
-   if ($count<=3 && $count>=1) echo '<span class="btn btn-success btn-sm float-right" title="'.translate("Les nouveaux liens ajoutés dans cette catégorie dans les 3 derniers jours").'" data-toggle="tooltip" data-placement="left">N</span>';
-   if ($count<=7 && $count>3) echo '<span class="btn btn-infos btn-sm float-right" title="'.translate("Les nouveaux Liens ajoutés dans cette catégorie cette semaine").'" data-toggle="tooltip" data-placement="left">N</span>';
+   if ($count<1) echo '<span class="btn btn-danger btn-sm float-end" title="'.translate("Les nouveaux liens de cette catégorie ajoutés aujourd'hui").'" data-bs-toggle="tooltip" data-bs-placement="left">N</span>';
+   if ($count<=3 && $count>=1) echo '<span class="btn btn-success btn-sm float-end" title="'.translate("Les nouveaux liens ajoutés dans cette catégorie dans les 3 derniers jours").'" data-bs-toggle="tooltip" data-bs-placement="left">N</span>';
+   if ($count<=7 && $count>3) echo '<span class="btn btn-infos btn-sm float-end" title="'.translate("Les nouveaux Liens ajoutés dans cette catégorie cette semaine").'" data-bs-toggle="tooltip" data-bs-placement="left">N</span>';
 }
 
 function newlinkgraphic($datetime, $time) {
@@ -433,7 +433,7 @@ function detecteditorial($lid, $ttitle) {
    global $ModPath, $ModStart, $links_DB;
    $resulted2 = sql_query("SELECT adminid FROM ".$links_DB."links_editorials WHERE linkid='$lid'");
    $recordexist = sql_num_rows($resulted2);
-   if ($recordexist != 0) echo '<a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="far fa-sticky-note fa-lg" title="'.translate("EDITO").'" data-toggle="tooltip"></i></a>';
+   if ($recordexist != 0) echo '<a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="far fa-sticky-note fa-lg" title="'.translate("EDITO").'" data-bs-toggle="tooltip"></i></a>';
 }
 
 //Reusable Link Sorting Functions
@@ -487,7 +487,7 @@ function viewlinkeditorial($lid, $ttitle) {
       <span class="text-muted">'.aff_langue($displaytitle).'</span>';
    if ($url!='')
       echo '
-      <span class="float-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip" data-placement="left"><i class="fas fa-external-link-alt"></i></a></span>';
+      <span class="float-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fas fa-external-link-alt"></i></a></span>';
    echo '
    </h3>';
    if ($recordexist!= 0) {

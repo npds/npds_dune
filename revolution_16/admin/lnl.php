@@ -51,7 +51,7 @@ function ShowHeader() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -105,7 +105,7 @@ function Detail_Header_Footer($ibid, $type) {
       <input type="hidden" name="ref" value="'.$ibid.'" />
       <div class="form-group row">
          <div class="col-sm-12">
-            <button class="btn btn-primary mr-1" type="submit">'.adm_translate("Valider").'</button>
+            <button class="btn btn-primary me-1" type="submit">'.adm_translate("Valider").'</button>
             <a class="btn btn-secondary" href="admin.php?op=lnl" >'.adm_translate("Retour en arrière").'</a>
          </div>
       </div>
@@ -137,7 +137,7 @@ function ShowBody() {
          <td>'.$ref.'</td>
          <td>'.$text.'</td>
          <td><code>'.$html.'</code></td>
-         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
       </tr>';
    }
    echo '
@@ -266,7 +266,7 @@ function ShowFooter() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -350,13 +350,13 @@ function main() {
    <h3 class="mb-2">'.adm_translate("Petite Lettre D'information").'</h3>
    <a href="admin.php?op=lnl_List">'.adm_translate("Liste des LNL envoyées").'</a>
    <a href="admin.php?op=lnl_User_List">'.adm_translate("Afficher la liste des prospects").'</a>
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Message d'entête").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Message d'entête").'</h4>';
       ShowHeader();
    echo '
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Corps de message").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Corps de message").'</h4>';
       ShowBody();
       echo '
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Message de pied de page").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Message de pied de page").'</h4>';
       ShowFooter();
    echo '
    <hr />
@@ -400,21 +400,21 @@ function main() {
          <div class="form-group col-sm-12">
             <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
             <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" />
-            <span class="help-block text-right"><span id="countcar_Xsubject"></span></span>
+            <span class="help-block text-end"><span id="countcar_Xsubject"></span></span>
          </div>
          <hr />
          <div class="form-group col-sm-12">
-            <div class="custom-control custom-radio custom-control-inline">
-               <input type="radio" class="custom-control-input" value="All" checked="checked" id="tous" name="Xtype" />
-               <label class="custom-control-label" for="tous">'.adm_translate("Tous les Utilisateurs").'</label>
+            <div class="form-check form-check-inline">
+               <input type="radio" class="form-check-input" value="All" checked="checked" id="tous" name="Xtype" />
+               <label class="form-check-label" for="tous">'.adm_translate("Tous les Utilisateurs").'</label>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-               <input type="radio" class="custom-control-input" value="Mbr" id="mem" name="Xtype" />
-               <label class="custom-control-label" for="mem">'.adm_translate("Seulement aux membres").'</label>
+            <div class="form-check form-check-inline">
+               <input type="radio" class="form-check-input" value="Mbr" id="mem" name="Xtype" />
+               <label class="form-check-label" for="mem">'.adm_translate("Seulement aux membres").'</label>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-               <input type="radio" class="custom-control-input" value="Out" id="prosp" name="Xtype" />
-               <label class="custom-control-label" for="prosp">'.adm_translate("Seulement aux prospects").'</label>
+            <div class="form-check form-check-inline">
+               <input type="radio" class="form-check-input" value="Out" id="prosp" name="Xtype" />
+               <label class="form-check-label" for="prosp">'.adm_translate("Seulement aux prospects").'</label>
             </div>
          </div>';
       $mX=liste_group();
@@ -426,7 +426,7 @@ function main() {
       }
       echo '
          <div class="form-group col-sm-12">
-            <select class="custom-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>
+            <select class="form-select" name="Xgroupe">'.$tmp_groupe.'</select>
          </div>
          <input type="hidden" name="op" value="lnl_Send" />
          <div class="form-group col-sm-12">
@@ -582,7 +582,7 @@ function lnl_user_list() {
          echo '
             <td class="text-success">'.$status.'</td>';
       echo '
-            <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="fas fa-trash fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
+            <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="fas fa-trash fa-lg text-danger" data-bs-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
          </tr>';
    }
    echo '

@@ -76,7 +76,7 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
 function write_short_private_message($to_userid) {
    echo '
    <h2>'.translate("Message à un membre").'</h2>
-   <h3><i class="fa fa-at mr-1"></i>'.$to_userid.'</h3>
+   <h3><i class="fa fa-at me-1"></i>'.$to_userid.'</h3>
    <form id="sh_priv_mess" action="powerpack.php" method="post">
       <div class="form-group row">
          <label class="col-form-label col-sm-12" for="subject" >'.translate("Sujet").'</label>
@@ -92,9 +92,9 @@ function write_short_private_message($to_userid) {
       </div>
       <div class="form-group row">
          <div class="col-sm-12">
-            <div class="custom-control custom-checkbox" >
-               <input class="custom-control-input" type="checkbox" id="copie" name="copie" />
-               <label class="custom-control-label" for="copie">'.translate("Conserver une copie").'</label>
+            <div class="form-check" >
+               <input class="form-check-input" type="checkbox" id="copie" name="copie" />
+               <label class="form-check-label" for="copie">'.translate("Conserver une copie").'</label>
             </div>
          </div>
       </div>
@@ -165,9 +165,9 @@ function instant_members_message() {
       for ($i = 1; $i <= $ibid[0]; $i++) {
           $timex=time()-$ibid[$i]['time'];
           if ($timex>=60)
-             $timex='<i class="fa fa-plug text-muted" title="'.$ibid[$i]['username'].' '.translate("n'est pas connecté").'" data-toggle="tooltip" data-placement="right"></i>&nbsp;';
+             $timex='<i class="fa fa-plug text-muted" title="'.$ibid[$i]['username'].' '.translate("n'est pas connecté").'" data-bs-toggle="tooltip" data-bs-placement="right"></i>&nbsp;';
           else
-             $timex='<i class="fa fa-plug faa-flash animated text-primary" title="'.$ibid[$i]['username'].' '.translate("est connecté").'" data-toggle="tooltip" data-placement="right" ></i>&nbsp;';
+             $timex='<i class="fa fa-plug faa-flash animated text-primary" title="'.$ibid[$i]['username'].' '.translate("est connecté").'" data-bs-toggle="tooltip" data-bs-placement="right" ></i>&nbsp;';
           global $member_invisible;
           if ($member_invisible) {
              if ($admin)
@@ -208,7 +208,7 @@ function instant_members_message() {
                 $PopUp=JavaPopUp("readpmsg_imm.php?op=new_msg","IMM",600,500);
                 $PopUp="<a href=\"javascript:void(0);\" onclick=\"window.open($PopUp);\">";
                 if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon="";}
-                $icon.='<i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("Nouveau").'<span class=\'badge-pill badge-danger ml-2\'>'.$new_messages.'</span>" data-html="true" data-toggle="tooltip"></i>';
+                $icon.='<i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("Nouveau").'<span class=\'rounded-pill bg-danger ms-2\'>'.$new_messages.'</span>" data-bs-html="true" data-bs-toggle="tooltip"></i>';
                 if ($ibid[$i]['username']==$cookie[1]) {$icon.='</a>';}
              } else {
                 $messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userid' AND type_msg='0' AND dossier='...'"));
@@ -216,7 +216,7 @@ function instant_members_message() {
                    $PopUp=JavaPopUp("readpmsg_imm.php?op=msg","IMM",600,500);
                    $PopUp='<a href="javascript:void(0);" onclick="window.open('.$PopUp.');">';
                    if ($ibid[$i]['username']==$cookie[1]) {$icon=$PopUp;} else {$icon='';}
-                   $icon.='<i class="far fa-envelope-open fa-lg " title="'.translate("Nouveau").' : '.$new_messages.'" data-toggle="tooltip"></i></a>';
+                   $icon.='<i class="far fa-envelope-open fa-lg " title="'.translate("Nouveau").' : '.$new_messages.'" data-bs-toggle="tooltip"></i></a>';
                 } else {
                    $icon='&nbsp;';
                 }
@@ -227,7 +227,7 @@ function instant_members_message() {
              else
                 $M=$N;
              $boxstuff .='
-         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip" >'.$M.'</a><span class="float-right">'.$icon.'</span></li>';
+         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip" >'.$M.'</a><span class="float-right">'.$icon.'</span></li>';
           }//suppression temporaire ... rank  '.$tmpR.'
       }
       $boxstuff .='
@@ -291,9 +291,9 @@ function makeChatBox($pour) {
       $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' AND date >= ".(time()-(60*2))."");
       $numofchatters = sql_num_rows($result);
       if ($numofchatters > 0)
-         $thing.='<div class="d-flex"><a id="'.$pour.'_encours" class=" " href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Cliquez ici pour entrer").' '.$pour.'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x nav-link faa-pulse animated faa-slow"></i></a><span class="badge badge-pill badge-primary ml-auto align-self-center" title="'.translate("personne connectée.").'" data-toggle="tooltip">'.$numofchatters.'</span></div>';
+         $thing.='<div class="d-flex"><a id="'.$pour.'_encours" class=" " href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Cliquez ici pour entrer").' '.$pour.'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fa fa-comments fa-2x nav-link faa-pulse animated faa-slow"></i></a><span class="badge rounded-pill bg-primary ms-auto align-self-center" title="'.translate("personne connectée.").'" data-bs-toggle="tooltip">'.$numofchatters.'</span></div>';
       else
-         $thing.='<div><a id="'.$pour.'" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Cliquez ici pour entrer").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-comments fa-2x "></i></a></div>';
+         $thing.='<div><a id="'.$pour.'" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Cliquez ici pour entrer").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fa fa-comments fa-2x "></i></a></div>';
    } else {
       if (count($auto)>1) {
          $numofchatters=0;
@@ -377,7 +377,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
           $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
           $ibidx = sql_num_rows($res);
           $boxstuff .= '
-          <li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-toggle="tooltip">'.$forumname.'</a><span class="float-right badge badge-secondary" title="'.translate("Sujets").'" data-toggle="tooltip">'.$ibidx.'</span></h6></li>';
+          <li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-bs-toggle="tooltip">'.$forumname.'</a><span class="float-right badge bg-secondary" title="'.translate("Sujets").'" data-bs-toggle="tooltip">'.$ibidx.'</span></h6></li>';
 
           $topics = 0;
           while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {
@@ -408,7 +408,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
                  $tt =  strip_tags(stripslashes($tt));
                  $topictitle= stripslashes($topictitle);
               }
-              $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge badge-secondary mx-2" title="'.translate("Réponses").'" data-toggle="tooltip" data-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
+              $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge bg-secondary mx-2" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
               if ($displayposter) $boxstuff .= $decoration.'<span class="ml-1">'.$postername.'</span>';
               $boxstuff .= '</li>';
               $topics++;

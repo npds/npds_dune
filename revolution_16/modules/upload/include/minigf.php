@@ -193,8 +193,8 @@ function confirmSendFile(f) {
                </tbody>
             </table>
             <div class="row p-2">
-               <div class="col-sm-4 col-6 mb-2"><i class="fas fa-level-up-alt fa-2x fa-flip-horizontal text-danger mr-1"></i><a class="text-danger" href="#" onclick="deleteFile(document.form0); return false;"><span class="d-sm-none" title="'.upload_translate("Supprimer les fichiers sélectionnés").'" data-toggle="tooltip" data-placement="right" ><i class="fas fa-trash fa-2x ml-1"></i></span><span class="d-none d-sm-inline">'.upload_translate("Supprimer les fichiers sélectionnés").'</span></a></div>
-               <div class="col-sm-4 text-right col-6 mb-2"><strong>'.upload_translate("Total :").' '.$total_sz.'</strong></div>
+               <div class="col-sm-4 col-6 mb-2"><i class="fas fa-level-up-alt fa-2x fa-flip-horizontal text-danger me-1"></i><a class="text-danger" href="#" onclick="deleteFile(document.form0); return false;"><span class="d-sm-none" title="'.upload_translate("Supprimer les fichiers sélectionnés").'" data-bs-toggle="tooltip" data-bs-placement="right" ><i class="fas fa-trash fa-2x ms-1"></i></span><span class="d-none d-sm-inline">'.upload_translate("Supprimer les fichiers sélectionnés").'</span></a></div>
+               <div class="col-sm-4 text-end col-6 mb-2"><strong>'.upload_translate("Total :").' '.$total_sz.'</strong></div>
                <div class="col-sm-2 text-center-sm mb-2 col-12 ">'.$att_inline_button.'</div>
                <div class="col-sm-2 text-center-sm mb-2 col-12">'.$visu_button.'</div>
             </div>';
@@ -206,7 +206,7 @@ function confirmSendFile(f) {
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="pcfile">'.upload_translate("Fichier joint").'</label>
          <div class="col-sm-9">
-            <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group mb-2 me-sm-2">
                <div class="custom-file">
                   <input type="file" class="custom-file-input" name="pcfile" id="pcfile" onchange="confirmSendFile(this.form);"/>
                   <label id="lab" class="custom-file-label" for="pcfile">'.upload_translate("Sélectionner votre fichier").'</label>
@@ -215,7 +215,7 @@ function confirmSendFile(f) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
+         <div class="col-sm-9 ms-sm-auto">
             <button type="button" class="btn btn-primary" onclick="uploadFile(this.form);">'.upload_translate("Joindre").'</button>
          </div>
       </div>

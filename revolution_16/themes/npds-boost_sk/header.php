@@ -58,9 +58,9 @@ if ($nb_bld_actif == 0) {
 }
 function colsyst($coltarget) {
    $coltoggle ='
-      <div class="col d-lg-none mr-2 my-2">
+      <div class="col d-lg-none me-2 my-2">
          <hr />
-         <a class=" small float-right" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
+         <a class=" small float-end" href="#" data-bs-toggle="collapse" data-bs-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
       </div>
    ';
    echo $coltoggle;

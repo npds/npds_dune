@@ -9,7 +9,7 @@
 /*     Balise html                                                           */
 html{}
 body {}
-a:hover {text-decoration:none;}
+a, a:hover {text-decoration:none;}
 /* pas de contour sur le focus des ancres */
 a:focus {
    outline: none;

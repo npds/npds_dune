@@ -52,8 +52,8 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
             <td>'.$v1[1].'</td>
             <td><i class="fab fa-'.$v1[2].' fa-2x text-muted align-middle"></i></td>
             <td>
-               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-lg mr-2 align-middle" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=DeleteReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fas fa-trash fa-lg text-danger align-middle" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
+               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-lg me-2 align-middle" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip"></i></a>
+               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=DeleteReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fas fa-trash fa-lg text-danger align-middle" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"></i></a>
             </td>
         </tr>';
    }
@@ -81,25 +81,25 @@ function EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_
          <label class="col-form-label col-sm-3" for="rs_id">'.adm_translate("Nom").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="text" id="rs_id" name="rs_id"  maxlength="50"  placeholder="'.adm_translate("").'" value="'.urldecode($rs_id).'" required="required" />
-            <span class="help-block text-right"><span id="countcar_rs_id"></span></span>
+            <span class="help-block text-end"><span id="countcar_rs_id"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="rs_url">'.adm_translate("URL").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="url" id="rs_url" name="rs_url"  maxlength="100" placeholder="'.adm_translate("").'" value="'.urldecode($rs_url).'" required="required" />
-            <span class="help-block text-right"><span id="countcar_rs_url"></span></span>
+            <span class="help-block text-end"><span id="countcar_rs_url"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="rs_ico">'.adm_translate("Icône").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="text" id="rs_ico" name="rs_ico"  maxlength="40" placeholder="'.adm_translate("").'" value="'.stripcslashes(urldecode($rs_ico)).'" required="required" />
-            <span class="help-block text-right"><span id="countcar_rs_ico"></span></span>
+            <span class="help-block text-end"><span id="countcar_rs_ico"></span></span>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
+         <div class="col-sm-9 ms-sm-auto">
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver").'</button>
             <input type="hidden" name="op" value="Extend-Admin-SubModule" />
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />

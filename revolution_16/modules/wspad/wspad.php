@@ -76,7 +76,7 @@ function Liste_Page() {
    //]]>
    </script>';
    $aff='
-   <h3 class="mb-3"><a class="arrow-toggle text-primary" id="show_cre_page" data-toggle="collapse" data-target="#cre_page" title="'.wspad_trans("Déplier la liste").'"><i id="i_cre_page" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;'.wspad_trans("Créer un document").'</h3>
+   <h3 class="mb-3"><a class="arrow-toggle text-primary" id="show_cre_page" data-bs-toggle="collapse" data-bs-target="#cre_page" title="'.wspad_trans("Déplier la liste").'"><i id="i_cre_page" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;'.wspad_trans("Créer un document").'</h3>
    <div id="cre_page" class="collapse" style ="padding-left:10px;">
       <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformfic">
          <div class="form-group row">
@@ -87,7 +87,7 @@ function Liste_Page() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 ml-sm-auto">
+            <div class="col-sm-8 ms-sm-auto">
                <input class="btn btn-primary" type="submit" name="creer" value="'.wspad_trans("Créer").'" />
                <input type="hidden" name="op" value="creer" />
             </div>
@@ -97,7 +97,7 @@ function Liste_Page() {
    echo $aff;
 
    $aff='
-   <h3 class="mb-3"><a class="arrow-toggle text-primary" id="show_paddoc" data-toggle="collapse" data-target="#lst_paddoc" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_paddoc" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;';
+   <h3 class="mb-3"><a class="arrow-toggle text-primary" id="show_paddoc" data-bs-toggle="collapse" data-bs-target="#lst_paddoc" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_paddoc" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;';
    $nb_pages=sql_num_rows(sql_query("SELECT COUNT(page) FROM ".$NPDS_Prefix."wspad WHERE member='$groupe' GROUP BY page"));
    if ($groupe>0) {
       $gp=sql_fetch_assoc(sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$groupe'"));
@@ -146,7 +146,7 @@ function Liste_Page() {
                            </div>
                         </div>
                         <div class="form-group row">
-                           <div class="col-sm-9 ml-sm-auto">
+                           <div class="col-sm-9 ms-sm-auto">
                               <input type="hidden" name="page" value="'.$page.'" />
                               <input type="hidden" name="op" value="renomer" />
                               <button type="submit" class="btn btn-primary" name="creer">'.wspad_trans("Renommer").'</button>
@@ -159,10 +159,10 @@ function Liste_Page() {
             </div>
          </div>
          <hr />
-         <h4><a class="arrow-toggle text-primary" id="show_lst_page_'.$pgibid.'" data-toggle="collapse" data-target="#lst_page_'.$pgibid.'" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_page_'.$pgibid.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.$page.'
+         <h4><a class="arrow-toggle text-primary" id="show_lst_page_'.$pgibid.'" data-bs-toggle="collapse" data-bs-target="#lst_page_'.$pgibid.'" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_page_'.$pgibid.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.$page.'
             <span class="float-right">
-               <a href="#" data-toggle="modal" data-target="#renomeModal_'.$page.'" ><i class="fa fa-edit " title="'.wspad_trans("Renommer le document et toutes ses révisions").'" data-toggle="tooltip"></i></a>&nbsp;
-               <a class="text-danger" href="javascript:" onclick="confirm_deletedoc(\''.$page.'\',\''.$groupe.'\');" title="'.wspad_trans("Supprimer le document et toutes ses révisions").'" data-toggle="tooltip"><i class="fas fa-trash"></i></a>&nbsp;
+               <a href="#" data-bs-toggle="modal" data-bs-target="#renomeModal_'.$page.'" ><i class="fa fa-edit " title="'.wspad_trans("Renommer le document et toutes ses révisions").'" data-bs-toggle="tooltip"></i></a>&nbsp;
+               <a class="text-danger" href="javascript:" onclick="confirm_deletedoc(\''.$page.'\',\''.$groupe.'\');" title="'.wspad_trans("Supprimer le document et toutes ses révisions").'" data-bs-toggle="tooltip"><i class="fas fa-trash"></i></a>&nbsp;
             </span>
          </h4>
          <div id="lst_page_'.$pgibid.'" class="collapse" style ="padding-left:10px;">';
@@ -208,21 +208,21 @@ function Liste_Page() {
             $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=preview&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",500,400);
             $aff.='
                   <td>
-                     <a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.wspad_trans("Prévisualiser").'" data-toggle="tooltip" data-placement="left"><img src="modules/'.$ModPath.'/images/preview.gif" /></a>&nbsp';
+                     <a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.wspad_trans("Prévisualiser").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/preview.gif" /></a>&nbsp';
             if (($auteur==$verrou) or ($verrou=='')) {
                // recharger la révision du ranq x
                $aff.='
-                     <a href="'.$ThisFile.'&amp;op=relo&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Choisir").'" data-toggle="tooltip" data-placement="left"><img src="modules/'.$ModPath.'/images/reload.gif" /></a>&nbsp';
+                     <a href="'.$ThisFile.'&amp;op=relo&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Choisir").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/reload.gif" /></a>&nbsp';
                // supprimer la révision du ranq x
                $aff.='
-                     <a href="'.$ThisFile.'&amp;op=supp&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Supprimer la révision").'" data-toggle="tooltip" data-placement="left"><img src="modules/'.$ModPath.'/images/delete.gif" /></a>&nbsp';
+                     <a href="'.$ThisFile.'&amp;op=supp&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Supprimer la révision").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/delete.gif" /></a>&nbsp';
                // exporter la révision du ranq x
                $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=export&amp;type=doc&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",5,5);
                $aff.='
-                     <a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.wspad_trans("Exporter .doc").'" data-toggle="tooltip" data-placement="left"><img src="modules/'.$ModPath.'/images/export.gif" /></a>&nbsp';
+                     <a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.wspad_trans("Exporter .doc").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/export.gif" /></a>&nbsp';
                // exporter en article 
                $aff.='
-                     <a href="'.$ThisFile.'&amp;op=conv_new&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Transformer en New").'" data-toggle="tooltip" data-placement="left"><img src="modules/'.$ModPath.'/images/news.gif" /></a>
+                     <a href="'.$ThisFile.'&amp;op=conv_new&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Transformer en New").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/news.gif" /></a>
                   </td>';
             } else {
                $aff.='

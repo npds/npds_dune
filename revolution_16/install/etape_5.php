@@ -52,7 +52,7 @@ function etape_5() {
                   </div>
                   <div class="form-group row">
                      <label class="col-form-label" for="new_Default_Theme">'.ins_translate('Thème graphique').'</label>
-                     <select class="custom-select form-control" id="new_Default_Theme" name="new_Default_Theme" />';
+                     <select class="form-select" id="new_Default_Theme" name="new_Default_Theme" />';
    include('themes/list.php');
    $themelist = explode(' ', $themelist);
    $sel='';

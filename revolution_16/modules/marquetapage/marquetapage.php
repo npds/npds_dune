@@ -57,15 +57,15 @@ function marquetapage() {
       if (sql_num_rows($result)) {
          $content.='
    <h6>
-   <a class="mb-2" data-toggle="collapse" data-target="#lst_fav" id="show_fav" title="'.translate("Déplier la liste").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary mr-2" ></i>&nbsp;</a><span class="align-top">Bookmarks</span><span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
+   <a class="mb-2" data-bs-toggle="collapse" data-bs-target="#lst_fav" id="show_fav" title="'.translate("Déplier la liste").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary me-2" ></i>&nbsp;</a><span class="align-top">Bookmarks</span><span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span>
    </h6>
    <div id="lst_fav" class="collapse" >
-   <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fas fa-trash text-danger fa-lg" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a>';
+   <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fas fa-trash text-danger fa-lg" title="'.translate("Effacer").'" data-bs-toggle="tooltip"></i></a>';
          while(list($uri, $topic)=sql_fetch_row($result)) {
             $content.='
             <div class="row">
                <div class="col-10 n-ellipses"><a href="'.$uri.'" class="small ">'.$topic.'</a></div>
-               <div class="col-2 text-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fas fa-trash text-danger" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a></div>
+               <div class="col-2 text-end"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fas fa-trash text-danger" title="'.translate("Effacer").'" data-bs-toggle="tooltip"></i></a></div>
             </div>';
          }
          $content.='
@@ -75,7 +75,7 @@ function marquetapage() {
       $uri=urlencode($REQUEST_URI);
       if ($post) {$title.='/'.$post;}
       if ($title=='') {$title_MTP=basename(urldecode($uri));} else {$title_MTP=$title;}
-      $boxTitle='<span><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="far fa-bookmark " title="'.translate("Ajouter").' '.translate("favori").'" data-toggle="tooltip"></i></a></span>';
+      $boxTitle='<span><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="far fa-bookmark " title="'.translate("Ajouter").' '.translate("favori").'" data-bs-toggle="tooltip"></i></a></span>';
             if ($block_title=='')
          $boxTitle.='&nbsp;MarqueTaPage';
       else

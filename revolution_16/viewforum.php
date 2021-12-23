@@ -113,7 +113,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
    }
    echo '</p>';
    echo '
@@ -126,13 +126,13 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                <label class="col-form-label col-sm-12" for="forum_pass">'.translate("Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder").'</label>
                <div class="col-sm-12">
                   <input class="form-control" type="password" id="forum_pass" name="Forum_passwd"  placeholder="'.translate("Mot de passe").'" required="required"/>
-                  <span class="help-block text-right" id="countcar_forum_pass"></span>
+                  <span class="help-block text-end" id="countcar_forum_pass"></span>
                </div>
             </div>
                <input type="hidden" name="forum" value="'.$forum.'" />
                <div class="form-group">
-                  <button type="submit" class="btn btn-primary mr-2" name="submitpass" title="'.translate("Valider").'"><i class="fa fa-check mr-1"></i>'.translate("Valider").'</button>
-                  <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Annuler").'"><i class="fas fa-sync mr-1"></i>'.translate("Annuler").'</button>
+                  <button type="submit" class="btn btn-primary me-2" name="submitpass" title="'.translate("Valider").'"><i class="fa fa-check me-1"></i>'.translate("Valider").'</button>
+                  <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Annuler").'"><i class="fas fa-sync me-1"></i>'.translate("Annuler").'</button>
             </div>
          </form>
       </div>';
@@ -171,7 +171,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
       if ($forum_access==2)
          if (!user_is_moderator($userR[0],$userR[2],$forum_access)) $allow_to_post = false;
       if ($allow_to_post)
-         echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("Nouveau").'"><i class="fa fa-plus-square mr-2"></i><span class="d-none d-sm-inline">'.translate("Nouveau sujet").'<br /></span></a>';
+         echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("Nouveau").'"><i class="fa fa-plus-square me-2"></i><span class="d-none d-sm-inline">'.translate("Nouveau sujet").'<br /></span></a>';
    }
    echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
    </h3>';
@@ -181,8 +181,8 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
       <div class="card mb-3">
          <div class="card-body p-2">
             <div class="d-flex ">
-               <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2 px-1"><span class="mr-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ml-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
-               <div class=" align-self-center mr-auto">';
+               <div class="badge bg-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2 px-1"><span class="mr-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ms-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
+               <div class=" align-self-center me-auto">';
                   $Mmod=false;
 
    for ($i = 0; $i < count($moderator_data); $i++) {
@@ -196,7 +196,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
       }
       if ($user)
          if (($userR[1]==$moderator_data[$i])) {$Mmod=true;}
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mr-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small me-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
    }
    echo '
                </div>
@@ -221,9 +221,9 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
                <th class="n-t-col-xs-1" data-align="center"></th>
                <th class="n-t-col-xs-1" data-align="center"></th>
                <th class="" data-sortable="true" data-sorter="htmlSorter">'.translate("Sujet").'&nbsp;&nbsp;</th>
-               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Réponses").'" data-toggle="tooltip" ></i></th>
-               <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Emetteur").'" data-toggle="tooltip"></i></th>
-               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Lectures").'" data-toggle="tooltip" ></i></th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Réponses").'" data-bs-toggle="tooltip" ></i></th>
+               <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Emetteur").'" data-bs-toggle="tooltip"></i></th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Lectures").'" data-bs-toggle="tooltip" ></i></th>
                <th data-align="right" >'.translate("Dernières contributions").'</th>
             </tr>
          </thead>
@@ -252,16 +252,16 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
                $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='".$myrow['topic_id']."' AND status!='0'";
                if ($replys >= $hot_threshold)
                   $image = sql_num_rows(sql_query($sqlR))==0 ?
-                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt faa-shake animated"></i></a>':
-                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
+                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fas fa-lg fa-file-alt faa-shake animated"></i></a>':
+                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>';
                else
                   $image = sql_num_rows(sql_query($sqlR))==0 ?
-                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt faa-shake animated"></i></a>':
-                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
+                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="far fa-lg fa-file-alt faa-shake animated"></i></a>':
+                     '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
             } else
                $image = ($replys >= $hot_threshold) ?
-                  '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>':
-                  '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-toggle="tooltip" data-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
+                  '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fas fa-lg fa-file-alt"></i></a>':
+                  '<a href="'.$last_post_url.'#lastpost" title="'.translate("Dernières contributions").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="far fa-lg fa-file-alt"></i></a>';
 
             if ($myrow['topic_status']!=0)
                $image = '<i class="fa fa-lg fa-lock text-danger"></i>';
@@ -378,7 +378,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
       <div class="form-group row">
          <div class="col-12">
             <label class="sr-only" for="forum">'.translate("Sauter à : ").'</label>
-            <select class="form-control custom-select" name="forum" onchange="submit();">
+            <select class="form-select" name="forum" onchange="submit();">
                <option value="index">'.translate("Sauter à : ").'</option>
                <option value="index">'.translate("Index du forum").'</option>';
        $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";

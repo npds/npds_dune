@@ -58,8 +58,8 @@ function blocnotes ($typeBlocNote='shared', $nomBlocNote='', $largeur='', $nblBl
                <input type="hidden" name="nomBlocNote" value="'.$nomBlocNote.'" />
                <div class="row">
                   <div class="col-12">
-                     <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check mr-1"></i>'.translate("Valider").'</button>
-                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fas fa-times mr-1"></i>'.translate("Effacer").'</button>
+                     <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check me-1"></i>'.translate("Valider").'</button>
+                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fas fa-times me-1"></i>'.translate("Effacer").'</button>
                   </div>
                </div>
             </div>

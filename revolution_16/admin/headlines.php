@@ -55,9 +55,9 @@ function HeadlinesAdmin() {
       echo '
             <td>'.$status.'</td>
             <td>
-               <a href="admin.php?op=HeadlinesEdit&amp;hid='.$hid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>&nbsp;
-               <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg" title="'.adm_translate("Visiter").'" data-toggle="tooltip"></i></a>&nbsp;
-               <a href="admin.php?op=HeadlinesDel&amp;hid='.$hid.'&amp;ok=0" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>
+               <a href="admin.php?op=HeadlinesEdit&amp;hid='.$hid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip"></i></a>&nbsp;
+               <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg" title="'.adm_translate("Visiter").'" data-bs-toggle="tooltip"></i></a>&nbsp;
+               <a href="admin.php?op=HeadlinesDel&amp;hid='.$hid.'&amp;ok=0" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"></i></a>
             </td>
          </tr>';
       }
@@ -78,27 +78,27 @@ function HeadlinesAdmin() {
             <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'</label>
             <div class="col-sm-8">
                <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="320" required="required" />
-               <span class="help-block text-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-end"><span id="countcar_url"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
             <div class="col-sm-8">
                 <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="320" required="required" />
-                <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>
+                <span class="help-block text-end"><span id="countcar_headlinesurl"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="status" name="status">
+               <select class="form-select" id="status" name="status">
                   <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
                   <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
                </select>
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 ml-sm-auto">
+            <div class="col-sm-8 ms-sm-auto">
                <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg">&nbsp;</i>'.adm_translate("Ajouter").'</button>
             </div>
          </div>
@@ -137,27 +137,27 @@ function HeadlinesEdit($hid) {
             <label class="col-form-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xsitename" id="xsitename"  maxlength="30" value="'.$xsitename.'" required="required" />
-               <span class="help-block text-right"><span id="countcar_xsitename"></span></span>
+               <span class="help-block text-end"><span id="countcar_xsitename"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'&nbsp;<a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></label>
             <div class="col-sm-8">
                <input class="form-control" type="url" id="url" name="url" maxlength="320" value="'.$url.'" required="required" />
-               <span class="help-block text-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-end"><span id="countcar_url"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'&nbsp;<a href="'.$headlinesurl.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="headlinesurl" id="headlinesurl" maxlength="320" value="'.$headlinesurl.'" required="required" />
-               <span class="help-block text-right"><span id="countcar_headlinesurl"></span></span>
+               <span class="help-block text-end"><span id="countcar_headlinesurl"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="status">';
+               <select class="form-select" name="status">';
    if ($status == 1) {
       $sel_a = 'selected="selected"';
    } else {
@@ -171,7 +171,7 @@ function HeadlinesEdit($hid) {
          </div>
          <div class="form-group row">
             <input type="hidden" name="op" value="HeadlinesSave" />
-            <div class="col-sm-8 ml-sm-auto">
+            <div class="col-sm-8 ms-sm-auto">
                <button class="btn btn-primary col-12" type="submit"><i class="fa fa-edit fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
             </div>
         </div>

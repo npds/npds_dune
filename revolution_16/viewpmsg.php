@@ -31,28 +31,28 @@ include("auth.php");
 
    echo '
    <ul class="nav nav-tabs d-flex flex-wrap"> 
-      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Vous").'" data-toggle="tooltip" ><i class="fa fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Vous").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" data-toggle="tooltip"><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edituser" title="'.translate("Vous").'" data-bs-toggle="tooltip" ><i class="fa fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Vous").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" data-bs-toggle="tooltip"><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
    include ("modules/upload/upload.conf.php");
    if (($userdata['mns']==1) and ($autorise_upload_p)) {
       include ("modules/blog/upload_minisite.php");
       $PopUp=win_upload("popup");
       echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Gérer votre miniSite").'"  data-toggle="tooltip"><i class="fa fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("MiniSite").'</span></a></li>';
+      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Gérer votre miniSite").'"  data-bs-toggle="tooltip"><i class="fa fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("MiniSite").'</span></a></li>';
    }
    echo '
-      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" data-toggle="tooltip" ><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Changer le thème").'"  data-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Thème").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'"  data-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Réseaux sociaux").'</span></a></li>
-      <li class="nav-item"><a class="nav-link active" title="'.translate("Message personnel").'"  data-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Déconnexion").'" data-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Déconnexion").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" data-bs-toggle="tooltip" ><i class="fa fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=chgtheme" title="'.translate("Changer le thème").'"  data-bs-toggle="tooltip" ><i class="fa fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Thème").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'"  data-bs-toggle="tooltip" ><i class="fa fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Réseaux sociaux").'</span></a></li>
+      <li class="nav-item"><a class="nav-link active" title="'.translate("Message personnel").'"  data-bs-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Déconnexion").'" data-bs-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Déconnexion").'</span></a></li>
    </ul>
    <div class="card card-body mt-3">
-      <h2><a href="replypmsg.php?send=1" title="'.translate("Ecrire un nouveau message privé").'" data-toggle="tooltip" ><i class="fa fa-edit mr-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Message personnel")." - </span>".translate("Boîte de réception").'</h2>
+      <h2><a href="replypmsg.php?send=1" title="'.translate("Ecrire un nouveau message privé").'" data-bs-toggle="tooltip" ><i class="fa fa-edit me-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Message personnel")." - </span>".translate("Boîte de réception").'</h2>
       <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
          <div class="form-group">
             <label class="sr-only" for="dossier" >'.translate("Sujet").'</label>
-            <select class="custom-select form-control" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
+            <select class="form-select" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
                <option value="...">'.translate("Choisir un dossier/sujet").'...</option>';
       $tempo["..."]=0;
       while (list($dossierX)=sql_fetch_row($resultT)) {
@@ -93,9 +93,9 @@ include("auth.php");
             <thead class="thead-default">
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center">
-                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input is-invalid" id="allbox" name="allbox" onclick="CheckAll();" type="checkbox" value="" />
-                        <label class="custom-control-label" for="allbox">&nbsp;&nbsp;</label>
+                     <div class="form-check">
+                        <input class="form-check-input is-invalid" id="allbox" name="allbox" onclick="CheckAll();" type="checkbox" value="" />
+                        <label class="form-check-label" for="allbox">&nbsp;&nbsp;</label>
                      </div>
                   </th>
                   <th class="n-t-col-xs-1" data-align="center" ><i class="fas fa-long-arrow-alt-down"></i></th>';
@@ -118,17 +118,17 @@ include("auth.php");
          echo '
                <tr>
                   <td>
-                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input is-invalid" type="checkbox" onclick="CheckCheckAll();" id="msg_id'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
-                        <label class="custom-control-label" for="msg_id'.$count.'">&nbsp;&nbsp;</label>
+                     <div class="form-check">
+                        <input class="form-check-input is-invalid" type="checkbox" onclick="CheckCheckAll();" id="msg_id'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
+                        <label class="form-check-label" for="msg_id'.$count.'">&nbsp;&nbsp;</label>
                      </div>
                   </td>';
          if ($myrow['read_msg'] == "1")
             echo '
-                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Lu").'" data-toggle="tooltip"><i class="far fa-envelope-open fa-lg "></i></a></td>';
+                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Lu").'" data-bs-toggle="tooltip"><i class="far fa-envelope-open fa-lg "></i></a></td>';
          else
             echo '
-                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Non lu").'" data-toggle="tooltip"><i class="fa fa-envelope fa-lg faa-shake animated"></i></a></td>';
+                  <td><a href="readpmsg.php?start='.$tempo[$myrow['dossier']].'&amp;total_messages='.$total_messages.'&amp;dossier='.urlencode($myrow['dossier']).'" title="'.translate("Non lu").'" data-bs-toggle="tooltip"><i class="fa fa-envelope fa-lg faa-shake animated"></i></a></td>';
          if ($smilies) {
             if ($myrow['msg_image']!='') {
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) $imgtmp=$ibid; else $imgtmp="images/forum/subject/".$myrow['msg_image'];
@@ -177,15 +177,15 @@ include("auth.php");
 
       echo '
       <div class="card card-body mt-3">
-      <h2><a href="replypmsg.php?send=1" title="'.translate("Ecrire un nouveau message privé").'" data-toggle="tooltip" ><i class="fa fa-edit mr-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Message personnel")." - </span>".translate("Boîte d'émission").'<span class="badge badge-secondary float-right">'.$total_messages.'</span></h2>
+      <h2><a href="replypmsg.php?send=1" title="'.translate("Ecrire un nouveau message privé").'" data-bs-toggle="tooltip" ><i class="fa fa-edit me-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Message personnel")." - </span>".translate("Boîte d'émission").'<span class="badge bg-secondary float-end">'.$total_messages.'</span></h2>
       <form id="" name="prvmsgB" method="get" action="replypmsg.php">
          <table class="mb-3" data-toggle="table" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
             <thead class="thead-default">
                <tr>
                   <th class="n-t-col-xs-1" data-halign="center" data-align="center" >
-                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input is-invalid" id="allbox_b" name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" />
-                        <label class="custom-control-label" for="allbox_b">&nbsp;</label>
+                     <div class="form-check">
+                        <input class="form-check-input is-invalid" id="allbox_b" name="allbox" onclick="CheckAllB();" type="checkbox" value="Check All" />
+                        <label class="form-check-label" for="allbox_b">&nbsp;</label>
                      </div>
                   </th>';
       if ($smilies) 
@@ -211,9 +211,9 @@ include("auth.php");
          echo '
             <tr>
                <td>
-                  <div class="custom-control custom-checkbox">
-                     <input class="custom-control-input is-invalid" type="checkbox" onclick="CheckCheckAllB();" id="msg_idB'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
-                     <label class="custom-control-label text-danger" for="msg_idB'.$count.'">&nbsp;</label>
+                  <div class="form-check">
+                     <input class="form-check-input is-invalid" type="checkbox" onclick="CheckCheckAllB();" id="msg_idB'.$count.'" name="msg_id['.$count.']" value="'.$myrow['msg_id'].'" />
+                     <label class="form-check-label text-danger" for="msg_idB'.$count.'">&nbsp;</label>
                   </div>
                </td>';
          if ($smilies) {

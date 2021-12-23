@@ -168,7 +168,7 @@ if (!isset($gr_from_ws)) {
             <img src="'.$ibid_avatar.'" class=" media-object n-ava img-thumbnail" alt="avatar" />
          </div>';
    echo '
-         <div class="media-body ml-2">
+         <div class="media-body ms-2">
          '.translate("Bienvenue au dernier membre affilié : ").' <br /><h4 class="media-heading"><a href="user.php?op=userinfo&amp;uname='.$lastuser.'">'.$lastuser.'</a></h4>
          </div>
       </div>
@@ -301,8 +301,8 @@ if ( $letter != 'front' ) {
             if ($open_user==0) {
                $clconnect ='danger';
                echo '
-         <tr class="table-danger" title="'.translate("Connexion non autorisée").'" data-toggle="tooltip">
-            <td title="'.translate("Connexion non autorisée").'" data-toggle="tooltip">';
+         <tr class="table-danger" title="'.translate("Connexion non autorisée").'" data-bs-toggle="tooltip">
+            <td title="'.translate("Connexion non autorisée").'" data-bs-toggle="tooltip">';
             }
             else  {
                $clconnect ='primary';
@@ -311,12 +311,12 @@ if ( $letter != 'front' ) {
             <td>';
             }
          if ($ibid_avatar=avatar($temp_user['user_avatar']))
-         echo '<a tabindex="0" data-toggle="popover" data-placement="right" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-html="true" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>
+         echo '<a tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>
             </td>
             <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.translate("Inscription").' : '.date(translate("dateinternal"),(integer)$temp_user['user_regdate']);
          if ($admin and $temp_user['user_lastvisit']!='')
             echo '<br />'.translate("Connexion").' : '.date(translate("dateinternal"),(integer)$temp_user['user_lastvisit']);
-         echo '"  data-html="true" data-toggle="tooltip" data-placement="right">'.$temp_user['uname'].'</a>
+         echo '"  data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right">'.$temp_user['uname'].'</a>
             </td>
             <td>'.$temp_user['name'].'</td>
             ';
@@ -348,8 +348,8 @@ if ( $letter != 'front' ) {
          if ($admin) {
             echo '
             <td>
-               <a class="mr-3" href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Editer").'" data-toggle="tooltip"></i></a> 
-               <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a>';
+               <a class="mr-3" href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Editer").'" data-bs-toggle="tooltip"></i></a> 
+               <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Effacer").'" data-bs-toggle="tooltip"></i></a>';
             if (!$temp_user['is_visible'])
                echo '<img src="images/admin/ws/user_invisible.gif" alt="'.translate("Membre invisible").'" title="'.translate("Membre invisible").'" />';
             else
@@ -379,8 +379,8 @@ if ( $letter != 'front' ) {
          echo urldecode($list);
          echo '
             <span class="float-right">
-               <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" ><i class="far fa-envelope fa-lg" title="'.translate("Ecrire à la liste").'" data-toggle="tooltip" ></i></a>
-               <a class="ml-3" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Raz de la liste").'" data-toggle="tooltip" ></i></a>
+               <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" ><i class="far fa-envelope fa-lg" title="'.translate("Ecrire à la liste").'" data-bs-toggle="tooltip" ></i></a>
+               <a class="ml-3" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Raz de la liste").'" data-bs-toggle="tooltip" ></i></a>
             </span>';
       }
       echo '</p>
@@ -390,7 +390,7 @@ if ( $letter != 'front' ) {
    if ( $num_rows_per_order > $pagesize ) {
       echo '
       <div class="mt-3 lead align-middle">
-         <span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés pour").' <strong>'.$letter.'</strong> ('.$total_pages.' '.translate("pages").', '.$num_users.' '.translate("Utilisateurs montrés").').
+         <span class="badge bg-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés pour").' <strong>'.$letter.'</strong> ('.$total_pages.' '.translate("pages").', '.$num_users.' '.translate("Utilisateurs montrés").').
       </div>
       <ul class="pagination pagination-sm my-3 flex-wrap">';
       $total_pages = ceil($num_rows_per_order / $pagesize);
@@ -404,7 +404,7 @@ if ( $letter != 'front' ) {
          $current = $nbPages;
       echo paginate_single('memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;gr_from_ws='.$gr_from_ws.'&amp;page=', '', $nbPages, $current, $adj=3, '', '');
    } else
-      echo '<div class="mt-3 lead align-middle"><span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés").'</div>';
+      echo '<div class="mt-3 lead align-middle"><span class="badge bg-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés").'</div>';
 }
    include("footer.php");
 ?>

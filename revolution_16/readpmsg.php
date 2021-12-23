@@ -104,15 +104,15 @@ include('auth.php');
          $useroutils = '';
          $useroutils .= '<hr />';
          if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-toggle="tooltip"><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-bs-toggle="tooltip"><i class="fa fa-2x fa-user align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
          if ($posterdata['uid']!= 1)
-            $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle "></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle "></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
          if ($posterdata['femail']!='')
-            $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-bs-toggle="tooltip"><i class="fa fa-at fa-2x align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
          if ($posterdata['url']!='')
-            $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"><i class="fas fa-2x fa-external-link-alt align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip"><i class="fas fa-2x fa-external-link-alt align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
          if ($posterdata['mns'])
-             $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
+             $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
       }
 
 
@@ -126,10 +126,10 @@ include('auth.php');
 
       if ($posterdata['uid']<>1) 
          echo '
-          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[0].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+          <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[0].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
       else 
          echo '
-         <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="tooltip" data-html="true" data-placement="top" title=\'<i class="fa fa-cogs fa-lg"></i>\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+         <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title=\'<i class="fa fa-cogs fa-lg"></i>\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
       }
 //      }
    if ($posterdata['uid']<>1) 
@@ -176,47 +176,47 @@ include('auth.php');
             if ($posterdata['uid']<>1)
             echo '
             <li class="page-item">
-               <a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><span class="d-none d-md-inline"></span><i class="fa fa-reply fa-lg mr-2"></i><span class="d-none d-md-inline">'.translate("Répondre").'</span></a>
+               <a class="page-link" href="replypmsg.php?reply=1&amp;msg_id='.$myrow['msg_id'].'"><span class="d-none d-md-inline"></span><i class="fa fa-reply fa-lg me-2"></i><span class="d-none d-md-inline">'.translate("Répondre").'</span></a>
             </li>';
          }
          if ($previous >= 0) echo '
             <li class="page-item">
                <a class="page-link" href="readpmsg.php?start='.$previous.'&amp;total_messages='.$total_messages.$tmpx.'" >
                   <span class="d-none d-md-inline">'.translate("Message précédent").'</span>
-                  <span class="d-md-none" title="'.translate("Message précédent").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
+                  <span class="d-md-none" title="'.translate("Message précédent").'" data-bs-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
                </a>
             </li>';
          else echo '
             <li class="page-item">
                <a class="page-link disabled" href="#">
                   <span class="d-none d-md-inline">'.translate("Message précédent").'</span>
-                  <span class="d-md-none" title="'.translate("Message précédent").'" data-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
+                  <span class="d-md-none" title="'.translate("Message précédent").'" data-bs-toggle="tooltip"><i class="fa fa-angle-double-left fa-lg"></i></span>
                </a>
             </li>';
          if ($next < $total_messages) echo '
             <li class="page-item" >
                <a class="page-link" href="readpmsg.php?start='.$next.'&amp;total_messages='.$total_messages.$tmpx.'" >
                   <span class="d-none d-md-inline">'.translate("Message suivant").'</span>
-                  <span class="d-md-none" title="'.translate("Message suivant").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
+                  <span class="d-md-none" title="'.translate("Message suivant").'" data-bs-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
                </a>
             </li>';
          else echo '
             <li class="page-item">
                <a class="page-link disabled" href="#">
                   <span class="d-none d-md-inline">'.translate("Message suivant").'</span>
-                  <span class="d-md-none" title="'.translate("Message suivant").'" data-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
+                  <span class="d-md-none" title="'.translate("Message suivant").'" data-bs-toggle="tooltip"><i class="fa fa-angle-double-right fa-lg"></i></span>
                </a>
             </li>';
          echo '
             <li class="page-item">
-               <a class="page-link" data-toggle="collapse" href="#sortbox"><i class="fa fa-cogs fa-lg" title="'.translate("Classer ce message").'" data-toggle="tooltip"></i></a>
+               <a class="page-link" data-bs-toggle="collapse" href="#sortbox"><i class="fa fa-cogs fa-lg" title="'.translate("Classer ce message").'" data-bs-toggle="tooltip"></i></a>
             </li>';
          if ($type!='outbox')
             echo '
-            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'" title="'.translate("Supprimer ce message").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a></li>';
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'" title="'.translate("Supprimer ce message").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a></li>';
          else
             echo '
-            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"  title="'.translate("Supprimer ce message").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a></li>';
+            <li class="page-item"><a class="page-link " href="replypmsg.php?delete=1&amp;msg_id='.$myrow['msg_id'].'&amp;type=outbox"  title="'.translate("Supprimer ce message").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a></li>';
          echo '
          </ul>';
 
@@ -231,7 +231,7 @@ include('auth.php');
                <div class="form-group row">
                   <label class="col-form-label col-sm-4" for="dossier">'.translate("Sujet").'</label>
                   <div class="col-sm-8">
-                     <select class="custom-select form-control" id="dossier" name="dossier">';
+                     <select class="form-select" id="dossier" name="dossier">';
                   while (list($dossier)=sql_fetch_row($result)) {
                      echo '
                         <option value="'.$dossier.'">'.$dossier.'</option>';
@@ -247,7 +247,7 @@ include('auth.php');
                   </div>
                </div>
                <div class="form-group row">
-                  <div class="col-sm-8 ml-sm-auto">
+                  <div class="col-sm-8 ms-sm-auto">
                      <input type="hidden" name="msg_id" value="'.$myrow['msg_id'].'" />
                      <input type="hidden" name="classement" value="1" />
                      <button type="submit" class="btn btn-primary" name="classe">OK</button>

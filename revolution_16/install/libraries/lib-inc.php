@@ -355,25 +355,25 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
                $bar.html("").css("width", "25%").removeClass().addClass("progress-bar bg-danger");
                $bar.attr("aria-valuenow","25");
                $bar.attr("value","25");
-               $pass_level.html("Tr&#xE8;s faible").removeClass().addClass("help-block text-right text-danger");
+               $pass_level.html("Tr&#xE8;s faible").removeClass().addClass("help-block text-end text-danger");
                break;
            case (score > 0 && score <= 2):
                $bar.html("").css("width", "50%").removeClass().addClass("progress-bar bg-warning");
                $bar.attr("aria-valuenow","50");
                $bar.attr("value","50");
-               $pass_level.html("Faible").removeClass().addClass("help-block text-right text-warning");
+               $pass_level.html("Faible").removeClass().addClass("help-block text-end text-warning");
                break;
            case (score > 2 && score <= 4):
                $bar.html("").css("width", "75%").removeClass().addClass("progress-bar bg-info");
                $bar.attr("aria-valuenow","75");
                $bar.attr("value","75");
-               $pass_level.html("Moyen").removeClass().addClass("help-block text-right text-info");
+               $pass_level.html("Moyen").removeClass().addClass("help-block text-end text-info");
                break;
            case (score > 4):
                $bar.html("").css("width", "100%").removeClass().addClass("progress-bar bg-success");
                $bar_cont.attr("aria-valuenow","100");
                $bar_cont.attr("value","100").removeClass().addClass("progress-bar bg-success");
-               $pass_level.html("Fort").removeClass().addClass("help-block text-right text-success");
+               $pass_level.html("Fort").removeClass().addClass("help-block text-end text-success");
                break;
            default:
                break;

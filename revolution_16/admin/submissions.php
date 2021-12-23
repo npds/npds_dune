@@ -36,7 +36,7 @@ function submissions() {
    else {
       echo '
    <hr />
-   <h3>'.adm_translate("Nouveaux Articles postés").'<span class="badge badge-danger float-right">'.sql_num_rows($result).'</span></h3>
+   <h3>'.adm_translate("Nouveaux Articles postés").'<span class="badge bg-danger float-end">'.sql_num_rows($result).'</span></h3>
    <table id="tad_subm" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -77,7 +77,7 @@ function submissions() {
              <td class="small">'.formatTimestamp($timestamp).'</td>';
          if ($affiche)
             echo '
-             <td><a class="" href="admin.php?op=DisplayStory&amp;qid='.$qid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-toggle="tooltip" ></i></a><a class="text-danger" href="admin.php?op=DeleteStory&amp;qid='.$qid.'"><i class="fas fa-trash fa-lg ml-3" title="'.adm_translate("Effacer").'" data-toggle="tooltip" ></i></a></td>
+             <td><a class="" href="admin.php?op=DisplayStory&amp;qid='.$qid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" ></i></a><a class="text-danger" href="admin.php?op=DeleteStory&amp;qid='.$qid.'"><i class="fas fa-trash fa-lg ms-3" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" ></i></a></td>
          </tr>';
          else
             echo '

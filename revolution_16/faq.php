@@ -21,7 +21,7 @@ function ShowFaq($id_cat, $categories) {
    <hr />
    <h3 class="mb-3">'.translate("Catégorie").' <span class="text-muted"># '.StripSlashes($categories).'</span></h3>
    <p class="lead">
-      <a href="faq.php" title="'.translate("Retour à l'index FAQ").'" data-toggle="tooltip">Index</a>&nbsp;&raquo;&raquo;&nbsp;'.StripSlashes($categories).'
+      <a href="faq.php" title="'.translate("Retour à l'index FAQ").'" data-bs-toggle="tooltip">Index</a>&nbsp;&raquo;&raquo;&nbsp;'.StripSlashes($categories).'
    </p>';
 
     $result = sql_query("SELECT id, id_cat, question, answer FROM ".$NPDS_Prefix."faqanswer WHERE id_cat='$id_cat'");
@@ -37,7 +37,7 @@ function ShowFaqAll($id_cat) {
       <div class="card mb-3" id="accordion_'.$id.'" role="tablist" aria-multiselectable="true">
          <div class="card-body">
             <h4 class="card-title">
-            <a data-toggle="collapse" data-parent="#accordion_'.$id.'" href="#faq_'.$id.'" aria-expanded="true" aria-controls="'.$id.'"><i class="fa fa-caret-down toggle-icon"></i></a>&nbsp;'.aff_langue($question).'
+            <a data-bs-toggle="collapse" data-parent="#accordion_'.$id.'" href="#faq_'.$id.'" aria-expanded="true" aria-controls="'.$id.'"><i class="fa fa-caret-down toggle-icon"></i></a>&nbsp;'.aff_langue($question).'
             </h4>
             <div class="collapse" id="faq_'.$id.'" >
                <div class="card-text">
@@ -64,7 +64,7 @@ function ShowFaqAll($id_cat) {
        echo '
        <h2 class="mb-4">'.translate("FAQ - Questions fréquentes").'</h2>
        <hr />
-       <h3 class="mb-3">'.translate("Catégories").'<span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span></h3>
+       <h3 class="mb-3">'.translate("Catégories").'<span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span></h3>
        <div class="list-group">';
        while(list($id_cat, $categories) = sql_fetch_row($result)) {
           $catname = urlencode(aff_langue($categories));

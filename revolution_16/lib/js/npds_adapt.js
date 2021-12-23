@@ -33,20 +33,20 @@
 
             $('.fo-post-mes img').addClass('img-fluid');//not sure if usefull to late ...
             // icon toggle
-            $('a[data-toggle="collapse"]').click(function () {
+            $('a[data-bs-toggle="collapse"]').click(function () {
                $(this).find('i.toggle-icon').toggleClass('fa-caret-up fa-caret-down',6000);
             })
-            $('a[data-toggle="collapse"]').click(function () {
+            $('a[data-bs-toggle="collapse"]').click(function () {
                $(this).find('i.togglearbr-icon').toggleClass('fa-level-up-alt fa-level-down-alt',6000);
             })
             // initialisation tooltip et popover (qui ferme au prochain click)
-            $('[data-toggle="tooltip"]').tooltip({container:'body'});
-            $('[data-toggle="popover"]').popover();
+            $('[data-bs-toggle="tooltip"]').tooltip({container:'body'});
+            $('[data-bs-toggle="popover"]').popover();
             $('.popover-dismiss').popover({ trigger: 'click'});
             // fix bug tooltip in table
             $('table').on('all.bs.table', function (e, name, args) {
-               $('[data-toggle="tooltip"]').tooltip();
-               $('[data-toggle="popover"]').popover();
+               $('[data-bs-toggle="tooltip"]').tooltip();
+               $('[data-bs-toggle="popover"]').popover();
             });
          });
          (function(t) {

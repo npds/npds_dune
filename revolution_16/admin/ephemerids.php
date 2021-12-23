@@ -33,7 +33,7 @@ function Ephemerids() {
       <div class="form-group row">
          <div class="col-4">
             <label class="col-form-label" for="did">'.adm_translate("Jour").'</label>
-            <select class="custom-select form-control" id="did" name="did">';
+            <select class="form-select" id="did" name="did">';
    while ($nday<=31) {
       echo '
                <option name="did">'.$nday.'</option>';
@@ -46,7 +46,7 @@ function Ephemerids() {
     echo '
          <div class="col-4">
             <label class="col-form-label" for="mid">'.adm_translate("Mois").'</label>
-            <select class="custom-select form-control" id="mid" name="mid">';
+            <select class="form-select" id="mid" name="mid">';
     while ($nmonth<=12) {
        echo '
                <option name="mid">'.$nmonth.'</option>';
@@ -81,7 +81,7 @@ function Ephemerids() {
       <div class="form-group row">
          <div class="col-4">
             <label class="col-form-label" for="did">'.adm_translate("Jour").'</label>
-            <select class="custom-select form-control" id="did" name="did">';
+            <select class="form-select" id="did" name="did">';
    while ($nday<=31) {
       echo '
                <option name="did">'.$nday.'</option>';
@@ -94,7 +94,7 @@ function Ephemerids() {
     echo '
          <div class="col-4">
             <label class="col-form-label" for="mid">'.adm_translate("Mois").'</label>
-            <select class="custom-select form-control" id="mid" name="mid">';
+            <select class="form-select" id="mid" name="mid">';
     while ($nmonth<=12) {
        echo '
                <option name="mid">'.$nmonth.'</option>';
@@ -146,7 +146,7 @@ function Ephemeridsmaintenance($did, $mid) {
          <tr>
             <td>'.$yid.'</td>
             <td>'.aff_langue($content).'</td>
-            <td><a href="admin.php?op=Ephemeridsedit&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg mr-2"></i></a>&nbsp;<a href="admin.php?op=Ephemeridsdel&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>
+            <td><a href="admin.php?op=Ephemeridsedit&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" ><i class="fa fa-edit fa-lg me-2"></i></a>&nbsp;<a href="admin.php?op=Ephemeridsdel&amp;eid='.$eid.'&amp;did='.$did.'&amp;mid='.$mid.'" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>
          </tr>';
    }
    echo '

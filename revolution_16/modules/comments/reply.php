@@ -135,7 +135,7 @@ if (isset($submitS)) {
       redirect_url("$url_ret");
    } else {
       echo '
-   <h2><i class="far fa-comment text-muted fa-lg mr-2"></i>'.translate("Commentaire").'</h2>
+   <h2><i class="far fa-comment text-muted fa-lg me-2"></i>'.translate("Commentaire").'</h2>
    <hr />
    <div class="alert alert-danger" >'.translate("Vous devez taper un message à poster.").'</div>
    <p><a href="javascript:history.go(-1)" class="btn btn-primary">'.translate("Retour en arrière").'</a></p>';
@@ -145,7 +145,7 @@ if (isset($submitS)) {
    if ($allow_bbcode==1)
       include("lib/formhelp.java.php");
    echo '
-   <h2><i class="far fa-comment text-muted fa-lg mr-2"></i>'.translate("Commentaire").'</h2>
+   <h2><i class="far fa-comment text-muted fa-lg me-2"></i>'.translate("Commentaire").'</h2>
    <hr />';
    if ($formulaire=='')
       echo '
@@ -185,14 +185,14 @@ if (isset($submitS)) {
                   if ($ibid=theme_image("forum/avatar/".$theposterdata['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$theposterdata['user_avatar'];
                }
                 echo '
-                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$theposterdata['uname'].'" data-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rang']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-html="true" data-bs-title="'.$theposterdata['uname'].'" data-bs-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rang']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
             }
          }
                echo'
                   &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$theposterdata['uname'].'</strong></span>
       </div>
       <div class="card-body">
-         <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
+         <span class="text-muted float-end small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
          <div id="post_preview" class="card-text pt-3">';
       $messageP=stripslashes($messageP);
       if (($forum_type=='6') or ($forum_type=='5'))
@@ -252,10 +252,10 @@ if (isset($submitS)) {
                   </div>';
    if ($allow_html == 1)
       echo '
-                  <span class="text-success float-right mt-2" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+                  <span class="text-success float-end mt-2" title="HTML '.translate("Activé").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    else
       echo '
-                  <span class="text-danger float-right mt-2" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+                  <span class="text-danger float-end mt-2" title="HTML '.translate("Désactivé").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body">
@@ -263,7 +263,7 @@ if (isset($submitS)) {
                </div>
                <div class="card-footer p-0">
                   <span class="d-block">
-                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
+                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-bs-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
                   </span>
                </div>
             </div>
@@ -276,9 +276,9 @@ if (isset($submitS)) {
            echo '
          <div class="col-sm-12 my-2">
             <div class="checkbox">
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
-                  <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="html" name="html" '.$sethtml.' />
+                  <label class="form-check-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
                </div>
             </div>';
         }
@@ -289,9 +289,9 @@ if (isset($submitS)) {
               if ($attachsig == 1 or isset($sig)) $s = 'checked="checked"'; else $s='';
                echo '
             <div class="checkbox my-2">
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
-                  <label class="custom-control-label" for="sig"> '.translate("Afficher la signature").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sig" name="sig" '.$s.' />
+                  <label class="form-check-label" for="sig"> '.translate("Afficher la signature").'</label>
                </div>
                <span class="help-block"><small>'.translate("Cela peut être retiré ou ajouté dans vos paramètres personnels").'</small></span>
             </div>';

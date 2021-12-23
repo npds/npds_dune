@@ -289,7 +289,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 align-middle"></i></span>'.fma_translate("Renommer un répertoire");
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x me-2 align-middle"></i></span>'.fma_translate("Renommer un répertoire");
                $rename_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -338,7 +338,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un répertoire").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x me-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un répertoire").'</span>';
                $remove_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -382,7 +382,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 align-middle"></i></span>'.fma_translate("Changer les droits d'un répertoire");
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x me-2 align-middle"></i></span>'.fma_translate("Changer les droits d'un répertoire");
                $chmod_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -393,7 +393,7 @@ switch ($op) {
                   <input type="hidden" name="op" value="chmoddir-save" />
                   <div class="form-group">
                      <label class="form-control-label" for="chmoddir" ><code>'.extend_ascii($auto[2]).'</code></label>
-                     <select class="custom-select form-control" id="chmoddir" name="chmoddir">
+                     <select class="form-select" id="chmoddir" name="chmoddir">
                         '.chmod_pres($obj->GetPerms($auto[3].'/'.$auto[2]),'chmoddir').'
                   </div>
                   <div class="form-group">
@@ -444,7 +444,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 align-middle"></i></span>'.fma_translate("Renommer un fichier");
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x me-2 align-middle"></i></span>'.fma_translate("Renommer un fichier");
                $rename_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -492,7 +492,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 align-middle"></i></span>'.fma_translate("Déplacer / Copier un fichier");
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x me-2 align-middle"></i></span>'.fma_translate("Déplacer / Copier un fichier");
                $move_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -501,14 +501,14 @@ switch ($op) {
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <div class="form-group">
-                     <select class="custom-select mr-2" name="op">
+                     <select class="form-select me-2" name="op">
                         <option value="movefile-save" selected="selected"> '.fma_translate("Déplacer").'</option>
                         <option value="copyfile-save">'.fma_translate("Copier").'</option>
                      </select>
                      <code>'.extend_ascii($auto[2]).'</code>
                   </div>
                   <div class="form-group">
-                     <select class="custom-select form-control" name="movefile">';
+                     <select class="form-select" name="movefile">';
                   $move_file.='
                         <option value="">/</option>';
                   $arb=explode('|',$obj->GetDirArbo($basedir_fma));
@@ -569,7 +569,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists("$auto[3]/$auto[2]")) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un fichier").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x me-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un fichier").'</span>';
                $remove_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -610,7 +610,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x mr-2 align-middle"></i></span>'.fma_translate("Changer les droits d'un fichier").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x me-2 align-middle"></i></span>'.fma_translate("Changer les droits d'un fichier").'</span>';
                $chmod_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -621,7 +621,7 @@ switch ($op) {
                   <input type="hidden" name="op" value="chmodfile-save" />
                   <div class="form-group">
                      <label class="form-control-label" for="chmodfile"><code>'.extend_ascii($auto[2]).'</code></label>
-                     <select class="custom-select form-control" id="chmodfile" name="chmodfile">
+                     <select class="form-select" id="chmodfile" name="chmodfile">
                         '.chmod_pres($obj->GetPerms($auto[3].'/'.$auto[2]),"chmodfile").'
                   </div>
                   <div class="form-group">
@@ -657,7 +657,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x mr-2 align-middle"></i></span>'.fma_translate("Editer un fichier").'</span>';
+               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x me-2 align-middle"></i></span>'.fma_translate("Editer un fichier").'</span>';
                $fp=fopen($auto[3].'/'.$auto[2],'r');
                if (filesize($auto[3].'/'.$auto[2])>0)
                   $Fcontent=fread($fp,filesize($auto[3].'/'.$auto[2]));
@@ -717,7 +717,7 @@ switch ($op) {
          $auto[3]=decrypt($browse);
          if (file_exists($auto[3].'/'.$auto[2])) {
             $theme_fma=$themeC_fma;
-            $cmd='<span class="text-muted"><i class="fa fa-image fa-2x mr-2 align-middle"></i></span>'.fma_translate("Autoriser Pic-Manager").' >> '.$auto[2];
+            $cmd='<span class="text-muted"><i class="fa fa-image fa-2x me-2 align-middle"></i></span>'.fma_translate("Autoriser Pic-Manager").' >> '.$auto[2];
             $pict_dir ='
             <form method="post" action="modules.php">
                <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -883,13 +883,13 @@ while ($obj->NextDir()) {
       $subdirs.='
          <td>';
       if ($dircmd_fma[1])
-         $subdirs.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg" title="'.$renaM.'" data-toggle="tooltip"></i></a>';
+         $subdirs.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg" title="'.$renaM.'" data-bs-toggle="tooltip"></i></a>';
       if ($dircmd_fma[3])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmoddir&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ml-2" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmoddir&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ms-2" title="'.$chmoM.'" data-bs-toggle="tooltip"></i><small>7..</small></a>';
       if ($dirpres_fma[5])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=pict&amp;att_name='.$obj->FieldName.'"><i class="fa fa-image fa-lg ml-2" title="'.$pictM.'" data-toggle="tooltip"></i></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=pict&amp;att_name='.$obj->FieldName.'"><i class="fa fa-image fa-lg ms-2" title="'.$pictM.'" data-bs-toggle="tooltip"></i></a>';
       if ($dircmd_fma[2])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removedir&amp;att_name='.$obj->FieldName.'"><i class="far fa-trash-alt fa-lg text-danger ml-2" title="'.$suppM.'" data-toggle="tooltip"></i></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removedir&amp;att_name='.$obj->FieldName.'"><i class="far fa-trash-alt fa-lg text-danger ms-2" title="'.$suppM.'" data-bs-toggle="tooltip"></i></a>';
       $subdirs.='</td>
       </tr>';
 
@@ -995,19 +995,19 @@ while ($obj->NextFile()) {
       $obj->FieldName=rawurlencode($obj->FieldName);
       $cmd_ibid='';
       if ($ficcmd_fma[1])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamefile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg ml-2" title="'.$renaM.'" data-toggle="tooltip"></i></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamefile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg ms-2" title="'.$renaM.'" data-bs-toggle="tooltip"></i></a>';
       if ($ficcmd_fma[4]) {
          $tabW=explode(' ',$extension_Edit_fma);
          $suffix = strtoLower(substr(strrchr( $obj->FieldName, '.' ), 1 ));
          if (in_array($suffix,$tabW))
-            $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=editfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ml-2" title="'.$editM.'" data-toggle="tooltip"></i></a>';
+            $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=editfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ms-2" title="'.$editM.'" data-bs-toggle="tooltip"></i></a>';
       }
       if ($ficcmd_fma[5])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=movefile&amp;att_name='.$obj->FieldName.'"><i class="far fa-share-square fa-lg ml-2" title="'.$moveM.'" data-toggle="tooltip"></i></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=movefile&amp;att_name='.$obj->FieldName.'"><i class="far fa-share-square fa-lg ms-2" title="'.$moveM.'" data-bs-toggle="tooltip"></i></a>';
       if ($ficcmd_fma[3])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmodfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ml-2" title="'.$chmoM.'" data-toggle="tooltip"></i><small>7..</small></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmodfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ms-2" title="'.$chmoM.'" data-bs-toggle="tooltip"></i><small>7..</small></a>';
       if ($ficcmd_fma[2])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removefile&amp;att_name='.$obj->FieldName.'"><i class="far fa-trash-alt fa-lg text-danger ml-2" title="'.$suppM.'" data-toggle="tooltip"></i></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removefile&amp;att_name='.$obj->FieldName.'"><i class="far fa-trash-alt fa-lg text-danger ms-2" title="'.$suppM.'" data-bs-toggle="tooltip"></i></a>';
 if ($cmd_ibid) $files.='
          <td>'.$cmd_ibid.'</td>';
       $files.='
@@ -1028,7 +1028,7 @@ if (file_exists($infos_fma))
       <input type="hidden" name="op" value="upload" />
       <div class="form-group">
          <span class="help-block">'.fma_translate("Extensions autorisées : ").'<span class="text-success">'.$extension_fma.'</span></span>
-         <div class="input-group mb-2 mr-sm-2">
+         <div class="input-group mb-2 me-sm-2">
             <div class="input-group-prepend" onclick="reset2($(\'#userfile\'),\'\');">
                <div class="input-group-text"><i class="fas fa-sync"></i></div>
             </div>
@@ -1175,7 +1175,7 @@ if ($inclusion) {
       $Xcontent=str_replace('_infos','',$Xcontent);
    if ($dirpres_fma[5]) {
       if ($uniq_fma)
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-image fa-lg" title="'.fma_translate("Images manager").'" data-toggle="tooltip" data-placement="bottom"></i></span><span class="d-none d-sm-inline">'.fma_translate("Images manager").'</span></a>',$Xcontent);
+         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-image fa-lg" title="'.fma_translate("Images manager").'" data-bs-toggle="tooltip" data-bs-placement="bottom"></i></span><span class="d-none d-sm-inline">'.fma_translate("Images manager").'</span></a>',$Xcontent);
       else
          $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-inline">'.fma_translate("Images manager").'</span></a>',$Xcontent);
    } else

@@ -86,8 +86,8 @@ elseif ($moderate==2) {
       include('modules/geoloc/geoloc_conf.php');
       if($geo_ip==1)
          echo'
-         <div class="card-footer text-right">
-            <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=allip"><span><i class=" fa fa-globe fa-lg mr-1"></i><i class=" fa fa-tv fa-lg mr-2"></i></span><span class="d-none d-sm-inline">Carte des IP</span></a>
+         <div class="card-footer text-end">
+            <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=allip"><span><i class=" fa fa-globe fa-lg me-1"></i><i class=" fa fa-tv fa-lg me-2"></i></span><span class="d-none d-sm-inline">Carte des IP</span></a>
          </div>';
       echo '
       </div>

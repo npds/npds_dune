@@ -322,7 +322,7 @@ function print_form($bg) {
                if ($this->form_fields[$i]['obligation']){
                   $requi= 'required="required"';
                   $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
-                  $str.='<span class="text-danger ml-2">*</span>';
+                  $str.='<span class="text-danger ms-2">*</span>';
                }
                $str.='</label>
                <div class="col-sm-8">';
@@ -377,12 +377,12 @@ function print_form($bg) {
                   $requi= 'required="required"';
                $str.='
             <div class="form-group row">
-               <div class="col-sm-8 ml-sm-auto">
-                  <div class="custom-control custom-checkbox">
-                     <input class="custom-control-input" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" '.$requi;
+               <div class="col-sm-8 ms-sm-auto">
+                  <div class="form-check">
+                     <input class="form-check-input" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" '.$requi;
                $str.=($this->form_fields[$i]['checked'])? ' checked="checked" />' : ' />';
                $str.= '
-                     <label class="custom-control-label" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
+                     <label class="form-check-label" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
                if ($this->form_fields[$i]['obligation'])
                   $str.='<span class="text-danger"> *</span>';
                $str.= '</label>
@@ -443,7 +443,7 @@ function print_form($bg) {
                 <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                 <div class="col-sm-8">
                   <select class="'; 
-                $str.=($this->form_fields[$i]['multiple'])? 'form-control' : 'custom-select form-control';
+                $str.=($this->form_fields[$i]['multiple'])? 'form-control' : 'form-select';
                 $str.= '" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'];
                 $str.=($this->form_fields[$i]['multiple'])? '[]" multiple="multiple"' : "\"";
                 if ($num_extender!='no')
@@ -563,7 +563,7 @@ function print_form($bg) {
             <div id="avava" class="form-group row" lang="'.language_iso(1,'','').'">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                <div class="col-sm-8">
-                  <div class="input-group mb-2 mr-sm-2">
+                  <div class="input-group mb-2 me-sm-2">
                      <div class="input-group-prepend" onclick="reset2($(\'#'.$this->form_fields[$i]['name'].'\'),\'\');">
                         <div class="input-group-text"><i class="fas fa-sync"></i></div>
                      </div>

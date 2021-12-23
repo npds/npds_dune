@@ -50,7 +50,7 @@ function AddLink() {
             <label class="col-form-label col-sm-3" for="title">'.translate("Titre").'</label>
             <div class="col-sm-9">
                <input class="form-control" type="text" id="title" name="title" maxlength="100" required="required" />
-               <span class="help-block text-right" id="countcar_title"></span>
+               <span class="help-block text-end" id="countcar_title"></span>
            </div>
         </div>';
       global $links_url;
@@ -60,7 +60,7 @@ function AddLink() {
             <label class="col-form-label col-sm-3" for="url">URL</label>
             <div class="col-sm-9">
                <input class="form-control" type="url" id="url" name="url" maxlength="320" value="http://" required="required" />
-               <span class="help-block text-right" id="countcar_url"></span>
+               <span class="help-block text-end" id="countcar_url"></span>
            </div>
         </div>';
         $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
@@ -68,7 +68,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="cat">'.translate("Catégorie").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" id="cat" name="cat">';
+               <select class="form-select" id="cat" name="cat">';
         while (list($cid, $title) = sql_fetch_row($result)) {
            echo '
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -88,7 +88,7 @@ function AddLink() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="topicL">'.translate("Sujets").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" id="topicL" name="topicL">';
+               <select class="form-select" id="topicL" name="topicL">';
            $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
            echo '
                   <option value="">'.translate("Tous les sujets").'</option>';
@@ -121,14 +121,14 @@ function AddLink() {
             <label class="col-form-label col-sm-3" for="email">'.translate("Votre Email").'</label>
             <div class="col-sm-9">
                <input type="email" class="form-control" id="email" name="email" maxlength="254" required="required" />
-               <span class="help-block text-right" id="countcar_email"></span>
+               <span class="help-block text-end" id="countcar_email"></span>
             </div>
          </div>';
         echo Q_spambot();
         echo '
          <div class="form-group row">
             <input type="hidden" name="op" value="Add" />
-            <div class="col-sm-9 ml-sm-auto">
+            <div class="col-sm-9 ms-sm-auto">
                <input type="submit" class="btn btn-primary" value="'.translate("Ajouter une url").'" />
             </div>
          </div>

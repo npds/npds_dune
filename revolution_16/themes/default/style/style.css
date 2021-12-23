@@ -9,7 +9,7 @@
 /*     Balise html                                                           */
 html{}
 body {}
-a:hover {text-decoration:none;}
+a, a:hover {text-decoration:none;}
 table{table-layout: fixed;}
 /** <== Balise html                                                         **/
 

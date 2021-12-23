@@ -2,7 +2,7 @@
    <div class="card">
       <div class="card-header" id="headinggeoloc">
          <h2 class="mb-0">
-            <button class="btn btn-link text-decoration-none" type="button" data-toggle="collapse" data-target="#geoloc" aria-expanded="true" aria-controls="geoloc">
+            <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#geoloc" aria-expanded="true" aria-controls="geoloc">
             Geoloc, what is it?
             </button>
          </h2>
@@ -22,7 +22,7 @@
    <div class="card">
       <div class="card-header" id="headingcartes">
          <h2 class="mb-0">
-            <button class="btn btn-link collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#cartes" aria-expanded="false" aria-controls="cartes">
+            <button class="btn btn-link collapsed text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#cartes" aria-expanded="false" aria-controls="cartes">
             What types of cards can be displayed?
             </button>
          </h2>
@@ -141,7 +141,7 @@
    <div class="card">
       <div class="card-header" id="headingutilisateur">
          <h2 class="mb-0">
-            <button class="btn btn-link collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#utilisateur" aria-expanded="false" aria-controls="utilisateur">
+            <button class="btn btn-link collapsed text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#utilisateur" aria-expanded="false" aria-controls="utilisateur">
                What can the user do?
             </button>
          </h2>
@@ -171,12 +171,12 @@
                   <h5 class="my-2">The Functions block</h5>
                   <h6 class="my-3">Define or modify its geolocation</h6>
                   The upper part of the block contains the command allowing the geolocation of the user, as described in the section 
-                  <a class="btn-link collapsed" href="#" data-toggle="collapse" data-target="#geolocalisation" aria-expanded="false" aria-controls="geolocalisation">How do we geolocate?</a>
+                  <a class="btn-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#geolocalisation" aria-expanded="false" aria-controls="geolocalisation">How do we geolocate?</a>
                   <h6 class="my-3">Choose the background map</h6>
                   The user can change the type of displayed maps by clicking on the drop-down menu and then selecting a map background. The opacity of the map backgrounds can be changed with the cursor. For the images provided by NASA a cursor allows to choose the date of the images on the last 7 days.<br />
                   <h6 class="my-3">Utility layer</h6>
-                  By clicking on the switcher <div class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" id="ibid"><label class="custom-control-label" for="ibid"></label></div>you can add or remove one or more utility layers.<br /><br />
-                  The types of available map backgrounds and utility layers were described in the previous section: <a class="btn-link collapsed" href="#" data-toggle="collapse" data-target="#cartes" aria-expanded="false" aria-controls="cartes">
+                  By clicking on the switcher <div class="form-check form-switch d-inline"><input class="form-check-input" type="checkbox" checked="checked" data-bs-toggle="tooltip" id="ibid"><label class="form-check-label" for="ibid"></label></div>you can add or remove one or more utility layers.<br /><br />
+                  The types of available map backgrounds and utility layers were described in the previous section: <a class="btn-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#cartes" aria-expanded="false" aria-controls="cartes">
                   What types of cards can be displayed?
                   </a>
                </div>
@@ -193,7 +193,7 @@
                <li>The members geo-referenced not connected.</li>
             </ul>
             <br />
-            <a class="btn btn-link text-decoration-none" href="#" data-toggle="collapse" data-target="#visualisation" aria-expanded="true" aria-controls="visualisation">How to interpret the visualization of information?</a>
+            <a class="btn btn-link text-decoration-none" href="#" data-bs-toggle="collapse" data-bs-target="#visualisation" aria-expanded="true" aria-controls="visualisation">How to interpret the visualization of information?</a>
             <h5 class="my-3">Manipulate the map</h5>
             <p><span class=" ol-unselectable ol-control" style="position:relative;"><button class="ol-zoom-in d-inline" type="button" title="Zoom in">+</button><button class="ol-zoom-out d-inline" type="button" title="Zoom out">&minus;</button></span><span class="">This control is the tool used to zoom.
             You can also use the double click, the touchpad or the wheel (which will be active after a first click on the map...)  ...</span>
@@ -213,7 +213,7 @@
    <div class="card">
       <div class="card-header" id="headingvisualisation">
          <h2 class="mb-0">
-            <button class="btn btn-link collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#visualisation" aria-expanded="false" aria-controls="visualisation">
+            <button class="btn btn-link collapsed text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#visualisation" aria-expanded="false" aria-controls="visualisation">
                How can the visualization of information be interpreted?
             </button>
          </h2>
@@ -224,13 +224,13 @@
             <div class="row mb-3">
                <div class="col-md-7">
                   <p>
-                     All three blocks have a retractable <i class="align-middle text-primary fa fa-caret-down fa-lg mr-1" style="font-size:1.6rem;"></i> list of georeferenced elements. With the switcher <span class="custom-control custom-switch d-inline"><input class="custom-control-input" type="checkbox" checked="checked" data-toggle="tooltip" id="ibidz"><label class="custom-control-label" for="ibidz"></label></span> these can be displayed or not on the map.<br />
+                     All three blocks have a retractable <i class="align-middle text-primary fa fa-caret-down fa-lg me-1" style="font-size:1.6rem;"></i> list of georeferenced elements. With the switcher <span class="form-check form-switch d-inline"><input class="form-check-input" type="checkbox" checked="checked" data-bs-toggle="tooltip" id="ibidz"><label class="form-check-label" for="ibidz"></label></span> these can be displayed or not on the map.<br />
                      A click on an item in the list will target and center this one on the map, and opens a window.<br />
                      Clicking on the map icons opens a window with information and commands depending on the georeferenced element type. As described below.
                      <br /><br />
-                     <i style="color:#ff0000;" class="fa fa-user fa-lg mr-2"></i>The members geo-referenced connected.<br />
-                     <i style="color:#99928e;" class="fa fa-user fa-lg mr-2"></i>The anonymous geo-referenced connected.<br />
-                     <i style="color:#c00000; opacity:0.4;" class="fa fa-user fa-lg mr-2"></i>The members geo-referenced not connected.<br />
+                     <i style="color:#ff0000;" class="fa fa-user fa-lg me-2"></i>The members geo-referenced connected.<br />
+                     <i style="color:#99928e;" class="fa fa-user fa-lg me-2"></i>The anonymous geo-referenced connected.<br />
+                     <i style="color:#c00000; opacity:0.4;" class="fa fa-user fa-lg me-2"></i>The members geo-referenced not connected.<br />
                      <br />
                      Notice: in the members block you can search and filter...
                   </p>
@@ -267,7 +267,7 @@
    <div class="card">
       <div class="card-header" id="headinggeolocalisation">
          <h2 class="mb-0">
-            <button class="btn btn-link collapsed text-decoration-none" type="button" data-toggle="collapse" data-target="#geolocalisation" aria-expanded="false" aria-controls="geolocalisation">
+            <button class="btn btn-link collapsed text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#geolocalisation" aria-expanded="false" aria-controls="geolocalisation">
                How do we geolocate?
             </button>
          </h2>

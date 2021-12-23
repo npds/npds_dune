@@ -61,7 +61,7 @@ function geninfo($did,$out_template) {
                <p><strong>'.translate("Page d'accueil").'&nbsp;:</strong>&nbsp;<a href="http://'.$dweb.'" target="_blank">'.$dweb.'</a></p>';
       if ($out_template==1) {
          echo '
-               <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Charger maintenant").'" data-toggle="tooltip" data-placement="right"><i class="fa fa-lg fa-download"></i></a>
+               <a class="btn btn-primary" href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Charger maintenant").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fa fa-lg fa-download"></i></a>
             </div>
          </div>';
          include('footer.php');
@@ -82,20 +82,20 @@ function tlist() {
    $acounter = sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads");
    list($acount) = sql_fetch_row($acounter);
    if (($cate == translate("Tous")) OR ($cate == ''))
-      echo '<i class="fa fa-folder-open fa-2x text-muted align-middle mr-2"></i><strong><span class="align-middle">'.translate("Tous").'</span>
-<span class="badge badge-secondary ml-2 float-right my-2">'.$acount.'</span></strong>';
+      echo '<i class="fa fa-folder-open fa-2x text-muted align-middle me-2"></i><strong><span class="align-middle">'.translate("Tous").'</span>
+<span class="badge bg-secondary ms-2 float-end my-2">'.$acount.'</span></strong>';
    else
-      echo '<a href="download.php?dcategory='.translate("Tous").'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x align-middle mr-2"></i><span class="align-middle">'.translate("Tous").'</span></a><span class="badge badge-secondary ml-2 float-right my-2">'.$acount.'</span>';
+      echo '<a href="download.php?dcategory='.translate("Tous").'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x align-middle me-2"></i><span class="align-middle">'.translate("Tous").'</span></a><span class="badge bg-secondary ms-2 float-end my-2">'.$acount.'</span>';
    $result = sql_query("SELECT DISTINCT dcategory, COUNT(dcategory) FROM ".$NPDS_Prefix."downloads GROUP BY dcategory ORDER BY dcategory");
    echo '</p>';
    while (list($category, $dcount) = sql_fetch_row($result)) {
       $category=stripslashes($category);
       echo '<p class="p-2 mb-0">';
       if ($category == $cate)
-         echo '<i class="fa fa-folder-open fa-2x text-muted align-middle mr-2"></i><strong class="align-middle">'.aff_langue($category).'<span class="badge badge-secondary ml-2 float-right my-2">'.$dcount.'</span></strong>';
+         echo '<i class="fa fa-folder-open fa-2x text-muted align-middle me-2"></i><strong class="align-middle">'.aff_langue($category).'<span class="badge bg-secondary ms-2 float-end my-2">'.$dcount.'</span></strong>';
       else {
          $category2 = urlencode($category);
-         echo '<a href="download.php?dcategory='.$category2.'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x align-middle mr-2"></i><span class="align-middle">'.aff_langue($category).'</span></a><span class="badge badge-secondary ml-2 my-2 float-right">'.$dcount.'</span>';
+         echo '<a href="download.php?dcategory='.$category2.'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x align-middle me-2"></i><span class="align-middle">'.aff_langue($category).'</span></a><span class="badge bg-secondary ms-2 my-2 float-end">'.$dcount.'</span>';
       }
       echo '</p>';
    }
@@ -105,16 +105,16 @@ function tlist() {
 
 function act_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
    echo '
-         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Croissant").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-down"></i></a>&nbsp;
+         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Croissant").'" data-bs-toggle="tooltip" ><i class="fa fa-sort-amount-down"></i></a>&nbsp;
          '.translate("$englishname").'&nbsp;
-         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Décroissant").'" data-toggle="tooltip" ><i class="fa fa-sort-amount-up"></i></a>';
+         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Décroissant").'" data-bs-toggle="tooltip" ><i class="fa fa-sort-amount-up"></i></a>';
 }
 
 function inact_dl_tableheader($dcategory, $sortby, $fieldname, $englishname) {
    echo '
-         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Croissant").'" data-toggle="tooltip"><i class="fa fa-sort-amount-down" ></i></a>&nbsp;
+         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'" title="'.translate("Croissant").'" data-bs-toggle="tooltip"><i class="fa fa-sort-amount-down" ></i></a>&nbsp;
          '.translate("$englishname").'&nbsp;
-         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Décroissant").'" data-toggle="tooltip"><i class="fa fa-sort-amount-up" ></i></a>';
+         <a class="d-none d-sm-inline" href="download.php?dcategory='.$dcategory.'&amp;sortby='.$fieldname.'&amp;sortorder=DESC" title="'.translate("Décroissant").'" data-bs-toggle="tooltip"><i class="fa fa-sort-amount-up" ></i></a>';
 }
 
 function dl_tableheader () {
@@ -127,16 +127,16 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
    $out_template = 0;
    if ($aff) {
       echo '
-         <a class="mr-3" href="#" data-toggle="modal" data-target="#mo'.$did.'" title="'.translate("Information sur le fichier").'" data-toggle="tooltip"><i class="fa fa-info-circle fa-2x"></i></a>
-         <a href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Charger maintenant").'" data-toggle="tooltip"><i class="fa fa-download fa-2x"></i></a>
+         <a class="mr-3" href="#" data-bs-toggle="modal" data-bs-target="#mo'.$did.'" title="'.translate("Information sur le fichier").'" data-bs-toggle="tooltip"><i class="fa fa-info-circle fa-2x"></i></a>
+         <a href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Charger maintenant").'" data-bs-toggle="tooltip"><i class="fa fa-download fa-2x"></i></a>
         <div class="modal fade" id="mo'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
             <div class="modal-dialog">
                <div class="modal-content">
                   <div class="modal-header">
-                  <h4 class="modal-title text-left" id="my'.$did.'">'.translate("Information sur le fichier").' - '.$dfilename.'</h4>
+                  <h4 class="modal-title text-start" id="my'.$did.'">'.translate("Information sur le fichier").' - '.$dfilename.'</h4>
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" title=""><span aria-hidden="true">&times;</span></button>
                   </div>
-                  <div class="modal-body text-left">';
+                  <div class="modal-body text-start">';
                geninfo($did,$out_template);
       echo '
                   </div>
@@ -296,7 +296,7 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
          echo popuploader($did, $ddescription, $dcounter, $dfilename,true);
       else {
          echo popuploader($did, $ddescription, $dcounter, $dfilename,false);
-         echo '<span class="text-danger"><i class="fa fa-ban fa-lg mr-1"></i>'.translate("Privé").'</span>';
+         echo '<span class="text-danger"><i class="fa fa-ban fa-lg me-1"></i>'.translate("Privé").'</span>';
       }
       echo '</td>
             <td class="text-center">'.$Fichier->Affiche_Extention('webfont').'</td>
@@ -304,7 +304,7 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
       if ($okfile==true)
          echo '<a href="download.php?op=mydown&amp;did='.$did.'" target="_blank">'.$dfilename.'</a>';
       else
-         echo '<span class="text-danger"><i class="fa fa-ban fa-lg mr-1"></i>...</span>';
+         echo '<span class="text-danger"><i class="fa fa-ban fa-lg me-1"></i>...</span>';
       echo '</td>
             <td class="small text-center">';
       if ($dfilesize!=0)
@@ -320,7 +320,7 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
          echo '
             <td>';
          if ( ($okfile==true and $user!='') or autorisation(-127))
-            echo '<a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Rapporter un lien rompu").'" data-toggle="tooltip"><i class="fas fa-lg fa-unlink"></i></a>';
+            echo '<a href="download.php?op=broken&amp;did='.$did.'" title="'.translate("Rapporter un lien rompu").'" data-bs-toggle="tooltip"><i class="fas fa-lg fa-unlink"></i></a>';
          echo '
             </td>';
       }

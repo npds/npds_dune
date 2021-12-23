@@ -50,9 +50,9 @@ function listsections($rubric) {
       }
       $aff='';
       if ($rubric)
-         $aff.='<span class="lead"><a href="sections.php" title="'.translate("Retour à l'index des rubriques").'" data-toggle="tooltip">Index</a></span><hr />';
+         $aff.='<span class="lead"><a href="sections.php" title="'.translate("Retour à l'index des rubriques").'" data-bs-toggle="tooltip">Index</a></span><hr />';
       $aff.='
-      <h2>'.translate("Rubriques").'<span class="float-right badge badge-secondary">'.$nb_r.'</span></h2>';
+      <h2>'.translate("Rubriques").'<span class="float-end badge bg-secondary">'.$nb_r.'</span></h2>';
       if (sql_num_rows($result) > 0) {
          while (list($rubid, $rubname, $intro) = sql_fetch_row($result)) {
             $result2 = sql_query("SELECT secid, secname, image, userlevel, intro FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
@@ -62,11 +62,11 @@ function listsections($rubric) {
       <h3>';
             if($nb_section!==0)
                $aff.='
-         <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#rub-'.$rubid.'" ><i class="toggle-icon fa fa-caret-down"></i></a>';
+         <a href="#" class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#rub-'.$rubid.'" ><i class="toggle-icon fa fa-caret-down"></i></a>';
             else
                $aff.='<i class="fa fa-caret-down text-muted invisible "></i>';
             $aff.='
-         <a class="ml-2" href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class=" float-right">#NEW#<span class="badge badge-secondary" title="'.translate("Sous-rubrique").'" data-toggle="tooltip" data-placement="left">'.$nb_section.'</span></span>
+         <a class="ml-2" href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class=" float-end">#NEW#<span class="badge bg-secondary" title="'.translate("Sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$nb_section.'</span></span>
       </h3>';
             if ($intro!='')
                $aff.='<p class="text-muted">'.aff_langue($intro).'</p>';
@@ -83,8 +83,8 @@ function listsections($rubric) {
             <h4 class="mb-2">';
             if($nb_art!==0)
                $aff.='
-               <a href="#" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-up"></i></a>&nbsp;';
-                  $aff1= aff_langue($secname).'<span class=" float-right">#NEW#<span class="badge badge-secondary" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></span>';
+               <a href="#" class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-up"></i></a>&nbsp;';
+                  $aff1= aff_langue($secname).'<span class=" float-end">#NEW#<span class="badge bg-secondary" title="'.translate("Articles").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$nb_art.'</span></span>';
                   if ($image!='') {
                      if (file_exists("images/sections/$image")) {$imgtmp="images/sections/$image";} else {$imgtmp=$image;}
                      $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
@@ -106,11 +106,11 @@ function listsections($rubric) {
                         $nouveau='oo';
                         if ((time()-$timestamp)<(86400*7))
                            $nouveau='';
-                        $aff2.='<a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a><span class="float-right"><small>'.translate("lu : ").' '.$counter.' '.translate("Fois").'</small>';
+                        $aff2.='<a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a><span class="float-end"><small>'.translate("lu : ").' '.$counter.' '.translate("Fois").'</small>';
                         if ($nouveau=='') {
-                           $aff2.='<i class="far fa-star ml-3 text-success"></i>';
-                           $aff1 = str_replace('#NEW#','<span class="mr-2 badge badge-success animated faa-flash">N</span>',$aff1);
-                           $aff = str_replace('#NEW#','<span class="mr-2 badge badge-success animated faa-flash">N</span>',$aff);
+                           $aff2.='<i class="far fa-star ms-3 text-success"></i>';
+                           $aff1 = str_replace('#NEW#','<span class="mr-2 badge bg-success animated faa-flash">N</span>',$aff1);
+                           $aff = str_replace('#NEW#','<span class="mr-2 badge bg-success animated faa-flash">N</span>',$aff);
                         }
                         $aff2.='</span><br />';
                      }
@@ -150,7 +150,7 @@ function listarticles($secid) {
    list($secname, $rubid, $image, $intro, $userlevel) = sql_fetch_row($result);
    list($rubname) = sql_fetch_row(sql_query("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubid'"));
    if ($sections_chemin==1)
-      $chemin='<span class="lead"><a href="sections.php" title="'.translate("Retour à l'index des rubriques").'" data-toggle="tooltip">Index</a>&nbsp;/&nbsp;<a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a></span>'; 
+      $chemin='<span class="lead"><a href="sections.php" title="'.translate("Retour à l'index des rubriques").'" data-bs-toggle="tooltip">Index</a>&nbsp;/&nbsp;<a href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a></span>'; 
    $title =  aff_langue($secname);
    include ('header.php');
 
@@ -171,7 +171,7 @@ function listarticles($secid) {
          } else {
             echo $chemin.'
             <hr />
-            <h3 class="mb-3">'.$title.'<span class="float-right"><span class="badge badge-secondary" title="'.translate("Articles").'" data-toggle="tooltip" data-placement="left">'.$nb_art.'</span></h3>';
+            <h3 class="mb-3">'.$title.'<span class="float-end"><span class="badge bg-secondary" title="'.translate("Articles").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$nb_art.'</span></h3>';
          }
          if ($intro!='')
             echo aff_langue($intro);
@@ -195,7 +195,7 @@ function listarticles($secid) {
                echo '
                <div class="mb-1">
                <a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a><small>
-               '.translate("lu : ").' '.$counter.' '.translate("Fois").'</small><span class="float-right"><a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Page spéciale pour impression").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-print fa-lg"></i></a></span>';
+               '.translate("lu : ").' '.$counter.' '.translate("Fois").'</small><span class="float-end"><a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fa fa-print fa-lg"></i></a></span>';
                if ($nouveau=='') {
                   echo '&nbsp;<i class="fa fa-star-o text-success"></i>';
                }
@@ -262,7 +262,7 @@ function viewarticle($artid, $page) {
             <hr />
             <h3 class="mb-2">'.$title.'<span class="small text-muted"> - '.$pindex.'</span></h3>
             <p><span class="text-muted small">('.$words.' '.translate("mots dans ce texte )").'&nbsp;-&nbsp;
-         '.translate("lu : ").' '.$counter.' '.translate("Fois").'</span><span class="float-right"><a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Page spéciale pour impression").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-print fa-lg ml-3"></i></a></span></p><hr />';
+         '.translate("lu : ").' '.$counter.' '.translate("Fois").'</span><span class="float-end"><a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fa fa-print fa-lg ms-3"></i></a></span></p><hr />';
             preg_match_all('#\[page.*\]#', $Xcontent, $rs);
             $ndepages=count($rs[0]);
 
@@ -311,7 +311,7 @@ function viewarticle($artid, $page) {
             $nb_article = sql_num_rows($result3);
             if ($nb_article > 0) {
                echo '
-               <h4 class="my-3">'.translate("Autres publications de la sous-rubrique").'<span class="badge badge-secondary float-right">'.$nb_article.'</span></h4>
+               <h4 class="my-3">'.translate("Autres publications de la sous-rubrique").'<span class="badge bg-secondary float-end">'.$nb_article.'</span></h4>
                <ul class="list-group">';
                while (list($artid, $secid, $title, $userlevel) = sql_fetch_row($result3)) {
                   $okprint2=autorisation_section($userlevel);
@@ -328,7 +328,7 @@ function viewarticle($artid, $page) {
          $resultconnexe = sql_query("SELECT id2 FROM ".$NPDS_Prefix."compatsujet WHERE id1='$artid'");
          if (sql_num_rows($resultconnexe) > 0) {
             echo '
-            <h4 class="my-3">'.translate("Cela pourrait vous intéresser").'<span class="badge badge-secondary float-right">'.sql_num_rows($resultconnexe).'</span></h4>
+            <h4 class="my-3">'.translate("Cela pourrait vous intéresser").'<span class="badge bg-secondary float-end">'.sql_num_rows($resultconnexe).'</span></h4>
             <ul class="list-group">';
             while(list($connexe) = sql_fetch_row($resultconnexe)) {
                $resultpdtcompat = sql_query("SELECT artid, title, userlevel FROM ".$NPDS_Prefix."seccont WHERE artid='$connexe'");

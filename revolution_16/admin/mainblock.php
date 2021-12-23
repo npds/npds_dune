@@ -37,7 +37,7 @@ function mblock() {
                <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
                <div class="col-12">
                   <textarea class="form-control" type="text" id="title" name="title" maxlength="255" placeholder="'.adm_translate("Titre :").'">'.$title.'</textarea>
-                  <span class="help-block text-right"><span id="countcar_title"></span></span>
+                  <span class="help-block text-end"><span id="countcar_title"></span></span>
                </div>
             </div>
             <div class="form-group row">

@@ -50,7 +50,7 @@ $m->add_field('add_name', adm_translate("Nom"),$chng_name,'text',false,60,'','')
 $m->add_extender('add_name', '', '<span class="help-block"><span class="float-right" id="countcar_add_name"></span></span>');
 
 $m->add_field('add_email', adm_translate("E-mail"),$chng_email,'email',true,60,'','');
-$m->add_extender('add_email', '', '<span class="help-block text-right" id="countcar_add_email"></span>');
+$m->add_extender('add_email', '', '<span class="help-block text-end" id="countcar_add_email"></span>');
 
 $m->add_field('add_femail',adm_translate("Adresse E-mail masquée"),$chng_femail,'email',false,60,'','');
 $m->add_extender('add_femail', '', '<span class="help-block"><span class="float-right" id="countcar_add_femail"></span></span>');
@@ -124,7 +124,7 @@ if ($chng_user_viewemail) $checked=true; else $checked=false;
 $m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres utilisateurs à voir son adresse E-mail"), 1, false, $checked);
 
 $m->add_field('add_url','URL',$chng_url,'url',false,100,'','');
-$m->add_extender('add_url', '', '<span class="help-block text-right" id="countcar_add_url"></span>');
+$m->add_extender('add_url', '', '<span class="help-block text-end" id="countcar_add_url"></span>');
 
 // ---- SUBSCRIBE and INVISIBLE
 if ($chng_send_email==1) $checked=true; else $checked=false;
@@ -134,31 +134,31 @@ $m->add_checkbox('add_is_visible',adm_translate("Membre invisible"), 1, false, $
 // ---- SUBSCRIBE and INVISIBLE
 
 $m->add_field('add_user_from', adm_translate("Situation géographique"),$chng_user_from,'text',false,100,'','');
-$m->add_extender('add_user_from', '', '<span class="help-block text-right" id="countcar_add_user_from"></span>');
+$m->add_extender('add_user_from', '', '<span class="help-block text-end" id="countcar_add_user_from"></span>');
 
 $m->add_field('add_user_occ', adm_translate("Activité"),$chng_user_occ,'text',false,100,'','');
-$m->add_extender('add_user_occ', '', '<span class="help-block text-right" id="countcar_add_user_occ"></span>');
+$m->add_extender('add_user_occ', '', '<span class="help-block text-end" id="countcar_add_user_occ"></span>');
 
 $m->add_field('add_user_intrest', adm_translate("Centres d'intérêt"),$chng_user_intrest,'text',false,150,'','');
-$m->add_extender('add_user_intrest', '', '<span class="help-block text-right" id="countcar_add_user_intrest"></span>');
+$m->add_extender('add_user_intrest', '', '<span class="help-block text-end" id="countcar_add_user_intrest"></span>');
 
 if ($attach==1) $checked=true; else $checked=false;
 $m->add_checkbox('attach',adm_translate("Afficher signature"), 1, false, $checked);
 $m->add_field('add_user_sig', adm_translate("Signature"),$chng_user_sig,'textarea',false,255,7,'','');
-$m->add_extender('add_user_sig', '', '<span class="help-block text-right" id="countcar_add_user_sig"></span>');
+$m->add_extender('add_user_sig', '', '<span class="help-block text-end" id="countcar_add_user_sig"></span>');
 
 $m->add_field('add_bio',adm_translate("Informations supplémentaires"),$chng_bio,'textarea',false,255,7,'','');
-$m->add_extender('add_bio', '', '<span class="help-block text-right" id="countcar_add_bio" ></span>');
+$m->add_extender('add_bio', '', '<span class="help-block text-end" id="countcar_add_bio" ></span>');
 
 $requi='';
 if ($op=="ModifyUser") $requi=false; else $requi=true;
 $m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',$requi,'40','','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 ml-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div></div></div>');
-$m->add_extender('add_pass', '', '<span class="help-block text-right" id="countcar_add_pass"></span>');
+$m->add_extra('<div class="form-group row"><div class="col-sm-8 ms-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div></div></div>');
+$m->add_extender('add_pass', '', '<span class="help-block text-end" id="countcar_add_pass"></span>');
 
 if ($op=="ModifyUser") {
    $m->add_field('add_pass2', adm_translate("Entrez à nouveau le Mot de Passe").'&nbsp;<span class="small">'.adm_translate("(seulement pour modifications)").'</span>','','password',false,40,'','');
-   $m->add_extender('add_pass2', '', '<span class="help-block text-right" id="countcar_add_pass2"></span>');
+   $m->add_extender('add_pass2', '', '<span class="help-block text-end" id="countcar_add_pass2"></span>');
 }
 // --- EXTENDER
 if (file_exists("modules/sform/extend-user/extender/formulaire.php"))
@@ -182,7 +182,7 @@ include_once('modules/geoloc/geoloc_conf.php');
 
 $m->add_extra('
       <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto" >
+         <div class="col-sm-8 ms-sm-auto" >
             <button type="submit" class="btn btn-primary">'.translate("Valider").'</button>
          </div>
       </div>

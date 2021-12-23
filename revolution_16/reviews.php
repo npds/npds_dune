@@ -45,7 +45,7 @@ function write_review() {
          <label class="col-form-label col-sm-4" for="title_rev">'.translate("Objet").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="title_rev" name="title" rows="2" required="required" maxlength="150"></textarea>
-            <span class="help-block text-right" id="countcar_title_rev"></span>
+            <span class="help-block text-end" id="countcar_title_rev"></span>
          </div>
       </div>
       <div class="form-group row">
@@ -71,7 +71,7 @@ function write_review() {
          <label class="col-form-label col-sm-4" for="email_rev">'.translate("Votre adresse Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'" maxlength="254" required="required" />
-            <span class="help-block text-right" id="countcar_email_rev"></span>
+            <span class="help-block text-end" id="countcar_email_rev"></span>
          </div>
       </div>';
    } else {
@@ -86,7 +86,7 @@ function write_review() {
          <label class="col-form-label col-sm-4" for="email_rev">'.translate("Votre adresse Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="email_rev" name="email" maxlength="254" required="required" />
-            <span class="help-block text-right" id="countcar_email_rev"></span>
+            <span class="help-block text-end" id="countcar_email_rev"></span>
          </div>
       </div>';
    }
@@ -94,7 +94,7 @@ function write_review() {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="score_rev">'.translate("Evaluation").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" id="score_rev" name="score">
+            <select class="form-select" id="score_rev" name="score">
                <option value="10">10</option>
                <option value="9">9</option>
                <option value="8">8</option>
@@ -139,7 +139,7 @@ function write_review() {
    }
    echo '
       <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
+         <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="op" value="preview_review" />
             <button type="submit" class="btn btn-primary" >'.translate("Prévisualiser").'</button>
             <button type="button" onclick="history.go(-1)" class="btn btn-secondary" title="'.translate("Retour en arrière").'">'.translate("Retour en arrière").'</button>
@@ -262,9 +262,9 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
       echo '
        <div class="form-group row">
            <div class="col-sm-12">
-               <div class="custom-control custom-checkbox">
-                   <input class="custom-control-input" type="checkbox" id="consent" name="consent" value="1" required="required"/>
-                   <label class="custom-control-label" for="consent">'
+               <div class="form-check">
+                   <input class="form-check-input" type="checkbox" id="consent" name="consent" value="1" required="required"/>
+                   <label class="form-check-label" for="consent">'
                        .aff_langue($accept).'
                        <span class="text-danger"> *</span>
                    </label>
@@ -380,7 +380,7 @@ function reviews($field, $order) {
    $numresults = sql_num_rows($result);
 
    echo '
-   <h2>'.translate("Critiques").'<span class="badge badge-secondary float-right" title="'.$numresults.' '.translate("Critique(s) trouvée(s).").'" data-toggle="tooltip">'.$numresults.'</span></h2>
+   <h2>'.translate("Critiques").'<span class="badge bg-secondary float-end" title="'.$numresults.' '.translate("Critique(s) trouvée(s).").'" data-bs-toggle="tooltip">'.$numresults.'</span></h2>
    <hr />
    <h3>'.aff_langue($r_title).'</h3>
    <p class="lead">'.aff_langue($r_description).'</p>
@@ -388,18 +388,18 @@ function reviews($field, $order) {
    ';
    echo'
    <div class="dropdown">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <i class="fa fa-sort-amount-down mr-2"></i>'.translate("Critiques").'
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="fa fa-sort-amount-down me-2"></i>'.translate("Critiques").'
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=date&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>'.translate("Date").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=date&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>'.translate("Date").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=title&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>'.translate("Titre").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=title&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>'.translate("Titre").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>'.translate("Posté par").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>'.translate("Posté par").'</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=score&amp;order=ASC"><i class="fa fa-sort-amount-down mr-2"></i>Score</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=score&amp;order=DESC"><i class="fa fa-sort-amount-up mr-2"></i>Score</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=date&amp;order=ASC"><i class="fa fa-sort-amount-down me-2"></i>'.translate("Date").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=date&amp;order=DESC"><i class="fa fa-sort-amount-up me-2"></i>'.translate("Date").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=title&amp;order=ASC"><i class="fa fa-sort-amount-down me-2"></i>'.translate("Titre").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=title&amp;order=DESC"><i class="fa fa-sort-amount-up me-2"></i>'.translate("Titre").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=ASC"><i class="fa fa-sort-amount-down me-2"></i>'.translate("Posté par").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=DESC"><i class="fa fa-sort-amount-up me-2"></i>'.translate("Posté par").'</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=score&amp;order=ASC"><i class="fa fa-sort-amount-down me-2"></i>Score</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=score&amp;order=DESC"><i class="fa fa-sort-amount-up me-2"></i>Score</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=ASC"><i class="fa fa-sort-amount-down"></i>Hits</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=DESC"><i class="fa fa-sort-amount-up"></i>Hits</a>
       </div>
@@ -489,7 +489,7 @@ function showcontent($id) {
    <hr />
    <a href="reviews.php">'.translate("Retour à l'index des critiques").'</a>
    <div class="card card-body my-3">
-      <div class="card-text text-muted text-right small">
+      <div class="card-text text-muted text-end small">
    '.translate("Ajouté :").' '.$fdate.'<br />
       </div>
    <hr />
@@ -511,7 +511,7 @@ function showcontent($id) {
    </div>';
    if ($url != '')
       echo '<div class="mb-2"><strong>'.translate("Lien relatif").' : </strong> <a href="'.$url.'" target="_blank">'.$url_title.'</a></div>';
-   echo '<div><strong>'.translate("Hits : ").'</strong><span class="badge badge-secondary">'.$hits.'</span></div>
+   echo '<div><strong>'.translate("Hits : ").'</strong><span class="badge bg-secondary">'.$hits.'</span></div>
       </div>';
    if ($admin)
       echo '
@@ -521,10 +521,10 @@ function showcontent($id) {
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 d-none d-lg-inline">'.translate("Outils administrateur").'</span></a>
             </li>
             <li class="page-item">
-               <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>
+               <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Editer").'" data-bs-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>
             </li>
             <li class="page-item">
-               <a class="page-link text-danger" role="button" href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Effacer").'" data-toggle="tooltip" ><i class="fas fa-trash fa-lg" ></i></a>
+               <a class="page-link text-danger" role="button" href="reviews.php?op=del_review&amp;id_del='.$id.'" title="'.translate("Effacer").'" data-bs-toggle="tooltip" ><i class="fas fa-trash fa-lg" ></i></a>
             </li>
          </ul>
       </nav>';
@@ -576,7 +576,7 @@ function mod_review($id) {
          <label class="col-form-label col-sm-4" for="title_modrev">'.translate("Titre").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="title_modrev" name="title" rows="2" required="required" maxlength="150">'.$title.'</textarea>
-            <span class="help-block text-right" id="countcar_title_modrev"></span>
+            <span class="help-block text-end" id="countcar_title_modrev"></span>
          </div>
       </div>
       <div class="form-group row">
@@ -589,20 +589,20 @@ function mod_review($id) {
          <label class="col-form-label col-sm-4" for="reviewer_modrev">'.translate("Le critique").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="reviewer_modrev" name="reviewer" value="'.$reviewer.'" required="required" maxlength="25"/>
-            <span class="help-block text-right" id="countcar_reviewer_modrev"></span>
+            <span class="help-block text-end" id="countcar_reviewer_modrev"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="email_modrev">'.translate("Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="email_modrev" name="email" value="'.$email.'" maxlength="254" required="required"/>
-            <span class="help-block text-right" id="countcar_email_modrev"></span>
+            <span class="help-block text-end" id="countcar_email_modrev"></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="score_modrev">'.translate("Evaluation").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" id="score_modrev" name="score">';
+            <select class="form-select" id="score_modrev" name="score">';
       $i=1;$sel='';
       do {
          if ($i==$score) $sel='selected="selected" '; else $sel='';
@@ -644,7 +644,7 @@ function mod_review($id) {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
+         <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="op" value="preview_review" />
             <input class="btn btn-primary col-12 mb-2" type="submit" value="'.translate("Prévisualiser les modifications").'" />
             <input class="btn btn-secondary col-12" type="button" onclick="history.go(-1)" value="'.translate("Annuler").'" />

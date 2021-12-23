@@ -55,7 +55,7 @@ function subscribe($var) {
          '.Q_spambot().'
          <input type="hidden" name="email" value="'.$var.'" />
          <input type="hidden" name="op" value="subscribeOK" />
-         <input type="submit" class="btn btn-outline-primary mr-2" value="'.translate("Valider").'" />
+         <input type="submit" class="btn btn-outline-primary me-2" value="'.translate("Valider").'" />
          <a href="index.php" class="btn btn-outline-secondary">'.translate("Retour en arrière").'</a>
       </form>';
       include("footer.php");

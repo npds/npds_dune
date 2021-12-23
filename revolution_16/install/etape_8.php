@@ -46,7 +46,7 @@ function etape_8() {
                      </div>
                      <div class="form-group row">
                         <label class="col-form-label" for="new_autorise_upload_p">'.ins_translate("Autoriser l'upload dans le répertoire personnel").'</label>
-                        <select class="custom-select form-control" id="new_autorise_upload_p" name="new_autorise_upload_p">';
+                        <select class="form-select" id="new_autorise_upload_p" name="new_autorise_upload_p">';
    if($autorise_upload_p == "true") {$sel1 = 'selected="selected"';$sel2 = '';}
    else {$sel1 = '';$sel2 = 'selected="selected"';}
    echo '

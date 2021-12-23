@@ -48,8 +48,8 @@ function poll_createPoll() {
                <td>'.aff_langue($object["pollTitle"]).'</td>
                <td>'.$object["voters"].'</td>
                <td>
-                  <a href="admin.php?op=editpollPosted&amp;id='.$object["pollID"].'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer ce sondage").'" data-toggle="tooltip"></i></a>
-                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fas fa-trash fa-lg text-danger ml-2" title="'.adm_translate("Effacer ce sondage").'" data-toggle="tooltip"></i></a>
+                  <a href="admin.php?op=editpollPosted&amp;id='.$object["pollID"].'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer ce sondage").'" data-bs-toggle="tooltip"></i></a>
+                  <a href="admin.php?op=removePosted&amp;id='.$object["pollID"].'"><i class="fas fa-trash fa-lg text-danger ms-2" title="'.adm_translate("Effacer ce sondage").'" data-bs-toggle="tooltip"></i></a>
                </td>
             </tr>';
         $result2 = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='".$object["pollID"]."'");
@@ -67,7 +67,7 @@ function poll_createPoll() {
             <div class="col-sm-9 ">
                <input class="form-control" type="text" id="pollTitle" name="pollTitle" id="pollTitle" maxlength="100" required="required" />
                <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
-               <span class="help-block text-right"><span id="countcar_pollTitle"></span></span>
+               <span class="help-block text-end"><span id="countcar_pollTitle"></span></span>
             </div>
          </div>';
    $requi='';
@@ -78,21 +78,21 @@ function poll_createPoll() {
                <label class="col-form-label col-sm-3 " for="optionText'.$i.'">'.adm_translate("Option").'</label>
                <div class="col-sm-9" >
                   <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" '.$requi.' />
-                  <span class="help-block text-right"><span id="countcar_optionText'.$i.'"></span></span>
+                  <span class="help-block text-end"><span id="countcar_optionText'.$i.'"></span></span>
                </div>
             </div>';
    }
    echo '
             <div class="form-group row">
-               <div class="col-sm-9 ml-sm-auto">
-                  <div class="custom-control custom-checkbox custom-control-inline">
-                     <input class="custom-control-input" type="checkbox" id="poll_type" name="poll_type" value="1" />
-                     <label class="custom-control-label" for="poll_type">'.adm_translate("Seulement aux membres").'</label>
+               <div class="col-sm-9 ms-sm-auto">
+                  <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="checkbox" id="poll_type" name="poll_type" value="1" />
+                     <label class="form-check-label" for="poll_type">'.adm_translate("Seulement aux membres").'</label>
                   </div>
                </div>
             </div>
             <div class="form-group row">
-               <div class="col-sm-9 ml-sm-auto">
+               <div class="col-sm-9 ms-sm-auto">
                   <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
                </div>
             </div>
@@ -249,7 +249,7 @@ function poll_editPollPosted() {
          <div class="col-sm-9">
             <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" required="required" />
             <span class="help-block">'.adm_translate("S.V.P. entrez chaque option disponible dans un seul champ").'</span>
-            <span class="help-block text-right"><span id="countcar_pollTitle"></span></span>
+            <span class="help-block text-end"><span id="countcar_pollTitle"></span></span>
          </div>
       </div>';
       $requi='';
@@ -261,7 +261,7 @@ function poll_editPollPosted() {
          <label class="col-form-label col-sm-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
          <div class="col-sm-9 ">
             <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" '.$requi.' />
-            <span class="help-block text-right"><span id="countcar_optionText'.$i.'"></span></span>
+            <span class="help-block text-end"><span id="countcar_optionText'.$i.'"></span></span>
          </div>
       </div>';
       }
@@ -269,27 +269,27 @@ function poll_editPollPosted() {
       $pollType = $pollType%128;
       echo '
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
-            <div class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" id="poll_type" name="poll_type" value="1"';
+         <div class="col-sm-9 ms-sm-auto">
+            <div class="form-check">
+               <input class="form-check-input" type="checkbox" id="poll_type" name="poll_type" value="1"';
       if ($pollType == "1") echo ' checked="checked"';
       echo ' />
-               <label class="custom-control-label" for="poll_type">'.adm_translate("Seulement aux membres").'</label>
+               <label class="form-check-label" for="poll_type">'.adm_translate("Seulement aux membres").'</label>
             </div>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
-            <div class="custom-control custom-checkbox text-danger">
-               <input class="custom-control-input" type="checkbox" id="poll_close" name="poll_close" value="1"';
+         <div class="col-sm-9 ms-sm-auto">
+            <div class="form-check text-danger">
+               <input class="form-check-input" type="checkbox" id="poll_close" name="poll_close" value="1"';
       if ($pollClose == 1) echo ' checked="checked"';
       echo ' />
-               <label class="custom-control-label" for="poll_close">'.adm_translate("Vote fermé").'</label>
+               <label class="form-check-label" for="poll_close">'.adm_translate("Vote fermé").'</label>
             </div>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
+         <div class="col-sm-9 ms-sm-auto">
             <button class="btn btn-primary" type="submit">Ok</button>
          </div>
       </div>

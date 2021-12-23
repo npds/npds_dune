@@ -35,7 +35,7 @@ function win_upload($apli,$IdPost,$IdForum,$IdTopic,$typeL) {
          </div>
       </div>
       
-      <a class="mr-3" href="#themodal" data-remote="modules.php?ModPath=upload&ModStart=include_forum/upload_forum2&apli='.$apli.'&IdPost='.$IdPost.'&IdForum='.$IdForum.'&IdTopic='.$IdTopic.'" data-toggle="modal" data-target="#themodal" title="'.translate("Fichiers").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>
+      <a class="mr-3" href="#themodal" data-remote="modules.php?ModPath=upload&ModStart=include_forum/upload_forum2&apli='.$apli.'&IdPost='.$IdPost.'&IdForum='.$IdForum.'&IdTopic='.$IdTopic.'" data-bs-toggle="modal" data-bs-target="#themodal" title="'.translate("Fichiers").'" data-bs-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>
 
       
       <script type="text/javascript">

@@ -45,28 +45,28 @@ function droits($member) {
    <fieldset>
    <legend>'.adm_translate("Droits").'</legend>
    <div class="form-group">
-      <div class="custom-control custom-radio custom-control-inline">';
+      <div class="form-check form-check-inline">';
    if ($member==-127) $checked=' checked="checked"'; else $checked='';
       echo '
-         <input class="custom-control-input" type="radio" id="adm" name="members" value="-127" '.$checked.' />
-         <label class="custom-control-label" for="adm">'.adm_translate("Administrateurs").'</label>
+         <input class="form-check-input" type="radio" id="adm" name="members" value="-127" '.$checked.' />
+         <label class="form-check-label" for="adm">'.adm_translate("Administrateurs").'</label>
       </div>
-      <div class="custom-control custom-radio custom-control-inline">';
+      <div class="form-check form-check-inline">';
    if ($member==-1) $checked=' checked="checked"'; else $checked='';
    echo '
-         <input class="custom-control-input" type="radio" id="ano" name="members" value="-1" '.$checked.' />
-         <label class="custom-control-label" for="ano">'.adm_translate("Anonymes").'</label>
+         <input class="form-check-input" type="radio" id="ano" name="members" value="-1" '.$checked.' />
+         <label class="form-check-label" for="ano">'.adm_translate("Anonymes").'</label>
       </div>';
    echo '
-      <div class="custom-control custom-radio custom-control-inline">';
+      <div class="form-check form-check-inline">';
    if ($member>0) {
       echo '
-         <input class="custom-control-input" type="radio" id="mem" name="members" value="1" checked="checked" />
-         <label class="custom-control-label" for="mem">'.adm_translate("Membres").'</label>
+         <input class="form-check-input" type="radio" id="mem" name="members" value="1" checked="checked" />
+         <label class="form-check-label" for="mem">'.adm_translate("Membres").'</label>
       </div>
-      <div class="custom-control custom-radio custom-control-inline">
-         <input class="custom-control-input" type="radio" id="tous" name="members" value="0" />
-         <label class="custom-control-label" for="tous">'.adm_translate("Tous").'</label>
+      <div class="form-check form-check-inline">
+         <input class="form-check-input" type="radio" id="tous" name="members" value="0" />
+         <label class="form-check-label" for="tous">'.adm_translate("Tous").'</label>
       </div>
    </div>
    <div class="form-group">
@@ -76,12 +76,12 @@ function droits($member) {
    } else {
       if ($member==0) $checked=' checked="checked"'; else $checked='';
       echo '
-         <input class="custom-control-input" type="radio" id="mem" name="members" value="1" />
-         <label class="custom-control-label" for="mem">'.adm_translate("Membres").'</label>
+         <input class="form-check-input" type="radio" id="mem" name="members" value="1" />
+         <label class="form-check-label" for="mem">'.adm_translate("Membres").'</label>
       </div>
-      <div class="custom-control custom-radio custom-control-inline">
-         <input class="custom-control-input" type="radio" id="tous" name="members" value="0"'.$checked.' />
-         <label class="custom-control-label" for="tous">'.adm_translate("Tous").'</label>
+      <div class="form-check form-check-inline">
+         <input class="form-check-input" type="radio" id="tous" name="members" value="0"'.$checked.' />
+         <label class="form-check-label" for="tous">'.adm_translate("Tous").'</label>
       </div>
    </div>
    <div class="form-group">
@@ -96,7 +96,7 @@ function sousrub_select($secid) {
    global $radminsuper, $aid, $NPDS_Prefix;
    $ok_pub=false;
    $tmp='
-         <select name="secid" class="custom-select form-control">';
+         <select name="secid" class="form-select">';
    $result = sql_query("SELECT distinct rubid, rubname, ordre FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
    while(list($rubid, $rubname) = sql_fetch_row($result)) {
       $rubname = aff_langue($rubname);
@@ -159,18 +159,18 @@ function sections() {
    <ul class="list-group">';
    if ($nb_rub > 0)
       echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=sections#ajouter publication"><i class="fa fa-plus-square fa-lg mr-2"></i>'.adm_translate("Ajouter une publication").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=sections#ajouter publication"><i class="fa fa-plus-square fa-lg me-2"></i>'.adm_translate("Ajouter une publication").'</a></li>';
    echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=rub"><i class="fa fa-plus-square fa-lg mr-2"></i>'.adm_translate("Ajouter une nouvelle Rubrique").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=rub"><i class="fa fa-plus-square fa-lg me-2"></i>'.adm_translate("Ajouter une nouvelle Rubrique").'</a></li>';
    if ($nb_rub > 0)
       echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=sec" ><i class="fa fa-plus-square fa-lg mr-2"></i>'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=new_rub_section&amp;type=sec" ><i class="fa fa-plus-square fa-lg me-2"></i>'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</a></li>';
    if ($radminsuper==1) 
       echo '
-      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-up fa-lg mr-2"></i>'.adm_translate("Changer l'ordre des rubriques").'</a></li>
-      <li class="list-group-item list-group-item-action"><a href="#droits des auteurs"><i class="fa fa-user-edit fa-lg mr-2"></i>'.adm_translate("Droits des auteurs").'</a></li>';
+      <li class="list-group-item list-group-item-action"><a href="admin.php?op=ordremodule"><i class="fa fa-sort-amount-up fa-lg me-2"></i>'.adm_translate("Changer l'ordre des rubriques").'</a></li>
+      <li class="list-group-item list-group-item-action"><a href="#droits des auteurs"><i class="fa fa-user-edit fa-lg me-2"></i>'.adm_translate("Droits des auteurs").'</a></li>';
    echo '
-      <li class="list-group-item list-group-item-action"><a href="#publications en attente"><i class="fa fa-clock fa-lg mr-2"></i>'.adm_translate("Publication(s) en attente de validation").'</a></li>
+      <li class="list-group-item list-group-item-action"><a href="#publications en attente"><i class="fa fa-clock fa-lg me-2"></i>'.adm_translate("Publication(s) en attente de validation").'</a></li>
    </ul>';
 
    if ($nb_rub > 0) {
@@ -180,18 +180,18 @@ function sections() {
       <h3 class="my-3">'.adm_translate("Liste des rubriques").'</h3>';
       while (list($rubid, $rubname, $enligne, $ordre) = sql_fetch_row($result)) {$i++;
          if ($radminsuper==1) {
-            $href1='<a href="admin.php?op=rubriquedit&amp;rubid='.$rubid.'" title="'.adm_translate("Editer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg mr-2"></i>&nbsp;';
+            $href1='<a href="admin.php?op=rubriquedit&amp;rubid='.$rubid.'" title="'.adm_translate("Editer la rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fa fa-edit fa-lg me-2"></i>&nbsp;';
             $href2='</a>';
-            $href3='<a href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'" class="text-danger" title="'.adm_translate("Supprimer la rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fas fa-trash fa-lg"></i></a>';
+            $href3='<a href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'" class="text-danger" title="'.adm_translate("Supprimer la rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fas fa-trash fa-lg"></i></a>';
          } else {
             $href1=''; $href2=''; $href3='';
          }
          $rubname = aff_langue($rubname);
          if ($rubname=='') $rubname=adm_translate("Sans nom");
-         if ($enligne==0) { $online='<span class="badge badge-danger ml-1 p-2">'.adm_translate("Hors Ligne").'</span>'; } else if ($enligne==1) { $online = '<span class="badge badge-success ml-1 p-2">'.adm_translate("En Ligne").'</span>'; }
+         if ($enligne==0) { $online='<span class="badge bg-danger ms-1 p-2">'.adm_translate("Hors Ligne").'</span>'; } else if ($enligne==1) { $online = '<span class="badge bg-success ms-1 p-2">'.adm_translate("En Ligne").'</span>'; }
          echo '
       <div class="list-group-item bg-light lead">
-         <a href="" class="arrow-toggle text-primary" data-toggle="collapse" data-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="float-right">'.$href1.$href2.$href3.'</span>
+         <a href="" class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="float-right">'.$href1.$href2.$href3.'</span>
       </div>';
 
          if ($radminsuper==1)
@@ -202,9 +202,9 @@ function sections() {
          if (sql_num_rows($result2) > 0) {
             echo '
             <div id="srub'.$i.'" class=" mb-3 collapse ">
-               <div class="list-group-item d-flex"><span class="badge badge-secondary mr-2 p-2">'.sql_num_rows($result2).'</span><strong class="">'.adm_translate("Sous-rubriques").'</strong>';
+               <div class="list-group-item d-flex"><span class="badge bg-secondary me-2 p-2">'.sql_num_rows($result2).'</span><strong class="">'.adm_translate("Sous-rubriques").'</strong>';
                if ($radminsuper==1)
-                  echo '<span class="ml-auto"><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre des sous-rubriques").'" data-toggle="tooltip" data-placement="left" ><i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
+                  echo '<span class="ml-auto"><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre des sous-rubriques").'" data-bs-toggle="tooltip" data-bs-placement="left" ><i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
                echo '</div>';
 
            while (list($secid, $secname) = sql_fetch_row($result2)) {
@@ -216,18 +216,18 @@ function sections() {
                <div class="list-group-item d-flex">';
                if (sql_num_rows($result3) > 0) 
                   echo'
-                  <a href="" class="arrow-toggle text-primary " data-toggle="collapse" data-target="#lst_sect_'.$secid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>';
+                  <a href="" class="arrow-toggle text-primary " data-bs-toggle="collapse" data-bs-target="#lst_sect_'.$secid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>';
                else 
                   echo'<span class=""> - </span>';
                echo' 
                   &nbsp;
                '.$secname.'&nbsp;
-               <span class=" ml-auto">
-               <a class="" href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg mr-2 py-2"></i></a>';
+               <span class=" ms-auto">
+               <a class="" href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg me-2 py-2"></i></a>';
                if ($droit_pub>0 and $droit_pub!=4) // à revoir pas suffisant
-                  echo '<a class="" href="admin.php?op=sectionedit&amp;secid='.$secid.'" title="'.adm_translate("Editer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fa fa-edit fa-lg py-2 mr-2"></i></a>';
+                  echo '<a class="" href="admin.php?op=sectionedit&amp;secid='.$secid.'" title="'.adm_translate("Editer la sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fa fa-edit fa-lg py-2 me-2"></i></a>';
               if (($droit_pub==7) or ($droit_pub==4))
-                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-toggle="tooltip" data-placement="left"><i class="fas fa-trash fa-lg text-danger mr-2 py-2"></i></a>';
+                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fas fa-trash fa-lg text-danger me-2 py-2"></i></a>';
               echo '</span>
               </div>';
                if (sql_num_rows($result3) > 0) {
@@ -235,10 +235,10 @@ function sections() {
                   echo '
                   <div id="lst_sect_'.$secid.'" class=" collapse">
                   <li class="list-group-item d-flex">
-                  <span class="badge badge-secondary ml-4 p-2">'.sql_num_rows($result3).'</span>&nbsp;<strong class=" text-capitalize">'.adm_translate("publications").'</strong>';
+                  <span class="badge bg-secondary ms-4 p-2">'.sql_num_rows($result3).'</span>&nbsp;<strong class=" text-capitalize">'.adm_translate("publications").'</strong>';
                   if ($radminsuper==1)
                      echo '
-                  <span class="ml-auto"><a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" title="'.adm_translate("Changer l'ordre des publications").'" data-toggle="tooltip" data-placement="left">&nbsp;<i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
+                  <span class="ml-auto"><a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" title="'.adm_translate("Changer l'ordre des publications").'" data-bs-toggle="tooltip" data-bs-placement="left">&nbsp;<i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
                   echo '</li>';
                   while (list($artid, $title) = sql_fetch_row($result3)) {
                      if ($title=='') $title=adm_translate("Sans titre");
@@ -251,7 +251,7 @@ function sections() {
                            <a href="admin.php?op=secartedit&amp;artid='.$artid.'" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;';
                      if (($droit_pub==7) or ($droit_pub==4))
                         echo '
-                           <a href="admin.php?op=secartdelete&amp;artid='.$artid.'" class="text-danger" title="'.adm_translate("Supprimer").'" data-toggle="tooltip"><i class="far fa-trash fa-lg"></i></a>';
+                           <a href="admin.php?op=secartdelete&amp;artid='.$artid.'" class="text-danger" title="'.adm_translate("Supprimer").'" data-bs-toggle="tooltip"><i class="far fa-trash fa-lg"></i></a>';
                      echo '
                         </span>
                      </li>';
@@ -322,19 +322,19 @@ function sections() {
       $nb_enattente=sql_num_rows($result);
       while(list($artid, $secid, $title, $content, $author) = sql_fetch_row($result)) {
          $enattente .= '
-         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pr-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg mr-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
+         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pe-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg me-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
       }
    } else {
       $result = sql_query("SELECT distinct seccont_tempo.artid, seccont_tempo.title, seccont_tempo.author FROM ".$NPDS_Prefix."seccont_tempo, ".$NPDS_Prefix."publisujet WHERE seccont_tempo.secid=publisujet.secid2 AND publisujet.aid='$aid' AND (publisujet.type='1' OR publisujet.type='2')");
       $nb_enattente=sql_num_rows($result);
       while(list($artid, $title, $author) = sql_fetch_row($result)) {
          $enattente .= '
-         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pr-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg mr-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
+         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pe-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg me-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
       }
    }
    echo '
    <hr />
-   <h3 class="mb-3"><a name="publications en attente"><i class="far fa-clock fa-lg mr-1"></i>'.adm_translate("Publication(s) en attente de validation").'</a><span class="badge badge-danger float-right">'.$nb_enattente.'</span></h3>
+   <h3 class="mb-3"><a name="publications en attente"><i class="far fa-clock fa-lg me-1"></i>'.adm_translate("Publication(s) en attente de validation").'</a><span class="badge bg-danger float-end">'.$nb_enattente.'</span></h3>
    <ul class="list-group">
    '.$enattente.'
    </ul>';
@@ -342,7 +342,7 @@ function sections() {
    if ($radminsuper==1) {
       echo  '
       <hr />
-      <h3 class="mb-3"><a name="droits des auteurs"><i class="fa fa-user-edit mr-2"></i>'.adm_translate("Droits des auteurs").'</a></h3>';
+      <h3 class="mb-3"><a name="droits des auteurs"><i class="fa fa-user-edit me-2"></i>'.adm_translate("Droits des auteurs").'</a></h3>';
       $result = sql_query("SELECT aid, name, radminsuper FROM authors");
       echo '<div class="row">';
       while(list($Xaid, $name, $Xradminsuper) = sql_fetch_row($result)) {
@@ -351,7 +351,7 @@ function sections() {
             <div class="col-sm-4">
                <div class="card my-2 p-1">
                   <div class="card-body p-1">
-                     <i class="fa fa-user fa-lg mr-1"></i><br />'.$Xaid.'&nbsp;/&nbsp;'.$name.'<br />
+                     <i class="fa fa-user fa-lg me-1"></i><br />'.$Xaid.'&nbsp;/&nbsp;'.$name.'<br />
                      <a href="admin.php?op=droitauteurs&amp;author='.$Xaid.'">'.adm_translate("Modifier l'information").'</a>
                   </div>
                </div>
@@ -377,7 +377,7 @@ function new_rub_section($type) {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="rubref">'.adm_translate("Rubriques").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="rubref" name="rubref">';
+               <select class="form-select" id="rubref" name="rubref">';
       if ($radminsuper==1)
          $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
       else
@@ -399,7 +399,7 @@ function new_rub_section($type) {
          <div class="form-group">
             <label class="col-form-label" for="secname">'.adm_translate("Titre").'</label>
             <textarea  class="form-control" id="secname" name="secname" maxlength="255" rows="2" required="required"></textarea>
-            <span class="help-block text-right"><span id="countcar_secname"></span></span>
+            <span class="help-block text-end"><span id="countcar_secname"></span></span>
          </div>
          <div class="form-group">
             <label class="col-form-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
@@ -427,7 +427,7 @@ function new_rub_section($type) {
             <div class="form-group">
                <label class="col-form-label" for="rubname">'.adm_translate("Nom de la Rubrique").'</label>
                <textarea class="form-control" id="rubname" name="rubname" rows="2" maxlength="255" required="required"></textarea>
-               <span class="help-block text-right" id="countcar_rubname"></span>
+               <span class="help-block text-end" id="countcar_rubname"></span>
             </div>
             <div class="form-group">
                <label class="col-form-label" for="introc">'.adm_translate("Texte d'introduction").'</label>
@@ -470,7 +470,7 @@ function publishcompat($article) {
    if ($enligne == 0) { $online = adm_translate("Hors Ligne");$cla="danger"; } else if ($enligne == 1) { $online = adm_translate("En Ligne");$cla="success"; }
    echo '
       <div class="list-group-item bg-light">
-         <a class="arrow-toggle text-primary" data-toggle="collapse" data-target="#lst_'.$rubid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.aff_langue($rubname).'<span class="badge badge-'.$cla.' float-right">'.$online.'</span>
+         <a class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#lst_'.$rubid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.aff_langue($rubname).'<span class="badge bg-'.$cla.' float-end">'.$online.'</span>
       </div>';
       if ($radminsuper==1)
          $result2 = sql_query("SELECT secid, secname FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
@@ -481,19 +481,19 @@ function publishcompat($article) {
          <ul id="lst_'.$rubid.'" class="list-group mb-1 collapse">';
          while (list($secid, $secname) = sql_fetch_row($result2)) {
             echo '
-            <li class="list-group-item"><strong class="ml-3" title="'.adm_translate("sous-rubrique").'" data-toggle="tooltip">'.aff_langue($secname).'</strong></li>';
+            <li class="list-group-item"><strong class="ml-3" title="'.adm_translate("sous-rubrique").'" data-bs-toggle="tooltip">'.aff_langue($secname).'</strong></li>';
             $result3 = sql_query("SELECT artid, title FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
             if (sql_num_rows($result3) > 0) {
                while (list($artid, $title) = sql_fetch_row($result3)) {
                   $i++;
                   $result4 = sql_query("SELECT id2 FROM ".$NPDS_Prefix."compatsujet WHERE id2='$artid' AND id1='$article'");
                   echo '
-            <li class="list-group-item list-group-item-action"><div class="custom-control custom-checkbox ml-3">';
+            <li class="list-group-item list-group-item-action"><div class="form-check ms-3">';
                   if (sql_num_rows($result4) > 0)
-                     echo '<input class="custom-control-input" type="checkbox"  id="admin_rub'.$i.'" name="admin_rub['.$i.']" value="'.$artid.'" checked="checked" />';
+                     echo '<input class="form-check-input" type="checkbox"  id="admin_rub'.$i.'" name="admin_rub['.$i.']" value="'.$artid.'" checked="checked" />';
                   else
-                     echo '<input class="custom-control-input" type="checkbox" id="admin_rub'.$i.'" name="admin_rub['.$i.']" value="'.$artid.'" />';
-               echo '<label class="custom-control-label" for="admin_rub'.$i.'">'.aff_langue($title).'</label></div></li>';
+                     echo '<input class="form-check-input" type="checkbox" id="admin_rub'.$i.'" name="admin_rub['.$i.']" value="'.$artid.'" />';
+               echo '<label class="form-check-label" for="admin_rub'.$i.'">'.aff_langue($title).'</label></div></li>';
                }
             }
          }
@@ -548,14 +548,14 @@ function rubriquedit($rubid) {
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer une Rubrique : ").' <span class="text-muted">'.aff_langue($rubname).' #'.$rubid.'</span></h3>';
    if ($number)
-      echo '<span class="badge badge-secondary">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
+      echo '<span class="badge bg-secondary">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
    echo '
          <form id="rubriquedit" action="admin.php" method="post" name="adminForm">
          <div class="form-group row">
             <label class="col-form-label col-sm-12" for="rubname">'.adm_translate("Titre").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" id="rubname" name="rubname" maxlength ="255" rows="2" required="required">'.$rubname.'</textarea>
-               <span class="help-block text-right"><span id="countcar_rubname"></span></span>
+               <span class="help-block text-end"><span id="countcar_rubname"></span></span>
             </div>
          </div>
          <div class="form-group row">
@@ -576,13 +576,13 @@ function rubriquedit($rubid) {
    }
    echo '
             <div class="col-sm-9">
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input class="custom-control-input" type="radio" id="enligne_n" name="enligne" value="0" '.$sel2.' />
-                  <label class="custom-control-label" for="enligne_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="enligne_n" name="enligne" value="0" '.$sel2.' />
+                  <label class="form-check-label" for="enligne_n">'.adm_translate("Non").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input class="custom-control-input" type="radio" id="enligne_y" name="enligne" value="1" '.$sel1.' />
-                  <label class="custom-control-label" for="enligne_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="enligne_y" name="enligne" value="1" '.$sel1.' />
+                  <label class="form-check-label" for="enligne_y">'.adm_translate("Oui").'</label>
                </div>
             </div>
          </div>
@@ -656,7 +656,7 @@ function sectionedit($secid) {
    $result2 = sql_query("SELECT artid FROM ".$NPDS_Prefix."seccont WHERE secid='$secid'");
    $number = sql_num_rows($result2);
    if ($number)
-      echo '<span class="badge badge-secondary p-2 mr-2">'.$number.' </span>'.adm_translate("publication(s) attachée(s)");
+      echo '<span class="badge bg-secondary p-2 me-2">'.$number.' </span>'.adm_translate("publication(s) attachée(s)");
    echo '
          <form id="sectionsedit" action="admin.php" method="post" name="adminForm">
          <div class="form-group">
@@ -668,7 +668,7 @@ function sectionedit($secid) {
          else
             $result = sql_query("SELECT DISTINCT r.rubid, r.rubname FROM ".$NPDS_Prefix."rubriques r LEFT JOIN ".$NPDS_Prefix."sections s on r.rubid= s.rubid LEFT JOIN ".$NPDS_Prefix."publisujet p on s.secid= p.secid2 WHERE p.aid='$aid'");
          echo '
-            <select class="custom-select form-control" id="rubref" name="rubref">';
+            <select class="form-select" id="rubref" name="rubref">';
       while(list($rubid, $rubname) = sql_fetch_row($result)) {
          $sel = $rubref==$rubid?'selected="selected"':'';
          echo '
@@ -686,7 +686,7 @@ function sectionedit($secid) {
 /*
    if ($radminsuper==1) {
       echo '
-            <select class="custom-select form-control" id="rubref" name="rubref">';
+            <select class="form-select" id="rubref" name="rubref">';
       $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
       while(list($rubid, $rubname) = sql_fetch_row($result)) {
          $sel = $rubref==$rubid?'selected="selected"':'';
@@ -708,12 +708,12 @@ function sectionedit($secid) {
    <div class="form-group">
       <label class="col-form-label" for="secname">'.adm_translate("Sous-rubrique").'</label>
       <textarea class="form-control" id="secname" name="secname" rows="4" maxlength="255" required="required">'.$secname.'</textarea>
-      <span class="help-block text-right"><span id="countcar_secname"></span></span>
+      <span class="help-block text-end"><span id="countcar_secname"></span></span>
    </div>
    <div class="form-group">
       <label class="col-form-label" for="image">'.adm_translate("Image").'</label>
       <input type="text" class="form-control" id="image" name="image" maxlength="255" value="'.$image.'" />
-      <span class="help-block text-right"><span id="countcar_image"></span></span>
+      <span class="help-block text-end"><span id="countcar_image"></span></span>
    </div>
    <div class="form-group">
       <label class="col-form-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
@@ -861,7 +861,7 @@ function secartupdate($artid) {
       $fin = '
       <div class="form-group row">
          <div class="col-12">
-            <select class="custom-select" name="op">
+            <select class="form-select" name="op">
                <option value="secartchangeup" selected="selected">'.adm_translate("Mettre à jour").'</option>
                <option value="secartdelete2">'.adm_translate("Supprimer").'</option>
             </select>
@@ -877,7 +877,7 @@ function secartupdate($artid) {
       $fin = '
       <div class="form-group row">
          <div class="col-12">
-            <select class="custom-select" name="op">
+            <select class="form-select" name="op">
                <option value="secartchangeup" selected="selected">'.adm_translate("Mettre à jour").'</option>
                <option value="secartdelete2">'.adm_translate("Supprimer").'</option>
                <option value="secartpublish">'.adm_translate("Publier").'</option>
@@ -1388,7 +1388,7 @@ function publishrights($author) {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-3"><i class="fa fa-user-edit mr-2"></i>'.adm_translate("Droits des auteurs").' : <span class="text-muted">'.$author.'</span></h3>
+   <h3 class="mb-3"><i class="fa fa-user-edit me-2"></i>'.adm_translate("Droits des auteurs").' : <span class="text-muted">'.$author.'</span></h3>
    <form action="admin.php" method="post">';
    $result1 = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
    $numrow=sql_num_rows($result1);
@@ -1397,7 +1397,7 @@ function publishrights($author) {
       echo '
          <table class="table table-bordered table-sm" data-toggle="" data-classes=""  data-striped="true" data-icons-prefix="fa" data-icons="icons">
             <thead class="thead-light">
-               <tr class="table-secondary"><th colspan="5"><span class="custom-control custom-checkbox"><input class="custom-control-input" id="ckbrall_'.$rubid.'" type="checkbox" /><label class="custom-control-label lead" for="ckbrall_'.$rubid.'">'.aff_langue($rubname).'</label></span></th></tr>
+               <tr class="table-secondary"><th colspan="5"><span class="form-check"><input class="form-check-input" id="ckbrall_'.$rubid.'" type="checkbox" /><label class="form-check-label lead" for="ckbrall_'.$rubid.'">'.aff_langue($rubname).'</label></span></th></tr>
                <tr class="">
                   <th class="colspan="2" n-t-col-xs-3" data-sortable="true">'.adm_translate("Sous-rubriques").'</th>
                   <th class="n-t-col-xs-2 text-center" data-halign="center" data-align="center">'.adm_translate("Créer").'</th>
@@ -1427,11 +1427,11 @@ function publishrights($author) {
          }
          echo '
                <tr>
-                  <td><div class="custom-control custom-checkbox"><input class="custom-control-input" id="ckbsrall_'.$secid.'" type="checkbox" /><label class="custom-control-label" for="ckbsrall_'.$secid.'">'.aff_langue($secname).'</label></div></td>
-                  <td class="text-center"><div class="custom-control custom-checkbox"><input class="custom-control-input ckbsr_'.$secid.' ckbr_'.$rubid.'" type="checkbox" id="creation'.$i.'" name="creation['.$i.']" value="'.$secid.'" '.$crea.' /><label class="custom-control-label" for="creation'.$i.'"></label></div></td>
-                  <td class="text-center"><div class="custom-control custom-checkbox"><input class="custom-control-input ckbsr_'.$secid.' ckbr_'.$rubid.'" type="checkbox" id="publication'.$i.'" name="publication['.$i.']" value="'.$secid.'" '.$publi.' /><label class="custom-control-label" for="publication'.$i.'"></label></div></td>
-                  <td class="text-center"><div class="custom-control custom-checkbox"><input class="custom-control-input ckbsr_'.$secid.' ckbr_'.$rubid.'" type="checkbox" id="modification'.$i.'" name="modification['.$i.']" value="'.$secid.'" '.$modif.' /><label class="custom-control-label" for="modification'.$i.'"></label></div></td>
-                  <td class="text-center"><div class="custom-control custom-checkbox"><input class="custom-control-input ckbsr_'.$secid.' ckbr_'.$rubid.'" type="checkbox" id="suppression'.$i.'" name="suppression['.$i.']" value="'.$secid.'" '.$supp.' /><label class="custom-control-label" for="suppression'.$i.'"></label></div></td>
+                  <td><div class="form-check"><input class="form-check-input" id="ckbsrall_'.$secid.'" type="checkbox" /><label class="form-check-label" for="ckbsrall_'.$secid.'">'.aff_langue($secname).'</label></div></td>
+                  <td class="text-center"><div class="form-check"><input class="form-check-input ckbsr_'.$secid.' ckbr_'.$rubid.'" type="checkbox" id="creation'.$i.'" name="creation['.$i.']" value="'.$secid.'" '.$crea.' /><label class="form-check-label" for="creation'.$i.'"></label></div></td>
+                  <td class="text-center"><div class="form-check"><input class="form-check-input ckbsr_'.$secid.' ckbr_'.$rubid.'" type="checkbox" id="publication'.$i.'" name="publication['.$i.']" value="'.$secid.'" '.$publi.' /><label class="form-check-label" for="publication'.$i.'"></label></div></td>
+                  <td class="text-center"><div class="form-check"><input class="form-check-input ckbsr_'.$secid.' ckbr_'.$rubid.'" type="checkbox" id="modification'.$i.'" name="modification['.$i.']" value="'.$secid.'" '.$modif.' /><label class="form-check-label" for="modification'.$i.'"></label></div></td>
+                  <td class="text-center"><div class="form-check"><input class="form-check-input ckbsr_'.$secid.' ckbr_'.$rubid.'" type="checkbox" id="suppression'.$i.'" name="suppression['.$i.']" value="'.$secid.'" '.$supp.' /><label class="form-check-label" for="suppression'.$i.'"></label></div></td>
                </tr>'; 
          $scrsr .='
                $("#ckbsrall_'.$secid.'").change(function(){
@@ -1446,7 +1446,7 @@ function publishrights($author) {
    echo '<input type="hidden" name="chng_aid" value="'.$author.'" />
          <input type="hidden" name="op" value="updatedroitauteurs" />
          <input type="hidden" name="maxindex" value="'.$i.'" />
-         <input class="btn btn-primary mr-3" type="submit" value="'.adm_translate("Valider").'" />
+         <input class="btn btn-primary me-3" type="submit" value="'.adm_translate("Valider").'" />
          <input class="btn btn-secondary" type="button" onclick="javascript:history.back()" value="'.adm_translate("Retour en arrière").'" />
    </form>';
    echo '

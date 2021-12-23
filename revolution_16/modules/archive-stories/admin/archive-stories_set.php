@@ -41,13 +41,13 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             <label class="col-form-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
             <div class="col-sm-8">
                <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
-               <span class="help-block text-right"><span id="countcar_arch_titre"></span></span>
+               <span class="help-block text-end"><span id="countcar_arch_titre"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="arch">';
+               <select class="form-select" name="arch">';
    if ($arch == 1)
       $sel_a = 'selected="selected"';
    else
@@ -68,11 +68,11 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
             <label class="col-form-label col-sm-4" for="retcache">'.adm_translate("Rétention").'</label>
             <div class="col-sm-8">
               <input class="form-control" type="text" id="retcache" name="retcache" value="'.$retcache.'" min="0" maxlength="7" required="required" />
-               <span class="help-block text-right">'.adm_translate("Temps de rétention en secondes").'</span>
+               <span class="help-block text-end">'.adm_translate("Temps de rétention en secondes").'</span>
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 ml-sm-auto">
+            <div class="col-sm-8 ms-sm-auto">
                <button class="btn btn-primary col-12" type="submit">'.adm_translate("Sauver").'</button>
                <input type="hidden" name="op" value="Extend-Admin-SubModule" />
                <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -84,7 +84,7 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
       </fieldset>
    </form>
    <hr />
-   <a href= "modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModPath.'" ><i class="fas fa-external-link-alt fa-lg mr-1" title="Voir le module en mode utilisation." data-toggle="tooltip" data-placement="right"></i>Voir le module en mode utilisation.</a>';
+   <a href= "modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModPath.'" ><i class="fas fa-external-link-alt fa-lg me-1" title="Voir le module en mode utilisation." data-bs-toggle="tooltip" data-bs-placement="right"></i>Voir le module en mode utilisation.</a>';
    $fv_parametres='
    maxcount: {
       validators: {

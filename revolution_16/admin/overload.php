@@ -86,13 +86,13 @@ function main() {
    $cky=''; $ckn='';
    if ($SuperCache==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input class="custom-control-input" type="radio" id="xsupercache_y" name="xsupercache" value="true" '.$cky.' />
-                  <label class="custom-control-label" for="xsupercache_y">'.adm_translate("Oui").'</label>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="xsupercache_y" name="xsupercache" value="true" '.$cky.' />
+                  <label class="form-check-label" for="xsupercache_y">'.adm_translate("Oui").'</label>
                </div>
-               <div class="custom-control custom-radio custom-control-inline">
-                  <input class="custom-control-input" type="radio" id="xsupercache_n" name="xsupercache" value="false" '.$ckn.' />
-                  <label class="custom-control-label" for="xsupercache_n">'.adm_translate("Non").'</label>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="xsupercache_n" name="xsupercache" value="false" '.$ckn.' />
+                  <label class="form-check-label" for="xsupercache_n">'.adm_translate("Non").'</label>
                </div>
             </div>
          </div>
@@ -114,49 +114,49 @@ function main() {
          <div class=" col-sm-4 col-12">
             <label for="xt_index"><code>index.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_index" name="xt_index" value="'.$CACHE_TIMINGS['index.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
-            <span class="help-block">Def : 300<span class="float-right ml-1" id="countcar_xt_index"></span></span>
+            <span class="help-block">Def : 300<span class="float-right ms-1" id="countcar_xt_index"></span></span>
          </div>
          <div class=" col-sm-4 col-12">
             <label for="xt_article"><code>article.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_article" name="xt_article" value="'.$CACHE_TIMINGS['article.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
-            <span class="help-block">Def : 300<span class="float-right ml-1" id="countcar_xt_article"></span></span>
+            <span class="help-block">Def : 300<span class="float-right ms-1" id="countcar_xt_article"></span></span>
          </div>
          <div class=" col-sm-4 col-12">
             <label for="xt_sections"><code>sections.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_sections" name="xt_sections" value="'.$CACHE_TIMINGS['sections.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
-            <span class="help-block">Def : 300<span class="float-right ml-1" id="countcar_xt_sections"></span></span>
+            <span class="help-block">Def : 300<span class="float-right ms-1" id="countcar_xt_sections"></span></span>
          </div>
          <div class=" col-sm-4 col-12">
             <label for="xt_faq"><code>faq.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_faq" name="xt_faq" value="'.$CACHE_TIMINGS['faq.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
-            <span class="help-block">Def : 86400<span class="float-right ml-1" id="countcar_xt_faq"></span></span>
+            <span class="help-block">Def : 86400<span class="float-right ms-1" id="countcar_xt_faq"></span></span>
          </div>
          <div class=" col-sm-4 col-12">
             <label for="xt_links"><code>links.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_links" name="xt_links" value="'.$CACHE_TIMINGS['links.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
-            <span class="help-block">Def : 28800<span class="float-right ml-1" id="countcar_xt_links"></span></span>
+            <span class="help-block">Def : 28800<span class="float-right ms-1" id="countcar_xt_links"></span></span>
          </div>
          <div class=" col-sm-4 col-12">
             <label for="xt_forum"><code>forum.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_forum" name="xt_forum" value="'.$CACHE_TIMINGS['forum.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
-            <span class="help-block">Def : 3600<span class="float-right ml-1" id="countcar_xt_forum"></span></span>
+            <span class="help-block">Def : 3600<span class="float-right ms-1" id="countcar_xt_forum"></span></span>
          </div>
          <div class=" col-sm-4 col-12">
             <label for="xt_memberlist"><code>memberlist.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_memberlist" name="xt_memberlist" value="'.$CACHE_TIMINGS['memberslist.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
-            <span class="help-block">Def : 1800<span class="float-right ml-1" id="countcar_xt_memberlist"></span></span>
+            <span class="help-block">Def : 1800<span class="float-right ms-1" id="countcar_xt_memberlist"></span></span>
          </div>
          <div class=" col-sm-4 col-12">
             <label for="xt_modules"><code>modules.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_modules" name="xt_modules" value="'.$CACHE_TIMINGS['modules.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
-            <span class="help-block">Def : 3600<span class="float-right ml-1" id="countcar_xt_modules"></span></span>
+            <span class="help-block">Def : 3600<span class="float-right ms-1" id="countcar_xt_modules"></span></span>
          </div>
       </div>
       </fieldset>
       <div class="form-group row">
          <input type="hidden" name="op" value="supercache_save" />
          <div class="col-12">
-            <button class="btn btn-outline-primary col-12 text-left" type="submit"><i class="fa fa-check fa-lg">&nbsp;</i>'.adm_translate("Valider").'</button>
+            <button class="btn btn-outline-primary col-12 text-start" type="submit"><i class="fa fa-check fa-lg">&nbsp;</i>'.adm_translate("Valider").'</button>
          </div>
       </div>
       </form>
@@ -164,7 +164,7 @@ function main() {
       <form id="fad_cacheclean" action="admin.php" method="post">
          <div class="form-group row">
             <div class="col-12">
-               <button class="btn btn-outline-danger col-12 float-right text-right" type="submit">'.adm_translate("Vider le répertoire cache").'&nbsp;<i class="fas fa-trash fa-lg"></i></button>
+               <button class="btn btn-outline-danger col-12 float-end text-end" type="submit">'.adm_translate("Vider le répertoire cache").'&nbsp;<i class="fas fa-trash fa-lg"></i></button>
             </div>
          </div>
          <input type="hidden" name="op" value="supercache_empty" />

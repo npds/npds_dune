@@ -187,7 +187,7 @@ if ($admin) {
             <th>'.translate("Forum").'</th>
             <th class="n-t-col-xs-2 text-center">'.translate("Sujets").'</th>
             <th class="n-t-col-xs-2 text-center">'.translate("Contributions").'</th>
-            <th class="n-t-col-xs-3 text-right">'.translate("Dernières contributions").'</th>
+            <th class="n-t-col-xs-3 text-end">'.translate("Dernières contributions").'</th>
          </tr>
       </thead>';
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."catagories ORDER BY cat_id");
@@ -212,7 +212,7 @@ if ($admin) {
             $xfile.="\$xforum[$num_for][2] = $total_topics;\n";
             $desc = stripslashes($myrow['forum_desc']);
             echo '
-               <td><a tabindex="0" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="'.$desc.'"><i class="far fa-lg fa-file-alt mr-2"></i></a><a href="viewforum.php?forum='.$myrow['forum_id'].'" ><span class="text-danger">';
+               <td><a tabindex="0" role="button" data-bs-trigger="focus" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="'.$desc.'"><i class="far fa-lg fa-file-alt me-2"></i></a><a href="viewforum.php?forum='.$myrow['forum_id'].'" ><span class="text-danger">';
             if (array_key_exists($num_for, $xforum))
                echo $xforum[$num_for][1];
             echo '</span> -/- '.$name.' </a></td>

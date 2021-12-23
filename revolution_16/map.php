@@ -43,9 +43,9 @@ function mapsections() {
     if ($tmp!='')
       echo '
          <h3>
-            <a class="" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
+            <a class="" data-bs-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
             <i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Rubriques").'
-            <span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
+            <span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span>
          </h3>
       <div class="collapse" id="collapseSections">
          <div class="card card-body">
@@ -65,7 +65,7 @@ function mapforum() {
     if ($tmp!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Forums").'
+         <a class="" data-bs-toggle="collapse" href="#collapseForums" aria-expanded="false" aria-controls="collapseForums"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Forums").'
       </h3>
       <div class="collapse" id="collapseForums">
          <div class="card card-body">
@@ -89,8 +89,8 @@ function maptopics() {
     if ($lis_top!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Sujets").'
-         <span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
+         <a class="" data-bs-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Sujets").'
+         <span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseTopics">
          <div class="card card-body">
@@ -109,13 +109,13 @@ function mapcategories() {
    while (list($catid, $title) = sql_fetch_row($result)) {
       $result2 = sql_query("SELECT sid FROM stories WHERE catid='$catid'");
       $nb_article = sql_num_rows($result2);
-      $lis_cat.='<li><a href="index.php?op=newindex&amp;catid='.$catid.'">'.aff_langue($title).'</a> <span class="float-right badge badge-secondary"> '.$nb_article.' </span></li>'."\n";
+      $lis_cat.='<li><a href="index.php?op=newindex&amp;catid='.$catid.'">'.aff_langue($title).'</a> <span class="float-right badge bg-secondary"> '.$nb_article.' </span></li>'."\n";
    }
    if ($lis_cat!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Catégories").'
-         <span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
+         <a class="" data-bs-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("Catégories").'
+         <span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseCategories">
          <div class="card card-body">
@@ -139,8 +139,8 @@ function mapfaq() {
     if ($lis_faq!='')
       echo '
       <h3>
-         <a class="" data-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ - Questions fréquentes").'
-         <span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
+         <a class="" data-bs-toggle="collapse" href="#collapseFaq" aria-expanded="false" aria-controls="collapseFaq"><i class="toggle-icon fa fa-caret-down"></i></a>&nbsp;'.translate("FAQ - Questions fréquentes").'
+         <span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span>
       </h3>
       <div class="collapse" id="collapseFaq">
          <div class="card card-body">

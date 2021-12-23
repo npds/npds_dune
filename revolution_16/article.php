@@ -101,8 +101,8 @@ if (!isset($sid) && !isset($tid))
       $boxstuff .='
       </ul>
       <p align="center">
-         <a href="print.php?sid='.$sid.'&amp;archive='.$archive.'" ><i class="fa fa-print fa-lg mr-1" title="'.translate("Page spéciale pour impression").'" data-toggle="tooltip"></i></a>
-         <a href="friend.php?op=FriendSend&amp;sid='.$sid.'&amp;archive='.$archive.'"><i class="fa fa-lg fa-at" title="'.translate("Envoyer cet article à un ami").'" data-toggle="tooltip"></i></a>
+         <a href="print.php?sid='.$sid.'&amp;archive='.$archive.'" ><i class="fa fa-print fa-lg me-1" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip"></i></a>
+         <a href="friend.php?op=FriendSend&amp;sid='.$sid.'&amp;archive='.$archive.'"><i class="fa fa-lg fa-at" title="'.translate("Envoyer cet article à un ami").'" data-bs-toggle="tooltip"></i></a>
       </p>';
 
       if (!$archive) {

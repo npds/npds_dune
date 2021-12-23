@@ -200,7 +200,7 @@ if ($submitS) {
             if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
       if (isset($user))
          if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
    }
@@ -276,9 +276,9 @@ if ($submitS) {
       echo '
                   </div>';
    if ($allow_html == 1) {
-      echo '<span class="text-success float-right mt-2" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+      echo '<span class="text-success float-end mt-2" title="HTML '.translate("Activé").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    } else
-      echo '<span class="text-danger float-right mt-2" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+      echo '<span class="text-danger float-end mt-2" title="HTML '.translate("Désactivé").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
             <div class="card-body">';
@@ -309,7 +309,7 @@ if ($submitS) {
                </div>
                <div class="card-footer p-0">
                   <span class="d-block">
-                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
+                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-bs-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
                   </span>
                </div>
             </div>
@@ -322,9 +322,9 @@ if ($submitS) {
          echo '
          <div class="col-sm-12">
             <div class="checkbox">
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
-                  <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="html" name="html" '.$sethtml.' />
+                  <label class="form-check-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
                </div>
             </div>';
       }
@@ -336,9 +336,9 @@ if ($submitS) {
             if (($forum_type!='6') and ($forum_type!='5')) {
                echo '
             <div class="checkbox">
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
-                  <label class="custom-control-label" for="sig">'.translate("Afficher la signature").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sig" name="sig" '.$s.' />
+                  <label class="form-check-label" for="sig">'.translate("Afficher la signature").'</label>
                   <small class="help-text">'.translate("Cela peut être retiré ou ajouté dans vos paramètres personnels").'</small>
                </div>
             </div>';
@@ -350,9 +350,9 @@ if ($submitS) {
             if ($upload == 'on') $up = 'checked="checked"';
             echo '
             <div class="checkbox">
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="upload" name="upload" '.$up.' />
-                  <label class="custom-control-label" for="upload">'.translate("Charger un fichier une fois l'envoi accepté").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="upload" name="upload" '.$up.' />
+                  <label class="form-check-label" for="upload">'.translate("Charger un fichier une fois l'envoi accepté").'</label>
                </div>
             </div>';
          }
@@ -367,7 +367,7 @@ if ($submitS) {
             <input type="hidden" name="topic" value="'.$topic.'" />
             <input type="hidden" name="post" value="'.$post.'" />
             <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" accesskey="s" />'.translate("Valider").'</button>&nbsp;
-            <button class="btn btn-danger" type="submit" value="'.translate("Annuler la contribution").'" name="cancel" title="'.translate("Annuler la contribution").'" data-toggle="tooltip" >'.translate("Annuler la contribution").'</button>
+            <button class="btn btn-danger" type="submit" value="'.translate("Annuler la contribution").'" name="cancel" title="'.translate("Annuler la contribution").'" data-bs-toggle="tooltip" >'.translate("Annuler la contribution").'</button>
          </div>
       </div>';
    } else {

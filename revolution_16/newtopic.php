@@ -205,12 +205,12 @@ if ($submitS) {
          else
             if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
       }
-            echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava mr-1 mx-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-toggle="tooltip" /></a>';
+            echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava me-1 mx-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
       }
    echo '
          </div>
       </div>
-      <h4 class="my-3"><img width="48" height="48" class=" rounded-circle mr-3" src="'.$imgava.'" alt="" />'.translate("Poster un nouveau sujet dans :").' '.stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span></h4>
+      <h4 class="my-3"><img width="48" height="48" class=" rounded-circle me-3" src="'.$imgava.'" alt="" />'.translate("Poster un nouveau sujet dans :").' '.stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span></h4>
          <blockquote class="blockquote">'.translate("A propos des messages publiés :").'<br />';
    if ($forum_access == 0)
       echo translate("Les utilisateurs anonymes peuvent poster de nouveaux sujets et des réponses dans ce forum.");
@@ -314,9 +314,9 @@ if ($submitS) {
       echo '
                   </div>';
    if ($allow_html==1)
-      echo '<span class="text-success float-right mt-2" title="HTML '.translate("On").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+      echo '<span class="text-success float-end mt-2" title="HTML '.translate("On").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
    else
-      echo '<span class="text-danger float-right mt-2" title="HTML '.translate("Off").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+      echo '<span class="text-danger float-end mt-2" title="HTML '.translate("Off").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
                <div class="card-body">
@@ -324,7 +324,7 @@ if ($submitS) {
                </div>
                <div class="card-footer p-0">
                   <span class="d-block">
-                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
+                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-bs-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
                   </span>
                </div>
             </div>
@@ -338,9 +338,9 @@ if ($submitS) {
             if (isset($html)) $sethtml = 'checked="checked"';
             else $sethtml = '';
             echo '
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="html" name="html" '.$sethtml.' />
-                  <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="html" name="html" '.$sethtml.' />
+                  <label class="form-check-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
                </div>';
          }
          if ($user) {
@@ -351,9 +351,9 @@ if ($submitS) {
                else $s = '';
                if (($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
                   echo '
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$s.' />
-                  <label class="custom-control-label" for="sig">'.translate("Afficher la signature").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sig" name="sig" '.$s.' />
+                  <label class="form-check-label" for="sig">'.translate("Afficher la signature").'</label>
                </div>';
                }
             }
@@ -363,9 +363,9 @@ if ($submitS) {
                if ($upload == "on")
                   $up = 'checked="checked"';
                echo '
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="upload" name="upload" '.$up.' />
-                  <label class="custom-control-label" for="upload">'.translate("Charger un fichier une fois l'envoi accepté").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="upload" name="upload" '.$up.' />
+                  <label class="form-check-label" for="upload">'.translate("Charger un fichier une fois l'envoi accepté").'</label>
                </div>';
             }
             if (isset($notify2))
@@ -373,9 +373,9 @@ if ($submitS) {
             else
                $selnot='';
          echo '
-               <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="notify2" name="notify2" '.$selnot.' />
-                  <label class="custom-control-label" for="notify2">'.translate("Prévenir par Email quand de nouvelles réponses sont postées").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="notify2" name="notify2" '.$selnot.' />
+                  <label class="form-check-label" for="notify2">'.translate("Prévenir par Email quand de nouvelles réponses sont postées").'</label>
                </div>';
          }
          echo '

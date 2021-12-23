@@ -351,8 +351,8 @@ function putitems_more() {
 function putitems($targetarea) {
    global $theme;
    echo '
-   <div title="'.translate("Cliquez pour insérer des emoji dans votre message").'" data-toggle="tooltip">
-      <button class="btn btn-link pl-0" type="button" id="button-textOne" data-toggle="emojiPopper" data-target="#'.$targetarea.'">
+   <div title="'.translate("Cliquez pour insérer des emoji dans votre message").'" data-bs-toggle="tooltip">
+      <button class="btn btn-link ps-0" type="button" id="button-textOne" data-bs-toggle="emojiPopper" data-bs-target="#'.$targetarea.'">
          <i class="far fa-smile fa-lg" aria-hidden="true"></i>
       </button>
    </div>
@@ -361,7 +361,7 @@ function putitems($targetarea) {
    //<![CDATA[
       $(function () {
           "use strict"
-           var emojiPopper = $(\'[data-toggle="emojiPopper"]\').emojiPopper({
+           var emojiPopper = $(\'[data-bs-toggle="emojiPopper"]\').emojiPopper({
               url: "lib/emojipopper/php/emojicontroller.php",
               title:"Choisir un emoji"
           });
@@ -373,18 +373,18 @@ function putitems($targetarea) {
 function HTML_Add() {
    $affich = '
                   <div class="mt-2">
-                     <a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Gras").'" data-toggle="tooltip" ><i class="fa fa-bold fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italique").'" data-toggle="tooltip" ><i class="fa fa-italic fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Souligné").'" data-toggle="tooltip" ><i class="fa fa-underline fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à gauche").'" data-toggle="tooltip" ><i class="fa fa-align-left fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte centré").'" data-toggle="tooltip" ><i class="fa fa-align-center fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à droite").'" data-toggle="tooltip" ><i class="fa fa-align-right fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte justifié").'" data-toggle="tooltip" ><i class="fa fa-align-justify fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Liste non ordonnnée").'" data-toggle="tooltip" ><i class="fa fa-list-ul fa-lg mr-2 mb-3"></i></a>
-                     <a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Liste ordonnnée").'" data-toggle="tooltip" ><i class="fa fa-list-ol fa-lg mr-2 mb-3"></i></a>
-                     <div class="dropdown d-inline mr-2 mb-3" title="'.translate("Lien web").'" data-toggle="tooltip" data-placement="left">
-                        <a class=" dropdown-toggle" href="#" role="button" id="protocoletype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-link fa-lg"></i></a>
+                     <a href="javascript: addText(\'&lt;b&gt;\',\'&lt;/b&gt;\');" title="'.translate("Gras").'" data-bs-toggle="tooltip" ><i class="fa fa-bold fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;i&gt;\',\'&lt;/i&gt;\');" title="'.translate("Italique").'" data-bs-toggle="tooltip" ><i class="fa fa-italic fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;u&gt;\',\'&lt;/u&gt;\');" title="'.translate("Souligné").'" data-bs-toggle="tooltip" ><i class="fa fa-underline fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;span style=\\\'text-decoration:line-through;\\\'&gt;\',\'&lt;/span&gt;\');" title="" data-bs-toggle="tooltip" ><i class="fa fa-strikethrough fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-left\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à gauche").'" data-bs-toggle="tooltip" ><i class="fa fa-align-left fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-center\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte centré").'" data-bs-toggle="tooltip" ><i class="fa fa-align-center fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;p class=\\\'text-right\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte aligné à droite").'" data-bs-toggle="tooltip" ><i class="fa fa-align-right fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;p align=\\\'justify\\\'&gt;\',\'&lt;/p&gt;\');" title="'.translate("Texte justifié").'" data-bs-toggle="tooltip" ><i class="fa fa-align-justify fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;ul&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ul&gt;\');" title="'.translate("Liste non ordonnnée").'" data-bs-toggle="tooltip" ><i class="fa fa-list-ul fa-lg me-2 mb-3"></i></a>
+                     <a href="javascript: addText(\'&lt;ol&gt;&lt;li&gt;\',\'&lt;/li&gt;&lt;/ol&gt;\');" title="'.translate("Liste ordonnnée").'" data-bs-toggle="tooltip" ><i class="fa fa-list-ol fa-lg me-2 mb-3"></i></a>
+                     <div class="dropdown d-inline me-2 mb-3" title="'.translate("Lien web").'" data-bs-toggle="tooltip" data-bs-placement="left">
+                        <a class=" dropdown-toggle" href="#" role="button" id="protocoletype" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-link fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="protocoletype">
                            <a class="dropdown-item" href="javascript: addText(\' http://\',\'\');">http</a>
                            <a class="dropdown-item" href="javascript: addText(\' https://\',\'\');">https</a>
@@ -392,9 +392,9 @@ function HTML_Add() {
                            <a class="dropdown-item" href="javascript: addText(\' sftp://\',\'\');">sftp</a>
                         </div>
                      </div>
-                     <a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Tableau").'" data-toggle="tooltip"><i class="fa fa-table fa-lg mr-2 mb-3"></i></a>
-                     <div class="dropdown d-inline mr-2 mb-3" title="'.translate("Code").'" data-toggle="tooltip" data-placement="left">
-                        <a class=" dropdown-toggle" href="#" role="button" id="codeclasslanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-code fa-lg"></i></a>
+                     <a href="javascript: addText(\'&lt;table class=\\\'table table-bordered table-striped table-sm\\\'&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;\',\'\'); " title="'.translate("Tableau").'" data-bs-toggle="tooltip"><i class="fa fa-table fa-lg me-2 mb-3"></i></a>
+                     <div class="dropdown d-inline me-2 mb-3" title="'.translate("Code").'" data-bs-toggle="tooltip" data-bs-placement="left">
+                        <a class=" dropdown-toggle" href="#" role="button" id="codeclasslanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-code fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="codeclasslanguage">
                            <h6 class="dropdown-header">Languages</h6>
                            <div class="dropdown-divider"></div>
@@ -405,14 +405,14 @@ function HTML_Add() {
                            <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code sql]\',\'[/code]&lt;/pre&gt;\');">SQL</a>
                         </div>
                      </div>
-                     <div class="dropdown d-inline mr-2 mb-3" title="'.translate("Vidéos").'" data-toggle="tooltip" data-placement="left">
-                        <a class=" dropdown-toggle" href="#" role="button" id="typevideo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-film fa-lg"></i></a>
+                     <div class="dropdown d-inline me-2 mb-3" title="'.translate("Vidéos").'" data-bs-toggle="tooltip" data-bs-placement="left">
+                        <a class=" dropdown-toggle" href="#" role="button" id="typevideo" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-film fa-lg"></i></a>
                         <div class="dropdown-menu" aria-labelledby="typevideo">
                            <p class="dropdown-header">'.translate("Coller l'ID de votre vidéo entre les deux balises").' : <br />[video_yt]xxxx[/video_yt]<br />[video_vm]xxxx[/video_vm]<br />[video_dm]xxxx[/video_dm]</p>
                            <div class="dropdown-divider"></div>
-                           <a class="dropdown-item" href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');"><i class="fab fa-youtube fa-lg fa-fw mr-1"></i>Youtube</a>
-                           <a class="dropdown-item" href="javascript: addText(\'[video_vm]\',\'[/video_vm]\');"><i class="fab fa-vimeo fa-lg fa-fw mr-1"></i>Vimeo</a>
-                           <a class="dropdown-item" href="javascript: addText(\'[video_dm]\',\'[/video_dm]\');"><i class="fas fa-video fa-fw fa-lg mr-1"></i>Dailymotion</a>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_yt]\',\'[/video_yt]\');"><i class="fab fa-youtube fa-lg fa-fw me-1"></i>Youtube</a>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_vm]\',\'[/video_vm]\');"><i class="fab fa-vimeo fa-lg fa-fw me-1"></i>Vimeo</a>
+                           <a class="dropdown-item" href="javascript: addText(\'[video_dm]\',\'[/video_dm]\');"><i class="fas fa-video fa-fw fa-lg me-1"></i>Dailymotion</a>
                         </div>
                      </div>
                   </div>';
@@ -432,20 +432,20 @@ function emotion_add($image_subject) {
    foreach($filelist as $key => $file ) {
       if (!preg_match('#\.gif|\.jpg|\.png$#i', $file)) continue;
       $temp .='
-         <div class="custom-control custom-radio custom-control-inline mb-3">';
+         <div class="form-check form-check-inline mb-3">';
       if ($image_subject!='') {
          if ($file == $image_subject)
             $temp .= '
-            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="custom-control-input" checked="checked" />';
+            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="form-check-input" checked="checked" />';
          else
             $temp .= '
-            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="custom-control-input" />';
+            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="form-check-input" />';
       } else {
          $temp .= '
-            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="custom-control-input" checked="checked" />';
+            <input type="radio" value="'.$file.'" id="image_subject'.$j.'" name="image_subject" class="form-check-input" checked="checked" />';
          $image_subject='no image';
       }
-      $temp .= '<label class="custom-control-label" for="image_subject'.$j.'" ><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" loading="lazy" /></label>
+      $temp .= '<label class="form-check-label" for="image_subject'.$j.'" ><img class="n-smil d-block" src="'.$imgtmp.'/'.$file.'" alt="" loading="lazy" /></label>
          </div>';
       $j++;
    }
@@ -478,7 +478,7 @@ function searchblock() {
                <label class="sr-only" for="term">'.translate('Recherche').'</label>
                <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'">
             </div>
-            <div class=" ml-2">
+            <div class=" ms-2">
                <button type="submit" class="btn btn-outline-primary">'.translate("Valider").'</button>
             </div>
          </form>
@@ -499,7 +499,7 @@ function member_qualif($poster, $posts, $rank) {
       if ($posts>=300 and $posts<1000) $nux=4;
       if ($posts>=1000) $nux=5;
       for ($i=0; $i<$nux; $i++) {
-         $tmp.='<i class="fa fa-star-o text-success mr-1"></i>';
+         $tmp.='<i class="fa fa-star-o text-success me-1"></i>';
       }
       if ($rank) {
          if ($ibid=theme_image("forum/rank/".$rank.".gif") or $ibid=theme_image("forum/rank/".$rank.".png")) $imgtmpA=$ibid; else $imgtmpA="images/forum/rank/".$rank.".png";
@@ -752,9 +752,9 @@ function forum($rowQ1) {
                               <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start">
                                  <span class="d-flex w-100 mt-1">';
                      if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)
-                        $ibid.='<i class="fa fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("Les nouvelles contributions depuis votre dernière visite.").'" data-toggle="tooltip" data-placement="right"></i>';
+                        $ibid.='<i class="fa fa-folder text-primary fa-lg me-2 mt-1" title="'.translate("Les nouvelles contributions depuis votre dernière visite.").'" data-bs-toggle="tooltip" data-bs-placement="right"></i>';
                      else
-                        $ibid.='<i class="far fa-folder text-primary fa-lg mr-2 mt-1" title="'.translate("Aucune nouvelle contribution depuis votre dernière visite.").'" data-toggle="tooltip" data-placement="right"></i>';
+                        $ibid.='<i class="far fa-folder text-primary fa-lg me-2 mt-1" title="'.translate("Aucune nouvelle contribution depuis votre dernière visite.").'" data-bs-toggle="tooltip" data-bs-placement="right"></i>';
                      $name = stripslashes($myrow['forum_name']);
                      $redirect=false;
                      if (strstr(strtoupper($name),"<a HREF"))
@@ -765,8 +765,8 @@ function forum($rowQ1) {
                      if (!$redirect)
                         $ibid.='
                                  <span class="ml-auto"> 
-                                    <span class="badge badge-secondary ml-1" title="'.translate("Contributions").'" data-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
-                                    <span class="badge badge-secondary ml-1" title="'.translate("Sujets").'" data-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
+                                    <span class="badge bg-secondary ms-1" title="'.translate("Contributions").'" data-bs-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
+                                    <span class="badge bg-secondary ms-1" title="'.translate("Sujets").'" data-bs-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
                                  </span>
                               </span>';
 
@@ -794,7 +794,7 @@ function forum($rowQ1) {
                         if ($myrow['forum_access']=="2" && $myrow['forum_type'] == "0")
                            $ibid.=translate("Modérateur");
                         if ($myrow['forum_access']=="9")
-                           $ibid.='<span class="text-danger mx-2"><i class="fa fa-lock mr-2"></i>'.translate("Fermé").'</span>';
+                           $ibid.='<span class="text-danger mx-2"><i class="fa fa-lock me-2"></i>'.translate("Fermé").'</span>';
                         $ibid.=' ] </span>';
                      // Subscribe
                      if (($subscribe) and ($user)) {
@@ -802,15 +802,15 @@ function forum($rowQ1) {
                            if(isbadmailuser($userR[0])===false) {//proto
                               $ibid.='
                          <span class="d-flex w-100 mt-1" >
-                           <span class="custom-control custom-checkbox">';
+                           <span class="form-check">';
                               if ($tab_subscribe[$myrow['forum_id']])
                                  $ibid.='
-                              <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" checked="checked" />';
+                              <input class="form-check-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" checked="checked" />';
                               else
                                  $ibid.='
-                              <input class="custom-control-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" />';
+                              <input class="form-check-input n-ckbf" type="checkbox" id="subforumid'.$myrow['forum_id'].'" name="Subforumid['.$myrow['forum_id'].']" />';
                             $ibid.='
-                               <label class="custom-control-label" for="subforumid'.$myrow['forum_id'].'" title="'.translate("Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum.").'" data-toggle="tooltip" data-placement="right">&nbsp;&nbsp;</label>
+                               <label class="form-check-label" for="subforumid'.$myrow['forum_id'].'" title="'.translate("Cochez et cliquez sur le bouton OK pour recevoir un Email lors d'une nouvelle soumission dans ce forum.").'" data-bs-toggle="tooltip" data-bs-placement="right">&nbsp;&nbsp;</label>
                             </span>
                          </span>';
                            }
@@ -832,9 +832,9 @@ function forum($rowQ1) {
     if (($subscribe) and ($user) and ($ok_affich)) {
       if(isbadmailuser($userR[0])===false) {//proto
          $ibid.='
-      <div class="custom-control custom-checkbox mt-1">
-         <input class="custom-control-input" type="checkbox" id="ckball_f" />
-         <label class="custom-control-label text-muted" for="ckball_f" id="ckb_status_f">Tout cocher</label>
+      <div class="form-check mt-1">
+         <input class="form-check-input" type="checkbox" id="ckball_f" />
+         <label class="form-check-label text-muted" for="ckball_f" id="ckb_status_f">Tout cocher</label>
       </div>';
       }
     }
@@ -876,9 +876,9 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
       <nav>
       <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 2)
-         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Page précédente").'" data-toggle="tooltip">◄</a></li>';
+         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
       elseif ($current > 2)
-         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-toggle="tooltip">◄</a></li>';
+         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
       else
          $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
 
@@ -956,7 +956,7 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
             <li class="page-item disabled"><a class="page-link" href="#">►</a></li>';
       else
          $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-toggle="tooltip">►</a></li>';
+            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-bs-toggle="tooltip">►</a></li>';
       $pagination .= '
       </ul>
    </nav>';
@@ -976,10 +976,10 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
       <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 1) {
          $pagination .= '
-         <li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'" title="'.translate("Page précédente").'" data-toggle="tooltip">◄</a></li>';
+         <li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
       } elseif ($current > 1) {
          $pagination .= '
-         <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-toggle="tooltip">◄</a></li>';
+         <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
       } else {
          $pagination .= '
          <li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
@@ -1064,7 +1064,7 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
             <li class="page-item disabled"><a class="page-link" href="#">►</a></li>';
       else
          $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-toggle="tooltip">►</a></li>';
+            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-bs-toggle="tooltip">►</a></li>';
    $pagination .= '
       </ul>
    </nav>';

@@ -36,13 +36,13 @@ function email_user() {
             <div class="form-group row">
                <label class="col-form-label col-sm-4" for="expediteur">'.adm_translate("Expédier en tant").'</label>
                <div id="expediteur" class="col-sm-8 my-2">
-                  <div class="custom-control custom-radio custom-control-inline">
-                     <input class="custom-control-input" type="radio" id="adm" name="expediteur" value="1" checked="checked" />
-                     <label class="custom-control-label" for="adm">'.adm_translate("qu'administrateur").'</label>
+                  <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" id="adm" name="expediteur" value="1" checked="checked" />
+                     <label class="form-check-label" for="adm">'.adm_translate("qu'administrateur").'</label>
                   </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                     <input class="custom-control-input" type="radio" id="mem" name="expediteur" value="0" />
-                     <label class="custom-control-label" for="mem">'.adm_translate("que membre").'</label>
+                  <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" id="mem" name="expediteur" value="0" />
+                     <label class="form-check-label" for="mem">'.adm_translate("que membre").'</label>
                   </div>
                </div>
             </div>
@@ -55,7 +55,7 @@ function email_user() {
             <div id="div_groupe" class="form-group row">
                <label class="col-form-label col-sm-4" for="groupe">'.adm_translate("Groupe").'</label>
                <div class="col-sm-8">
-                  <select id="groupe" class="custom-select form-control" name="groupe" >
+                  <select id="groupe" class="form-select" name="groupe" >
                      <option value="0" selected="selected">'.adm_translate("Choisir un groupe");
        $resultID = sql_query("SELECT groupe_id, groupe_name FROM ".$NPDS_Prefix."groupes ORDER BY groupe_id ASC");
        while (list($groupe_id, $groupe_name)=sql_fetch_row($resultID)) {
@@ -69,9 +69,9 @@ function email_user() {
             <div id="div_all" class="form-group row">
                <label class="col-form-label col-sm-4" for="all">'.adm_translate("Envoyer à tous les membres").'</label>
                <div class="col-sm-8 ">
-                  <div class="custom-control custom-checkbox my-2">
-                     <input class="custom-control-input" id="all" type="checkbox" name="all" value="1" />
-                    <label class="custom-control-label" for="all"></label>
+                  <div class="form-check my-2">
+                     <input class="form-check-input" id="all" type="checkbox" name="all" value="1" />
+                    <label class="form-check-label" for="all"></label>
                   </div>
                </div>
             </div>
@@ -79,7 +79,7 @@ function email_user() {
                <label class="col-form-label col-sm-4" for="subject">'.adm_translate("Sujet").'</label>
                <div class="col-sm-8">
                   <input  class="form-control" type="text" maxlength="100" id="subject" name="subject" required="required" />
-                  <span class="help-block text-right"><span id="countcar_subject"></span></span>
+                  <span class="help-block text-end"><span id="countcar_subject"></span></span>
                </div>
             </div>
             <div class="form-group row">

@@ -36,13 +36,13 @@ function puthome($ihome) {
    }
    echo '
          <div class="col-sm-8">
-            <div class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" id="ihome" name="ihome" value="0" '.$sel1.' />
-               <label class="custom-control-label" for="ihome">'.adm_translate("Oui").'</label>
+            <div class="form-check">
+               <input class="form-check-input" type="radio" id="ihome" name="ihome" value="0" '.$sel1.' />
+               <label class="form-check-label" for="ihome">'.adm_translate("Oui").'</label>
             </div>
-            <div class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" id="ihome1" name="ihome" value="1" '.$sel2.' />
-               <label class="custom-control-label" for="ihome1">'.adm_translate("Non").'</label>
+            <div class="form-check">
+               <input class="form-check-input" type="radio" id="ihome1" name="ihome" value="1" '.$sel2.' />
+               <label class="form-check-label" for="ihome1">'.adm_translate("Non").'</label>
             </div>
             <p class="help-block">'.adm_translate("Ne s'applique que si la catégorie : 'Articles' n'est pas sélectionnée.").'</p>
          </div>
@@ -53,7 +53,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 col-form-label text-danger" for="members">'.adm_translate("Seulement aux membres").'</label>
          <div class="col-sm-8">
-            <div class="custom-control custom-radio">';
+            <div class="form-check">';
    if ($ihome<0) {
       $sel1 = 'checked="checked"';
       $sel2 = '';
@@ -64,12 +64,12 @@ function puthome($ihome) {
       $sel2 = '';
    }
    echo '
-               <input class="custom-control-input" type="radio" id="members" name="members" value="1" '.$sel1.' />
-               <label class="custom-control-label" for="members">'.adm_translate("Oui").'</label>
+               <input class="form-check-input" type="radio" id="members" name="members" value="1" '.$sel1.' />
+               <label class="form-check-label" for="members">'.adm_translate("Oui").'</label>
             </div>
-            <div class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" id="members1" name="members" value="0" '.$sel2.' />
-               <label class="custom-control-label" for="members1">'.adm_translate("Non").'</label>
+            <div class="form-check">
+               <input class="form-check-input" type="radio" id="members1" name="members" value="0" '.$sel2.' />
+               <label class="form-check-label" for="members1">'.adm_translate("Non").'</label>
             </div>
          </div>
       </div>';
@@ -87,7 +87,7 @@ function puthome($ihome) {
       <div class="form-group row">
          <label class="col-sm-4 col-form-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" id="Mmembers" name="Mmembers">'.$tmp_groupe.'</select>
+            <select class="form-select" id="Mmembers" name="Mmembers">'.$tmp_groupe.'</select>
          </div>
       </div>';
 }
@@ -99,7 +99,7 @@ function SelectCategory($cat) {
       <div class="form-group row">
          <label class="col-sm-4 col-form-label" for="catid">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" id="catid" name="catid">';
+            <select class="form-select" id="catid" name="catid">';
    if ($cat == 0) $sel = 'selected="selected"';
    else $sel = '';
    echo '
@@ -112,7 +112,7 @@ function SelectCategory($cat) {
     }
    echo '
             </select>
-            <p class="help-block text-right"><a href="admin.php?op=AddCategory" class="btn btn-outline-primary btn-sm" title="'.adm_translate("Ajouter").'" data-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-outline-primary btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-outline-danger btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg"></i></a></p>
+            <p class="help-block text-end"><a href="admin.php?op=AddCategory" class="btn btn-outline-primary btn-sm" title="'.adm_translate("Ajouter").'" data-bs-toggle="tooltip" ><i class="fa fa-plus-square fa-lg"></i></a>&nbsp;<a class="btn btn-outline-primary btn-sm" href="admin.php?op=EditCategory" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" ><i class="fa fa-edit fa-lg"></i></a>&nbsp;<a class="btn btn-outline-danger btn-sm" href="admin.php?op=DelCategory" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg"></i></a></p>
          </div>
       </div>';
 }
@@ -155,7 +155,7 @@ function autoStory() {
          <tr>
             <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'">'.aff_langue($title).'</a></td>
             <td>'.formatTimestamp("nogmt".$time).'</td>
-            <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Afficher l'article").'" data-toggle="tooltip"></i></a><a href="admin.php?op=autoDelete&amp;anid='.$anid.'">&nbsp;<i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer l'Article").'" data-toggle="tooltip" ></i></a></td>
+            <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Afficher l'article").'" data-bs-toggle="tooltip"></i></a><a href="admin.php?op=autoDelete&amp;anid='.$anid.'">&nbsp;<i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer l'Article").'" data-bs-toggle="tooltip" ></i></a></td>
          </tr>';
          } else {
             echo '
@@ -207,7 +207,7 @@ function autoEdit($anid) {
        }
     }
     if (!$affiche) { header("location: admin.php?op=autoStory");}
-   $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge bg-secondary float-end"><strong>'.aff_langue($topictext).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -256,7 +256,7 @@ function autoEdit($anid) {
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
-            <select class="custom-select form-control" id="topic" name="topic">';
+            <select class="form-select" id="topic" name="topic">';
     $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
     if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';

@@ -69,9 +69,9 @@ function links() {
    $result=sql_query("SELECT * FROM ".$links_DB."links_links");
    $numrows = sql_num_rows($result);
    echo '
-   <h2>'.translate("Liens").'<span class="badge badge-secondary mx-2 float-right" title="DB : '.$links_DB.translate("Il y a").' '.$numrows.' '.translate("Liens").'" data-toggle="tooltip">'.$numrows.'</span></h2>
+   <h2>'.translate("Liens").'<span class="badge bg-secondary mx-2 float-end" title="DB : '.$links_DB.translate("Il y a").' '.$numrows.' '.translate("Liens").'" data-bs-toggle="tooltip">'.$numrows.'</span></h2>
    <hr class="mb-0" />
-   <div class="text-right mt-1 mb-2"><a href="javascript:openwindow();">'.translate("Manuel en ligne").'</a><i class="fa fa-cogs ml-3 fa-lg text-muted"></i></div>';
+   <div class="text-right mt-1 mb-2"><a href="javascript:openwindow();">'.translate("Manuel en ligne").'</a><i class="fa fa-cogs ms-3 fa-lg text-muted"></i></div>';
    echo '
    <nav aria-label="breadcrumb">
       <ol class="breadcrumb">';
@@ -81,17 +81,17 @@ function links() {
    $totalmodrequests = sql_num_rows($result2);
    if($totalbrokenlinks>0)
       echo '
-         <li class="breadcrumb-item"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksListBrokenLinks">'.translate("Soumission de liens brisés").'</a><span class="badge badge-danger ml-1"> '.$totalbrokenlinks.'</span></li>';
+         <li class="breadcrumb-item"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksListBrokenLinks">'.translate("Soumission de liens brisés").'</a><span class="badge bg-danger ms-1"> '.$totalbrokenlinks.'</span></li>';
    if($totalmodrequests>0)
       echo '
-         <li class="breadcrumb-item"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksListModRequests">'.translate("Proposition de modifications de liens").'</a><span class="badge badge-danger ml-1">'.$totalmodrequests.'</span></li>';
+         <li class="breadcrumb-item"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksListModRequests">'.translate("Proposition de modifications de liens").'</a><span class="badge bg-danger ms-1">'.$totalmodrequests.'</span></li>';
 
    $result = sql_query("SELECT lid, cid, sid, title, url, description, name, email, submitter, topicid_card FROM ".$links_DB."links_newlink ORDER BY lid ASC LIMIT 0,1");
    $numrows = sql_num_rows($result);
    $adminform='';
    if ($numrows>0) {
       echo '
-         <li class="breadcrumb-item">'.translate("Lien(s) en attente de validation").'<span class="badge badge-danger ml-1">'.$numrows.'</span></li>
+         <li class="breadcrumb-item">'.translate("Lien(s) en attente de validation").'<span class="badge bg-danger ms-1">'.$numrows.'</span></li>
       </ol>
    </nav>';
       $adminform='adminForm';
@@ -130,7 +130,7 @@ function links() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="catlinkvalid">'.translate("Catégorie").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" id="catlinkvalid" name="cat">';
+               <select class="form-select" id="catlinkvalid" name="cat">';
           while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
              $sel = '';
              if ($cid==$ccid AND $sid==0)
@@ -156,7 +156,7 @@ function links() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="topicL">'.translate("Sujets").'</label>
             <div class="col-sm-9">
-                <select class="custom-select form-control" id="topicL" name="topicL">';
+                <select class="form-select" id="topicL" name="topicL">';
              $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
              echo '
                    <option value="">'.translate("Tous les sujets").'</option>';
@@ -193,13 +193,13 @@ function links() {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-9 ml-sm-auto">
+            <div class="col-sm-9 ms-sm-auto">
                <input type="hidden" name="new" value="1" />
                <input type="hidden" name="lid" value="'.$lid.'" />
                <input type="hidden" name="submitter" value="'.$submitter.'" />
                <input type="hidden" name="op" value="LinksAddLink" />
                <input class="btn btn-primary" type="submit" value="'.translate("Ajouter").'" />
-               <a class="btn btn-danger ml-2" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelNew&amp;lid='.$lid.'">'.translate("Effacer").'</a>
+               <a class="btn btn-danger ms-2" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelNew&amp;lid='.$lid.'">'.translate("Effacer").'</a>
             </div>
          </div>
       </form>
@@ -247,7 +247,7 @@ function links() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="catlinkadd">'.translate("Catégorie").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" id="catlinkadd" name="cat">';
+               <select class="form-select" id="catlinkadd" name="cat">';
        while (list($cid, $title) = sql_fetch_row($result)) {
           echo '
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -267,7 +267,7 @@ function links() {
          <div class="form-group row">
             <label class="col-form-label col-sm-3" for="topiclinkadd">'.translate("Sujets").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" id="topiclinkadd" name="topicL">';
+               <select class="form-select" id="topiclinkadd" name="topicL">';
           $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
           echo '
                   <option value="">'.translate("Tous les sujets").'</option>';
@@ -303,7 +303,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
+         <div class="col-sm-9 ms-sm-auto">
             <input type="hidden" name="op" value="LinksAddLink" />
             <input type="hidden" name="new" value="0" />
             <input type="hidden" name="lid" value="0" />
@@ -356,7 +356,7 @@ function links() {
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="modcat">'.translate("Catégorie").'</label>
          <div class="col-sm-9">
-            <select class="custom-select form-control" id="modcat" name="cat">';
+            <select class="form-select" id="modcat" name="cat">';
       while(list($cid, $title) = sql_fetch_row($result)) {
          echo '
                <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -371,7 +371,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
+         <div class="col-sm-9 ms-sm-auto">
             <input type="hidden" name="op" value="LinksModCat" />
             <input class="btn btn-primary" type="submit" value="'.translate("Modifier").'" />
          </div>
@@ -401,7 +401,7 @@ function links() {
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="cidsubcatadd">'.translate("dans").'</label>
          <div class="col-sm-9">
-            <select class="custom-select form-control" id="cidsubcatadd" name="cid">';
+            <select class="form-select" id="cidsubcatadd" name="cid">';
        while (list($ccid, $ctitle) = sql_fetch_row($result)) {
           echo '
                <option value="'.$ccid.'">'.aff_langue($ctitle).'</option>';
@@ -411,7 +411,7 @@ function links() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
+         <div class="col-sm-9 ms-sm-auto">
             <input type="hidden" name="op" value="LinksAddSubCat" />
             <input class="btn btn-primary " type="submit" value="'.translate("Ajouter").'" />
          </div>
@@ -521,7 +521,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="cat">'.translate("Catégorie").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="cat">';
+               <select class="form-select" name="cat">';
        while (list($ccid, $ctitle) = sql_fetch_row($result2)) {
           $sel = '';
           if ($cid==$ccid AND $sid==0) {
@@ -549,7 +549,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="topicL">'.translate("Sujets").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" name="topicL">';
+               <select class="form-select" name="topicL">';
           $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
           echo '
                   <option value="0">'.translate("Tous les sujets").'</option>';
@@ -592,7 +592,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-sm-8 ml-sm-auto">
+            <div class="col-sm-8 ms-sm-auto">
                <input type="hidden" name="lid" value="'.$lid.'" />
                <input type="hidden" name="op" value="LinksModLinkS" />
                <input class="btn btn-primary" type="submit" value="'.translate("Modifier").'" />&nbsp;
@@ -735,7 +735,7 @@ function LinksModCat($cat) {
    echo '
    <h2>'.translate("Liens").'</h2>
    <hr class="mb-0" />
-   <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg mr-2"></i></a></div>
+   <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg me-2"></i></a></div>
    <h3 class="my-3">'.translate("Modifier la catégorie").'</h3>';
    if ($cat[1]==0) {
       $result=sql_query("SELECT title, cdescription FROM ".$links_DB."links_categories WHERE cid='$cat[0]'");
@@ -857,7 +857,7 @@ function LinksDelCat($cid, $sid, $sub, $ok=0) {
       <h3>'.translate("Liens").'</h3>
       <hr />
       <div class="alert alert-danger">'.translate("ATTENTION : Etes-vous certain de vouloir effacer cette catégorie et tous ses Liens ?").'</div>
-      <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelCat&amp;cid='.$cid.'&amp;sid='.$sid.'&amp;sub='.$sub.'&amp;ok=1" class="btn btn-danger mr-2">'.translate("Oui").'</a><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" class="btn btn-secondary">'.translate("Non").'</a>';
+      <a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelCat&amp;cid='.$cid.'&amp;sid='.$sid.'&amp;sub='.$sub.'&amp;ok=1" class="btn btn-danger me-2">'.translate("Oui").'</a><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" class="btn btn-secondary">'.translate("Non").'</a>';
       include("footer.php");
    }
 }
@@ -877,9 +877,9 @@ function LinksListModRequests() {
    }
 
    echo '
-   <h3 class="mb-3">'.translate("Requête de modification d'un lien utilisateur").' <span class="badge badge-danger float-right">'.$totalmodrequests.'</span></h3>
+   <h3 class="mb-3">'.translate("Requête de modification d'un lien utilisateur").' <span class="badge bg-danger float-end">'.$totalmodrequests.'</span></h3>
    <hr class="mb-0" />
-   <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs mr-2 fa-lg"></i></a></div>';
+   <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs me-2 fa-lg"></i></a></div>';
    while (list($requestid, $lid, $cid, $sid, $title, $url, $description, $modifysubmitter, $topicid_card)=sql_fetch_row($resultX)) {
       $result2 = sql_query("SELECT cid, sid, title, url, description, submitter, topicid_card FROM ".$links_DB."links_links WHERE lid='$lid'");
       list($origcid, $origsid, $origtitle, $origurl, $origdescription, $owner, $oritopicid_card)=sql_fetch_row($result2);
@@ -981,12 +981,12 @@ function LinksListBrokenLinks() {
    else {
       include ("header.php");
       echo '
-   <h3 class="mb-3">'.translate("Liens cassés rapportés par un ou plusieurs utilisateurs").' <span class="badge badge-danger float-right"> '.$totalbrokenlinks.'</span></h3>
+   <h3 class="mb-3">'.translate("Liens cassés rapportés par un ou plusieurs utilisateurs").' <span class="badge bg-danger float-end"> '.$totalbrokenlinks.'</span></h3>
    <hr class="mb-0"/>
    <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg"></i></a></div>
    <div class="blockquote">
-      <i class="fas fa-trash fa-lg text-primary mr-2"></i>'.translate("Ignorer (Efface toutes les demandes pour un lien donné)").'<br />
-      <i class="fas fa-trash fa-lg text-danger mr-2"></i>'.translate("Effacer (Efface les liens cassés et les avis pour un lien donné)").'
+      <i class="fas fa-trash fa-lg text-primary me-2"></i>'.translate("Ignorer (Efface toutes les demandes pour un lien donné)").'<br />
+      <i class="fas fa-trash fa-lg text-danger me-2"></i>'.translate("Effacer (Efface les liens cassés et les avis pour un lien donné)").'
    </div>
    <table id="tad_linkbrok" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
@@ -1025,8 +1025,8 @@ function LinksListBrokenLinks() {
             echo '
             <td><a href="mailto:'.$owneremail.'" >'.$owner.'</a>';
           echo '</td>
-            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash fa-lg" title="'.translate("Ignorer").'" data-toggle="tooltip"></i></a></td>
-            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash text-danger fa-lg" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a></td>
+            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash fa-lg" title="'.translate("Ignorer").'" data-bs-toggle="tooltip"></i></a></td>
+            <td><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=LinksDelBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash text-danger fa-lg" title="'.translate("Effacer").'" data-bs-toggle="tooltip"></i></a></td>
          </tr>';
        }
        echo '

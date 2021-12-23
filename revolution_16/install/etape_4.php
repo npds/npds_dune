@@ -61,7 +61,7 @@ function etape_4() {
    echo '
                      <div class="form-group row">
                         <label class="col-form-label" for="new_mysql_p">'.ins_translate("Type de connexion au serveur mySQL").'</label>
-                        <select class="custom-select form-control" name="new_mysql_p">
+                        <select class="form-select" name="new_mysql_p">
                            <option value="0" '.$sel1.'>'.ins_translate("Non permanente").'</option>
                            <option value="1" '.$sel2.'>'.ins_translate("Permanente").'</option>
                         </select>

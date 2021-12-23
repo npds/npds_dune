@@ -226,7 +226,7 @@
                 $multiSortBtn = $btnGroup.find('div.multi-sort');
 
             if (!$multiSortBtn.length) {
-                $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-toggle="modal" data-target="#sortModal" title="' + this.options.formatMultipleSort() + '">';
+                $multiSortBtn = '  <button class="multi-sort btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" data-bs-toggle="modal" data-bs-target="#sortModal" title="' + this.options.formatMultipleSort() + '">';
                 $multiSortBtn += '     <i class="' + this.options.iconsPrefix + ' ' + this.options.icons.sort + '"></i>';
                 $multiSortBtn += '</button>';
 

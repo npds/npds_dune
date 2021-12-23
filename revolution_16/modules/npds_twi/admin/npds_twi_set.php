@@ -74,13 +74,13 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
       <div class="form-group row">
          <label class="col-form-label col-sm-6" for="npds_twi_arti">'.twi_trad('Activation de la publication auto des articles').'</label>
          <div class="col-sm-6 my-2">
-            <div class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" id="npds_twi_arti_y" name="npds_twi_arti" value="1" '.$checkarti_y.' />
-               <label class="custom-control-label" for="npds_twi_arti_y">'.twi_trad('Oui').'</label>
+            <div class="form-check">
+               <input class="form-check-input" type="radio" id="npds_twi_arti_y" name="npds_twi_arti" value="1" '.$checkarti_y.' />
+               <label class="form-check-label" for="npds_twi_arti_y">'.twi_trad('Oui').'</label>
             </div>
-            <div class="custom-control custom-radio">
-               <input class="custom-control-input" type="radio" id="npds_twi_arti_n" name="npds_twi_arti" value="0" '.$checkarti_n.' />
-               <label class="custom-control-label" for="npds_twi_arti_n">'.twi_trad('Non').'</label>
+            <div class="form-check">
+               <input class="form-check-input" type="radio" id="npds_twi_arti_n" name="npds_twi_arti" value="0" '.$checkarti_n.' />
+               <label class="form-check-label" for="npds_twi_arti_n">'.twi_trad('Non').'</label>
             </div>
          </div>
       </div>
@@ -88,17 +88,17 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
          <label class="col-form-control-label col-sm-6" for="npds_twi_urshort">'.twi_trad("Méthode pour le raccourciceur d'URL").'</label>
          <div class="col-sm-6">
             <div class="custom-controls-stacked">
-               <div class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" id="npds_twi_mod" name="npds_twi_urshort" value="1" '.$urshort_mr.' />
-                  <label class="custom-control-label" for="npds_twi_mod">'.twi_trad("Réécriture d'url avec mod_rewrite").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" id="npds_twi_mod" name="npds_twi_urshort" value="1" '.$urshort_mr.' />
+                  <label class="form-check-label" for="npds_twi_mod">'.twi_trad("Réécriture d'url avec mod_rewrite").'</label>
                </div>
-               <div class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" id="npds_twi_force" name="npds_twi_urshort" value="2" '.$urshort_ft.' />
-                  <label class="custom-control-label" for="npds_twi_force">'.twi_trad("Réécriture d'url avec ForceType").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" id="npds_twi_force" name="npds_twi_urshort" value="2" '.$urshort_ft.' />
+                  <label class="form-check-label" for="npds_twi_force">'.twi_trad("Réécriture d'url avec ForceType").'</label>
                </div>
-               <div class="custom-control custom-radio">
-                  <input class="custom-control-input" type="radio" id="npds_twi_npd" name="npds_twi_urshort" value="3" '.$urshort_c.' />
-                  <label class="custom-control-label" for="npds_twi_npd">'.twi_trad("Réécriture d'url avec contrôleur Npds").'</label>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" id="npds_twi_npd" name="npds_twi_urshort" value="3" '.$urshort_c.' />
+                  <label class="form-check-label" for="npds_twi_npd">'.twi_trad("Réécriture d'url avec contrôleur Npds").'</label>
                </div>
             </div>
          </div>

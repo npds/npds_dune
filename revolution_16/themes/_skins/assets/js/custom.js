@@ -21,8 +21,8 @@
     $("#source-modal").modal();
   });
 
-  $('.bs-component [data-toggle="popover"]').popover();
-  $('.bs-component [data-toggle="tooltip"]').tooltip();
+  $('.bs-component [data-bs-toggle="popover"]').popover();
+  $('.bs-component [data-bs-toggle="tooltip"]').tooltip();
 
   $(".bs-component").hover(function(){
     $(this).append($button);

@@ -30,7 +30,7 @@ function topicsmanager() {
    if (sql_num_rows($result) > 0) {
       echo '
    <hr />
-   <h3 class="my-3">'.adm_translate("Sujets actifs").'<span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span></h3>
+   <h3 class="my-3">'.adm_translate("Sujets actifs").'<span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span></h3>
    <div class="card-columns">';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
@@ -38,13 +38,13 @@ function topicsmanager() {
       <div class=" topi">
          <div class="">';
          if (($topicimage) or ($topicimage!=''))
-            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:120px" src="'.$tipath.$topicimage.'" data-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
+            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:120px" src="'.$tipath.$topicimage.'" data-bs-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
          else
-            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:120px" src="'.$tipath.'topics.png" data-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
+            echo '<a href="admin.php?op=topicedit&amp;topicid='.$topicid.'"><img class="img-thumbnail" style="height:80px;  max-width:120px" src="'.$tipath.'topics.png" data-bs-toggle="tooltip" title="ID : '.$topicid.'" alt="'.$topicname.'" /></a>';
          echo '
          </div>
          <div class="">
-            <h4 class="my-3"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" ><i class="fa fa-edit mr-1 align-middle"></i>'.aff_langue($topicname).'</a></h4>
+            <h4 class="my-3"><a href="admin.php?op=topicedit&amp;topicid='.$topicid.'" ><i class="fa fa-edit me-1 align-middle"></i>'.aff_langue($topicname).'</a></h4>
             <p>'.aff_langue($topictext).'</p>
             <div id="shortcut-tools_'.$topicid.'" class="n-shortcut-tools" style="display:none;"><a class="text-danger btn" href="admin.php?op=topicdelete&amp;topicid='.$topicid.'&amp;ok=0" ><i class="fas fa-trash fa-2x"></i></a></div>
          </div>
@@ -86,7 +86,7 @@ function topicsmanager() {
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
+         <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="op" value="topicmake" />
             <button class="btn btn-primary col-12" type="submit" ><i class="fa fa-plus-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Ajouter un Sujet").'</button>
          </div>
@@ -231,7 +231,7 @@ function topicedit($topicid) {
       <div class="form-group row">
          <input type="hidden" name="topicid" value="'.$topicid.'" />
          <input type="hidden" name="op" value="topicchange" />
-         <div class="col-sm-8 ml-sm-auto">
+         <div class="col-sm-8 ms-sm-auto">
             <button class="btn btn-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;&nbsp;'.adm_translate("Sauver les modifications").'</button>
             <button class="btn btn-secondary" onclick="javascript:document.location.href=\'admin.php?op=topicsmanager\'">'.adm_translate("Retour en arrière").'</button>
          </div>
@@ -263,9 +263,9 @@ function topicedit($topicid) {
                 <td>'.$name.'</td>
                 <td><a href="'.$url.'" target="_blank">'.$url.'</a></td>
                 <td>
-                   <a href="admin.php?op=relatededit&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="fas fa-edit fa-lg" data-toggle="tooltip" title="'.adm_translate("Editer").'"></i></a>&nbsp;
+                   <a href="admin.php?op=relatededit&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="fas fa-edit fa-lg" data-bs-toggle="tooltip" title="'.adm_translate("Editer").'"></i></a>&nbsp;
                    <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>&nbsp;
-                   <a href="admin.php?op=relateddelete&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="fas fa-trash fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a>
+                   <a href="admin.php?op=relateddelete&amp;tid='.$topicid.'&amp;rid='.$rid.'" ><i class="fas fa-trash fa-lg text-danger" data-bs-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a>
                 </td>
             </tr>';
     }
@@ -347,7 +347,7 @@ function relatededit($tid, $rid) {
            <label class="col-form-label col-sm-4" for="name">'.adm_translate("Nom du site").'</label>
            <div class="col-sm-8">
                <input type="text" class="form-control" name="name" id="name" value="'.$name.'" maxlength="30" />
-              <span class="help-block text-right"><span id="countcar_name"></span></span>
+              <span class="help-block text-end"><span id="countcar_name"></span></span>
            </div>
        </div>
        <div class="form-group row">
@@ -361,14 +361,14 @@ function relatededit($tid, $rid) {
                  </div>
                  <input type="url" class="form-control" name="url" id="url" value="'.$url.'" maxlength="200" />
                </div>
-               <span class="help-block text-right"><span id="countcar_url"></span></span>
+               <span class="help-block text-end"><span id="countcar_url"></span></span>
             </div>
             <input type="hidden" name="op" value="relatedsave" />
             <input type="hidden" name="tid" value="'.$tid.'" />
             <input type="hidden" name="rid" value="'.$rid.'" />
          </fieldset>
       <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
+         <div class="col-sm-8 ms-sm-auto">
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
          </div>
       </div>

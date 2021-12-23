@@ -48,7 +48,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    }
    echo '
    <hr />
-   <p class="small text-right">
+   <p class="small text-end">
    '.translate(date("l")).date(" ".translate("dateinternal"),time()+((integer)$gmt*3600)).'
    </p>';
 
@@ -109,13 +109,13 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
       else $sel1='checked="checked"';
       echo '
       <div class="col-sm-8 my-2">
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="epur_y" name="epur" value="1" '.$sel1.' />
-            <label class="custom-control-label" for="epur_y">'.translate("Oui").'</label>
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="epur_y" name="epur" value="1" '.$sel1.' />
+            <label class="form-check-label" for="epur_y">'.translate("Oui").'</label>
          </div>
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="epur_n" name="epur" value="0" '.$sel2.' />
-            <label class="custom-control-label" for="epur_n">'.translate("Non").'</label>
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="epur_n" name="epur" value="0" '.$sel2.' />
+            <label class="form-check-label" for="epur_n">'.translate("Non").'</label>
          </div>
       </div>
    </div>

@@ -70,7 +70,7 @@ function defaultDisplay() {
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="topic">'.translate("Sujet").'</label>
          <div class="col-sm-9">
-            <select class="custom-select form-control" name="topic">';
+            <select class="form-select" name="topic">';
    $toplist = sql_query("SELECT topicid, topicname, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Sélectionner un sujet").'</option>';
@@ -117,7 +117,7 @@ function defaultDisplay() {
 
 function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
-   $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge bg-secondary float-end"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    $story = stripslashes(dataimagetofileurl($story, 'cache/ai'));
    $bodytext = stripslashes(dataimagetofileurl($bodytext, 'cache/ac'));
@@ -163,7 +163,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
       <div class="form-group row">
          <label class="col-form-label col-sm-3" for="topic">'.translate("Sujet").'</label>
          <div class="col-sm-9">
-            <select class="custom-select form-control" name="topic">';
+            <select class="form-select" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Sélectionner un sujet").'</option>';

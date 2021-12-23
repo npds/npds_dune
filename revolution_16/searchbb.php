@@ -58,9 +58,9 @@ settype($term,'string');
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="only_solved">'.translate("Etat du topic").'</label>
          <div class="col-sm-8 pt-1">
-            <div class="custom-control custom-checkbox">
-               <input type="checkbox" id="only_solved" name="only_solved" class="custom-control-input" value="ON" />
-               <label class="custom-control-label" for="only_solved">'.translate("Résolu").'</label>
+            <div class="form-check">
+               <input type="checkbox" id="only_solved" name="only_solved" class="form-check-input" value="ON" />
+               <label class="form-check-label" for="only_solved">'.translate("Résolu").'</label>
             </div>
          </div>
       </div>
@@ -68,13 +68,13 @@ settype($term,'string');
          <label class="col-form-label col-sm-4" for="addterms">'.translate("Classé par").'</label>
          <div class="col-sm-8">
             <div class="custom-controls-stacked">
-               <div class="custom-control custom-radio mb-2">
-                  <input type="radio" id="any" name="addterms" class="custom-control-input" value="any" checked="checked" />
-                  <label class="custom-control-label" for="any">'.translate("Chercher n'importe quel terme (par défaut)").'</label>
+               <div class="form-check mb-2">
+                  <input type="radio" id="any" name="addterms" class="form-check-input" value="any" checked="checked" />
+                  <label class="form-check-label" for="any">'.translate("Chercher n'importe quel terme (par défaut)").'</label>
                </div>
-               <div class="custom-control custom-radio mb-2">
-                  <input type="radio" id="all" name="addterms" class="custom-control-input" value="all" />
-                  <label class="custom-control-label" for="all">'.translate("Chercher tous les mots").'</label>
+               <div class="form-check mb-2">
+                  <input type="radio" id="all" name="addterms" class="form-check-input" value="all" />
+                  <label class="form-check-label" for="all">'.translate("Chercher tous les mots").'</label>
                </div>
             </div>
          </div>
@@ -82,7 +82,7 @@ settype($term,'string');
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="forum">'.translate("Forum").'</label>
          <div class="col-sm-8">
-            <select class="form-control custom-select" name="forum" id="forum">
+            <select class="form-select" name="forum" id="forum">
                <option value="all">'.translate("Rechercher dans tous les forums").'</option>';
    $rowQ1=Q_Select ("SELECT forum_name,forum_id FROM ".$NPDS_Prefix."forums", 3600);
    if (!$rowQ1)
@@ -107,34 +107,34 @@ settype($term,'string');
             ';
    settype($sortby, "integer");
    echo '
-            <div class="custom-control custom-radio custom-control-inline mt-2">
-               <input type="radio" name="sortby" id="sbpt" class="custom-control-input" value="0" ';
+            <div class="form-check form-check-inline mt-2">
+               <input type="radio" name="sortby" id="sbpt" class="form-check-input" value="0" ';
       if ($sortby=="0") echo 'checked="checked" ';
    echo '/>
-               <label class="custom-control-label" for="sbpt">'.translate("Heure de la soumission").'</label>
+               <label class="form-check-label" for="sbpt">'.translate("Heure de la soumission").'</label>
             </div>
-            <div class="custom-control custom-radio custom-control-inline  mt-2">
-               <input type="radio" name="sortby" id="sbto" class="custom-control-input" value="1" ';
+            <div class="form-check form-check-inline  mt-2">
+               <input type="radio" name="sortby" id="sbto" class="form-check-input" value="1" ';
       if ($sortby=="1") echo 'checked="checked" ';
    echo '/>
-               <label class="custom-control-label" for="sbto">'.translate("Sujets").'</label>
+               <label class="form-check-label" for="sbto">'.translate("Sujets").'</label>
             </div>
-            <div class="custom-control custom-radio custom-control-inline  mt-2">
-               <input type="radio" name="sortby" id="sbfo" class="custom-control-input" value="2" ';
+            <div class="form-check form-check-inline  mt-2">
+               <input type="radio" name="sortby" id="sbfo" class="form-check-input" value="2" ';
       if ($sortby=="2") echo 'checked="checked" ';
    echo '/>
-               <label class="custom-control-label" for="sbfo">'.translate("Forum").'</label>
+               <label class="form-check-label" for="sbfo">'.translate("Forum").'</label>
             </div>
-            <div class="custom-control custom-radio custom-control-inline  mt-2">
-               <input type="radio" name="sortby" id="sbau" class="custom-control-input" value="3" ';
+            <div class="form-check form-check-inline  mt-2">
+               <input type="radio" name="sortby" id="sbau" class="form-check-input" value="3" ';
       if ($sortby=="3") echo 'checked="checked" ';
    echo '/>
-               <label class="custom-control-label" for="sbau">'.translate("Auteur").'</label>
+               <label class="form-check-label" for="sbau">'.translate("Auteur").'</label>
             </div>
          </div>
       </div>
       <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
+         <div class="col-sm-8 ms-sm-auto">
             <button class="btn btn-primary" type="submit" name="submit">&nbsp;'.translate("Recherche").'</button>&nbsp;&nbsp;
             <button class="btn btn-secondary" type="reset" name="reset">'.translate("Annuler").'</button>
          </div>
@@ -237,7 +237,7 @@ settype($term,'string');
          <tbody>';
             echo '
             <tr>
-               <td><span class="badge badge-success">'.($count+1).'</span></td>
+               <td><span class="badge bg-success">'.($count+1).'</span></td>
                <td><a href="viewforum.php?forum='.$row['forum_id'].'">'.stripslashes($row['forum_name']).'</a></td>';
             if ($row['arbre']) {$Hplus="H";} else {$Hplus="";}
             $ancre=ancre($row['forum_id'],$row['topic_id'],$row['post_id'],$posts_per_page);

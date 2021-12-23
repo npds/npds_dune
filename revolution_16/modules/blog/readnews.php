@@ -154,8 +154,8 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    $new_pages=false;
    for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
        $crtsplit=explode('!;!',$xnews[$i]);
-       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modifier").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg mr-1"></i></a>';
-       $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Effacer").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>';
+       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modifier").'" data-bs-toggle="tooltip" ><i class="fa fa-edit fa-lg me-1"></i></a>';
+       $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Effacer").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>';
        $content.= '
       <div class="card mb-3">
          <div class="card-body">

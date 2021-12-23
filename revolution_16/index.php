@@ -190,7 +190,7 @@ function aff_news($op,$catid,$marqeur) {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
          echo '
-            <div class="text-right"><a href="index.php?op='.$url.'&amp;catid='.$catid.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ml-2" title="'.$transl1.'" data-toggle="tooltip"></i></a></div>';
+            <div class="text-right"><a href="index.php?op='.$url.'&amp;catid='.$catid.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ms-2" title="'.$transl1.'" data-bs-toggle="tooltip"></i></a></div>';
       } else {
          if ($marqeur>=$storynum)
             echo '
@@ -201,7 +201,7 @@ function aff_news($op,$catid,$marqeur) {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
          echo '
-            <div class="text-right"><a href="index.php?op='.$url.'&amp;catid='.$catid.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ml-2" title="'.$transl1.'" data-toggle="tooltip"></i></a></div>';
+            <div class="text-right"><a href="index.php?op='.$url.'&amp;catid='.$catid.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ms-2" title="'.$transl1.'" data-bs-toggle="tooltip"></i></a></div>';
       } else {
          if ($marqeur>=$storynum)
             echo '
@@ -212,7 +212,7 @@ function aff_news($op,$catid,$marqeur) {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
          echo '
-            <div align="right"><a href="index.php?op=newtopic&amp;topic='.$topic.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ml-2" title="'.$transl1.'" data-toggle="tooltip"></i></a></div>';
+            <div align="right"><a href="index.php?op=newtopic&amp;topic='.$topic.'&amp;marqeur='.$marqeur.'" class="page_suivante" >'.$transl1.'<i class="fa fa-chevron-right fa-lg ms-2" title="'.$transl1.'" data-bs-toggle="tooltip"></i></a></div>';
       } else {
          if ($marqeur>=$storynum)
             echo '

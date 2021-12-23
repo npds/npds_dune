@@ -36,7 +36,7 @@ function list_meta($meta, $type_meta) {
    global $NPDS_Prefix;
    $sel='';
    $list = '
-   <select class="custom-select" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="form-select" name="meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="">META-MOT</option>';
    if (!empty($type_meta)) $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang WHERE type_meta = '".$type_meta."' ORDER BY type_meta, def ASC");
    else $Q = sql_query("SELECT def FROM ".$NPDS_Prefix."metalang ORDER BY 'def' ASC");
@@ -53,7 +53,7 @@ function list_meta($meta, $type_meta) {
 }
 function list_meta_type() {
    $list = '
-   <select class="custom-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="form-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="">'.adm_translate("Type").'</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=meta">meta</option>
       <option value="admin.php?op=Creat_Meta_Lang&amp;type_meta=mot">mot</option>
@@ -66,7 +66,7 @@ function list_type_meta($type_meta) {
    global $NPDS_Prefix;
    $sel = ''; settype($url,'string');
    $list = '
-   <select class="custom-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
+   <select class="form-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
       <option value="'.$url.'">Type</option>';
    $Q = sql_query("SELECT type_meta FROM ".$NPDS_Prefix."metalang GROUP BY type_meta ORDER BY 'type_meta' ASC");
    while ($resultat = sql_fetch_row($Q))  {
@@ -96,8 +96,8 @@ function List_Meta_Lang() {
             <td>
                <input type="hidden" name="nbr" value="'.$ibid.'" />';
       if ($obligatoire == false) 
-         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;&nbsp;<i class="fas fa-trash fa-lg text-muted" title="Effacer ce m&#xE9;ta-mot" data-toggle="tooltip" data-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
-      else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-toggle="tooltip" ></i></a>';
+         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-bs-toggle="tooltip" data-bs-placement="right"></i></a>&nbsp;&nbsp;<i class="fas fa-trash fa-lg text-muted" title="Effacer ce m&#xE9;ta-mot" data-bs-toggle="tooltip" data-bs-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
+      else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-bs-toggle="tooltip" ></i></a>';
       $tablmeta_c.='
             </td>
             <td><code>'.$def.'</code></td>
@@ -131,7 +131,7 @@ function List_Meta_Lang() {
       <div class="col-sm-3">'.list_type_meta($type_meta).'</div>
    </div>
    <hr />
-   <h3>META-MOT <span class="tag tag-default float-right">'.$ibid.'</span></h3>
+   <h3>META-MOT <span class="tag tag-default float-end">'.$ibid.'</span></h3>
    <form name="admin_meta_lang" action="admin.php" method="post" onkeypress="return event.keyCode != 13;" onsubmit="return confirm(\''.adm_translate("Supprimer").' ?\')">
    <table data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons-prefix="fa" data-icons="icons" >
       <thead>
@@ -149,7 +149,7 @@ function List_Meta_Lang() {
    </table>
    <div class="">
       <input type="hidden" name="op" value="Kill_Meta_Lang" />
-      <button class="btn btn-danger my-2" type="submit" value="kill" title="'.adm_translate("Tout supprimer").'" data-toggle="tooltip" data-placement="right"><i class="fas fa-trash fa-lg"></i></button>
+      <button class="btn btn-danger my-2" type="submit" value="kill" title="'.adm_translate("Tout supprimer").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fas fa-trash fa-lg"></i></button>
    </div>
    </form>';
    echo $tablmeta;
@@ -249,7 +249,7 @@ function Edit_Meta_Lang() {
       }
       echo '
       <div class="col-sm-8">
-         <select class="custom-select" id="typeuri" name="type_uri">
+         <select class="form-select" id="typeuri" name="type_uri">
             <option'.$sel0.' value="moins">'.adm_translate("Tous sauf pour ...").'</option>
             <option'.$sel1.' value="plus">'.adm_translate("Seulement pour ...").'</option>
          </select>
@@ -263,7 +263,7 @@ function Edit_Meta_Lang() {
       <div class="form-group row">
          <div class="col-sm-12">
             <textarea class="form-control" id="uri" name="uri" rows="7" maxlength="255">'.$Q['uri'].'</textarea>
-            <span class="help-block text-right"><span id="countcar_uri"></span></span>
+            <span class="help-block text-end"><span id="countcar_uri"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -302,7 +302,7 @@ function Creat_Meta_Lang() {
          <label class="col-form-label col-sm-12" for="def">META-MOT</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" name="def" id="def" maxlength="50" required="required"/>
-            <span class="help-block text-right"><span id="countcar_def"></span></span>
+            <span class="help-block text-end"><span id="countcar_def"></span></span>
          </div>
       </div>';
       if ($type_meta != "smil") {
@@ -322,7 +322,7 @@ function Creat_Meta_Lang() {
          if ($type_meta == "smil")
             echo '
                <input class="form-control" type="text" name="content" id="content" maxlength="255" required="required" />
-               <span class="help-block">'.adm_translate("Chemin et nom de l'image du Smiley").' Ex. : forum/smilies/pafmur.gif<span class="float-right ml-1" id="countcar_content"></span></span>
+               <span class="help-block">'.adm_translate("Chemin et nom de l'image du Smiley").' Ex. : forum/smilies/pafmur.gif<span class="float-right ms-1" id="countcar_content"></span></span>
             </div>
          </div>';
          else
@@ -338,7 +338,7 @@ function Creat_Meta_Lang() {
       <div class="form-group row">
          <label class="col-form-label col-sm-12" for="typeuri">'.adm_translate("Restriction").'</label>
          <div class="col-sm-12">
-            <select class="custom-select form-control" id="typeuri" name="type_uri">
+            <select class="form-select" id="typeuri" name="type_uri">
                <option value="moins">'.adm_translate("Tous sauf pour ...").'</option>
                <option value="plus">'.adm_translate("Seulement pour ...").'</option>
             </select>
@@ -352,7 +352,7 @@ function Creat_Meta_Lang() {
             '.adm_translate("Par defaut, rien ou Tout sauf pour ... [aucune URI] = aucune restriction").'
             </div>
             <textarea class="form-control" id="uri" name="uri" rows="7" maxlength="255"></textarea>
-            <span class="help-block text-right"><span id="countcar_uri"></span></span>
+            <span class="help-block text-end"><span id="countcar_uri"></span></span>
          </div>
       </div>
       <div class="form-group row">

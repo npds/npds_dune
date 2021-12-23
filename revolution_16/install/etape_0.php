@@ -29,27 +29,27 @@ function etape_0() {
                <form name="langue" method="post" action="install.php">
                   <div class="form-group row">
                      <div class="form-check">
-                        <div class="custom-control custom-radio">
-                           <input class="custom-control-input" type="radio" id="langue_fr" name="langue" value="french" checked="checked" />
-                           <label class="custom-control-label" for="langue_fr">Fran&#231;ais</label>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" id="langue_fr" name="langue" value="french" checked="checked" />
+                           <label class="form-check-label" for="langue_fr">Fran&#231;ais</label>
                         </div>
                      </div>
                      <div class="form-check">
-                        <div class="custom-control custom-radio">
-                           <input class="custom-control-input" type="radio" id="langue_en" name="langue" value="english" />
-                           <label class="custom-control-label" for="langue_en">English</label>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" id="langue_en" name="langue" value="english" />
+                           <label class="form-check-label" for="langue_en">English</label>
                         </div>
                      </div>
                      <div class="form-check">
-                        <div class="custom-control custom-radio">
-                           <input class="custom-control-input" type="radio" id="langue_de" name="langue" value="german" />
-                           <label class="custom-control-label" for="langue_de">Deutsch</label>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" id="langue_de" name="langue" value="german" />
+                           <label class="form-check-label" for="langue_de">Deutsch</label>
                         </div>
                      </div>
                      <div class="form-check">
-                        <div class="custom-control custom-radio">
-                           <input class="custom-control-input" type="radio" id="langue_sp" name="langue" value="spanish" />
-                           <label class="custom-control-label" for="langue_sp">Espa&#241;ol</label>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" id="langue_sp" name="langue" value="spanish" />
+                           <label class="form-check-label" for="langue_sp">Espa&#241;ol</label>
                         </div>
                      </div>
                   </div>

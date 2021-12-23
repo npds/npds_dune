@@ -12,7 +12,7 @@ body {
   font-family: Georgia, "Bitstream Charter", serif;
   background-color:#f1f1f1;
 }
-a:hover {text-decoration:none;}
+a, a:hover {text-decoration:none;}
 /* pas de contour sur le focus des ancres */
 a:focus {
    outline: none;

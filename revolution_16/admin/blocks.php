@@ -51,28 +51,28 @@ function groupe($groupe) {
 function droits_bloc($member,$j,$lb) {
    echo '
    <div class="form-group">
-      <div class="custom-control custom-radio custom-control-inline">';
+      <div class="form-check form-check-inline">';
    if ($member==-127) $checked=' checked="checked"'; else $checked='';
    echo '
-         <input type="radio" id="adm'.$j.$lb.'" name="members" value="-127" '.$checked.' class="custom-control-input" />
-         <label class="custom-control-label" for="adm'.$j.$lb.'">'.adm_translate("Administrateurs").'</label>
+         <input type="radio" id="adm'.$j.$lb.'" name="members" value="-127" '.$checked.' class="form-check-input" />
+         <label class="form-check-label" for="adm'.$j.$lb.'">'.adm_translate("Administrateurs").'</label>
       </div>
-      <div class="custom-control custom-radio custom-control-inline">';
+      <div class="form-check form-check-inline">';
    if ($member==-1) $checked=' checked="checked"'; else $checked='';
    echo '
-         <input type="radio" id="ano'.$j.$lb.'" name="members" value="-1" '.$checked.' class="custom-control-input" />
-         <label class="custom-control-label" for="ano'.$j.$lb.'">'.adm_translate("Anonymes").'</label>
+         <input type="radio" id="ano'.$j.$lb.'" name="members" value="-1" '.$checked.' class="form-check-input" />
+         <label class="form-check-label" for="ano'.$j.$lb.'">'.adm_translate("Anonymes").'</label>
       </div>';
    echo '
-      <div class="custom-control custom-radio custom-control-inline">';
+      <div class="form-check form-check-inline">';
    if ($member>0) {
       echo '
-         <input type="radio" id="mem'.$j.$lb.'" name="members" value="1" checked="checked" class="custom-control-input"/>
-         <label class="custom-control-label" for="mem'.$j.$lb.'">'.adm_translate("Membres").'</label>
+         <input type="radio" id="mem'.$j.$lb.'" name="members" value="1" checked="checked" class="form-check-input"/>
+         <label class="form-check-label" for="mem'.$j.$lb.'">'.adm_translate("Membres").'</label>
       </div>
-      <div class="custom-control custom-radio custom-control-inline">
-         <input type="radio" id="tous'.$j.$lb.'" name="members" value="0" class="custom-control-input" />
-         <label class="custom-control-label" for="tous'.$j.$lb.'">'.adm_translate("Tous").'</label>
+      <div class="form-check form-check-inline">
+         <input type="radio" id="tous'.$j.$lb.'" name="members" value="0" class="form-check-input" />
+         <label class="form-check-label" for="tous'.$j.$lb.'">'.adm_translate("Tous").'</label>
       </div>
    </div>
    <div class="form-group row">
@@ -84,12 +84,12 @@ function droits_bloc($member,$j,$lb) {
    } else {
       if ($member==0) $checked=' checked="checked"'; else $checked='';
       echo '
-         <input type="radio" id="mem'.$j.$lb.'" name="members" value="1" class="custom-control-input" />
-         <label class="custom-control-label" for="mem'.$j.$lb.'">'.adm_translate("Membres").'</label>
+         <input type="radio" id="mem'.$j.$lb.'" name="members" value="1" class="form-check-input" />
+         <label class="form-check-label" for="mem'.$j.$lb.'">'.adm_translate("Membres").'</label>
       </div>
-      <div class="custom-control custom-radio custom-control-inline">
-         <input type="radio" id="tous'.$j.$lb.'" name="members" value="0"'.$checked.' class="custom-control-input" />
-         <label class="custom-control-label" for="tous'.$j.$lb.'">'.adm_translate("Tous").'</label>
+      <div class="form-check form-check-inline">
+         <input type="radio" id="tous'.$j.$lb.'" name="members" value="0"'.$checked.' class="form-check-input" />
+         <label class="form-check-label" for="tous'.$j.$lb.'">'.adm_translate("Tous").'</label>
       </div>
    </div>
    <div class="form-group row">
@@ -120,7 +120,7 @@ function blocks() {
          if ( $("#all_g").attr("title") !== "'.adm_translate("Replier la liste").'" ) {
             $("#all_g").attr("title","'.adm_translate("Replier la liste").'")
             $("#tad_blocgauc td.togxg").attr("style","display: block-inline")
-            $("#tad_blocgauc a.tog i").attr("class","fa fa-caret-up fa-lg text-primary mr-1")
+            $("#tad_blocgauc a.tog i").attr("class","fa fa-caret-up fa-lg text-primary me-1")
             $("#tad_blocgauc a.tog").attr("title","'.adm_translate("Replier la liste").'")
             $( "#tad_blocgauc a.tog" ).each(function(index) {
                var idi= $(this).attr("id")
@@ -131,7 +131,7 @@ function blocks() {
          else {
             $("#all_g").attr("title","'.adm_translate("Déplier la liste").'")
             $("#tad_blocgauc td.togxg").attr("style","display: none")
-            $("#tad_blocgauc a.tog i").attr("class","fa fa-caret-down fa-lg text-primary mr-1")
+            $("#tad_blocgauc a.tog i").attr("class","fa fa-caret-down fa-lg text-primary me-1")
             $("#tad_blocgauc a.tog").attr("title","'.adm_translate("Déplier la liste").'")
             $( "#tad_blocgauc a.tog" ).each(function(index) {
                var idi= $(this).attr("id")
@@ -148,8 +148,8 @@ function blocks() {
          <tr class="">
             <th><a class="togxyg"><i id="all_g" class="fa fa-navicon" title="'.adm_translate("Déplier la liste").'"></i></a>&nbsp;'.adm_translate("Titre").'</th>
             <th class="d-none d-sm-table-cell text-center">'.adm_translate("Actif").'</th>
-            <th class="d-none d-sm-table-cell text-right">Index</th>
-            <th class="d-none d-sm-table-cell text-right">'.adm_translate("Rétention").'</th>
+            <th class="d-none d-sm-table-cell text-end">Index</th>
+            <th class="d-none d-sm-table-cell text-end">'.adm_translate("Rétention").'</th>
             <th class="text-right">ID</th>
          </tr>
       </thead>
@@ -179,7 +179,7 @@ function blocks() {
          <tr class="table-danger">';
          echo '
             <td align="left">
-               <a class="tog" id="show_bloga_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_bloga_'.$id.'" class="fa fa-caret-down fa-lg text-primary mr-1" ></i></a>&nbsp;';
+               <a class="tog" id="show_bloga_'.$id.'" title="'.adm_translate("Déplier la liste").'"><i id="i_bloga_'.$id.'" class="fa fa-caret-down fa-lg text-primary me-1" ></i></a>&nbsp;';
          echo aff_langue($title).' '.$funct.'</td>';
          if ($Sactif)
             echo '
@@ -226,7 +226,7 @@ function blocks() {
                         </fieldset>
                         <div class="form-group row">
                            <div class="col-sm-12">
-                              <select class="custom-select form-control" name="op">
+                              <select class="form-select" name="op">
                                  <option value="changelblock" selected="selected">'.adm_translate("Modifier un Bloc gauche").'</option>
                                  <option value="deletelblock">'.adm_translate("Effacer un Bloc gauche").'</option>
                                  <option value="droitelblock">'.adm_translate("Transférer à Droite").'</option>
@@ -251,19 +251,19 @@ function blocks() {
                               </div>
                            </div>
                            <div class="form-group ">
-                              <div class="custom-control custom-checkbox" >
-                                 <input type="checkbox" class="custom-control-input" id="Sactif'.$j.'L" name="Sactif" value="ON" ';
+                              <div class="form-check" >
+                                 <input type="checkbox" class="form-check-input" id="Sactif'.$j.'L" name="Sactif" value="ON" ';
                               if ($Sactif) echo 'checked="checked" ';
                               echo '/>
-                                 <label class="custom-control-label" for="Sactif'.$j.'L">'.adm_translate("Activer le Bloc").'</label>
+                                 <label class="form-check-label" for="Sactif'.$j.'L">'.adm_translate("Activer le Bloc").'</label>
                               </div>
                            </div>
                            <div class="form-group ">
-                              <div class="custom-control custom-checkbox" >
-                                 <input type="checkbox" class="custom-control-input" id="css'.$j.'L" name="css" value="1" ';
+                              <div class="form-check" >
+                                 <input type="checkbox" class="form-check-input" id="css'.$j.'L" name="css" value="1" ';
                               if ($css=='1') echo 'checked="checked" ';
                               echo '/>
-                                 <label class="custom-control-label" for="css'.$j.'L">'.adm_translate("CSS Specifique").'</label>
+                                 <label class="form-check-label" for="css'.$j.'L">'.adm_translate("CSS Specifique").'</label>
                               </div>
                            </div>
                         </fieldset>
@@ -303,7 +303,7 @@ function blocks() {
          $("#adm_workarea").on("click", "a.togxyd",function() {
             $(".fa.fa-navicon").attr("title","'.adm_translate("Replier la liste").'")
             $("#tad_blocdroi td.togxd").attr("style","display: none")
-            $("#tad_blocdroi a.tog i").attr("class","fa fa-caret-down fa-lg mr-1 text-primary")
+            $("#tad_blocdroi a.tog i").attr("class","fa fa-caret-down fa-lg me-1 text-primary")
             $("#tad_blocdroi a.tog").attr("title","'.adm_translate("Déplier la liste").'")
             $( "#tad_blocdroi a.tog" ).each(function(index) {
                var idi= $(this).attr("id")
@@ -318,8 +318,8 @@ function blocks() {
          <tr class="w-100">
             <th><a class="togxyd"><i class="fa fa-navicon fa-lg" title="'.adm_translate("Déplier la liste la liste").'"></i></a>&nbsp;'.adm_translate("Titre").'</th>
             <th class="d-none d-sm-table-cell text-center">'.adm_translate("Actif").'</th>
-            <th class="d-none d-sm-table-cell text-right">Index</th>
-            <th class="d-none d-sm-table-cell text-right">'.adm_translate("Rétention").'</th>
+            <th class="d-none d-sm-table-cell text-end">Index</th>
+            <th class="d-none d-sm-table-cell text-end">'.adm_translate("Rétention").'</th>
             <th class="text-right">ID</th>
          </tr>
       </thead>
@@ -358,8 +358,8 @@ function blocks() {
             echo '
             <td class="text-danger d-none d-sm-table-cell text-center">'.adm_translate("Non").'</td>';
          echo '
-            <td class="d-none d-sm-table-cell text-right">'.$Rindex.'</td>
-            <td class="d-none d-sm-table-cell text-right">'.$Scache.'</td>
+            <td class="d-none d-sm-table-cell text-end">'.$Rindex.'</td>
+            <td class="d-none d-sm-table-cell text-end">'.$Scache.'</td>
             <td class="text-right">'.$id.'</td>
          </tr>
          <tr class="w-100">
@@ -396,7 +396,7 @@ function blocks() {
                         </fieldset>
                         <div class="form-group row">
                            <div class="col-sm-12">
-                              <select class="custom-select form-control" name="op">
+                              <select class="form-select" name="op">
                                  <option value="changerblock" selected="selected">'.adm_translate("Modifier un Bloc droit").'</option>
                                  <option value="deleterblock">'.adm_translate("Effacer un Bloc droit").'</option>
                                  <option value="gaucherblock">'.adm_translate("Transférer à Gauche").'</option>
@@ -421,19 +421,19 @@ function blocks() {
                               </div>
                            </div>
                            <div class="form-group">
-                              <div class="custom-control custom-checkbox" >
-                                 <input type="checkbox" class="custom-control-input" id="Sactif'.$j.'R" name="Sactif" value="ON" ';
+                              <div class="form-check" >
+                                 <input type="checkbox" class="form-check-input" id="Sactif'.$j.'R" name="Sactif" value="ON" ';
          if ($Sactif) echo 'checked="checked" ';
          echo '/>
-                                 <label class="custom-control-label" for="Sactif'.$j.'R">'.adm_translate("Activer le Bloc").'</label>
+                                 <label class="form-check-label" for="Sactif'.$j.'R">'.adm_translate("Activer le Bloc").'</label>
                               </div>
                            </div>
                            <div class="form-group">
-                              <div class="custom-control custom-checkbox" >
-                                 <input type="checkbox" class="custom-control-input" id="css'.$j.'R" name="css" value="1" ';
+                              <div class="form-check" >
+                                 <input type="checkbox" class="form-check-input" id="css'.$j.'R" name="css" value="1" ';
          if ($css=="1") echo 'checked="checked" ';
          echo '/>
-                                 <label class="custom-control-label" for="css'.$j.'R"> '.adm_translate("CSS Specifique").'</label>
+                                 <label class="form-check-label" for="css'.$j.'R"> '.adm_translate("CSS Specifique").'</label>
                               </div>
                            </div>
                         </fieldset>
@@ -471,7 +471,7 @@ function blocks() {
                   <label class="col-form-label col-sm-12" for="nblock_title">'.adm_translate("Titre").'</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="text" name="title" id="nblock_title" maxlength="1000" />
-                     <span class="help-block text-right" id="countcar_nblock_title"></span>
+                     <span class="help-block text-end" id="countcar_nblock_title"></span>
                   </div>
                </div>
                <div class="form-group row">
@@ -496,13 +496,13 @@ function blocks() {
             <div class="form-group row">
                <label class="col-form-label col-sm-12" for="op">'.adm_translate("Position").'</label>
                <div class="col-sm-12">
-                  <div class="custom-control custom-radio">
-                     <input type="radio" id="nblock_opL" name="op" value="makelblock" checked="checked" class="custom-control-input"/>
-                     <label class="custom-control-label" for="nblock_opL">'.adm_translate("Créer un Bloc gauche").'</label>
+                  <div class="form-check">
+                     <input type="radio" id="nblock_opL" name="op" value="makelblock" checked="checked" class="form-check-input"/>
+                     <label class="form-check-label" for="nblock_opL">'.adm_translate("Créer un Bloc gauche").'</label>
                   </div>
-                  <div class="custom-control custom-radio">
-                     <input type="radio" id="nblock_opR" name="op" value="makerblock" class="custom-control-input"/>
-                     <label class="custom-control-label" for="nblock_opR">'.adm_translate("Créer un Bloc droite").'</label>
+                  <div class="form-check">
+                     <input type="radio" id="nblock_opR" name="op" value="makerblock" class="form-check-input"/>
+                     <label class="form-check-label" for="nblock_opR">'.adm_translate("Créer un Bloc droite").'</label>
                   </div>
                </div>
             </div>
@@ -525,13 +525,13 @@ function blocks() {
                </div>
                <div class="form-group row">
                   <div class="col-sm-12">
-                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" name="SHTML" id="nblock_shtml" value="ON" />
-                        <label class="custom-control-label" for="nblock_shtml">HTML</label>
+                     <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="SHTML" id="nblock_shtml" value="ON" />
+                        <label class="form-check-label" for="nblock_shtml">HTML</label>
                      </div>
-                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" name="CSS" id="nblock_css" value="ON" />
-                        <label class="custom-control-label" for="nblock_css">CSS</label>
+                     <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="CSS" id="nblock_css" value="ON" />
+                        <label class="form-check-label" for="nblock_css">CSS</label>
                      </div>
                   </div>
                </div>

@@ -102,13 +102,13 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    $Xcontent=ob_get_contents();
    ob_end_clean();
    if ($previous_sid)
-      $prevArt='<a href="article.php?sid='.$previous_sid.'&amp;archive='.$archive.'" ><i class="fa fa-chevron-left fa-lg mr-2" title="'.translate("Précédent").'" data-toggle="tooltip"></i><span class="d-none d-sm-inline">'.translate("Précédent").'</span></a>';
+      $prevArt='<a href="article.php?sid='.$previous_sid.'&amp;archive='.$archive.'" ><i class="fa fa-chevron-left fa-lg me-2" title="'.translate("Précédent").'" data-bs-toggle="tooltip"></i><span class="d-none d-sm-inline">'.translate("Précédent").'</span></a>';
    else $prevArt='';
-   if ($next_sid) $nextArt='<a href="article.php?sid='.$next_sid.'&amp;archive='.$archive.'" ><span class="d-none d-sm-inline">'.translate("Suivant").'</span><i class="fa fa-chevron-right fa-lg ml-2" title="'.translate("Suivant").'" data-toggle="tooltip"></i></a>';
+   if ($next_sid) $nextArt='<a href="article.php?sid='.$next_sid.'&amp;archive='.$archive.'" ><span class="d-none d-sm-inline">'.translate("Suivant").'</span><i class="fa fa-chevron-right fa-lg ms-2" title="'.translate("Suivant").'" data-bs-toggle="tooltip"></i></a>';
    else $nextArt='';
 
-   $printP = '<a href="print.php?sid='.$id.'" title="'.translate("Page spéciale pour impression").'" data-toggle="tooltip"><i class="fa fa-2x fa-print"></i></a>';
-   $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$id.'" title="'.translate("Envoyer cet article à un ami").'" data-toggle="tooltip"><i class="fa fa-2x fa-at"></i></a>';
+   $printP = '<a href="print.php?sid='.$id.'" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip"><i class="fa fa-2x fa-print"></i></a>';
+   $sendF = '<a href="friend.php?op=FriendSend&amp;sid='.$id.'" title="'.translate("Envoyer cet article à un ami").'" data-bs-toggle="tooltip"><i class="fa fa-2x fa-at"></i></a>';
 
    if (!$imgtmp=theme_image('topics/'.$topicimage)) $imgtmp=$tipath.$topicimage;
    $timage=$imgtmp;
@@ -242,7 +242,7 @@ function userpopover($who,$dim) {
       $imgtmp=$temp_user['user_avatar'];
    else
       if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
-   $userpop ='<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-html="true" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' mr-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>';
+   $userpop ='<a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>';
 
    return $userpop;
    }
