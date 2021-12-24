@@ -120,7 +120,7 @@ display: block;
 /* openlayers hack */
 
 .ol-control button, .ol-scale-line {
-   background-color: var(--primary);
+   background-color: var(--bs-primary);
    opacity: 0.8;
 }
 #map .ol-full-screen {

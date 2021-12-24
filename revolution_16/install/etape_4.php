@@ -33,7 +33,7 @@ function etape_4() {
                      <div class="form-group row">
                         <label class="col-form-label" for="new_dbhost">'.ins_translate("Nom d'hôte du serveur mySQL").'</label>
                         <input class="form-control" type="text" name="new_dbhost" id="new_dbhost" maxlength="80" value="'.$dbhost.'" required="required" />
-                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Exemples :").' ==> sql.domaine.com ==> localhost</div><div class="ml-auto" id="countcar_new_dbhost"></div></div>
+                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Exemples :").' ==> sql.domaine.com ==> localhost</div><div class="ms-auto" id="countcar_new_dbhost"></div></div>
                      </div>
                      <div class="form-group row">
                         <label class="col-form-label" for="new_dbuname">'.ins_translate("Nom d'utilisateur (identifiant)").'</label>
@@ -53,7 +53,7 @@ function etape_4() {
                      <div class="form-group row">
                         <label class="col-form-label" for="new_NPDS_Prefix">'.ins_translate("Préfixe des tables sql").'</label>
                         <input class="form-control" type="text" name="new_NPDS_Prefix" id="new_NPDS_Prefix" maxlength="10" value="'.$NPDS_Prefix.'" />
-                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Pour éviter les conflits de nom de table sql...").'</div><div class="ml-auto" id="countcar_new_NPDS_Prefix"></div></div>
+                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div> '.ins_translate("Pour éviter les conflits de nom de table sql...").'</div><div class="ms-auto" id="countcar_new_NPDS_Prefix"></div></div>
                      </div>';
    $sel1='';$sel2='';
    if($mysql_p == 0) {$sel1 = 'selected="selected"';$sel2 = '';}

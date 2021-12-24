@@ -215,7 +215,7 @@ else {
             forumerror('0024');
       }
       echo '
-      <h2><a href="viewpmsg.php"><i class="mr-2 fa fa-inbox"></i></a>'.translate("Message personnel").'</h2>
+      <h2><a href="viewpmsg.php"><i class="me-2 fa fa-inbox"></i></a>'.translate("Message personnel").'</h2>
       <hr />
       <blockquote class="blockquote">'.translate("A propos des messages publiés :").'<br />'.
          translate("Tous les utilisateurs enregistrés peuvent poster des messages privés.").'</blockquote>';

@@ -47,7 +47,7 @@ switch($link_fiche_detail) {
 
    default:
       if ($m->sform_read_mysql($browse_key))
-         echo '<a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=fiche_detail&amp;lid='.$browse_key.'" ><i class="fa fa-info fa-lg" title="'.translate("Détails supplémentaires").'" data-bs-toggle="tooltip"></i></a>';
+         echo '<a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=fiche_detail&amp;lid='.$browse_key.'" ><i class="fa fa-info fa-lg" title="'.translate("Détails supplémentaires").'" data-bs-toggle="tooltip"></i></a>';
    break;
 }
 ?>

@@ -17,18 +17,18 @@ $m->add_mess(translate("* Désigne un champ obligatoire"));
 //$m->add_form_field_size(50);
 
 $m->add_field('name', translate("Votre véritable identité").' '.translate("(optionnel)"),$userinfo['name'],'text',false,60,'','');
-$m->add_extender('name', '', '<span class="help-block"><span class="float-right" id="countcar_name"></span></span>');
+$m->add_extender('name', '', '<span class="help-block"><span class="float-end" id="countcar_name"></span></span>');
 
 $m->add_field('email', translate("Véritable adresse Email"),$userinfo['email'],'email',true,60,'','');
-$m->add_extender('email', '','<span class="help-block">'.translate("(Cette adresse Email ne sera pas divulguée, mais elle nous servira à vous envoyer votre Mot de Passe si vous le perdez)").'<span class="float-right" id="countcar_email"></span></span>');
+$m->add_extender('email', '','<span class="help-block">'.translate("(Cette adresse Email ne sera pas divulguée, mais elle nous servira à vous envoyer votre Mot de Passe si vous le perdez)").'<span class="float-end" id="countcar_email"></span></span>');
 $m->add_field('femail',translate("Votre adresse mèl 'truquée'"),$userinfo['femail'],'email',false,60,"","");
-$m->add_extender('femail', '','<span class="help-block">'.translate("(Cette adresse Email sera publique. Vous pouvez saisir ce que vous voulez mais attention au Spam)").'<span class="float-right" id="countcar_femail"></span></span>');
+$m->add_extender('femail', '','<span class="help-block">'.translate("(Cette adresse Email sera publique. Vous pouvez saisir ce que vous voulez mais attention au Spam)").'<span class="float-end" id="countcar_femail"></span></span>');
 
 if ($userinfo['user_viewemail']) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('user_viewemail',translate("Autoriser les autres utilisateurs à voir mon Email"), 1, false, $checked);
 
 $m->add_field('url', translate("Votre page Web"),$userinfo['url'],'url',false,100,'','');
-$m->add_extender('url', '','<span class="help-block"><span class="float-right" id="countcar_url"></span></span>');
+$m->add_extender('url', '','<span class="help-block"><span class="float-end" id="countcar_url"></span></span>');
 
 // ---- SUBSCRIBE and INVISIBLE
 include_once('functions.php');
@@ -106,11 +106,11 @@ list($attsig) = sql_fetch_row($asig);
 if ($attsig==1) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('attach',translate("Afficher la signature"), 1, false, $checked);
 $m->add_field('user_sig', translate("Signature"),$userinfo['user_sig'],'textarea',false,255,4,'','');
-$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 caractères max. Entrez votre signature (mise en forme html))").'<span class="float-right" id="countcar_user_sig"></span></span>');
+$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 caractères max. Entrez votre signature (mise en forme html))").'<span class="float-end" id="countcar_user_sig"></span></span>');
 // ---- SIGNATURE
 
 $m->add_field('bio',translate("Informations supplémentaires"),$userinfo['bio'],'textarea',false,255,4,'','');
-$m->add_extender('bio', '', '<span class="help-block">'.translate("(255 caractères max). Précisez qui vous êtes, ou votre identification sur ce site)").'<span class="float-right" id="countcar_bio"></span></span>');
+$m->add_extender('bio', '', '<span class="help-block">'.translate("(255 caractères max). Précisez qui vous êtes, ou votre identification sur ce site)").'<span class="float-end" id="countcar_bio"></span></span>');
 $m->add_field('pass', translate("Mot de passe"),'','password',false,40,'','');
 $m->add_extra('<div class="form-group row"><div class="col-sm-8 ms-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div></div></div>');
 $m->add_extender('pass', '', '<span class="help-block text-end" id="countcar_pass"></span>');

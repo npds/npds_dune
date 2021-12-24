@@ -148,7 +148,7 @@ function index() {
                $cresult3 = sql_query("SELECT lid FROM ".$links_DB."links_links WHERE sid='$sid'");
                $cnumrows= sql_num_rows($cresult3);
                echo '
-               <h5 class="ml-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge bg-secondary float-end">'.$cnumrows.'</span></h5>';
+               <h5 class="ms-4"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'">'.aff_langue($stitle).'</a> <span class="badge bg-secondary float-end">'.$cnumrows.'</span></h5>';
             }
             echo '
             </td>
@@ -203,8 +203,8 @@ function FooterOrderBy($cid, $sid, $orderbyTrans, $linkop) {
       echo translate("Titre").' (<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;orderby=titleA"><i class="fas fa-sort-alpha-down"></i>A</a>\<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;orderby=titleD">D</a>)
           '.translate("Date").' (<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;orderby=dateA">A</a>\<a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlink&amp;cid='.$cid.'&amp;orderby=dateD">D</a>)';
    } else {
-      echo translate("Titre").' <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=titleA"><i class="fas fa-sort-alpha-down fa-lg align-middle"></i></a><a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=titleD"><i class="fas fa-sort-alpha-down-alt fa-lg align-middle"></i></a>
-          '.translate("Date").' <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateA"><i class="fas fa-sort-numeric-down fa-lg align-middle"></i></a><a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateD"><i class="fas fa-sort-numeric-down-alt fa-lg align-middle"></i></a>';
+      echo translate("Titre").' <a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=titleA"><i class="fas fa-sort-alpha-down fa-lg align-middle"></i></a><a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=titleD"><i class="fas fa-sort-alpha-down-alt fa-lg align-middle"></i></a>
+          '.translate("Date").' <a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateA"><i class="fas fa-sort-numeric-down fa-lg align-middle"></i></a><a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateD"><i class="fas fa-sort-numeric-down-alt fa-lg align-middle"></i></a>';
    }
    echo '<br />'.translate("Sites classés par").' : <strong>'.$orderbyTrans.'</strong></span></p>';
 
@@ -217,8 +217,8 @@ echo '
    '.translate("Classement").'
    </button>
    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">'.translate("Titre").'<i class="ml-2 fas fa-sort-alpha-down fa-lg align-middle"></i></a>
-      <a class="dropdown-item" href="#">'.translate("Titre").'<i class="ml-2 fas fa-sort-alpha-down-alt fa-lg align-middle"></i></a>
+      <a class="dropdown-item" href="#">'.translate("Titre").'<i class="ms-2 fas fa-sort-alpha-down fa-lg align-middle"></i></a>
+      <a class="dropdown-item" href="#">'.translate("Titre").'<i class="ms-2 fas fa-sort-alpha-down-alt fa-lg align-middle"></i></a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="#">'.translate("Date").'<i class="fas fa-sort-numeric-down fa-lg align-middle"></i></a>
       <a class="dropdown-item" href="#">'.translate("Date").'<i class="fas fa-sort-numeric-down-alt fa-lg align-middle"></i></a>
@@ -433,7 +433,7 @@ function detecteditorial($lid, $ttitle) {
    global $ModPath, $ModStart, $links_DB;
    $resulted2 = sql_query("SELECT adminid FROM ".$links_DB."links_editorials WHERE linkid='$lid'");
    $recordexist = sql_num_rows($resulted2);
-   if ($recordexist != 0) echo '<a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="far fa-sticky-note fa-lg" title="'.translate("EDITO").'" data-bs-toggle="tooltip"></i></a>';
+   if ($recordexist != 0) echo '<a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewlinkeditorial&amp;lid='.$lid.'&amp;ttitle='.$ttitle.'"><i class="far fa-sticky-note fa-lg" title="'.translate("EDITO").'" data-bs-toggle="tooltip"></i></a>';
 }
 
 //Reusable Link Sorting Functions
@@ -487,7 +487,7 @@ function viewlinkeditorial($lid, $ttitle) {
       <span class="text-muted">'.aff_langue($displaytitle).'</span>';
    if ($url!='')
       echo '
-      <span class="float-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fas fa-external-link-alt"></i></a></span>';
+      <span class="float-end"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fas fa-external-link-alt"></i></a></span>';
    echo '
    </h3>';
    if ($recordexist!= 0) {

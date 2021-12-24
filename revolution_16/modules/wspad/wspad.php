@@ -160,7 +160,7 @@ function Liste_Page() {
          </div>
          <hr />
          <h4><a class="arrow-toggle text-primary" id="show_lst_page_'.$pgibid.'" data-bs-toggle="collapse" data-bs-target="#lst_page_'.$pgibid.'" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_page_'.$pgibid.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.$page.'
-            <span class="float-right">
+            <span class="float-end">
                <a href="#" data-bs-toggle="modal" data-bs-target="#renomeModal_'.$page.'" ><i class="fa fa-edit " title="'.wspad_trans("Renommer le document et toutes ses révisions").'" data-bs-toggle="tooltip"></i></a>&nbsp;
                <a class="text-danger" href="javascript:" onclick="confirm_deletedoc(\''.$page.'\',\''.$groupe.'\');" title="'.wspad_trans("Supprimer le document et toutes ses révisions").'" data-bs-toggle="tooltip"><i class="fas fa-trash"></i></a>&nbsp;
             </span>

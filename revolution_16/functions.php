@@ -764,7 +764,7 @@ function forum($rowQ1) {
                                  <a href="viewforum.php?forum='.$myrow['forum_id'].'" >'.$name.'</a>';
                      if (!$redirect)
                         $ibid.='
-                                 <span class="ml-auto"> 
+                                 <span class="ms-auto"> 
                                     <span class="badge bg-secondary ms-1" title="'.translate("Contributions").'" data-bs-toggle="tooltip">'.$tab_total_post[$myrow['forum_id']].'</span>
                                     <span class="badge bg-secondary ms-1" title="'.translate("Sujets").'" data-bs-toggle="tooltip">'.$tab_folder[$myrow['forum_id']][0].'</span>
                                  </span>

@@ -15,9 +15,9 @@ $m->add_mess(translate("* Désigne un champ obligatoire"));
 
 $m->add_field('uname', translate("ID utilisateur (pseudo)"),$uname,'text',true,25,'','');
 $m->add_field('name', translate("Votre véritable identité"),$name,'text',false,60,'','');
-$m->add_extender('name', '', '<span class="help-block"><span class="float-right" id="countcar_name"></span></span>');
+$m->add_extender('name', '', '<span class="help-block"><span class="float-end" id="countcar_name"></span></span>');
 $m->add_field('email', translate("Véritable adresse Email"),$email,'email',true,60,'','');
-$m->add_extender('email', '','<span class="help-block">'.translate("(Cette adresse Email ne sera pas divulguée, mais elle nous servira à vous envoyer votre Mot de Passe si vous le perdez)").'<span class="float-right" id="countcar_email"></span></span>');
+$m->add_extender('email', '','<span class="help-block">'.translate("(Cette adresse Email ne sera pas divulguée, mais elle nous servira à vous envoyer votre Mot de Passe si vous le perdez)").'<span class="float-end" id="countcar_email"></span></span>');
 $m->add_checkbox('user_viewemail',translate("Autoriser les autres utilisateurs à voir mon Email"), "1", false, false);
 
 // ---- AVATAR
@@ -44,15 +44,15 @@ if ($smilies) {
 // ---- AVATAR
 
 $m->add_field('user_from', translate("Votre situation géographique"),StripSlashes($user_from),'text',false,100,'','');
-$m->add_extender('user_from', '', '<span class="help-block"><span class="float-right" id="countcar_user_from"></span></span>');
+$m->add_extender('user_from', '', '<span class="help-block"><span class="float-end" id="countcar_user_from"></span></span>');
 
 $m->add_field('user_occ', translate("Votre activité"),StripSlashes($user_occ),'text',false,100,'','');
-$m->add_extender('user_occ', '', '<span class="help-block"><span class="float-right" id="countcar_user_occ"></span></span>');
+$m->add_extender('user_occ', '', '<span class="help-block"><span class="float-end" id="countcar_user_occ"></span></span>');
 $m->add_field('user_intrest', translate("Vos centres d'intérêt"),StripSlashes($user_intrest),'text',false,150,'','');
-$m->add_extender('user_intrest', '', '<span class="help-block"><span class="float-right" id="countcar_user_intrest"></span></span>');
+$m->add_extender('user_intrest', '', '<span class="help-block"><span class="float-end" id="countcar_user_intrest"></span></span>');
 
 $m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig),'textarea',false,255,'7','');
-$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="float-right" id="countcar_user_sig"></span></span>');
+$m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="float-end" id="countcar_user_sig"></span></span>');
 
 // --- MEMBER-PASS
 if ($memberpass) {

@@ -143,7 +143,7 @@ function reviews() {
          <label class="col-form-label col-sm-4" for="cover'.$id.'">'.adm_translate("Image de garde").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="cover'.$id.'" name="cover" maxlength="100" />
-            <span class="help-block">150*150 pixel => images/covers<span class="float-right ms-1" id="countcar_cover'.$id.'"></span></span>
+            <span class="help-block">150*150 pixel => images/covers<span class="float-end ms-1" id="countcar_cover'.$id.'"></span></span>
          </div>
       </div>
       <div class="form-group row">

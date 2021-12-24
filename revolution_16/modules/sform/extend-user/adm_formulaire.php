@@ -44,16 +44,16 @@ $m->add_form_field_size(60);
 $m->add_field('referer','',basename($referer),'hidden',false);
 
 $m->add_field('add_uname', adm_translate("Surnom"),$chng_uname,'text',true,25,'','');
-$m->add_extender('add_uname', '', '<span class="help-block"><span class="float-right" id="countcar_add_uname"></span></span>');
+$m->add_extender('add_uname', '', '<span class="help-block"><span class="float-end" id="countcar_add_uname"></span></span>');
 
 $m->add_field('add_name', adm_translate("Nom"),$chng_name,'text',false,60,'','');
-$m->add_extender('add_name', '', '<span class="help-block"><span class="float-right" id="countcar_add_name"></span></span>');
+$m->add_extender('add_name', '', '<span class="help-block"><span class="float-end" id="countcar_add_name"></span></span>');
 
 $m->add_field('add_email', adm_translate("E-mail"),$chng_email,'email',true,60,'','');
 $m->add_extender('add_email', '', '<span class="help-block text-end" id="countcar_add_email"></span>');
 
 $m->add_field('add_femail',adm_translate("Adresse E-mail masquée"),$chng_femail,'email',false,60,'','');
-$m->add_extender('add_femail', '', '<span class="help-block"><span class="float-right" id="countcar_add_femail"></span></span>');
+$m->add_extender('add_femail', '', '<span class="help-block"><span class="float-end" id="countcar_add_femail"></span></span>');
 
 if ($op=='ModifyUser')
    $m->add_checkbox('raz_avatar',adm_translate("Revenir aux avatars standards"), 1, false, false);

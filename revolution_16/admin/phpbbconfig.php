@@ -93,14 +93,14 @@ function ForumConfigAdmin() {
          <label class="col-form-label col-sm-5" for="posts_per_page">'.adm_translate("Nombre de contributions par page").'</label>
          <div class="col-sm-7">
             <input class="form-control" type="text" min="0" id="posts_per_page" name="posts_per_page" maxlength="6" value="'.$posts_per_page.'" />
-            <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'<span class="float-right ms-1" id="countcar_posts_per_page"></span></span>
+            <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'<span class="float-end ms-1" id="countcar_posts_per_page"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-5" for="topics_per_page">'.adm_translate("Sujets par forum").'</label>
          <div class="col-sm-7">
             <input class="form-control" type="text" min="0" id="topics_per_page" name="topics_per_page" maxlength="6" value="'.$topics_per_page.'" />
-            <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'<span class="float-right ms-1" id="countcar_topics_per_page"></span></span>
+            <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'<span class="float-end ms-1" id="countcar_topics_per_page"></span></span>
          </div>
       </div>
       <div class="form-group row">

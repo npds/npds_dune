@@ -640,20 +640,20 @@ function LinksListBrokenLinks() {
          list($owneremail)=sql_fetch_row($result4);
          echo '
          <tr>
-            <td><div>'.$title.'&nbsp;<span class="float-right"><a href="'.$url.'" target="_blank" ><i class="fas fa-external-link-alt fa-lg"></i></a></span></div></td>';
+            <td><div>'.$title.'&nbsp;<span class="float-end"><a href="'.$url.'" target="_blank" ><i class="fas fa-external-link-alt fa-lg"></i></a></span></div></td>';
          if ($email=='')
             echo '
             <td>'.$modifysubmitter;
          else
             echo '
-            <td><div>'.$modifysubmitter.'&nbsp;<span class="float-right"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
+            <td><div>'.$modifysubmitter.'&nbsp;<span class="float-end"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
          echo '</td>';
          if ($owneremail=='')
             echo '
              <td>'.$owner;
          else
             echo '
-             <td><div>'.$owner.'&nbsp;<span class="float-right"><a href="mailto:'.$owneremail.'"><i class="fa fa-at fa-lg"></i></a></span></div>';
+             <td><div>'.$owner.'&nbsp;<span class="float-end"><a href="mailto:'.$owneremail.'"><i class="fa fa-at fa-lg"></i></a></span></div>';
          echo '
             </td>
             <td><a href="admin.php?op=LinksIgnoreBrokenLinks&amp;lid='.$lid.'" ><i class="fas fa-trash fa-lg" title="'.adm_translate("Ignorer (Efface toutes les demandes pour un Lien donné)").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>

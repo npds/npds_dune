@@ -39,12 +39,12 @@ function etape_7() {
                               <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
                            </div>
                         </div>
-                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</div><div class="ml-auto" id="countcar_adminpass1"></div></div>
+                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</div><div class="ms-auto" id="countcar_adminpass1"></div></div>
                      </div>
                      <div class="form-group row">
                         <label class="col-form-label" for="adminpass2">'.ins_translate("Une seconde fois").'</label>
                         <input class="form-control" type="password" name="adminpass2" id="adminpass2" minlength="'.$minpass.'" maxlength="20" required="required" />
-                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</div><div class="ml-auto" id="countcar_adminpass2"></div></div>
+                        <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Remarque').' : '.$minpass.' '.ins_translate('caractères minimum').'</div><div class="ms-auto" id="countcar_adminpass2"></div></div>
                      </div>
                      <div class="form-group row">
                         <input type="hidden" name="langue" value="'.$langue.'" />

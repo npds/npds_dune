@@ -181,7 +181,7 @@ function ForumGo($cat_id) {
          <label class="col-form-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="forum_name" name="forum_name" maxlength="150" required="required" />
-            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span class="float-right" id="countcar_forum_name"></span></span>
+            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span class="float-end" id="countcar_forum_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -225,7 +225,7 @@ function ForumGo($cat_id) {
          <label id="labmulti" class="col-form-label col-sm-4" for="forum_pass"></label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="forum_pass" name="forum_pass" />
-            <span id="help_forum_pass" class="help-block"><span class="float-right" id="countcar_forum_pass"></span></span>
+            <span id="help_forum_pass" class="help-block"><span class="float-end" id="countcar_forum_pass"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -316,21 +316,21 @@ function ForumGo($cat_id) {
          case "1":
             inpOri.removeClass("d-none").addClass("d-flex");
             $("#forum_pass").val("").attr({type:"password", maxlength:"60", required:"required"});
-            helptext.html("<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+            helptext.html("<span class=\"float-end\" id=\"countcar_forum_pass\"></span>")
             labelo.html("'.adm_translate("Mot de Passe").'");
             fvitem.enableValidator("forum_pass","notEmpty").disableValidator("forum_pass","regexp").enableValidator("forum_pass","stringLength")
          break;
          case "5": case "7":
             inpOri.removeClass("d-none").addClass("d-flex");
             $("#forum_pass").val("").attr({type:"text", maxlength:"3", required:"required"});
-            helptext.html("2...126<span class=\"float-right\" id=\"countcar_forum_pass\"></span>");
+            helptext.html("2...126<span class=\"float-end\" id=\"countcar_forum_pass\"></span>");
             labelo.html("'.adm_translate("Groupe ID").'");
             fvitem.enableValidator("forum_pass","notEmpty").enableValidator("forum_pass","regexp").disableValidator("forum_pass","stringLength");
         break;
          case "8":
             inpOri.removeClass("d-none").addClass("d-flex");
             $("#forum_pass").val("").attr({type:"text", maxlength:"60", required:"required"});
-            helptext.html("=> modules/sform/forum<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+            helptext.html("=> modules/sform/forum<span class=\"float-end\" id=\"countcar_forum_pass\"></span>")
             labelo.html("'.adm_translate("Fichier de formulaire").'");
             fvitem.enableValidator("forum_pass","notEmpty").disableValidator("forum_pass","regexp").disableValidator("forum_pass","stringLength");
          break;
@@ -376,7 +376,7 @@ function ForumGoEdit($forum_id, $ctg) {
          <label class="col-form-label col-sm-4" for="forum_name">'.adm_translate("Nom du forum").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="forum_name" name="forum_name" value="'.$forum_name.'" required="required" />
-            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span class="float-right" id="countcar_forum_name"></span></span>
+            <span class="help-block">'.adm_translate("(Redirection sur un forum externe : <.a href...)").'<span class="float-end" id="countcar_forum_name"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -484,7 +484,7 @@ function ForumGoEdit($forum_id, $ctg) {
          <label id="labmulti" class="col-form-label col-sm-4" for="forum_pass">'.adm_translate($lana).'</label>
          <div class="col-sm-8">
             <input class="form-control" '.$attinp.' id="forum_pass" name="forum_pass" value="'.$forum_pass.'" />
-            <span id="help_forum_pass" class="help-block">'.$helpinp.'<span class="float-right" id="countcar_forum_pass"></span></span>
+            <span id="help_forum_pass" class="help-block">'.$helpinp.'<span class="float-end" id="countcar_forum_pass"></span></span>
          </div>
       </div>
       <div class="form-group row">
@@ -587,21 +587,21 @@ function ForumGoEdit($forum_id, $ctg) {
          case "1":
             inpOri.removeClass("d-none").addClass("d-flex");
             $("#forum_pass").val("").attr({type:"password", maxlength:"60", required:"required"});
-            helptext.html("<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+            helptext.html("<span class=\"float-end\" id=\"countcar_forum_pass\"></span>")
             labelo.html("'.adm_translate("Mot de Passe").'");
             fvitem.enableValidator("forum_pass","notEmpty").disableValidator("forum_pass","regexp").enableValidator("forum_pass","stringLength");
          break;
          case "5": case "7":
             inpOri.removeClass("d-none").addClass("d-flex");
             $("#forum_pass").val("").attr({type:"text", maxlength:"3", required:"required"});
-            helptext.html("2...126<span class=\"float-right\" id=\"countcar_forum_pass\"></span>");
+            helptext.html("2...126<span class=\"float-end\" id=\"countcar_forum_pass\"></span>");
             labelo.html("'.adm_translate("Groupe ID").'");
             fvitem.enableValidator("forum_pass","notEmpty").enableValidator("forum_pass","regexp").disableValidator("forum_pass","stringLength");
         break;
          case "8":
             inpOri.removeClass("d-none").addClass("d-flex");
             $("#forum_pass").val("").attr({type:"text", maxlength:"60", required:"required"});
-            helptext.html("=> modules/sform/forum<span class=\"float-right\" id=\"countcar_forum_pass\"></span>")
+            helptext.html("=> modules/sform/forum<span class=\"float-end\" id=\"countcar_forum_pass\"></span>")
             labelo.html("'.adm_translate("Fichier de formulaire").'");
             fvitem.enableValidator("forum_pass","notEmpty").disableValidator("forum_pass","regexp").disableValidator("forum_pass","stringLength");
          break;

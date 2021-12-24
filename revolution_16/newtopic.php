@@ -309,7 +309,7 @@ if ($submitS) {
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">
-                  <div class="float-left">';
+                  <div class="float-start">';
    putitems('ta_newtopic');
       echo '
                   </div>';

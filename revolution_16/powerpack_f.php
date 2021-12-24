@@ -227,7 +227,7 @@ function instant_members_message() {
              else
                 $M=$N;
              $boxstuff .='
-         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip" >'.$M.'</a><span class="float-right">'.$icon.'</span></li>';
+         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip" >'.$M.'</a><span class="float-end">'.$icon.'</span></li>';
           }//suppression temporaire ... rank  '.$tmpR.'
       }
       $boxstuff .='
@@ -377,7 +377,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
           $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
           $ibidx = sql_num_rows($res);
           $boxstuff .= '
-          <li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-bs-toggle="tooltip">'.$forumname.'</a><span class="float-right badge bg-secondary" title="'.translate("Sujets").'" data-bs-toggle="tooltip">'.$ibidx.'</span></h6></li>';
+          <li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-bs-toggle="tooltip">'.$forumname.'</a><span class="float-end badge bg-secondary" title="'.translate("Sujets").'" data-bs-toggle="tooltip">'.$ibidx.'</span></h6></li>';
 
           $topics = 0;
           while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {
@@ -409,7 +409,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
                  $topictitle= stripslashes($topictitle);
               }
               $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge bg-secondary mx-2" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
-              if ($displayposter) $boxstuff .= $decoration.'<span class="ml-1">'.$postername.'</span>';
+              if ($displayposter) $boxstuff .= $decoration.'<span class="ms-1">'.$postername.'</span>';
               $boxstuff .= '</li>';
               $topics++;
           }

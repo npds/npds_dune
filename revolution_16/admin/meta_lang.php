@@ -322,7 +322,7 @@ function Creat_Meta_Lang() {
          if ($type_meta == "smil")
             echo '
                <input class="form-control" type="text" name="content" id="content" maxlength="255" required="required" />
-               <span class="help-block">'.adm_translate("Chemin et nom de l'image du Smiley").' Ex. : forum/smilies/pafmur.gif<span class="float-right ms-1" id="countcar_content"></span></span>
+               <span class="help-block">'.adm_translate("Chemin et nom de l'image du Smiley").' Ex. : forum/smilies/pafmur.gif<span class="float-end ms-1" id="countcar_content"></span></span>
             </div>
          </div>';
          else

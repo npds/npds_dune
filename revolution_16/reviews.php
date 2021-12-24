@@ -116,14 +116,14 @@ function write_review() {
          <label class="col-form-label col-sm-4" for="url_rev">'.translate("Lien relatif").'</label>
          <div class="col-sm-8">
             <input type="url" class="form-control" id="url_rev" name="url" maxlength="320" />
-            <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-right" id="countcar_url_rev"></span></span>
+            <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-end" id="countcar_url_rev"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="url_title_rev">'.translate("Titre du lien").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="url_title_rev" name="url_title" maxlength="50" />
-            <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-right" id="countcar_url_title_rev"></span></span>
+            <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-end" id="countcar_url_title_rev"></span></span>
          </div>
       </div>';
       if ($admin) {
@@ -132,7 +132,7 @@ function write_review() {
          <label class="col-form-label col-sm-4" for="cover_rev">'.translate("Nom de fichier de l'image").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="cover_rev" name="cover" maxlength="50" />
-            <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-right" id="countcar_cover_rev"></span></span>
+            <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-end" id="countcar_cover_rev"></span></span>
          </div>
       </div>';
       }
@@ -518,7 +518,7 @@ function showcontent($id) {
       <nav class="d-flex justify-content-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
-               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ml-2 d-none d-lg-inline">'.translate("Outils administrateur").'</span></a>
+               <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i><span class="ms-2 d-none d-lg-inline">'.translate("Outils administrateur").'</span></a>
             </li>
             <li class="page-item">
                <a class="page-link" role="button" href="reviews.php?op=mod_review&amp;id='.$id.'" title="'.translate("Editer").'" data-bs-toggle="tooltip" ><i class="fa fa-lg fa-edit" ></i></a>
@@ -620,21 +620,21 @@ function mod_review($id) {
          <label class="col-form-label col-sm-4" for="url_modrev">'.translate("Lien").'</label>
          <div class="col-sm-8">
             <input type="url" class="form-control" id="url_modrev" name="url" maxlength="320" value="'.$url.'" />
-            <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-right" id="countcar_url_modrev"></span></span>
+            <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-end" id="countcar_url_modrev"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="url_title_modrev">'.translate("Titre du lien").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="url_title_modrev" name="url_title" value="'.$url_title.'"  maxlength="50" />
-            <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-right" id="countcar_url_title_modrev"></span></span>
+            <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-end" id="countcar_url_title_modrev"></span></span>
          </div>
       </div>
       <div class="form-group row">
          <label class="col-form-label col-sm-4" for="cover_modrev">'.translate("Image de garde").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="cover_modrev" name="cover" value="'.$cover.'" maxlength="100"/>
-            <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-right" id="countcar_cover_modrev"></span></span>
+            <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-end" id="countcar_cover_modrev"></span></span>
          </div>
       </div>
       <div class="form-group row">

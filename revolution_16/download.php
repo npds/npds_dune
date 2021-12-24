@@ -40,7 +40,7 @@ function geninfo($did,$out_template) {
          echo '
          <h2 class="mb-3">'.translate("Chargement de fichiers").'</h2>
          <div class="card">
-            <div class="card-header"><h4>'.$dfilename.'<span class="ml-3 text-muted small">@'.$durl.'</h4></div>
+            <div class="card-header"><h4>'.$dfilename.'<span class="ms-3 text-muted small">@'.$durl.'</h4></div>
             <div class="card-body">';
       }
       echo '
@@ -127,7 +127,7 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
    $out_template = 0;
    if ($aff) {
       echo '
-         <a class="mr-3" href="#" data-bs-toggle="modal" data-bs-target="#mo'.$did.'" title="'.translate("Information sur le fichier").'" data-bs-toggle="tooltip"><i class="fa fa-info-circle fa-2x"></i></a>
+         <a class="me-3" href="#" data-bs-toggle="modal" data-bs-target="#mo'.$did.'" title="'.translate("Information sur le fichier").'" data-bs-toggle="tooltip"><i class="fa fa-info-circle fa-2x"></i></a>
          <a href="download.php?op=mydown&amp;did='.$did.'" target="_blank" title="'.translate("Charger maintenant").'" data-bs-toggle="tooltip"><i class="fa fa-download fa-2x"></i></a>
         <div class="modal fade" id="mo'.$did.'" tabindex="-1" role="dialog" aria-labelledby="my'.$did.'" aria-hidden="true">
             <div class="modal-dialog">

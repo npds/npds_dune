@@ -497,7 +497,7 @@ function GraphicAdmin($hlpfile) {
                <p>'.adm_translate("Une nouvelle version de NPDS est disponible !").'</p>
                <p class="lead mt-3">'.$versus_info[1].' '.$versus_info[2].'</p>
                <p class="my-3">
-                  <a class="mr-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-bs-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.zip</a>
+                  <a class="me-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-bs-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.zip</a>
                   <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-bs-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.tar.gz</a>
                </p>
             </div>
@@ -510,7 +510,7 @@ function GraphicAdmin($hlpfile) {
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id=""><span id="messageModalIcon" class="mr-2"></span><span id="messageModalLabel"></span></h5>
+               <h5 class="modal-title" id=""><span id="messageModalIcon" class="me-2"></span><span id="messageModalLabel"></span></h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                </button>
@@ -659,7 +659,7 @@ function adminMain($deja_affiches) {
 
       echo '
       <form id="fad_articles" class="form-inline" action="admin.php" method="post">
-         <label class="mr-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
+         <label class="me-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
          <input class="form-control  me-2 mt-sm-3 mb-2" type="number" name="sid" />
          <select class="form-select me-2 mt-sm-3 mb-2" name="op">
             <option value="EditStory" selected="selected">'.adm_translate("Editer un Article").'</option>

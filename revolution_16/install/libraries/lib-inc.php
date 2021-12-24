@@ -69,9 +69,9 @@ function verif_chmod() {
    foreach ($file_to_check as $v) {
       if(file_exists($v)) {
          if(is_writeable($v))
-            $listfich .= '<li class="list-group-item">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :<span class="ml-1 text-success">'.ins_translate("corrects").' !</span></li>';
+            $listfich .= '<li class="list-group-item">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :<span class="ms-1 text-success">'.ins_translate("corrects").' !</span></li>';
          else {
-            $listfich .=  '<li class="list-group-item list-group-item-danger">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :<span class="ml-1">'.ins_translate("incorrects").' !</span><br />
+            $listfich .=  '<li class="list-group-item list-group-item-danger">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :<span class="ms-1">'.ins_translate("incorrects").' !</span><br />
             <span class="">'.ins_translate("Vous devez modifier les droits d'accès (lecture/écriture) du fichier ") .$v. ' (chmod 666)</li>';
             $stopngo = 1;
          }

@@ -1,6 +1,6 @@
 /*
 theme skinable for npds
-utilisation des variables de la css BS : var(--primary)
+utilisation des variables de la css BS : var(--bs-primary)
 */
 
 .flatpickr-calendar {
@@ -208,11 +208,11 @@ utilisation des variables de la css BS : var(--primary)
       /*rtl:end:ignore*/
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
-  color: var(--primary);
+  color: var(--bs-primary);
 }
 .flatpickr-months .flatpickr-prev-month:hover svg,
 .flatpickr-months .flatpickr-next-month:hover svg {
-  fill: var(--primary);
+  fill: var(--bs-primary);
 }
 .flatpickr-months .flatpickr-prev-month svg,
 .flatpickr-months .flatpickr-next-month svg {
@@ -518,11 +518,11 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.nextMonthDay,
 .flatpickr-day.startRange.nextMonthDay,
 .flatpickr-day.endRange.nextMonthDay {
-  background: var(--primary);
+  background: var(--bs-primary);
   -webkit-box-shadow: none;
           box-shadow: none;
   color: #fff;
-  border-color: var(--primary);
+  border-color: var(--bs-primary);
 }
 .flatpickr-day.selected.startRange,
 .flatpickr-day.startRange.startRange,
@@ -537,8 +537,8 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
-  -webkit-box-shadow: -10px 0 0 var(--primary);
-          box-shadow: -10px 0 0 var(--primary);
+  -webkit-box-shadow: -10px 0 0 var(--bs-primary);
+          box-shadow: -10px 0 0 var(--bs-primary);
 }
 .flatpickr-day.selected.startRange.endRange,
 .flatpickr-day.startRange.startRange.endRange,
@@ -569,8 +569,8 @@ span.flatpickr-weekday {
 }
 .flatpickr-day.week.selected {
   border-radius: 0;
-  -webkit-box-shadow: -5px 0 0 var(--primary), 5px 0 0 var(--primary);
-          box-shadow: -5px 0 0 var(--primary), 5px 0 0 var(--primary);
+  -webkit-box-shadow: -5px 0 0 var(--bs-primary), 5px 0 0 var(--bs-primary);
+          box-shadow: -5px 0 0 var(--bs-primary), 5px 0 0 var(--bs-primary);
 }
 .flatpickr-day.hidden {
   visibility: hidden;

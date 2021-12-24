@@ -31,7 +31,7 @@ function displayUsers() {
     <h3>'.adm_translate("Extraire l'annuaire").'</h3>
     <form method="post" class="form-inline" action="admin.php">
             <div class="form-group">
-                <label class="mr-2 mt-sm-3" for="op">'.adm_translate("Format de fichier").'</label>
+                <label class="me-2 mt-sm-3" for="op">'.adm_translate("Format de fichier").'</label>
                 <select class="form-select me-2 mt-sm-3" name="op">
                     <option value="extractUserCSV">'.adm_translate("Au format CSV").'</option>
                 </select>
@@ -41,7 +41,7 @@ function displayUsers() {
     <hr />
     <h3>'.adm_translate("Rechercher utilisateur").'</h3>
     <form method="post" class="form-inline" action="admin.php">
-      <label class="mr-2 mt-sm-1" for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
+      <label class="me-2 mt-sm-1" for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
       <input class="form-control me-2 mt-sm-3 mb-2" type="text" id="chng_uid" name="chng_uid" size="20" maxlength="10" />
       <select class="form-select me-2 mt-sm-3 mb-2" name="op">
          <option value="modifyUser">'.adm_translate("Modifier un utilisateur").'</option>
@@ -304,7 +304,7 @@ function nonallowedUsers() {
             <td>'.$unallowed_users['name'].'</td>
             <td>'.date('d/m/Y @ h:m',$unallowed_users['user_regdate']).'</td>
             <td>
-               <a class="mr-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-bs-toggle="tooltip"></i></a>
+               <a class="me-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-bs-toggle="tooltip"></i></a>
             </td>
          </tr>';
    }
@@ -381,7 +381,7 @@ function checkdnsmailusers() {
             $datelimit= date('d/m/Y',$res[1]+5184000);
          }
          $wrongdnsmail++;
-         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-right"><i class="far fa-envelope me-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
+         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-end"><i class="far fa-envelope me-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
       }
    }
 
@@ -459,7 +459,7 @@ function checkdnsmailusers() {
             $dateenvoi=date('d/m/Y',$t[$row]);
             $datelimit= date('d/m/Y',$t[$row]+5184000);
             echo '
-            <li>'.adm_translate("DNS ou serveur de mail incorrect").' <i class="fa fa-user-o me-1 "></i> : <a class="alert-link" href="admin.php?chng_uid='. $uids[$row].'&amp;op=modifyUser">'. $unames[$row].'</a><span class="float-right"><i class="far fa-envelope me-1 align-middle"></i><small>'.$dateenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
+            <li>'.adm_translate("DNS ou serveur de mail incorrect").' <i class="fa fa-user-o me-1 "></i> : <a class="alert-link" href="admin.php?chng_uid='. $uids[$row].'&amp;op=modifyUser">'. $unames[$row].'</a><span class="float-end"><i class="far fa-envelope me-1 align-middle"></i><small>'.$dateenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
          }
          echo '
       </ul>';

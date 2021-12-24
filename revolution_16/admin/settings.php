@@ -321,14 +321,14 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xlever">'.adm_translate("Le jour commence à").'</label>
             <div class="col-sm-8">
                <input class="form-control js-hhmm" type="text" name="xlever" id="xlever" value="'.$lever.'" maxlength="5" required="required" />
-               <span class="help-block">(HH:MM)<span class="float-right ms-1" id="countcar_xlever"></span></span>
+               <span class="help-block">(HH:MM)<span class="float-end ms-1" id="countcar_xlever"></span></span>
             </div>
          </div>
          <div class="form-group row">
             <label class="col-form-label col-sm-4" for="xcoucher">'.adm_translate("La nuit commence à").'</label>
             <div class="col-sm-8">
                <input class="form-control js-hhmm" type="text" name="xcoucher" id="xcoucher" value="'.$coucher.'" maxlength="5" required="required" />
-               <span class="help-block">(HH:MM)<span class="float-right ms-1" id="countcar_xcoucher"></span></span>
+               <span class="help-block">(HH:MM)<span class="float-end ms-1" id="countcar_xcoucher"></span></span>
             </div>
          </div>
          <div class="form-group row">

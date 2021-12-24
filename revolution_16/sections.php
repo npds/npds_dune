@@ -66,7 +66,7 @@ function listsections($rubric) {
             else
                $aff.='<i class="fa fa-caret-down text-muted invisible "></i>';
             $aff.='
-         <a class="ml-2" href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class=" float-end">#NEW#<span class="badge bg-secondary" title="'.translate("Sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$nb_section.'</span></span>
+         <a class="ms-2" href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class=" float-end">#NEW#<span class="badge bg-secondary" title="'.translate("Sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$nb_section.'</span></span>
       </h3>';
             if ($intro!='')
                $aff.='<p class="text-muted">'.aff_langue($intro).'</p>';
@@ -109,8 +109,8 @@ function listsections($rubric) {
                         $aff2.='<a href="sections.php?op=viewarticle&amp;artid='.$artid.'">'.aff_langue($title).'</a><span class="float-end"><small>'.translate("lu : ").' '.$counter.' '.translate("Fois").'</small>';
                         if ($nouveau=='') {
                            $aff2.='<i class="far fa-star ms-3 text-success"></i>';
-                           $aff1 = str_replace('#NEW#','<span class="mr-2 badge bg-success animated faa-flash">N</span>',$aff1);
-                           $aff = str_replace('#NEW#','<span class="mr-2 badge bg-success animated faa-flash">N</span>',$aff);
+                           $aff1 = str_replace('#NEW#','<span class="me-2 badge bg-success animated faa-flash">N</span>',$aff1);
+                           $aff = str_replace('#NEW#','<span class="me-2 badge bg-success animated faa-flash">N</span>',$aff);
                         }
                         $aff2.='</span><br />';
                      }

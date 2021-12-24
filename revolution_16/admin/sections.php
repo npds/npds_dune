@@ -191,7 +191,7 @@ function sections() {
          if ($enligne==0) { $online='<span class="badge bg-danger ms-1 p-2">'.adm_translate("Hors Ligne").'</span>'; } else if ($enligne==1) { $online = '<span class="badge bg-success ms-1 p-2">'.adm_translate("En Ligne").'</span>'; }
          echo '
       <div class="list-group-item bg-light lead">
-         <a href="" class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="float-right">'.$href1.$href2.$href3.'</span>
+         <a href="" class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="float-end">'.$href1.$href2.$href3.'</span>
       </div>';
 
          if ($radminsuper==1)
@@ -204,7 +204,7 @@ function sections() {
             <div id="srub'.$i.'" class=" mb-3 collapse ">
                <div class="list-group-item d-flex"><span class="badge bg-secondary me-2 p-2">'.sql_num_rows($result2).'</span><strong class="">'.adm_translate("Sous-rubriques").'</strong>';
                if ($radminsuper==1)
-                  echo '<span class="ml-auto"><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre des sous-rubriques").'" data-bs-toggle="tooltip" data-bs-placement="left" ><i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
+                  echo '<span class="ms-auto"><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre des sous-rubriques").'" data-bs-toggle="tooltip" data-bs-placement="left" ><i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
                echo '</div>';
 
            while (list($secid, $secname) = sql_fetch_row($result2)) {
@@ -238,13 +238,13 @@ function sections() {
                   <span class="badge bg-secondary ms-4 p-2">'.sql_num_rows($result3).'</span>&nbsp;<strong class=" text-capitalize">'.adm_translate("publications").'</strong>';
                   if ($radminsuper==1)
                      echo '
-                  <span class="ml-auto"><a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" title="'.adm_translate("Changer l'ordre des publications").'" data-bs-toggle="tooltip" data-bs-placement="left">&nbsp;<i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
+                  <span class="ms-auto"><a href="admin.php?op=ordrecours&secid='.$secid.'&amp;secname='.$secname.'" title="'.adm_translate("Changer l'ordre des publications").'" data-bs-toggle="tooltip" data-bs-placement="left">&nbsp;<i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
                   echo '</li>';
                   while (list($artid, $title) = sql_fetch_row($result3)) {
                      if ($title=='') $title=adm_translate("Sans titre");
                         echo '
-                     <li class="list-group-item list-group-item-action d-flex"><span class="ml-4">'.aff_langue($title).'</span>
-                        <span class="ml-auto">
+                     <li class="list-group-item list-group-item-action d-flex"><span class="ms-4">'.aff_langue($title).'</span>
+                        <span class="ms-auto">
                            <a href="sections.php?op=viewarticle&amp;artid='.$artid.'&amp;prev=1"><i class="fa fa-eye fa-lg"></i></a>&nbsp;';
                      if ($droit_pub>0 and $droit_pub!=4) // suffisant ?
                         echo '
@@ -481,7 +481,7 @@ function publishcompat($article) {
          <ul id="lst_'.$rubid.'" class="list-group mb-1 collapse">';
          while (list($secid, $secname) = sql_fetch_row($result2)) {
             echo '
-            <li class="list-group-item"><strong class="ml-3" title="'.adm_translate("sous-rubrique").'" data-bs-toggle="tooltip">'.aff_langue($secname).'</strong></li>';
+            <li class="list-group-item"><strong class="ms-3" title="'.adm_translate("sous-rubrique").'" data-bs-toggle="tooltip">'.aff_langue($secname).'</strong></li>';
             $result3 = sql_query("SELECT artid, title FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
             if (sql_num_rows($result3) > 0) {
                while (list($artid, $title) = sql_fetch_row($result3)) {
@@ -700,7 +700,7 @@ function sectionedit($secid) {
       echo '<input type="hidden" name="rubref" value="'.$rubref.'" />';
       $result = sql_query("SELECT rubname FROM ".$NPDS_Prefix."rubriques WHERE rubid='$rubref'");
       list($rubname) = sql_fetch_row($result);
-      echo '<pan class="ml-2">'.aff_langue($rubname).'</span>';
+      echo '<pan class="ms-2">'.aff_langue($rubname).'</span>';
    }
 */
    //ici

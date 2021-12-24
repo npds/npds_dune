@@ -234,24 +234,24 @@ ul.dropdown-menu {
 .fa {text-shadow:2px 2px 4px #d9d9d9;}
 */
 
-/* ==> Personalisation (opacité & couleur) des tooltips bootstrap V4 */
+/* ==> Personalisation (opacité & couleur) des tooltips bootstrap V5 */
 .tooltip.show {} /* opacité default 0.9 */
 .tooltip-inner {
   background-color: #484848;
 }
-.tooltip.bs-tooltip-top .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+.tooltip.bs-tooltip-top .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="top"] .tooltip-arrow::before {
   border-top-color: #484848;
 }
-.tooltip.bs-tooltip-right .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="right"] .arrow::before {
+.tooltip.bs-tooltip-end .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="right"] .tooltip-arrow::before {
   border-right-color: #484848;
 }
-.tooltip.bs-tooltip-bottom .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="bottom"] .tooltip-arrow::before {
   border-bottom-color: #484848;
 }
-.tooltip.bs-tooltip-left .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="left"] .arrow::before {
+.tooltip.bs-tooltip-start .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="left"] .tooltip-arrow::before {
 border-left-color: #484848;
 }
-/* <== Personalisation des tooltips bootstrap V4 */
+/* <== Personalisation des tooltips bootstrap V5 */
 
 #adm_men a:hover
 {text-decoration: none;}

@@ -32,25 +32,19 @@ function ablock() {
    if (sql_num_rows($result) > 0) {
       while (list($title, $content) = sql_fetch_row($result)) {
          echo '
-         <form id="adminblock" action="admin.php" method="post">
-            <div class="form-group row">
+         <form id="adminblock" action="admin.php" method="post" class="needs-validation">
+            <div class="mb-3">
                <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
-               <div class="col-12">
-                  <textarea class="form-control" type="text" name="title" id="title" maxlength="1000">'.$title.'</textarea>
-                  <span class="help-block text-end"><span id="countcar_title"></span></span>
-               </div>
+               <textarea class="form-control" type="text" name="title" id="title" maxlength="1000">'.$title.'</textarea>
+               <span class="help-block text-end"><span id="countcar_title"></span></span>
             </div>
-            <div class="form-group row">
+            <div class="mb-3">
                <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
-               <div class="col-12">
-                  <textarea class="form-control" type="text" rows="25" name="content" id="content">'.$content.'</textarea>
-               </div>
+               <textarea class="form-control" type="text" rows="25" name="content" id="content">'.$content.'</textarea>
             </div>
             <input type="hidden" name="op" value="changeablock" />
-            <div class="form-group row">
-               <div class="col-12">
-                  <button class="btn btn-outline-primary btn-block col-12" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
-               </div>
+            <div class="mb-3">
+               <button class="btn btn-outline-primary btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
             </div>
          </form>';
       $arg1='

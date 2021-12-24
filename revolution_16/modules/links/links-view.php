@@ -75,9 +75,9 @@ global $NPDS_Prefix;
             echo '<div class="d-flex justify-content-between">';
                global $popular;
                if ($hits>$popular)
-                  echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ml-auto">'.translate("Hits: ").'<span class=" badge bg-secondary">'.$hits.'</span></span>';
+                  echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ms-auto">'.translate("Hits: ").'<span class=" badge bg-secondary">'.$hits.'</span></span>';
                else
-                  echo '<span class="ml-auto">'.translate("Nb hits : ").'<span class=" badge bg-secondary">'.$hits.'</span></span>';
+                  echo '<span class="ms-auto">'.translate("Nb hits : ").'<span class=" badge bg-secondary">'.$hits.'</span></span>';
             echo '</div>';
             }
          echo '
@@ -86,17 +86,17 @@ global $NPDS_Prefix;
          $datetime=formatTimestampShort($time);
             echo '
                <span class="small">'.translate("Ajouté le : ").$datetime.'</span>
-               <span class="ml-auto">';
+               <span class="ms-auto">';
             if ($url!='') {
                echo '
-                  <a class="mr-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Rapporter un lien rompu").'" data-bs-toggle="tooltip"><i class="fas fa-unlink fa-lg"></i></a>';
+                  <a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=brokenlink&amp;lid='.$lid.'" title="'.translate("Rapporter un lien rompu").'" data-bs-toggle="tooltip"><i class="fas fa-unlink fa-lg"></i></a>';
             }
             // Advance infos via the class sform.php
             $browse_key=$lid;
             include ("modules/sform/$ModPath/link_detail.php");
             detecteditorial($lid, urlencode($title));
             echo '
-                  <a class="mr-3" href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
+                  <a class="me-3" href="print.php?DB='.$links_DB.'&amp;lid='.$lid.'" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
             autorise_mod($lid,true);
             echo '
                </span>

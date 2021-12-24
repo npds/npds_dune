@@ -1010,13 +1010,13 @@ function LinksListBrokenLinks() {
           list($owneremail)=sql_fetch_row($result4);
           echo '
          <tr>
-            <td><div>'.$title.'&nbsp;<span class="float-right"><a href="'.$url.'"  target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></span></div></td>';
+            <td><div>'.$title.'&nbsp;<span class="float-end"><a href="'.$url.'"  target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a></span></div></td>';
           if ($email=='') 
             echo '
             <td>'.$modifysubmitter;
           else 
             echo '
-            <td><div>'.$modifysubmitter.'&nbsp;<span class="float-right"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
+            <td><div>'.$modifysubmitter.'&nbsp;<span class="float-end"><a href="mailto:'.$email.'" ><i class="fa fa-at fa-lg"></i></a></span></div>';
           echo '</td>';
           if ($owneremail=='')
              echo '

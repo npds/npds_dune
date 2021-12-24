@@ -204,7 +204,7 @@ echo '
          }
       }
       echo '
-      <h3 class="my-3"><a data-bs-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ml-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <code>security.log</code></span></h3>
+      <h3 class="my-3"><a data-bs-toggle="collapse" href="#tog_tad_slog" aria-expanded="false" aria-controls="tog_tad_slog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ms-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("SECURITE").' : <code>security.log</code></span></h3>
       <div id="tog_tad_slog" class="collapse">
          <table id="tad_slog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true">
             <thead>
@@ -219,7 +219,7 @@ echo '
             </tbody>
          </table>
       </div>
-      <h3 class="mt-3"><a data-bs-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ml-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code>security.log</code></span></h3>
+      <h3 class="mt-3"><a data-bs-toggle="collapse" href="#tog_tad_tlog" aria-expanded="false" aria-controls="tog_tad_tlog"><i class="toggle-icon fa fa-caret-down"></i></a><span class="ms-2">'.SessionLog_translate("Liste des Logs").' '.SessionLog_translate("TELECHARGEMENT").' : <code>security.log</code></span></h3>
       <div id="tog_tad_tlog" class="collapse">
          <table id="tad_tlog" data-toggle="table" data-striped="true" data-search="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
             <thead>

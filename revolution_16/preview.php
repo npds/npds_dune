@@ -118,7 +118,7 @@ switch ($acc) {
          }
                echo'
                   &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$userdatat[1].'</strong></span>
-                  <span class="float-right">';
+                  <span class="float-end">';
       if (isset($image_subject)) {
          if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
          echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';

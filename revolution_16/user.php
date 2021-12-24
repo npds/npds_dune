@@ -401,7 +401,7 @@ function userinfo($uname) {
             foreach($res_id as $y1) {
                $k = array_search( $y1[0],$v1);
                if (false !== $k) {
-                  $my_rs.='<a class="mr-3" href="';
+                  $my_rs.='<a class="me-3" href="';
                   if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                   $my_rs.= '" target="_blank"><i class="fab fa-'.$v1[2].' fa-2x"></i></a> ';
                   break;
@@ -425,7 +425,7 @@ function userinfo($uname) {
 
    echo '
    <div class="d-flex flex-row flex-wrap">
-      <div class="mr-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
+      <div class="me-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
       <div class="align-self-center">
          <h2>'.translate("Utilisateur").'<span class="d-inline-block text-muted ms-1">'.$uname.'</span></h2>';
    if ($uname !== $cookie[1])
@@ -619,7 +619,7 @@ function userinfo($uname) {
       echo '
       <div class="d-flex">
         <div class="p-2"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></div>
-        <div class="ml-auto p-2">'.$time.'</div>
+        <div class="ms-auto p-2">'.$time.'</div>
       </div>';
    }
    echo '
@@ -666,11 +666,11 @@ function userinfo($uname) {
          <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start" >
             <span class="d-flex w-100 mt-1">
             <span>'.$post_time.'</span>
-            <span class="ml-auto">
+            <span class="ms-auto">
                <span class="badge bg-secondary ms-1" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$replys.'</span>
             </span>
          </span>
-         <span class="d-flex w-100"><br /><a href="viewtopic.php?topic='.$topic_id.'&forum='.$forum_id.'" data-bs-toggle="tooltip" title="'.$forum_name.'">'.$topic_title.'</a><span class="ml-auto">'.$image.'</span></span>
+         <span class="d-flex w-100"><br /><a href="viewtopic.php?topic='.$topic_id.'&forum='.$forum_id.'" data-bs-toggle="tooltip" title="'.$forum_name.'">'.$topic_title.'</a><span class="ms-auto">'.$image.'</span></span>
          </p>';
          $j++;
       }

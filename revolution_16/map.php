@@ -109,7 +109,7 @@ function mapcategories() {
    while (list($catid, $title) = sql_fetch_row($result)) {
       $result2 = sql_query("SELECT sid FROM stories WHERE catid='$catid'");
       $nb_article = sql_num_rows($result2);
-      $lis_cat.='<li><a href="index.php?op=newindex&amp;catid='.$catid.'">'.aff_langue($title).'</a> <span class="float-right badge bg-secondary"> '.$nb_article.' </span></li>'."\n";
+      $lis_cat.='<li><a href="index.php?op=newindex&amp;catid='.$catid.'">'.aff_langue($title).'</a> <span class="float-end badge bg-secondary"> '.$nb_article.' </span></li>'."\n";
    }
    if ($lis_cat!='')
       echo '

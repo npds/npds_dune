@@ -97,7 +97,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           $hometext=meta_lang(aff_code(aff_langue($hometext)));
           $bodytext=meta_lang(aff_code(aff_langue($bodytext)));
           echo '
-             <span class="float-right text-capitalize" style="font-size: .8rem;"> '.$datetime.'</span><br />
+             <span class="float-end text-capitalize" style="font-size: .8rem;"> '.$datetime.'</span><br />
              <hr />
              <h2 class="mb-3">'.translate("Sujet : ").' '.aff_langue($topictext).'</h2>
          </div>
@@ -125,7 +125,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           }
        }
        if ($oper=='links') {
-          echo '<span class="float-right text-capitalize" style="font-size: .8rem;">'.$datetime.'</span><br /><hr />';
+          echo '<span class="float-end text-capitalize" style="font-size: .8rem;">'.$datetime.'</span><br /><hr />';
           if ($url!='') {
              echo '<h2 class="mb-3">'.translate("Liens").' : '.$url.'</h2>';
           }

@@ -121,10 +121,10 @@ function show_imm($op) {
          <div class="card-footer">';
          if ($posterdata['uid']<>1)
             echo '
-            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Répondre").'" data-bs-toggle="tooltip"><i class="fa fa-reply fa-lg me-1"></i>'.translate("Répondre").'</a>';
+            <a class="me-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=reply" title="'.translate("Répondre").'" data-bs-toggle="tooltip"><i class="fa fa-reply fa-lg me-1"></i>'.translate("Répondre").'</a>';
          echo '
-            <a class="mr-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Lu").'" data-bs-toggle="tooltip"><i class="far fa-check-square fa-lg"></i></a>
-            <a class="mr-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Effacer").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>
+            <a class="me-3" href="readpmsg_imm.php?op=read_msg&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'&amp;sub_op=read" title="'.translate("Lu").'" data-bs-toggle="tooltip"><i class="far fa-check-square fa-lg"></i></a>
+            <a class="me-3" href="readpmsg_imm.php?op=delete&amp;msg_id='.$myrow['msg_id'].'&amp;op_orig='.$op.'" title="'.translate("Effacer").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>
          </div>
          </div>';
 
