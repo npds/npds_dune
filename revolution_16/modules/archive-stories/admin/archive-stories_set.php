@@ -37,14 +37,14 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
    <h3 mb-3>'.adm_translate("Paramètres").'</h3>
    <form id="archiveadm" class="form-horizontal" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
             <div class="col-sm-8">
                <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
                <span class="help-block text-end"><span id="countcar_arch_titre"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
             <div class="col-sm-8">
                <select class="form-select" name="arch">';
@@ -58,20 +58,20 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
             <div class="col-sm-8">
               <input class="form-control" type="text" id="maxcount" name="maxcount" value="'.$maxcount.'" min="0" max="500" maxlength="3" required="required" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="retcache">'.adm_translate("Rétention").'</label>
             <div class="col-sm-8">
               <input class="form-control" type="text" id="retcache" name="retcache" value="'.$retcache.'" min="0" maxlength="7" required="required" />
                <span class="help-block text-end">'.adm_translate("Temps de rétention en secondes").'</span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-8 ms-sm-auto">
                <button class="btn btn-primary col-12" type="submit">'.adm_translate("Sauver").'</button>
                <input type="hidden" name="op" value="Extend-Admin-SubModule" />

@@ -61,21 +61,21 @@ function login() {
       </div>
       <form action="admin.php" method="post" id="adminlogin" name="adminlogin">
          <fieldset>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
                <div class="col-sm-8">
                   <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
                   <span class="help-block text-end"><span id="countcar_aid"></span></span>
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
                <div class="col-sm-8">
                   <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
                   <span class="help-block text-end"><span id="countcar_pwd"></span></span>
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-sm-9 ms-sm-auto">
                   <button class="btn btn-outline-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
                </div>

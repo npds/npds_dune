@@ -49,13 +49,13 @@ settype($term,'string');
    <h2>'.translate("Rechercher dans").' : Forums</h2>
    <hr />
    <form name="search" action="'.$_SERVER['PHP_SELF'].'" method="post" class="mt-3">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="term">'.translate("Mot-clé").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="term" name="term" value="'.$term.'" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="only_solved">'.translate("Etat du topic").'</label>
          <div class="col-sm-8 pt-1">
             <div class="form-check">
@@ -64,7 +64,7 @@ settype($term,'string');
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="addterms">'.translate("Classé par").'</label>
          <div class="col-sm-8">
             <div class="custom-controls-stacked">
@@ -79,7 +79,7 @@ settype($term,'string');
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="forum">'.translate("Forum").'</label>
          <div class="col-sm-8">
             <select class="form-select" name="forum" id="forum">
@@ -95,13 +95,13 @@ settype($term,'string');
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="username">'.translate("Nom d'auteur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="username" name="username" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="sortby">'.translate("Classé par").'</label>
          <div class="col-sm-8">
             ';
@@ -133,7 +133,7 @@ settype($term,'string');
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto">
             <button class="btn btn-primary" type="submit" name="submit">&nbsp;'.translate("Recherche").'</button>&nbsp;&nbsp;
             <button class="btn btn-secondary" type="reset" name="reset">'.translate("Annuler").'</button>

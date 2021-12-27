@@ -78,13 +78,13 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
       if (substr($action,0,1)=='A') {
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=AOK">
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="form-control-label col-sm-12" for="title">'.translate("Titre").'</label>
                <div class="col-sm-12">
                   <input class="form-control" type="text" name="title" />
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="form-control-label col-sm-12" for="story">'.translate("Texte complet").'</label>
                <div class="col-sm-12">
                   <textarea class="tin form-control" name="story" rows="25"></textarea>';
@@ -92,7 +92,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             $content.='
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-sm-12">
                   <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
                </div>
@@ -132,17 +132,17 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          }
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=MOK&index='.$index.'">
-            <div class="form-group">
+            <div class="mb-3">
                <label class="form-control-label" for="title">'.translate("Titre").'</label>
                <input class="form-control" type="text" name="title" value="'.$crtsplit[1].'" />
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                <label class="form-control-label" for="story" >'.translate("Texte complet").'</label>
                <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
       $content.="&nbsp;!blog_editeur!";
       $content.='
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
             </div>
          </form>

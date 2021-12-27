@@ -1560,7 +1560,7 @@ $affi = '
                <div class="collapse" id="l_sb_tools">
                   '.$sb_georef.'
                   <div class="list-group-item list-group-item-action py-1 border-left-0 border-right-0">
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label col-sm-12" for="cartyp"><span class="align-middle bi bi-layers-half me-2 h3 text-primary"></span>'.geoloc_translate('Type de carte').'</label>
                         <div class="col-sm-12">
                            <select class="form-select" name="cartyp" id="cartyp">
@@ -1613,7 +1613,7 @@ $affi .= '
             <i title="'.geoloc_translate('IP géoréférencées').'" data-bs-toggle="tooltip" style="color:'.$acg_t_co.'; opacity:'.$acg_t_op.';" class="fa fa-desktop fa-lg me-2 align-middle"></i>
             <span class="badge bg-secondary me-2 float-end">'.$ipnb.'</span>
          </h5>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12">
                <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="'.geoloc_translate('Filtrer les résultats').'" />
             </div>

@@ -153,7 +153,7 @@ $m->add_extender('add_bio', '', '<span class="help-block text-end" id="countcar_
 $requi='';
 if ($op=="ModifyUser") $requi=false; else $requi=true;
 $m->add_field('add_pass', adm_translate("Mot de Passe"),'','password',$requi,'40','','');
-$m->add_extra('<div class="form-group row"><div class="col-sm-8 ms-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div></div></div>');
+$m->add_extra('<div class="mb-3 row"><div class="col-sm-8 ms-sm-auto" ><div class="progress" style="height: 0.2rem;"><div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div></div></div>');
 $m->add_extender('add_pass', '', '<span class="help-block text-end" id="countcar_add_pass"></span>');
 
 if ($op=="ModifyUser") {
@@ -181,7 +181,7 @@ else
 include_once('modules/geoloc/geoloc_conf.php');
 
 $m->add_extra('
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto" >
             <button type="submit" class="btn btn-primary">'.translate("Valider").'</button>
          </div>

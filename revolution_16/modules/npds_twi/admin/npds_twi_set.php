@@ -71,7 +71,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
    <h3 class="mb-3">'.twi_trad('Configuration du module npds_twi').'</h3>
    <span class="text-danger">*</span> '.twi_trad('requis').'
    <form id="twitterset" action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-6" for="npds_twi_arti">'.twi_trad('Activation de la publication auto des articles').'</label>
          <div class="col-sm-6 my-2">
             <div class="form-check">
@@ -84,7 +84,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-control-label col-sm-6" for="npds_twi_urshort">'.twi_trad("Méthode pour le raccourciceur d'URL").'</label>
          <div class="col-sm-6">
             <div class="custom-controls-stacked">
@@ -103,28 +103,28 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="consumer_key">'.twi_trad('Votre clef de consommateur').'&nbsp;<span class="text-danger">*</span></label>
          <div class="col-sm-12">
             <input type="text" class="form-control" id="consumer_key" name="consumer_key" value="'.$consumer_key.'" required="required" />
             <span class="help-block small">'.$consumer_key.'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="consumer_secret">'.twi_trad('Votre clef secrète de consommateur').'&nbsp;<span class="text-danger">*</span></label>
          <div class="col-sm-12">
             <input type="text" class="form-control" id="consumer_secret" name="consumer_secret" value="'.$consumer_secret.'" required="required" />
             <span class="help-block small">'.$consumer_secret.'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="oauth_token" >'.twi_trad("Jeton d'accès pour Open Authentification (oauth_token)").'&nbsp;<span class="text-danger">*</span></label>
          <div class="col-sm-12">
             <input type="text" class="form-control" id="oauth_token" name="oauth_token" value="'.$oauth_token.'" required="required" />
             <span class="help-block small">'.$oauth_token.'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="oauth_token_secret" >'.twi_trad("Jeton d'accès secret pour Open Authentification (oauth_token_secret)").' <span class="text-danger">*</span></label>
          <div class="col-sm-12">
             <input type="text" class="form-control" id="oauth_token_secret" name="oauth_token_secret" value="'.$oauth_token_secret.'" />
@@ -168,7 +168,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
     </tr>
     -->';
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input class="btn btn-primary" type="submit" value="'.twi_trad('Enregistrez').'" />
             <input type="hidden" name="op" value="Extend-Admin-SubModule" />

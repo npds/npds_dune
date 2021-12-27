@@ -163,7 +163,7 @@ if ($submitS) {
       <form action="editpost.php" method="post" name="coolsus">';
       if ($Mmod)
          echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="subject">'.translate("Titre").'</label>
             <div class="col-sm-12">
                <input class="form-control" type="text" id="subject" name="subject" maxlength="100" value="'.htmlspecialchars($title,ENT_COMPAT|ENT_HTML401,cur_charset).'" />
@@ -178,7 +178,7 @@ if ($submitS) {
 
    if ($smilies) {
       echo '
-      <div class="d-none d-sm-block form-group row">
+      <div class="d-none d-sm-block mb-3 row">
          <label class="col-form-label col-sm-12">'.translate("Icone du message").'</label>
          <div class="col-sm-12">
             <div class="border rounded pt-2 px-2 n-fond_subject">
@@ -188,7 +188,7 @@ if ($submitS) {
       </div>';
    }
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="message">'.translate("Message").'</label>';
    if ($allow_bbcode)
       $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
@@ -225,7 +225,7 @@ if ($submitS) {
       else
          $sethtml='';
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-sm-12">'.translate("Options").'</label>
       <div class="col-sm-12">
          <div class="checkbox">
@@ -249,7 +249,7 @@ if ($submitS) {
       <input type="hidden" name="topic_id" value="'.$topic.'" />
       <input type="hidden" name="topic" value="'.$topic.'" />
       <input type="hidden" name="arbre" value="'.$arbre.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12 ms-sm-auto ">
             <button class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" >'.translate("Valider").'</button>&nbsp;
          </div>

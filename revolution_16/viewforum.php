@@ -122,7 +122,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       </p>
       <div class="card p-3">
          <form id="privforumentry" action="viewforum.php" method="post">
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-sm-12" for="forum_pass">'.translate("Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder").'</label>
                <div class="col-sm-12">
                   <input class="form-control" type="password" id="forum_pass" name="Forum_passwd"  placeholder="'.translate("Mot de passe").'" required="required"/>
@@ -130,7 +130,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
                </div>
             </div>
                <input type="hidden" name="forum" value="'.$forum.'" />
-               <div class="form-group">
+               <div class="mb-3">
                   <button type="submit" class="btn btn-primary me-2" name="submitpass" title="'.translate("Valider").'"><i class="fa fa-check me-1"></i>'.translate("Valider").'</button>
                   <button type="reset" class="btn btn-secondary" name="reset" title="'.translate("Annuler").'"><i class="fas fa-sync me-1"></i>'.translate("Annuler").'</button>
             </div>
@@ -375,7 +375,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
    <form class="my-3" action="viewforum.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
             <label class="sr-only" for="forum">'.translate("Sauter à : ").'</label>
             <select class="form-select" name="forum" onchange="submit();">

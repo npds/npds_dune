@@ -21,7 +21,7 @@ admindroits($aid,$f_meta_nom);
 
 function puthome($ihome) {
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="ihome">'.adm_translate("Publier dans la racine ?").'</label>';
    $sel1 = 'checked="checked"';
    $sel2 = '';
@@ -45,7 +45,7 @@ function puthome($ihome) {
    $sel1 = '';
    $sel2 = 'checked="checked"';
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label text-danger" >'.adm_translate("Seulement aux membres").'</label>
          <div class="col-sm-8 my-2">
             <div class="form-check form-check-inline">';
@@ -80,7 +80,7 @@ function puthome($ihome) {
        <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
     }
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="Mmembers" name="Mmembers">'.$tmp_groupe.'</select>
@@ -92,7 +92,7 @@ function SelectCategory($cat) {
    global $NPDS_Prefix;
    $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
    echo ' 
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="catid">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="catid" name="catid">';
@@ -130,7 +130,7 @@ function AddCategory () {
    <hr />
    <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Catégorie").'</h3>
    <form id="storiesaddcat" action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-12 col-form-label" for="title">'.adm_translate("Nom").'</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" id="title" name="title" maxlength="255" required="required" />
@@ -138,7 +138,7 @@ function AddCategory () {
          </div>
       </div>
       <input type="hidden" name="op" value="SaveCategory" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Sauver les modifications").'" />
          </div>
@@ -196,7 +196,7 @@ function EditCategory($catid) {
       $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
       echo '
    <form action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="catid">'.adm_translate("Sélectionner une Catégorie").'</label>
          <div class="col-sm-12">
             <select class="form-select" id="catid" name="catid">';
@@ -210,7 +210,7 @@ function EditCategory($catid) {
            </select>
         </div>
      </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="op" value="EditCategory" />
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Editer").'" />
@@ -221,14 +221,14 @@ function EditCategory($catid) {
    } else {
       echo '
    <form id="storieseditcat" action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
       <label class="col-form-label col-sm-12" for="title">'.adm_translate("Nom").'</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" id="title" name="title" maxlength="255" value="'.$title.'" required="required"/>
             <span class="help-block text-end" id="countcar_title"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="catid" value="'.$catid.'" />
             <input type="hidden" name="op" value="SaveEditCategory" />
@@ -284,7 +284,7 @@ function DelCategory($cat) {
       $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
       echo '
    <form action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
       <label class="col-form-label col-sm-12" for="cat">'.adm_translate("Sélectionner une Catégorie à supprimer").'</label>
          <div class="col-sm-12">
             <select class="form-select" id="cat" name="cat">';
@@ -296,7 +296,7 @@ function DelCategory($cat) {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="op" value="DelCategory" />
             <button class="btn btn-danger" type="submit">'.adm_translate("Effacer").'</button>
@@ -362,7 +362,7 @@ function NoMoveCategory($catid, $newcat) {
       $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
       echo '
    <form action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label visually-hidden" for="newcat">'.adm_translate("Sélectionner la nouvelle Catégorie : ").'</label>
          <div class="col-sm-12">
             <select class="form-select" id="newcat" name="newcat">
@@ -375,7 +375,7 @@ function NoMoveCategory($catid, $newcat) {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="catid" value="'.$catid.'" />
             <input type="hidden" name="op" value="NoMoveCategory" />
@@ -442,20 +442,20 @@ function displayStory ($qid) {
 
     echo '
          </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="author">'.adm_translate("Utilisateur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="author" name="author" value="'.$uname.'" />
             <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank" title="'.adm_translate("Diffusion d'un Message Interne").'" data-bs-toggle="tooltip"><i class="far fa-envelope fa-lg"></i></a>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="subject" name="subject" value="'.$subject.'" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="topic" name="topic">';
@@ -488,7 +488,7 @@ function displayStory ($qid) {
    settype($ihome,'integer');
    puthome($ihome);
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
       <div class="col-12">
          <textarea class="tin form-control" rows="25" id="hometext" name="hometext">'.$story.'</textarea>
@@ -496,7 +496,7 @@ function displayStory ($qid) {
    </div>';
    echo aff_editeur('hometext', '');
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
       <div class="col-12">
          <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
@@ -504,7 +504,7 @@ function displayStory ($qid) {
    </div>';
    echo aff_editeur('bodytext', '');
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-12" for="notes">'.adm_translate("Notes").'</label>
       <div class="col-12">
          <textarea class="tin form-control" rows="7" id="notes" name="notes"></textarea>
@@ -519,7 +519,7 @@ function displayStory ($qid) {
    echo '
       <input type="hidden" name="qid" value="'.$qid.'" />
       <input type="hidden" name="uid" value="'.$uid.'" />
-      <div class="form-group">
+      <div class="mb-3">
          <select class="form-select" name="op">
             <option value="DeleteStory">'.adm_translate("Effacer l'Article").'</option>
             <option value="PreviewAgain" selected="selected">'.adm_translate("Re-prévisualiser").'</option>
@@ -578,19 +578,19 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
 
     echo '
           </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="author">'.adm_translate("Utilisateur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="author" name="author" value="'.$author.'" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="subject" name="subject" value="'.$subject.'" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="topic" name="topic">';
@@ -625,7 +625,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
    puthome($ihome);
 
    echo '
-    <div class="form-group row">
+    <div class="mb-3 row">
       <label class="col-form-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
       <div class="col-12">
          <textarea class="tin form-control" cols="70" rows="25" id="hometext" name="hometext" >'.$hometext.'</textarea>
@@ -633,7 +633,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
    </div>';
    echo aff_editeur('hometext', '');
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
       <div class="col-12">
          <textarea class="tin form-control" cols="70" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
@@ -641,7 +641,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
    </div>';
    echo aff_editeur('bodytext', '');
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-12" for="notes">'.adm_translate("Notes").'</label>
       <div class="col-12">
          <textarea class="tin form-control" cols="70" rows="7" id="notes" name="notes" >'.$notes.'</textarea>
@@ -776,14 +776,14 @@ function editStory ($sid) {
    </div>';
    echo '
    <form id="editstory" action="admin.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="subject" name="subject" value="'.$subject.'" maxlength="255" required="required" />
             <span class="help-block text-end" id="countcar_subject"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="topic" name="topic">';
@@ -814,7 +814,7 @@ function editStory ($sid) {
    SelectCategory($catid);
    puthome($ihome);
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
          <div class="col-12">
             <textarea class="tin form-control" rows="25" id="hometext" name="hometext" >'.$hometext.'</textarea>
@@ -822,7 +822,7 @@ function editStory ($sid) {
       </div>';
    echo aff_editeur("hometext", "true");
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="bodytext">'.adm_translate("Texte complet").'</label>
          <div class="col-12">
             <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
@@ -830,7 +830,7 @@ function editStory ($sid) {
       </div>';
    echo aff_editeur("bodytext", "true");
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="notes">'.adm_translate("Notes").'</label>
          <div class="col-12">
             <textarea class="tin form-control" rows="7" id="notes" name="notes" >'.$notes.'</textarea>
@@ -838,7 +838,7 @@ function editStory ($sid) {
       </div>';
    echo aff_editeur('notes', '');
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-6" for="Cdate">'.adm_translate("Changer la date").'?</label>
          <div class="col-sm-6 my-2">
             <div class="form-check">
@@ -848,7 +848,7 @@ function editStory ($sid) {
             <span class="small help-block">'.translate(date("l")).date(" ".translate("dateinternal"),time()+((integer)$gmt*3600)).'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-6" for="Csid">'.adm_translate("Remettre cet article en première position ? : ").'</label>
          <div class="col-sm-6 my-2">
             <div class="form-check">
@@ -870,7 +870,7 @@ function editStory ($sid) {
       <input type="hidden" name="sid" value="'.$sid.'" />
       <input type="hidden" name="op" value="ChangeStory" />
       <input type="hidden" name="theme" value="'.$theme.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Modifier l'Article").'" />
          </div>
@@ -1013,14 +1013,14 @@ function adminStory() {
    echo '
    <hr />
    <form id="storiesnewart" action="admin.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" name="subject" id="subject" value="" maxlength="255" required="required" />
             <span class="help-block text-end" id="countcar_subject"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
          <select class="form-select" id="topic" name="topic">';
@@ -1052,7 +1052,7 @@ function adminStory() {
    SelectCategory($cat);
    puthome($ihome);
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
          <div class="col-12">
             <textarea class="tin form-control" rows="25" id="hometext" name="hometext">'.$hometext.'</textarea>
@@ -1060,7 +1060,7 @@ function adminStory() {
       </div>';
    echo aff_editeur('hometext', '');
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
          <div class="col-12">
             <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
@@ -1071,7 +1071,7 @@ function adminStory() {
    echo '
       <input type="hidden" name="author" value="'.$aid.'" />
       <input type="hidden" name="op" value="PreviewAdminStory" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
              <input class="btn btn-primary" type="submit" name="preview" value="'.adm_translate("Prévisualiser").'" />
          </div>
@@ -1135,14 +1135,14 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, '');
    echo '
       </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="subject" id="subject" value="'.$subject.'" maxlength="255" required="required" />
                <span class="help-block text-end" id="countcar_subject"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-sm-4 col-form-label" for="topic">'.adm_translate("Sujet").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="topic" name="topic">';
@@ -1176,7 +1176,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
     if (($members==1) and (($Mmembers>1) and ($Mmembers<=127))) $ihome=$Mmembers;
     puthome($ihome);
        echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
             <div class="col-12">
                <textarea class="tin form-control" rows="25" id="hometext" name="hometext">'.$hometext.'</textarea>
@@ -1184,7 +1184,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
          </div>';
     echo aff_editeur("hometext", "true");
     echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
             <div class="col-12">
                <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
@@ -1193,7 +1193,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
     echo aff_editeur('bodytext', '');
     publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
     echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <input type="hidden" name="author" value="'.$aid.'" />
          <div class="col-7">
             <select class="form-select" name="op">

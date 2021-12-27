@@ -39,28 +39,28 @@ function FriendSend($sid, $archive) {
       list($yn, $ye) = sql_fetch_row($result);
    }
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="fname">'.translate("Nom du destinataire").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
             <span class="help-block text-end"><span class="muted" id="countcar_fname"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="fmail">'.translate("Email du destinataire").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
             <span class="help-block text-end"><span class="muted" id="countcar_fmail"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="yname">'.translate("Votre nom").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" maxlength="100" required="required" />
             <span class="help-block text-end"><span class="muted" id="countcar_yname"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="ymail">'.translate("Votre Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
@@ -71,7 +71,7 @@ function FriendSend($sid, $archive) {
    echo '
    <input type="hidden" name="archive" value="'.$archive.'" />
    <input type="hidden" name="op" value="SendStory" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto">
             <button type="submit" class="btn btn-primary" title="'.translate("Envoyer").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Envoyer").'</button>
          </div>
@@ -155,28 +155,28 @@ function RecommendSite() {
    <hr />
    <form id="friendrecomsite" action="friend.php" method="post">
       <input type="hidden" name="op" value="SendSite" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="yname">'.translate("Votre nom").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" required="required" maxlength="100" />
             <span class="help-block text-end"><span class="muted" id="countcar_yname"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="ymail">'.translate("Votre Email").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" required="required" maxlength="100" />
             <span class="help-block text-end"><span class="muted" id="countcar_ymail"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="fname">'.translate("Nom du destinataire").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
             <span class="help-block text-end"><span class="muted" id="countcar_fname"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="fmail">'.translate("Email du destinataire").'</label>
          <div class="col-sm-8">
             <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
@@ -184,7 +184,7 @@ function RecommendSite() {
          </div>
       </div>
       '.Q_spambot().'
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto">
             <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Envoyer").'</button>
          </div>

@@ -270,7 +270,7 @@ if ($submitS) {
    settype($image_subject,'string');
    if ($smilies) {
       echo '
-      <div class="d-none d-sm-block form-group row">
+      <div class="d-none d-sm-block mb-3 row">
          <label class="form-control-label col-sm-12">'.translate("Icone du message").'</label>
          <div class="col-sm-12">
             <div class="border rounded pt-3 px-2 n-fond_subject d-flex flex-row flex-wrap">
@@ -280,7 +280,7 @@ if ($submitS) {
       </div>';
    }
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
@@ -332,7 +332,7 @@ if ($submitS) {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="form-control-label col-sm-12">'.translate("Options").'</label>
          <div class="col-sm-12">';
       if (($allow_html==1) and ($forum_type!='6') and ($forum_type!='5')) {
@@ -378,7 +378,7 @@ if ($submitS) {
          </div>
       </div>
       '.Q_spambot().'
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="forum" value="'.$forum.'" />
             <input type="hidden" name="topic" value="'.$topic.'" />

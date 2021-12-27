@@ -138,7 +138,7 @@ function EditReseaux($ModPath, $ModStart) {
    <div class="col-sm-6">
    <fieldset>
    <legend><i class="fab fa-'.$v1[2].' fa-2x text-primary me-2 align-middle"></i>'.$v1[0].'</legend>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="rs_uid'.$i.'">'.rs_translate("Identifiant").'</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" id="rs_uid'.$i.'" name="rs['.$i.'][uid]"  maxlength="50"  placeholder="'.rs_translate("Identifiant").' '.$v1[0].'" value="'.$ident.'"/>
@@ -155,7 +155,7 @@ function EditReseaux($ModPath, $ModStart) {
    }
 echo '
    </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-6">
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.rs_translate("Sauvegarder").'</button>
             <input type="hidden" name="ModPath" value="'.$ModPath.'" />

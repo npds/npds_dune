@@ -32,7 +32,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
       <form id="fad_edi_choix" action="admin.php?op=Edito_load" method="post">
          <fieldset>
             <legend>'.adm_translate("Type d'éditorial").'</legend>
-            <div class="form-group">
+            <div class="mb-3">
                <select class="form-select" name="edito_type" onchange="submit()">
                   <option value="0">'.adm_translate("Modifier l'Editorial").' ...</option>
                   <option value="G">'.adm_translate("Anonyme").'</option>
@@ -58,7 +58,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
       <form id="admineditomod" action="admin.php" method="post" name="adminForm">
          <fieldset>
          <legend>'.adm_translate("Edito").' :'.$edito_typeL.'</legend>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="XeditoJ">'.adm_translate("Le jour").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" name="XeditoJ" rows="20" >';
@@ -68,7 +68,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          </div>';
       echo aff_editeur('XeditoJ','');
       echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="XeditoN">'.adm_translate("La nuit").'</label>';
       echo aff_editeur('XeditoN','');
       echo '
@@ -78,7 +78,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
       echo '</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-sm-4 col-form-label" for="aff_jours">'.adm_translate("Afficher pendant").'</label>
             <div class="col-sm-8">
                <div class="input-group">
@@ -89,7 +89,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-8 ms-sm-auto">
                <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="aff_jour" name="aff_jour" value="checked" '.$Xaff_jour.' />
@@ -104,12 +104,12 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
 
       <input type="hidden" name="op" value="Edito_save" />
       <input type="hidden" name="edito_type" value="'.$edito_type.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto ">
             <button class="btn btn-primary col-12" type="submit" name="edito_confirm"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").' </button>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto ">
             <a href="admin.php?op=Edito" class="btn btn-secondary col-12">'.adm_translate("Abandonner").'</a>
          </div>

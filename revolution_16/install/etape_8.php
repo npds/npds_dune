@@ -35,16 +35,16 @@ function etape_8() {
                <h3 class="mb-3">'.ins_translate('Configuration du module UPload').'</h3>
                <div class="col-sm-12">
                   <form id="upload_module" name="upload_module" method="post" action="install.php">
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label" for="new_max_size">'.ins_translate('Taille maxi des fichiers en octets').'</label>
                         <input class="form-control" type="number" name="new_max_size" id="new_max_size" maxlength="20" value="'.$max_size.'" />
                      </div>
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label" for="new_DOCUMENTROOT">'.ins_translate("Chemin physique absolu d'accès depuis la racine de votre site").'</label>
                         <input class="form-control" type="text" name="new_DOCUMENTROOT" id="new_DOCUMENTROOT" maxlength="60" value="'.$DOCUMENTROOT.'" />
                         <small class="mt-1">'.ins_translate("Exemple par défaut ou SI vous ne savez pas").' : ==><br />'.ins_translate("Exemples SI redirection").' : ==> /data/www/monsite OU c:\web\monsite</small>
                      </div>
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label" for="new_autorise_upload_p">'.ins_translate("Autoriser l'upload dans le répertoire personnel").'</label>
                         <select class="form-select" id="new_autorise_upload_p" name="new_autorise_upload_p">';
    if($autorise_upload_p == "true") {$sel1 = 'selected="selected"';$sel2 = '';}
@@ -54,33 +54,33 @@ function etape_8() {
                            <option value="false" '.$sel2.'>'.ins_translate('Non').'</option>
                         </select>
                      </div>
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label" for="new_racine">'.ins_translate("Répertoire de votre site").'</label>
                         <input class="form-control" type="text" name="new_racine" id="new_racine" maxlength="60" value="'.$racine.'" />
                         <small class="mt-1">'.ins_translate('Exemples :').'<br />www.monsite.com/ ==> <br />www.monsite.com/npds/ ==> <span class="text-success">/npds</span><br />www.monsite.com/npds/npds/ ==> <span class="text-success">/npds/npds</span></small>
                      </div>
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label" for="new_rep_upload">'.ins_translate("Répertoire de téléchargement").'</label>
                         <input class="form-control" type="text" name="new_rep_upload" id="new_rep_upload" maxlength="60" value="'.$rep_upload.'" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_upload"></div>
                      </div>
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label" for="new_rep_cache">'.ins_translate("Répertoire des fichiers temporaires").'</label>
                         <input class="form-control" type="text" name="new_rep_cache" id="new_rep_cache" maxlength="60" value="'.$rep_cache.'" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_cache"></div>
                      </div>
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label" for="new_rep_log">'.ins_translate("Fichier journal de sécurité").'</label>
                         <input class="form-control" type="text" name="new_rep_log" id="new_rep_log" maxlength="60" value="'.$rep_log.'" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_log"></div>
                      </div>
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <label class="col-form-label" for="new_url_upload">'.ins_translate("URL HTTP de votre site").'</label>
                         <input class="form-control" type="url" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" data-fv-uri___allow-local="true" />
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_url_upload"></div>
                         <span class="d-block text-help small w-100">'.ins_translate("SI installation locale").' ==> http://127.0.0.1/</span>
                      </div>
-                     <div class="form-group row">
+                     <div class="mb-3 row">
                         <input type="hidden" name="langue" value="'.$langue.'" />
                         <input type="hidden" name="stage" value="'.$stage.'" />
                         <input type="hidden" name="qi" value="'.$qi.'" />

@@ -99,7 +99,7 @@ function ForumMaintTopics($before,$forum_name) {
    while (list($forum_id, $forum_name)=sql_fetch_row($resultF)) {
       echo '
        <h4>'.$forum_name.'</h4>
-       <div class="form-group border p-4">';
+       <div class="mb-3 border p-4">';
        $resultT=sql_query("SELECT topic_id, topic_title FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id' $add_sql ORDER BY topic_id ASC");
        while (list($topic_id, $topic_title)=sql_fetch_row($resultT)) {
           if ($parse==0)
@@ -118,7 +118,7 @@ function ForumMaintTopics($before,$forum_name) {
        </div>';
     }
     echo '
-       <div class="form-group>"
+       <div class="mb-3>"
           <input type="hidden" name="op" value="ForumMaintTopicMassiveSup" />
           <input class="btn btn-danger" type="submit" name="Topics_Del" value="'.adm_translate("Supprimer massivement les Topics").'" />
       </div>
@@ -228,7 +228,7 @@ function MergeForum() {
    <h3 class="mb-3">'.adm_translate("Fusionner des forums").'</h3>
    <form id="fad_mergeforum" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="oriforum" name="oriforum">';
@@ -249,7 +249,7 @@ function MergeForum() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="destforum">'.adm_translate("Forum de destination").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="destforum" name="destforum">';
@@ -269,7 +269,7 @@ function MergeForum() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-8 ms-sm-auto">
                <input type="hidden" name="op" value="MergeForumAction" />
                <button class="btn btn-primary col-12" type="submit" name="Merge_Forum_Action">'.adm_translate("Fusionner").'</button>
@@ -331,13 +331,13 @@ function ForumMaintAdmin() {
    </div>
    <h3 class="my-3">'.adm_translate("Supprimer massivement les Topics").'</h3>
    <form id="faddeletetop" action="admin.php" method="post" autocomplete="nope" >
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="titreforum">'.adm_translate("Nom du forum").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="forum_name" id="titreforum" maxlength="150" autocomplete="nope" placeholder="   " />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="before">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group">
@@ -349,7 +349,7 @@ function ForumMaintAdmin() {
             <span class="help-block text-end">Avant cette date !</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="op" value="MaintForumTopics" />
             <button class="btn btn-primary" type="submit" name="Topics_Mark">'.adm_translate("Envoyer").'</button>

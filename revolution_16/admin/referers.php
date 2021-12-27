@@ -35,7 +35,7 @@ function hreferer($filter) {
    <h3>'.adm_translate("Qui parle de nous ?").'</h3>
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="hreferer" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="filter">'.adm_translate("Filtre").'</label>
          <div class="col-sm-4">
             <input type="number" class="form-control" name="filter" min="0" max="99999" value="'.$filter.'" />

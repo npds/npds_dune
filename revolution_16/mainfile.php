@@ -1539,7 +1539,7 @@ function pollMain($pollID,$pollClose) {
       $inputvote = '<button class="btn btn-outline-primary btn-sm btn-block" type="submit" value="'.translate("Voter").'" title="'.translate("Voter").'" ><i class="fa fa-check fa-lg"></i> '.translate("Voter").'</button>';
    }
    $boxContent .= '
-      <div class="form-group">'.$inputvote.'</div>
+      <div class="mb-3">'.$inputvote.'</div>
    </form>
    <a href="pollBooth.php?op=results&amp;pollID='.$pollID.'" title="'.translate("Résultats").'">'.translate("Résultats").'</a>&nbsp;&nbsp;<a href="pollBooth.php">'.translate("Anciens sondages").'</a>';
    if ($pollcomm) {
@@ -1674,7 +1674,7 @@ function aff_localzone_langue($ibid) {
    global $tab_langue;
    $flag = array('french'=>'🇫🇷','spanish'=>'🇪🇸','german'=>'🇩🇪','english'=>'🇺🇸','chinese'=>'🇨🇳');
    $M_langue= '
-   <div class="form-group">
+   <div class="mb-3">
       <select name="'.$ibid.'" class="form-select" onchange="this.form.submit()">
          <option value="">'.translate("Choisir une langue").'</option>';
    foreach($tab_langue as $bidon => $langue) {
@@ -1970,7 +1970,7 @@ function Q_spambot() {
    $tmp='';
    if ($user=='') {
       $tmp='
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-9 text-end">
             <label class="form-control-label text-danger" for="asb_reponse">'.translate("Anti-Spam / Merci de répondre à la question suivante : ").'&nbsp;'.$aff.'</label>
          </div>
@@ -2229,18 +2229,18 @@ function lnlbox() {
 */
    $boxstuff = '
          <form id="lnlblock" action="lnl.php" method="get">
-            <div class="form-group">
+            <div class="mb-3">
                <select name="op" class=" form-select">
                   <option value="subscribe">'.translate("Abonnement").'</option>
                   <option value="unsubscribe">'.translate("Désabonnement").'</option>
                </select>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                <label for="email_block">'.translate("Votre adresse Email").'</label>
                <input type="email" id="email_block" name="email" maxlength="60" class="form-control" />
             </div>
             <p><span class="help-block">'.translate("Recevez par mail les nouveautés du site.").'</span></p>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-sm-12">
                   <button type="submit" class="btn btn-outline-primary btn-block btn-sm"><i class ="fa fa-check fa-lg"></i>&nbsp;'.translate("Valider").'</button>
                </div>
@@ -2447,15 +2447,15 @@ function loginbox() {
    if (!$user) {
       $boxstuff = '
       <form action="user.php" method="post">
-         <div class="form-group">
+         <div class="mb-3">
             <label for="uname">'.translate("Identifiant").'</label>
             <input class="form-control" type="text" name="uname" maxlength="25" />
          </div>
-         <div class="form-group">
+         <div class="mb-3">
             <label for="pass">'.translate("Mot de passe").'</label>
             <input class="form-control" type="password" name="pass" maxlength="20" />
          </div>
-         <div class="form-group">
+         <div class="mb-3">
             <input type="hidden" name="op" value="login" />
             <button class="btn btn-primary" type="submit">'.translate("Valider").'</button>
          </div>

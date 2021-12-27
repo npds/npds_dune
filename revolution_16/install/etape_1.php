@@ -33,7 +33,7 @@ function etape_1() {
                   </div>
                </div>
                <form name="welcome" method="post" action="install.php">
-                  <div class="form-group">
+                  <div class="mb-3">
                      <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="qi" name="qi" value="1" />
                         <label class="form-check-label" for="qi">'.ins_translate("Installation rapide").'</label>

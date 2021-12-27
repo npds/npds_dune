@@ -52,14 +52,14 @@ function FaqAdmin() {
    <h3 class="mb-3">'.adm_translate("Ajouter une catégorie").'</h3>
    <form id="adminfaqcatad" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" placeholder="'.adm_translate("Catégories").'" rows="3" required="required" ></textarea>
                <span class="help-block text-end"><span id="countcar_categories"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12">
                <button class="btn btn-outline-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une catégorie").'</button>
                <input type="hidden" name="op" value="FaqCatAdd" />
@@ -100,14 +100,14 @@ function FaqCatGo($id_cat) {
    <h4>'.adm_translate("Ajouter une question réponse").'</h4>
    <form id="adminfaqquest" action="admin.php" method="post" name="adminForm">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="question">'.adm_translate("Question").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="question" id="question" maxlength="255"></textarea>
                <span class="help-block text-end"><span id="countcar_question"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="answer">'.adm_translate("Réponse").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" id="answer" name="answer" rows="15"></textarea>
@@ -115,7 +115,7 @@ function FaqCatGo($id_cat) {
          </div>';
    echo aff_editeur("answer","false");
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12 d-flex flex-row justify-content-left flex-wrap">
                <input type="hidden" name="id_cat" value="'.$id_cat.'" />
                <input type="hidden" name="op" value="FaqCatGoAdd" />'."\n".'
@@ -164,14 +164,14 @@ function FaqCatEdit($id_cat) {
    <h4><a href="admin.php?op=FaqCatGo&amp;id_cat='.$id_cat.'">'.$categories.'</a></h4>
    <form id="adminfaqcated" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="categories">'.adm_translate("Nom").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="categories" id="categories" maxlength="255" rows="3" required="required" >'.$categories.'</textarea>
                <span class="help-block text-end"><span id="countcar_categories"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12">
                <input type="hidden" name="op" value="FaqCatSave" />
                <input type="hidden" name="old_id_cat" value="'.$id_cat.'" />
@@ -216,21 +216,21 @@ function FaqCatGoEdit($id) {
    <h4>'.adm_translate("Editer Question & Réponse").'</h4>
    <form id="adminfaqquested" action="admin.php" method="post" name="adminForm">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-12" for="question">'.adm_translate("Question").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" type="text" name="question" id="question" maxlength="255">'.$question.'</textarea>
                <span class="help-block text-end"><span id="countcar_question"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-12" for="answer">'.adm_translate("Réponse").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" name="answer" rows="15">'.$answer.'</textarea>
             </div>
          </div>
          '.aff_editeur('answer','').'
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12 d-flex flex-row justify-content-center flex-wrap">
                <input type="hidden" name="id" value="'.$id.'" />
                <input type="hidden" name="op" value="FaqCatGoSave" />

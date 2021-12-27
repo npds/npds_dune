@@ -39,7 +39,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    <fieldset>
       <legend>'.adm_translate("Parametres").'</legend>
       <div id="info_gene" class="adminsidefield card card-body mb-3">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xmax_size">'.adm_translate("Taille maxi des fichiers").'</label>
             <div class="col-sm-8">
                <div class="input-group mb-2">
@@ -51,14 +51,14 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
                <span class="help-block">Taille maxi des fichiers en octets<span class="float-end ms-1" id="countcar_xmax_size"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xdocumentroot">'.adm_translate("Chemin physique").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xdocumentroot" type="text" name="xdocumentroot" value="'.$DOCUMENTROOT.'" />
                <span class="help-block">Si votre variable $DOCUMENT_ROOT n\'est pas bonne (notamment en cas de redirection) vous pouvez en spécifier une ici (c\'est le chemin physique d\'accès à la racine de votre site en partant de / ou C:\) par exemple /data/web/mon_site OU c:\web\mon_site SINON LAISSER cette variable VIDE<span class="float-end ms-1" id="countcar_xdocumentroot"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xautorise_upload_p">Activer upload</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -75,42 +75,42 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
                <span class="help-block">Autorise l\'upload DANS le répertoire personnel du membre (true ou false)</span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xracine">'.adm_translate("Racine du site").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xracine" type="text" name="xracine" value="'.$racine.'" />
                <span class="help-block">Sous répertoire : n\'utiliser QUE SI votre NPDS n\'est pas directement dans la racine de votre site par exemple si : www.mon_site/npds/.... ALORS /npds (avec le / DEVANT) sinon RIEN;<span class="float-end ms-1" id="countcar_xracine"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xrep_upload">'.adm_translate("Répertoire de téléchargement").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xrep_upload" type="text" name="xrep_upload" value="'.$rep_upload.'" />
                <span class="help-block">Répertoire de téléchargement (avec le / terminal)<span class="float-end ms-1" id="countcar_xrep_upload"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xrep_cache">'.adm_translate("Répertoire de cache").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xrep_cache" type="text" name="xrep_cache" value="'.$rep_cache.'" />
                <span class="help-block">Répertoire de stockage des fichiers temporaires (avec le / terminal)<span class="float-end ms-1" id="countcar_xrep_cache"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xrep_log">'.adm_translate("Répertoire des log").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xrep_log" type="text" name="xrep_log" value="'.$rep_log.'" />
                <span class="help-block">Répertoire/fichier de stockage de la log de téléchargement (par défaut /slogs/security.log)<span class="float-end ms-1" id="countcar_xrep_log"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xurl_upload">'.adm_translate("Url site").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xurl_upload" type="text" name="xurl_upload" value="'.$url_upload.'" />
                <span class="help-block">URL HTTP(S) de votre site (exemple : http(s)://www.monsite.org)<span class="float-end ms-1" id="countcar_xurl_upload"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xurl_upload_css">'.adm_translate("Url css").'</label>
             <div class="col-sm-8">
                <input class="form-control" id="xurl_upload_css" type="text" name="xurl_upload_css" value="'.$url_upload_css.'" />
@@ -128,7 +128,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
          <option '.$sel. 'value="'.$ext_name.'">.'.$ext_name.'</option>';
    };
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xextension_autorise">Extensions</label>
             <div class="col-sm-8">
                <select multiple="multiple" class="form-select" id="xextension_autorise" name="xextension_autorise[]" size="8">'
@@ -145,7 +145,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
                   <option '.$sel.' value="'.$k.'">'.$af.'</option>';
    };
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xed_profil">Affichage</label>
             <div class="col-sm-8">
                <select multiple="multiple" class="form-select" id="xed_profil" name="xed_profil[]">'
@@ -154,26 +154,26 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
                <span class="help-block">Gére l\'affichage de la Banque Images et Documents</span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xed_nb_images">'.adm_translate("Nombre d'images").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xed_nb_images" type="text" name="xed_nb_images" min="1" maxlength="3" value="'.$ed_nb_images.'" />
                <span class="help-block">Nombre d\'image par ligne dans l\'afficheur d\'image de l\'editeur HTML</span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xwidth_max">'.adm_translate("Largeur maxi").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xwidth_max" type="text" name="xwidth_max" value="'.$width_max.'" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xheight_max">'.adm_translate("Hauteur maxi").'</label>
             <div class="col-sm-8">
                <input class="form-control " id="xheight_max" type="text" name="xheight_max" value="'.$height_max.'" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xquota">'.adm_translate("Espace disque").'</label>
             <div class="col-sm-8">
                <div class="input-group mb-2">
@@ -192,7 +192,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    <input type="hidden" name="ModStart" value="'.$ModStart.'" />
    <input type="hidden" name="subop" value="uploadSave" />
    <input type="hidden" name="adm_img_mod" value="1" />
-   <div class="form-group">
+   <div class="mb-3">
       <button class="btn btn-primary" type="submit">'.adm_translate("Sauver les modifications").'</button>
    </div>
    </form>';

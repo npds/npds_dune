@@ -50,7 +50,7 @@ include("auth.php");
    <div class="card card-body mt-3">
       <h2><a href="replypmsg.php?send=1" title="'.translate("Ecrire un nouveau message privé").'" data-bs-toggle="tooltip" ><i class="fa fa-edit me-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Message personnel")." - </span>".translate("Boîte de réception").'</h2>
       <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
-         <div class="form-group">
+         <div class="mb-3">
             <label class="sr-only" for="dossier" >'.translate("Sujet").'</label>
             <select class="form-select" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
                <option value="...">'.translate("Choisir un dossier/sujet").'...</option>';
@@ -157,7 +157,7 @@ include("auth.php");
          </table>';
       if ($display) {
          echo '
-         <div class="form-group mt-3">
+         <div class="mb-3 mt-3">
             <button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Effacer").'</button>
             <input type="hidden" name="total_messages" value="'.$total_messages.'" />
             <input type="hidden" name="type" value="inbox" />
@@ -238,7 +238,7 @@ include("auth.php");
       </table>';
       if ($display) {
          echo '
-         <div class="form-group mt-3">
+         <div class="mb-3 mt-3">
             <button class="btn btn-outline-danger btn-sm" type="submit" name="delete_messages" value="delete_messages" >'.translate("Effacer").'</button>
             <input type="hidden" name="total_messages" value="'.$total_messages.'" />
             <input type="hidden" name="type" value="outbox" />

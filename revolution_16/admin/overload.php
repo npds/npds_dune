@@ -81,7 +81,7 @@ function main() {
       <form id="overloadcacheadm" action="admin.php" method="post">
       <fieldset>
       <legend>'.adm_translate("Activation").'</legend>
-         <div class="form-group">
+         <div class="mb-3">
             <div>';
    $cky=''; $ckn='';
    if ($SuperCache==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
@@ -110,7 +110,7 @@ function main() {
       echo '
       <fieldset>
       <legend>'.adm_translate("Temps de rétention en secondes").'</legend>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class=" col-sm-4 col-12">
             <label for="xt_index"><code>index.php</code></label>
             <input class="form-control js-cachetime" type="text" id="xt_index" name="xt_index" value="'.$CACHE_TIMINGS['index.php'].'" required="required" maxlength="6" data-fv-row=".col-md-4" />
@@ -153,7 +153,7 @@ function main() {
          </div>
       </div>
       </fieldset>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <input type="hidden" name="op" value="supercache_save" />
          <div class="col-12">
             <button class="btn btn-outline-primary col-12 text-start" type="submit"><i class="fa fa-check fa-lg">&nbsp;</i>'.adm_translate("Valider").'</button>
@@ -162,7 +162,7 @@ function main() {
       </form>
       <hr />
       <form id="fad_cacheclean" action="admin.php" method="post">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-12">
                <button class="btn btn-outline-danger col-12 float-end text-end" type="submit">'.adm_translate("Vider le répertoire cache").'&nbsp;<i class="fas fa-trash fa-lg"></i></button>
             </div>

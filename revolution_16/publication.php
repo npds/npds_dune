@@ -102,7 +102,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    //]]>
    </script>
 
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-sm-4">'.translate("Epuration de la new à la fin de sa date de validité").'</label>';
       $sel1=''; $sel2='';
       if (!$epur) $sel2='checked="checked"';

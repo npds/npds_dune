@@ -520,7 +520,7 @@ include('header.php');
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
 <form action="viewforum.php" method="post">
-   <div class="form-group row">
+   <div class="mb-3 row">
       <div class="col-12">
          <label class="sr-only" for="forum">'.translate("Sauter à : ").'</label>
          <select class="form-select" name="forum" onchange="submit();">

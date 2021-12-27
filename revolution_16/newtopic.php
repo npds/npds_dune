@@ -228,13 +228,13 @@ if ($submitS) {
       if (!isset($user)) {
          echo '
          <fieldset>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="control-label col-sm-2" for="username">'.translate("Identifiant : ").'</label>
                <div class="col-sm-8 col-md-4">
                   <input class="form-control" type="text" id="username" name="username" placeholder="'.translate("Identifiant").'" required="required" />
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="control-label col-sm-2" for="password">'.translate("Mot de passe : ").'</label>
                <div class="col-sm-8">
                   <input class="form-control" type="password" id="password" name="password" placeholder="'.translate("Mot de passe").'" required="required" />
@@ -282,7 +282,7 @@ if ($submitS) {
          include ("modules/sform/forum/forum_extender.php");
       } else {
          echo ' 
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="form-control-label col-sm-12" for="subject">'.translate("Sujet").'</label>
             <div class="col-sm-12">
                <input class="form-control" type="text" id="subject" name="subject" placeholder="'.translate("Sujet").'" required="required" value="'.$subject.'" />
@@ -291,7 +291,7 @@ if ($submitS) {
          if ($smilies) {
             settype($image_subject,'string');
             echo '
-         <div class="d-none d-sm-block form-group row">
+         <div class="d-none d-sm-block mb-3 row">
             <label class="form-control-label col-sm-12">'.translate("Icone du message").'</label>
             <div class="col-sm-12">
                <div class="border rounded pt-3 px-2 n-fond_subject d-flex flex-row flex-wrap">
@@ -301,7 +301,7 @@ if ($submitS) {
          </div>';
          }
          echo ' 
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>';
          if ($allow_bbcode)
             $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
@@ -330,7 +330,7 @@ if ($submitS) {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="form-control-label col-sm-12">'.translate("Options").'</label>
          <div class="col-sm-12">
             <div class="custom-controls-stacked">';
@@ -383,7 +383,7 @@ if ($submitS) {
          </div>
       </div>
       '.Q_spambot().'
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="forum" value="'.$forum.'" />
             <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" accesskey="s" />

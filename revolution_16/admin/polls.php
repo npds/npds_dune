@@ -62,7 +62,7 @@ function poll_createPoll() {
       <h3 class="mb-3">'.adm_translate("Créer un nouveau Sondage").'</h3>
       <form id="pollssondagenew" action="admin.php" method="post">
          <input type="hidden" name="op" value="createPosted" />
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3 " for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
             <div class="col-sm-9 ">
                <input class="form-control" type="text" id="pollTitle" name="pollTitle" id="pollTitle" maxlength="100" required="required" />
@@ -74,7 +74,7 @@ function poll_createPoll() {
    for ($i = 1; $i <= $maxOptions; $i++) {
       if($i<3) $requi=' required="required" '; else $requi='';
       echo '
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-sm-3 " for="optionText'.$i.'">'.adm_translate("Option").'</label>
                <div class="col-sm-9" >
                   <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$i.']" maxlength="255" '.$requi.' />
@@ -83,7 +83,7 @@ function poll_createPoll() {
             </div>';
    }
    echo '
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-sm-9 ms-sm-auto">
                   <div class="form-check form-check-inline">
                      <input class="form-check-input" type="checkbox" id="poll_type" name="poll_type" value="1" />
@@ -91,7 +91,7 @@ function poll_createPoll() {
                   </div>
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-sm-9 ms-sm-auto">
                   <button type="submit" class="btn btn-primary">'.adm_translate("Créer").'</button>
                </div>
@@ -162,7 +162,7 @@ function poll_removePoll() {
          </tbody>
       </table>
       <br />
-      <div class="form-group">
+      <div class="mb-3">
          <button class="btn btn-danger" type="submit">'.adm_translate("Retirer").'</button>
       </div>
    </form>';
@@ -220,7 +220,7 @@ function poll_editPoll() {
          </tbody>
       </table>
       <br />
-      <div class="form-group">
+      <div class="mb-3">
          <button type="submit" class="btn btn-primary">'.adm_translate("Editer").'</button>
       </div>
    </form>';
@@ -244,7 +244,7 @@ function poll_editPollPosted() {
    <form id="pollssondageed" method="post" action="admin.php">
       <input type="hidden" name="op" value="SendEditPoll">
       <input type="hidden" name="pollID" value="'.$id.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="pollTitle">'.adm_translate("Intitulé du Sondage").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="text" id="pollTitle" name="pollTitle" value="'.$holdtitle[1].'" maxlength="100" required="required" />
@@ -257,7 +257,7 @@ function poll_editPollPosted() {
             if($i<3) $requi=' required="required" '; else $requi='';
          list($optionText, $voteID, $pollType) = sql_fetch_row($result);
          echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="optionText'.$i.'">'.adm_translate("Option").' '.$i.'</label>
          <div class="col-sm-9 ">
             <input class="form-control" type="text" id="optionText'.$i.'" name="optionText['.$voteID.']" maxlength="255" value="'.$optionText.'" '.$requi.' />
@@ -268,7 +268,7 @@ function poll_editPollPosted() {
       $pollClose = (($pollType / 128) >= 1 ? 1 : 0);
       $pollType = $pollType%128;
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-9 ms-sm-auto">
             <div class="form-check">
                <input class="form-check-input" type="checkbox" id="poll_type" name="poll_type" value="1"';
@@ -278,7 +278,7 @@ function poll_editPollPosted() {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-9 ms-sm-auto">
             <div class="form-check text-danger">
                <input class="form-check-input" type="checkbox" id="poll_close" name="poll_close" value="1"';
@@ -288,7 +288,7 @@ function poll_editPollPosted() {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-9 ms-sm-auto">
             <button class="btn btn-primary" type="submit">Ok</button>
          </div>

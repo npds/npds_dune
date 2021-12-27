@@ -203,7 +203,7 @@ function confirmSendFile(f) {
    $oo= $tf->file_size_format($MAX_FILE_SIZE,1);
    $att_upload_table='
    <div class="card card-body my-2">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="pcfile">'.upload_translate("Fichier joint").'</label>
          <div class="col-sm-9">
             <div class="input-group mb-2 me-sm-2">
@@ -214,7 +214,7 @@ function confirmSendFile(f) {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-9 ms-sm-auto">
             <button type="button" class="btn btn-primary" onclick="uploadFile(this.form);">'.upload_translate("Joindre").'</button>
          </div>

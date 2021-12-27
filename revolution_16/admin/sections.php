@@ -44,7 +44,7 @@ function droits($member) {
    echo '
    <fieldset>
    <legend>'.adm_translate("Droits").'</legend>
-   <div class="form-group">
+   <div class="mb-3">
       <div class="form-check form-check-inline">';
    if ($member==-127) $checked=' checked="checked"'; else $checked='';
       echo '
@@ -69,7 +69,7 @@ function droits($member) {
          <label class="form-check-label" for="tous">'.adm_translate("Tous").'</label>
       </div>
    </div>
-   <div class="form-group">
+   <div class="mb-3">
       <label class="col-form-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
    </div>';
@@ -84,7 +84,7 @@ function droits($member) {
          <label class="form-check-label" for="tous">'.adm_translate("Tous").'</label>
       </div>
    </div>
-   <div class="form-group">
+   <div class="mb-3">
       <label class="col-form-label" for="Mmember[]">'.adm_translate("Groupes").'</label>';
       echo groupe($member).'
       </div>
@@ -268,7 +268,7 @@ function sections() {
       <hr />
       <h3 class="my-3">'.adm_translate("Editer une publication").'</h3>
       <form action="admin.php" method="post">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="artid">ID</label>
             <div class="col-sm-8">
                <input type="number" class="form-control" id="artid" name="artid" min="0" max="999999999" />
@@ -283,19 +283,19 @@ function sections() {
          <hr />
          <h3 class="mb-3"><a name="ajouter publication">'.adm_translate("Ajouter une publication").'</a></h3>
          <form action="admin.php" method="post" name="adminForm">
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-12" for="secid">'.adm_translate("Sous-rubrique").'</label>
                <div class="col-12">
                '.$autorise_pub.'
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
                <div class=" col-12">
                   <textarea class="form-control" name="title" rows="2"></textarea>
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
                <div class=" col-12">
                   <textarea class="tin form-control" name="content" rows="30"></textarea>
@@ -306,7 +306,7 @@ function sections() {
             <input type="hidden" name="autho" value="'.$aid.'" />';
          droits("0");
          echo '
-            <div class="form-group">
+            <div class="mb-3">
                <input class="btn btn-primary" type="submit" value="'.adm_translate("Ajouter").'" />
             </div>
          </form>';
@@ -374,7 +374,7 @@ function new_rub_section($type) {
       <hr />
       <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Sous-Rubrique").'</h3>
       <form action="admin.php" method="post" id="newsection" name="adminForm">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="rubref">'.adm_translate("Rubriques").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="rubref" name="rubref">';
@@ -390,18 +390,18 @@ function new_rub_section($type) {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4 col-md-4" for="image">'.adm_translate("Image pour la Sous-Rubrique").'</label>
             <div class="col-sm-8">
                <input type="text" class="form-control" name="image" />
             </div>
          </div>
-         <div class="form-group">
+         <div class="mb-3">
             <label class="col-form-label" for="secname">'.adm_translate("Titre").'</label>
             <textarea  class="form-control" id="secname" name="secname" maxlength="255" rows="2" required="required"></textarea>
             <span class="help-block text-end"><span id="countcar_secname"></span></span>
          </div>
-         <div class="form-group">
+         <div class="mb-3">
             <label class="col-form-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
             <textarea class="tin form-control" name="introd" rows="30"></textarea>';
             echo aff_editeur("introd",'');
@@ -409,7 +409,7 @@ function new_rub_section($type) {
          </div>';
       droits("0");
       echo '
-      <div class="form-group">
+      <div class="mb-3">
          <input type="hidden" name="op" value="sectionmake" />
          <button class="btn btn-primary col-sm-6 col-12 col-md-4" type="submit" /><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
          <button class="btn btn-secondary col-sm-6 col-12 col-md-4" type="button" onclick="javascript:history.back()">'.adm_translate("Retour en arrière").'</button>
@@ -424,18 +424,18 @@ function new_rub_section($type) {
          <hr />
          <h3 class="mb-3">'.adm_translate("Ajouter une nouvelle Rubrique").'</h3>
          <form action="admin.php" method="post" id="newrub" name="adminForm">
-            <div class="form-group">
+            <div class="mb-3">
                <label class="col-form-label" for="rubname">'.adm_translate("Nom de la Rubrique").'</label>
                <textarea class="form-control" id="rubname" name="rubname" rows="2" maxlength="255" required="required"></textarea>
                <span class="help-block text-end" id="countcar_rubname"></span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                <label class="col-form-label" for="introc">'.adm_translate("Texte d'introduction").'</label>
                <textarea class="tin form-control" id="introc" name="introc" rows="30" ></textarea>
             </div>';
          echo aff_editeur('introc','');
          echo '
-            <div class="form-group">
+            <div class="mb-3">
                <input type="hidden" name="op" value="rubriquemake" />
                <button class="btn btn-primary" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>
                <button class="btn btn-secondary" type="button" onclick="javascript:history.back()">'.adm_translate("Retour en arrière").'</button>
@@ -504,7 +504,7 @@ function publishcompat($article) {
       <input type="hidden" name="article" value="'.$article.'" />
       <input type="hidden" name="op" value="updatecompat" />
       <input type="hidden" name="idx" value="'.$i.'" />
-      <div class="form-group mt-3">
+      <div class="mb-3 mt-3">
          <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>&nbsp;<input class="btn btn-secondary" type="button" onclick="javascript:history.back()" value="'.adm_translate("Retour en arrière").'" />
       </div>
    </form>';
@@ -551,21 +551,21 @@ function rubriquedit($rubid) {
       echo '<span class="badge bg-secondary">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
    echo '
          <form id="rubriquedit" action="admin.php" method="post" name="adminForm">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="rubname">'.adm_translate("Titre").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" id="rubname" name="rubname" maxlength ="255" rows="2" required="required">'.$rubname.'</textarea>
                <span class="help-block text-end"><span id="countcar_rubname"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="introc">'.adm_translate("Texte d'introduction").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" id="introc" name="introc" rows="30" >'.$intro.'</textarea>
             </div>
          </div>
          '.aff_editeur('introc','').'
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3 pt-0" for="enligne">'.adm_translate("En Ligne").'</label>';
    if ($radminsuper==1) {
       if ($enligne==1) {
@@ -586,7 +586,7 @@ function rubriquedit($rubid) {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12">
                <input type="hidden" name="rubid" value="'.$rubid.'" />
                <input type="hidden" name="op" value="rubriquechange" />
@@ -659,7 +659,7 @@ function sectionedit($secid) {
       echo '<span class="badge bg-secondary p-2 me-2">'.$number.' </span>'.adm_translate("publication(s) attachée(s)");
    echo '
          <form id="sectionsedit" action="admin.php" method="post" name="adminForm">
-         <div class="form-group">
+         <div class="mb-3">
             <label class="col-form-label" for="rubref">'.adm_translate("Rubriques").'</label>';
 
 
@@ -705,17 +705,17 @@ function sectionedit($secid) {
 */
    //ici
    echo '
-   <div class="form-group">
+   <div class="mb-3">
       <label class="col-form-label" for="secname">'.adm_translate("Sous-rubrique").'</label>
       <textarea class="form-control" id="secname" name="secname" rows="4" maxlength="255" required="required">'.$secname.'</textarea>
       <span class="help-block text-end"><span id="countcar_secname"></span></span>
    </div>
-   <div class="form-group">
+   <div class="mb-3">
       <label class="col-form-label" for="image">'.adm_translate("Image").'</label>
       <input type="text" class="form-control" id="image" name="image" maxlength="255" value="'.$image.'" />
       <span class="help-block text-end"><span id="countcar_image"></span></span>
    </div>
-   <div class="form-group">
+   <div class="mb-3">
       <label class="col-form-label" for="introd">'.adm_translate("Texte d'introduction").'</label>
       <textarea class="tin form-control" id="introd" name="introd" rows="20">'.$intro.'</textarea>
    </div>';
@@ -799,7 +799,7 @@ function secartedit($artid) {
       <form action="admin.php" method="post" id="secartedit" name="adminForm">
          <input type="hidden" name="artid" value="'.$artid.'" />
          <input type="hidden" name="op" value="secartchange" />
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubriques").'</label>
             <div class="col-sm-8">';
 // la on déraille ???
@@ -819,13 +819,13 @@ function secartedit($artid) {
       echo '<a href="admin.php?op=publishcompat&amp;article='.$artid.'">'.adm_translate("Publications connexes").'</a>';
 
   echo'
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" id="title" name="title" rows="2">'.$title.'</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="content">'.adm_translate("Contenu").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" id="content" name="content" rows="30" >'.$content.'</textarea>
@@ -833,7 +833,7 @@ function secartedit($artid) {
          </div>';
    echo aff_editeur('content','');
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
          <div class="col-sm-12">';
 
    droits($userlevel);
@@ -859,7 +859,7 @@ function secartupdate($artid) {
       $debut = '
    <div class="alert alert-info">'.adm_translate("Vos droits de publications vous permettent de mettre à jour ou de supprimer ce contenu mais pas de la mettre en ligne sur le site.").'</div>';
       $fin = '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
             <select class="form-select" name="op">
                <option value="secartchangeup" selected="selected">'.adm_translate("Mettre à jour").'</option>
@@ -875,7 +875,7 @@ function secartupdate($artid) {
       $debut = '
       <div class="alert alert-success">'.adm_translate("Vos droits de publications vous permettent de mettre à jour, de supprimer ou de le mettre en ligne sur le site ce contenu.").'<br /></div>';
       $fin = '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
             <select class="form-select" name="op">
                <option value="secartchangeup" selected="selected">'.adm_translate("Mettre à jour").'</option>
@@ -901,7 +901,7 @@ function secartupdate($artid) {
    echo '
    <form id="secartupdate" action="admin.php" method="post" name="adminForm">
       <input type="hidden" name="artid" value="'.$artid.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="secid">'.adm_translate("Sous-rubrique").'</label>
          <div class="col-sm-8">';
       $tmp_autorise=sousrub_select($secid);/// a affiner pas bon car dans certain cas on peut donc publier dans une sous rubrique sur laquelle on n'a pas les droits
@@ -917,13 +917,13 @@ function secartupdate($artid) {
       echo '
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
          <div class=" col-12">
             <textarea class="form-control" id="title" name="title" rows="2">'.$title.'</textarea>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
          <div class=" col-12">
             <textarea class="tin form-control" id="content" name="content" rows="30">'.$content.'</textarea>
@@ -1183,7 +1183,7 @@ function ordremodule() {
       $i++;
       echo '<tr>
                <td>
-                  <div class="form-group mb-0">
+                  <div class="mb-3 mb-0">
                      <input type="hidden" name="rubid['.$i.']" value="'.$rubid.'" />
                      <input type="text" class="form-control" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'" maxlength="4" required="required" />
                   </div>
@@ -1203,7 +1203,7 @@ function ordremodule() {
    echo '
          </tbody>
       </table>
-      <div class="form-group mt-3">
+      <div class="mb-3 mt-3">
          <input type="hidden" name="i" value="'.$i.'" />
          <input type="hidden" name="op" value="majmodule" />
          <button type="submit" class="btn btn-primary" >'.adm_translate("Valider").'</button>
@@ -1244,7 +1244,7 @@ function ordrechapitre() {
       echo '
             <tr>
               <td>
-                 <div class="form-group mb-0">
+                 <div class="mb-3 mb-0">
                     <input type="hidden" name="secid['.$i.']" value="'.$secid.'" />
                     <input type="text" class="form-control" name="ordre['.$i.']" id="ordre'.$i.'" value="'.$ordre.'" maxlength="3" required="required" />
                  </div>
@@ -1269,7 +1269,7 @@ function ordrechapitre() {
    echo '
          </tbody>
       </table>
-      <div class="form-group mt-3">
+      <div class="mb-3 mt-3">
          <input type="hidden" name="op" value="majchapitre" />
          <input type="submit" class="btn btn-primary" value="'.adm_translate("Valider").'" />
          <button class="btn btn-secondary" onclick="javascript:history.back()" >'.adm_translate("Retour en arrière").' </button>
@@ -1309,7 +1309,7 @@ function ordrecours() {
       echo '
             <tr>
                <td>
-                 <div class="form-group mb-0">
+                 <div class="mb-3 mb-0">
                      <input type="hidden" name="artid['.$i.']" value="'.$artid.'" />
                      <input type="text" class="form-control" id="ordre'.$i.'" name="ordre['.$i.']" value="'.$ordre.'"  maxlength="4" required="required" />
                   </div>
@@ -1334,7 +1334,7 @@ function ordrecours() {
    echo '
          </tbody>
       </table>
-      <div class="form-group mt-3">
+      <div class="mb-3 mt-3">
          <input type="hidden" name="op" value="majcours" />
          <input type="submit" class="btn btn-primary" value="'.adm_translate("Valider").'" />
          <input type="button" class="btn btn-secondary" value="'.adm_translate("Retour en arrière").'" onclick="javascript:history.back()" />

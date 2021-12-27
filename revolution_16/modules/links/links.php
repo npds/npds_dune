@@ -48,7 +48,7 @@ function SearchForm() {
       <form action="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=search" method="post">';
    if ($links_topic) {
       echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="topicL" >'.translate("Sélectionner un sujet").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="topicL" name="topicL">';
@@ -65,13 +65,13 @@ function SearchForm() {
         </div>';
    }
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="query">'.translate("Votre requête").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" id="query" name="query" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-8 ms-sm-auto">
                <button class="btn btn-primary" type="submit">'.translate("Recherche").'</button>
             </div>

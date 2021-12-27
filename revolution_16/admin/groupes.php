@@ -306,14 +306,14 @@ function membre_add($gp) {
    <form id="groupesaddmb" class="admform" action="admin.php" method="post">
       <fieldset>
          <legend><i class="fa fa-users fa-2x text-muted"></i></legend>
-         <div class="form-group">
+         <div class="mb-3">
             <label class="col-form-label" for="luname">'.adm_translate("Liste des membres").'</label>
             <input type="text" class="form-control" id="luname" name="luname" maxlength="255" value="" required="required" />
             <span class="help-block text-end"><span id="countcar_luname"></span></span>
          </div>
          <input type="hidden" name="op" value="membre_add_finish" />
          <input type="hidden" name="groupe_id" value="'.$gp.'" />
-         <div class="form-group">
+         <div class="mb-3">
             <input class="btn btn-primary" type="submit" name="sub_op" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </fieldset>
@@ -464,19 +464,19 @@ function groupe_edit($groupe_id) {
       echo '<input type="hidden" name="groupe_id" value="'.$groupe_id.'" />';
    else
       echo '
-         <div class="form-group">
+         <div class="mb-3">
             <label for="inp_gr_id" class="admform">ID</label>
             <input id="inp_gr_id" type="number" min="2" max="126" class="form-control" name="groupe_id" value="" required="required"/><span class="help-block">(2...126)</span>
          </div>';
    echo '
-         <div class="form-group">
+         <div class="mb-3">
             <label class="col-form-label" for="grname">'.adm_translate("Nom").'</label>
             <input type="text" class="form-control" id="grname" name="groupe_name" maxlength="30" value="';
    echo isset($result)?$result['groupe_name']:"";
    echo'" placeholder="'.adm_translate("Nom du groupe").'" required="required" />
             <span class="help-block text-end"><span id="countcar_grname"></span></span>
          </div>
-         <div class="form-group">
+         <div class="mb-3">
             <label class="col-form-label" for="grdesc">'.adm_translate("Description").'</label>
             <textarea class="form-control" name="groupe_description" id="grdesc" rows="11" maxlength="255" placeholder="'.adm_translate("Description du groupe").'" required="required">';
    echo isset($result)?$result['groupe_description']:"";
@@ -490,7 +490,7 @@ function groupe_edit($groupe_id) {
       echo '
          <input type="hidden" name="op" value="groupe_add_finish" />';
    echo '
-         <div class="form-group">
+         <div class="mb-3">
             <input class="btn btn-primary" type="submit" name="sub_op" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </fieldset>

@@ -98,20 +98,20 @@ function clientlogin() {
       <h3 class="mb-4"><i class="fas fa-sign-in-alt fa-lg me-3"></i>'.translate("Connection").'</h3>
          <form action="banners.php" method="post">
             <fieldset>
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <label class="form-control-label col-sm-4" for="login">'.translate("Identifiant ").'</label>
                   <div class="col-sm-8">
                      <input class="form-control" type="text" id="login" name="login" maxlength="10" required="required" />
                   </div>
                </div>
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <label class="form-control-label col-sm-4" for="pass">'.translate("Mot de passe").'</label>
                   <div class="col-sm-8">
                      <input class="form-control" type="password" id="pass" name="pass" maxlength="10" required="required" />
                      <span class="help-block">'.translate("Merci de saisir vos informations").'</span>
                   </div>
                </div>
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <div class="col-sm-8 ms-sm-auto">
                      <input type="hidden" name="op" value="Ok" />
                      <button class="btn btn-primary col-sm-6 col-12" type="submit">'.translate("Valider").'</button>
@@ -242,7 +242,7 @@ function bannerstats($login, $pass) {
             <form action="banners.php" method="get">';
             if ($imageurl!='') {
                echo '
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <label class="control-label col-sm-12" for="url">'.translate("Changer").' URL</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="text" name="url" maxlength="200" value="'.$clickurl.'" />
@@ -250,7 +250,7 @@ function bannerstats($login, $pass) {
                </div>';
             } else {
                echo '
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <label class="control-label col-sm-12" for="url">'.translate("Changer").' URL</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="text" name="url" maxlength="200" value="'.htmlentities($clickurl, ENT_QUOTES, cur_charset).'" />

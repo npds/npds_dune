@@ -150,7 +150,7 @@ if (isset($submitS)) {
    if ($formulaire=='')
       echo '
    <form action="modules.php" method="post" name="coolsus">';
-   echo '<div class="form-group ">';
+   echo '<div class="mb-3 ">';
    $allow_to_reply=false;
    if ($forum_access==0)
       $allow_to_reply=true;
@@ -241,7 +241,7 @@ if (isset($submitS)) {
 
    echo '
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
@@ -269,7 +269,7 @@ if (isset($submitS)) {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="form-control-label col-sm-12">'.translate("Options").'</label>';
         if ($allow_html==1) {
            if (isset($html)) $sethtml = 'checked="checked"'; else $sethtml = '';
@@ -302,7 +302,7 @@ if (isset($submitS)) {
 
         echo Q_spambot();
         echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="ModPath" value="comments" />
             <input type="hidden" name="ModStart" value="reply" />

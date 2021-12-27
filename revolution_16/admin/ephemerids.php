@@ -30,7 +30,7 @@ function Ephemerids() {
    <hr />
    <h3>'.adm_translate("Ajouter un éphéméride").'</h3>
    <form action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-4">
             <label class="col-form-label" for="did">'.adm_translate("Jour").'</label>
             <select class="form-select" id="did" name="did">';
@@ -60,13 +60,13 @@ function Ephemerids() {
             <input class="form-control" type="number" id="yid" name="yid" maxlength="4" size="5" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
          <div class="col-sm-12">
             <textarea name="content" class="form-control" cols="55" rows="10"></textarea>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
             <input type="hidden" name="op" value="Ephemeridsadd" />
@@ -78,7 +78,7 @@ function Ephemerids() {
    <form action="admin.php" method="post">';
    $nday = "1";
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-4">
             <label class="col-form-label" for="did">'.adm_translate("Jour").'</label>
             <select class="form-select" id="did" name="did">';
@@ -104,7 +104,7 @@ function Ephemerids() {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="op" value="Ephemeridsmaintenance" />
             <button class="btn btn-primary" type="submit">'.adm_translate("Editer").'</button>
@@ -172,19 +172,19 @@ function Ephemeridsedit($eid, $did, $mid) {
    <hr />
    <h3>'.adm_translate("Editer éphéméride").'</h3>
    <form action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
           <label class="col-form-label col-sm-3" for="yid">'.adm_translate("Année").'</label>
           <div class="col-sm-9">
              <input class="form-control" type="number" name="yid" value="'.$yid.'" max="2500" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
          <div class="col-sm-12">
             <textarea name="content" id="content" class="form-control" rows="10">'.$content.'</textarea>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="did" value="'.$did.'" />
             <input type="hidden" name="mid" value="'.$mid.'" />

@@ -190,7 +190,7 @@ function BannersAdmin() {
    <span class="help-block">'.adm_translate("Pour les bannières Javascript, saisir seulement le code javascript dans la zone URL du clic et laisser la zone image vide.").'</span>
    <span class="help-block">'.adm_translate("Pour les bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier .txt (fichier de code php) dans la zone URL du clic et laisser la zone image vide.").'</span>
    <form id="bannersnewbanner" action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="cid">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <select class="form-select" name="cid">';
@@ -203,35 +203,35 @@ function BannersAdmin() {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="imptotal">'.adm_translate("Impressions réservées").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" id="imptotal" name="imptotal" min="0" max="99999999999" required="required" />
             <span class="help-block">0 = '.adm_translate("Illimité").'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="imageurl" name="imageurl" maxlength="200" />
             <span class="help-block text-end"><span id="countcar_imageurl"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="clickurl">'.adm_translate("URL du clic").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="clickurl" name="clickurl" maxlength="200" required="required" />
             <span class="help-block text-end"><span id="countcar_clickurl"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" id="userlevel" name="userlevel" min="0" max="9" value="0" required="required" /> 
             <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=Désactiver").'.</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="op" value="BannersAdd" />
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter une bannière").' </button>
@@ -244,48 +244,48 @@ function BannersAdmin() {
    <hr />
    <h3 class="my-3">'.adm_translate("Ajouter un nouvel Annonceur").'</h3>
    <form id="bannersnewanno" action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="name">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="name" name="name" maxlength="60" required="required" />
             <span class="help-block text-end" id="countcar_name"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="contact" name="contact" maxlength="60" required="required" />
             <span class="help-block text-end" id="countcar_contact"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" id="email" name="email" maxlength="60" required="required" />
             <span class="help-block text-end" id="countcar_email"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="login" name="login" maxlength="10" required="required" />
             <span class="help-block text-end" id="countcar_login"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="password" id="passwd" name="passwd" maxlength="10" required="required" />
             <span class="help-block text-end" id="countcar_passwd"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="extrainfo" name="extrainfo" rows="10"></textarea>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="op" value="BannerAddClient" />
             <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un annonceur").'</button>
@@ -397,7 +397,7 @@ function BannerEdit($bid) {
    <span class="help-block mt-2">'.adm_translate("Pour les bannières Javascript, saisir seulement le code javascript dans la zone URL du clic et laisser la zone image vide.").'</span>
    <span class="help-block">'.adm_translate("Pour les bannières encore plus complexes (Flash, ...), saisir simplement la référence à votre_répertoire/votre_fichier .txt (fichier de code php) dans la zone URL du clic et laisser la zone image vide.").'</span>
    <form id="bannersadm" action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="cid">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="cid" name="cid">';
@@ -420,35 +420,35 @@ function BannerEdit($bid) {
    echo'
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="impadded">'.adm_translate("Ajouter plus d'affichages").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" id="impadded" name="impadded" min="0" max="99999999999" required="required" value="'.$imptotal.'"/>
             <span class="help-block">'.adm_translate("Réservé : ").'<strong>'.$impressions.'</strong> '.adm_translate("Fait : ").'<strong>'.$impmade.'</strong></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="imageurl">'.adm_translate("URL de l'image").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="imageurl" name="imageurl" maxlength="200" value="'.$imageurl.'" />
             <span class="help-block text-end"><span id="countcar_imageurl"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="clickurl">'.adm_translate("URL du clic").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="clickurl" name="clickurl" maxlength="200" value="'.htmlentities($clickurl,ENT_QUOTES,cur_charset).'" />
             <span class="help-block text-end"><span id="countcar_clickurl"></span></span>
          </div>
       </div>
-      <div class="form-group row"> 
+      <div class="mb-3 row"> 
          <label class="col-form-label col-sm-4 " for="userlevel">'.adm_translate("Niveau de l'Utilisateur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" name="userlevel" min="0" max="9" value="'.$userlevel.'" required="required" />
             <span class="help-block">'.adm_translate("0=Tout le monde, 1=Membre seulement, 3=Administrateur seulement, 9=Désactiver").'.</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="bid" value="'.$bid.'" />
             <input type="hidden" name="imptotal" value="'.$imptotal.'" />
@@ -516,48 +516,48 @@ function BannerClientEdit($cid) {
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer l'annonceur").'</h3>
    <form action="admin.php" method="post" id="bannersedanno">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="name">'.adm_translate("Nom de l'annonceur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="name" name="name" value="'.$name.'" maxlength="60" required="required" />
             <span class="help-block text-end"><span id="countcar_name"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="contact">'.adm_translate("Nom du Contact").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="contact" name="contact" value="'.$contact.'" maxlength="60" required="required" />
             <span class="help-block text-end"><span id="countcar_contact"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="email">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" id="email" name="email" maxlength="60" value="'.$email.'" required="required" />
             <span class="help-block text-end"><span id="countcar_email"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="login">'.adm_translate("Identifiant").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="login" name="login" maxlength="10" value="'.$login.'" required="required" />
             <span class="help-block text-end"><span id="countcar_login"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="passwd">'.adm_translate("Mot de Passe").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="password" id="passwd" name="passwd" maxlength="10" value="'.$passwd.'" required="required" />
             <span class="help-block text-end"><span id="countcar_passwd"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="extrainfo">'.adm_translate("Informations supplémentaires").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="extrainfo" name="extrainfo" rows="10">'.$extrainfo.'</textarea>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="cid" value="'.$cid.'" />
             <input type="hidden" name="op" value="BannerClientChange" />

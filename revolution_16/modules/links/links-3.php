@@ -32,7 +32,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
    <form action="modules.php" method="post" name="adminForm">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
       <input type="hidden" name="ModStart" value="'.$ModStart.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="title">'.translate("Titre").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="text" id="title" name="title" value="'.$title.'"  maxlength="100" required="required" />
@@ -41,14 +41,14 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       global $links_url;
       if ($links_url)
          echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="url">URL</label>
          <div class="col-sm-9">
             <input class="form-control" type="url" id="url" name="url" value="'.$url.'" maxlength="100" required="required" />
          </div>
       </div>';
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="cat">'.translate("Catégorie").'</label>
          <div class="col-sm-9">
             <select class="form-select" id="cat" name="cat">';
@@ -75,7 +75,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       global $links_topic;
       if ($links_topic) {
          echo'
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="topicL">'.translate("Sujets").'</label>
          <div class="col-sm-9">
             <select class="form-select" id="topicL" name="topicL">';
@@ -94,7 +94,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       </div>';
       }
       echo'
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="xtext">'.translate("Description : (255 caractères max)").'</label>
          <div class="col-sm-12">
             <textarea class="form-control tin" id="xtext" name="xtext" rows="10">'.$description.'</textarea>
@@ -102,7 +102,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       </div>';
       aff_editeur('xtext','');
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <input type="hidden" name="lid" value="'.$lid.'" />
          <input type="hidden" name="modifysubmitter" value="'.$author.'" />
          <input type="hidden" name="op" value="modifylinkrequestS" />

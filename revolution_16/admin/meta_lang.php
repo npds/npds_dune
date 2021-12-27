@@ -26,7 +26,7 @@ function go_back($label) {
    <script type="text/javascript">
    //<![CDATA[
    function precedent() {
-      document.write(\'<div class="form-group row"><div class="col-sm-12"><button class="btn btn-secondary my-3" onclick="history.back();" >'.$label.'</button></div></div>\');
+      document.write(\'<div class="mb-3 row"><div class="col-sm-12"><button class="btn btn-secondary my-3" onclick="history.back();" >'.$label.'</button></div></div>\');
    }
    precedent();
    //]]>
@@ -202,19 +202,19 @@ function Edit_Meta_Lang() {
    if ($Q['obligatoire'] != true) {
       echo '
    <form id="metalangedit" name="edit_meta_lang" action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="def">META</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" id="def" name="def" value="'.$Q['def'].'" readonly="readonly" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="typemeta">'.adm_translate("Type").'</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" id="typemeta" name="type_meta" value="'.$Q['type_meta'].'" maxlength="10" readonly="readonly" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="desc">'.adm_translate("Description").'</label>
          <div class="col-sm-12">';
       if ($Q['type_meta']=='smil') {
@@ -228,7 +228,7 @@ function Edit_Meta_Lang() {
 
       if ($Q['type_meta']!="docu" and $Q['type_meta']!="them") {
          echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="content">'.adm_translate("Script").'</label>
          <div class="col-sm-12">
             <textarea class="form-control" id="content" name="content" rows="20"required="required" >'.$Q['content'].'</textarea>
@@ -236,7 +236,7 @@ function Edit_Meta_Lang() {
       </div>';
       }
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="typeuri">'.adm_translate("Restriction").'</label>';
       $sel0='';$sel1='';
       if ($Q['type_uri'] == '+') {
@@ -260,13 +260,13 @@ function Edit_Meta_Lang() {
          </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <textarea class="form-control" id="uri" name="uri" rows="7" maxlength="255">'.$Q['uri'].'</textarea>
             <span class="help-block text-end"><span id="countcar_uri"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="Maj_Bdd_ML" value="edit_meta" />
             <input type="hidden" name="op" value="Valid_Meta_Lang" />
@@ -298,7 +298,7 @@ function Creat_Meta_Lang() {
 //   echo $type_meta;
    if ($type_meta) {
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="def">META-MOT</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" name="def" id="def" maxlength="50" required="required"/>
@@ -307,7 +307,7 @@ function Creat_Meta_Lang() {
       </div>';
       if ($type_meta != "smil") {
          echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="desc">'.adm_translate("Description").'</label>
          <div class="col-sm-12">
             <textarea class="form-control" name="desc" id="desc" rows="7">[french]...[/french][english]...[/english]</textarea>
@@ -316,7 +316,7 @@ function Creat_Meta_Lang() {
       }
       if ($type_meta != "them") {
          echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="content">'.adm_translate("Script").'</label>
          <div class="col-sm-12">';
          if ($type_meta == "smil")
@@ -335,7 +335,7 @@ function Creat_Meta_Lang() {
       </div>';
       }
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="typeuri">'.adm_translate("Restriction").'</label>
          <div class="col-sm-12">
             <select class="form-select" id="typeuri" name="type_uri">
@@ -344,7 +344,7 @@ function Creat_Meta_Lang() {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
         <div class="col-sm-12">
            <div class="help-block">
             '.adm_translate("les URLs que vous aurez renseignés ci-après (ne renseigner que la racine de l'URI)").'<br />
@@ -355,7 +355,7 @@ function Creat_Meta_Lang() {
             <span class="help-block text-end"><span id="countcar_uri"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="type_meta" value="'.$type_meta.'" />
             <input type="hidden" name="Maj_Bdd_ML" value="creat_meta" />

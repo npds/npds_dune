@@ -78,19 +78,19 @@ function write_short_private_message($to_userid) {
    <h2>'.translate("Message à un membre").'</h2>
    <h3><i class="fa fa-at me-1"></i>'.$to_userid.'</h3>
    <form id="sh_priv_mess" action="powerpack.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="subject" >'.translate("Sujet").'</label>
          <div class="col-sm-12">
             <input class="form-control" type="text" id="subject" name="subject" maxlength="100" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="message" >'.translate("Message").'</label>
          <div class="col-sm-12">
             <textarea class="form-control"  id="message" name="message" rows="10"></textarea>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <div class="form-check" >
                <input class="form-check-input" type="checkbox" id="copie" name="copie" />
@@ -98,7 +98,7 @@ function write_short_private_message($to_userid) {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <input type="hidden" name="to_userid" value="'.$to_userid.'" />
          <input type="hidden" name="op" value="write_instant_message" />
          <div class="col-sm-12">

@@ -242,7 +242,7 @@ else {
          }
          echo '
          <form id="pmessage" action="replypmsg.php" method="post" name="coolsus">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="to_user">'.translate("Destinataire").'</label>
             <div class="col-sm-9">';
          if ($reply)
@@ -266,7 +266,7 @@ else {
          settype($copie,'string');
          if ($copie) $checked='checked="checked"'; else $checked='';
          echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-9 ms-auto">
             <div class="form-check">
                <input class="form-check-input" type="checkbox" id="copie" name="copie" '.$checked.' />
@@ -274,7 +274,7 @@ else {
             </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="subject">'.translate("Sujet").'</label>
             <div class="col-sm-12">';
          settype($subject,'string');
@@ -287,7 +287,7 @@ else {
          settype($image_subject,'string');
          if ($smilies) {
             echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12">'.translate("Icone du message").'</label>
             <div class="col-sm-12">
                <div class="border rounded pt-3 px-2 n-fond_subject d-flex flex-row flex-wrap">
@@ -297,7 +297,7 @@ else {
          </div>';
          }
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
@@ -354,7 +354,7 @@ else {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3">'.translate("Options").'</label>';
          if ($allow_html==1) {
             settype($html,'string');
@@ -383,7 +383,7 @@ else {
          echo '
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="msg_id" value="'.$msg_id.'" />
             <input type="hidden" name="full_interface" value="'.$full_interface.'" />';

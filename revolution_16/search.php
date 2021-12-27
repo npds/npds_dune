@@ -61,13 +61,13 @@
    }
    */
    echo '
-      <div class="form-group">
+      <div class="mb-3">
          <input class="form-control" type="text" name="query" value="'.$query.'" />
       </div>';
 
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
-   <div class="form-group">
+   <div class="mb-3">
       <select class="form-select" name="topic">
          <option value="">'.translate("Tous les sujets").'</option>';
    $sel='';
@@ -80,7 +80,7 @@
    echo '
       </select>
    </div>
-   <div class="form-group">
+   <div class="mb-3">
       <select class="form-select" name="category">
          <option value="0">'.translate("Articles").'</option>';
    $catlist = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
@@ -98,7 +98,7 @@
 
    $thing = sql_query("SELECT aid FROM ".$NPDS_Prefix."authors ORDER BY aid");
    echo '
-   <div class="form-group">
+   <div class="mb-3">
       <select class="form-select" name="author">
          <option value="">'.translate("Tous les auteurs").'</option>';
    settype($author,'string');
@@ -128,7 +128,7 @@
       $sel6 = 'selected="selected"';
 
    echo '
-      <div class="form-group">
+      <div class="mb-3">
          <select class="form-select" name="days">
             <option '.$sel1.' value="0">'.translate("Tous").'</option>
             <option '.$sel2.' value="7">1 '.translate("semaine").'</option>
@@ -151,7 +151,7 @@
       $sel6 = 'checked="checked"';
 
    echo '
-      <div class="form-group">
+      <div class="mb-3">
          <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" id="sto" name="type" value="stories" '.$sel1.' />
             <label class="form-check-label" for="sto">'.translate("Articles").'</label>
@@ -161,7 +161,7 @@
             <label class="form-check-label" for="arc">'.translate("Archives").'</label>
          </div>
       </div>
-      <div class="form-group">
+      <div class="mb-3">
          <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" id="sec" name="type" value="sections" '.$sel3.' />
             <label class="form-check-label" for="sec">'.translate("Rubriques").'</label>
@@ -175,7 +175,7 @@
             <label class="form-check-label" for="rev">'.translate("Critiques").'</label>
          </div>
       </div>
-      <div class="form-group">
+      <div class="mb-3">
          <input class="btn btn-primary" type="submit" value="'.translate("Recherche").'" />
       </div>
    </form>';

@@ -35,7 +35,7 @@ function etape_2() {
    echo '
                <h3 class="mb-2">'.ins_translate('Licence').'</h3>
                <form name="gpl" method="post" action="install.php">
-                  <fieldset class="form-group">
+                  <fieldset class="mb-3">
                      <label for="licence">'.ins_translate("L'utilisation de NPDS est soumise à l'acceptation des termes de la licence GNU GPL ").' :</label>
                      <textarea name="licence" class="form-control" id="licence" rows="15" readonly="readonly">'.$licence_text.'</textarea>
                   </fieldset>

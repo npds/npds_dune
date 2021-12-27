@@ -182,7 +182,7 @@ function pollboxbooth($pollID,$pollClose) {
          <button class="btn btn-primary btn-sm my-2" type="submit" value="'.translate("Voter").'" title="'.translate("Voter").'" />'.translate("Voter").'</button>';
    }
    $boxContent .= '
-         <div class="form-group">'.$inputvote.'</div>
+         <div class="mb-3">'.$inputvote.'</div>
    </form>';
    $boxContent .= '<div><ul><li><a href="pollBooth.php">'.translate("Anciens sondages").'</a></li>';
    if ($pollcomm) {

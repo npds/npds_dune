@@ -82,28 +82,28 @@ function ForumConfigAdmin() {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-5" for="hot_threshold">'.adm_translate("Seuil pour les Sujet 'chauds'").'</label>
          <div class="col-sm-7">
             <input class="form-control" type="text" min="0" id="hot_threshold" name="hot_threshold" maxlength="6" value="'.$hot_threshold.'" />
             <span class="help-block text-end" id="countcar_hot_threshold"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-5" for="posts_per_page">'.adm_translate("Nombre de contributions par page").'</label>
          <div class="col-sm-7">
             <input class="form-control" type="text" min="0" id="posts_per_page" name="posts_per_page" maxlength="6" value="'.$posts_per_page.'" />
             <span class="help-block">'.adm_translate("(C'est le nombre de contributions affichées pour chaque page relative à un Sujet)").'<span class="float-end ms-1" id="countcar_posts_per_page"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-5" for="topics_per_page">'.adm_translate("Sujets par forum").'</label>
          <div class="col-sm-7">
             <input class="form-control" type="text" min="0" id="topics_per_page" name="topics_per_page" maxlength="6" value="'.$topics_per_page.'" />
             <span class="help-block">'.adm_translate("(C'est le nombre de Sujets affichés pour chaque page relative à un Forum)").'<span class="float-end ms-1" id="countcar_topics_per_page"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-5" for="anti_flood">'.adm_translate("Nombre maximum de contributions par IP et par période de 30 minutes (0=système inactif)").'</label>
          <div class="col-sm-7">
             <input class="form-control" type="text" min="0" id="anti_flood" name="anti_flood" maxlength="6" value="'.$anti_flood.'" />
@@ -158,33 +158,33 @@ function ForumConfigAdmin() {
             </div>
          </div>
       </div>
-      <div class="form-group">
+      <div class="mb-3">
          <label class="col-form-label" for="rank1">'.adm_translate("Texte pour le rôle").' 1 </label>
          <textarea class="form-control" id="rank1" name="rank1" rows="3" maxlength="255">'.$rank1.'</textarea>
          <span class="help-block text-end" id="countcar_rank1"></span>
       </div>
-      <div class="form-group">
+      <div class="mb-3">
          <label class="col-form-label" for="rank2">'.adm_translate("Texte pour le rôle").' 2 </label>
          <textarea class="form-control" id="rank2" name="rank2" rows="3" maxlength="255">'.$rank2.'</textarea>
          <span class="help-block text-end" id="countcar_rank2"></span>
       </div>
-      <div class="form-group">
+      <div class="mb-3">
          <label class="col-form-label" for="rank3">'.adm_translate("Texte pour le rôle").' 3 </label>
          <textarea class="form-control" id="rank3" name="rank3" rows="3" maxlength="255">'.$rank3.'</textarea>
          <span class="help-block text-end" id="countcar_rank3"></span>
       </div>
-      <div class="form-group">
+      <div class="mb-3">
          <label class="col-form-label" for="rank4">'.adm_translate("Texte pour le rôle").' 4 </label>
          <textarea class="form-control" id="rank4" name="rank4" rows="3" maxlength="255">'.$rank4.'</textarea>
          <span class="help-block text-end" id="countcar_rank4"></span>
       </div>
-      <div class="form-group">
+      <div class="mb-3">
          <label class="col-form-label" for="rank5">'.adm_translate("Texte pour le rôle").' 5 </label>
          <textarea class="form-control" id="rank5" name="rank5" rows="3" maxlength="255">'.$rank5.'</textarea>
          <span class="help-block text-end" id="countcar_rank5"></span>
       </div>
       <input type="hidden" name="op" value="ForumConfigChange" />
-      <div class="form-group">
+      <div class="mb-3">
          <button class="btn btn-primary" type="submit">'.adm_translate("Changer").'</button>
       </div>
    </form>';

@@ -26,7 +26,7 @@ $hlpfile = "manuels/$language/automated.html";
 
 function puthome($ihome) {
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="ihome">'.adm_translate("Publier dans la racine ?").'</label>';
    $sel1 = 'checked="checked"';
    $sel2 = '';
@@ -50,7 +50,7 @@ function puthome($ihome) {
    $sel1 = '';
    $sel2 = 'checked="checked"';
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label text-danger" for="members">'.adm_translate("Seulement aux membres").'</label>
          <div class="col-sm-8">
             <div class="form-check">';
@@ -84,7 +84,7 @@ function puthome($ihome) {
       <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
    }
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="Mmembers" name="Mmembers">'.$tmp_groupe.'</select>
@@ -96,7 +96,7 @@ function SelectCategory($cat) {
    global $NPDS_Prefix;
    $selcat = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat");
    echo ' 
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="catid">'.adm_translate("Catégorie").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="catid" name="catid">';
@@ -247,13 +247,13 @@ function autoEdit($anid) {
     echo '
    </div>
    <form action="admin.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="title">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="title" name="title" size="50" value="'.$titre.'" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="topic" name="topic">';
@@ -284,14 +284,14 @@ function autoEdit($anid) {
     SelectCategory($catid);
     puthome($ihome);
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="25" id="hometext" name="hometext" >'.$hometext.'</textarea>
          </div>
       </div>
       '.aff_editeur('hometext', '').'
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="bodytext">'.adm_translate("Texte étendu").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="25" id="bodytext" name="bodytext" >'.$bodytext.'</textarea>
@@ -300,7 +300,7 @@ function autoEdit($anid) {
       '.aff_editeur('bodytext', '');
    if ($aid != $informant) {
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="notes">'.adm_translate("Notes").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="7" id="notes" name="notes">'.$notes.'</textarea>
@@ -314,7 +314,7 @@ function autoEdit($anid) {
    $fh_pub=substr($date_finval,11,5);
    publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="anid" value="'.$anid.'" />
             <input type="hidden" name="op" value="autoSaveEdit" />

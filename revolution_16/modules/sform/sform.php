@@ -315,7 +315,7 @@ function print_form($bg) {
          switch($this->form_fields[$i]['type']){
             case 'text':case 'email':case 'url':case 'number':
                $str.='
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
                $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
                $requi='';
@@ -352,7 +352,7 @@ function print_form($bg) {
                $this->form_fields[$i]['value']=$this->form_password_access;
             case 'password':
                $str.='
-             <div class="form-group row">
+             <div class="mb-3 row">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
                $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
                $requi='';
@@ -376,7 +376,7 @@ function print_form($bg) {
                if ($this->form_fields[$i]['obligation'])
                   $requi= 'required="required"';
                $str.='
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-sm-8 ms-sm-auto">
                   <div class="form-check">
                      <input class="form-check-input" type="checkbox" id="'.$this->form_fields[$i]['name'].'" name="'.$this->form_fields[$i]['name'].'" value="'.$this->form_fields[$i]['value'].'" '.$requi;
@@ -400,7 +400,7 @@ function print_form($bg) {
                   $requi= 'required="required"';
 
                $str.='
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
                $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
                if ($this->form_fields[$i]['obligation']){
@@ -422,7 +422,7 @@ function print_form($bg) {
          //not sure to check if ok on all case
             case 'show-hidden':
                $str.='
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-sm-4">'.$this->form_fields[$i]['en'].'</label>
                <div class="col-sm-8">';
             if ($num_extender!="no")
@@ -439,7 +439,7 @@ function print_form($bg) {
 
             case 'select':
                $str.='
-             <div class="form-group row">
+             <div class="mb-3 row">
                 <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                 <div class="col-sm-8">
                   <select class="'; 
@@ -469,7 +469,7 @@ function print_form($bg) {
             case 'radio':
                $first_radio=true;
                $str.='
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                <div class="col-sm-8">';
                foreach($this->form_fields[$i]['value'] as $key => $val) {
@@ -531,7 +531,7 @@ function print_form($bg) {
             case 'date':
                if ($this->form_fields[$i]['value']=='') $this->form_fields[$i]['value']=date($this->form_fields[$i]['model']);
                $str.='
-             <div class="form-group row">
+             <div class="mb-3 row">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
                if ($this->form_fields[$i]['obligation']){
                   $this->form_check.=" && (f.elements['".$this->form_fields[$i]['name']."'].value!='')";
@@ -560,7 +560,7 @@ function print_form($bg) {
 
             case 'upload':
                $str.='
-            <div id="avava" class="form-group row" lang="'.language_iso(1,'','').'">
+            <div id="avava" class="mb-3 row" lang="'.language_iso(1,'','').'">
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                <div class="col-sm-8">
                   <div class="input-group mb-2 me-sm-2">

@@ -28,49 +28,49 @@ function MetaTagAdmin($saved = false) {
       echo '<div class="alert alert-success">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</div>';
    echo '
    <form id="metatagsadm" action="admin.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagauthor">'.adm_translate("Auteur(s)").'</label>
          <div class="col-12">
             <input class="form-control" id="newtagauthor" type="text" name="newtag[author]" value="'.$tags['author'].'" maxlength="100">
             <span class="help-block">'. adm_translate("(Ex. : nom du webmaster)").'<span class="float-end ms-1" id="countcar_newtagauthor"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagowner">'.adm_translate("Propriétaire").'</label>
          <div class="col-12">
             <input class="form-control" id="newtagowner" type="text" name="newtag[owner]" value="'.$tags['owner'].'" maxlength="100" />
             <span class="help-block">'.adm_translate("(Ex. : nom de votre compagnie/service)").'<span class="float-end ms-1" id="countcar_newtagowner"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagreplyto">'.adm_translate("Adresse e-mail principale").'</label>
          <div class="col-12">
             <input class="form-control" id="newtagreplyto" type="email" name="newtag[reply-to]" value="'.$tags['reply-to'].'" maxlength="100" />
             <span class="help-block">'.adm_translate("(Ex. : l'adresse e-mail du webmaster)").'<span class="float-end ms-1" id="countcar_newtagreplyto"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtaglanguage">'.adm_translate("Langue principale").'</label>
          <div class="col-12">
             <input class="form-control" id="newtaglanguage" type="text" name="newtag[language]" value="'.$tags['language'].'" maxlength="5" />
             <span class="help-block">'.adm_translate("(Ex. : fr(Français), en(Anglais), en-us(Américain), de(Allemand), it(Italien), pt(Portugais), etc)").'<span class="float-end ms-1" id="countcar_newtaglanguage"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagdescription">'.adm_translate("Description").'</label>
          <div class="col-12">
             <input class="form-control" id="newtagdescription" type="text" name="newtag[description]" value="'.$tags['description'].'" maxlength="200" />
             <span class="help-block">'.adm_translate("(Brève description des centres d'intérêt du site. 200 caractères maxi.)").'<span class="float-end ms-1" id="countcar_newtagdescription"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagkeywords">'.adm_translate("Mot(s) clé(s)").'</label>
          <div class="col-12">
             <input class="form-control" id="newtagkeywords" type="text" name="newtag[keywords]" value="'.$tags['keywords'].'" maxlength="1000" />
             <span class="help-block">'.adm_translate("(Définissez un ou plusieurs mot(s) clé(s). 1000 caractères maxi. Remarques : une lettre accentuée équivaut le plus souvent à 8 caractères. La majorité des moteurs de recherche font la distinction minuscule/majuscule. Séparez vos mots par une virgule)").'<span class="float-end ms-1" id="countcar_newtagkeywords"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagrating">'.adm_translate("Audience").'</label>
          <div class="col-12">
             <select class="form-select" id="newtagrating" name="newtag[rating]">
@@ -82,7 +82,7 @@ function MetaTagAdmin($saved = false) {
             <span class="help-block">'.adm_translate("(Définissez le public intéressé par votre site)").'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagdistribution">'.adm_translate("Distribution").'</label>
          <div class="col-12">
             <select class="form-select" id="newtagdistribution" name="newtag[distribution]">
@@ -91,14 +91,14 @@ function MetaTagAdmin($saved = false) {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagcopyright">'.adm_translate("Copyright").'</label>
          <div class="col-12">
             <input class="form-control" id="newtagcopyright" type="text" name="newtag[copyright]" value="'.$tags['copyright'].'" maxlength="100" />
             <span class="help-block">'.adm_translate("(Informations légales)").'<span class="float-end ms-1" id="countcar_newtagcopyright"></span></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagrobots">'.adm_translate("Robots/Spiders").'</label>
          <div class="col-12">
             <select class="form-select" id="newtagrobots" name="newtag[robots]">
@@ -112,7 +112,7 @@ function MetaTagAdmin($saved = false) {
             <span class="help-block">'.adm_translate("(Définissez la méthode d'analyse que doivent adopter les robots des moteurs de recherche)").'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagrevisitafter">'.adm_translate("Fréquence de visite des Robots/Spiders").'</label>
          <div class="col-12">
             <input class="form-control" id="newtagrevisitafter" type="text" name="newtag[revisit-after]" value="'.$tags['revisit-after'].'" maxlength="30" />
@@ -122,7 +122,7 @@ function MetaTagAdmin($saved = false) {
 // no need as this fonction is available since php4 !
 //   if (function_exists("utf8_encode")) {
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagcontenttype">'.adm_translate("Encodage").'</label>
          <div class="col-12">
             <select class="form-select" id="newtagcontenttype" name="newtag[content-type]">
@@ -140,7 +140,7 @@ function MetaTagAdmin($saved = false) {
    }
 */
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-12" for="newtagdoctype">DOCTYPE</label>
          <div class="col-12">
             <select class="form-select" id="newtagdoctype" name="newtag[doctype]">
@@ -151,7 +151,7 @@ function MetaTagAdmin($saved = false) {
          </div>
       </div>
       <input type="hidden" name="op" value="MetaTagSave" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
             <button class="btn btn-primary" type="submit">'.adm_translate("Enregistrer").'</button>
          </div>

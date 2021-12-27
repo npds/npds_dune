@@ -33,21 +33,21 @@ function mblock() {
       while(list($title, $content) = sql_fetch_row($result)) {
          echo '
          <form id="fad_mblock" action="admin.php" method="post">
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
                <div class="col-12">
                   <textarea class="form-control" type="text" id="title" name="title" maxlength="255" placeholder="'.adm_translate("Titre :").'">'.$title.'</textarea>
                   <span class="help-block text-end"><span id="countcar_title"></span></span>
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
                <div class="col-12">
                   <textarea class="form-control" rows="25" id="content" name="content">'.$content.'</textarea>
                </div>
             </div>
             <input type="hidden" name="op" value="changemblock" />
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-12">
                   <button class="btn btn-outline-primary btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
                </div>

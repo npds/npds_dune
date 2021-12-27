@@ -228,7 +228,7 @@ include('auth.php');
          <div class="card card-body" >
          <p class="lead">'.translate("Classer ce message").'</p>
             <form action="replypmsg.php" method="post">
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <label class="col-form-label col-sm-4" for="dossier">'.translate("Sujet").'</label>
                   <div class="col-sm-8">
                      <select class="form-select" id="dossier" name="dossier">';
@@ -240,13 +240,13 @@ include('auth.php');
                      </select>
                   </div>
                </div>
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <label class="col-form-label col-sm-4" for="nouveau_dossier">'.translate("Nouveau dossier/sujet").'</label>
                   <div class="col-sm-8">
                      <input type="texte" class="form-control" id="nouveau_dossier" name="nouveau_dossier" value="" size="24" />
                   </div>
                </div>
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <div class="col-sm-8 ms-sm-auto">
                      <input type="hidden" name="msg_id" value="'.$myrow['msg_id'].'" />
                      <input type="hidden" name="classement" value="1" />

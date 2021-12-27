@@ -30,7 +30,7 @@ function displayUsers() {
    <hr />
     <h3>'.adm_translate("Extraire l'annuaire").'</h3>
     <form method="post" class="form-inline" action="admin.php">
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="me-2 mt-sm-3" for="op">'.adm_translate("Format de fichier").'</label>
                 <select class="form-select me-2 mt-sm-3" name="op">
                     <option value="extractUserCSV">'.adm_translate("Au format CSV").'</option>

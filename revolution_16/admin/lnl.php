@@ -84,7 +84,7 @@ function Detail_Header_Footer($ibid, $type) {
    echo '
    <hr />
    <form action="admin.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" cols="70" rows="20" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
@@ -103,7 +103,7 @@ function Detail_Header_Footer($ibid, $type) {
       <input type="hidden" name="op" value="lnl_Add_Footer_Mod" />';
    echo '
       <input type="hidden" name="ref" value="'.$ibid.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <button class="btn btn-primary me-1" type="submit">'.adm_translate("Valider").'</button>
             <a class="btn btn-secondary" href="admin.php?op=lnl" >'.adm_translate("Retour en arrière").'</a>
@@ -163,7 +163,7 @@ function Detail_Body($ibid) {
       <div class="card card-body">'.nl2br($tmp[0]).'</div>';
    echo '
    <form action="admin.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Corps de message").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="30" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
@@ -177,7 +177,7 @@ function Detail_Body($ibid) {
    echo '
       <input type="hidden" name="op" value="lnl_Add_Body_Mod" />
       <input type="hidden" name="ref" value="'.$ibid.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>&nbsp;
             <button href="javascript:history.go(-1)" class="btn btn-secondary">'.adm_translate("Retour en arrière").'</button>
@@ -197,14 +197,14 @@ Function Add_Body() {
    <h3 class="mb-2">'.adm_translate("Corps de message").'</h3>
    <form id="lnlbody" action="admin.php" method="post" name="adminForm">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="html">'.adm_translate("Format de données").'</label>
             <div class="col-sm-8">
                <input class="form-control" id="html" type="number" min="0" max="1" step="1" value="1" name="html" required="required" />
                <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" id="xtext" rows="30" name="xtext" ></textarea>
@@ -214,7 +214,7 @@ Function Add_Body() {
    $tiny_mce_relurl="false";
    echo aff_editeur("xtext", "false");
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <input type="hidden" name="op" value="lnl_Add_Body_Submit" />
             <button class="btn btn-primary col-sm-12 col-md-6" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").' '.adm_translate("corps de message").'</button>
             <a href="admin.php?op=lnl" class="btn btn-secondary col-sm-12 col-md-6">'.adm_translate("Retour en arrière").'</a>
@@ -292,20 +292,20 @@ Function Add_Header_Footer($ibid) {
       <h3 class="mb-2">'.ucfirst(adm_translate("$ti")).'</h3>
       <form id="lnlheadfooter" action="admin.php" method="post" name="adminForm">
       <fieldset>
-         <div class="form-group">
+         <div class="mb-3">
                <label class="col-form-label" for="html">'.adm_translate("Format de données").'</label>
                <div>
                   <input class="form-control" id="html" type="number" min="0" max="1" value="1" name="html" required="required" />
                   <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
                </div>
             </div>
-         <div class="form-group">
+         <div class="mb-3">
             <label class="col-form-label" for="xtext">'.adm_translate("Texte").'</label>
             <div>
                <textarea class="form-control" id="xtext" rows="20" name="xtext" ></textarea>
             </div>
          </div>
-         <div class="form-group">';
+         <div class="mb-3">';
    global $tiny_mce_relurl;
    $tiny_mce_relurl='false';
    echo aff_editeur('xtext', 'false');
@@ -363,19 +363,19 @@ function main() {
    <h4>'.adm_translate("Assembler une lettre et la tester").'</h4>
    <form id="ltesto" action="admin.php" method="post">
       <div class="row">
-         <div class="form-group col-sm-4">
+         <div class="mb-3 col-sm-4">
             <label class="col-form-label" for="testXheader">'.adm_translate("Entête").'</label>
             <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" />
          </div>
-         <div class="form-group col-sm-4">
+         <div class="mb-3 col-sm-4">
             <label class="col-form-label" for="testXbody">'.adm_translate("Corps").'</label>
             <input class="form-control" type="number" name="Xbody" id="testXbody" maxlength="11" />
          </div>
-         <div class="form-group col-sm-4">
+         <div class="mb-3 col-sm-4">
             <label class="col-form-label" for="testXfooter">'.adm_translate("Pied").'</label>
             <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" />
          </div>
-         <div class="form-group col-sm-12">
+         <div class="mb-3 col-sm-12">
             <input type="hidden" name="op" value="lnl_Test" />
             <button class="btn btn-primary my-3" type="submit">'.adm_translate("Valider").'</button>
          </div>
@@ -385,25 +385,25 @@ function main() {
    <h4>'.adm_translate("Envoyer La Lettre").'</h4>
    <form id="lsendo" action="admin.php" method="post">
       <div class="row">
-         <div class="form-group col-sm-4">
+         <div class="mb-3 col-sm-4">
             <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
             <input class="form-control" type="number" name="Xheader" id="Xheader" />
          </div>
-         <div class="form-group col-sm-4">
+         <div class="mb-3 col-sm-4">
             <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
             <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" />
          </div>
-         <div class="form-group col-sm-4">
+         <div class="mb-3 col-sm-4">
             <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
             <input class="form-control" type="number" name="Xfooter" id="Xfooter" />
          </div>
-         <div class="form-group col-sm-12">
+         <div class="mb-3 col-sm-12">
             <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
             <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" />
             <span class="help-block text-end"><span id="countcar_Xsubject"></span></span>
          </div>
          <hr />
-         <div class="form-group col-sm-12">
+         <div class="mb-3 col-sm-12">
             <div class="form-check form-check-inline">
                <input type="radio" class="form-check-input" value="All" checked="checked" id="tous" name="Xtype" />
                <label class="form-check-label" for="tous">'.adm_translate("Tous les Utilisateurs").'</label>
@@ -425,11 +425,11 @@ function main() {
          <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
       }
       echo '
-         <div class="form-group col-sm-12">
+         <div class="mb-3 col-sm-12">
             <select class="form-select" name="Xgroupe">'.$tmp_groupe.'</select>
          </div>
          <input type="hidden" name="op" value="lnl_Send" />
-         <div class="form-group col-sm-12">
+         <div class="mb-3 col-sm-12">
             <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
          </div>
       </div>

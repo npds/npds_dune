@@ -47,7 +47,7 @@ function etape_3() {
       }
       echo '
                <form name="path" method="post" action="install.php">
-                  <ul class="list-group form-group mt-1">';
+                  <ul class="list-group mb-3 mt-1">';
       if ($stopphp != 1) echo $listfich;
       if ($stopngo == 1) {
          echo '
@@ -64,7 +64,7 @@ function etape_3() {
       else {
          echo '
                </ul>
-               <div class="form-group mt-3">
+               <div class="mb-3 mt-3">
                   <input type="hidden" name="langue" value="'.$langue.'" />
                   <input type="hidden" name="stage" value="4" />
                   <button type="submit" class="btn btn-success">'.ins_translate('Etape suivante').'</button>

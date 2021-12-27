@@ -701,13 +701,13 @@ function main($user) {
           <div class="card card-body">
           <h3><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connexion").'</h3>
           <form action="user.php" method="post" name="userlogin">
-             <div class="form-group row">
+             <div class="mb-3 row">
                <label for="inputuser" class="col-form-label col-sm-4">'.translate("Identifiant").'</label>
                <div class="col-sm-8">
                   <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <label for="inputPassuser" class="col-form-label col-sm-4">'.translate("Mot de passe").'</label>
                <div class="col-sm-8">
                   <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Mot de passe").'" required="required" />
@@ -715,7 +715,7 @@ function main($user) {
                </div>
             </div>
             <input type="hidden" name="op" value="login" />
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-sm-8 ms-sm-auto">
                   <button class="btn btn-primary" type="submit" title="'.translate("Valider").'">'.translate("Valider").'</button>
                </div>
@@ -755,19 +755,19 @@ function ForgetPassword() {
    <div  class="alert alert-danger text-center">'.translate("Vous avez perdu votre mot de passe ?").'</div>
    <div  class="alert alert-success text-center">'.translate("Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.").'</div>
    <form id="forgetpassword" action="user.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="inputuser" class="col-sm-3 col-form-label">'.translate("Identifiant").'</label>
          <div class="col-sm-9">
             <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label for="inputpassuser" class="col-sm-3 col-form-label">'.translate("Mot de passe").'</label>
          <div class="col-sm-9">
             <input type="password" class="form-control" name="code" id="inputpassuser" placeholder="'.translate("Mot de passe").'" required="required" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-9 ms-sm-auto" >
             <div class="progress" style="height: 0.2rem;">
                <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
@@ -775,7 +775,7 @@ function ForgetPassword() {
          </div>
       </div>
       <input type="hidden" name="op" value="mailpasswd" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-9 ms-sm-auto">
             <input class="btn btn-primary" type="submit" value ="'.translate("Envoyer").'" />
          </div>
@@ -840,7 +840,7 @@ function valid_password ($code) {
             </div>
             <div class="col-sm-5">
                <form id="lostpassword" action="user.php" method="post">
-                  <div class="form-group row">
+                  <div class="mb-3 row">
                      <label class="col-form-label col-sm-12" for="passwd">'.translate("Mot de passe").'</label>
                      <div class="col-sm-12">
                         <input type="password" class="form-control" name="passwd" placeholder="'.$ibid[1].'" required="required" />
@@ -848,7 +848,7 @@ function valid_password ($code) {
                   </div>
                   <input type="hidden" name="op" value="updatepasswd" />
                   <input type="hidden" name="code" value="'.$code.'" />
-                  <div class="form-group row">
+                  <div class="mb-3 row">
                      <div class="col-sm-12">
                         <input class="btn btn-primary" type="submit" value="'.translate("Valider").'" />
                      </div>
@@ -1127,7 +1127,7 @@ function edithome() {
    echo '
    <h2 class="mb-3">'.translate("Editer votre page principale").'</h2>
    <form id="changehome" action="user.php" method="post">
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-sm-7" for="storynum">'.translate("Nombre d'articles sur la page principale").' (max. 127) :</label>
       <div class="col-sm-5">
          <input class="form-control" type="text" min="0" max="127" id="storynum" name="storynum" maxlength="3" value="'.$userinfo['storynum'].'" />
@@ -1136,7 +1136,7 @@ function edithome() {
    if ($userinfo['ublockon']==1) $sel = 'checked="checked"';
    else $sel = '';
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <div class="col-sm-10">
          <div class="form-check">
             <input class="form-check-input" type="checkbox" id="ublockon" name="ublockon" value="1" '.$sel.' />
@@ -1148,12 +1148,12 @@ function edithome() {
       <li>'.translate("Validez cette option et le texte suivant apparaîtra sur votre page d'accueil").'</li>
       <li>'.translate("Vous pouvez utiliser du code html, pour créer un lien par exemple").'</li>
    </ul>
-   <div class="form-group row">
+   <div class="mb-3 row">
       <div class="col-sm-12">
          <textarea class="form-control" rows="20" name="ublock">'.$userinfo['ublock'].'</textarea>
       </div>
    </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <input type="hidden" name="theme" value="'.$userinfo['theme'].'" />
          <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
          <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
@@ -1216,7 +1216,7 @@ function chgtheme() {
    echo '
    <h2>'.translate("Changer le thème").'</h2>
    <form role="form" action="user.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-5" for="theme_local">'.translate("Sélectionnez un thème d'affichage").'</label>
          <div class="col-sm-7">
             <select class="form-select" id="theme_local" name="theme_local">';
@@ -1250,7 +1250,7 @@ function chgtheme() {
    closedir($handle);
    asort($skins);
       echo '
-      <div class="form-group row" id="skin_choice">
+      <div class="mb-3 row" id="skin_choice">
          <label class="col-form-label col-sm-5" for="skins">'.translate("Choisir une charte graphique").'</label>
          <div class="col-sm-7">
             <select class="form-select" id="skins" name="skins">';
@@ -1265,10 +1265,10 @@ function chgtheme() {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div id="skin_thumbnail" class="col-sm-7 ms-sm-auto"></div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-7 ms-sm-auto">
             <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
             <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
@@ -1327,7 +1327,7 @@ function editjournal(){
    echo '
    <h2 class="mb-3">'.translate("Editer votre journal").'</h2>
    <form action="user.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="25" name="journal">'.$userinfo['user_journal'].'</textarea>'
          .aff_editeur('journal', '').'
@@ -1336,7 +1336,7 @@ function editjournal(){
       <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
       <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
       <input type="hidden" name="op" value="savejournal" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
             <div class="form-check">
                <input class="form-check-input" type="checkbox" id="datetime" name="datetime" value="1" />
@@ -1344,7 +1344,7 @@ function editjournal(){
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
             <input class="btn btn-primary" type="submit" value="'.translate("Sauvez votre journal").'" />
          </div>

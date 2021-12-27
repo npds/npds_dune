@@ -129,7 +129,7 @@ function ConfigFiles($contents, $files) {
       echo htmlspecialchars($contents,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);
       echo '</textarea></code>
          <input type="hidden" name="Xfiles" value="'.$files.'" />
-         <div class="form-group mt-3">
+         <div class="mb-3 mt-3">
             <button class="btn btn-primary" type="submit" name="confirm">'.adm_translate("Sauver les modifications").'</button> 
             <button href="admin.php?op=ConfigFiles" class="btn btn-secondary">'.adm_translate("Abandonner").'</button>
         </div>

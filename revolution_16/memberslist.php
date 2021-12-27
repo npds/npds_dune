@@ -44,7 +44,7 @@ function alpha() {
    echo '
    <br />
    <form action="memberslist.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="mblst_search">'.translate("Recherche").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="input" id="mblst_search" name="letter" />

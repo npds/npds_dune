@@ -79,14 +79,14 @@ function Liste_Page() {
    <h3 class="mb-3"><a class="arrow-toggle text-primary" id="show_cre_page" data-bs-toggle="collapse" data-bs-target="#cre_page" title="'.wspad_trans("Déplier la liste").'"><i id="i_cre_page" class="toggle-icon fa fa-caret-down fa-lg" ></i></a>&nbsp;'.wspad_trans("Créer un document").'</h3>
    <div id="cre_page" class="collapse" style ="padding-left:10px;">
       <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformfic">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="page">'.wspad_trans("Nom du document").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" id="page" name="page" maxlength="255" required="required" />
                <span class="help-block small">'.wspad_trans("Caractères autorisés : a-z, A-Z, 0-9, -_.").'</span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-8 ms-sm-auto">
                <input class="btn btn-primary" type="submit" name="creer" value="'.wspad_trans("Créer").'" />
                <input type="hidden" name="op" value="creer" />
@@ -136,14 +136,14 @@ function Liste_Page() {
                   </div>
                   <div class="modal-body">
                      <form id="renameForm" method="post" name="wspadformfic">
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                            <label class="col-form-label col-12" for="newpage">Nouveau nom</label>
                            <div class="col-12">
                               <input type="text" class="form-control" id="newpage" name="newpage" />
                               <span class="help-block" >'.wspad_trans("Caractères autorisés : a-z, A-Z, 0-9, -_.").'</span>
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                            <div class="col-sm-9 ms-sm-auto">
                               <input type="hidden" name="page" value="'.$page.'" />
                               <input type="hidden" name="op" value="renomer" />
@@ -337,13 +337,13 @@ function Page($page, $ranq) {
    <h4>'.wspad_trans("Document : ").$page.'<span class="text-muted">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+((integer)$gmt*3600)).' ] </span> <span style="float: right;"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
    <div id="mess" class="alert alert-success" role="alert">test debug'.$mess.'</div>
    <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformcont">
-   <div class="form-group">
+   <div class="mb-3">
       <textarea class="tin form-control" rows="30" name="content" ><div class="mceEditable">'.$row['content'].'</div></textarea>
    </div>';
    echo aff_editeur('content', '');
    if ($edition)
       echo '
-      <div class="form-group">
+      <div class="mb-3">
          <input class="btn btn-primary" type="submit" name="sauve" value="'.wspad_trans("Sauvegarder").'" />
          <a class="btn btn-secondary" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" >'.wspad_trans("Abandonner").'</a>
          <input type="hidden" name="page" value="'.$page.'" />

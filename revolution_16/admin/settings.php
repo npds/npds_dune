@@ -32,7 +32,7 @@ function Configure() {
    <fieldset>
       <legend><a class="tog" id="show_info_gene" title="'.adm_translate("Replier la liste").'"><i id="i_info_gene" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Informations générales du site").'</legend>
       <div id="info_gene" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xparse">Parse algo</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -49,7 +49,7 @@ function Configure() {
             </div>
          </div>
          <input type="hidden" name="xgzhandler" value="0" />
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xfilemanager">FileManager</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -65,86 +65,86 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xadmin_cook_duration">'.adm_translate("Durée de vie en heure du cookie Admin").'</label>
             <div class="col-sm-8">
                <input class="form-control js-dig10" id="xadmin_cook_duration" type="text" name="xadmin_cook_duration" value="'.$admin_cook_duration.'" min="1" maxlength="10" required="required" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xuser_cook_duration">'.adm_translate("Durée de vie en heure du cookie User").'</label>
             <div class="col-sm-8">
                <input class="form-control js-dig10" id="xuser_cook_duration" type="text" name="xuser_cook_duration" value="'.$user_cook_duration.'" min="1" maxlength="10" required="required" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xsitename" id="xsitename" value="'.$sitename.'" maxlength="100" />
                <span class="help-block text-end" id="countcar_xsitename"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xTitlesitename">'.adm_translate("Nom du site pour la balise title").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xTitlesitename" id="xTitlesitename" value="'.$Titlesitename.'" maxlength="100" />
                <span class="help-block text-end" id="countcar_xTitlesitename"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnuke_url">'.adm_translate("URL du site").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="xnuke_url" id="xnuke_url" value="'.$nuke_url.'" data-fv-uri___allow-local="true" maxlength="200" />
                <span class="help-block text-end" id="countcar_xnuke_url"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xsite_logo">'.adm_translate("Logo du site pour les impressions").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xsite_logo" id="xsite_logo" value="'.$site_logo.'" maxlength="255" />
                <span class="help-block text-end" id="countcar_xsite_logo"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xslogan">'.adm_translate("Slogan du site").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xslogan" id="xslogan" value="'.$slogan.'" maxlength="100" />
                <span class="help-block text-end" id="countcar_xslogan"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xstartdate">'.adm_translate("Date de démarrage du site").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xstartdate" id="xstartdate" value="'.$startdate.'" maxlength="30" />
                <span class="help-block text-end" id="countcar_xstartdate"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xtop">'.adm_translate("Nombre d'éléments dans la page top").'</label> 
             <div class="col-sm-8">
                <input class="form-control js-dig4" id="xtop" type="text" name="xtop" value="'.$top.'" min="1" maxlength="4" required="required" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xstoryhome">'.adm_translate("Nombre d'articles en page principale").'</label>
             <div class="col-sm-8">
                <input class="form-control js-dig4" id="xstoryhome" type="text" name="xstoryhome" value="'.$storyhome.'" min="1" maxlength="4" required="required" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xoldnum">'.adm_translate("Nombre d'articles dans le bloc des anciens articles").'</label>
             <div class="col-sm-8">
                 <input class="form-control js-dig4" id="xoldnum" type="text" name="xoldnum" value="'.$oldnum.'" min="1" maxlength="4" required="required" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xanonymous">'.adm_translate("Nom d'utilisateur anonyme").'</label>
             <div class="col-sm-8">
                <input class="form-control" id="xanonymous" type="text" name="xanonymous" value="'.$anonymous.'" maxlength="25" />
                <span class="help-block text-end" id="countcar_xanonymous"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xmod_admin_news">'.adm_translate("Autoriser la création de news pour").'</label>
             <div class="col-sm-8">
                <div class="form-check">';
@@ -189,7 +189,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnot_admin_count">'.adm_translate("Ne pas enregistrer les 'hits' des auteurs dans les statistiques").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -205,7 +205,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xDefault_Theme">'.adm_translate("Thème d'affichage par défaut").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="xDefault_Theme" name="xDefault_Theme">';
@@ -223,7 +223,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row" id="skin_choice">
+         <div class="mb-3 row" id="skin_choice">
             <label class="col-form-label col-sm-4" for="xDefault_Skin">'.adm_translate("Skin d'affichage par défaut").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="xDefault_Skin" name="xDefault_Skin">';
@@ -266,14 +266,14 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xstart_page">'.adm_translate("Page de démarrage").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xstart_page" id="xstart_page" value="'.$Start_Page.'" maxlength="100" />
                <span class="help-block text-end" id="countcar_xstart_page"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xlanguage">'.adm_translate("Sélectionner la langue du site").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="xlanguage" name="xlanguage">';
@@ -291,7 +291,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xmulti_langue">'.adm_translate("Activer le multi-langue").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -307,7 +307,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xlocale">'.adm_translate("Heure locale").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xlocale" id="xlocale" value="'.$locale.'" maxlength="100" />
@@ -317,21 +317,21 @@ function Configure() {
       if ($lever=='') $lever='08:00';
       if ($coucher=='') $coucher='20:00';
       echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xlever">'.adm_translate("Le jour commence à").'</label>
             <div class="col-sm-8">
                <input class="form-control js-hhmm" type="text" name="xlever" id="xlever" value="'.$lever.'" maxlength="5" required="required" />
                <span class="help-block">(HH:MM)<span class="float-end ms-1" id="countcar_xlever"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xcoucher">'.adm_translate("La nuit commence à").'</label>
             <div class="col-sm-8">
                <input class="form-control js-hhmm" type="text" name="xcoucher" id="xcoucher" value="'.$coucher.'" maxlength="5" required="required" />
                <span class="help-block">(HH:MM)<span class="float-end ms-1" id="countcar_xcoucher"></span></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xgmt">UTC</label>
             <div class="col-sm-8">
                <select class="form-select" id="xgmt" name="xgmt">
@@ -387,7 +387,7 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_banner" title="'.adm_translate("Replier la liste").'"><i id="i_banner" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options pour les Bannières").'</legend>
       <div id="banner" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xbanners">'.adm_translate("Options pour les Bannières").'</label>
             <div class="col-sm-4">';
    $cky='';$ckn='';
@@ -403,7 +403,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xbanners">'.adm_translate("Votre adresse IP (= ne pas comptabiliser les hits qui en proviennent)").'</label>
             <div class="col-sm-4">
                <input class="form-control" type="text" name="xmyIP" id="xmyIP" value="'.$myIP.'" />
@@ -419,25 +419,25 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_mes_ppage" title="'.adm_translate("Replier la liste").'"><i id="i_mes_ppage" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Message de pied de page").'</legend>
       <div id="mes_ppage" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xfoot1">'.adm_translate("Ligne 1").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" id="xfoot1" name="xfoot1" rows="5">'.htmlentities(stripslashes($foot1),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xfoot2">'.adm_translate("Ligne 2").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" id="xfoot2" name="xfoot2" rows="5">'.htmlentities(stripslashes($foot2),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xfoot3">'.adm_translate("Ligne 3").'</label>
             <div class="col-sm-12">
                <textarea class="form-control col-sm-12" id="xfoot3" name="xfoot3" rows="5">'.htmlentities(stripslashes($foot3),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xfoot4">'.adm_translate("Ligne 4").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" id="xfoot4" name="xfoot4" rows="5">'.htmlentities(stripslashes($foot4),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
@@ -453,40 +453,40 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_bakend_rs" title="'.adm_translate("Replier la liste").'"><i id="i_bakend_rs" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Configuration des infos en Backend & Réseaux Sociaux").'</legend>
       <div id="bakend_rs" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xbackend_title">'.adm_translate("Titre du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xbackend_title" id="xbackend_title" value="'.$backend_title.'" maxlength="100" />
                <span class="help-block text-end" id="countcar_xbackend_title"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xbackend_language">'.adm_translate("Langue du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xbackend_language" id="xbackend_language" value="'.$backend_language.'" maxlength="10" />
                <span class="help-block text-end" id="countcar_xbackend_language"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xbackend_image">'.adm_translate("URL de l'image du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="url" name="xbackend_image" id="xbackend_image" value="'.$backend_image.'" maxlength="200" />
                <span class="help-block text-end" id="countcar_xbackend_image"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xbackend_width">'.adm_translate("Largeur de l'image du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" id="xbackend_width" name="xbackend_width" value="'.$backend_width.'" min="0" max="9999" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xbackend_height">'.adm_translate("Hauteur de l'image du backend").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="number" id="xbackend_height" name="xbackend_height" value="'.$backend_height.'" min="0" max="9999" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xultramode">'.adm_translate("Activer export-news").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -502,7 +502,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnpds_twi">'.adm_translate("Activer Twitter").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -518,7 +518,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnpds_fcb">'.adm_translate("Activer Facebook").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -544,7 +544,7 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_lien_web" title="'.adm_translate("Replier la liste").'"><i id="i_lien_web" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Configuration par défaut des Liens Web").'</legend>
       <div id="lien_web" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xperpage">'.adm_translate("Nombre de liens par page").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xperpage" name="xperpage">
@@ -558,7 +558,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xpopular">'.adm_translate("Nombre de clics sur un lien pour qu'il soit populaire").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xpopular" name="xpopular">
@@ -572,7 +572,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xnewlinks">'.adm_translate("Nombre de Liens 'Nouveaux'").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xnewlinks" name="xnewlinks">
@@ -586,7 +586,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xtoplinks">'.adm_translate("Nombre de Liens 'Meilleur'").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xtoplinks" name="xtoplinks">
@@ -600,7 +600,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xlinksresults">'.adm_translate("Nombre de liens dans les résultats des recherches").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xlinksresults" name="xlinksresults">
@@ -614,7 +614,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xlinks_anonaddlinklock">'.adm_translate("Laisser les utilisateurs anonymes poster de nouveaux liens").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -630,7 +630,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xlinkmainlogo">'.adm_translate("Afficher le logo sur la page web links").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -646,7 +646,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xOnCatNewLink">'.adm_translate("Activer l'icône [N]ouveau pour les catégories").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -672,14 +672,14 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_sys_mes" title="'.adm_translate("Replier la liste").'"><i id="i_sys_mes" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Système de Messagerie (Email)").'</legend>
       <div id="sys_mes" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xadminmail">'.adm_translate("Adresse E-mail de l'administrateur").'</label> 
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xadminmail" id="xadminmail" value="'.$adminmail.'" maxlength="100" required="required" />
                <span class="help-block text-end" id="countcar_xadminmail"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xmail_fonction">'.adm_translate("Fonction mail à utiliser").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -701,13 +701,13 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xEmailFooter">'.adm_translate("Pied").' '.adm_translate("de").' Email</label> 
             <div class="col-sm-12">
                <textarea class="form-control" id="xEmailFooter" name="xEmailFooter" cols="45" rows="8">'.$message.'</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnotify">'.adm_translate("Notifier les nouvelles contributions par E-mail").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -723,27 +723,27 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnotify_email">'.adm_translate("Adresse E-mail où envoyer le message").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xnotify_email" id="xnotify_email" value="'.$notify_email.'" maxlength="100" required="required" />
                <span class="help-block text-end" id="countcar_xnotify_email"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnotify_subject">'.adm_translate("Sujet de l'E-mail").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xnotify_subject" id="xnotify_subject" value="'.$notify_subject.'" maxlength="100" required="required" />
                <span class="help-block text-end" id="countcar_xnotify_subject"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnotify_message">'.adm_translate("Message de l'E-mail").'</label>
             <div class="col-sm-8">
                <textarea class="form-control" id="xnotify_message" name="xnotify_message" cols="45" rows="8">'.$notify_message.'</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnotify_from">'.adm_translate("Compte E-mail (Provenance)").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xnotify_from" id="xnotify_from" value="'.$notify_from.'" maxlength="100" required="required" />
@@ -760,7 +760,7 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_opt_comment" title="'.adm_translate("Replier la liste").'"><i id="i_opt_comment" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options pour les Commentaires").'</legend>
       <div id="opt_comment" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-7" for="xmoderate">'.adm_translate("Type de modération").'</label>
             <div class="col-sm-5">
                <select class="form-select" id="xmoderate" name="xmoderate">';
@@ -784,7 +784,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-7" for="xanonpost">'.adm_translate("Autoriser les commentaires anonymes").'</label>
             <div class="col-sm-5 my-2">';
    $cky='';$ckn='';
@@ -800,7 +800,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-7" for="xtroll_limit">'.adm_translate("Nombre maximum de commentaire par utilisateur en 24H").'</label>
             <div class="col-sm-5">';
    if ($troll_limit=='') $troll_limit="6";
@@ -818,7 +818,7 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_opt_sond" title="'.adm_translate("Replier la liste").'"><i id="i_opt_sond" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Options des sondages").'</legend>
       <div id="opt_sond" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xmaxOptions">'.adm_translate("Nombre maximum de choix pour les sondages").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xmaxOptions" name="xmaxOptions">
@@ -830,7 +830,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xsetCookies">'.adm_translate("Autoriser les utilisateurs à voter plusieurs fois").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';//???? valeur inversé ???
@@ -846,7 +846,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xpollcomm">'.adm_translate("Activer les commentaires des sondages").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -872,28 +872,28 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_para_illu" title="'.adm_translate("Replier la liste").'"><i id="i_para_illu" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Paramètres liés à l'illustration").'</legend>
       <div id="para_illu" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xtipath">'.adm_translate("Chemin des images des sujets").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xtipath" id="xtipath" value="'.$tipath.'" maxlength="100" />
                <span class="help-block text-end" id="countcar_xtipath"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xuserimg">'.adm_translate("Chemin de certaines images (vote, ...)").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xuserimg" id="xuserimg" value="'.$userimg.'" maxlength="100" />
                <span class="help-block text-end" id="countcar_xuserimg"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xadminimg">'.adm_translate("Chemin des images du menu administrateur").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xadminimg" id="xadminimg" value="'.$adminimg.'" maxlength="100" />
                <span class="help-block text-end" id="countcar_xadminimg"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xadmingraphic">'.adm_translate("Activer les images dans le menu administration").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -911,14 +911,14 @@ function Configure() {
          </div>';
    if (!$admf_ext) $admf_ext="gif";
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xadmf_ext">'.adm_translate("Extension des fichiers d'image").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" name="xadmf_ext" id="xadmf_ext" value="'.$admf_ext.'" maxlength="3" />
                <span class="help-block text-end" id="countcar_xadmf_ext"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xshort_menu_admin">'.adm_translate("Activer les menus courts pour l'administration").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
@@ -934,7 +934,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xsite_font">'.adm_translate("Polices du site").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="text" id="xsite_font" name="xsite_font" value="'.$site_font.'" size="50" maxlength="100" />
@@ -950,7 +950,7 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_divers" title="'.adm_translate("Replier la liste").'"><i id="i_divers" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Divers").'</legend>
       <div id="divers" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xadmart">'.adm_translate("Nombres d'articles en mode administration").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xadmart" name="xadmart">
@@ -963,7 +963,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xminpass">'.adm_translate("Longueur minimum du mot de passe des utilisateurs").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xminpass" name="xminpass">
@@ -976,7 +976,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xshow_user">'.adm_translate("Nombre d'utilisateurs listés").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xshow_user" name="xshow_user">
@@ -988,7 +988,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xsmilies">'.adm_translate("Activer les avatars").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1004,7 +1004,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xavatar_size">'.adm_translate("Taille maximum des avatars personnels (largeur * hauteur / 60*80) en pixel").'</label>
             <div class="col-sm-4">';
    if (!$avatar_size) $avatar_size="60*80";
@@ -1012,7 +1012,7 @@ function Configure() {
                <input class="form-control" type="text" id="xavatar_size" name="xavatar_size" value="'.$avatar_size.'" size="11" maxlength="10" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xshort_user">'.adm_translate("Activer la description simplifiée des utilisateurs").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1028,7 +1028,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xAutoRegUser">'.adm_translate("Autoriser la création automatique des membres").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1045,7 +1045,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xmemberpass">'.adm_translate("Autoriser les utilisateurs à choisir leur mot de passe").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1062,7 +1062,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xsubscribe">'.adm_translate("Autoriser les abonnements").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1078,7 +1078,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xmember_invisible">'.adm_translate("Autoriser les membres invisibles").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1094,7 +1094,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xCloseRegUser">'.adm_translate("Fermer les nouvelles inscriptions").'</label>
             <div class="col-sm-4 my-2">';
    if (($CloseRegUser=='') and ($CloseRegUser!=1)) $AutoRegUser=0;// ????????
@@ -1111,7 +1111,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xhttpref">'.adm_translate("Activer les référants HTTP").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1127,7 +1127,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xhttprefmax">'.adm_translate("Combien de référants au maximum").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xhttprefmax" name="xhttprefmax">
@@ -1142,7 +1142,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xmember_list">'.adm_translate("Liste des membres").' : '.adm_translate("Privé").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1158,7 +1158,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xdownload_cat">'.adm_translate("Rubrique de téléchargement").'</label>
             <div class="col-sm-4">
                <select class="form-select" id="xdownload_cat" name="xdownload_cat">
@@ -1175,7 +1175,7 @@ function Configure() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xshort_review">'.adm_translate("Critiques").' : '.adm_translate("courtes").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1201,7 +1201,7 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_divers_http" title="'.adm_translate("Replier la liste").'"><i id="i_divers_http" class="fa fa-caret-down fa-lg text-primary" ></i>&nbsp;</a>'.adm_translate("Divers").' HTTP</legend>
       <div id="divers_http" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xrss_host_verif">'.adm_translate("Pour les grands titres de sites de news, activer la vérification de l'existance d'un web sur le Port 80").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1217,7 +1217,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xcache_verif">'.adm_translate("Pour les pages HTML générées, activer les tags avancés de gestion du cache").'</label>
             <div class="col-sm-4 my-2">';
    $cky='';$ckn='';
@@ -1233,7 +1233,7 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-8" for="xdns_verif">'.adm_translate("Activer la résolution DNS pour les posts des forums, IP-Ban, ...").'</label>';
    $cky='';$ckn='';
    if ($dns_verif==true) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
@@ -1266,7 +1266,7 @@ function Configure() {
        if ($savemysql_size=='1024') $sel_size1024='selected="selected"'; else $sel_size1024='';
     }
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-sm-4" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
       <div class="col-sm-8">
          <select class="form-select" id="xsavemysql_size" name="xsavemysql_size">
@@ -1284,7 +1284,7 @@ function Configure() {
        if ($savemysql_mode=='3') $type_save3='selected="selected"'; else $type_save3='';
     }
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-sm-4" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
       <div class="col-sm-8">
          <select class="form-select" id="xsavemysql_mode" name="xsavemysql_mode">
@@ -1294,7 +1294,7 @@ function Configure() {
          </select>
       </div>
    </div>
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-sm-4" for="xtiny_mce">'.adm_translate("Activer l'éditeur Tinymce").'</label>';
    $cky='';$ckn='';
    if ($tiny_mce) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
@@ -1319,7 +1319,7 @@ function Configure() {
    </script>
    </fieldset>
    <input type="hidden" name="op" value="ConfigSave" />
-   <div class="form-group">
+   <div class="mb-3">
       <button class="btn btn-primary" type="submit">'.adm_translate("Sauver les modifications").'</button>
    </div>
    </form>';

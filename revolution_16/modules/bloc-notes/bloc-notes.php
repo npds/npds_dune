@@ -49,10 +49,10 @@ function blocnotes ($typeBlocNote='shared', $nomBlocNote='', $largeur='', $nblBl
          $title=$block_title;
       $aff.= '
          <form class="'.$largeur.'" method="post" action="modules.php?ModPath=bloc-notes&amp;ModStart=blocnotes" name="A'.$bnid.'">
-            <div class="form-group">
+            <div class="mb-3">
                <textarea class="form-control '.$bnclass.'" rows="'.$nblBlocNote.'" name="texteBlocNote" id="texteBlocNote_'.$bnid.'" placeholder="..."></textarea>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                <input type="hidden" name="uriBlocNote" value="'.urlencode($REQUEST_URI).'" />
                <input type="hidden" name="typeBlocNote" value="'.$typeBlocNote.'" />
                <input type="hidden" name="nomBlocNote" value="'.$nomBlocNote.'" />
