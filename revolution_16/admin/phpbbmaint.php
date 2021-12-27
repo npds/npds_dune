@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -341,9 +341,7 @@ function ForumMaintAdmin() {
          <label class="col-form-label col-sm-4" for="before">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <div class="input-group-prepend date " id="datePicker">
-                  <span class="input-group-text bg-light"><i class="far fa-calendar-check fa-lg"></i></span>
-               </div>
+               <span id="datePicker" class="input-group-text bg-light date"><i class="far fa-calendar-check fa-lg"></i></span>
                <input type="text" class="form-control" name="before" id="before" />
             </div>
             <span class="help-block text-end">Avant cette date !</span>

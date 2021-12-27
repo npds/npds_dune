@@ -202,9 +202,7 @@ function topicedit($topicid) {
             <label class="col-form-label col-sm-4" for="topicadmin">'.adm_translate("Administrateur(s) du sujet").'</label>
             <div class="col-sm-8">
                <div class="input-group">
-                  <div class="input-group-prepend">
-                     <span class="input-group-text"><i class="fa fa-user fa-lg"></i></span>
-                  </div>
+                  <span class="input-group-text"><i class="fa fa-user fa-lg"></i></span>
                   <input class="form-control" type="text" id="topicadmin" name="topicadmin" maxlength="255" value="'.$topicadmin.'" />
                </div>
             </div>
@@ -354,11 +352,9 @@ function relatededit($tid, $rid) {
            <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'</label>
            <div class="col-sm-8">
               <div class="input-group">
-               <div class="input-group-prepend">
                  <span class="input-group-text">
                       <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>
                  </span>
-                 </div>
                  <input type="url" class="form-control" name="url" id="url" value="'.$url.'" maxlength="200" />
                </div>
                <span class="help-block text-end"><span id="countcar_url"></span></span>

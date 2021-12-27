@@ -82,9 +82,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
             <label class="col-sm-4 col-form-label" for="aff_jours">'.adm_translate("Afficher pendant").'</label>
             <div class="col-sm-8">
                <div class="input-group">
-                  <div class="input-group-prepend">
-                     <span class="input-group-text">'.adm_translate("jour(s)").'</span>
-                  </div>
+                  <span class="input-group-text">'.adm_translate("jour(s)").'</span>
                   <input class="form-control" type="number" name="aff_jours" id="aff_jours" min="0" step="1" max="999" value="'.$Xaff_jours.'" data-fv-digits="true" required="required" />
                </div>
             </div>
