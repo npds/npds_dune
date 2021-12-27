@@ -236,9 +236,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                <label class="col-form-label col-sm-6" for="nm_img_mbg">'.geoloc_translate('Image membre géoréférencé').'<span class="text-danger ms-1">*</span></label>
                <div class="col-sm-6">
                   <div class="input-group">
-                     <div class="input-group-prepend">
-                        <span id="v_img_mbg" class="input-group-text"><img width="22" height="22" src="'.$ch_img.$nm_img_mbg.'" alt="'.geoloc_translate('Image membre géoréférencé').'" /></span>
-                     </div>
+                     <span id="v_img_mbg" class="input-group-text"><img width="22" height="22" src="'.$ch_img.$nm_img_mbg.'" alt="'.geoloc_translate('Image membre géoréférencé').'" /></span>
                      <input type="text" class="form-control input-lg" name="nm_img_mbg" id="nm_img_mbg" placeholder="'.geoloc_translate('Nom du fichier image').'" value="'.$nm_img_mbg.'" required="required" />
                   </div>
                </div>
@@ -247,9 +245,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                <label class="col-form-label col-sm-6" for="nm_img_mbcg">'.geoloc_translate('Image membre géoréférencé en ligne').'<span class="text-danger ms-1">*</span></label>
                <div class="col-sm-6">
                   <div class="input-group ">
-                     <div class="input-group-prepend">
-                        <span id="v_img_mbcg" class="input-group-text"><img width="22" height="22" src="'.$ch_img.$nm_img_mbcg.'" alt="'.geoloc_translate('Image membre géoréférencé en ligne').'" /></span>
-                     </div>
+                     <span id="v_img_mbcg" class="input-group-text"><img width="22" height="22" src="'.$ch_img.$nm_img_mbcg.'" alt="'.geoloc_translate('Image membre géoréférencé en ligne').'" /></span>
                      <input type="text" class="form-control input-lg" name="nm_img_mbcg" id="nm_img_mbcg" placeholder="'.geoloc_translate('Nom du fichier image').'" value="'.$nm_img_mbcg.'" required="required" />
                   </div>
                </div>
@@ -258,9 +254,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                 <label class="col-form-label col-sm-6" for="nm_img_acg">'.geoloc_translate('Image anonyme géoréférencé en ligne').'<span class="text-danger ms-1">*</span></label>
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <div class="input-group-prepend">
-                           <span id="v_img_acg" class="input-group-text"><img width="22" height="22" src="'.$ch_img.$nm_img_acg.'" alt="'.geoloc_translate('Image anonyme géoréférencé en ligne').'" /></span>
-                        </div>
+                        <span id="v_img_acg" class="input-group-text"><img width="22" height="22" src="'.$ch_img.$nm_img_acg.'" alt="'.geoloc_translate('Image anonyme géoréférencé en ligne').'" /></span>
                         <input type="text" class="form-control input-lg" name="nm_img_acg" id="nm_img_acg" placeholder="'.geoloc_translate('Nom du fichier image').'" value="'.$nm_img_acg.'" required="required" />
                     </div>
                 </div>
@@ -288,7 +282,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                   if($v[0]==$f_mbg) $fafont = '&#x'.substr($v[1],1).';'; 
                }
                echo'
-                     <div id="vis_ic" class="input-group-prepend"><span class="input-group-text"><span class="fa fa-lg id="fontchoice"">'.$fafont.'</span></div>
+                     <span id="vis_ic" class="input-group-text"><span class="fa fa-lg" id="fontchoice">'.$fafont.'</span></span>
                      <select class="form-select input-lg" name="f_mbg" id="f_mbg">';
    foreach ($fonts_svg as $v) {
       if($v[0]==$f_mbg) $sel='selected="selected"'; else $sel='';
@@ -314,74 +308,62 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             <div class="row">
                <div class="col-4 bkmbg">
                   <label class="col-form-label" for="mbg_f_co">'.geoloc_translate('Couleur fond').'</label>
-                     <div class="input-group pickcol_fmb pickol">
-                        <span class="input-group-prepend">
-                           <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                        </span>
-                        <input type="text" class="form-control" name="mbg_f_co" id="mbg_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$mbg_f_co.'" />
-                     </div>
+                  <div class="input-group pickcol_fmb pickol">
+                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
+                     <input type="text" class="form-control" name="mbg_f_co" id="mbg_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$mbg_f_co.'" />
+                  </div>
                </div>
                <div class="col-4">
                   <label class="col-form-label" for="mbgc_f_co">'.geoloc_translate('Couleur fond').'</label>
                      <div class="input-group pickcol_fmbc pickol">
-                        <span class="input-group-prepend">
-                           <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                        </span>
+                        <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
                         <input type="text" class="form-control" name="mbgc_f_co" id="mbgc_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$mbgc_f_co.'" />
                      </div>
                   </div>
-                <div class="col-4">
-                    <label class="col-form-label" for="acg_f_co">'.geoloc_translate('Couleur fond').'</label>
-                    <div class="input-group pickcol_fac pickol">
-                     <span class="input-group-prepend">
-                        <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                     </span>
-                        <input type="text" class="form-control" name="acg_f_co" id="acg_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$acg_f_co.'" />
+               <div class="col-4">
+                  <label class="col-form-label" for="acg_f_co">'.geoloc_translate('Couleur fond').'</label>
+                  <div class="input-group pickcol_fac pickol">
+                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
+                     <input type="text" class="form-control" name="acg_f_co" id="acg_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$acg_f_co.'" />
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 bkmbg">
-                    <label class="col-form-label" for="mbg_t_co">'.geoloc_translate('Couleur du trait').'</label>
-                    <div class="input-group pickcol_tmb pickol">
-                     <span class="input-group-prepend">
-                        <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                     </span>
-                        <input type="text" class="form-control" name="mbg_t_co" id="mbg_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$mbg_t_co.'" />
-                    </div>
-                </div>
-                <div class="col-4">
-                    <label class="col-form-label" for="mbgc_t_co">'.geoloc_translate('Couleur du trait').'</label>
-                    <div class="input-group pickcol_tmbc pickol">
-                        <span class="input-group-prepend">
-                           <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                        </span>
-                        <input type="text" class="form-control" name="mbgc_t_co" id="mbgc_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$mbgc_t_co.'" />
-                    </div>
-                </div>
-                <div class="col-4" >
-                    <label class="col-form-label" for="acg_t_co">'.geoloc_translate('Couleur du trait').'</label>
-                    <div class="input-group pickcol_tac pickol">
-                     <span class="input-group-prepend">
-                        <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                     </span>
-                        <input type="text" class="form-control" name="acg_t_co" id="acg_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$acg_t_co.'" />
-                    </div>
+               <div class="col-4 bkmbg">
+                  <label class="col-form-label" for="mbg_t_co">'.geoloc_translate('Couleur du trait').'</label>
+                  <div class="input-group pickcol_tmb pickol">
+                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
+                     <input type="text" class="form-control" name="mbg_t_co" id="mbg_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$mbg_t_co.'" />
+                  </div>
+               </div>
+               <div class="col-4">
+                  <label class="col-form-label" for="mbgc_t_co">'.geoloc_translate('Couleur du trait').'</label>
+                  <div class="input-group pickcol_tmbc pickol">
+                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
+                     <input type="text" class="form-control" name="mbgc_t_co" id="mbgc_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$mbgc_t_co.'" />
+                  </div>
+               </div>
+               <div class="col-4" >
+                  <label class="col-form-label" for="acg_t_co">'.geoloc_translate('Couleur du trait').'</label>
+                  <div class="input-group pickcol_tac pickol">
+                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
+                     <input type="text" class="form-control" name="acg_t_co" id="acg_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$acg_t_co.'" />
+                  </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 bkmbg">
-                    <label class="col-form-label" for="mbg_f_op">'.geoloc_translate('Opacité du fond').'</label>
-                    <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_f_op" id="mbg_f_op" value="'.$mbg_f_op.'" required="required" />
-                </div>
-                <div class="col-4">
-                    <label class="col-form-label" for="mbgc_f_op">'.geoloc_translate('Opacité du fond').'</label>
-                    <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_f_op" id="mbgc_f_op" value="'.$mbgc_f_op.'" required="required" />
-                </div>
-                <div class="col-4" >
-                    <label class="col-form-label" for="acg_f_op">'.geoloc_translate('Opacité du fond').'</label>
-                    <input type="number" step="any" min="0" max="1" class="form-control" name="acg_f_op" id="acg_f_op" value="'.$acg_f_op.'" required="required" />
-                </div>
+               <div class="col-4 bkmbg">
+                  <label class="col-form-label" for="mbg_f_op">'.geoloc_translate('Opacité du fond').'</label>
+                  <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_f_op" id="mbg_f_op" value="'.$mbg_f_op.'" required="required" />
+               </div>
+               <div class="col-4">
+                  <label class="col-form-label" for="mbgc_f_op">'.geoloc_translate('Opacité du fond').'</label>
+                  <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_f_op" id="mbgc_f_op" value="'.$mbgc_f_op.'" required="required" />
+               </div>
+               <div class="col-4" >
+                  <label class="col-form-label" for="acg_f_op">'.geoloc_translate('Opacité du fond').'</label>
+                  <input type="number" step="any" min="0" max="1" class="form-control" name="acg_f_op" id="acg_f_op" value="'.$acg_f_op.'" required="required" />
+               </div>
             </div>
             <div class="row">
                <div class="col-4 bkmbg">
@@ -513,9 +495,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          <label class="col-form-label col-sm-6" for="img_mbgb">'.geoloc_translate('Image membre géoréférencé').'<span class="text-danger ms-1">*</span></label>
          <div class="col-sm-6">
             <div class="input-group">
-               <div class="input-group-prepend">
-                  <span id="v_img_mbgb" class="input-group-text"><img src="'.$ch_img.$img_mbgb.'" /></span>
-               </div>
+               <span id="v_img_mbgb" class="input-group-text"><img src="'.$ch_img.$img_mbgb.'" /></span>
                <input type="text" class="form-control" name="img_mbgb" id="img_mbgb" placeholder="Nom du fichier image" value="'.$img_mbgb.'" required="required" />
             </div>
          </div>
@@ -824,7 +804,7 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
       changestyle(mark_cmbgc_svg,f_fa,fc=fc_mo,tc=tc_mo,sc=sc_mo);
       changestyle(mark_acg_svg,f_fa,fc=fc_a,tc=tc_a,sc=sc_a);
       $("#f_choice_mbg,#f_choice_mbgc,#f_choice_acg").html(fa(f_fa));
-      $("#vis_ic").html(\'<span class="input-group-text"><span id="fontchoice" class="fa fa-lg">\'+fa(f_fa)+\'</span></span>\');
+      $("#vis_ic").html(\'<span id="fontchoice" class="fa fa-lg">\'+fa(f_fa)+\'</span>\');
    })
 
 
