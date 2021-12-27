@@ -132,9 +132,7 @@ function Liste_Page() {
                <div class="modal-content">
                   <div class="modal-header">
                      <h5 class="modal-title">'.$page.'</h5>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                     </button>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                      <form id="renameForm" method="post" name="wspadformfic">
@@ -150,7 +148,7 @@ function Liste_Page() {
                               <input type="hidden" name="page" value="'.$page.'" />
                               <input type="hidden" name="op" value="renomer" />
                               <button type="submit" class="btn btn-primary" name="creer">'.wspad_trans("Renommer").'</button>
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">'.wspad_trans("Abandonner").'</button>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'.wspad_trans("Abandonner").'</button>
                            </div>
                         </div>
                      </form>

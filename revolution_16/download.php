@@ -134,7 +134,7 @@ function popuploader($did, $ddescription, $dcounter, $dfilename, $aff) {
                <div class="modal-content">
                   <div class="modal-header">
                   <h4 class="modal-title text-start" id="my'.$did.'">'.translate("Information sur le fichier").' - '.$dfilename.'</h4>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" title=""><span aria-hidden="true">&times;</span></button>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" title=""></button>
                   </div>
                   <div class="modal-body text-start">';
                geninfo($did,$out_template);

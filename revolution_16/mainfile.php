@@ -2356,9 +2356,7 @@ function adminblock() {
          <div class="modal-content">
             <div class="modal-header">
                <h5 class="modal-title" id="bl_versusModalLabel"><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" loading="lazy" />'.translate("Version").' NPDS^</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-               </button>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                <p>Vous utilisez NPDS^ '.$Version_Sub.' '.$Version_Num.'</p>
@@ -2379,9 +2377,7 @@ function adminblock() {
          <div class="modal-content">
             <div class="modal-header">
                <h5 class="modal-title" id=""><span id="bl_messageModalIcon" class="me-2"></span><span id="bl_messageModalLabel"></span></h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-               </button>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                <p id="bl_messageModalContent"></p>
