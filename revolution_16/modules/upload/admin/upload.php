@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -22,7 +22,7 @@ $f_titre = adm_translate("Configuration Upload");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-$hlpfile='manuels/$language/upload.html';
+$hlpfile='manuels/'.$language.'/upload.html';
 
 global $language;
 include("modules/upload/lang/upload.lang-$language.php");
@@ -43,9 +43,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
             <label class="col-form-label col-sm-4" for="xmax_size">'.adm_translate("Taille maxi des fichiers").'</label>
             <div class="col-sm-8">
                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                     <div id="humread_size" class="input-group-text">'.$max_size.'</div>
-                  </div>
+                  <div id="humread_size" class="input-group-text">'.$max_size.'</div>
                   <input onkeyup="convertoct(\'xmax_size\',\'humread_size\')" class="form-control " id="xmax_size" type="number" name="xmax_size" value="'.$max_size.'" min="1" maxlength="8" required="required" />
                </div>
                <span class="help-block">Taille maxi des fichiers en octets<span class="float-end ms-1" id="countcar_xmax_size"></span></span>
@@ -177,9 +175,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
             <label class="col-form-label col-sm-4" for="xquota">'.adm_translate("Espace disque").'</label>
             <div class="col-sm-8">
                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                     <div id="humread_quota" class="input-group-text">'.$quota.'</div>
-                  </div>
+                  <div id="humread_quota" class="input-group-text">'.$quota.'</div>
                   <input  onkeyup="convertoct(\'xquota\',\'humread_quota\')" class="form-control " id="xquota" type="text" name="xquota" min="1" maxlength="8" value="'.$quota.'" />
                </div>
                <span class="help-block">Limite de l\'espace disque alloué pour l\'upload (en octects)<span class="float-end ms-1" id="countcar_xquota"></span></span>
