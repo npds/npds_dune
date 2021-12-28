@@ -81,9 +81,7 @@ function reviews() {
          <label class="col-form-label col-sm-4" for="reviewdate">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="far fa-calendar-check fa-lg"></i></span>
-               </div>
+               <span class="input-group-text"><i class="far fa-calendar-check fa-lg"></i></span>
                <input class="form-control reviewdate-js" type="text" id="reviewdate" name="date" value="'.$date.'" maxlength="10" required="required" />
             </div>
          </div>

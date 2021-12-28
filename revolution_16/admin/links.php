@@ -67,11 +67,9 @@ function links() {
          <label class="col-form-label col-sm-4 " for="urlenattente">'.adm_translate("URL de la Page").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>
-                  </span>
-               </div>
+               <span class="input-group-text">
+                 <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>
+               </span>
                <input class="form-control" id="urlenattente" type="url" name="url" value="'.$url.'" maxlength="255" required="required" />
             </div>
             <span class="help-block text-end"><span id="countcar_urlenattente"></span></span>
@@ -418,11 +416,9 @@ function LinksModLink($lid) {
          <label class="col-form-label col-sm-4 " for="url">'.adm_translate("URL de la Page").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>
-                  </span>
-               </div>
+               <span class="input-group-text">
+                 <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>
+               </span>
                <input class="form-control" type="url" name="url" id="url" value="'.$url.'" maxlength="255" required="required" />
              </div>
              <span class="help-block text-end"><span id="countcar_url"></span></span>
