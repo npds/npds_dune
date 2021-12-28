@@ -25,7 +25,7 @@ a:focus {
 /** <== Balise html
 
 
-/** ==> Classes BS4                                                         **/
+/** ==> Classes BS5                                                         **/
 /*                                                                           */
 /* ==> élément ayant la class btn (boutons, a, input) */ 
 .btn {
@@ -39,7 +39,7 @@ a:focus {
   overflow-y: auto;
 }
 
-/** <== Classes BS4                                                         **/
+/** <== Classes BS5                                                         **/
 
 /** ==> Classes NPDS-core [prefixe n-]                                      **/
 /* ==> pour les avatars et images */
