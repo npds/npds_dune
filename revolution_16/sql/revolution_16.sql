@@ -1065,7 +1065,7 @@ CREATE TABLE users_extend (
   PRIMARY KEY (uid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO users_extend VALUES (2, '', '', '', '', '', '', '', '', '', '', '15/07/2015', '', 'none');
+INSERT INTO users_extend VALUES (2, '', '', '', '', '', '', '45.728712', '4.818514', '', '', '15/07/2015', '', 'none');
 
 CREATE TABLE users_status (
   uid int(11) NOT NULL AUTO_INCREMENT,
