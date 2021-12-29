@@ -586,8 +586,8 @@ $ecr_scr = '
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
    if (!$("link[href=\'modules/geoloc/include/css/geoloc_style.css\']").length)
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
-   if (!$("link[href=\'modules/geoloc/include/css/bootstrap-icons.css\']").length)
-      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
+   if (!$("link[href=\'lib/bootstrap/dist/css/bootstrap-icons.css\']").length)
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/bootstrap/dist/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
 
    $(function () {
    //==>  affichage des coordonnées...
