@@ -5,15 +5,15 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.0                                            */
+/* module geoloc version 4.1                                            */
 /* geoloc_conf.php file 2008-2020 by Jean Pierre Barbary (jpb)          */
-/* dev team : Philippe Revilliod (Phr)                                  */
+/* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 $api_key_bing = ""; // clef api bing maps 
 $api_key_mapbox = ""; // clef api mapbox 
