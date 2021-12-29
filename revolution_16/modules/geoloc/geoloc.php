@@ -1566,22 +1566,21 @@ $affi = '
                            <select class="form-select" name="cartyp" id="cartyp">
                            '.$optcart.'
                            </select>
-                           <input type="range" value="1" class="custom-range mt-1" min="0" max="1" step="0.1" id="baselayeropacity" />
-                           <label class="my-0 float-end small" for="baselayeropacity">'.geoloc_translate('Opacité').'</label>
+                           <input type="range" value="1" class="form-range mt-1" min="0" max="1" step="0.1" id="baselayeropacity" />
+                           <label class="my-0 float-end small form-label" for="baselayeropacity">'.geoloc_translate('Opacité').'</label>
                            <div id="dayslider" class="collapse">
-                              <input type="range" value="1" class="custom-range mt-1" min="-6" max="0" value="0" id="nasaday" />
-                              <label id="dateimages" class="mt-0 float-end small" for="nasaday">'.$date_jour.'</label>
+                              <input type="range" value="1" class="form-range mt-1" min="-6" max="0" value="0" id="nasaday" />
+                              <label id="dateimages" class="form-label mt-0 float-end small" for="nasaday">'.$date_jour.'</label>
                            </div>
                         </div>
                      </div>
                      <hr class="mb-1"/>
                      <div><span class="align-middle bi bi-layers me-2 h3 text-primary"></span>'.geoloc_translate('Couches utilitaires').'</div>
-                     <div class="form-check form-switch d-inline">
+                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" data-bs-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer la grille').'" id="grillebox" />
                         <label class="form-check-label" for="grillebox">'.geoloc_translate('Grille').'</label>
                      </div>
-                     <br />
-                     <div class="form-check form-switch d-inline">
+                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" data-bs-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer la couche').'" id="coastandborder" />
                         <label class="form-check-label" for="coastandborder">'.geoloc_translate('Côtes et frontières').'</label>
                      </div>
