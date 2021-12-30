@@ -90,6 +90,13 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
       ['sat-google', geoloc_translate("Satellite").' (Google maps)']
    );
+   if($api_key_bing=='' and $api_key_mapbox=='')
+      unset($fond_provider[4],$fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8]);
+   elseif($api_key_bing=='')
+      unset($fond_provider[6],$fond_provider[7],$fond_provider[8]);
+   elseif($api_key_mapbox=='')
+      unset($fond_provider[4],$fond_provider[5]);
+
 
    echo '
    <hr />
@@ -180,22 +187,20 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                   <label class="col-form-label col-sm-6" for="cartyp">'.geoloc_translate('Type de carte').'<span class="text-danger ms-1">*</span></label>
                   <div class="col-sm-6">
                      <select class="form-select" name="cartyp" id="cartyp">';
-   $j=0;
-   foreach ($fond_provider as $v) {
-      if($v[0]==$cartyp) $sel='selected="selected"'; else $sel='';
-      switch($j){
+   foreach ($fond_provider as $k => $v) {
+      $sel = $v[0]==$cartyp ? 'selected="selected"': '';
+      switch($k){
          case '0': echo '<optgroup label="OpenStreetMap">';break;
          case '1': echo '<optgroup label="Stamen">';break;
          case '4': echo '<optgroup label="Mapbox">';break;
-         case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">';break;
+         case '6': echo '<optgroup label="Bing maps">';break;
          case '9': echo '<optgroup label="Google">';break;
          }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
-      switch($j){
-         case '0': case '3': case '5': case '10': echo '</optgroup>'; break;
+      switch($k){
+         case '0': case '3': case '5': case '8': case '9': echo '</optgroup>'; break;
          }
-      $j++;
    }
    echo '
                      </select>

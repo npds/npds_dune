@@ -113,7 +113,7 @@ if(autorisation(-127)) {
    <div id="sb_ip" class="list-group mb-2">
       <div class="bg-light text-dark fw-light p-2">
          <a id="carrets_ip" class="link" data-bs-toggle="collapse" href="#l_sb_ip"><i class="toggle-icon fa visually-hidden fa-lg me-2" style="font-size:1.6rem;"></i></a>
-         <div class="form-check form-switch d-inline">
+         <div class="form-check form-switch d-inline-block">
             <input class="form-check-input" type="checkbox" id="ipbox" /><label class="form-check-label" for="ipbox"><span class="text-muted" data-bs-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer les IP').'"><i class="bi bi-display me-1 h3 align-middle"></i></span>IP</label>
          </div>
          <span class="h6"><span id="ipnb" class="badge bg-secondary rounded-pill float-end">'.$ipnb.'</span></span>
@@ -314,8 +314,8 @@ while ($row = sql_fetch_array($result)) {
    $r=sql_num_rows($tres);
    if($r == 0) {
       if ($users_uname != $session_user_name) {
-         $acg++; $acng++;
-         $test_ip .='<a title="IP non géoréférencé en ligne" data-bs-toggle="tooltip" class="sb_ano list-group-item  py-1">IP '.$acng.' <small>'.$session_host_addr.'</small></a>';
+         $acg++; $acng++;$ac++;
+         $test_ip .='<a class="sb_ano list-group-item px-1 py-1 small" title="IP non géoréférencé en ligne" data-bs-toggle="tooltip" >IP '.$acng.' <span style="font-size:0.75rem;">'.urldecode($session_host_addr).'</span></a>';
       }
    }
    while ($row1 = sql_fetch_array($tres)) {
@@ -356,7 +356,7 @@ $mbr_geo_on = trim($mbr_geo_on,',').'
 $sidebaronline ='
             <div id="sb_ano" class="list-group mb-2">
                <div class="bg-light text-dark fw-light p-2"><a id="carrets_ac" class="link" data-bs-toggle="collapse" href="#l_sb_ano"><i class="toggle-icon fa fa-caret-down fa-lg me-2" style="font-size:1.6rem;"></i></a>
-                  <div class="form-check form-switch d-inline">
+                  <div class="form-check form-switch d-inline-block">
                      <input class="form-check-input" type="checkbox" checked="checked" data-bs-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer anonymes géoréférencés').'" id="conbox" /><label class="form-check-label" for="conbox"> '.geoloc_translate('Visiteur en ligne').'</label>
                   </div>
                   <span class="h6"><span class="badge bg-danger rounded-pill float-end">'.$ac.'</span></span>
@@ -430,7 +430,7 @@ $mbr_geo_off = trim($mbr_geo_off,',').'
 $sidebarmembres ='
             <div id="sb_member" class="list-group mb-2">
                <div class="bg-light text-dark fw-light p-2"><a id="carrets_mb" class="" data-bs-toggle="collapse" href="#l_sb_member"><i class="toggle-icon fa fa-caret-down fa-lg me-2" style="font-size:1.6rem;"></i></a>
-                  <div class="form-check form-switch d-inline">
+                  <div class="form-check form-switch d-inline-block">
                      <input class="form-check-input" type="checkbox" checked="checked" data-bs-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer membres géoréférencés').'" id="memberbox" /><label class="form-check-label" for="memberbox">'.$ic_b_mbgt.' '.geoloc_translate('Membre').'</label>
                   </div>
                   <span class="h6"><span id="mbnb" class="badge bg-secondary rounded-pill float-end">'.$mbgr.'</span></span>
@@ -463,11 +463,10 @@ $w = fwrite($f, $ent_geojson);
 fclose($f);
 //<== les membres
 
-
 $olng = $mbcng+$acng;//==> on line non géoréférencés anonyme et membres
 $olg = $mbcg+$acg;//==> on line géoréférencés anonyme et membres
 
-$fond_provider=array(
+$fond_provider = array(
    ['OSM', geoloc_translate("Plan").' (OpenStreetMap)'],
    ['toner', geoloc_translate("Noir et blanc").' (Stamen)'],
    ['watercolor', geoloc_translate("Dessin").' (Stamen)'],
@@ -480,43 +479,35 @@ $fond_provider=array(
    ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
    ['sat-google', geoloc_translate("Satellite").' (Google maps)']
 );
-if($api_key_bing=='' and $api_key_mapbox=='') {unset($fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8],$fond_provider[9]);}
-elseif($api_key_bing=='') {unset($fond_provider[7],$fond_provider[8],$fond_provider[9]);}
-elseif($api_key_mapbox=='') {unset($fond_provider[5],$fond_provider[6]);}
-
-$j = 0; $optcart = '';
-foreach ($fond_provider as $v) {
+if($api_key_bing=='' and $api_key_mapbox=='')
+   unset($fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8],$fond_provider[9]);
+elseif($api_key_bing=='')
+   unset($fond_provider[7],$fond_provider[8],$fond_provider[9]);
+elseif($api_key_mapbox=='')
+   unset($fond_provider[5],$fond_provider[6]);
+$optcart = '';
+foreach ($fond_provider as $k => $v) {
    $sel = $v[0]==$cartyp ? 'selected="selected"' : '';
-   switch($j){
+   switch($k){
       case '0': $optcart .= '
                            <optgroup label="OpenStreetMap">';break;
       case '1': $optcart .= '
                            <optgroup label="Stamen">';break;
       case '4': $optcart .= '
                            <optgroup label="NASA">';break;
-      case '5': if($api_key_mapbox==!'') 
-                  $optcart .= '
-                           <optgroup label="Mapbox">';
-                elseif($api_key_bing==!'')
-                  $optcart .= '
-                           <optgroup label="Bing maps">'; break;
-      case '7': if($api_key_bing==!'' and $api_key_mapbox!=='') 
-                  $optcart .= '
+      case '5': $optcart .= '
+                           <optgroup label="Mapbox">'; break;
+      case '7': $optcart .= '
                            <optgroup label="Bing maps">'; break;
       case '10': $optcart .= '
                            <optgroup label="Google">';break;
    }
    $optcart .= '
                               <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
-   switch($j){
-      case '0': case '3': case '4': case '11': $optcart .= '
-                           </optgroup>'; break;
-      case '6': if($api_key_mapbox==!'') $optcart .= '
-                           </optgroup>'; break;
-      case '7': if($api_key_mapbox=='' and $api_key_bing==!'') $optcart .= '
+   switch($k){
+      case '0': case '3': case '4': case '6': case '9': case '10': $optcart .= '
                            </optgroup>'; break;
    }
-   $j++;
 }
 
 $source_fond=''; $max_r=''; $min_r='';$layer_id='';
@@ -1018,7 +1009,7 @@ if ($username !='') {
             offset:"0,18",
             animation: false,
             html: true,
-            title:\'<span class="fw-light">'.geoloc_translate("Géolocalisation").'</span><button style="transform:rotate(45deg);" type="button" id="close" class="close" onclick="$(\\\'.popover\\\').hide();"><i class="bi bi-plus-circle"></i></button>\',
+            title:\'<span class="fw-light">'.geoloc_translate("Géolocalisation").'</span><button type="button" id="close" class="btn-close" onclick="$(\\\'.popover\\\').hide();"></button>\',
             content: \'<form action="" onsubmit=" window.location.href = \\\'modules.php?ModPath=geoloc&ModStart=geoloc&lng=\'+lng.toFixed(6)+\'&lat=\'+lat.toFixed(6)+\'&mod=neo&uid=\\\'; return false;">\'
         + \'<img src="'.$the_av_ch.'" class="img-thumbnail n-ava-40 me-2" loading="lazy" /><span class="lead">'.$username.'</span>\'
         + \''.$infooo.'\'
