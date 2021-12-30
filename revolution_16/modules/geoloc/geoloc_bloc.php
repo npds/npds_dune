@@ -18,7 +18,7 @@
 
 $ModPath='geoloc';
 $content = '';
-include('modules/'.$ModPath.'/geoloc_conf.php');
+include('modules/'.$ModPath.'/geoloc.conf');
 $source_fond='';
 switch ($cartyp_b) {
    case 'OSM':

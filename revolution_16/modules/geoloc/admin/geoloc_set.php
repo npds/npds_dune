@@ -44,7 +44,7 @@ function vidip(){
 
 function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata) {
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg, $dbname, $NPDS_Prefix, $subop;
-   include ('modules/'.$ModPath.'/geoloc_conf.php');
+   include ('modules/'.$ModPath.'/geoloc.conf');
    $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo.html';
 
    $result=sql_query("SELECT CONCAT(ROUND(((DATA_LENGTH + INDEX_LENGTH - DATA_FREE) / 1024 / 1024), 2), ' Mo') AS TailleMo FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$dbname' AND TABLE_NAME = ".$NPDS_Prefix."'ip_loc'");
@@ -960,7 +960,7 @@ adminfoot('','','','');
 function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
 
 //==> modifie le fichier de configuration
-   $file_conf = fopen("modules/geoloc/geoloc_conf.php", "w+");
+   $file_conf = fopen("modules/geoloc/geoloc.conf", "w+");
    $content = "<?php \n";
    $content .= "/************************************************************************/\n";
    $content .= "/* DUNE by NPDS                                                         */\n";
@@ -975,7 +975,7 @@ function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp
    $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* module geoloc version 4.1                                            */\n";
-   $content .= "/* geoloc_conf.php file 2008-".date('Y')." by Jean Pierre Barbary (jpb)          */\n";
+   $content .= "/* geoloc.conf file 2008-".date('Y')." by Jean Pierre Barbary (jpb)              */\n";
    $content .= "/* dev team : Philippe Revilliod (Phr), A.NICOL                         */\n";
    $content .= "/************************************************************************/\n";
    $content .= "\$api_key_bing = \"$api_key_bing\"; // clef api bing maps \n";

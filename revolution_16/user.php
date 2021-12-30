@@ -442,7 +442,7 @@ function userinfo($uname) {
    if ($uname == $cookie[1])
       nav($mns);
 
-   include('modules/geoloc/geoloc_conf.php'); 
+   include('modules/geoloc/geoloc.conf'); 
    echo '
    <div class="card card-body">
       <div class="row">';

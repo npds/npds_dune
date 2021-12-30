@@ -18,7 +18,7 @@
 
 #autodoc localiser_ip() : construit la carte pour l'ip géoréférencée ($iptoshow) à localiser
 function localiser_ip($iptoshow) {
-   include('modules/geoloc/geoloc_conf.php');
+   include('modules/geoloc/geoloc.conf');
    global $NPDS_Prefix, $iptoshow;
    $aff_location ='';
    if($geo_ip==1) {

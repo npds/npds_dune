@@ -70,14 +70,14 @@ function session_manage() {
    if($username==$ip)
       $guest=1;
       //==> mod_geoloc
-      include("modules/geoloc/geoloc_conf.php");
+      include("modules/geoloc/geoloc.conf");
       $file_path = array(
       'https://ipapi.co/'.urldecode($ip).'/json',
       'https://api.ipdata.co/'.urldecode($ip).'?api-key='.$api_key_ipdata,
       'https://extreme-ip-lookup.com/json/'.urldecode($ip),
       'http://ip-api.com/json/'.urldecode($ip)
       );
-      $file = file("modules/geoloc/geoloc_conf.php");
+      $file = file("modules/geoloc/geoloc.conf");
       if(strstr($file[25],'geo_ip = 1')) {
          $ousursit='';
          global $ousursit;
@@ -2943,7 +2943,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    
       list($uname, $user_avatar, $mns, $url, $femail)=sql_fetch_row(sql_query("SELECT uname, user_avatar, mns, url, femail FROM ".$NPDS_Prefix."users WHERE uid='$uid'"));
 
-      include('modules/geoloc/geoloc_conf.php');
+      include('modules/geoloc/geoloc.conf');
       settype($ch_lat,'string');
       $useroutils = '';
       if ($uid!= 1 and $uid!='')

@@ -29,7 +29,7 @@ if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script
 //function geoloc() {
 
 global $pdst, $language, $title;
-include ('modules/'.$ModPath.'/geoloc_conf.php');
+include ('modules/'.$ModPath.'/geoloc.conf');
 include_once('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
 
 $infooo='';

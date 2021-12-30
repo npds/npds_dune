@@ -194,7 +194,7 @@ function userpopover($who,$dim) {
          if($temp_user['uid']!= 1) {
             $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
             include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-            include('modules/geoloc/geoloc_conf.php');
+            include('modules/geoloc/geoloc.conf');
             if($user or autorisation(-127)) {
                if ($posterdata_extend['M2']!='') {
                   $socialnetworks= explode(';',$posterdata_extend['M2']);

@@ -130,7 +130,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
          if (!$short_user) {
             $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
             include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-            include('modules/geoloc/geoloc_conf.php');
+            include('modules/geoloc/geoloc.conf');
             if($user or autorisation(-127)) {
                if (array_key_exists('M2', $posterdata_extend)) {
                   if ($posterdata_extend['M2']!='') {

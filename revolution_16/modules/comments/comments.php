@@ -133,7 +133,7 @@ if ($mycount) {
                }
             }
          }
-         include('modules/geoloc/geoloc_conf.php');
+         include('modules/geoloc/geoloc.conf');
          settype($ch_lat,'string');
 
          $useroutils = '';

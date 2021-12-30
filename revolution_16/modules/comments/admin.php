@@ -83,7 +83,7 @@ elseif ($moderate==2) {
                echo '
             </div>
          </div>';
-      include('modules/geoloc/geoloc_conf.php');
+      include('modules/geoloc/geoloc.conf');
       if($geo_ip==1)
          echo'
          <div class="card-footer text-end">
