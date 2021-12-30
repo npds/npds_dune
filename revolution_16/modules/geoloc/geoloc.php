@@ -1018,7 +1018,7 @@ if ($username !='') {
             offset:"0,18",
             animation: false,
             html: true,
-            title:\'<span class="font-weight-light">'.geoloc_translate("Géolocalisation").'</span><button style="transform:rotate(45deg);" type="button" id="close" class="close" onclick="$(\\\'.popover\\\').hide();"><i class="bi bi-plus-circle"></i></button>\',
+            title:\'<span class="fw-light">'.geoloc_translate("Géolocalisation").'</span><button style="transform:rotate(45deg);" type="button" id="close" class="close" onclick="$(\\\'.popover\\\').hide();"><i class="bi bi-plus-circle"></i></button>\',
             content: \'<form action="" onsubmit=" window.location.href = \\\'modules.php?ModPath=geoloc&ModStart=geoloc&lng=\'+lng.toFixed(6)+\'&lat=\'+lat.toFixed(6)+\'&mod=neo&uid=\\\'; return false;">\'
         + \'<img src="'.$the_av_ch.'" class="img-thumbnail n-ava-40 me-2" loading="lazy" /><span class="lead">'.$username.'</span>\'
         + \''.$infooo.'\'
