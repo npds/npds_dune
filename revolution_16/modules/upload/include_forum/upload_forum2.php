@@ -63,7 +63,7 @@ global $Titlesitename;
       echo ' 
          <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
    echo '
-         <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />';//hardcoded lol
+         <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />';//hardcoded lol
    echo import_css($theme, $language, $site_font, '','');
    echo '
       </head>
