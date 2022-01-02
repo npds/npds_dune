@@ -1009,7 +1009,7 @@ if ($username !='') {
             offset:"0,18",
             animation: false,
             html: true,
-            title:\'<span class="fw-light">'.geoloc_translate("Géolocalisation").'</span><button type="button" id="close" class="btn-close" onclick="$(\\\'.popover\\\').hide();"></button>\',
+            title:\'<span class="fw-light">'.geoloc_translate("Géolocalisation").'</span><button type="button" id="close" class="btn-close float-end" onclick="$(\\\'.popover\\\').hide();"></button>\',
             content: \'<form action="" onsubmit=" window.location.href = \\\'modules.php?ModPath=geoloc&ModStart=geoloc&lng=\'+lng.toFixed(6)+\'&lat=\'+lat.toFixed(6)+\'&mod=neo&uid=\\\'; return false;">\'
         + \'<img src="'.$the_av_ch.'" class="img-thumbnail n-ava-40 me-2" loading="lazy" /><span class="lead">'.$username.'</span>\'
         + \''.$infooo.'\'
@@ -1497,7 +1497,7 @@ map.on("pointermove", voirInfo);
 $(\'[data-bs-toggle="tab_ajax"]\').click(function(e) {
     var $this = $(this),
         loadurl = $this.attr(\'href\'),
-        targ = $this.attr(\'data-target\');
+        targ = $this.attr(\'data-bs-target\');
     $.get(loadurl, function(data) {
         $(targ).html(data);
     });
