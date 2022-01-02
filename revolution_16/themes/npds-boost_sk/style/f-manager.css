@@ -36,6 +36,34 @@ div.mp3 {
   width: 100%;
 }
 
+/* 
+input[type=file]::file-selector-button {background-color: #a29bfe;}
+ */
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  width:1px;
+}
+
+ 
+/* 
+.custom-file-input:lang(fr)::before {
+  content: "Choisir ...";
+}
+.custom-file-input:lang(es)::before {
+  content: "Elegir ...";
+}
+.custom-file-input:lang(de)::before {
+  content: "Wählen ...";
+}
+.custom-file-input:lang(en)::before {
+  content: "Browse ...";
+}
+.custom-file-input:lang(zh)::before {
+  content: "选择 ...";
+}
+ */
+
+
 .custom-file-input:lang(fr) ~ .custom-file-label::after {
     content: "Choisir ..."
 }

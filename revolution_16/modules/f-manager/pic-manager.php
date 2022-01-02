@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -57,9 +57,8 @@ function fma_filter($type, $filename, $Extension) {
       } else {
          $error=fma_translate("Type de fichier interdit");
       }
-   } else {
+   } else
       $error=fma_translate("Fichier interdit");
-   }
    $tab[]=$autorise;
    $tab[]=$error;
    $tab[]=$filename;
@@ -68,13 +67,11 @@ function fma_filter($type, $filename, $Extension) {
 
 // Gestion des autorisations sur les répertoires et les fichiers
 function fma_autorise($type, $dir) {
-   global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
-   global $dir_minuscptr, $fic_minuscptr;
+   global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma, $dir_minuscptr, $fic_minuscptr;
    /* ==> 
    was noticeSss on if($type f) in some case ...Coriace ..... 
    add set type de la variable $autorise_arbo=false;
    controle de l'index dans le array and array_key_exists($dir, $ficlimit_fma))
-   et if(isset($autorise_arbo)) au lieu de if($autorise_arbo)
    cohérence de la correction et de ses implications encore incertaine
    à suivre !!
    <==*/
@@ -84,9 +81,9 @@ function fma_autorise($type, $dir) {
    if ($type=='d')
       $autorise_arbo=$dirlimit_fma[$dir];
    if ($type=='f')
-   if(array_key_exists($dir, $ficlimit_fma))
-      $autorise_arbo=$ficlimit_fma[$dir];
-   if (isset($autorise_arbo)) {
+      if(array_key_exists($dir, $ficlimit_fma))
+         $autorise_arbo=$ficlimit_fma[$dir];
+   if ($autorise_arbo) {
       $auto_dir='';
       if (($autorise_arbo=='membre') and ($user))
          $auto_dir=true;
@@ -242,9 +239,8 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
    }
    $home='/'.basename($basedir_fma);
    $cur_nav_href_back="<a href=\"modules.php?ModPath=$ModPath&amp;ModStart=$ModStart&amp;FmaRep=$FmaRep&amp;browse=".rawurlencode(encrypt($cur_nav_back))."\">".str_replace(dirname($basedir_fma),"",$cur_nav_back)."</a>/".basename($cur_nav);
-   if ($home_fma!='') {
+   if ($home_fma!='')
       $cur_nav_href_back=str_replace($home,$home_fma,$cur_nav_href_back);
-   }
    $cur_nav_encrypt=rawurlencode(encrypt($cur_nav));
 } else {
    // le répertoire ou sous répertoire est protégé (ex : chmod)
@@ -260,7 +256,7 @@ while (false!==($file = readdir($handle))) {
    }
 }
 closedir($handle);
-$att_icon_dir='<i class="fa fa-folder fa-lg"></i>';
+$att_icon_dir='<i class="bi bi-folder fs-2"></i>';
 
 // Répertoires
 $subdirs=''; $sizeofDir=0;
@@ -409,13 +405,13 @@ else
 if ($inclusion) {
    $Xcontent=join('',file($inclusion));
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fas fa-sync la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><i class="bi bi-arrow-clockwise fs-1 d-sm-none" title="'.fma_translate("Rafraîchir").'" data-bs-toggle="tooltip"></i><span class="d-none d-sm-block mt-2">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
    $Xcontent=str_replace('_nb_subdir',($obj->Count('d')-$dir_minuscptr),$Xcontent);
    if(($obj->Count('d')-$dir_minuscptr)==0)
       $Xcontent=str_replace('_classempty','collapse',$Xcontent);
    $Xcontent=str_replace('_subdirs',$subdirs,$Xcontent);
    if ($uniq_fma)
-      $Xcontent=str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="far fa-folder fa-lg"></i></span><span class="d-none d-sm-inline">'.fma_translate("Gestionnaire de fichiers").'</span></a>',$Xcontent);
+      $Xcontent=str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><i class="bi bi-folder fs-1 d-sm-none" data-bs-toggle="tooltip" title="'.fma_translate("Gestionnaire de fichiers").'"></i><span class="d-none d-sm-block mt-2">'.fma_translate("Gestionnaire de fichiers").'</span></a>',$Xcontent);
    else
       $Xcontent=str_replace('_fileM','',$Xcontent);
 
@@ -449,8 +445,9 @@ if ($inclusion) {
       echo '
       <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
       <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
+      <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-icons.css" />
       <link rel="stylesheet" id="fw_css" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
-      <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
+      <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />
       <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$skin.'/extra.css" />
       <link href="'.$css_fma.'" title="default" rel="stylesheet" type="text/css" media="all" />
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>

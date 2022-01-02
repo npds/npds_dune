@@ -289,7 +289,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x me-2 align-middle"></i></span>'.fma_translate("Renommer un répertoire");
+               $cmd='<i class="bi bi-folder fs-1 me-2 align-middle text-muted"></i>'.fma_translate("Renommer un répertoire");
                $rename_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -298,11 +298,11 @@ switch ($op) {
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="renamedir-save" />
-                  <div class="form-group">
+                  <div class="mb-3">
                      <label><code> '.extend_ascii($auto[2]).'</code></label>
                      <input class="form-control" type="text" name="renamefile" value="'.extend_ascii($auto[2]).'" />
                   </div>
-                  <div class="form-group">
+                  <div class="mb-3">
                      <button class="btn btn-primary" type="submit" name="ok">'.fma_translate("Ok").'</button>
                   </div>
                </form>';
@@ -338,7 +338,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x me-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un répertoire").'</span>';
+               $cmd='<i class="bi bi-folder fs-1 me-2 text-danger align-middle"></i><span class="text-danger">'.fma_translate("Supprimer un répertoire").'</span>';
                $remove_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -347,10 +347,10 @@ switch ($op) {
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="removedir-save" />
-                  <div class="form-group">
+                  <div class="mb-3">
                      '.fma_translate("Confirmez-vous la suppression de").' <code>'.extend_ascii($auto[2]).'</code>
                   </div>
-                  <div class="form-group">
+                  <div class="mb-3">
                      <button class="btn btn-danger" type="submit" name="ok">'.fma_translate("Ok").'</button>
                   </div>
                </form>';
@@ -382,7 +382,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x me-2 align-middle"></i></span>'.fma_translate("Changer les droits d'un répertoire");
+               $cmd='<i class="bi bi-folder fs-1 me-2 align-middle text-muted"></i>'.fma_translate("Changer les droits d'un répertoire");
                $chmod_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -391,12 +391,12 @@ switch ($op) {
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="chmoddir-save" />
-                  <div class="form-group">
+                  <div class="mb-3">
                      <label class="form-control-label" for="chmoddir" ><code>'.extend_ascii($auto[2]).'</code></label>
                      <select class="form-select" id="chmoddir" name="chmoddir">
                         '.chmod_pres($obj->GetPerms($auto[3].'/'.$auto[2]),'chmoddir').'
                   </div>
-                  <div class="form-group">
+                  <div class="mb-3">
                      <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
                   </div>
                </form>';
@@ -444,7 +444,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x me-2 align-middle"></i></span>'.fma_translate("Renommer un fichier");
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-muted"></i>'.fma_translate("Renommer un fichier");
                $rename_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -453,11 +453,11 @@ switch ($op) {
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="renamefile-save" />
-                  <div class="form-group">
+                  <div class="mb-3">
                      <label class="form-control-label" for="renamefile"><code>'.extend_ascii($auto[2]).'</code></label>
                      <input class="form-control" type="text" size="60" id="renamefile" name="renamefile" value="'.extend_ascii($auto[2]).'" />
                   </div>
-                  <div class="form-group">
+                  <div class="mb-3">
                      <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
                   </div>
                </form>';
@@ -492,7 +492,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x me-2 align-middle"></i></span>'.fma_translate("Déplacer / Copier un fichier");
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-muted"></i>'.fma_translate("Déplacer / Copier un fichier");
                $move_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -500,14 +500,14 @@ switch ($op) {
                   <input type="hidden" name="FmaRep" value="'.$FmaRep.'" />
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
-                  <div class="form-group">
+                  <div class="mb-3">
                      <select class="form-select me-2" name="op">
                         <option value="movefile-save" selected="selected"> '.fma_translate("Déplacer").'</option>
                         <option value="copyfile-save">'.fma_translate("Copier").'</option>
                      </select>
                      <code>'.extend_ascii($auto[2]).'</code>
                   </div>
-                  <div class="form-group">
+                  <div class="mb-3">
                      <select class="form-select" name="movefile">';
                   $move_file.='
                         <option value="">/</option>';
@@ -523,7 +523,7 @@ switch ($op) {
                   $move_file.='
                      </select>
                   </div>
-                  <div class="form-group">
+                  <div class="mb-3">
                      <button class="btn btn-primary" type="submit" name="ok">'.fma_translate("Ok").'</button>
                   </div>
                </form>';
@@ -569,7 +569,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists("$auto[3]/$auto[2]")) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x me-2 text-danger align-middle"></i></span><span class="text-danger">'.fma_translate("Supprimer un fichier").'</span>';
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 text-danger align-middle"></i><span class="text-danger">'.fma_translate("Supprimer un fichier").'</span>';
                $remove_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -578,10 +578,10 @@ switch ($op) {
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="removefile-save" />
-                  <div class="form-group lead">
+                  <div class="mb-3 lead">
                      '.fma_translate("Confirmez-vous la suppression de").' <code>'.extend_ascii($auto[2]).'</code>
                   </div>
-                  <div class="form-group">
+                  <div class="mb-3">
                      <button class="btn btn-danger" type="submit" name="ok">Ok</button>
                   </div>
                </form>';
@@ -610,7 +610,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-folder fa-2x me-2 align-middle"></i></span>'.fma_translate("Changer les droits d'un fichier").'</span>';
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-muted"></i>'.fma_translate("Changer les droits d'un fichier").'</span>';
                $chmod_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -619,12 +619,12 @@ switch ($op) {
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="chmodfile-save" />
-                  <div class="form-group">
+                  <div class="mb-3">
                      <label class="form-control-label" for="chmodfile"><code>'.extend_ascii($auto[2]).'</code></label>
                      <select class="form-select" id="chmodfile" name="chmodfile">
                         '.chmod_pres($obj->GetPerms($auto[3].'/'.$auto[2]),"chmodfile").'
                   </div>
-                  <div class="form-group">
+                  <div class="mb-3">
                      <button class="btn btn-primary" type="submit" name="ok">'.fma_translate("Ok").'</button>
                   </div>
                </form>';
@@ -657,7 +657,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<span class="text-muted"><i class="fa fa-file fa-2x me-2 align-middle"></i></span>'.fma_translate("Editer un fichier").'</span>';
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-muted"></i>'.fma_translate("Editer un fichier").'</span>';
                $fp=fopen($auto[3].'/'.$auto[2],'r');
                if (filesize($auto[3].'/'.$auto[2])>0)
                   $Fcontent=fread($fp,filesize($auto[3].'/'.$auto[2]));
@@ -670,7 +670,7 @@ switch ($op) {
                   <input type="hidden" name="browse" value="'.$browse.'" />
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="editfile-save" />
-                  <div class="form-group row">
+                  <div class="mb-3 row">
                      <label class="form-control-label col-12" for="editfile"><code>'.extend_ascii($auto[2]).'</code></label>';
                settype($Fcontent, 'string');
                $edit_file.='
@@ -726,7 +726,7 @@ switch ($op) {
                <input type="hidden" name="browse" value="'.$browse.'" />
                <input type="hidden" name="att_name" value="'.$att_name.'" />
                <input type="hidden" name="op" value="pict-save" />
-               <div class="form-group">
+               <div class="mb-3">
                   <label class="form-control-label" for="maxthumb">'.fma_translate("Taille maximum (pixel) de l'imagette").'</label>';
             $fp=@file($auto[3].'/'.$auto[2].'/pic-manager.txt');
             // La première ligne du tableau est un commentaire
@@ -741,11 +741,11 @@ switch ($op) {
             $pict_dir.='
                   <input class="form-control" type="number" id="maxthumb" name="maxthumb" size="4" value="'.$Max_thumb.'" />
                </div>
-               <div class="form-group">
+               <div class="mb-3">
                   <label class="form-control-label" for="refresh">'.fma_translate("Temps de cache (en seconde) des imagettes").'</label> 
                   <input class="form-control" type="number" id="refresh" name="refresh" size="6" value="'.$refresh.'" />
                </div>
-               <div class="form-group">
+               <div class="mb-3">
                   <button class="btn btn-primary" type="submit" name="ok">'.fma_translate("Ok").'</button>
                </div>
             </form>';
@@ -829,20 +829,20 @@ while (false!==($file = readdir($handle))) {
       $att_icons[$prefix]='<img src="images/upload/file_types/'.$file.'" alt="" />'; // no more used keep if we back
       $att_icons[$prefix]='
       <span class="fa-stack">
-        <i class="fa fa-file fa-stack-2x text-muted"></i>
-        <span class="fa-stack-1x filetype-text ">'.$prefix.'</span>
+        <i class="bi bi-file-earmark fa-stack-2x text-muted"></i>
+        <span class="fa-stack-1x filetype-text small ">'.$prefix.'</span>
       </span>';
    }
 }
 closedir($handle);
 $att_icon_default='
       <span class="fa-stack">
-        <i class="fa fa-file fa-stack-2x text-muted"></i>
+        <i class="bi bi-file-earmark fa-stack-2x text-muted"></i>
         <span class="fa-stack-1x filetype-text ">?</span>
       </span>';
 $att_icon_multiple="<img src=\"images/upload/file_types/multiple.gif\" alt=\"\" />";
-$att_icon_dir='<i class="fa fa-folder fa-lg"></i>';
-$att_icon_search='<i class="fa fa-search fa-lg"></i>';
+$att_icon_dir='<i class="bi bi-folder fs-3"></i>';
+$att_icon_search='<i class="bi bi-search fs-4"></i>';
 
 $suppM=fma_translate("Supprimer");
 $renaM=fma_translate("Renommer");
@@ -881,15 +881,15 @@ while ($obj->NextDir()) {
       // Traitements
       $obj->FieldName=rawurlencode($obj->FieldName);
       $subdirs.='
-         <td>';
+         <td class="">';
       if ($dircmd_fma[1])
-         $subdirs.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamedir&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg" title="'.$renaM.'" data-bs-toggle="tooltip"></i></a>';
+         $subdirs.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamedir&amp;att_name='.$obj->FieldName.'"><i class="bi bi-pencil-fill ms-2 fs-4" title="'.$renaM.'" data-bs-toggle="tooltip"></i></a>';
       if ($dircmd_fma[3])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmoddir&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ms-2" title="'.$chmoM.'" data-bs-toggle="tooltip"></i><small>7..</small></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmoddir&amp;att_name='.$obj->FieldName.'"><i class="bi bi-pencil ms-3 fs-4" title="'.$chmoM.'" data-bs-toggle="tooltip"></i><small>7..</small></a>';
       if ($dirpres_fma[5])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=pict&amp;att_name='.$obj->FieldName.'"><i class="fa fa-image fa-lg ms-2" title="'.$pictM.'" data-bs-toggle="tooltip"></i></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=pict&amp;att_name='.$obj->FieldName.'"><i class="bi bi-image-fill ms-3 fs-4" title="'.$pictM.'" data-bs-toggle="tooltip"></i></a>';
       if ($dircmd_fma[2])
-         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removedir&amp;att_name='.$obj->FieldName.'"><i class="far fa-trash-alt fa-lg text-danger ms-2" title="'.$suppM.'" data-bs-toggle="tooltip"></i></a>';
+         $subdirs.=' <a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removedir&amp;att_name='.$obj->FieldName.'"><i class="bi bi-trash2-fill text-danger ms-3 fs-4" title="'.$suppM.'" data-bs-toggle="tooltip"></i></a>';
       $subdirs.='</td>
       </tr>';
 
@@ -943,7 +943,7 @@ while ($obj->NextFile()) {
             }
          }
          if (!$ico_search) {
-            if (($obj->FieldView=='jpg') or ($obj->FieldView=='jpeg') or ($obj->FieldView=='gif') or ($obj->FieldView=='png'))
+            if (($obj->FieldView=='jpg') or ($obj->FieldView=='jpeg') or ($obj->FieldView=='gif') or ($obj->FieldView=='png') or ($obj->FieldView=='svg'))
                $files.="<img src=\"getfile.php?att_id=$ibid&amp;apli=f-manager\" width=\"32\" height=\"32\" />";
             else {
                if (isset($att_icons[$obj->FieldView]))
@@ -995,20 +995,20 @@ while ($obj->NextFile()) {
       $obj->FieldName=rawurlencode($obj->FieldName);
       $cmd_ibid='';
       if ($ficcmd_fma[1])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamefile&amp;att_name='.$obj->FieldName.'"><i class="fa fa-edit fa-lg ms-2" title="'.$renaM.'" data-bs-toggle="tooltip"></i></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamefile&amp;att_name='.$obj->FieldName.'"><i class="bi bi-pencil-fill ms-3 fs-4" title="'.$renaM.'" data-bs-toggle="tooltip"></i></a>';
       if ($ficcmd_fma[4]) {
          $tabW=explode(' ',$extension_Edit_fma);
          $suffix = strtoLower(substr(strrchr( $obj->FieldName, '.' ), 1 ));
          if (in_array($suffix,$tabW))
-            $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=editfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ms-2" title="'.$editM.'" data-bs-toggle="tooltip"></i></a>';
+            $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=editfile&amp;att_name='.$obj->FieldName.'"><i class="bi bi-pencil-square ms-3 fs-4" title="'.$editM.'" data-bs-toggle="tooltip"></i></a>';
       }
       if ($ficcmd_fma[5])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=movefile&amp;att_name='.$obj->FieldName.'"><i class="far fa-share-square fa-lg ms-2" title="'.$moveM.'" data-bs-toggle="tooltip"></i></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=movefile&amp;att_name='.$obj->FieldName.'"><i class="bi bi-box-arrow-up-right ms-3 fs-4" title="'.$moveM.'" data-bs-toggle="tooltip"></i></a>';
       if ($ficcmd_fma[3])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmodfile&amp;att_name='.$obj->FieldName.'"><i class="fas fa-pencil-alt fa-lg ms-2" title="'.$chmoM.'" data-bs-toggle="tooltip"></i><small>7..</small></a>';
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=chmodfile&amp;att_name='.$obj->FieldName.'"><i class="bi bi-pencil ms-3 fs-4" title="'.$chmoM.'" data-bs-toggle="tooltip"></i><small>7..</small></a>';
       if ($ficcmd_fma[2])
-         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removefile&amp;att_name='.$obj->FieldName.'"><i class="far fa-trash-alt fa-lg text-danger ms-2" title="'.$suppM.'" data-bs-toggle="tooltip"></i></a>';
-if ($cmd_ibid) $files.='
+         $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=removefile&amp;att_name='.$obj->FieldName.'"><i class="bi bi-trash2-fill text-danger  ms-3 fs-4" title="'.$suppM.'" data-bs-toggle="tooltip"></i></a>';
+      if ($cmd_ibid) $files.='
          <td>'.$cmd_ibid.'</td>';
       $files.='
       </tr>';
@@ -1017,7 +1017,6 @@ if ($cmd_ibid) $files.='
 
 if (file_exists($infos_fma))
    $infos=aff_langue(join('',file($infos_fma)));
-   
 // Form
    $upload_file ='
    <form id="uploadfichier" enctype="multipart/form-data" method="post" action="modules.php" lang="'.language_iso(1,'','').'">
@@ -1026,19 +1025,15 @@ if (file_exists($infos_fma))
       <input type="hidden" name="FmaRep" value="'.$FmaRep.'" />
       <input type="hidden" name="browse" value="'.$browse.'" />
       <input type="hidden" name="op" value="upload" />
-      <div class="form-group">
-         <span class="help-block">'.fma_translate("Extensions autorisées : ").'<span class="text-success">'.$extension_fma.'</span></span>
-         <div class="input-group mb-2 me-sm-2">
-            <div class="input-group-prepend" onclick="reset2($(\'#userfile\'),\'\');">
-               <div class="input-group-text"><i class="fas fa-sync"></i></div>
-            </div>
-            <div class="custom-file">
-               <input type="file" class="custom-file-input" name="userfile" id="userfile" />
-               <label id="lab" class="custom-file-label" for="userfile">'.fma_translate("Sélectionner votre fichier").'</label>
-            </div>
+      <div class="mb-3">
+         <div class="help-block mb-2">'.fma_translate("Extensions autorisées : ").'<span class="text-success">'.$extension_fma.'</span></div>
+         <div class="input-group mb-3 me-sm-2">
+            <button class="btn btn-secondary" type="button" onclick="reset2($(\'#userfile\'),\'\');"><i class="bi bi-arrow-clockwise"></i></button>
+            <label class="input-group-text" id="lab" for="userfile">'.fma_translate("Sélectionner votre fichier").'</label>
+            <input type="file" class="form-control custom-file-input" name="userfile" id="userfile" />
          </div>
+         <button class="btn btn-primary" type="submit" name="ok" ><i class="bi bi-upload"></i></button>
       </div>
-      <button class="btn btn-primary" type="submit" name="ok" >'.fma_translate("Ok").'</button>
    </form>
    <script type="text/javascript">
       //<![CDATA[
@@ -1061,7 +1056,7 @@ if (file_exists($infos_fma))
       <input type="hidden" name="FmaRep" value="'.$FmaRep.'" />
       <input type="hidden" name="browse" value="'.$browse.'" />
       <input type="hidden" name="op" value="createdir" />
-      <div class="form-group">
+      <div class="mb-3">
          <input class="form-control" name="userdir" type="text" value="" />
       </div>
       <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
@@ -1074,7 +1069,7 @@ if (file_exists($infos_fma))
       <input type="hidden" name="FmaRep" value="'.$FmaRep.'" />
       <input type="hidden" name="browse" value="'.$browse.'" />
       <input type="hidden" name="op" value="createfile" />
-      <div class="form-group">
+      <div class="mb-3">
          <input class="form-control" name="userfile" type="text" value="" />
       </div>
       <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
@@ -1087,7 +1082,7 @@ if (file_exists($infos_fma))
       <input type="hidden" name="FmaRep" value="'.$FmaRep.'">
       <input type="hidden" name="browse" value="'.$browse.'">
       <input type="hidden" name="op" value="searchfile">
-      <div class="form-group">
+      <div class="mb-3">
          <input class="form-control" name="filesearch" type="text" size="50" value="">
       </div>
       <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'">
@@ -1108,14 +1103,15 @@ if ($inclusion) {
    if($FmaRep =='minisite-ges') {
       if ($user) {
          $userdata = explode(':', base64_decode($user));
-         $Xcontent=str_replace('_home','<a class="nav-link" href="minisite.php?op='.$userdata[1].'" target="_blank"><i class="fa fa-desktop fa-lg"></i></a>',$Xcontent);
+         $Xcontent=str_replace('_home','<a class="nav-link" href="minisite.php?op='.$userdata[1].'" target="_blank"><i class="bi bi-display-fill fs-1"></i></a>',$Xcontent);
       }
    }
    else
-      $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><i class="fa fa-home fa-lg"></i></a>',$Xcontent);
+      $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><span class="bi bi-house-fill fs-1 align-middle"></a>',$Xcontent);
    
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><span class="d-sm-none"><i class="fas fa-sync la-lg fa-spin"></i></span><span class="d-none d-sm-inline">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><i class="bi bi-arrow-clockwise fs-1 d-sm-none" title="'.fma_translate("Rafraîchir").'" data-bs-toggle="tooltip">
+   </i><span class="d-none d-sm-block mt-2">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
 //   if ($dirsize_fma)
       $Xcontent=str_replace('_size',$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);
@@ -1165,7 +1161,7 @@ if ($inclusion) {
    $Xcontent=str_replace('_mov_file',$move_file,$Xcontent);
 
    if (isset($Err))
-      $Xcontent=str_replace('_error','<div class="alert alert-danger alert-dismissible fade show" role="alert">'.$Err.'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>',$Xcontent);
+      $Xcontent=str_replace('_error','<div class="alert alert-danger alert-dismissible fade show" role="alert">'.$Err.'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>',$Xcontent);
    else
       $Xcontent=str_replace('_error','',$Xcontent);
 
@@ -1175,9 +1171,9 @@ if ($inclusion) {
       $Xcontent=str_replace('_infos','',$Xcontent);
    if ($dirpres_fma[5]) {
       if ($uniq_fma)
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="fa fa-image fa-lg" title="'.fma_translate("Images manager").'" data-bs-toggle="tooltip" data-bs-placement="bottom"></i></span><span class="d-none d-sm-inline">'.fma_translate("Images manager").'</span></a>',$Xcontent);
+         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="bi bi-image fs-1" title="'.fma_translate("Images manager").'" data-bs-toggle="tooltip" data-bs-placement="bottom"></i></span><span class="d-none d-sm-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent);
       else
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-inline">'.fma_translate("Images manager").'</span></a>',$Xcontent);
+         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent);
    } else
       $Xcontent=str_replace('_picM','',$Xcontent);
 
@@ -1209,8 +1205,9 @@ if ($inclusion) {
       echo '
       <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
       <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
+      <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-icons.css" />
       <link rel="stylesheet" id="fw_css" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
-      <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />
+      <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />
       <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$skin.'/extra.css" />
       <link rel="stylesheet" href="'.$css_fma.'" title="default" type="text/css" media="all" />';
 
