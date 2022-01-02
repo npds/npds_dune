@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -61,7 +61,7 @@ function entete() {
             </div>
             <div class="row">
                <div class="col-sm-6"></div>
-               <div class="col-sm-6 text-sm-right">'.$Version_Sub.' '.$Version_Num.'</div>
+               <div class="col-sm-6 text-sm-end">'.$Version_Sub.' '.$Version_Num.'</div>
             </div>
          </div>
          <hr class="lead" />';
