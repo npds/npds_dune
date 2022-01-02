@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -233,7 +233,7 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
    <script type="text/javascript" src="lib/js/es6-shim.min.js"></script>
    <script type="text/javascript" src="lib/formvalidation/dist/js/FormValidation.full.min.js"></script>
    <script type="text/javascript" src="lib/formvalidation/dist/js/locales/'.language_iso(1,"_",1).'.min.js"></script>
-   <script type="text/javascript" src="lib/formvalidation/dist/js/plugins/Bootstrap.min.js"></script>
+   <script type="text/javascript" src="lib/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
    <script type="text/javascript" src="lib/formvalidation/dist/js/plugins/L10n.min.js"></script>
    <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
    <script type="text/javascript">
@@ -323,7 +323,7 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
             trigger: new FormValidation.plugins.Trigger(),
             submitButton: new FormValidation.plugins.SubmitButton(),
             defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-            bootstrap: new FormValidation.plugins.Bootstrap(),
+            bootstrap: new FormValidation.plugins.Bootstrap5(),
             icon: new FormValidation.plugins.Icon({
                valid: "fa fa-check",
                invalid: "fa fa-times",
