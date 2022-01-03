@@ -31,7 +31,7 @@ function topicsmanager() {
       echo '
    <hr />
    <h3 class="my-3">'.adm_translate("Sujets actifs").'<span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span></h3>
-   <div class="card-columns">';
+   ';
       while (list($topicid, $topicname, $topicimage, $topictext) = sql_fetch_row($result)) {
          echo '
    <div class="card card-body mb-2" id="top_'.$topicid.'">
@@ -53,7 +53,6 @@ function topicsmanager() {
        }
     }
     echo '
-    </div>
    <hr />
    <h3 class="my-4">'.adm_translate("Ajouter un nouveau Sujet").'</h3>
    <form action="admin.php" method="post" id="topicmake">
