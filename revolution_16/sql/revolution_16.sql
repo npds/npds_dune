@@ -425,7 +425,7 @@ CREATE TABLE links_categories (
   PRIMARY KEY (cid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO links_categories VALUES (1, 'Mod&eacute;le', '');
+INSERT INTO links_categories VALUES (1, 'Mod&egrave;le', '');
 
 CREATE TABLE links_editorials (
   linkid int(11) NOT NULL DEFAULT '0',
