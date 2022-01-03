@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Session and log Viewer Copyright (c) 2009 - Tribal-Dolphin           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -74,7 +74,7 @@ echo '
       echo '
       <br />
       <h3>'.SessionLog_translate("Liste des Sessions").' : <code>TABLE session</code></h3>
-      <table id="tad_ses" class="table table-sm" data-toggle="table" data-striped="true" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
+      <table id="tad_ses" data-classes="table table-sm table-striped table-borderless" data-toggle="table" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th class="n-t-col-xs-1" data-halign="center" data-align="center" data-sortable="true">'.SessionLog_translate("Nom").'</th>
@@ -92,7 +92,7 @@ echo '
          echo '
             <tr>
                <td class="small">'.$username.'</td>
-               <td class="small">'.$host_addr.'</td>
+               <td class="small">'.urldecode($host_addr).'</td>
                <td class="small">'.gethostbyaddr($host_addr).'</td>
                <td class="small">'.$uri.'</td>
                <td class="small">'.$agent.'</td>
