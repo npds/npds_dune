@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -29,7 +29,7 @@ function HeadlinesAdmin() {
    echo'
    <hr />
    <h3 class="mb-3">'.adm_translate("Liste des Grands Titres de sites de News").'</h3>
-   <table id="tad_headline" data-toggle="table" data-striped="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
+   <table id="tad_headline" data-toggle="table" data-classes="table table-striped table-borderless" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
            <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">'.adm_translate("ID").'</th>
@@ -66,7 +66,7 @@ function HeadlinesAdmin() {
    </table>
    <hr />
    <h3 class="mb-3">'.adm_translate("Nouveau Grand Titre").'</h3>
-   <form id="fad_newheadline" class="" action="admin.php" method="post">
+   <form id="fad_newheadline" action="admin.php" method="post">
       <fieldset>
          <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
@@ -105,19 +105,12 @@ function HeadlinesAdmin() {
          <input type="hidden" name="op" value="HeadlinesAdd" />
       </fieldset>
    </form>';
-   echo '
-   <script type="text/javascript">
-   //<![CDATA[
-         $(document).ready(function() {
-         inpandfieldlen("xsitename",30);
-         inpandfieldlen("url",320);
-         inpandfieldlen("headlinesurl",320);
-      });
-
-   //]]>
-   </script>';
-
-   adminfoot('fv','','','');
+   $arg1='
+      var formulid = ["fad_newheadline"];
+      inpandfieldlen("xsitename",30);
+      inpandfieldlen("url",320);
+      inpandfieldlen("headlinesurl",320);';
+   adminfoot('fv','',$arg1,'');
 }
 
 function HeadlinesEdit($hid) {
@@ -130,7 +123,7 @@ function HeadlinesEdit($hid) {
    echo '
    <hr />
    <h3 class="mb-3">'.adm_translate("Editer paramètres Grand Titre").'</h3>
-   <form action="admin.php" method="post">
+   <form id="fed_headline" action="admin.php" method="post">
       <fieldset>
          <input type="hidden" name="hid" value="'.$hid.'" />
          <div class="mb-3 row">
@@ -158,11 +151,10 @@ function HeadlinesEdit($hid) {
             <label class="col-form-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
             <div class="col-sm-8">
                <select class="form-select" name="status">';
-   if ($status == 1) {
+   if ($status == 1)
       $sel_a = 'selected="selected"';
-   } else {
+   else
       $sel_i = 'selected="selected"';
-   }
    echo '
                   <option name="status" value="1" '.$sel_a.'>'.adm_translate("Actif(s)").'</option>
                   <option name="status" value="0" '.$sel_i.'>'.adm_translate("Inactif(s)").'</option>
@@ -176,17 +168,13 @@ function HeadlinesEdit($hid) {
             </div>
         </div>
       </fieldset>
-   </form>
-   <script type="text/javascript">
-   //<![CDATA[
-      $(document).ready(function() {
-         inpandfieldlen("xsitename",30);
-         inpandfieldlen("url",320);
-         inpandfieldlen("headlinesurl",320);
-      });
-   //]]>
-   </script>';
-   adminfoot('fv','','','');
+   </form>';
+   $arg1='
+      var formulid = ["fed_headline"];
+      inpandfieldlen("xsitename",30);
+      inpandfieldlen("url",320);
+      inpandfieldlen("headlinesurl",320);';
+   adminfoot('fv','',$arg1,'');
 }
 
 function HeadlinesSave($hid, $xsitename, $url, $headlinesurl, $status) {
