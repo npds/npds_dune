@@ -377,7 +377,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
    <form class="my-3" action="viewforum.php" method="post">
       <div class="mb-3 row">
          <div class="col-12">
-            <label class="sr-only" for="forum">'.translate("Sauter à : ").'</label>
+            <label class="visually-hidden" for="forum">'.translate("Sauter à : ").'</label>
             <select class="form-select" name="forum" onchange="submit();">
                <option value="index">'.translate("Sauter à : ").'</option>
                <option value="index">'.translate("Index du forum").'</option>';

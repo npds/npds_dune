@@ -69,7 +69,7 @@ function entete() {
 function pied_depage() {
    global $stage;
    echo '
-         <div class="col-sm-12 text-center"><hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="sr-only">On work...</span></div>
+         <div class="col-sm-12 text-center"><hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="visually-hidden">On work...</span></div>
       </div>
    </body>
 </html>';

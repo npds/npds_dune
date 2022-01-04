@@ -1113,7 +1113,7 @@ if(autorisation(-127) and $geo_ip==1)
    $ecr_scr .='
             $("#ipbox").prop("disabled", false);
             $("#ipbox").prop("checked", false);
-            $("#carrets_ip i").removeClass("fa-caret-down").addClass("sr-only");
+            $("#carrets_ip i").removeClass("fa-caret-down").addClass("visually-hidden");
             ip_cluster.setVisible(false);';
 $ecr_scr .='
          }

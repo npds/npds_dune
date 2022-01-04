@@ -477,7 +477,7 @@ $r_to='';$n_to='';
 <form action="viewforum.php" method="post">
    <div class="mb-3 row">
       <div class="col-12">
-         <label class="sr-only" for="forum">'.translate("Sauter à : ").'</label>
+         <label class="visually-hidden" for="forum">'.translate("Sauter à : ").'</label>
          <select class="form-select" id="forum" name="forum" onchange="submit();">
             <option value="index">'.translate("Sauter à : ").'</option>
             <option value="index">'.translate("Index du forum").'</option>';

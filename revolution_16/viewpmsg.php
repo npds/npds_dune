@@ -51,7 +51,7 @@ include("auth.php");
       <h2><a href="replypmsg.php?send=1" title="'.translate("Ecrire un nouveau message privé").'" data-bs-toggle="tooltip" ><i class="fa fa-edit me-2"></i></a><span class="d-none d-xl-inline">&nbsp;'.translate("Message personnel")." - </span>".translate("Boîte de réception").'</h2>
       <form id="viewpmsg-dossier" action="viewpmsg.php" method="post">
          <div class="mb-3">
-            <label class="sr-only" for="dossier" >'.translate("Sujet").'</label>
+            <label class="visually-hidden" for="dossier" >'.translate("Sujet").'</label>
             <select class="form-select" name="dossier" onchange="document.forms[\'viewpmsg-dossier\'].submit()">
                <option value="...">'.translate("Choisir un dossier/sujet").'...</option>';
       $tempo["..."]=0;

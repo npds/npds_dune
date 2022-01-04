@@ -475,7 +475,7 @@ function searchblock() {
             <input type="hidden" name="addterm" value="any" />
             <input type="hidden" name="sortby" value="0" />
             <div class="">
-               <label class="sr-only" for="term">'.translate('Recherche').'</label>
+               <label class="visually-hidden" for="term">'.translate('Recherche').'</label>
                <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'">
             </div>
             <div class=" ms-2">
