@@ -470,19 +470,16 @@ function undo_htmlspecialchars($input) {
 
 function searchblock() {
    $ibid='
-      <div class="card d-flex flex-row-reverse p-1">
-         <form class="form-inline" id="searchblock" action="searchbb.php" method="post" name="forum_search">
+         <form class="row" id="searchblock" action="searchbb.php" method="post" name="forum_search">
             <input type="hidden" name="addterm" value="any" />
             <input type="hidden" name="sortby" value="0" />
-            <div class="">
-               <label class="visually-hidden" for="term">'.translate('Recherche').'</label>
-               <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'">
+            <div class="col">
+               <div class="form-floating">
+                  <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'" />
+                  <label for="term"><i class="fa fa-search fa-lg me-2"></i>'.translate('Recherche').'</label>
+               </div>
             </div>
-            <div class=" ms-2">
-               <button type="submit" class="btn btn-outline-primary">'.translate("Valider").'</button>
-            </div>
-         </form>
-      </div>';
+         </form>';
    return ($ibid);
 }
 
