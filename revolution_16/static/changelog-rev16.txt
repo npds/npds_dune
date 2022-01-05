@@ -1,8 +1,10 @@
 changelog-rev16.4 [ révision : 46 - jpb /3-01-2022 ]
 (non exhaustif...)
 
+Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes en grande partie à la mise à jour du framework bs, des autres dépendances et des corrections et amélioration de la version précédente. La base de données n'est que très peu impactée, principalement sur des données (... quelques métamots).
+
 - update du framework bootstrap 5
-cette mise à jour entraine de nombreuses modifications (environ 350 fichiers) (du au breaking change : classes (nom et disponibilité) et js (abandon jquery renommage des attributs data-... par data-bs-...))
+ (du au breaking change : classes (nom et disponibilité) et js (abandon jquery renommage des attributs data-... par data-bs-...))
 - update dépendance : 
    formvalidation v.1.9.0 (lié à maj BS)
    colorpicker v.3.4
@@ -13,7 +15,8 @@ cette mise à jour entraine de nombreuses modifications (environ 350 fichiers) (
 bug track :
 - correction du chemin d'accès au fichier langue pour l'aide de l'admin d'upload (typo variable
 - pic manager : correction d'une condition, celle-ci générait une erreur php dans certain cas (plus d'affichage du pic manager)
-- geoloc : correction de la contruction des listes de choix des fonds de carte
+- pic manager, file manager mise en page et changement d'iconographie (bs webfont au lieu de font awesome)
+- geoloc correction : contruction des listes de choix des fonds de carte, remplissage du viewport en fonction de l'extension de la couche.
 - affichage correct des IPV6 dans session log
 
 ################################################################################
