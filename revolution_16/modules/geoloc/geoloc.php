@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
-/* geoloc_geoloc.php file 2008-2021 by Jean Pierre Barbary (jpb)        */
+/* geoloc_geoloc.php file 2008-2022 by Jean Pierre Barbary (jpb)        */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
@@ -297,10 +297,15 @@ while ($row = sql_fetch_array($result)) {
       //construction marker membre on line
       if($mark_typ !==1) $ic_sb_mbgc ='<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse me-1\"></i>';
       else $ic_sb_mbgc ='<img src=\"'.$ch_img.$nm_img_mbcg.'\" /> ';
-      $mb_con_g = $session_host_addr;//$session_host_addr
-      $mbr_geo_on .= '[['.$user_long.','.$user_lat.'], "u'.$users_uid.'","'. addslashes($users_uname) .'","'.$av_ch.'", "'.addslashes($imm).'","'.addslashes($my_rsos[$krs]).'"],';
+      $mb_con_g = $session_host_addr;
+//      $mbr_geo_on .= '[['.$user_long.','.$user_lat.'], "u'.$users_uid.'","'. addslashes($users_uname) .'","'.$av_ch.'", "'.addslashes($imm).'","'.addslashes($my_rsos[$krs]).'"],';
       $sidebaronline .= '';
 
+      $ano_o_conn.= '
+      [['.$user_long.','.$user_lat.'],"'. addslashes($users_uname) .'","'.$session_host_addr.'","'.$ip_visi_pag.'","'.$ip_visite.'","'.$ip_city1.'","'.$ip_country1.'","'.$ch_img.'flags/'.strtolower($ip_code_country1).'","'.@gethostbyaddr($ip_ip1).'","AM","'.$av_ch.'", "'.addslashes($imm).'","'.addslashes($my_rsos[$krs]).'"],';
+      $sidebaronline .= '
+      <a id="a'.$i.'" style="min-height:38px;" class="sb_js sb_ano list-group-item list-group-item-action py-1 px-2 border-left-0 border-right-0 small">'.$ic_b_mbgc.'<span class="ms-2"><span class="float-end">'.addslashes($users_uname).'</span></span></a>';
+      $ac++;
    }
 
    settype($mb_con_ng,'string');
@@ -1126,7 +1131,9 @@ $ecr_scr .='
          if(this.checked) {
             $("#carrets_ac i").removeClass("fa-caret-down visually-hidden").addClass("fa-caret-up");
             con_markers.setVisible(true);
-            view.fit(extcon);
+            console.log(extcon);
+            if(extcon[0] != "Infinity")
+               view.fit(extcon);
             let z = view.getZoom();
             z>14 ? view.setZoom(14) : view.setZoom(z-0.5);
             $("#l_sb_ano").addClass("show");
@@ -1142,7 +1149,8 @@ $ecr_scr .='
          if(this.checked) {
             $("#carrets_mb i").removeClass("fa-caret-down visually-hidden").addClass("fa-caret-up");
             user_markers.setVisible(true);
-            view.fit(extmb);
+            if(extmb[0] != "Infinity")
+               view.fit(extmb);
             let z = view.getZoom();
             z>14 ? view.setZoom(14) : view.setZoom(z-0.5);
             $("#l_sb_member").addClass("show");
