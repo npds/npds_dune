@@ -85,7 +85,7 @@ function email_user() {
             <div class="mb-3 row">
                <label class="col-form-label col-sm-12" for="message">'.adm_translate("Corps de message").'</label>
                <div class="col-sm-12">
-                  <textarea class="tin form-control" rows="25" id="message" name="message" required="required"></textarea>
+                  <textarea class="tin form-control" rows="25" id="message" name="message"></textarea>
                </div>
             </div>';
       echo aff_editeur('AdmMI', '');
