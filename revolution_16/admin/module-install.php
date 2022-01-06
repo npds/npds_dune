@@ -37,8 +37,8 @@ admindroits($aid,$f_meta_nom);
 
 function nmig_copyright() {
    global $ModInstall, $ModDesinstall;
-      $clspin =' text-success';
-      if ($ModInstall == '' && $ModDesinstall != '')
+   $clspin =' text-success';
+   if ($ModInstall == '' && $ModDesinstall != '')
       $clspin =' text-danger';
    $display = '
    <div class="text-center mt-4">
