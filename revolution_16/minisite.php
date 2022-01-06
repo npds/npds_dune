@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -441,12 +441,6 @@ function convert_ressources ($Xcontent) {
          $Xcontent=meta_lang(MNSremoveHack($Xcontent));
          //applique aff_video que sur la partie affichage
          $rupt=strpos($Xcontent, '#v_yt#');
-/*
-         $a=substr($Xcontent, 0, $rupt);
-         $b=aff_video_yt(substr($Xcontent,$rupt+6));
-*/
-
-//echo $a.$b;         
         echo substr($Xcontent, 0, $rupt);
         echo aff_video_yt(substr($Xcontent,$rupt+6));
 
