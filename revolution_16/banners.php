@@ -192,7 +192,6 @@ function bannerstats($login, $pass) {
             <tbody>';
          $result = sql_query("SELECT bid, imptotal, impmade, clicks, date FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
          while (list($bid, $imptotal, $impmade, $clicks, $date) = sql_fetch_row($result)) {
-            $rowcolor = tablos();
             if ($impmade==0) {
                $percent = 0;
             } else {

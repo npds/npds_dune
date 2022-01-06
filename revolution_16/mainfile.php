@@ -3061,16 +3061,6 @@ $content.='<div class="px-1 card card-body d-flex flex-row mt-3 flex-wrap text-c
 
 #autodoc:</Mainfile.php>
 
-#autodoc tablos() : Permet d'alterner entre les CLASS (CSS) LIGNA et LIGNB
-function tablos() {
-   static $colorvalue;
-   if ($colorvalue == "class=\"ligna\"") {
-      $colorvalue="class=\"lignb\"";
-   } else {
-      $colorvalue="class=\"ligna\"";
-   }
-   return ($colorvalue);
-}
 #autodoc theme_image($theme_img) : Retourne le chemin complet si l'image est trouvée dans le répertoire image du thème sinon false
 function theme_image($theme_img) {
     global $theme;

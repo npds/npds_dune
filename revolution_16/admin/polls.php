@@ -149,7 +149,6 @@ function poll_removePoll() {
          <tbody>';
    $result = sql_query("SELECT pollID, pollTitle FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
    while ($object = sql_fetch_assoc($result)) {
-      $rowcolor=tablos();
       echo '
             <tr>
                <td><input type="radio" name="id" value="'.$object['pollID'].'" /></td>
