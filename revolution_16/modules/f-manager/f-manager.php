@@ -944,7 +944,7 @@ while ($obj->NextFile()) {
          }
          if (!$ico_search) {
             if (($obj->FieldView=='jpg') or ($obj->FieldView=='jpeg') or ($obj->FieldView=='gif') or ($obj->FieldView=='png') or ($obj->FieldView=='svg'))
-               $files.="<img src=\"getfile.php?att_id=$ibid&amp;apli=f-manager\" width=\"32\" height=\"32\" />";
+               $files.="<img src=\"getfile.php?att_id=$ibid&amp;apli=f-manager\" width=\"32\" height=\"32\" loading=\"lazy\" />";
             else {
                if (isset($att_icons[$obj->FieldView]))
                   $files.=$att_icons[$obj->FieldView];

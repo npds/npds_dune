@@ -355,7 +355,7 @@ if ($Max_thumb>0) {
                         $files.= $imagette;
                      else
                         $files.= $ibid;
-                     $files.="&amp;apli=f-manager\" border=\"0\" width=\"$w_i\" height=\"$h_i\" alt=\"$obj->FieldName\" /></a>\n";
+                     $files.="&amp;apli=f-manager\" border=\"0\" width=\"$w_i\" height=\"$h_i\" alt=\"$obj->FieldName\" loading=\"lazy\"/ ></a>\n";
                      $files.='
                      </div>';
                   break;
