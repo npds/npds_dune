@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -34,54 +34,46 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
       adminhead($f_meta_nom, $f_titre, $adminimg);
    echo'
    <hr />
-   <h3 mb-3>'.adm_translate("Paramètres").'</h3>
-   <form id="archiveadm" class="form-horizontal" action="admin.php" method="post">
-      <fieldset>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="arch_titre">'.adm_translate("Titre de la page").'</label>
-            <div class="col-sm-8">
-               <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" rows="5" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
-               <span class="help-block text-end"><span id="countcar_arch_titre"></span></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="arch">'.adm_translate("Affichage").'</label>
-            <div class="col-sm-8">
-               <select class="form-select" name="arch">';
+   <h3 class="mb-3">'.adm_translate("Paramètres").'</h3>
+   <form id="archiveadm" action="admin.php" method="post">
+      <div class="form-floating mb-3">
+         <textarea id="arch_titre" class="form-control" type="text" name="arch_titre"  maxlength="400" style="height: 100px" placeholder="'.adm_translate("Titre de votre page").'" >'.$arch_titre.'</textarea>
+         <label for="arch_titre">'.adm_translate("Titre de la page").'</label>
+      </div>
+      <span class="help-block text-end"><span id="countcar_arch_titre"></span></span>
+      <div class="form-floating mb-3">
+         <select class="form-select" name="arch">';
    if ($arch == 1)
       $sel_a = 'selected="selected"';
    else
       $sel_i = 'selected="selected"';
    echo '
-                  <option name="status" value="1" '.$sel_a.'>'.adm_translate("Les articles en archive").'</option>
-                  <option name="status" value="0" '.$sel_i.'>'.adm_translate("Les articles en ligne").'</option>
-               </select>
+            <option name="status" value="1" '.$sel_a.'>'.adm_translate("Les articles en archive").'</option>
+            <option name="status" value="0" '.$sel_i.'>'.adm_translate("Les articles en ligne").'</option>
+         </select>
+         <label for="arch">'.adm_translate("Affichage").'</label>
+      </div>
+      <div class="row g-2">
+         <div class="col-sm-6">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="text" id="maxcount" name="maxcount" value="'.$maxcount.'" min="0" max="500" maxlength="3" required="required" />
+               <label for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="maxcount">'.adm_translate("Nombre d'article par page").'</label>
-            <div class="col-sm-8">
-              <input class="form-control" type="text" id="maxcount" name="maxcount" value="'.$maxcount.'" min="0" max="500" maxlength="3" required="required" />
+         <div class="col-sm-6">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="text" id="retcache" name="retcache" value="'.$retcache.'" min="0" maxlength="7" required="required" />
+               <label for="retcache">'.adm_translate("Rétention").'</label>
             </div>
+            <span class="help-block text-end">'.adm_translate("Temps de rétention en secondes").'</span>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="retcache">'.adm_translate("Rétention").'</label>
-            <div class="col-sm-8">
-              <input class="form-control" type="text" id="retcache" name="retcache" value="'.$retcache.'" min="0" maxlength="7" required="required" />
-               <span class="help-block text-end">'.adm_translate("Temps de rétention en secondes").'</span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <div class="col-sm-8 ms-sm-auto">
-               <button class="btn btn-primary col-12" type="submit">'.adm_translate("Sauver").'</button>
-               <input type="hidden" name="op" value="Extend-Admin-SubModule" />
-               <input type="hidden" name="ModPath" value="'.$ModPath.'" />
-               <input type="hidden" name="ModStart" value="'.$ModStart.'" />
-               <input type="hidden" name="subop" value="SaveSetArchive_stories" />
-               <input type="hidden" name="adm_img_mod" value="1" />
-            </div>
-         </div>
-      </fieldset>
+      </div>
+      <input type="hidden" name="op" value="Extend-Admin-SubModule" />
+      <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+      <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+      <input type="hidden" name="subop" value="SaveSetArchive_stories" />
+      <input type="hidden" name="adm_img_mod" value="1" />
+      <button class="btn btn-primary" type="submit">'.adm_translate("Sauver").'</button>
    </form>
    <hr />
    <a href= "modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModPath.'" ><i class="fas fa-external-link-alt fa-lg me-1" title="Voir le module en mode utilisation." data-bs-toggle="tooltip" data-bs-placement="right"></i>Voir le module en mode utilisation.</a>';
@@ -146,7 +138,7 @@ function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPa
    fwrite($file, $content);
    fclose($file);
    @chmod("modules/$ModPath/archive-stories.conf.php",0666);
-   
+
    $file = fopen("modules/$ModPath/cache.timings.php", "w");
    $content = "<?php \n";
    $content .= "/************************************************************************/\n";
