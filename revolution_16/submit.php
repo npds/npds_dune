@@ -58,7 +58,7 @@ function defaultDisplay() {
    }
    echo '
       <div class="mb-3 row">
-         <label class="col-form-label col-sm-3" for="subject">'.translate("Titre").' </label>
+         <label class="col-form-label col-sm-3" for="subject">'.translate("Titre").'</label>
          <div class="col-sm-9">
             <input type="text" id="subject" name="subject" class="form-control" autofocus="autofocus">
             <p class="help-block">'.translate ("Faites simple").'! '.translate("Mais ne titrez pas -un article-, ou -à lire-,...").'</p>
