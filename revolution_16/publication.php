@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Sur une idée originale de PSTL                                       */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -54,25 +54,31 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
 
    if($dd_pub!=-1 and $dh_pub!=-1)
       echo '
-   <div class="form-row">
-      <label class="col-form-label col-sm-4">'.translate("Date de publication").'</label>
-      <div class="col-sm-5 mb-3">
+   <div class="row mb-3">
+      <div class="col-sm-5 mb-2">
+         <label class="form-label" for="dd_pub">'.translate("Date de publication").'</label>
          <input type="text" class="form-control flatpi" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" />
       </div>
-      <div class="input-group col-sm-3 mb-3">
-         <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
-         <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
+      <div class="col-sm-3 mb-2">
+         <label class="form-label" for="dh_pub">'.translate("Heure").'</label>
+         <div class="input-group">
+            <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
+            <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
+         </div>
       </div>
    </div>';
    echo '
-   <div class="form-row">
-      <label class="col-form-label col-sm-4">'.translate("Date de fin de publication").'</label>
-      <div class="col-sm-5 mb-3">
+   <div class="row mb-3">
+      <div class="col-sm-5 mb-2">
+         <label class="form-label" for="fd_pub">'.translate("Date de fin de publication").'</label>
          <input type="text" class="form-control flatpi" id="fd_pub" name="fd_pub" value="'.$fd_pub.'" />
       </div>
-      <div class="input-group col-sm-3 mb-3">
-         <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
-         <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
+      <div class="col-sm-3 mb-2">
+         <label class="form-label" for="fh_pub">'.translate("Heure").'</label>
+         <div class="input-group">
+            <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
+            <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
+         </div>
       </div>
    </div>
    <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
@@ -84,9 +90,9 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
          $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
          $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/css/bootstrap-clockpicker.min.css"});
          $("#dh_pub,#fh_pub").clockpicker({
-         placement: "bottom",
-         align: "right",
-         autoclose: "true"
+            placement: "bottom",
+            align: "right",
+            autoclose: "true"
          });
       })
       const fp = flatpickr(".flatpi", {
@@ -99,7 +105,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    </script>
 
    <div class="mb-3 row">
-      <label class="col-form-label col-sm-4">'.translate("Epuration de la new à la fin de sa date de validité").'</label>';
+      <label class="col-form-label">'.translate("Epuration de la new à la fin de sa date de validité").'</label>';
       $sel1=''; $sel2='';
       if (!$epur) $sel2='checked="checked"';
       else $sel1='checked="checked"';
