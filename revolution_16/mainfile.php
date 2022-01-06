@@ -1309,22 +1309,16 @@ function oneblock($Xid, $Xblock) {
 #autodoc Pre_fab_block($Xid, $Xblock) : Assure la fabrication d'un ou de tous les blocs Gauche et Droite
 function Pre_fab_block($Xid, $Xblock) {
     global $NPDS_Prefix, $htvar; // modif Jireck
-    if ($Xid) {
-      if ($Xblock=='RB')
-         $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks WHERE id='$Xid'");
-      else
-         $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks WHERE id='$Xid'");
-    } else {
-      if ($Xblock=='RB')
-         $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks ORDER BY Rindex ASC");
-      else
-         $result = sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks ORDER BY Lindex ASC");
-    }
-    global $bloc_side;
-    if ($Xblock=='RB')
-      $bloc_side='RIGHT';
+    if ($Xid)
+      $result = $Xblock=='RB' ?
+         sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks WHERE id='$Xid'"):
+         sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks WHERE id='$Xid'");
     else
-      $bloc_side='LEFT';
+      $result = $Xblock=='RB' ?
+         sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."rblocks ORDER BY Rindex ASC"):
+         sql_query("SELECT title, content, member, cache, actif, id, css FROM ".$NPDS_Prefix."lblocks ORDER BY Lindex ASC");
+    global $bloc_side;
+    $bloc_side = $Xblock=='RB' ? 'RIGHT' : 'LEFT';
     while (list($title, $content, $member, $cache, $actif, $id, $css)=sql_fetch_row($result)) {
       if (($actif) or ($Xid)) {
          if ($css==1){
@@ -1811,7 +1805,7 @@ function preg_anti_spam($ibid) {
 #autodoc anti_spam($str [, $highcode]) : Encode une chaine en mélangeant caractères normaux, codes décimaux et hexa. Si $highcode == 1, utilise également le codage ASCII (compatible uniquement avec des mailto et des URL, pas pour affichage)
 function anti_spam($str, $highcode = 0) {
    // Idée originale : Pomme (2004). Nouvelle version : David MARTINET alias Boris (2011)
-   $str_encoded = "";  
+   $str_encoded = "";
    mt_srand((double)microtime()*1000000);
    for($i = 0; $i < strlen($str); $i++) {
       if ($highcode==1) {
@@ -1822,22 +1816,12 @@ function anti_spam($str, $highcode = 0) {
          $modulo=3;
       }
       switch (($alea % $modulo)) {
-         case 0: 
-            $str_encoded.=$str[$i];
-            break;  
-         case 1: 
-            $str_encoded.="&#".ord($str[$i]).";";
-            break;  
-         case 2: 
-            $str_encoded.="&#x".bin2hex($str[$i]).";";
-            break;  
-         case 3: 
-            $str_encoded.="%".bin2hex($str[$i])."";
-            break;  
-         default: 
-            $str_encoded="Error";
-            break;  
-      }  
+         case 0: $str_encoded.=$str[$i]; break;
+         case 1: $str_encoded.="&#".ord($str[$i]).";"; break;
+         case 2: $str_encoded.="&#x".bin2hex($str[$i]).";"; break;
+         case 3: $str_encoded.="%".bin2hex($str[$i]).""; break;
+         default: $str_encoded="Error"; break;
+      }
    }
    return $str_encoded;
 }
@@ -1872,12 +1856,8 @@ function aff_editeur($Xzone, $Xactiv) {
             }
          } else
             $tmp.='<script type="text/javascript" src="editeur/tinymce/tinymce.min.js"></script>';
-      } else {
-         if ($Xzone!='custom')
-            $tmp_Xzone.=$Xzone.',';
-         else
-            $tmp_Xzone.=$Xactiv.',';
-      }
+      } else
+         $tmp_Xzone.= $Xzone!='custom' ? $Xzone.',' : $Xactiv.',';
    } else
       $tmp='';
    return ($tmp);
