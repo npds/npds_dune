@@ -690,40 +690,37 @@ function main($user) {
       include("header.php");
       echo '<h2>'.translate("Utilisateur").'</h2>';
       if ($stop==99)
-         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Vous n'êtes pas encore autorisé à vous connecter.").'</p>';
+         echo '<p class="alert alert-danger"><i class="fa fa-exclamation me-2"></i>'.translate("Vous n'êtes pas encore autorisé à vous connecter.").'</p>';
       elseif ($stop)
-         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Identifiant incorrect !").'</p>';
+         echo '<p class="alert alert-danger"><i class="fa fa-exclamation me-2"></i>'.translate("Identifiant incorrect !").'<br />'.translate("ou").'<br /><i class="fa fa-exclamation me-2"></i>'.translate("Mot de passe erroné, refaites un essai.").'</p>';
       if (!$user) {
          echo '
          <div class="card card-body mb-3">
             <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("Nouveau membre").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("Nouveau membre").'</a></h3>
          </div>
-          <div class="card card-body">
-          <h3><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connexion").'</h3>
-          <form action="user.php" method="post" name="userlogin">
-             <div class="mb-3 row">
-               <label for="inputuser" class="col-form-label col-sm-4">'.translate("Identifiant").'</label>
-               <div class="col-sm-8">
-                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
+         <div class="card card-body">
+            <h3 class="mb-4"><i class="fas fa-sign-in-alt fa-lg me-2 align-middle"></i>'.translate("Connexion").'</h3>
+            <form action="user.php" method="post" name="userlogin">
+               <div class="row g-2">
+                  <div class="col-sm-6">
+                     <div class="mb-3 form-floating">
+                        <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
+                        <label for="inputuser">'.translate("Identifiant").'</label>
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="mb-0 form-floating">
+                        <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Mot de passe").'" required="required" />
+                        <label for="inputPassuser">'.translate("Mot de passe").'</label>
+                     </div>
+                     <span class="help-block small float-end"><a href="user.php?op=forgetpassword" title="'.translate("Vous avez perdu votre mot de passe ?").'">'.translate("Vous avez perdu votre mot de passe ?").'</a></span>
+                  </div>
                </div>
-            </div>
-            <div class="mb-3 row">
-               <label for="inputPassuser" class="col-form-label col-sm-4">'.translate("Mot de passe").'</label>
-               <div class="col-sm-8">
-                  <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Mot de passe").'" required="required" />
-                  <span class="help-block small"><a href="user.php?op=forgetpassword" title="'.translate("Vous avez perdu votre mot de passe ?").'">'.translate("Vous avez perdu votre mot de passe ?").'</a></span>
-               </div>
-            </div>
-            <input type="hidden" name="op" value="login" />
-            <div class="mb-3 row">
-               <div class="col-sm-8 ms-sm-auto">
-                  <button class="btn btn-primary" type="submit" title="'.translate("Valider").'">'.translate("Valider").'</button>
-               </div>
-            </div>
-         </form>
-         </div>';
-
-          echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.userlogin.uname.focus();\n//]]>\n</script>";
+               <input type="hidden" name="op" value="login" />
+               <button class="btn btn-primary btn-lg" type="submit" title="'.translate("Valider").'">'.translate("Valider").'</button>
+            </form>
+         </div>
+         <script type="text/javascript">//<![CDATA[document.userlogin.uname.focus();//]]></script>';
 
          // include externe file from modules/include for functions, codes ...
          if (file_exists("modules/include/user.inc"))
@@ -752,35 +749,29 @@ function ForgetPassword() {
    echo '
    <h2 class="mb-3">'.translate("Utilisateur").'</h2>
    <div class="card card-body">
-   <div  class="alert alert-danger text-center">'.translate("Vous avez perdu votre mot de passe ?").'</div>
-   <div  class="alert alert-success text-center">'.translate("Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.").'</div>
-   <form id="forgetpassword" action="user.php" method="post">
-      <div class="mb-3 row">
-         <label for="inputuser" class="col-sm-3 col-form-label">'.translate("Identifiant").'</label>
-         <div class="col-sm-9">
-            <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
-         </div>
-      </div>
-      <div class="mb-3 row">
-         <label for="inputpassuser" class="col-sm-3 col-form-label">'.translate("Mot de passe").'</label>
-         <div class="col-sm-9">
-            <input type="password" class="form-control" name="code" id="inputpassuser" placeholder="'.translate("Mot de passe").'" required="required" />
-         </div>
-      </div>
-      <div class="mb-3 row">
-         <div class="col-sm-9 ms-sm-auto" >
-            <div class="progress" style="height: 0.2rem;">
-               <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+      <div class="alert alert-danger lead"><i class="fa fa-exclamation me-2"></i>'.translate("Vous avez perdu votre mot de passe ?").'</div>
+      <div class="alert alert-success"><i class="fa fa-exclamation me-2"></i>'.translate("Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.").'</div>
+      <form id="forgetpassword" action="user.php" method="post">
+         <div class="row g-2">
+            <div class="col-sm-6 ">
+               <div class="mb-3 form-floating">
+                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
+                  <label for="inputuser">'.translate("Identifiant").'</label>
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <div class="mb-3 form-floating">
+                  <input type="password" class="form-control" name="code" id="inputpassuser" placeholder="'.translate("Mot de passe").'" required="required" />
+                  <label for="inputpassuser">'.translate("Mot de passe").'</label>
+               </div>
+               <div class="progress" style="height: 0.4rem;">
+                  <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+               </div>
             </div>
          </div>
-      </div>
-      <input type="hidden" name="op" value="mailpasswd" />
-      <div class="mb-3 row">
-         <div class="col-sm-9 ms-sm-auto">
-            <input class="btn btn-primary" type="submit" value ="'.translate("Envoyer").'" />
-         </div>
-      </div>
-   </form>
+         <input type="hidden" name="op" value="mailpasswd" />
+         <input class="btn btn-primary btn-lg my-3" type="submit" value ="'.translate("Envoyer").'" />
+      </form>
    </div>';
    $fv_parametres ='
       code: {
