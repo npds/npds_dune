@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -36,35 +36,6 @@ function message_pass($ibid) {
    include("header.php");
    echo $ibid;
    include("footer.php");
-}
-
-function nav($mns) {
-   global $op;
-   $ed_u='';$ed_j='';$ed_h='';$ch_t='';
-   if($op=='edituser') $ed_u='active';
-   if($op=='editjournal') $ed_j='active';
-   if($op=='edithome') $ed_h='active';
-   if($op=='chgtheme') $ch_t='active';
-
-   echo '
-   <ul class="nav nav-tabs d-flex flex-wrap"> 
-      <li class="nav-item"><a class="nav-link '.$ed_u.'" href="user.php?op=edituser" title="'.translate("Vous").'" data-bs-toggle="tooltip" ><i class="fas fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Vous").'</span></a></li>
-      <li class="nav-item"><a class="nav-link '.$ed_j.' " href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" data-bs-toggle="tooltip"><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
-   include ("modules/upload/upload.conf.php");
-   if (($mns) and ($autorise_upload_p)) {
-      include ("modules/blog/upload_minisite.php");
-      $PopUp=win_upload("popup");
-      echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Gérer votre miniSite").'"  data-bs-toggle="tooltip"><i class="fas fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Gérer votre miniSite").'</span></a></li>';
-   }
-   echo '
-      <li class="nav-item"><a class="nav-link '.$ed_h.'" href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" data-bs-toggle="tooltip" ><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
-      <li class="nav-item"><a class="nav-link '.$ch_t.'" href="user.php?op=chgtheme" title="'.translate("Changer le thème").'"  data-bs-toggle="tooltip" ><i class="fas fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Thème").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'"  data-bs-toggle="tooltip" ><i class="fas fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Réseaux sociaux").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Message personnel").'"  data-bs-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Déconnexion").'" data-bs-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Déconnexion").'</span></a></li>
-   </ul>
-   <div class="mt-3"></div>';
 }
 
 function userCheck($uname, $email) {
@@ -421,7 +392,7 @@ function userinfo($uname) {
    if ($posterdata['url']!='')
       $useroutils .= '<a class=" text-primary me-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['mns'])
-       $useroutils .= '<a class=" text-primary me-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
+       $useroutils .= '<a class=" text-primary me-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
 
    echo '
    <div class="d-flex flex-row flex-wrap">
@@ -440,7 +411,7 @@ function userinfo($uname) {
    <hr />';
 
    if ($uname == $cookie[1])
-      nav($mns);
+      member_menu($mns,$uname);
 
    include('modules/geoloc/geoloc.conf'); 
    echo '
@@ -457,7 +428,7 @@ function userinfo($uname) {
    echo '
          </div>';
 
-   //==> openlayers implementation
+   //==> geoloc
    if(array_key_exists($ch_lat, $posterdata_extend) and array_key_exists($ch_lon, $posterdata_extend))
       if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
          $content = '';
@@ -572,7 +543,7 @@ function userinfo($uname) {
          $content = aff_langue($content);
          echo $content;
    }
-   //<== openlayers implementation
+   //<== geoloc
 
    echo '
       </div>
@@ -968,7 +939,7 @@ function edituser() {
    global $NPDS_Prefix, $user, $smilies, $short_user, $subscribe, $member_invisible, $avatar_size;
    include("header.php");
    $userinfo=getusrinfo($user);
-   nav($userinfo['mns']);
+   member_menu($userinfo['mns'],$userinfo['uname']);
 
    global $C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2,$B1;
    $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='".$userinfo['uid']."'");
@@ -1111,10 +1082,9 @@ function edithome() {
    global $user, $Default_Theme, $Default_skin;
    include ("header.php");
    $userinfo=getusrinfo($user);
-   nav($userinfo['mns']);
-   if ($userinfo['theme']=='') {
+   member_menu($userinfo['mns'],$userinfo['uname']);
+   if ($userinfo['theme']=='')
       $userinfo['theme'] = "$Default_Theme+$Default_skin";
-   }
    echo '
    <h2 class="mb-3">'.translate("Editer votre page principale").'</h2>
    <form id="changehome" action="user.php" method="post">
@@ -1197,40 +1167,37 @@ function chgtheme() {
    global $user;
    include ("header.php");
    $userinfo=getusrinfo($user);
-   
-   // nouvel version de la gestion des Themes et Skins
    $ibid=explode('+', $userinfo['theme']);
    $theme=$ibid[0];
    if (array_key_exists(1, $ibid)) $skin=$ibid[1]; else $skin='';
-
-   nav($userinfo['mns']);
+   member_menu($userinfo['mns'],$userinfo['uname']);
    echo '
-   <h2>'.translate("Changer le thème").'</h2>
-   <form role="form" action="user.php" method="post">
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-5" for="theme_local">'.translate("Sélectionnez un thème d'affichage").'</label>
-         <div class="col-sm-7">
-            <select class="form-select" id="theme_local" name="theme_local">';
+   <h2 class="mb-3">'.translate("Changer le thème").'</h2>
+   <form action="user.php" method="post">
+      <div class="row">
+         <div class="col-md-6">
+            <div class="mb-3 form-floating">
+               <select class="form-select" id="theme_local" name="theme_local">';
    include("themes/list.php");
    $themelist = explode(' ', $themelist);
    $thl= sizeof($themelist);
    for ($i=0; $i < $thl; $i++) {
       if ($themelist[$i]!='') {
          echo '
-               <option value="'.$themelist[$i].'" ';
+                  <option value="'.$themelist[$i].'" ';
          if ((($theme=='') && ($themelist[$i]==$Default_Theme)) || ($theme==$themelist[$i])) echo 'selected="selected"';
          echo '>'.$themelist[$i].'</option>';
       }
    }
    echo '
-            </select>
-            <p class="help-block">
+               </select>
+               <label for="theme_local">'.translate("Sélectionnez un thème d'affichage").'</label>
+            </div>
+            <p class="help-block mb-4">
                <span>'.translate("Cette option changera l'aspect du site.").'</span> 
                <span>'.translate("Les modifications seront seulement valides pour vous.").'</span> 
                <span>'.translate("Chaque utilisateur peut voir le site avec un thème graphique différent.").'</span>
-            </p>
-         </div>
-      </div>';
+            </p>';
 
    $handle=opendir('themes/_skins');
    while (false!==($file = readdir($handle))) {
@@ -1241,32 +1208,28 @@ function chgtheme() {
    closedir($handle);
    asort($skins);
       echo '
-      <div class="mb-3 row" id="skin_choice">
-         <label class="col-form-label col-sm-5" for="skins">'.translate("Choisir une charte graphique").'</label>
-         <div class="col-sm-7">
-            <select class="form-select" id="skins" name="skins">';
+            <div class="mb-3 form-floating" id="skin_choice">
+               <select class="form-select" id="skins" name="skins">';
    foreach ($skins as $k => $v) {
       echo '
-               <option value="'.$skins[$k]['name'].'" ';
+                  <option value="'.$skins[$k]['name'].'" ';
       if ($skins[$k]['name'] == $skin) echo 'selected="selected"';
       else if($skin=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
       echo '>'.$skins[$k]['name'].'</option>';
    }
       echo '
-            </select>
+               </select>
+               <label for="skins">'.translate("Choisir une charte graphique").'</label>
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div id="skin_thumbnail"></div>
          </div>
       </div>
-      <div class="mb-3 row">
-         <div id="skin_thumbnail" class="col-sm-7 ms-sm-auto"></div>
-      </div>
-      <div class="mb-3 row">
-         <div class="col-sm-7 ms-sm-auto">
-            <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
-            <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
-            <input type="hidden" name="op" value="savetheme" />
-            <input class="btn btn-primary" type="submit" value="'.translate("Sauver les modifications").'" />
-         </div>
-      </div>
+      <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
+      <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
+      <input type="hidden" name="op" value="savetheme" />
+      <input class="btn btn-primary my-3" type="submit" value="'.translate("Sauver les modifications").'" />
    </form>
    <script type="text/javascript">
    //<![CDATA[
@@ -1293,11 +1256,9 @@ function chgtheme() {
 
 function savetheme($uid, $theme) {
    global $NPDS_Prefix, $user;
-     
    $cookie=cookiedecode($user);
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($vuid) = sql_fetch_row($result);
-   
    if ($uid == $vuid) {
       sql_query("UPDATE ".$NPDS_Prefix."users SET theme='$theme' WHERE uid='$uid'");
       $userinfo=getusrinfo($user);
@@ -1314,7 +1275,7 @@ function editjournal(){
    global $user;
    include("header.php");
    $userinfo=getusrinfo($user);
-   nav($userinfo['mns']);
+   member_menu($userinfo['mns'],$userinfo['uname']);
    echo '
    <h2 class="mb-3">'.translate("Editer votre journal").'</h2>
    <form action="user.php" method="post" name="adminForm">
@@ -1358,14 +1319,12 @@ function savejournal($uid, $journal, $datetime){
          global $gmt;
          $journalentry .= date(translate("dateinternal"),time()+((integer)$gmt*3600));
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journalentry' WHERE uid='$uid'");
-      } else {
+      } else
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journal' WHERE uid='$uid'");
-      }
       $userinfo=getusrinfo($user);
       Header("Location: user.php");
-   } else {
+   } else
       Header("Location: index.php");
-   }
 }
 
 settype($op,'string');
@@ -1443,9 +1402,8 @@ switch ($op) {
          settype($user_lnl,'integer');
          settype($raz_avatar,'integer');
          saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar);
-      } else {
+      } else
          Header("Location: user.php");
-      }
    break;
    case 'edithome':
       if ($user)
