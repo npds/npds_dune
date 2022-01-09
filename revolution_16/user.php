@@ -938,9 +938,9 @@ function login($uname, $pass) {
 function edituser() {
    global $NPDS_Prefix, $user, $smilies, $short_user, $subscribe, $member_invisible, $avatar_size;
    include("header.php");
+   include_once('functions.php');
    $userinfo=getusrinfo($user);
    member_menu($userinfo['mns'],$userinfo['uname']);
-
    global $C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2,$B1;
    $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='".$userinfo['uid']."'");
    list($C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2, $B1) = sql_fetch_row($result);
@@ -1081,6 +1081,7 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
 function edithome() {
    global $user, $Default_Theme, $Default_skin;
    include ("header.php");
+   include_once('functions.php');
    $userinfo=getusrinfo($user);
    member_menu($userinfo['mns'],$userinfo['uname']);
    if ($userinfo['theme']=='')
@@ -1166,6 +1167,7 @@ function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
 function chgtheme() {
    global $user;
    include ("header.php");
+   include_once('functions.php');
    $userinfo=getusrinfo($user);
    $ibid=explode('+', $userinfo['theme']);
    $theme=$ibid[0];
@@ -1274,6 +1276,7 @@ function savetheme($uid, $theme) {
 function editjournal(){
    global $user;
    include("header.php");
+   include_once('functions.php');
    $userinfo=getusrinfo($user);
    member_menu($userinfo['mns'],$userinfo['uname']);
    echo '
