@@ -1,7 +1,9 @@
 <?php
-   global $cookie, $anonymous, $NPDS_Prefix, $mns, $Default_Skin;
-   $con='';$ava='';$cha='';$bal='';$menuser='';
+   global $cookie, $anonymous, $NPDS_Prefix, $Default_Skin;
+   $ava='';$cha='';$bal='';$menuser='';
    if ($user) {
+      include_once('functions.php');
+      $userdata = get_userdata_from_id($cookie[0]);
       $username = $cookie[1];
       $ibix=explode('+', urldecode($cookie[9]));
       $skinname = array_key_exists(1, $ibix) ? $ibix[1] : "default";
@@ -27,32 +29,34 @@
          $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
       break;
       default :
-         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti yeren default
+         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti default
       break;
    }
 
    if (!isset($powerpack)) include_once ("powerpack.php");
 
    if (autorisation(-1)) {
-      $con = '!nb_online! - <a href="user.php">Se connecter</a>';
-      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connexion").'</a>';
-      $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-4x text-muted"></i></a>';
-   } elseif (autorisation(1)) {
+      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fas fa-sign-in-alt fa-lg me-2 align-middle"></i>'.translate("Connexion").'</a>';
+      $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-3x text-muted"></i></a>';
+   }
+   elseif (autorisation(1)) {
+      list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      $cl = $nbmes>0 ? ' faa-shake animated ' : '';
       $menuser .='
-                  <li><a class="dropdown-item" href="user.php?op=edituser" title="'.translate("Vous").'"  ><i class="fa fa-user fa-lg me-2"></i>'.translate("Vous").'</a></li>
+                  <li><a class="dropdown-item" href="user.php?op=edituser" title="'.translate("Vous").'"  ><i class="fa fa-user-edit fa-lg me-2"></i>'.translate("Vous").'</a></li>
                   <li><a class="dropdown-item" href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" ><i class="fa fa-edit fa-lg me-2"></i>'.translate("Journal").'</a></li>';
       include_once ("modules/upload/upload.conf.php");
-      if (($mns) and ($autorise_upload_p)) {
-         include ("modules/blog/upload_minisite.php");
-         $PopUp=win_upload("popup");
+      if (($userdata['mns']) and ($autorise_upload_p)) {
+         include_once ("modules/blog/upload_minisite.php");
+         $Pop=win_upload("popup");
          $menuser .= '
-                  <li><a class="dropdown-item" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Gérer votre miniSite").'"><i class="fa fa-desktop fa-lg me-2"></i>'.translate("MiniSite").'</a></li>';
+                  <li><a class="dropdown-item" href="javascript:void(0);" onclick="window.open('.$Pop.')" title="'.translate("Gérer votre miniSite").'"><i class="fa fa-desktop fa-lg me-2"></i>'.translate("MiniSite").'</a></li>';
       }
       $menuser .= '
                   <li><a class="dropdown-item " href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" ><i class="fa fa-edit fa-lg me-2 "></i>'.translate("Page").'</a></li>
                   <li><a class="dropdown-item " href="user.php?op=chgtheme" title="'.translate("Changer le thème").'" ><i class="fa fa-paint-brush fa-lg me-2"></i>'.translate("Thème").'</a></li>
                   <li><a class="dropdown-item " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'" ><i class="fa fa-share-alt-square fa-lg me-2"></i>'.translate("Réseaux sociaux").'</a></li>
-                  <li><a class="dropdown-item " href="viewpmsg.php" title="'.translate("Message personnel").'" ><i class="fa fa-envelope fa-lg me-2"></i>'.translate("Message").'</a></li>';
+                  <li><a class="dropdown-item " href="viewpmsg.php" title="'.translate("Message personnel").'" ><i class="fa fa-envelope fa-lg me-2 '.$cl.'"></i>'.translate("Message").'</a></li>';
       settype($cookie[0], 'integer');
       list($user_avatar)=sql_fetch_row(sql_query("SELECT user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
@@ -65,12 +69,11 @@
          if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
 
-      list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
       if ($nbmes>0)
-         $bal = '<li class="nav-item"><a class="nav-link" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("Message personnel").' <span class=\'rounded-pill bg-danger ms-2\'>'.$nbmes.'</span>" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right"></i></a></li>';
+         $bal = '<li class="nav-item"><a class="nav-link" href="viewpmsg.php"><i class="fa fa-envelope fs-4 faa-shake animated" title="'.translate("Message personnel").' <span class=\'badge rounded-pill bg-danger ms-2\'>'.$nbmes.'</span>" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right"></i></a></li>';
 
-      $ava='<a class="dropdown-item" href="user.php" ><img src="'.$imgtmp.'" width="64" height="64" alt="avatar" title="'.translate("Votre compte").'" data-bs-toggle="tooltip" data-bs-placement="right" /></a><li class="dropdown-divider"></li>';
-      $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fas fa-sign-out-alt fa-lg text-danger"></i>'.translate("Déconnexion").'</a>';
+      $ava='<a class="dropdown-item" href="user.php" ><img src="'.$imgtmp.'" class="n-ava-64" alt="avatar" title="'.translate("Votre compte").'" data-bs-toggle="tooltip" data-bs-placement="right" /></a><li class="dropdown-divider"></li>';
+      $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fas fa-sign-out-alt fa-lg text-danger me-2"></i>'.translate("Déconnexion").'</a>';
    }
 ?>
 
