@@ -323,7 +323,7 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
             trigger: new FormValidation.plugins.Trigger(),
             submitButton: new FormValidation.plugins.SubmitButton(),
             defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-            bootstrap: new FormValidation.plugins.Bootstrap5(),
+            bootstrap5: new FormValidation.plugins.Bootstrap5({rowSelector: ".mb-3"}),
             icon: new FormValidation.plugins.Icon({
                valid: "fa fa-check",
                invalid: "fa fa-times",
