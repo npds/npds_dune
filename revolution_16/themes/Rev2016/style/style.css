@@ -710,12 +710,6 @@ ui-menu-item-wrapper {
    top: 9px;
    right: 35px;
 }
-/*ajustement des icones etat form validation en attente update du plugin*/
-.fv-form-bootstrap4 .form-group.row .fv-control-feedback {
-  position: absolute;
-  display: inline-block;
-  right: 45px;
-}
 
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */

@@ -165,38 +165,6 @@ ul.dropdown-menu {
   position: relative;
 }
 
-/* forum deco des cadres */
-.card.fo:after, .card.fo:before {
-  right: 100%;
-  top: 31px;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-.card.fo:after {
-  border-color: rgba(245, 245, 245, 0);
-  border-right-color: #F5F5F5;
-  border-width: 17px;
-  margin-top: -17px;
-  }
-.card.fo:before {
-  border-color: rgba(229, 229, 229, 0);
-  border-right-color: #E5E5E5;
-  border-width: 18px;
-  margin-top: -18px;
-}
-.card.fo .card-header {
-  height:63px;
-}
-
-.fo-usertool {
-  position:relative;
-  bottom:10px;
-}
-
 /*des blocs avec moins de padding*/
 .card-block-small {
   padding:0.4rem;
@@ -222,24 +190,24 @@ ul.dropdown-menu {
 .fa {text-shadow:2px 2px 4px #d9d9d9;}
 */
 
-/* ==> Personalisation (opacité & couleur) des tooltips bootstrap V4 */
+/* ==> Personalisation (opacité & couleur) des tooltips bootstrap V5 */
 .tooltip.show {} /* opacité default 0.9 */
 .tooltip-inner {
   background-color: #484848;
 }
-.tooltip.bs-tooltip-top .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+.tooltip.bs-tooltip-top .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="top"] .tooltip-arrow::before {
   border-top-color: #484848;
 }
-.tooltip.bs-tooltip-right .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="right"] .arrow::before {
+.tooltip.bs-tooltip-end .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="right"] .tooltip-arrow::before {
   border-right-color: #484848;
 }
-.tooltip.bs-tooltip-bottom .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="bottom"] .tooltip-arrow::before {
   border-bottom-color: #484848;
 }
-.tooltip.bs-tooltip-left .arrow::before, .tooltip.bs-tooltip-auto[x-placement^="left"] .arrow::before {
+.tooltip.bs-tooltip-start .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="left"] .tooltip-arrow::before {
 border-left-color: #484848;
 }
-/* <== Personalisation des tooltips bootstrap V4 */
+/* <== Personalisation des tooltips bootstrap V5 */
 
 #adm_men a:hover
 {text-decoration: none;}
@@ -293,13 +261,6 @@ ui-menu-item-wrapper {
   border-width: 1px;
 }
 /* <== Personalisation menu autocomplete [jquery ui]*/
-
-/*ajustement des icones etat form validation en attente update du plugin*/
-.fv-form-bootstrap4 .form-group.row .fv-control-feedback {
-  position: absolute;
-  display: inline-block;
-  right: 45px;
-}
 
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */
@@ -377,13 +338,6 @@ form .form-control-feedback {
 }
 form .form-control-feedback:hover {
   cursor: pointer;
-}
-
-.datepicker {
-  width:320px;
-}
-.datepicker-inline {
-  width:100%;
 }
 
 /*bloc admin*/

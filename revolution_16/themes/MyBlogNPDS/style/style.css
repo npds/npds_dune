@@ -159,38 +159,6 @@ a:active, a:hover {
   position: relative;
 }
 
-/* forum deco des cadres */
-.card.fo:after, .card.fo:before {
-  right: 100%;
-  top: 31px;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-.card.fo:after {
-  border-color: rgba(245, 245, 245, 0);
-  border-right-color: #F5F5F5;
-  border-width: 17px;
-  margin-top: -17px;
-  }
-.card.fo:before {
-  border-color: rgba(229, 229, 229, 0);
-  border-right-color: #E5E5E5;
-  border-width: 18px;
-  margin-top: -18px;
-}
-.card.fo .card-header {
-  height:63px;
-}
-
-.fo-usertool {
-  position:relative;
-  bottom:10px;
-}
-
 .list-group-item.active {
     z-index: 2;
     color: #fff;
@@ -295,13 +263,6 @@ ui-menu-item-wrapper {
 }
 /* <== Personalisation menu autocomplete [jquery ui]*/
 
-/*ajustement des icones etat form validation en attente update du plugin*/
-.fv-form-bootstrap4 .form-group.row .fv-control-feedback {
-  position: absolute;
-  display: inline-block;
-  right: 45px;
-}
-
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */
 .fixed-table-footer, .fixed-table-header {
@@ -393,13 +354,6 @@ form .form-control-feedback {
 }
 form .form-control-feedback:hover {
   cursor: pointer;
-}
-
-.datepicker {
-  width:320px;
-}
-.datepicker-inline {
-  width:100%;
 }
 
 /*bloc admin*/
