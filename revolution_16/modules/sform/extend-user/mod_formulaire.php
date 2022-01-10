@@ -2,7 +2,7 @@
 /************************************************************************/
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -176,7 +176,6 @@ $m->add_extra('
             $("#user_avatar option[value=\''.$userinfo['user_avatar'].'\']").prop("selected", true);
             $("#user_avatar").prop("disabled", "disabled");
             $("#avatar,#tonewavatar").hide();
-            $("#lab").addClass("selected").html($(this).val().split(\'\\\\\').pop());
             $("#avava .fv-plugins-message-container").removeClass("d-none").addClass("d-block");
          });
 
@@ -184,7 +183,6 @@ $m->add_extra('
             e.wrap("<form>").closest("form").get(0).reset();
             e.unwrap();
             event.preventDefault();
-            $("#lab").html("Sélectionner votre fichier");
             $("#B1").removeClass("is-valid is-invalid");
             $("#user_avatar option[value=\''.$userinfo['user_avatar'].'\']").prop("selected", true);
             $("#user_avatar").prop("disabled", false);

@@ -1029,7 +1029,7 @@ if (file_exists($infos_fma))
          <div class="help-block mb-2">'.fma_translate("Extensions autorisées : ").'<span class="text-success">'.$extension_fma.'</span></div>
          <div class="input-group mb-3 me-sm-2">
             <button class="btn btn-secondary" type="button" onclick="reset2($(\'#userfile\'),\'\');"><i class="bi bi-arrow-clockwise"></i></button>
-            <label class="input-group-text" id="lab" for="userfile">'.fma_translate("Sélectionner votre fichier").'</label>
+            <label class="input-group-text n-ci" id="lab" for="userfile"></label>
             <input type="file" class="form-control custom-file-input" name="userfile" id="userfile" />
          </div>
          <button class="btn btn-primary" type="submit" name="ok" ><i class="bi bi-upload"></i></button>
@@ -1037,14 +1037,10 @@ if (file_exists($infos_fma))
    </form>
    <script type="text/javascript">
       //<![CDATA[
-         $(".custom-file-input").on("change",function(){
-            $(this).next(".custom-file-label").addClass("selected").html($(this).val().split(\'\\\\\').pop());
-         });
          window.reset2 = function (e,f) {
             e.wrap("<form>").closest("form").get(0).reset();
             e.unwrap();
             event.preventDefault();
-            $("#lab"+f).html("'.fma_translate("Sélectionner votre fichier").'")
          };
       //]]>
    </script>';

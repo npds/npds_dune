@@ -1798,22 +1798,26 @@ textarea[required='required'] {
 border: 1px solid ;
 }
 
-.custom-file-input:lang(fr) ~ .custom-file-label::after {
-    content: "Choisir ..."
+/* input file customisation */
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  width:1px;
 }
-.custom-file-input:lang(es) ~ .custom-file-label::after {
-    content: "Elegir ..."
+.n-ci:lang(fr)::before {
+  content: "Choisir";
 }
-.custom-file-input:lang(de) ~ .custom-file-label::after {
-    content: "Wählen ..."
+.n-ci:lang(es)::before {
+  content: "Elegir";
 }
-.custom-file-input:lang(en) ~ .custom-file-label::after {
-    content: "Browse ..."
+.n-ci:lang(de)::before {
+  content: "Wählen";
 }
-.custom-file-input:lang(zh) ~ .custom-file-label::after {
-    content: "选择 ..."
+.n-ci:lang(en)::before {
+  content: "Browse";
 }
-
+.n-ci:lang(zh)::before {
+  content: "选择";
+}
 .n-irl {
    max-width: 100%;
     height: auto;

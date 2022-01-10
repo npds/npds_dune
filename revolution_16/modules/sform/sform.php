@@ -2,7 +2,7 @@
 ################################################################################################
 // Simple Form generator  SFORM / version 1.6 for DUNE
 // Class to manage several Form in a single database(MySql) in XML Format
-// P.Brunier 2001 - 2020
+// P.Brunier 2001 - 2022
 //
 // This program is free software. You can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,6 @@
 // dans un même FORMULAIRE des champs avec ET sans TinyMce / Rajout de l'anti_spambot
 ################################################################################################
 // Constante
-//   define('CRLF', "\n", TRUE);
    define('CRLF', "\n");
    if (!isset($sform_path))
       $sform_path='';
@@ -564,15 +563,11 @@ function print_form($bg) {
                <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                <div class="col-sm-8">
                   <div class="input-group mb-2 me-sm-2">
-                     <div class="input-group-prepend" onclick="reset2($(\'#'.$this->form_fields[$i]['name'].'\'),\'\');">
-                        <div class="input-group-text"><i class="fas fa-sync"></i></div>
-                     </div>
-                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="'.$this->form_fields[$i]['name'].'"  name="'.$this->form_fields[$i]['name'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" />
-                        <label id="lab" class="custom-file-label" for="'.$this->form_fields[$i]['name'].'">Selectionner votre fichier</label>
-                     </div>
+                     <button class="btn btn-secondary" type="button" onclick="reset2($(\'#'.$this->form_fields[$i]['name'].'\'),\'\');"><i class="fas fa-sync"></i></button>
+                     <label class="input-group-text n-ci" id="lab" for="'.$this->form_fields[$i]['name'].'"></label>
+                     <input type="file" class="form-control custom-file-input" id="'.$this->form_fields[$i]['name'].'"  name="'.$this->form_fields[$i]['name'].'" size="'.$csize.'" maxlength="'.$this->form_fields[$i]['size'].'" />
                   </div>
-               <input type="hidden" name="MAX_FILE_SIZE" value="'.$this->form_fields[$i]['file_size'].'" />';
+                  <input type="hidden" name="MAX_FILE_SIZE" value="'.$this->form_fields[$i]['file_size'].'" />';
                if ($num_extender!='no')
                   $str.=$this->form_fields[$num_extender]['html'];
                $str.='
@@ -1061,7 +1056,6 @@ function print_form($bg) {
         if ($tmp) {
            $ibid=explode("\n",$tmp['content']);
            settype($op,'string');
-//           while (list($num,$line)=each($ibid)) {
            foreach($ibid as $num => $line) {
               $op=$this->read_load_sform_data(stripslashes($line),$op);
            }
