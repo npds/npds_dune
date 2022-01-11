@@ -2363,7 +2363,7 @@ function adminblock() {
                <p id="bl_messageModalContent"></p>
                <form class="mt-3" id="bl_messageModalForm" action="" method="POST">
                   <input type="hidden" name="id" id="bl_messageModalId" value="0" />
-                  <button type="submit" class="btn btn btn-primary btn-sm">'.translate("Confirmation lecture").'</button>
+                  <button type="submit" class="btn btn btn-primary btn-sm">'.translate("Confirmer la lecture").'</button>
                </form>
             </div>
             <div class="modal-footer">

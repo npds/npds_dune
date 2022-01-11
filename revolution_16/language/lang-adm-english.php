@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -285,6 +285,7 @@ function adm_translate($phrase) {
   case "Configuration Forums": $tmp="Forums Configuration"; break;
   case "Configuration par défaut des Liens Web": $tmp="Web Links Default Config"; break;
   case "Configurer MySql (Recommandé)": $tmp="Configure MySql (Recommended)"; break;
+  case "Confirmer la lecture": $tmp="Confirm the reading"; break;
   case "Connexion": $tmp="Login"; break;
   case "Contacter l'administration du site.": $tmp="Contact the site administration"; break;
   case "Contenu :": $tmp="Content:"; break;
