@@ -56,41 +56,35 @@ function login() {
    echo '
    <h1>'.adm_translate("Administration").'</h1>
    <div id ="adm_men">
-      <div class="men_tit">
-         <h2 class="mb-3"><img class="adm_img vam" src="'.$adminimg.'login.png" />&nbsp;<a href="admin.php">'.adm_translate("Connexion").'</a></h2>
-      </div>
+      <h2 class="mb-3"><i class="fas fa-sign-in-alt fa-lg align-middle me-2"></i>'.adm_translate("Connexion").'</h2>
       <form action="admin.php" method="post" id="adminlogin" name="adminlogin">
-         <fieldset>
-            <div class="mb-3 row">
-               <label class="col-form-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
-               <div class="col-sm-8">
+         <div class="row g-3">
+            <div class="col-sm-6">
+               <div class="mb-3 form-floating">
                   <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
-                  <span class="help-block text-end"><span id="countcar_aid"></span></span>
+                  <label for="aid">'.adm_translate("Administrateur ID").'</label>
                </div>
+               <span class="help-block text-end"><span id="countcar_aid"></span></span>
             </div>
-            <div class="mb-3 row">
-               <label class="col-form-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
-               <div class="col-sm-8">
+            <div class="col-sm-6">
+               <div class="mb-3 form-floating">
                   <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
-                  <span class="help-block text-end"><span id="countcar_pwd"></span></span>
+                  <label for="pwd">'.adm_translate("Mot de Passe").'</label>
                </div>
+               <span class="help-block text-end"><span id="countcar_pwd"></span></span>
             </div>
-            <div class="mb-3 row">
-               <div class="col-sm-9 ms-sm-auto">
-                  <button class="btn btn-outline-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
-               </div>
-            </div>
-            <input type="hidden" name="op" value="login" />
-         </fieldset>
+         </div>
+         <button class="btn btn-primary btn-lg" type="submit">'.adm_translate("Valider").'</button>
+         <input type="hidden" name="op" value="login" />
       </form>
       <script type="text/javascript">
-      //<![CDATA[
-      document.adminlogin.aid.focus();
-      $(document).ready(function() {
-         inpandfieldlen("pwd",18);
-         inpandfieldlen("aid",20);
-      });
-      //]]>
+         //<![CDATA[
+            document.adminlogin.aid.focus();
+            $(document).ready(function() {
+               inpandfieldlen("pwd",18);
+               inpandfieldlen("aid",20);
+            });
+         //]]>
       </script>';
       $arg1='
       var formulid =["adminlogin"];
@@ -517,7 +511,7 @@ function GraphicAdmin($hlpfile) {
                <p id="messageModalContent"></p>
                <form class="mt-3" id="messageModalForm" action="" method="POST">
                   <input type="hidden" name="id" id="messageModalId" value="0" />
-                  <button type="submit" class="btn btn btn-primary btn-sm">'.adm_translate("Confirmation lecture").'</button>
+                  <button type="submit" class="btn btn btn-primary btn-sm">'.adm_translate("Confirmer la lecture").'</button>
                </form>
             </div>
             <div class="modal-footer">
