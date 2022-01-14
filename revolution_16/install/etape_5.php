@@ -50,8 +50,7 @@ function etape_5() {
                      <label for="new_slogan">'.ins_translate('Slogan de votre site').'</label>
                      <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_slogan"></div>
                   </div>
-                  <div class="mb-3">
-                     <label class="col-form-label" for="new_Default_Theme">'.ins_translate('Thème graphique').'</label>
+                  <div class="form-floating mb-3">
                      <select class="form-select" id="new_Default_Theme" name="new_Default_Theme" />';
    include('themes/list.php');
    $themelist = explode(' ', $themelist);
@@ -66,6 +65,7 @@ function etape_5() {
    }
    echo '
                      </select>
+                     <label for="new_Default_Theme">'.ins_translate('Thème graphique').'</label>
                   </div>';
    $today = getdate();
    $tday = $today['mday'];
