@@ -100,7 +100,7 @@ function adm_translate($phrase) {
   case "Administration de META-LANG": $tmp="META-LANG administration"; break;
   case "Administration des bannières": $tmp="广告管理"; break;
   case "Administration des MétaTags": $tmp="管理页首html"; break;
-  case "Administration": $tmp="Administration"; break;
+  case "Administration": $tmp="网站治理"; break;
   case "Adresse E-mail de l'administrateur": $tmp="管理员Email"; break;
   case "Adresse E-mail masquée": $tmp="公开Email"; break;
   case "Adresse E-mail où envoyer le message": $tmp="发送信息的电子邮件地址："; break;

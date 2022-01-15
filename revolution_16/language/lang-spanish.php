@@ -100,7 +100,7 @@ function translate_pass1($phrase) {
    case "Accessible à tous": $tmp="Accesible a todos"; break;
    case "Activé": $tmp="Activado"; break;
    case "Activer votre menu personnel": $tmp="Activar el Menú personal"; break;
-   case "Activité du site": $tmp="Actividad"; break;
+   case "Activité du site": $tmp="Actividad del sitio web"; break;
    case "Activité": $tmp="Su actividad"; break;
    case "Actuellement connecté en administrateur... Cette critique sera": $tmp="Actualmente conectado como administrador... esta critica sera"; break;
    case "Administrateur : ": $tmp="Administrador : "; break;
@@ -927,7 +927,6 @@ function translate_pass1($phrase) {
    case "Une fois enregistré": $tmp="Una vez registrado"; break;
    case "Url : ": $tmp="URL : "; break;
    case "Url de la page : ": $tmp="URL de la Página  : "; break;
-   case "Url": $tmp="URL"; break;
    case "Url": $tmp="URL"; break;
    case "Utilisateur avancé": $tmp="Usuario avanzado"; break;
    case "Utilisateur enregistré": $tmp="Usuario registrado"; break;

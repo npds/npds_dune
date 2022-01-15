@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -100,7 +100,7 @@ function translate_pass1($phrase) {
    case "Accessible à tous": $tmp="Free for All"; break;
    case "Activé": $tmp="On"; break;
    case "Activer votre menu personnel": $tmp="Activate Personal Menu"; break;
-   case "Activité du site": $tmp="Web Activity"; break;
+   case "Activité du site": $tmp="Website Activity"; break;
    case "Activité": $tmp="Occupation"; break;
    case "Actuellement connecté en administrateur... Cette critique sera": $tmp="Currently logged in as admin... this review will be"; break;
    case "Administrateur : ": $tmp="Admin:"; break;
@@ -531,7 +531,7 @@ function translate_pass1($phrase) {
    case "Les nouveaux liens ajoutés dans cette catégorie dans les 3 derniers jours": $tmp="New Links in this Category Added in the last 3 days"; break;
    case "Les nouveaux liens de cette catégorie ajoutés aujourd'hui": $tmp="New Links in this Category Added Today"; break;
    case "Les nouvelles contributions depuis votre dernière visite.": $tmp="New Posts since your last visit."; break;
-   case "Les plus téléchargés": $tmp="most downloaded"; break;
+   case "Les plus téléchargés": $tmp="Most downloaded"; break;
    case "Les préférences de compte fonctionnent sur la base des cookies.": $tmp="Account preferences are cookie based."; break;
    case "Les spécialistes peuvent utiliser du HTML, mais attention aux erreurs": $tmp="HTML is fine, but double check those URLs and HTML tags!"; break;
    case "Les statistiques pour la bannières ID": $tmp="Statistics for Banner ID"; break;
@@ -927,7 +927,6 @@ function translate_pass1($phrase) {
    case "Une fois enregistré": $tmp="As registered"; break;
    case "Url : ": $tmp="URL:"; break;
    case "Url de la page : ": $tmp="Page URL: "; break;
-   case "Url": $tmp="url"; break;
    case "Url": $tmp="URL"; break;
    case "Utilisateur avancé": $tmp="Advance User"; break;
    case "Utilisateur enregistré": $tmp="Registered User"; break;

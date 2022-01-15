@@ -405,18 +405,18 @@ CREATE TABLE lblocks (
   KEY Lindex (Lindex)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO lblocks VALUES (1, 'Un Bloc ...', 'Vous pouvez ajouter, &eacute;diter et supprimer des Blocs &agrave; votre convenance.', '0', 99, 0, 1, 0, '');
-INSERT INTO lblocks VALUES (2, 'Menu', 'function#mainblock', '0', 1, 86400, 1, 0, 'Ce menu contient presque toutes les fonctions de base disponibles dans NPDS');
-INSERT INTO lblocks VALUES (3, 'Msg &agrave; un Membre', 'function#instant_members_message', '0', 4, 0, 1, 0, '');
+INSERT INTO lblocks VALUES (1, '[french]Un Bloc ...[/french][english]One Block ...[/english][chinese]&#x4E00;&#x5757;...[/chinese][spanish]Un Bloque...[/spanish][german]Ein Block[/german]', 'Vous pouvez ajouter, &eacute;diter et supprimer des Blocs &agrave; votre convenance.', '0', 99, 0, 1, 0, '');
+INSERT INTO lblocks VALUES (2, '[french]Menu[/french][english]Menu[/english][chinese]&#x83DC;&#x5355;[/chinese][spanish]Men&#xFA;[/spanish][german]Men&#xFC;[/german]', 'function#mainblock', '0', 1, 86400, 1, 0, 'Ce menu contient presque toutes les fonctions de base disponibles dans NPDS');
+INSERT INTO lblocks VALUES (3, '[french]Message &#xE0; un membre[/french][english]Message to Member[/english][chinese]&#x7ED9;&#x4F1A;&#x5458;&#x53D1;&#x9001;&#x7684;&#x6D88;&#x606F;[/chinese][spanish]Mensaje a un miembro[/spanish][german]Nachricht an einen Benutzer[/german]', 'function#instant_members_message', '0', 4, 0, 1, 0, '');
 INSERT INTO lblocks VALUES (4, 'Chat Box', 'function#makeChatBox\r\nparams#chat_tous', '0', 2, 10, 1, 0, '');
-INSERT INTO lblocks VALUES (5, 'Forums Infos', 'function#RecentForumPosts\r\nparams#Forums Infos,15,0,false,10,false,-:\r\n', '0', 5, 60, 1, 0, '');
-INSERT INTO lblocks VALUES (6, 'Les plus t&eacute;l&eacute;charg&eacute;s', 'function#topdownload', '0', 6, 3600, 0, 0, '');
-INSERT INTO lblocks VALUES (7, 'Administration', 'function#adminblock', '0', 3, 0, 1, 0, '');
-INSERT INTO lblocks VALUES (8, 'Eph&eacute;m&eacute;rides', 'function#ephemblock', '0', 7, 28800, 0, 0, '');
-INSERT INTO lblocks VALUES (9, 'headlines', 'function#headlines', '0', 9, 3600, 0, 0, '');
-INSERT INTO lblocks VALUES (10, 'Activit&eacute; du Site', 'function#Site_Activ', '0', 8, 10, 1, 0, '');
-INSERT INTO lblocks VALUES (11, 'Sondage', 'function#pollNewest', '0', 1, 60, 1, 0, '');
-INSERT INTO lblocks VALUES (12, '[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese]', 'include#modules/geoloc/geoloc_bloc.php', '0', 0, 86400, 0, 0, '');
+INSERT INTO lblocks VALUES (5, '[french]Forums Infos[/french][english]Forums Infos[/english][chinese]&#x8BBA;&#x575B;&#x4FE1;&#x606F;[/chinese][spanish]Foros infos[/spanish][german]Foreninfos[/german]', 'function#RecentForumPosts\r\nparams#Forums Infos,15,0,false,10,false,-:\r\n', '0', 5, 60, 1, 0, '');
+INSERT INTO lblocks VALUES (6, '[french]Les plus t&eacute;l&eacute;charg&eacute;s[/french][english]Most downloaded[/english][chinese]&#x4E2A;&#x88AB;&#x4E0B;&#x8F7D;&#x6700;&#x591A;&#x7684;&#x6587;&#x4EF6;[/chinese][spanish]Los mas descargados[/spanish][german]Am meisten heruntergeladen[/german]', 'function#topdownload', '0', 6, 3600, 0, 0, '');
+INSERT INTO lblocks VALUES (7, '[french]Administration[/french][english]Administration[/english][chinese]&#x7F51;&#x7AD9;&#x6CBB;&#x7406;[/chinese][spanish]Administraci&#xF3;n[/spanish][german]Verwaltung[/german]', 'function#adminblock', '0', 3, 0, 1, 0, '');
+INSERT INTO lblocks VALUES (8, '[french]Eph&eacute;m&eacute;rides[/french][english]Ephemerids[/english][chinese]&#x5386;&#x53F2;&#x4E0A;&#x7684;&#x4ECA;&#x5929;[/chinese][spanish]Efem&#xE9;rides[/spanish][german]Ephemeriden[/german]', 'function#ephemblock', '0', 7, 28800, 0, 0, '');
+INSERT INTO lblocks VALUES (9, '[french]Grands Titres de sites de News[/french][english]headlines[/english][chinese]&#x65B0;&#x95FB;&#x7AD9;&#x70B9;&#x5934;&#x6761;&#x6807;&#x9898;[/chinese][spanish]Grandes titulos[/spanish][german]Informations Kan&#xE4;le[/german]', 'function#headlines', '0', 9, 3600, 0, 0, '');
+INSERT INTO lblocks VALUES (10, '[french]Activit&eacute; du Site[/french][english]Website Activity[/english][chinese]&#x672C;&#x7F51;&#x7AD9;&#x7684;&#x6D3B;&#x52A8;&#x4FE1;&#x606F;[/chinese][spanish]Actividad del sitio web[/spanish][german]T&#xE4;tigkeit auf der Website[/german]', 'function#Site_Activ', '0', 8, 10, 1, 0, '');
+INSERT INTO lblocks VALUES (11, '[french]Sondage[/french][english]Survey[/english][chinese]&#x8C03;&#x67E5;[/chinese][spanish]Encuesta[/spanish][german]Umfrage[/german]', 'function#pollNewest', '0', 1, 60, 1, 0, '');
+INSERT INTO lblocks VALUES (12, '[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese][spanish]Mapa[/spanish][german]Landkarte[/german]', 'include#modules/geoloc/geoloc_bloc.php', '0', 0, 86400, 0, 0, '');
 
 CREATE TABLE links_categories (
   cid int(11) NOT NULL AUTO_INCREMENT,
@@ -1106,4 +1106,3 @@ CREATE TABLE ip_loc (
   ip_city varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (ip_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-

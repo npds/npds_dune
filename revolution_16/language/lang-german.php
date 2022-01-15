@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -100,7 +100,7 @@ function translate_pass1($phrase) {
    case "Accessible à tous": $tmp="Zugänglich für Alle"; break;
    case "Activé": $tmp="Aktiviert"; break;
    case "Activer votre menu personnel": $tmp="Aktivieren Sie ihr persönliches Menu"; break;
-   case "Activité du site": $tmp="Seiten Aktivitäten"; break;
+   case "Activité du site": $tmp="Tätigkeit auf der Website"; break;
    case "Activité": $tmp="Ihr Beruf"; break;
    case "Actuellement connecté en administrateur... Cette critique sera": $tmp="Als Admin angemeldet... Diese Kritik wird"; break;
    case "Administrateur : ": $tmp="Administrator : "; break;
@@ -580,7 +580,7 @@ function translate_pass1($phrase) {
    case "membre(s) en ligne.": $tmp="User online."; break;
    case "membres enregistrés.": $tmp="Registierte Benutzer."; break;
    case "Membres": $tmp="Mitglieder"; break;
-   case "Menu de": $tmp="Menu für"; break;
+   case "Menu de": $tmp="Menü für"; break;
    case "Merci d'avoir consacré du temps pour vous enregistrer.": $tmp="Danke, das Sie sich registriert haben."; break;
    case "Merci d'avoir modifié cette critique": $tmp="Vielen Dank für die Bearbeitung dieser Bewertung"; break;
    case "Merci d'avoir posté cette critique": $tmp="Danke für Ihre Einsendung"; break;
@@ -927,7 +927,6 @@ function translate_pass1($phrase) {
    case "Une fois enregistré": $tmp="Als registrierter Benutzer"; break;
    case "Url : ": $tmp="URL : "; break;
    case "Url de la page : ": $tmp="URL der Seite : "; break;
-   case "Url": $tmp="URL"; break;
    case "Url": $tmp="URL"; break;
    case "Utilisateur avancé": $tmp="ein angemeldeter Benutzer sein"; break;
    case "Utilisateur enregistré": $tmp="Registrierter Benutzer"; break;
