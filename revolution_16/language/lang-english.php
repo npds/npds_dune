@@ -123,7 +123,6 @@ function translate_pass1($phrase) {
    case "Ajouter une catégorie principale": $tmp="Add a MAIN Category"; break;
    case "Ajouter une sous-catégorie": $tmp="Add a SUB-Category"; break;
    case "Ajouter une url": $tmp="Add URL"; break;
-   case "Ajouter": $tmp="Add Link"; break;
    case "Ajouter": $tmp="Add"; break;
    case "Aller à la page": $tmp="Goto Page"; break;
    case "Anciens articles": $tmp="Past Articles"; break;
@@ -133,7 +132,6 @@ function translate_pass1($phrase) {
    case "Annuler la contribution": $tmp="Cancel Post"; break;
    case "Annuler la réponse": $tmp="Cancel Reply"; break;
    case "Annuler": $tmp="Cancel"; break;
-   case "Annuler": $tmp="Clear"; break;
    case "Anonyme": $tmp="Anonymous"; break;
    case "Anti-Spam / Merci de répondre à la question suivante : ": $tmp="Anti-Spam / Thank to reply to the question :"; break;
    case "Août": $tmp="August"; break;
@@ -193,8 +191,8 @@ function translate_pass1($phrase) {
    case "Boîte d'émission": $tmp="Outbox"; break;
    case "Boîte de réception": $tmp="Inbox"; break;
    case "Bonjour": $tmp="Hello"; break;
-   case "Bonjour": $tmp="Welcome"; break;
    case "Caché": $tmp="Hidden"; break;
+   case "caractères au minimum": $tmp = "characters minimum"; break;
    case "caractères de plus": $tmp="bytes more"; break;
    case "caractères": $tmp="characters long"; break;
    case "Carnet d'adresses": $tmp="Bookmark"; break;
@@ -499,7 +497,6 @@ function translate_pass1($phrase) {
    case "L'article le plus consulté aujourd'hui est :": $tmp="Today's most read Story is:"; break;
    case "L'article le plus lu à propos de": $tmp="Most read story about"; break;
    case "L'article": $tmp="Story"; break;
-   case "L'article": $tmp="The Article"; break;
    case "L'url pour cet article est : ": $tmp="The URL for this story is:"; break;
    case "La fonction mise à jour du mot de passe ne peut mettre à jour la base de données. Contactez le WebMaster.": $tmp="mail_password: could not update user entry. Contact the Administrator"; break;
    case "La lettre": $tmp="NewsLetter"; break;
@@ -512,6 +509,11 @@ function translate_pass1($phrase) {
    case "Le forum ou le topic que vous tentez de publier n'existe pas, refaites un essai.": $tmp="The forum or topic you are attempting to post to does not exist. Please try again."; break;
    case "Le forum sélectionné n'existe pas.": $tmp="The forum you selected does not exist. Please go back and try again."; break;
    case "Le message sélectionné n'existe pas dans la base forum.": $tmp="Selected message was not found in the forum database."; break;
+   case "Le mot de passe doit contenir au moins un caractère en majuscule.": $tmp = "The password must contain at least one uppercase character."; break;
+   case "Le mot de passe doit contenir au moins un caractère en minuscule.": $tmp = "The password must contain at least one lowercase character."; break;
+   case "Le mot de passe doit contenir au moins un caractère non alphanumérique.": $tmp = "The password must contain at least one non-alphanumeric character."; break;
+   case "Le mot de passe doit contenir au moins un chiffre.": $tmp = "The password must contain at least one digit."; break;
+   case "Le mot de passe doit contenir": $tmp = "The password must contain"; break;
    case "Le mot de passe vous sera envoyé à l'adresse Email indiquée.": $tmp="Password will be sent to the email address you enter."; break;
    case "Le moteur de recherche ne trouve pas la base forum.": $tmp="Search Engine was unable to query the forums database."; break;
    case "Le nombre de hits doit être un entier positif": $tmp="Hits must be a positive integer"; break;
@@ -524,6 +526,7 @@ function translate_pass1($phrase) {
    case "Les dernières nouvelles à propos de": $tmp="Last news about"; break;
    case "Les derniers articles de": $tmp="Last articles sent by"; break;
    case "Les derniers commentaires de": $tmp="Last comments by"; break;
+   case "Les deux mots de passe ne sont pas identiques.": $tmp = "The two passwords are not identical."; break;
    case "les Liens": $tmp="links"; break;
    case "Les modifications seront seulement valides pour vous.": $tmp="The changes will be valid only to you."; break;
    case "Les mots de passe sont différents. Ils doivent être identiques.": $tmp="Both passwords are different. They need to be identical."; break;
@@ -547,9 +550,7 @@ function translate_pass1($phrase) {
    case "Liens relatifs : ": $tmp="Related Link:"; break;
    case "Liens relatifs": $tmp="Related Links"; break;
    case "Liens Web": $tmp="Web Links"; break;
-   case "Liens": $tmp="Links in our Database"; break;
    case "Liens": $tmp="Links"; break;
-   case "Liens": $tmp="Waiting Links"; break;
    case "Limite des référants : pensez à archiver vos référants via l'administration du site.": $tmp="Referer max count limit : Save your referer via Admin function."; break;
    case "Lire la suite...": $tmp="read more..."; break;
    case "Liste de diffusion": $tmp="Mailing list"; break;
@@ -629,7 +630,6 @@ function translate_pass1($phrase) {
    case "Montrer :": $tmp="Show:"; break;
    case "Mot de passe : ": $tmp="Password: "; break;
    case "Mot de passe erroné, refaites un essai.": $tmp="You did not enter the correct password, please go back and try again."; break;
-   case "Mot de passe erroné, refaites un essai.": $tmp="You have entered an incorrect password. Go back and try again."; break;
    case "Mot de passe mis à jour. Merci de vous re-connecter": $tmp="Password update, please re-connect you."; break;
    case "Mot de passe pour": $tmp="Password for"; break;
    case "Mot de passe utilisateur pour": $tmp="User Password for"; break;
@@ -820,7 +820,6 @@ function translate_pass1($phrase) {
    case "Sans": $tmp="Without"; break;
    case "Sauter à : ": $tmp="Jump To: "; break;
    case "Sauter à :": $tmp="Jump To:"; break;
-   case "Sauver les modifications": $tmp="Save Changes!"; break;
    case "Sauver les modifications": $tmp="Save Changes"; break;
    case "Sauvez votre journal": $tmp="Save Journal"; break;
    case "Se connecter": $tmp="Login box"; break;
@@ -1015,7 +1014,6 @@ function translate_pass1($phrase) {
    case "Vous n'avez pas l'autorisation d'éditer ce message.": $tmp="You do not have permission to edit this post."; break;
    case "Vous n'êtes pas (encore) enregistré ou vous n'êtes pas (encore) connecté.": $tmp="You are not a registered user or you have not logged in."; break;
    case "Vous n'êtes pas autorisé à participer à ce forum": $tmp="You are not allowed to post in this forum"; break;
-   case "Vous n'êtes pas autorisé à participer à ce forum": $tmp="You are not allowed to reply in this forum"; break;
    case "Vous n'êtes pas encore autorisé à vous connecter.": $tmp="User not yet allowed by Administrator"; break;
    case "Vous n'êtes pas identifié comme modérateur de ce forum. Opération interdite.": $tmp="You are not the moderator of this forum therefor you cannot perform this function."; break;
    case "Vous n'êtes pas le modérateur de ce forum, vous ne pouvez utiliser cette fonction.": $tmp="You are not the Moderator of this forum therefore you can't perform this function."; break;
