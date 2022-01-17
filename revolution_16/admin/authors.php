@@ -287,12 +287,10 @@ function modifyadmin($chng_aid) {
    <form id="mod_adm" class="" action="admin.php" method="post">
       <fieldset>
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" title="'.$chng_aid.'" /> '.adm_translate("Informations").'</legend>
-         <div class="mb-3 row mt-3">
-            <label class="col-sm-4 col-form-label " for="chng_name">'.adm_translate("Nom").' <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-               <input id="chng_name" class="form-control" type="text" name="chng_name" value="'.$chng_name.'" maxlength="30" placeholder="'.adm_translate("Nom").'" required="required" />
-               <span class="help-block text-end"><span id="countcar_chng_name"></span></span>
-            </div>
+         <div class="form-floating mb-3 mt-3">
+            <input id="chng_name" class="form-control" type="text" name="chng_name" value="'.$chng_name.'" maxlength="30" placeholder="'.adm_translate("Nom").'" required="required" />
+            <label for="chng_name">'.adm_translate("Nom").' <span class="text-danger">*</span></label>
+            <span class="help-block text-end"><span id="countcar_chng_name"></span></span>
          </div>
          <div class="form-floating mb-3">
             <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
