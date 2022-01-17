@@ -69,7 +69,9 @@ function entete() {
 function pied_depage() {
    global $stage;
    echo '
-         <div class="col-sm-12 text-center"><hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="visually-hidden">On work...</span></div>
+         <div class="col text-center">
+            <hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="visually-hidden">On work...</span>
+         </div>
       </div>
    </body>
 </html>';
@@ -98,10 +100,8 @@ function menu() {
                   <li class="list-group-item list-group-item'.$colorst8.'">'.ins_translate('Compte Admin').'</li>
                   <li class="list-group-item list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
                   <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
+                  <li class="list-group-item list-group-item-light"><code class="small">Version Php '.$phpver.'</code></li>
                </ul>
-               <div class ="list-group mb-3">
-               <code class="small">Version Php '.$phpver.'</code>
-               </div>
             </div>
             <div class="col-md-9">';
    return $menu;
