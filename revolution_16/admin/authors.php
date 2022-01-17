@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -132,52 +132,40 @@ function displayadmins() {
    <form id="nou_adm" action="admin.php" method="post">
       <fieldset>
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Informations").'" /> '.adm_translate("Informations").' </legend>
-         <div class="mb-3 row mt-3">
-           <label class="col-form-label col-sm-4" for="add_aid">'.adm_translate("Surnom").' <span class="text-danger">*</span></label>
-           <div class="col-sm-8">
-               <input id="add_aid" class="form-control" type="text" name="add_aid" maxlength="30" placeholder="'.adm_translate("Surnom").'" required="required" />
-               <span class="help-block text-end"><span id="countcar_add_aid"></span></span>
-           </div>
+         <div class="form-floating mb-3 mt-3">
+            <input id="add_aid" class="form-control" type="text" name="add_aid" maxlength="30" placeholder="'.adm_translate("Surnom").'" required="required" />
+            <label for="add_aid">'.adm_translate("Surnom").' <span class="text-danger">*</span></label>
+            <span class="help-block text-end"><span id="countcar_add_aid"></span></span>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4 " for="add_name">'.adm_translate("Nom").' <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-               <input id="add_name" class="form-control" type="text" name="add_name" maxlength="50" placeholder="'.adm_translate("Nom").'" required="required" />
-               <span class="help-block text-end"><span id="countcar_add_name"></span></span>
+         <div class="form-floating mb-3">
+            <input id="add_name" class="form-control" type="text" name="add_name" maxlength="50" placeholder="'.adm_translate("Nom").'" required="required" />
+            <label for="add_name">'.adm_translate("Nom").' <span class="text-danger">*</span></label>
+            <span class="help-block text-end"><span id="countcar_add_name"></span></span>
+         </div>
+         <div class="form-floating mb-3">
+            <input id="add_email" class="form-control" type="email" name="add_email" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
+            <label for="add_email">'.adm_translate("E-mail").' <span class="text-danger">*</span></label>
+            <span class="help-block text-end"><span id="countcar_add_email"></span></span>
+         </div>
+         <div class="form-floating mb-3">
+            <input id="add_url" class="form-control" type="url" name="add_url" maxlength="320" placeholder="'.adm_translate("URL").'" />
+            <label for="add_url">'.adm_translate("URL").'</label>
+            <span class="help-block text-end"><span id="countcar_add_url"></span></span>
+         </div>
+         <div class="form-floating mb-3">
+            <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
+            <label for="add_pwd">'.adm_translate("Mot de Passe").' <span class="text-danger">*</span></label>
+            <span class="help-block text-end" id="countcar_add_pwd"></span>
+            <div class="progress mt-2" style="height: 0.4rem;">
+               <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4 " for="add_email">'.adm_translate("E-mail").' <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-               <input id="add_email" class="form-control" type="email" name="add_email" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
-               <span class="help-block text-end"><span id="countcar_add_email"></span></span>
+         <div class="mb-3">
+            <div class="form-check">
+               <input id="cb_radminsuper" class="form-check-input" type="checkbox" name="add_radminsuper" value="1" />
+               <label class="form-check-label text-danger" for="cb_radminsuper">'.adm_translate("Super administrateur").'</label>
             </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4 " for="add_url">'.adm_translate("URL").'</label>
-            <div class="col-sm-8">
-               <input id="add_url" class="form-control" type="url" name="add_url" maxlength="320" placeholder="'.adm_translate("URL").'" />
-               <span class="help-block text-end"><span id="countcar_add_url"></span></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4 " for="add_pwd">'.adm_translate("Mot de Passe").' <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-               <input id="add_pwd" class="form-control" type="password" name="add_pwd" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
-               <span class="help-block text-end" id="countcar_add_pwd"></span>
-               <div class="progress" style="height: 0.2rem;">
-                  <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-               </div>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <div class="col-sm-8 ms-sm-auto">
-               <div class="form-check">
-                  <input id="cb_radminsuper" class="form-check-input" type="checkbox" name="add_radminsuper" value="1" />
-                  <label class="form-check-label text-danger" for="cb_radminsuper">'.adm_translate("Super administrateur").'</label>
-               </div>
-               <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
-            </div>
+            <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
          </div>
       </fieldset>
       <fieldset>
@@ -201,11 +189,7 @@ function displayadmins() {
             '.$listdroitsmodulo.'
             </div>
          </div>
-         <br />
-         <div class="mb-3">
-            <div class=" col-md-6 col-12">
-               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter un administrateur").'</button>
-            </div>
+         <button class="btn btn-primary my-3" type="submit"><i class="fa fa-plus-square fa-lg me-2"></i>'.adm_translate("Ajouter un administrateur").'</button>
          </div>
          <input type="hidden" name="op" value="AddAuthor" />
       </fieldset>
@@ -216,16 +200,16 @@ function displayadmins() {
       '.auto_complete ('admin', 'aid', 'authors', '', '0').'
       '.auto_complete ('adminname', 'name', 'authors', '', '0').'
       inpandfieldlen("add_aid",30);
-      inpandfieldlen("add_name",254);
-      inpandfieldlen("add_email",320);
-      inpandfieldlen("add_url",60);
+      inpandfieldlen("add_name",50);
+      inpandfieldlen("add_email",254);
+      inpandfieldlen("add_url",320);
       inpandfieldlen("add_pwd",20);
       ';
    $fv_parametres = '
    add_aid: {
       validators: {
          callback: {
-            message: "Ce surnom n\'est pas disponible",
+            message: "'.translate("Ce surnom n\'est pas disponible").'",
             callback: function(input) {
                if($.inArray(btoa(input.value), admin) !== -1)
                   return false;
@@ -238,7 +222,7 @@ function displayadmins() {
    add_name: {
       validators: {
          callback: {
-            message: "Ce nom n\'est pas disponible",
+            message: "'.translate("Ce nom n\'est pas disponible").'",
             callback: function(input) {
                if($.inArray(btoa(input.value), adminname) !== -1)
                   return false;
@@ -250,12 +234,9 @@ function displayadmins() {
    },
    add_pwd: {
       validators: {
-         checkPassword: {
-            message: "The password is too weak"
-         },
+         checkPassword: {},
       }
    },';
-   
    adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
@@ -280,8 +261,7 @@ function modifyadmin($chng_aid) {
    }
    $R = sql_query("SELECT fid, fnom, fnom_affich, fcategorie FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND fcategorie < 7 ORDER BY f.fcategorie");
    while(list($fid, $fnom, $fnom_affich, $fcategorie) = sql_fetch_row($R)) {
-      //$fnom_affich= adm_translate($fnom_affich);
-      if (in_array($fid, $datas)) $chec='checked="checked"'; else $chec='';
+      $chec = in_array($fid, $datas) ? 'checked="checked"' : '';
       if($fcategorie==6) {
          $listdroitsmodulo .='
          <div class="col-md-4 col-sm-6">
@@ -314,45 +294,35 @@ function modifyadmin($chng_aid) {
                <span class="help-block text-end"><span id="countcar_chng_name"></span></span>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-sm-4 col-form-label " for="chng_email">'.adm_translate("E-mail").' <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-               <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
-               <span class="help-block text-end"><span id="countcar_chng_email"></span></span>
+         <div class="form-floating mb-3">
+            <input id="chng_email" class="form-control" type="text" name="chng_email" value="'.$chng_email.'" maxlength="254" placeholder="'.adm_translate("E-mail").'" required="required" />
+            <label for="chng_email">'.adm_translate("E-mail").' <span class="text-danger">*</span></label>
+            <span class="help-block text-end"><span id="countcar_chng_email"></span></span>
+         </div>
+         <div class="form-floating mb-3">
+            <input id="chng_url" class="form-control" type="url" name="chng_url" value="'.$chng_url.'" maxlength="320" placeholder="'.adm_translate("URL").'" />
+            <label for="chng_url">'.adm_translate("URL").'</label>
+            <span class="help-block text-end"><span id="countcar_chng_url"></span></span>
+         </div>
+         <div class="form-floating mb-3">
+            <input id="chng_pwd" class="form-control" type="password" name="chng_pwd" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
+            <label for="chng_pwd">'.adm_translate("Mot de Passe").' <span class="text-danger">*</span></label>
+            <span class="help-block text-end" id="countcar_chng_pwd"></span>
+            <div class="progress" style="height: 0.4rem;">
+               <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="chng_url">'.adm_translate("URL").'</label>
-            <div class="col-sm-8">
-               <input id="chng_url" class="form-control" type="url" name="chng_url" value="'.$chng_url.'" maxlength="320" placeholder="'.adm_translate("URL").'" />
-               <span class="help-block text-end"><span id="countcar_chng_url"></span></span>
-            </div>
+         <div class="form-floating mb-3">
+            <input id="chng_pwd2" class="form-control" type="password" name="chng_pwd2" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
+            <label for="chng_pwd2">'.adm_translate("Mot de Passe").' <span class="text-danger">*</span></label>
+            <span class="help-block text-end"><span id="countcar_chng_pwd2"></span></span>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="chng_pwd">'.adm_translate("Mot de Passe").' <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-               <input id="chng_pwd" class="form-control" type="password" name="chng_pwd" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
-               <span class="help-block text-end" id="countcar_chng_pwd"></span>
-                  <div class="progress" style="height: 0.2rem;">
-                     <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                  </div>
+         <div class="mb-3">
+            <div class="form-check">
+               <input id="cb_radminsuper" class="form-check-input" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
+               <label class="form-check-label text-danger" for="cb_radminsuper">'.adm_translate("Super administrateur").'</label>
             </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="chng_pwd2">'.adm_translate("Mot de Passe").' <span class="text-danger">*</span></label>
-            <div class="col-sm-8">
-               <input id="chng_pwd2" class="form-control" type="password" name="chng_pwd2" maxlength="20" placeholder="'.adm_translate("Mot de Passe").'" title="'.adm_translate("Entrez votre nouveau Mot de Passe").'" />
-               <span class="help-block text-end"><span id="countcar_chng_pwd2"></span></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <div class="col-sm-8 ms-sm-auto">
-               <div class="form-check">
-                  <input id="cb_radminsuper" class="form-check-input" type="checkbox" name="chng_radminsuper" value="1" '.$supadm_inp.' />
-                  <label class="form-check-label text-danger" for="cb_radminsuper">'.adm_translate("Super administrateur").'</label>
-               </div>
-               <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
-            </div>
+            <span class="help-block">'.adm_translate("Si Super administrateur est coché, cet administrateur aura TOUS les droits.").'</span>
          </div>
          <input type="hidden" name="chng_aid" value="'.$chng_aid.'" />
       </fieldset>
@@ -377,14 +347,9 @@ function modifyadmin($chng_aid) {
                '.$listdroitsmodulo.'
             </div>
          </div>
-         <br />
-         <div class="mb-3 row">
-            <div class="col-sm-8 ms-sm-auto">
-               <button class="btn btn-primary" type="submit"><i class="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Actualiser l'administrateur").'</button>
-            </div>
-         </div>
          <input type="hidden" name="old_pwd" value="'.$chng_pwd.'" />
          <input type="hidden" name="op" value="UpdateAuthor" />
+         <button class="btn btn-primary my-3" type="submit"><i class="fa fa-check fa-lg me-2"></i>'.adm_translate("Actualiser l'administrateur").'</button>
       </fieldset>
    </form>';
    echo $scri_check;
@@ -399,9 +364,7 @@ $arg1 ='
    $fv_parametres = '
    chng_pwd: {
       validators: {
-         checkPassword: {
-            message: "The password is too weak"
-         },
+         checkPassword: {},
       }
    },
    chng_pwd2: {
@@ -416,8 +379,7 @@ $arg1 ='
    !###!
    mod_adm.querySelector(\'[name="chng_pwd"]\').addEventListener("input", function() {
       fvitem.revalidateField("chng_pwd2");
-   });
-   ';
+   });';
    adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
