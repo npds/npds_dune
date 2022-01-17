@@ -899,4 +899,4 @@ span.tarteaucitronTitle.tarteaucitronH3 {
 .display-none {
     display: none;
 }
-.tarteaucitronCookiesListLeft button strong {color:--var(danger)}
+.tarteaucitronCookiesListLeft button strong {color:var(--bs-danger)}
