@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -103,33 +103,25 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
             </div>
          </div>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="consumer_key">'.twi_trad('Votre clef de consommateur').'&nbsp;<span class="text-danger">*</span></label>
-         <div class="col-sm-12">
-            <input type="text" class="form-control" id="consumer_key" name="consumer_key" value="'.$consumer_key.'" required="required" />
-            <span class="help-block small">'.$consumer_key.'</span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="consumer_key" name="consumer_key" value="'.$consumer_key.'" required="required" />
+         <label for="consumer_key">'.twi_trad('Votre clef de consommateur').'&nbsp;<span class="text-danger">*</span></label>
+         <span class="help-block small">'.$consumer_key.'</span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="consumer_secret">'.twi_trad('Votre clef secrète de consommateur').'&nbsp;<span class="text-danger">*</span></label>
-         <div class="col-sm-12">
-            <input type="text" class="form-control" id="consumer_secret" name="consumer_secret" value="'.$consumer_secret.'" required="required" />
-            <span class="help-block small">'.$consumer_secret.'</span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="consumer_secret" name="consumer_secret" value="'.$consumer_secret.'" required="required" />
+         <label for="consumer_secret">'.twi_trad('Votre clef secrète de consommateur').'&nbsp;<span class="text-danger">*</span></label>
+         <span class="help-block small">'.$consumer_secret.'</span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="oauth_token" >'.twi_trad("Jeton d'accès pour Open Authentification (oauth_token)").'&nbsp;<span class="text-danger">*</span></label>
-         <div class="col-sm-12">
-            <input type="text" class="form-control" id="oauth_token" name="oauth_token" value="'.$oauth_token.'" required="required" />
-            <span class="help-block small">'.$oauth_token.'</span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="oauth_token" name="oauth_token" value="'.$oauth_token.'" required="required" />
+         <label for="oauth_token" >'.twi_trad("Jeton d'accès pour Open Authentification (oauth_token)").'&nbsp;<span class="text-danger">*</span></label>
+         <span class="help-block small">'.$oauth_token.'</span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="oauth_token_secret" >'.twi_trad("Jeton d'accès secret pour Open Authentification (oauth_token_secret)").' <span class="text-danger">*</span></label>
-         <div class="col-sm-12">
-            <input type="text" class="form-control" id="oauth_token_secret" name="oauth_token_secret" value="'.$oauth_token_secret.'" />
-            <span class="help-block small">'.$oauth_token_secret.'</span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="oauth_token_secret" name="oauth_token_secret" value="'.$oauth_token_secret.'" />
+         <label for="oauth_token_secret" >'.twi_trad("Jeton d'accès secret pour Open Authentification (oauth_token_secret)").' <span class="text-danger">*</span></label>
+         <span class="help-block small">'.$oauth_token_secret.'</span>
       </div>
     <!--
     <tr>
@@ -168,15 +160,11 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
     </tr>
     -->';
    echo '
-      <div class="mb-3 row">
-         <div class="col-sm-12">
-            <input class="btn btn-primary" type="submit" value="'.twi_trad('Enregistrez').'" />
-            <input type="hidden" name="op" value="Extend-Admin-SubModule" />
-            <input type="hidden" name="ModPath" value="'.$ModPath.'" />
-            <input type="hidden" name="ModStart" value="'.$ModStart.'" />
-            <input type="hidden" name="subop" value="SaveSettwi" />
-         </div>
-      </div>
+      <input class="btn btn-primary my-3" type="submit" value="'.twi_trad('Enregistrez').'" />
+      <input type="hidden" name="op" value="Extend-Admin-SubModule" />
+      <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+      <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+      <input type="hidden" name="subop" value="SaveSettwi" />
    </form>
    <div class="text-right">Version : '.$npds_twi_versus.'</div>';
     $arg1='
