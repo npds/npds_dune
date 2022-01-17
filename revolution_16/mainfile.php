@@ -3274,50 +3274,49 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    document.addEventListener("DOMContentLoaded", function(e) {
       // validateur pour mots de passe
       const strongPassword = function() {
-      const bar = $("#passwordMeter_cont");
         return {
             validate: function(input) {
-               var score=0;
+               let score=0;
                const value = input.value;
                if (value === "") {
                   return {
                      valid: true,
-                     score:null,
+                     meta:{score:null},
                   };
                }
                if (value === value.toLowerCase()) {
-                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
-                     message: "Le mot de passe doit contenir au moins un caractère en majuscule.",
+                     message: "'.translate("Le mot de passe doit contenir au moins un caractère en majuscule.").'",
+                     meta:{score: score-1},
                    };
                }
                if (value === value.toUpperCase()) {
-                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
-                     message: "Le mot de passe doit contenir au moins un caractère en minuscule.",
+                     message: "'.translate("Le mot de passe doit contenir au moins un caractère en minuscule.").'",
+                     meta:{score: score-2},
                   };
                }
                if (value.search(/[0-9]/) < 0) {
-                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
-                     message: "Le mot de passe doit contenir au moins un chiffre.",
+                     message: "'.translate("Le mot de passe doit contenir au moins un chiffre.").'",
+                     meta:{score: score-3},
                   };
                }
                if (value.search(/[@\+\-!#$%&^~*_]/) < 0) {
-                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
-                     message: "Le mot de passe doit contenir au moins un caractère non numérique et non alphabétique.",
+                     message: "'.translate("Le mot de passe doit contenir au moins un caractère non alphanumérique.").'",
+                     meta:{score: score-4},
                   };
                }
                if (value.length < 8) {
-                  bar.removeClass().addClass("progress-bar bg-danger");
                   return {
                      valid: false,
-                     message: "Le mot de passe doit contenir plus de 8 caractères.",
+                     message: "'.translate("Le mot de passe doit contenir").' '.$minpass.' '.translate("caractères au minimum").'",
+                     meta:{score: score-5},
                   };
                }
 
@@ -3328,80 +3327,73 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                if (/[@\+\-!#$%&^~*_]/.test(value)) score += 1; 
                return {
                   valid: true,
-                  score: score,
+                  meta:{score: score},
                };
             },
          };
       };
-    // enregistré comme nouveau validateur nommé checkPassword
-    FormValidation.validators.checkPassword = strongPassword;
-
-   formulid.forEach(function(item, index, array) {
-      const fvitem = FormValidation.formValidation(
-         document.getElementById(item),{
-            locale: "'.language_iso(1,"_",1).'",
-            localization: FormValidation.locales.'.language_iso(1,"_",1).',
-         fields: {';
+      FormValidation.validators.checkPassword = strongPassword;
+      formulid.forEach(function(item, index, array) {
+         const fvitem = FormValidation.formValidation(
+            document.getElementById(item),{
+               locale: "'.language_iso(1,"_",1).'",
+               localization: FormValidation.locales.'.language_iso(1,"_",1).',
+               fields: {';
    if($fv_parametres!='')
       echo '
             '.$fv_parametres[0];
    echo '
-         },
-         plugins: {
-            declarative: new FormValidation.plugins.Declarative({
-               html5Input: true,
-            }),
-            trigger: new FormValidation.plugins.Trigger(),
-            submitButton: new FormValidation.plugins.SubmitButton(),
-            defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-            bootstrap5: new FormValidation.plugins.Bootstrap5({rowSelector: ".mb-3"}),
-            icon: new FormValidation.plugins.Icon({
-               valid: "fa fa-check",
-               invalid: "fa fa-times",
-               validating: "fa fa-sync",
-               onPlaced: function(e) {
-                  e.iconElement.addEventListener("click", function() {
-                     fvitem.resetField(e.field);
-                  });
                },
-            }),
-         },
-      })
-      .on("core.validator.validated", function(e) {
-      // voir si on a plus de champs mot de passe : changer par un array de champs ...
-         if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass" || e.field === "code") && e.validator === "checkPassword") {
-            score = e.result.score;
-            const bar = $("#passwordMeter_cont");
-            switch (true) {
-               case (score === null):
-                  bar.css("width", "100%").removeClass().addClass("progress-bar bg-danger");
-                  bar.attr("value","100");
-               break;
-               case (score > 4):
-                  bar.css("width", "100%").removeClass().addClass("progress-bar bg-success");
-                  bar.attr("aria-valuenow","100");
-                  bar.attr("value","100").removeClass().addClass("progress-bar bg-success");
-               break;
-               default:
-               break;
-            }
-         }
-        if (e.field === "B1" && e.validator === "promise") {
-            //const preview = document.getElementById("avatarPreview");
-            if (e.result.valid && e.result.meta && e.result.meta.source) {
-                $("#ava_perso").removeClass("border-danger").addClass("border-success")
-            } else if (!e.result.valid) {
-               $("#ava_perso").addClass("border-danger")
-            }
-        }
-      });';
+               plugins: {
+                  declarative: new FormValidation.plugins.Declarative({
+                     html5Input: true,
+                  }),
+                  trigger: new FormValidation.plugins.Trigger(),
+                  submitButton: new FormValidation.plugins.SubmitButton(),
+                  defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+                  bootstrap5: new FormValidation.plugins.Bootstrap5({rowSelector: ".mb-3"}),
+                  icon: new FormValidation.plugins.Icon({
+                     valid: "fa fa-check",
+                     invalid: "fa fa-times",
+                     validating: "fa fa-sync",
+                     onPlaced: function(e) {
+                        e.iconElement.addEventListener("click", function() {
+                           fvitem.resetField(e.field);
+                        });
+                     },
+                  }),
+               },
+            })
+            .on("core.validator.validated", function(e) {
+               if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass" || e.field === "code") && e.validator === "checkPassword") {
+                  var score = e.result.meta.score;
+                  const barre = document.querySelector("#passwordMeter_cont");
+                  const width = (score < 0) ? score * -18 + "%" : "100%";
+                  barre.style.width = width;
+                  barre.classList.add("progress-bar","progress-bar-striped","progress-bar-animated","bg-success");
+                  barre.setAttribute("aria-valuenow", width);
+                  if (score === null) {
+                     barre.style.width = "100%";
+                     barre.setAttribute("aria-valuenow", "100%");
+                     barre.classList.replace("bg-success","bg-danger");
+                  } else 
+                     barre.classList.replace("bg-danger","bg-success");
+               }
+               if (e.field === "B1" && e.validator === "promise") {
+                  if (e.result.valid && e.result.meta && e.result.meta.source) {
+                      $("#ava_perso").removeClass("border-danger").addClass("border-success")
+                  } else if (!e.result.valid) {
+                     $("#ava_perso").addClass("border-danger")
+                  }
+               }
+            });';
       if($fv_parametres!='')
          if(array_key_exists(1, $fv_parametres))
             echo '
                '.$fv_parametres[1];
    echo '
-   })
-   });
+         })
+      });
    //]]>
    </script>';
    }
