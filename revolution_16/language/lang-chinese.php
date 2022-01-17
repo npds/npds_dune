@@ -202,7 +202,9 @@ function translate_pass1($phrase) {
    case "Catégories les plus actives": $tmp="最活跃的分类"; break;
    case "Catégories": $tmp="分类"; break;
    case "Ce fichier n'existe pas ...": $tmp="该文件不存在 ..."; break;
+   case "Ce nom n\'est pas disponible": $tmp="此名称不可用"; break;
    case "Ce sujet est verrouillé : il ne peut accueillir aucune nouvelle contribution.": $tmp="此主题被锁定：它不能接受任何新的提交信息。"; break;
+   case "Ce surnom n\'est pas disponible": $tmp="此昵称不可用"; break;
    case "Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder": $tmp="这是私人论坛。您必须输入密码才能进入。"; break;
    case "Cela peut être retiré ou ajouté dans vos paramètres personnels": $tmp="本项可以在你的个人参数中添加或撤消"; break;
    case "Cela pourrait vous intéresser": $tmp="您可能对此感兴趣："; break;

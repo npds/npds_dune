@@ -202,7 +202,9 @@ function translate_pass1($phrase) {
    case "Catégories les plus actives": $tmp="Categorías las mas activas"; break;
    case "Catégories": $tmp="Categorías"; break;
    case "Ce fichier n'existe pas ...": $tmp="El fichero no existe en el servidor ..."; break;
+   case "Ce nom n\'est pas disponible": $tmp="Este nombre no está disponible"; break;
    case "Ce sujet est verrouillé : il ne peut accueillir aucune nouvelle contribution.": $tmp="Este Tema esta cerrado : no se pueden añadir mas Asuntos."; break;
+   case "Ce surnom n\'est pas disponible": $tmp="Este apodo no está disponible"; break;
    case "Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder": $tmp="Este es un foro privado. Incorporar por favor la contraseña para acceder"; break;
    case "Cela peut être retiré ou ajouté dans vos paramètres personnels": $tmp="Esto se puede cambiar en su perfil"; break;
    case "Cela pourrait vous intéresser": $tmp="Esto podría interesarle"; break;

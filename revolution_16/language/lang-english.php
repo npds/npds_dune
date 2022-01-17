@@ -204,7 +204,9 @@ function translate_pass1($phrase) {
    case "Catégories les plus actives": $tmp="most active categories"; break;
    case "Catégories": $tmp="Categories"; break;
    case "Ce fichier n'existe pas ...": $tmp="There is no such file..."; break;
+   case "Ce nom n\'est pas disponible": $tmp="This name is not available"; break;
    case "Ce sujet est verrouillé : il ne peut accueillir aucune nouvelle contribution.": $tmp="Topic is Locked - No new posts may be made in it"; break;
+   case "Ce surnom n\'est pas disponible": $tmp="This nickname is not available"; break;
    case "Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder": $tmp="This is a Private Forum. Please enter the password to gain access"; break;
    case "Cela peut être retiré ou ajouté dans vos paramètres personnels": $tmp="This can be altered or added in your profile"; break;
    case "Cela pourrait vous intéresser": $tmp="You may be interested in"; break;

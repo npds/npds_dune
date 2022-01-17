@@ -202,7 +202,9 @@ function translate_pass1($phrase) {
    case "Catégories les plus actives": $tmp="Aktivste Kategorien"; break;
    case "Catégories": $tmp="Kategorien"; break;
    case "Ce fichier n'existe pas ...": $tmp="Keine Datei vorhanden ..."; break;
+   case "Ce nom n\'est pas disponible": $tmp="Der Name ist nicht verfügbar"; break;
    case "Ce sujet est verrouillé : il ne peut accueillir aucune nouvelle contribution.": $tmp="Das Thema ist GESCHLOSSEN: Es gibt keine neuen Beiträge."; break;
+   case "Ce surnom n\'est pas disponible": $tmp="Dieser Spitzname ist nicht verfügbar"; break;
    case "Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder": $tmp="Das ist ein privates Forum. Bitte geben Sie ihr Passwort ein, um es zu sehen"; break;
    case "Cela peut être retiré ou ajouté dans vos paramètres personnels": $tmp="Das kann in Ihrem Profil geändert, oder hinzugefügt werden."; break;
    case "Cela pourrait vous intéresser": $tmp="Das könnte Sie interessieren"; break;
