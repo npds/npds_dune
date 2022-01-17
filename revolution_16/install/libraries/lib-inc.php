@@ -274,7 +274,7 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
                      meta:{score: score-3},
                   };
                }
-               if (value.search(/[!#$%&^~*_]/) < 0) {
+               if (value.search(/[@\+\-!#$%&^~*_]/) < 0) {
                   return {
                      valid: false,
                      message: "'.ins_translate("Le mot de passe doit contenir au moins un caractère non alphanumérique.").'",
@@ -292,7 +292,7 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
                if (/[A-Z]/.test(value)) score += 1;
                if (/[a-z]/.test(value)) score += 1; 
                if (/[0-9]/.test(value)) score += 1;
-               if (/[!#$%&^~*_]/.test(value)) score += 1;
+               if (/[@\+\-!#$%&^~*_]/.test(value)) score += 1;
                return {
                   valid: true,
                   meta:{score: score},
