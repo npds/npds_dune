@@ -3365,7 +3365,7 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
                },
             })
             .on("core.validator.validated", function(e) {
-               if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass" || e.field === "code") && e.validator === "checkPassword") {
+               if ((e.field === "add_pwd" || e.field === "chng_pwd" || e.field === "pass" || e.field === "add_pass" || e.field === "code" || e.field === "passwd") && e.validator === "checkPassword") {
                   var score = e.result.meta.score;
                   const barre = document.querySelector("#passwordMeter_cont");
                   const width = (score < 0) ? score * -18 + "%" : "100%";

@@ -240,9 +240,12 @@ function BannersAdmin() {
          <span class="help-block text-end" id="countcar_login"></span>
       </div>
       <div class="form-floating mb-3">
-         <input class="form-control" type="password" id="passwd" name="passwd" maxlength="10" required="required" />
+         <input class="form-control" type="password" id="passwd" name="passwd" maxlength="20" required="required" />
          <label for="passwd">'.adm_translate("Mot de Passe").'</label>
          <span class="help-block text-end" id="countcar_passwd"></span>
+         <div class="progress" style="height: 0.4rem;">
+            <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+         </div>
       </div>
       <div class="form-floating mb-3">
          <textarea class="form-control" id="extrainfo" name="extrainfo" style="height:140px"></textarea>
@@ -259,9 +262,14 @@ function BannersAdmin() {
       inpandfieldlen("contact",60);
       inpandfieldlen("email",254);
       inpandfieldlen("login",10);
-      inpandfieldlen("passwd",10);
-   ';
-   adminfoot('fv','',$arg1,'');
+      inpandfieldlen("passwd",20);';
+   $fv_parametres = '
+   passwd: {
+      validators: {
+         checkPassword: {},
+      }
+   },';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 function BannersAdd($name, $cid, $imptotal, $imageurl, $clickurl, $userlevel) {
     global $NPDS_Prefix;
@@ -472,9 +480,12 @@ function BannerClientEdit($cid) {
          <span class="help-block text-end"><span id="countcar_login"></span></span>
       </div>
       <div class="form-floating mb-3">
-         <input class="form-control" type="password" id="passwd" name="passwd" maxlength="10" value="'.$passwd.'" required="required" />
+         <input class="form-control" type="password" id="passwd" name="passwd" maxlength="20" value="'.$passwd.'" required="required" />
          <label for="passwd">'.adm_translate("Mot de Passe").'</label>
          <span class="help-block text-end"><span id="countcar_passwd"></span></span>
+         <div class="progress" style="height: 0.4rem;">
+            <div id="passwordMeter_cont" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+         </div>
       </div>
       <div class="form-floating mb-3">
          <textarea class="form-control" id="extrainfo" name="extrainfo" style="height:140px">'.$extrainfo.'</textarea>
@@ -490,9 +501,15 @@ function BannerClientEdit($cid) {
       inpandfieldlen("contact",60);
       inpandfieldlen("email",254);
       inpandfieldlen("login",10);
-      inpandfieldlen("passwd",10);
+      inpandfieldlen("passwd",20);
    ';
-   adminfoot('fv','',$arg1,'');}
+   $fv_parametres = '
+   passwd: {
+      validators: {
+         checkPassword: {},
+      }
+   },';
+   adminfoot('fv',$fv_parametres,$arg1,'');}
 function BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $passwd) {
    global $NPDS_Prefix;
    sql_query("UPDATE ".$NPDS_Prefix."bannerclient SET name='$name', contact='$contact', email='$email', login='$login', passwd='$passwd', extrainfo='$extrainfo' WHERE cid='$cid'");

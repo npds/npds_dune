@@ -84,7 +84,7 @@ CREATE TABLE bannerclient (
   contact varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   email varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   login varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  passwd varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  passwd varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   extrainfo text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (cid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
