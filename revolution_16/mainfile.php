@@ -2779,7 +2779,7 @@ function headlines($hid='', $block=true) {
          ob_end_clean();
       }
       $boxstuff .= '
-         <div class="text-right"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
+         <div class="text-end"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
       if ($block) {
          themesidebox($boxtitle, $boxstuff);
          $boxstuff='';

@@ -71,7 +71,7 @@ function links() {
    echo '
    <h2>'.translate("Liens").'<span class="badge bg-secondary mx-2 float-end" title="DB : '.$links_DB.translate("Il y a").' '.$numrows.' '.translate("Liens").'" data-bs-toggle="tooltip">'.$numrows.'</span></h2>
    <hr class="mb-0" />
-   <div class="text-right mt-1 mb-2"><a href="javascript:openwindow();">'.translate("Manuel en ligne").'</a><i class="fa fa-cogs ms-3 fa-lg text-muted"></i></div>';
+   <div class="text-end mt-1 mb-2"><a href="javascript:openwindow();">'.translate("Manuel en ligne").'</a><i class="fa fa-cogs ms-3 fa-lg text-muted"></i></div>';
    echo '
    <nav aria-label="breadcrumb">
       <ol class="breadcrumb">';
@@ -735,7 +735,7 @@ function LinksModCat($cat) {
    echo '
    <h2>'.translate("Liens").'</h2>
    <hr class="mb-0" />
-   <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg me-2"></i></a></div>
+   <div class="text-end"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg me-2"></i></a></div>
    <h3 class="my-3">'.translate("Modifier la catégorie").'</h3>';
    if ($cat[1]==0) {
       $result=sql_query("SELECT title, cdescription FROM ".$links_DB."links_categories WHERE cid='$cat[0]'");
@@ -879,7 +879,7 @@ function LinksListModRequests() {
    echo '
    <h3 class="mb-3">'.translate("Requête de modification d'un lien utilisateur").' <span class="badge bg-danger float-end">'.$totalmodrequests.'</span></h3>
    <hr class="mb-0" />
-   <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs me-2 fa-lg"></i></a></div>';
+   <div class="text-end"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs me-2 fa-lg"></i></a></div>';
    while (list($requestid, $lid, $cid, $sid, $title, $url, $description, $modifysubmitter, $topicid_card)=sql_fetch_row($resultX)) {
       $result2 = sql_query("SELECT cid, sid, title, url, description, submitter, topicid_card FROM ".$links_DB."links_links WHERE lid='$lid'");
       list($origcid, $origsid, $origtitle, $origurl, $origdescription, $owner, $oritopicid_card)=sql_fetch_row($result2);
@@ -983,7 +983,7 @@ function LinksListBrokenLinks() {
       echo '
    <h3 class="mb-3">'.translate("Liens cassés rapportés par un ou plusieurs utilisateurs").' <span class="badge bg-danger float-end"> '.$totalbrokenlinks.'</span></h3>
    <hr class="mb-0"/>
-   <div class="text-right"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg"></i></a></div>
+   <div class="text-end"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'"><i class="fa fa-cogs fa-lg"></i></a></div>
    <div class="blockquote">
       <i class="fas fa-trash fa-lg text-primary me-2"></i>'.translate("Ignorer (Efface toutes les demandes pour un lien donné)").'<br />
       <i class="fas fa-trash fa-lg text-danger me-2"></i>'.translate("Effacer (Efface les liens cassés et les avis pour un lien donné)").'

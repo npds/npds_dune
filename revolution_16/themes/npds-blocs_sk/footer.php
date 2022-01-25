@@ -23,7 +23,7 @@ switch ($pdst) {
       echo '
          </div>
          <div class="col-12" id="allblocs" style="padding-top:3.8rem;">
-            <div class="text-right" style="position:absolute;right:1rem;">
+            <div class="text-end" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
             <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
@@ -46,7 +46,7 @@ switch ($pdst) {
       echo '
          </div>
          <div id="allblocs" style="padding-top:3.8rem;">
-            <div class="text-right" style="position:absolute;right:1rem;">
+            <div class="text-end" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
             <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
@@ -63,7 +63,7 @@ switch ($pdst) {
       echo '
          </div>
          <div id="allblocs" style="padding-top:3.8rem;">
-            <div class="text-right" style="position:absolute;right:1rem;">
+            <div class="text-end" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
             <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
@@ -79,7 +79,7 @@ switch ($pdst) {
       echo '
          </div>
          <div id="allblocs" style="padding-top:3.8rem;">
-            <div class="text-right" style="position:absolute;right:1rem;">
+            <div class="text-end" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
             <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';

@@ -56,7 +56,7 @@ function Caff_pub($topic, $file_name, $archive) {
    global $anonymous;
    settype($archive,'integer');
    if ($allow_to_post)
-      echo '<nav class="text-right my-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      echo '<nav class="text-end my-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
 
    // Pagination
    settype($C_start,'integer');
@@ -254,7 +254,7 @@ if ($mycount) {
       </div>';
    if ($allow_to_post)
       echo '
-      <nav class="text-right mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      <nav class="text-end mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
    echo '
       <blockquote class="blockquote my-3">'.translate("Les commentaires sont la propriété de leurs auteurs. Nous ne sommes pas responsables de leur contenu.").'</blockquote>';
    if ($Mmod)

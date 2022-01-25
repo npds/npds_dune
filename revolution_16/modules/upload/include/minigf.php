@@ -224,7 +224,7 @@ function confirmSendFile(f) {
    </div>';
    $att_form='
          <div class="container-fluid p-3">
-            <div class="text-right">
+            <div class="text-end">
                <span class="btn btn-outline-secondary btn-sm" onclick="self.close()">&times;</span>
             </div>
          '.$thanks_msg;

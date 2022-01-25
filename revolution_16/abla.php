@@ -55,7 +55,7 @@ if ($admin) {
       <thead class="collapse thead-default">
          <tr>
             <th class="n-t-col-xs-9"></th>
-            <th class="text-right"></th>
+            <th class="text-end"></th>
          </tr>
       </thead>
       <tbody>
@@ -154,7 +154,7 @@ if ($admin) {
       <thead class=" thead-default">
          <tr>
             <th class="n-t-col-xs-9"></th>
-            <th class="text-right"></th>
+            <th class="text-end"></th>
          </tr>
       </thead>
       <tbody>';
@@ -227,7 +227,7 @@ if ($admin) {
             if (array_key_exists($num_for, $xforum))
                echo $xforum[$num_for][3];
             echo '</span> -/- '.$total_posts.'</td>
-            <td class="text-right small">'.$last_post.'</td>';
+            <td class="text-end small">'.$last_post.'</td>';
          } while($myrow = sql_fetch_assoc($sub_result));
       }
    }

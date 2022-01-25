@@ -401,7 +401,7 @@ function checkdnsmailusers() {
       <div>'.adm_translate("Serveurs de mails contrôlés").'<span class="badge bg-success float-end">'.($page*$pagesize).'</span><br /></div>
       <a class="btn btn-success btn-sm mt-2" href="admin.php?op=checkdnsmail_users&amp;page='.$next_page.'&amp;end='.$end.'">Continuer</a>
       <hr />
-      <div class="text-right"><input id="controlauto" '.$ck.' type="checkbox" /></div>
+      <div class="text-end"><input id="controlauto" '.$ck.' type="checkbox" /></div>
       <script type="text/javascript">
       //<![CDATA[
          $(function () {

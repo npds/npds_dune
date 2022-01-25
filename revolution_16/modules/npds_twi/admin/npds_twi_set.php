@@ -166,7 +166,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
       <input type="hidden" name="ModStart" value="'.$ModStart.'" />
       <input type="hidden" name="subop" value="SaveSettwi" />
    </form>
-   <div class="text-right">Version : '.$npds_twi_versus.'</div>';
+   <div class="text-end">Version : '.$npds_twi_versus.'</div>';
     $arg1='
       var formulid = ["twitterset"];';
    adminfoot('fv','',$arg1,'');

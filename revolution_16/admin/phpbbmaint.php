@@ -139,7 +139,7 @@ function ForumMaintTopicDetail($topic, $topic_title) {
    <h3 class="mb-3 text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>
    <div class="lead">Topic : '.$topic.' | '.stripslashes($topic_title).'</div>
    <div class="card p-4 my-3 border-danger">
-   <p class="text-right small text-muted">[ '.convertdate($post_time).' ]</p>
+   <p class="text-end small text-muted">[ '.convertdate($post_time).' ]</p>
    '.stripslashes($post_text).'
    </div>
    <form action="admin.php" method="post">

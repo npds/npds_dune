@@ -428,7 +428,7 @@ switch($op) {
 // Foot banner de présentation
 if (file_exists("modules/$ModPath/html/foot.html")) {
    $Xcontent=join("",file("modules/$ModPath/html/foot.html"));
-   $Xcontent.='<p class="text-right">NPDS WsPad '.$version.' by Dev&nbsp;&&nbsp;Jpb&nbsp;</p>';
+   $Xcontent.='<p class="text-end">NPDS WsPad '.$version.' by Dev&nbsp;&&nbsp;Jpb&nbsp;</p>';
    $Xcontent=meta_lang(aff_langue($Xcontent));
    echo $Xcontent;
 }

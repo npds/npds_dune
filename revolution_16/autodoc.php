@@ -41,7 +41,7 @@ function dochead($a,$b) {
 
 function docfoot() {
 echo '
-      <p class="text-right small my-3 text-muted">Autodoc by NPDS</p>
+      <p class="text-end small my-3 text-muted">Autodoc by NPDS</p>
    </body>
 </html>';
 }
@@ -109,7 +109,7 @@ function docu() {
       autodoc("powerpack_f.php", "Powerpack_f.php");
    echo '
       <div class="alert alert-success mt-3">Rappels :<br />Si votre thème est adapté, chaque bloc peut contenir :<br />- class-title#nom de la classe de la CSS pour le titre du bloc<br />- class-content#nom de la classe de la CSS pour le corps du bloc<br />- uri#uris séparée par un espace</div>
-      <p class="text-right small my-3 text-muted">Autodoc by NPDS</p>
+      <p class="text-end small my-3 text-muted">Autodoc by NPDS</p>
    </body>
 </html>';
    die();
