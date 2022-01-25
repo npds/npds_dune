@@ -26,7 +26,7 @@ switch ($pdst) {
             <div class="text-right" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
-            <div id="col_LB" class="card-columns px-3" style="padding-top:2.8rem;">';
+            <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
       leftblocks();
       echo '
             </div>
@@ -49,7 +49,7 @@ switch ($pdst) {
             <div class="text-right" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
-            <div id="col_LB" class="card-columns px-3" style="padding-top:2.8rem;">';
+            <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
          leftblocks();
          rightblocks();
          echo '
@@ -66,7 +66,7 @@ switch ($pdst) {
             <div class="text-right" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
-            <div id="col_LB" class="card-columns px-3" style="padding-top:2.8rem;">';
+            <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
          rightblocks();
          echo '
             </div>
@@ -82,7 +82,7 @@ switch ($pdst) {
             <div class="text-right" style="position:absolute;right:1rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
-            <div id="col_LB" class="card-columns px-3" style="padding-top:2.8rem;">';
+            <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
          leftblocks();
          rightblocks();
          echo '
