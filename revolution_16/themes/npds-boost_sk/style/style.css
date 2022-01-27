@@ -156,10 +156,13 @@ table{table-layout: fixed;}
   }
 }
 
+/*
+/*ouvrir les dropdown au survol*/ 
 .dropdown:hover .dropdown-menu {
   display: block;
   margin-top: 0;
 }
+ */
 
 ul.dropdown-menu {
   margin-top: 0;

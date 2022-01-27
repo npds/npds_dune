@@ -18,81 +18,52 @@
 /*                    ouverts dans le Header.php                        */
 /* =====================================================================*/ 
 global $pdst;
+$moreclass = 'griditem col-12 col-md-6 col-lg-4 col-xl-3';
+echo '
+         </div>';
+echo $pdst != -1 ? '
+         <div class="col-12" id="allblocs" style="padding-top:3.8rem;">
+            <div class="text-end" >
+               <a class="btn btn-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
+            </div>
+            <div id="col_LB" class="row g-3" style="padding-top:2.8rem;" data-masonry=\'{"columnWidth": 0, "itemSelector": ".griditem" }\'>': '';
+
 switch ($pdst) {
    case '0':
-      echo '
-         </div>
-         <div class="col-12" id="allblocs" style="padding-top:3.8rem;">
-            <div class="text-end" style="position:absolute;right:1rem;">
-               <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
-            </div>
-            <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
-      leftblocks();
+      leftblocks($moreclass);
       echo '
             </div>
-         </div>
-      </div>
-   </div>
-</div>';
+         </div>';
    break;
    case '-1':
-      echo '
-         </div>
-      </div>
-   </div>
-</div>';
+      echo '';
    break;
    case '1':
+      leftblocks($moreclass);
+      rightblocks($moreclass);
       echo '
-         </div>
-         <div id="allblocs" style="padding-top:3.8rem;">
-            <div class="text-end" style="position:absolute;right:1rem;">
-               <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
-            <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
-         leftblocks();
-         rightblocks();
-         echo '
-            </div>
-         </div>
-      </div>
-   </div>
-</div>';
+         </div>';
    break;
    case '2':
+      rightblocks($moreclass);
       echo '
-         </div>
-         <div id="allblocs" style="padding-top:3.8rem;">
-            <div class="text-end" style="position:absolute;right:1rem;">
-               <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
-            <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
-         rightblocks();
-         echo '
-            </div>
-         </div>
-      </div>
-   </div>
-</div>';
+         </div>';
    break;
    default:
+      leftblocks($moreclass);
+      rightblocks($moreclass);
       echo '
-         </div>
-         <div id="allblocs" style="padding-top:3.8rem;">
-            <div class="text-end" style="position:absolute;right:1rem;">
-               <a class="btn btn-outline-primary btn-sm rounded-circle" href="#col_princ"><i class="fa fa-angle-up fa-lg"></i></a>
             </div>
-            <div id="col_LB" class="classàrevoir px-3" style="padding-top:2.8rem;">';
-         leftblocks();
-         rightblocks();
-         echo '
-            </div>
-         </div>
+         </div>';
+   break;
+}
+
+echo '
       </div>
    </div>
 </div>';
-   break;
-}
 
 // ContainerGlobal permet de transmettre · Theme-Dynamic un élément de personnalisation après
 // le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
@@ -102,4 +73,6 @@ $ContainerGlobal='
 // Ne supprimez pas cette ligne / Don't remove this line
   require_once("themes/themes-dynamic/footer.php");
 // Ne supprimez pas cette ligne / Don't remove this line
+echo '
+      <script type="text/javascript" src="lib/js/masonry.pkgd.min.js"></script>';
 ?>

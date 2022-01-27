@@ -52,12 +52,12 @@ $ContainerGlobal='
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
    global $powerpack;
-   if (!isset($powerpack)) {include ("powerpack.php");}
+   if (!isset($powerpack)) include ("powerpack.php");
 // Ne supprimez pas cette ligne / Don't remove this line
 
    echo '
    <div id="corps" class="container n-hyphenate">
-      <div class="row">';
+      <div class="row g-3">';
 switch ($pdst) {
    case '-1':
       echo '

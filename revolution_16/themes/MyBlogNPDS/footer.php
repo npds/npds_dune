@@ -18,6 +18,7 @@
 /*                    ouverts dans le Header.php                        */
 /* =====================================================================*/ 
 global $pdst;
+$moreclass = '';
 switch ($pdst)
 {
    case '-1':
@@ -30,8 +31,8 @@ switch ($pdst)
       echo '
       </div>
       <div id="col_LB" class="collapse show col-lg-3">';
-         leftblocks();
-         rightblocks();
+         leftblocks($moreclass);
+         rightblocks($moreclass);
       echo '
             </div>
          </div>

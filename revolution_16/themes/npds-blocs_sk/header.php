@@ -77,7 +77,7 @@ $ContainerGlobal='
 // Ne supprimez pas cette ligne / Don't remove this line
 require_once("themes/themes-dynamic/header.php");
 global $powerpack;
-if (!isset($powerpack)) {include ("powerpack.php");}
+if (!isset($powerpack)) include ("powerpack.php");
 // Ne supprimez pas cette ligne / Don't remove this line
 
 /************************************************************************/
@@ -95,14 +95,9 @@ if (!isset($powerpack)) {include ("powerpack.php");}
 /* =====================================================================*/
 echo '
    <div id="corps" class="container-fluid n-hyphenate">
-      <div class="row justify-content-center">';
-switch ($pdst) {
-   default:
-      echo '
+      <div class="row justify-content-center">
          <div id="col_princ" class="col-lg-11">
             <div id="btn_haut" class="text-end mb-2" style="padding-top:4rem;">
                <a class="btn btn-outline-primary btn-sm rounded-circle" href="#allblocs" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="'.aff_langue($listblocs).'" data-bs-html="true" title="Plus de contenu ..."  data-bs-offset="180,2" ><i class="fa fa-angle-down fa-lg"></i></a>
             </div>';
-   break;
-}
 ?>

@@ -49,8 +49,8 @@ a:focus {
   overflow-y: auto;
 }
 
-.page-link {color:#be2525;}
-.page-link:hover {color:#000000;}
+.page-link , .nav-link {color:#be2525;}
+.page-link:hover, .nav-link:hover {color:#000000;}
 .custom-control-input:checked~.custom-control-indicator {
    color: #fff;
    background-color: #be2525;

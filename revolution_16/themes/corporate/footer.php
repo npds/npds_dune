@@ -18,6 +18,8 @@
 /*                    ouverts dans le Header.php                        */
 /* =====================================================================*/ 
 global $pdst;
+$moreclass = 'col-12';
+
 switch ($pdst)
 {
    case '-1':case '3':case '5':
@@ -32,7 +34,7 @@ switch ($pdst)
          colsyst('#col_RB');
          echo '
          <div id="col_RB" class="collapse show col-lg-3 ">'."\n";
-        rightblocks();
+        rightblocks($moreclass);
       echo '
          </div>
       </div>
@@ -44,13 +46,13 @@ switch ($pdst)
          colsyst('#col_LB');
       echo'
          <div id="col_LB" class="collapse show col-lg-3">'."\n";
-      leftblocks();
+      leftblocks($moreclass);
       echo '
       </div>';
          colsyst('#col_RB');
       echo'
          <div id="col_RB" class="collapse show col-lg-3">'."\n";
-      rightblocks();
+      rightblocks($moreclass);
       echo '
          </div>
       </div>
@@ -62,7 +64,7 @@ switch ($pdst)
          colsyst('#col_LB');
       echo'
       <div id="col_LB" class="collapse show col-lg-3">'."\n";
-         leftblocks();
+         leftblocks($moreclass);
       echo '
          </div>
       </div>

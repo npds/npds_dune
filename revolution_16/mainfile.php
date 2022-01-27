@@ -1291,23 +1291,23 @@ function fab_block($title, $member, $content, $Xcache) {
    }
 }
 #autodoc leftblocks() : Meta-Fonction / Blocs de Gauche
-function leftblocks() {
-   Pre_fab_block('','LB');
+function leftblocks($moreclass) {
+   Pre_fab_block('','LB',$moreclass);
 }
 #autodoc rightblocks() : Meta-Fonction / Blocs de Droite
-function rightblocks() {
-   Pre_fab_block('','RB');
+function rightblocks($moreclass) {
+   Pre_fab_block('','RB',$moreclass);
 }
 #autodoc oneblock($Xid, $Xblock) : Alias de Pre_fab_block pour meta-lang
 function oneblock($Xid, $Xblock) {
    ob_start();
-      Pre_fab_block($Xid, $Xblock);
+      Pre_fab_block($Xid, $Xblock,'');
       $tmp=ob_get_contents();
    ob_end_clean();
    return ($tmp);
 }
-#autodoc Pre_fab_block($Xid, $Xblock) : Assure la fabrication d'un ou de tous les blocs Gauche et Droite
-function Pre_fab_block($Xid, $Xblock) {
+#autodoc Pre_fab_block($Xid, $Xblock, $moreclass) : Assure la fabrication d'un ou de tous les blocs Gauche et Droite
+function Pre_fab_block($Xid, $Xblock, $moreclass) {
     global $NPDS_Prefix, $htvar; // modif Jireck
     if ($Xid)
       $result = $Xblock=='RB' ?
@@ -1323,10 +1323,10 @@ function Pre_fab_block($Xid, $Xblock) {
       if (($actif) or ($Xid)) {
          if ($css==1){
             $htvar = '
-            <div id="'.$Xblock.'_'.$id.'">'; // modif Jireck
+            <div class="'.$moreclass.'" id="'.$Xblock.'_'.$id.'">'; // modif Jireck
          } else {
             $htvar = '
-            <div class="card mb-3 '.strtolower($bloc_side).'bloc">'; // modif Jireck
+            <div class="'.$moreclass.' '.strtolower($bloc_side).'bloc">'; // modif Jireck
          }
          fab_block($title, $member, $content, $cache);
          // echo "</div>"; // modif Jireck
@@ -2779,7 +2779,7 @@ function headlines($hid='', $block=true) {
          ob_end_clean();
       }
       $boxstuff .= '
-         <div class="text-end"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
+         <div class="text-right"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
       if ($block) {
          themesidebox($boxtitle, $boxstuff);
          $boxstuff='';
