@@ -116,7 +116,7 @@ function FaqCatGo($id_cat) {
    echo aff_editeur("answer","false");
    echo '
          <div class="mb-3 row">
-            <div class="col-sm-12 d-flex flex-row justify-content-left flex-wrap">
+            <div class="col-sm-12 d-flex flex-row justify-content-start flex-wrap">
                <input type="hidden" name="id_cat" value="'.$id_cat.'" />
                <input type="hidden" name="op" value="FaqCatGoAdd" />'."\n".'
                <button class="btn btn-primary mb-2 " type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").'</button>&nbsp;
