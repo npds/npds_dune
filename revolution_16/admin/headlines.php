@@ -68,40 +68,28 @@ function HeadlinesAdmin() {
    <h3 class="mb-3">'.adm_translate("Nouveau Grand Titre").'</h3>
    <form id="fad_newheadline" action="admin.php" method="post">
       <fieldset>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
-            <div class="col-sm-8">
-               <input id="xsitename" class="form-control" type="text" name="xsitename" placeholder="'.adm_translate("Nom du site").'" maxlength="30" required="required" />
-            </div>
+         <div class="form-floating mb-3">
+            <input id="xsitename" class="form-control" type="text" name="xsitename" placeholder="'.adm_translate("Nom du site").'" maxlength="30" required="required" />
+            <label for="xsitename">'.adm_translate("Nom du site").'</label>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'</label>
-            <div class="col-sm-8">
-               <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="320" required="required" />
-               <span class="help-block text-end"><span id="countcar_url"></span></span>
-            </div>
+         <div class="form-floating mb-3">
+            <input id="url" class="form-control" type="url" name="url" placeholder="'.adm_translate("URL").'" maxlength="320" required="required" />
+            <label for="url">'.adm_translate("URL").'</label>
+            <span class="help-block text-end"><span id="countcar_url"></span></span>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
-            <div class="col-sm-8">
-                <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="320" required="required" />
-                <span class="help-block text-end"><span id="countcar_headlinesurl"></span></span>
-            </div>
+         <div class="form-floating mb-3">
+            <input id="headlinesurl" class="form-control" type="url" name="headlinesurl" placeholder="'.adm_translate("URL pour le fichier RDF/XML").'" maxlength="320" required="required" />
+            <label for="headlinesurl">'.adm_translate("URL pour le fichier RDF/XML").'</label>
+            <span class="help-block text-end"><span id="countcar_headlinesurl"></span></span>
          </div>
-         <div class="mb-3 row">
+         <div class="form-floating mb-3">
+            <select class="form-select" id="status" name="status">
+               <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
+               <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
+            </select>
             <label class="col-form-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
-            <div class="col-sm-8">
-               <select class="form-select" id="status" name="status">
-                  <option name="status" value="1">'.adm_translate("Actif(s)").'</option>
-                  <option name="status" value="0" selected="selected">'.adm_translate("Inactif(s)").'</option>
-               </select>
-            </div>
          </div>
-         <div class="mb-3 row">
-            <div class="col-sm-8 ms-sm-auto">
-               <button class="btn btn-primary col-12" type="submit"><i class="fa fa-plus-square fa-lg">&nbsp;</i>'.adm_translate("Ajouter").'</button>
-            </div>
-         </div>
+         <button class="btn btn-primary" type="submit"><i class="fa fa-plus-square fa-lg me-2"></i>'.adm_translate("Ajouter").'</button>
          <input type="hidden" name="op" value="HeadlinesAdd" />
       </fieldset>
    </form>';

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -25,7 +25,6 @@ function error_handler($ibid) {
    echo "<p align=\"center\"><span class=\"rouge\">".adm_translate("Merci d'entrer l'information en fonction des spécifications")."<br /><br />";
    echo "$ibid</span><br /><a href=\"index.php\" class=\"noir\">".adm_translate("Retour en arrière")."</a></p>";
 }
-
 
 function ShowHeader() {
    global $NPDS_Prefix;
@@ -348,8 +347,14 @@ function main() {
    echo '
    <hr />
    <h3 class="mb-2">'.adm_translate("Petite Lettre D'information").'</h3>
-   <a href="admin.php?op=lnl_List">'.adm_translate("Liste des LNL envoyées").'</a>
-   <a href="admin.php?op=lnl_User_List">'.adm_translate("Afficher la liste des prospects").'</a>
+   <ul class="nav flex-md-row flex-column">
+      <li class="nav-item">
+         <a class="nav-link active" href="admin.php?op=lnl_List">'.adm_translate("Liste des LNL envoyées").'</a>
+      </li>
+      <li class="nav-item">
+         <a class="nav-link active" href="admin.php?op=lnl_User_List">'.adm_translate("Afficher la liste des prospects").'</a>
+      </li>
+   </ul>
    <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Message d'entête").'</h4>';
       ShowHeader();
    echo '
@@ -363,21 +368,27 @@ function main() {
    <h4>'.adm_translate("Assembler une lettre et la tester").'</h4>
    <form id="ltesto" action="admin.php" method="post">
       <div class="row">
-         <div class="mb-3 col-sm-4">
-            <label class="col-form-label" for="testXheader">'.adm_translate("Entête").'</label>
-            <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" />
+               <label for="testXheader">'.adm_translate("Entête").'</label>
+            </div>
          </div>
-         <div class="mb-3 col-sm-4">
-            <label class="col-form-label" for="testXbody">'.adm_translate("Corps").'</label>
-            <input class="form-control" type="number" name="Xbody" id="testXbody" maxlength="11" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xbody" id="testXbody" maxlength="11" />
+               <label for="testXbody">'.adm_translate("Corps").'</label>
+            </div>
          </div>
-         <div class="mb-3 col-sm-4">
-            <label class="col-form-label" for="testXfooter">'.adm_translate("Pied").'</label>
-            <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" />
+               <label for="testXfooter">'.adm_translate("Pied").'</label>
+            </div>
          </div>
          <div class="mb-3 col-sm-12">
             <input type="hidden" name="op" value="lnl_Test" />
-            <button class="btn btn-primary my-3" type="submit">'.adm_translate("Valider").'</button>
+            <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
          </div>
       </div>
    </form>
@@ -385,22 +396,30 @@ function main() {
    <h4>'.adm_translate("Envoyer La Lettre").'</h4>
    <form id="lsendo" action="admin.php" method="post">
       <div class="row">
-         <div class="mb-3 col-sm-4">
-            <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
-            <input class="form-control" type="number" name="Xheader" id="Xheader" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xheader" id="Xheader" />
+               <label for="Xheader">'.adm_translate("Entête").'</label>
+            </div>
          </div>
-         <div class="mb-3 col-sm-4">
-            <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
-            <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" />
+               <label for="Xbody">'.adm_translate("Corps").'</label>
+            </div>
          </div>
-         <div class="mb-3 col-sm-4">
-            <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
-            <input class="form-control" type="number" name="Xfooter" id="Xfooter" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xfooter" id="Xfooter" />
+               <label for="Xfooter">'.adm_translate("Pied").'</label>
+            </div>
          </div>
-         <div class="mb-3 col-sm-12">
-            <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
-            <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" />
-            <span class="help-block text-end"><span id="countcar_Xsubject"></span></span>
+         <div class="col-sm-12">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" />
+               <label for="Xsubject">'.adm_translate("Sujet").'</label>
+               <span class="help-block text-end"><span id="countcar_Xsubject"></span></span>
+            </div>
          </div>
          <hr />
          <div class="mb-3 col-sm-12">

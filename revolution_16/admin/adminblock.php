@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -27,30 +27,27 @@ function ablock() {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
       <hr />
-      <h3>'.adm_translate("Editer le Bloc Administration").'</h3>';
+      <h3 class="mb-3">'.adm_translate("Editer le Bloc Administration").'</h3>';
    $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2");
    if (sql_num_rows($result) > 0) {
       while (list($title, $content) = sql_fetch_row($result)) {
          echo '
          <form id="adminblock" action="admin.php" method="post" class="needs-validation">
-            <div class="mb-3">
-               <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
-               <textarea class="form-control" type="text" name="title" id="title" maxlength="1000">'.$title.'</textarea>
+            <div class="form-floating mb-3">
+               <textarea class="form-control" type="text" name="title" id="title" maxlength="1000" style="height:70px;">'.$title.'</textarea>
+               <label for="title">'.adm_translate("Titre").'</label>
                <span class="help-block text-end"><span id="countcar_title"></span></span>
             </div>
-            <div class="mb-3">
-               <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
-               <textarea class="form-control" type="text" rows="25" name="content" id="content">'.$content.'</textarea>
+            <div class="form-floating mb-3">
+               <textarea class="form-control" type="text" rows="25" name="content" id="content" style="height:170px;">'.$content.'</textarea>
+               <label for="content">'.adm_translate("Contenu").'</label>
             </div>
             <input type="hidden" name="op" value="changeablock" />
-            <div class="mb-3">
-               <button class="btn btn-outline-primary btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
-            </div>
+            <button class="btn btn-primary btn-block" type="submit">'.adm_translate("Valider").'</button>
          </form>';
       $arg1='
    var formulid = ["adminblock"];
-   inpandfieldlen("title",1000);
-   ';
+   inpandfieldlen("title",1000);';
       }
    }
    adminfoot('fv','',$arg1,'');

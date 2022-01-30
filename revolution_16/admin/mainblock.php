@@ -33,30 +33,22 @@ function mblock() {
       while(list($title, $content) = sql_fetch_row($result)) {
          echo '
          <form id="fad_mblock" action="admin.php" method="post">
-            <div class="mb-3 row">
-               <label class="col-form-label col-12" for="title">'.adm_translate("Titre").'</label>
-               <div class="col-12">
-                  <textarea class="form-control" type="text" id="title" name="title" maxlength="255" placeholder="'.adm_translate("Titre :").'">'.$title.'</textarea>
-                  <span class="help-block text-end"><span id="countcar_title"></span></span>
-               </div>
+            <div class="form-floating mb-3">
+               <textarea class="form-control" type="text" id="title" name="title" maxlength="1000" placeholder="'.adm_translate("Titre :").'" style="height:70px;">'.$title.'</textarea>
+               <label for="title">'.adm_translate("Titre").'</label>
+               <span class="help-block text-end"><span id="countcar_title"></span></span>
             </div>
-            <div class="mb-3 row">
-               <label class="col-form-label col-12" for="content">'.adm_translate("Contenu").'</label>
-               <div class="col-12">
-                  <textarea class="form-control" rows="25" id="content" name="content">'.$content.'</textarea>
-               </div>
+            <div class="form-floating mb-3">
+               <textarea class="form-control" id="content" name="content" style="height:170px;">'.$content.'</textarea>
+               <label for="content">'.adm_translate("Contenu").'</label>
             </div>
             <input type="hidden" name="op" value="changemblock" />
-            <div class="mb-3 row">
-               <div class="col-12">
-                  <button class="btn btn-outline-primary btn-block" type="submit"><i class ="fa fa-check fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
-               </div>
-            </div>
+            <button class="btn btn-primary btn-block" type="submit">'.adm_translate("Valider").'</button>
          </form>
          <script type="text/javascript">
          //<![CDATA[
             $(document).ready(function() {
-               inpandfieldlen("title",255);
+               inpandfieldlen("title",1000);
             });
          //]]>
          </script>';

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -28,88 +28,88 @@ function Ephemerids() {
    $nday = '1';
    echo '
    <hr />
-   <h3>'.adm_translate("Ajouter un éphéméride").'</h3>
+   <h3 class="mb-3">'.adm_translate("Ajouter un éphéméride").'</h3>
    <form action="admin.php" method="post">
-      <div class="mb-3 row">
-         <div class="col-4">
-            <label class="col-form-label" for="did">'.adm_translate("Jour").'</label>
-            <select class="form-select" id="did" name="did">';
+      <div class="row g-3 mb-3">
+         <div class="col-sm-4">
+            <div class="form-floating">
+               <select class="form-select" id="did" name="did">';
    while ($nday<=31) {
       echo '
-               <option name="did">'.$nday.'</option>';
+                  <option name="did">'.$nday.'</option>';
       $nday++;
    }
    echo '
-            </select>
+               </select>
+               <label for="did">'.adm_translate("Jour").'</label>
+            </div>
          </div>';
     $nmonth = "1";
     echo '
-         <div class="col-4">
-            <label class="col-form-label" for="mid">'.adm_translate("Mois").'</label>
-            <select class="form-select" id="mid" name="mid">';
+         <div class="col-sm-4">
+            <div class="form-floating">
+               <select class="form-select" id="mid" name="mid">';
     while ($nmonth<=12) {
        echo '
-               <option name="mid">'.$nmonth.'</option>';
+                  <option name="mid">'.$nmonth.'</option>';
        $nmonth++;
     }
     echo '
-            </select>
+               </select>
+               <label for="mid">'.adm_translate("Mois").'</label>
+            </div>
          </div>
-         <div class="col-4">
-            <label class="col-form-label" for="yid">'.adm_translate("Année").'</label>
-            <input class="form-control" type="number" id="yid" name="yid" maxlength="4" size="5" />
-         </div>
-      </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
-         <div class="col-sm-12">
-            <textarea name="content" class="form-control" cols="55" rows="10"></textarea>
+         <div class="col-sm-4">
+            <div class="form-floating">
+               <input class="form-control" type="number" id="yid" name="yid" maxlength="4" size="5" />
+               <label for="yid">'.adm_translate("Année").'</label>
+            </div>
          </div>
       </div>
-      <div class="mb-3 row">
-         <div class="col-sm-12">
-            <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
-            <input type="hidden" name="op" value="Ephemeridsadd" />
-         </div>
+      <div class="form-floating mb-3">
+         <textarea name="content" class="form-control" style="height:120px;"></textarea>
+         <label for="content">'.adm_translate("Description de l'éphéméride").'</label>
       </div>
+      <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
+      <input type="hidden" name="op" value="Ephemeridsadd" />
    </form>
    <hr />
-   <h3>'.adm_translate("Maintenance des Ephémérides (Editer/Effacer)").'</h3>
+   <h3 class="mb-3">'.adm_translate("Maintenance des Ephémérides (Editer/Effacer)").'</h3>
    <form action="admin.php" method="post">';
    $nday = "1";
    echo '
-      <div class="mb-3 row">
+      <div class="row g-3">
          <div class="col-4">
-            <label class="col-form-label" for="did">'.adm_translate("Jour").'</label>
-            <select class="form-select" id="did" name="did">';
+            <div class="form-floating mb-3">
+               <select class="form-select" id="did" name="did">';
    while ($nday<=31) {
       echo '
-               <option name="did">'.$nday.'</option>';
+                  <option name="did">'.$nday.'</option>';
       $nday++;
    }
     echo '
-            </select>
+               </select>
+               <label for="did">'.adm_translate("Jour").'</label>
+            </div>
          </div>';
     $nmonth = "1";
     echo '
          <div class="col-4">
-            <label class="col-form-label" for="mid">'.adm_translate("Mois").'</label>
-            <select class="form-select" id="mid" name="mid">';
+            <div class="form-floating mb-3">
+               <select class="form-select" id="mid" name="mid">';
     while ($nmonth<=12) {
        echo '
-               <option name="mid">'.$nmonth.'</option>';
+                  <option name="mid">'.$nmonth.'</option>';
        $nmonth++;
     }
     echo '
-            </select>
+               </select>
+               <label for="mid">'.adm_translate("Mois").'</label>
+            </div>
          </div>
       </div>
-      <div class="mb-3 row">
-         <div class="col-sm-12">
-            <input type="hidden" name="op" value="Ephemeridsmaintenance" />
-            <button class="btn btn-primary" type="submit">'.adm_translate("Editer").'</button>
-         </div>
-      </div>
+      <input type="hidden" name="op" value="Ephemeridsmaintenance" />
+      <button class="btn btn-primary" type="submit">'.adm_translate("Editer").'</button>
    </form>';
     adminfoot('','','','');
 }
@@ -172,27 +172,19 @@ function Ephemeridsedit($eid, $did, $mid) {
    <hr />
    <h3>'.adm_translate("Editer éphéméride").'</h3>
    <form action="admin.php" method="post">
-      <div class="mb-3 row">
-          <label class="col-form-label col-sm-3" for="yid">'.adm_translate("Année").'</label>
-          <div class="col-sm-9">
-             <input class="form-control" type="number" name="yid" value="'.$yid.'" max="2500" />
-         </div>
+      <div class="form-floating mb-3">
+          <input class="form-control" type="number" name="yid" value="'.$yid.'" max="2500" />
+          <label for="yid">'.adm_translate("Année").'</label>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="content">'.adm_translate("Description de l'éphéméride").'</label>
-         <div class="col-sm-12">
-            <textarea name="content" id="content" class="form-control" rows="10">'.$content.'</textarea>
-         </div>
+      <div class="form-floating mb-3">
+         <textarea name="content" id="content" class="form-control" style="height:120px;">'.$content.'</textarea>
+         <label for="content">'.adm_translate("Description de l'éphéméride").'</label>
       </div>
-      <div class="mb-3 row">
-         <div class="col-sm-12">
-            <input type="hidden" name="did" value="'.$did.'" />
-            <input type="hidden" name="mid" value="'.$mid.'" />
-            <input type="hidden" name="eid" value="'.$eid.'" />
-            <input type="hidden" name="op" value="Ephemeridschange" />
-            <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
-         </div>
-      </div>
+      <input type="hidden" name="did" value="'.$did.'" />
+      <input type="hidden" name="mid" value="'.$mid.'" />
+      <input type="hidden" name="eid" value="'.$eid.'" />
+      <input type="hidden" name="op" value="Ephemeridschange" />
+      <button class="btn btn-primary" type="submit">'.adm_translate("Envoyer").'</button>
    </form>';
    adminfoot('','','','');
 }
