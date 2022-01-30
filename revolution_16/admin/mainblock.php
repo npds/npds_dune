@@ -70,7 +70,7 @@ function changemblock($title, $content) {
    $title = stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
    sql_query("UPDATE ".$NPDS_Prefix."block SET title='$title', content='$content' WHERE id='1'");
-   global $aid; Ecr_Log('security', "ChangeMainBlock(aff_langue($title)) by AID : $aid", '');
+   global $aid; Ecr_Log('security', "ChangeMainBlock(".aff_langue($title).") by AID : $aid", '');
    Header("Location: admin.php?op=adminMain");
 }
 

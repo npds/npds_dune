@@ -28,12 +28,13 @@ function makelblock($title, $content, $members, $Mmember, $Lindex, $Scache, $BLa
       if ($members==0) $members=1;
    }
    if (empty($Lindex)) $Lindex=0;
-   $title=stripslashes(FixQuotes($title));
+   $title = stripslashes(FixQuotes($title));
    $content = stripslashes(FixQuotes($content));
    if ($SHTML!='ON')
       $content = strip_tags(str_replace('<br />','\n',$content));
    sql_query("INSERT INTO ".$NPDS_Prefix."lblocks VALUES (NULL,'$title','$content','$members', '$Lindex', '$Scache', '1','$css', '$BLaide')");
-   global $aid; Ecr_Log('security', "MakeLeftBlock(aff_langue($title)) by AID : $aid", "");
+
+   global $aid; Ecr_Log('security', "MakeLeftBlock(".aff_langue($title).") by AID : $aid", "");
    Header("Location: admin.php?op=blocks");
 }
 
@@ -52,7 +53,7 @@ function changelblock($id, $title, $content, $members, $Mmember, $Lindex, $Scach
    $BLaide = stripslashes(FixQuotes($BLaide));
    sql_query("UPDATE ".$NPDS_Prefix."lblocks SET title='$title', content='$content', member='$members', Lindex='$Lindex', cache='$Scache', actif='$Sactif', aide='$BLaide', css='$css' WHERE id='$id'");
 
-   global $aid; Ecr_Log('security', "ChangeLeftBlock(aff_langue($title) - $id) by AID : $aid", '');
+   global $aid; Ecr_Log('security', "ChangeLeftBlock(".aff_langue($title)." - $id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
@@ -72,7 +73,7 @@ function changedroitelblock($id, $title, $content, $members, $Mmember, $Lindex, 
    sql_query("INSERT INTO ".$NPDS_Prefix."rblocks VALUES (NULL,'$title','$content', '$members', '$Lindex', '$Scache', '$Sactif', '$css', '$BLaide')");
    sql_query("DELETE FROM ".$NPDS_Prefix."lblocks WHERE id='$id'");
 
-   global $aid; Ecr_Log('security', "MoveLeftBlockToRight(aff_langue($title) - $id) by AID : $aid", '');
+   global $aid; Ecr_Log('security', "MoveLeftBlockToRight(".aff_langue($title)." - $id) by AID : $aid", '');
    Header("Location: admin.php?op=blocks");
 }
 
