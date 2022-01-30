@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -2199,14 +2199,9 @@ function online() {
 #autodoc lnlbox() : Bloc Little News-Letter <br />=> syntaxe : function#lnlbox
 function lnlbox() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("La lettre");
-   else
-      $title=$block_title;
-/*
+   $title= $block_title=='' ? translate("La lettre") : $block_title;
    $arg1='
       var formulid = ["lnlblock"]';
-*/
    $boxstuff = '
          <form id="lnlblock" action="lnl.php" method="get">
             <div class="mb-3">
@@ -2215,18 +2210,14 @@ function lnlbox() {
                   <option value="unsubscribe">'.translate("Désabonnement").'</option>
                </select>
             </div>
-            <div class="mb-3">
+            <div class="form-floating mb-3">
+               <input type="email" id="email_block" name="email" maxlength="254" class="form-control" required="required"/>
                <label for="email_block">'.translate("Votre adresse Email").'</label>
-               <input type="email" id="email_block" name="email" maxlength="60" class="form-control" />
+               <span class="help-block">'.translate("Recevez par mail les nouveautés du site.").'</span>
             </div>
-            <p><span class="help-block">'.translate("Recevez par mail les nouveautés du site.").'</span></p>
-            <div class="mb-3 row">
-               <div class="col-sm-12">
-                  <button type="submit" class="btn btn-outline-primary btn-block btn-sm"><i class ="fa fa-check fa-lg"></i>&nbsp;'.translate("Valider").'</button>
-               </div>
-            </div>
+            <button type="submit" class="btn btn-outline-primary btn-block btn-sm"><i class ="fa fa-check fa-lg me-2"></i>'.translate("Valider").'</button>
          </form>'
-         .adminfoot('','','','0');
+         .adminfoot('fv','',$arg1,'0');
    themesidebox($title, $boxstuff);
 }
 #autodoc searchbox() : Bloc Search-engine <br />=> syntaxe : function#searchbox
