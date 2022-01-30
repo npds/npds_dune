@@ -137,7 +137,7 @@ function meta_lang($Xcontent) {
    if (trim($Xcontent)) {
       $Xcontent.=" ";
       // for compatibility only with old dyna-theme !
-      $Xcontent.="!theme! !bgcolor1! !bgcolor2! !bgcolor3! !bgcolor4! !bgcolor5! !bgcolor6! !textcolor1! !textcolor2! ";
+      $Xcontent.="!theme! ";
    } else
       return($Ycontent);
 
