@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,7 +16,7 @@ if (!function_exists("Mysql_Connexion"))
 
 function display_score($score) {
    $image = '<i class="fa fa-star"></i>';
-   $halfimage = '<i class="fa fa-star-half-o"></i>';
+   $halfimage = '<i class="fas fa-star-half-alt"></i>';
    $full = '<i class="fa fa-star"></i>';
    if ($score == 10) {
       for ($i=0; $i < 5; $i++)
@@ -41,111 +41,85 @@ function write_review() {
    <h2>'.translate("Ecrire une critique").'</h2>
    <hr />
    <form id="writereview" method="post" action="reviews.php">
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="title_rev">'.translate("Objet").'</label>
-         <div class="col-sm-8">
-            <textarea class="form-control" id="title_rev" name="title" rows="2" required="required" maxlength="150"></textarea>
-            <span class="help-block text-end" id="countcar_title_rev"></span>
-         </div>
+      <div class="form-floating mb-3">
+         <textarea class="form-control" id="title_rev" name="title" required="required" maxlength="150" style="height:70px"></textarea>
+         <label for="title_rev">'.translate("Objet").'</label>
+         <span class="help-block text-end" id="countcar_title_rev"></span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="text_rev">'.translate("Texte").'</label>
-         <div class="col-sm-8">
-            <textarea class="form-control" id="text_rev" name="text" rows="15" required="required"></textarea>
-            <span class="help-block">'.translate("Attention à votre expression écrite. Vous pouvez utiliser du code html si vous savez le faire").'</span>
-         </div>
+      <div class="form-floating mb-3">
+         <textarea class="form-control" id="text_rev" name="text" required="required" style="height:120px"></textarea>
+         <label for="text_rev">'.translate("Texte").'</label>
+         <span class="help-block">'.translate("Attention à votre expression écrite. Vous pouvez utiliser du code html si vous savez le faire").'</span>
       </div>';
   
    if ($user) {
       $result=sql_query("SELECT uname, email FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
       list($uname, $email) = sql_fetch_row($result);
-
       echo '
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Votre nom").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="reviewer_rev" name="reviewer" value="'.$uname.'" maxlength="25" required="required" />
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="reviewer_rev" name="reviewer" value="'.$uname.'" maxlength="25" required="required" />
+         <label for="reviewer_rev">'.translate("Votre nom").'</label>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="email_rev">'.translate("Votre adresse Email").'</label>
-         <div class="col-sm-8">
-            <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'" maxlength="254" required="required" />
-            <span class="help-block text-end" id="countcar_email_rev"></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="email" class="form-control" id="email_rev" name="email" value="'.$email.'" maxlength="254" required="required" />
+         <label for="email_rev">'.translate("Votre adresse Email").'</label>
+         <span class="help-block text-end" id="countcar_email_rev"></span>
       </div>';
-   } else {
+   } else
       echo '
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="reviewer_rev">'.translate("Votre nom").'</label>
-         <div class="col-sm-8">
-            <input class="form-control" type="text" id="reviewer_rev" name="reviewer" required="required" />
-         </div>
+      <div class="form-floating mb-3">
+         <input class="form-control" type="text" id="reviewer_rev" name="reviewer" required="required" />
+         <label for="reviewer_rev">'.translate("Votre nom").'</label>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="email_rev">'.translate("Votre adresse Email").'</label>
-         <div class="col-sm-8">
-            <input type="email" class="form-control" id="email_rev" name="email" maxlength="254" required="required" />
-            <span class="help-block text-end" id="countcar_email_rev"></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="email" class="form-control" id="email_rev" name="email" maxlength="254" required="required" />
+         <label for="email_rev">'.translate("Votre adresse Email").'</label>
+         <span class="help-block text-end" id="countcar_email_rev"></span>
       </div>';
-   }
-      echo '
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="score_rev">'.translate("Evaluation").'</label>
-         <div class="col-sm-8">
-            <select class="form-select" id="score_rev" name="score">
-               <option value="10">10</option>
-               <option value="9">9</option>
-               <option value="8">8</option>
-               <option value="7">7</option>
-               <option value="6">6</option>
-               <option value="5">5</option>
-               <option value="4">4</option>
-               <option value="3">3</option>
-               <option value="2">2</option>
-               <option value="1">1</option>
-            </select>
-            <span class="help-block">'.translate("Choisir entre 1 et 10 (1=nul 10=excellent)").'</span>
-         </div>
+   echo '
+      <div class="form-floating mb-3">
+         <select class="form-select" id="score_rev" name="score">
+            <option value="10">10</option>
+            <option value="9">9</option>
+            <option value="8">8</option>
+            <option value="7">7</option>
+            <option value="6">6</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+         </select>
+         <label for="score_rev">'.translate("Evaluation").'</label>
+         <span class="help-block">'.translate("Choisir entre 1 et 10 (1=nul 10=excellent)").'</span>
       </div>';
 
    if (!$short_review) {
       echo '
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="url_rev">'.translate("Lien relatif").'</label>
-         <div class="col-sm-8">
-            <input type="url" class="form-control" id="url_rev" name="url" maxlength="320" />
-            <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-end" id="countcar_url_rev"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="url" class="form-control" id="url_rev" name="url" maxlength="320" />
+         <label for="url_rev">'.translate("Lien relatif").'</label>
+         <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-end" id="countcar_url_rev"></span></span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="url_title_rev">'.translate("Titre du lien").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="url_title_rev" name="url_title" maxlength="50" />
-            <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-end" id="countcar_url_title_rev"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="url_title_rev" name="url_title" maxlength="50" />
+         <label for="url_title_rev">'.translate("Titre du lien").'</label>
+         <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-end" id="countcar_url_title_rev"></span></span>
       </div>';
       if ($admin) {
          echo '
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="cover_rev">'.translate("Nom de fichier de l'image").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="cover_rev" name="cover" maxlength="50" />
-            <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-end" id="countcar_cover_rev"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="cover_rev" name="cover" maxlength="50" />
+         <label for="cover_rev">'.translate("Nom de fichier de l'image").'</label>
+         <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-end" id="countcar_cover_rev"></span></span>
       </div>';
       }
    }
    echo '
-      <div class="mb-3 row">
-         <div class="col-sm-8 ms-sm-auto">
-            <input type="hidden" name="op" value="preview_review" />
-            <button type="submit" class="btn btn-primary" >'.translate("Prévisualiser").'</button>
-            <button type="button" onclick="history.go(-1)" class="btn btn-secondary" title="'.translate("Retour en arrière").'">'.translate("Retour en arrière").'</button>
-            <p class="help-block">'.translate("Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté").'</p>
-         </div>
-      </div>
+      <input type="hidden" name="op" value="preview_review" />
+      <button type="submit" class="btn btn-primary my-3 me-2" >'.translate("Prévisualiser").'</button>
+      <button onclick="history.go(-1)" class="btn btn-secondary my-3">'.translate("Retour en arrière").'</button>
+      <p class="help-block">'.translate("Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté").'</p>
    </form>';
    $arg1 ='
       var formulid = ["writereview"];
@@ -167,13 +141,10 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    $error='';
 
    include ('header.php');
-   if ($id != 0)
-      echo '
-      <h2 class="mb-4">'.translate("Modification d'une critique").'</h2>';
-   else
-      echo '
-      <h2 class="mb-4">'.translate("Ecrire une critique").'</h2>';
+   echo '<h2 class="mb-4">';
+   echo $id != 0 ? translate("Modification d'une critique") : translate("Ecrire une critique");
    echo '
+   </h2>
    <form id="prevreview" method="post" action="reviews.php">';
    if ($title == '') {
       $error = 1;
@@ -566,90 +537,66 @@ function mod_review($id) {
    <hr />
    <form id="modreview" method="post" action="reviews.php?op=preview_review">
       <input type="hidden" name="id" value="'.$id.'">
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="date_modrev">'.translate("Date").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control w-100" id="date_modrev" name="date" value="'.$date.'" />
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control w-100" id="date_modrev" name="date" value="'.$date.'" />
+         <label for="date_modrev">'.translate("Date").'</label>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="title_modrev">'.translate("Titre").'</label>
-         <div class="col-sm-8">
-            <textarea class="form-control" id="title_modrev" name="title" rows="2" required="required" maxlength="150">'.$title.'</textarea>
-            <span class="help-block text-end" id="countcar_title_modrev"></span>
-         </div>
+      <div class="form-floating mb-3">
+         <textarea class="form-control" id="title_modrev" name="title" required="required" maxlength="150" style="height:70px;">'.$title.'</textarea>
+         <label for="title_modrev">'.translate("Titre").'</label>
+         <span class="help-block text-end" id="countcar_title_modrev"></span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="text_modrev">'.translate("Texte").'</label>
-         <div class="col-sm-8">
-            <textarea class="form-control" id="text_modrev" name="text" rows="15" required="required">'.$text.'</textarea>
-         </div>
+      <div class="form-floating mb-3">
+         <textarea class="form-control" id="text_modrev" name="text" required="required" style="height:70px;">'.$text.'</textarea>
+         <label for="text_modrev">'.translate("Texte").'</label>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="reviewer_modrev">'.translate("Le critique").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="reviewer_modrev" name="reviewer" value="'.$reviewer.'" required="required" maxlength="25"/>
-            <span class="help-block text-end" id="countcar_reviewer_modrev"></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="reviewer_modrev" name="reviewer" value="'.$reviewer.'" required="required" maxlength="25"/>
+         <label for="reviewer_modrev">'.translate("Le critique").'</label>
+         <span class="help-block text-end" id="countcar_reviewer_modrev"></span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="email_modrev">'.translate("Email").'</label>
-         <div class="col-sm-8">
-            <input type="email" class="form-control" id="email_modrev" name="email" value="'.$email.'" maxlength="254" required="required"/>
-            <span class="help-block text-end" id="countcar_email_modrev"></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="email" class="form-control" id="email_modrev" name="email" value="'.$email.'" maxlength="254" required="required"/>
+         <label for="email_modrev">'.translate("Email").'</label>
+         <span class="help-block text-end" id="countcar_email_modrev"></span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="score_modrev">'.translate("Evaluation").'</label>
-         <div class="col-sm-8">
-            <select class="form-select" id="score_modrev" name="score">';
+      <div class="form-floating mb-3">
+         <select class="form-select" id="score_modrev" name="score">';
       $i=1;$sel='';
       do {
          if ($i==$score) $sel='selected="selected" '; else $sel='';
          echo '
-         <option value="'.$i.'" '.$sel.'>'.$i.'</option>';
+            <option value="'.$i.'" '.$sel.'>'.$i.'</option>';
          $i++;
       }
       while($i<=10);
       echo '
-            </select>
-            <span class="help-block">'.translate("Choisir entre 1 et 10 (1=nul 10=excellent)").'</span>
-         </div>
+         </select>
+         <label for="score_modrev">'.translate("Evaluation").'</label>
+         <span class="help-block">'.translate("Choisir entre 1 et 10 (1=nul 10=excellent)").'</span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="url_modrev">'.translate("Lien").'</label>
-         <div class="col-sm-8">
-            <input type="url" class="form-control" id="url_modrev" name="url" maxlength="320" value="'.$url.'" />
-            <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-end" id="countcar_url_modrev"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="url" class="form-control" id="url_modrev" name="url" maxlength="320" value="'.$url.'" />
+         <label for="url_modrev">'.translate("Lien").'</label>
+         <span class="help-block">'.translate("Site web officiel. Veillez à ce que votre url commence bien par").' http(s)://<span class="float-end" id="countcar_url_modrev"></span></span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="url_title_modrev">'.translate("Titre du lien").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="url_title_modrev" name="url_title" value="'.$url_title.'"  maxlength="50" />
-            <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-end" id="countcar_url_title_modrev"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="url_title_modrev" name="url_title" value="'.$url_title.'"  maxlength="50" />
+         <label for="url_title_modrev">'.translate("Titre du lien").'</label>
+         <span class="help-block">'.translate("Obligatoire seulement si vous soumettez un lien relatif").'<span class="float-end" id="countcar_url_title_modrev"></span></span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="cover_modrev">'.translate("Image de garde").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="cover_modrev" name="cover" value="'.$cover.'" maxlength="100"/>
-            <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-end" id="countcar_cover_modrev"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="cover_modrev" name="cover" value="'.$cover.'" maxlength="100"/>
+         <label for="cover_modrev">'.translate("Image de garde").'</label>
+         <span class="help-block">'.translate("Nom de l'image principale non obligatoire, la mettre dans images/reviews/").'<span class="float-end" id="countcar_cover_modrev"></span></span>
       </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="hits_modrev">'.translate("Hits").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="hits_modrev" name="hits" value="'.$hits.'" maxlength="9" />
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="hits_modrev" name="hits" value="'.$hits.'" maxlength="9" />
+         <label for="hits_modrev">'.translate("Hits").'</label>
       </div>
-      <div class="mb-3 row">
-         <div class="col-sm-8 ms-sm-auto">
-            <input type="hidden" name="op" value="preview_review" />
-            <input class="btn btn-primary col-12 mb-2" type="submit" value="'.translate("Prévisualiser les modifications").'" />
-            <input class="btn btn-secondary col-12" type="button" onclick="history.go(-1)" value="'.translate("Annuler").'" />
-         </div>
-      </div>
+      <input type="hidden" name="op" value="preview_review" />
+      <input class="btn btn-primary my-3 me-2" type="submit" value="'.translate("Prévisualiser les modifications").'" />
+      <input class="btn btn-secondary my-3" type="button" onclick="history.go(-1)" value="'.translate("Annuler").'" />
       </form>
       <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
       <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
