@@ -568,7 +568,6 @@ INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, oblig
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('!sc_infos_else!', '&nbsp;', 'meta', '-', NULL, '[french]affiche les informations de SuperCache[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('!sc_infos!', '$cmd=SC_infos();', 'meta', '-', NULL, '[french]affiche les informations de SuperCache[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('!slogan!', '$cmd=$GLOBALS[''slogan''];', 'meta', '-', NULL, '[french]variable global $slogan[/french]', '1');
-INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('!bargif!', '$cmd=$GLOBALS[''bargif''];', 'meta', '-', NULL, '[french]variable global $bargif[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('!theme!', '$cmd=$GLOBALS[''theme''];', 'meta', '-', NULL, '[french]variable global $theme[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('!sitename!', '$cmd=$GLOBALS[''sitename''];', 'meta', '-', NULL, '[french]variable global $sitename[/french]', '1');
 INSERT INTO metalang (def, content, type_meta, type_uri, uri, description, obligatoire) VALUES('!opentable!', '$cmd=sub_opentable();', 'meta', '-', '', '[french]Appel la fonction OpenTable de NPDS[/french]', '1');
