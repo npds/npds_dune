@@ -3417,7 +3417,7 @@ function dataimagetofileurl($base_64_string, $output_path) {
    $rechdataimage = '#src=\\\"(data:image/[^"]+)\\\"#m';
    preg_match_all($rechdataimage, $base_64_string, $dataimages);
    $j=0;$timgw=800;$timgh=600;
-   $ra = random_int(1, 999);
+   $ra = rand(1, 999);
    foreach($dataimages[1] as $imagedata) {
       $datatodecode = explode(',',$imagedata);
       $bin = base64_decode($datatodecode[1]);
