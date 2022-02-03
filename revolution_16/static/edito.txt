@@ -40,4 +40,4 @@
 <li>Administrateur par défaut : Identifiant :&nbsp;<span>R</span>oot / mot de passe :&nbsp;<span>P</span>assword. vous devez changer ce mot de passe rapidement.</li>
 <li>Utilisateur par défaut : Identifiant : user / mot de passe : user</li>
 </ul>
-<p>comment_system(edito,1)</p>[/nuit]aff_jours=600&aff_jour=checked&aff_nuit=checked&aff_date=1591951896
+<p>comment_system(edito,1)</p>[/nuit]aff_jours=600&aff_jour=checked&aff_nuit=checked&aff_date=1770110540
