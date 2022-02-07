@@ -1,0 +1,54 @@
+#photo .imagethumb a {
+  height: 17px;
+  width:  17px;
+  padding: 2px;
+  margin: 1px;
+  border: 1px solid #777;
+  background: #E6E7E2;
+  float: left;
+  line-height: 0px;
+  text-align: center;
+}
+
+div.mp3 {
+  height: 110px;
+  width:  150px;
+  padding: 10px;
+  margin-bottom: 5px;
+  float: left;
+  line-height: 12px;
+  text-align: left;
+  border: 1px solid #000;
+  background: #CACDC2;
+}
+
+#photo .imagethumb a:hover {
+  border: 1px solid #000;
+  background: #CACDC2;
+}
+
+#photo {
+  text-align: center;
+  width: 100%;
+}
+
+/* input file customisation */
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  width:1px;
+}
+.n-ci:lang(fr)::before {
+  content: "Choisir";
+}
+.n-ci:lang(es)::before {
+  content: "Elegir";
+}
+.n-ci:lang(de)::before {
+  content: "Wählen";
+}
+.n-ci:lang(en)::before {
+  content: "Browse";
+}
+.n-ci:lang(zh)::before {
+  content: "选择";
+}

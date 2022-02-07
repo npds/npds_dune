@@ -1,0 +1,27 @@
+#chat {
+font-size: 0.9rem;
+margin: 0;
+padding: 0.5rem;
+}
+#chat a:hover {
+text-decoration: none;
+}
+#chat .chatmessage {
+border-bottom: #C0C0C0 .2px solid;
+padding-bottom: .5rem;
+padding-top: .5rem;
+} 
+#chat .chatheure {
+font-size: 0.7rem;
+float: right;
+padding-bottom: .5rem;
+padding-top: .5rem;
+}
+#chat .chatnom, .chatnom a:visited, .chatnom a:link, .chatnom a:active, .chatnom a:hover {
+float: left;
+}
+#chat .chattexte {
+  clear:left;
+}
+div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
+div[data-type=emojiPopper] div .card-body{padding:.4rem}
