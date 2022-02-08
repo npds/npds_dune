@@ -78,7 +78,7 @@ function subscribe_ok($xemail) {
             sql_query("INSERT INTO ".$NPDS_Prefix."lnl_outside_users VALUES ('$xemail', '$host_name', '$timeX', 'OK')");
             // Email validation + url to unsubscribe
             global $sitename, $nuke_url;
-            $subject = translate("La lettre").' / '.$sitename;
+            $subject = html_entity_decode(translate("La lettre"),ENT_COMPAT | ENT_HTML401,cur_charset).' / '.$sitename;
             $message = translate("Merci d'avoir consacré du temps pour vous enregistrer.").'<br /><br />'.translate("Pour supprimer votre abonnement à notre lettre, merci d'utiliser").' : <br />'.$nuke_url.'/lnl.php?op=unsubscribe&email='.$xemail.'<br /><br />';
             include("signat.php");
             send_email($xemail, $subject, $message, '', true, 'html');

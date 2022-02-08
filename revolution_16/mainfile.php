@@ -1446,7 +1446,7 @@ function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
                $resume.=$title_topic."\n\n";
             }
          }
-         $subject = translate_ml($user_langue, "Abonnement")." / $sitename";
+         $subject = html_entity_decode(translate_ml($user_langue, "Abonnement"),ENT_COMPAT | ENT_HTML401,cur_charset)." / $sitename";
          $message = $entete;
          $message .= $resume;
          $message .= $url;

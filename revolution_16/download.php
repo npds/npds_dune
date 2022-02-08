@@ -398,7 +398,7 @@ function broken($did) {
          global $notify_email, $notify_message, $notify_from, $nuke_url;
          settype ($did, "integer");
          $message=$nuke_url."\n\n".translate("Téléchargements")." ID : $did\n\n".translate("Auteur")." $cookie[1] / IP : ".getip();
-         send_email($notify_email, translate("Rapporter un lien rompu"), $message, $notify_from , false, "text");
+         send_email($notify_email, html_entity_decode(translate("Rapporter un lien rompu"),ENT_COMPAT | ENT_HTML401,cur_charset), $message, $notify_from , false, "text");
          include("header.php");
          echo '
         <div class="alert alert-success">

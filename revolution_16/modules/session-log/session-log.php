@@ -159,7 +159,7 @@ echo '
       if ($log=='upload') 
          if (file_exists($FileUpload))
             $Mylog=$FileUpload;
-      $subject = SessionLog_translate("Fichier de Log de").' '.$sitename;
+      $subject = html_entity_decode(SessionLog_translate("Fichier de Log de"),ENT_COMPAT | ENT_HTML401,cur_charset).' '.$sitename;
       send_email($adminmail, $subject, $Mylog, '', true, 'mixed');
    }
 

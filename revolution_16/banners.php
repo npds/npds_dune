@@ -319,7 +319,7 @@ function EmailStats($login, $cid, $bid) {
             $left = $imptotal-$impmade;
          global $sitename, $gmt;
          $fecha = date(translate("dateinternal"),time()+((integer)$gmt*3600));
-         $subject = translate("Bannières - Publicité").' : '.$sitename;
+         $subject = html_entity_decode(translate("Bannières - Publicité"),ENT_COMPAT | ENT_HTML401,cur_charset).' : '.$sitename;
          $message  = "Client : $name\n".translate("Bannière")." ID : $bid\n".translate("Bannière")." Image : $imageurl\n".translate("Bannière")." URL : $clickurl\n\n";
          $message .= "Impressions ".translate("Réservées")." : $imptotal\nImpressions ".translate("Réalisées")." : $impmade\nImpressions ".translate("Restantes")." : $left\nClicks ".translate("Reçus")." : $clicks\nClicks ".translate("Pourcentage")." : $percent%\n\n";
          $message .= translate("Rapport généré le").' : '."$fecha\n\n";
