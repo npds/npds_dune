@@ -20,6 +20,11 @@ function adm_translate($phrase) {
   case "linksdatestring": $tmp="%d-%b-%Y"; break;
   case "datestring2": $tmp="%A, %B %d"; break;
   case "dateforop": $tmp="m-d-y"; break;
+  case "english": $tmp="英语"; break;
+  case "french": $tmp="法国人"; break;
+  case "spanish": $tmp="西班牙文"; break;
+  case "chinese": $tmp="中文"; break;
+  case "german": $tmp="德语"; break;
 
   case " à ": $tmp=" 在 "; break;
   case " Actualiser l'Auteur": $tmp="作者情况更新"; break;
