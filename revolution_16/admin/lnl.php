@@ -754,13 +754,11 @@ switch ($op) {
                $resultGP = sql_query("SELECT u.email, u.uid, s.groupe FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1' ORDER BY u.email LIMIT $debut,$limit");
                while(list($email, $uid, $groupe) = sql_fetch_row($resultGP)) {
                   $tab_groupe=explode(',',$groupe);
-                  if ($tab_groupe) {
+                  if ($tab_groupe)
                      foreach($tab_groupe as $groupevalue) {
-                        if ($groupevalue==$Xgroupe) {
+                        if ($groupevalue==$Xgroupe)
                            $result[]=$email;
-                        }
                      }
-                  }
                }
                $fonction="each";///???gloups
                if (is_array($result)) $boucle=true; else $boucle=false;
