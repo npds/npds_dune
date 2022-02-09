@@ -45,14 +45,8 @@ a:active, a:hover {
 
 /** ==> Classes BS5                                                         **/
 /*                                                                           */
-/* ==> élément ayant la class btn (boutons, a, input) */
-/* 
-.btn {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-}
- */
+/* ==> remove the no aesthetic border provided by BS5 css*/
+.table > :not(:first-child) { border-color: var(--bs-gray-300); }
 /* ==> hauteur et scroll des modal */
 .modal-body {
   max-height: calc(100vh - 210px);

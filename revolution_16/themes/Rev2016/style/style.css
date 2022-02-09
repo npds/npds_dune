@@ -22,8 +22,6 @@ color: #000;
 a:focus {
    outline: none;
 }
-
-
 /*jmd work*/
 
 /************************************************************************
@@ -521,6 +519,8 @@ legend { /* Titre pour identifier chaque fieldset */
    border-color: #D5B199 #864732 #864732 #D5B199;
 }
 
+/* ==> remove the no aesthetic border provided by BS5 css*/
+.table > :not(:first-child) { border-color: var(--bs-gray-300); }
 /* ==> hauteur et scroll des modal */
 .modal-body {
    max-height: calc(100vh - 210px);
