@@ -94,7 +94,7 @@ global $NPDS_Prefix, $adminforum;
       <h2>'.translate("Forum").'</h2>
       <form action="topicadmin.php" method="post">
          <div class="mb-3 row">
-            <label class="form-control-label col-sm-12" for="newforum">'.translate("Déplacer le sujet vers : ").'</label>
+            <label class="form-label" for="newforum">'.translate("Déplacer le sujet vers : ").'</label>
             <div class="col-sm-12">
                <select class="form-select" name="newforum">';
                $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums WHERE forum_id!='$forum' ORDER BY cat_id,forum_index,forum_id";

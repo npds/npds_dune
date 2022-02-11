@@ -85,7 +85,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
          </div>
       </div>
       <div class="mb-3 row">
-         <label class="col-form-control-label col-sm-6" for="npds_twi_urshort">'.twi_trad("Méthode pour le raccourciceur d'URL").'</label>
+         <label class="form-label col-sm-6" for="npds_twi_urshort">'.twi_trad("Méthode pour le raccourciceur d'URL").'</label>
          <div class="col-sm-6">
             <div class="custom-controls-stacked">
                <div class="form-check">

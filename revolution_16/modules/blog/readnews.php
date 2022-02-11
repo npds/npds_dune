@@ -79,13 +79,13 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=AOK">
             <div class="mb-3 row">
-               <label class="form-control-label col-sm-12" for="title">'.translate("Titre").'</label>
+               <label class="form-label" for="title">'.translate("Titre").'</label>
                <div class="col-sm-12">
                   <input class="form-control" type="text" name="title" />
                </div>
             </div>
             <div class="mb-3 row">
-               <label class="form-control-label col-sm-12" for="story">'.translate("Texte complet").'</label>
+               <label class="form-label" for="story">'.translate("Texte complet").'</label>
                <div class="col-sm-12">
                   <textarea class="tin form-control" name="story" rows="25"></textarea>';
             $content.="&nbsp;!blog_editeur!";
@@ -133,11 +133,11 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=MOK&index='.$index.'">
             <div class="mb-3">
-               <label class="form-control-label" for="title">'.translate("Titre").'</label>
+               <label class="form-label" for="title">'.translate("Titre").'</label>
                <input class="form-control" type="text" name="title" value="'.$crtsplit[1].'" />
             </div>
             <div class="mb-3">
-               <label class="form-control-label" for="story" >'.translate("Texte complet").'</label>
+               <label class="form-label" for="story" >'.translate("Texte complet").'</label>
                <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
       $content.="&nbsp;!blog_editeur!";
       $content.='

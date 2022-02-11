@@ -392,7 +392,7 @@ switch ($op) {
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="chmoddir-save" />
                   <div class="mb-3">
-                     <label class="form-control-label" for="chmoddir" ><code>'.extend_ascii($auto[2]).'</code></label>
+                     <label class="form-label" for="chmoddir" ><code>'.extend_ascii($auto[2]).'</code></label>
                      <select class="form-select" id="chmoddir" name="chmoddir">
                         '.chmod_pres($obj->GetPerms($auto[3].'/'.$auto[2]),'chmoddir').'
                   </div>
@@ -454,7 +454,7 @@ switch ($op) {
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="renamefile-save" />
                   <div class="mb-3">
-                     <label class="form-control-label" for="renamefile"><code>'.extend_ascii($auto[2]).'</code></label>
+                     <label class="form-label" for="renamefile"><code>'.extend_ascii($auto[2]).'</code></label>
                      <input class="form-control" type="text" size="60" id="renamefile" name="renamefile" value="'.extend_ascii($auto[2]).'" />
                   </div>
                   <div class="mb-3">
@@ -620,7 +620,7 @@ switch ($op) {
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="chmodfile-save" />
                   <div class="mb-3">
-                     <label class="form-control-label" for="chmodfile"><code>'.extend_ascii($auto[2]).'</code></label>
+                     <label class="form-label" for="chmodfile"><code>'.extend_ascii($auto[2]).'</code></label>
                      <select class="form-select" id="chmodfile" name="chmodfile">
                         '.chmod_pres($obj->GetPerms($auto[3].'/'.$auto[2]),"chmodfile").'
                   </div>
@@ -671,7 +671,7 @@ switch ($op) {
                   <input type="hidden" name="att_name" value="'.$att_name.'" />
                   <input type="hidden" name="op" value="editfile-save" />
                   <div class="mb-3 row">
-                     <label class="form-control-label col-12" for="editfile"><code>'.extend_ascii($auto[2]).'</code></label>';
+                     <label class="form-label col-12" for="editfile"><code>'.extend_ascii($auto[2]).'</code></label>';
                settype($Fcontent, 'string');
                $edit_file.='
                      <div class="col-12">
@@ -727,7 +727,7 @@ switch ($op) {
                <input type="hidden" name="att_name" value="'.$att_name.'" />
                <input type="hidden" name="op" value="pict-save" />
                <div class="mb-3">
-                  <label class="form-control-label" for="maxthumb">'.fma_translate("Taille maximum (pixel) de l'imagette").'</label>';
+                  <label class="form-label" for="maxthumb">'.fma_translate("Taille maximum (pixel) de l'imagette").'</label>';
             $fp=@file($auto[3].'/'.$auto[2].'/pic-manager.txt');
             // La première ligne du tableau est un commentaire
             settype($fp[1],'integer');
@@ -742,7 +742,7 @@ switch ($op) {
                   <input class="form-control" type="number" id="maxthumb" name="maxthumb" size="4" value="'.$Max_thumb.'" />
                </div>
                <div class="mb-3">
-                  <label class="form-control-label" for="refresh">'.fma_translate("Temps de cache (en seconde) des imagettes").'</label> 
+                  <label class="form-label" for="refresh">'.fma_translate("Temps de cache (en seconde) des imagettes").'</label> 
                   <input class="form-control" type="number" id="refresh" name="refresh" size="6" value="'.$refresh.'" />
                </div>
                <div class="mb-3">

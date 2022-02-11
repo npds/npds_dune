@@ -283,7 +283,7 @@ if ($submitS) {
       } else {
          echo ' 
          <div class="mb-3 row">
-            <label class="form-control-label col-sm-12" for="subject">'.translate("Sujet").'</label>
+            <label class="form-label" for="subject">'.translate("Sujet").'</label>
             <div class="col-sm-12">
                <input class="form-control" type="text" id="subject" name="subject" placeholder="'.translate("Sujet").'" required="required" value="'.$subject.'" />
             </div>
@@ -292,7 +292,7 @@ if ($submitS) {
             settype($image_subject,'string');
             echo '
          <div class="d-none d-sm-block mb-3 row">
-            <label class="form-control-label col-sm-12">'.translate("Icone du message").'</label>
+            <label class="form-label">'.translate("Icone du message").'</label>
             <div class="col-sm-12">
                <div class="border rounded pt-3 px-2 n-fond_subject d-flex flex-row flex-wrap">
                '.emotion_add($image_subject).'
@@ -302,7 +302,7 @@ if ($submitS) {
          }
          echo ' 
          <div class="mb-3 row">
-            <label class="form-control-label col-sm-12" for="message">'.translate("Message").'</label>';
+            <label class="form-label" for="message">'.translate("Message").'</label>';
          if ($allow_bbcode)
             $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
          echo '
@@ -331,7 +331,7 @@ if ($submitS) {
          </div>
       </div>
       <div class="mb-3 row">
-         <label class="form-control-label col-sm-12">'.translate("Options").'</label>
+         <label class="form-label">'.translate("Options").'</label>
          <div class="col-sm-12">
             <div class="custom-controls-stacked">';
          if (($allow_html==1) and ($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
