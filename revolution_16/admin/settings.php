@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -32,9 +32,9 @@ function Configure() {
    <fieldset>
       <legend><a class="tog" id="show_info_gene" title="'.adm_translate("Replier la liste").'"><i id="i_info_gene" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Informations générales du site").'</legend>
       <div id="info_gene" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xparse">Parse algo</label>
-            <div class="col-sm-8 my-2">';
+         <div class="row">
+            <div class="col-md-6 mb-3">
+               <div class="mb-1" for="xparse">Parse algo</div>';
    $cky='';$ckn='';
    if ($parse==0) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
@@ -47,11 +47,9 @@ function Configure() {
                   <label class="form-check-label" for="xparse_str">StripSlashes</label>
                </div>
             </div>
-         </div>
-         <input type="hidden" name="xgzhandler" value="0" />
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xfilemanager">FileManager</label>
-            <div class="col-sm-8 my-2">';
+            <input type="hidden" name="xgzhandler" value="0" />
+            <div class="col-md-6 mb-3">
+               <div class="mb-1" for="xfilemanager">FileManager</div>';
    $cky='';$ckn='';
    if ($filemanager==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
@@ -65,99 +63,100 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xadmin_cook_duration">'.adm_translate("Durée de vie en heure du cookie Admin").'</label>
-            <div class="col-sm-8">
-               <input class="form-control js-dig10" id="xadmin_cook_duration" type="text" name="xadmin_cook_duration" value="'.$admin_cook_duration.'" min="1" maxlength="10" required="required" />
+         <div class="row gy-0 gx-3">
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control js-dig10" id="xadmin_cook_duration" type="text" name="xadmin_cook_duration" value="'.$admin_cook_duration.'" min="1" maxlength="10" required="required" />
+                  <label for="xadmin_cook_duration">'.adm_translate("Durée de vie en heure du cookie Admin").'<span class="text-danger"> *</span></label>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control js-dig10" id="xuser_cook_duration" type="text" name="xuser_cook_duration" value="'.$user_cook_duration.'" min="1" maxlength="10" required="required" />
+                  <label for="xuser_cook_duration">'.adm_translate("Durée de vie en heure du cookie User").'<span class="text-danger"> *</span></label>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xsitename" id="xsitename" value="'.$sitename.'" maxlength="100" />
+                  <label for="xsitename">'.adm_translate("Nom du site").'</label>
+                  <span class="help-block text-end" id="countcar_xsitename"></span>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xTitlesitename" id="xTitlesitename" value="'.$Titlesitename.'" maxlength="100" />
+                  <label for="xTitlesitename">'.adm_translate("Nom du site pour la balise title").'</label>
+                  <span class="help-block text-end" id="countcar_xTitlesitename"></span>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="url" name="xnuke_url" id="xnuke_url" value="'.$nuke_url.'" data-fv-uri___allow-local="true" maxlength="200" />
+                  <label for="xnuke_url">'.adm_translate("URL du site").'</label>
+                  <span class="help-block text-end" id="countcar_xnuke_url"></span>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xsite_logo" id="xsite_logo" value="'.$site_logo.'" maxlength="255" />
+                  <label for="xsite_logo">'.adm_translate("Logo du site pour les impressions").'</label>
+                  <span class="help-block text-end" id="countcar_xsite_logo"></span>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xslogan" id="xslogan" value="'.$slogan.'" maxlength="100" />
+                  <label for="xslogan">'.adm_translate("Slogan du site").'</label> 
+                  <span class="help-block text-end" id="countcar_xslogan"></span>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xstartdate" id="xstartdate" value="'.$startdate.'" maxlength="30" />
+                  <label for="xstartdate">'.adm_translate("Date de démarrage du site").'</label> 
+                  <span class="help-block text-end" id="countcar_xstartdate"></span>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control js-dig4" id="xtop" type="text" name="xtop" value="'.$top.'" min="1" maxlength="4" required="required" />
+                  <label for="xtop">'.adm_translate("Nombre d'éléments dans la page top").'<span class="text-danger"> *</span></label> 
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control js-dig4" id="xstoryhome" type="text" name="xstoryhome" value="'.$storyhome.'" min="1" maxlength="4" required="required" />
+                  <label for="xstoryhome">'.adm_translate("Nombre d'articles en page principale").'<span class="text-danger"> *</span></label>
+               </div>
+            </div>
+            <div class="col-12">
+               <div class="form-floating mb-3">
+                  <input class="form-control js-dig4" id="xoldnum" type="text" name="xoldnum" value="'.$oldnum.'" min="1" maxlength="4" required="required" />
+                  <label for="xoldnum">'.adm_translate("Nombre d'articles dans le bloc des anciens articles").'<span class="text-danger"> *</span></label>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" id="xanonymous" type="text" name="xanonymous" value="'.$anonymous.'" maxlength="25" />
+                  <label for="xanonymous">'.adm_translate("Nom d'utilisateur anonyme").'</label>
+                  <span class="help-block text-end" id="countcar_xanonymous"></span>
+               </div>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xuser_cook_duration">'.adm_translate("Durée de vie en heure du cookie User").'</label>
-            <div class="col-sm-8">
-               <input class="form-control js-dig10" id="xuser_cook_duration" type="text" name="xuser_cook_duration" value="'.$user_cook_duration.'" min="1" maxlength="10" required="required" />
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xsitename">'.adm_translate("Nom du site").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xsitename" id="xsitename" value="'.$sitename.'" maxlength="100" />
-               <span class="help-block text-end" id="countcar_xsitename"></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xTitlesitename">'.adm_translate("Nom du site pour la balise title").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xTitlesitename" id="xTitlesitename" value="'.$Titlesitename.'" maxlength="100" />
-               <span class="help-block text-end" id="countcar_xTitlesitename"></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xnuke_url">'.adm_translate("URL du site").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="url" name="xnuke_url" id="xnuke_url" value="'.$nuke_url.'" data-fv-uri___allow-local="true" maxlength="200" />
-               <span class="help-block text-end" id="countcar_xnuke_url"></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xsite_logo">'.adm_translate("Logo du site pour les impressions").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xsite_logo" id="xsite_logo" value="'.$site_logo.'" maxlength="255" />
-               <span class="help-block text-end" id="countcar_xsite_logo"></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xslogan">'.adm_translate("Slogan du site").'</label> 
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xslogan" id="xslogan" value="'.$slogan.'" maxlength="100" />
-               <span class="help-block text-end" id="countcar_xslogan"></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xstartdate">'.adm_translate("Date de démarrage du site").'</label> 
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xstartdate" id="xstartdate" value="'.$startdate.'" maxlength="30" />
-               <span class="help-block text-end" id="countcar_xstartdate"></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xtop">'.adm_translate("Nombre d'éléments dans la page top").'</label> 
-            <div class="col-sm-8">
-               <input class="form-control js-dig4" id="xtop" type="text" name="xtop" value="'.$top.'" min="1" maxlength="4" required="required" />
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xstoryhome">'.adm_translate("Nombre d'articles en page principale").'</label>
-            <div class="col-sm-8">
-               <input class="form-control js-dig4" id="xstoryhome" type="text" name="xstoryhome" value="'.$storyhome.'" min="1" maxlength="4" required="required" />
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xoldnum">'.adm_translate("Nombre d'articles dans le bloc des anciens articles").'</label>
-            <div class="col-sm-8">
-                <input class="form-control js-dig4" id="xoldnum" type="text" name="xoldnum" value="'.$oldnum.'" min="1" maxlength="4" required="required" />
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xanonymous">'.adm_translate("Nom d'utilisateur anonyme").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" id="xanonymous" type="text" name="xanonymous" value="'.$anonymous.'" maxlength="25" />
-               <span class="help-block text-end" id="countcar_xanonymous"></span>
-            </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xmod_admin_news">'.adm_translate("Autoriser la création de news pour").'</label>
-            <div class="col-sm-8">
-               <div class="form-check">';
+         <div class="mb-3">
+            <div class="mb-1" for="xmod_admin_news">'.adm_translate("Autoriser la création de news pour").'</div>
+               <div class="form-check form-check-inline">';
    if ($mod_admin_news==1) {
       echo '
                   <input type="radio" class="form-check-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" checked="checked" />
                   <label class="form-check-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
                </div>
-               <div class="form-check">
+               <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" />
                   <label class="form-check-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
                </div>
-               <div class="form-check">
+               <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" />
                   <label class="form-check-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
    } elseif ($mod_admin_news==2) {
@@ -165,11 +164,11 @@ function Configure() {
                   <input type="radio" class="form-check-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" />
                   <label class="form-check-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
                </div>
-               <div class="form-check">
+               <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" checked="checked" />
                   <label class="form-check-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
                </div>
-               <div class="form-check">
+               <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" />
                   <label class="form-check-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
    } else {
@@ -177,55 +176,52 @@ function Configure() {
                   <input type="radio" class="form-check-input" id="xmod_admin_news_a" name="xmod_admin_news" value="1" />
                   <label class="form-check-label" for="xmod_admin_news_a">'.adm_translate("Administrateurs").' / '.adm_translate("Modérateurs").'</label>
                </div>
-               <div class="form-check">
+               <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmod_admin_news_m" name="xmod_admin_news" value="2" />
                   <label class="form-check-label" for="xmod_admin_news_m">'.adm_translate("Membres").'</label>
                </div>
-               <div class="form-check">
+               <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmod_admin_news_t" name="xmod_admin_news" value="0" checked="checked" />
                   <label class="form-check-label" for="xmod_admin_news_t">'.adm_translate("Tous").'</label>';
    }
    echo '
-               </div>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xnot_admin_count">'.adm_translate("Ne pas enregistrer les 'hits' des auteurs dans les statistiques").'</label>
-            <div class="col-sm-8 my-2">';
+         <div class="mb-3">
+            <div class="mb-1" for="xnot_admin_count">'.adm_translate("Ne pas enregistrer les 'hits' des auteurs dans les statistiques").'</div>';
    $cky='';$ckn='';
    if ($not_admin_count==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
-               <div class="form-check form-check-inline">
-                  <input type="radio" class="form-check-input" id="xnot_admin_count_y" name="xnot_admin_count" value="1" '.$cky.' />
-                  <label class="form-check-label" for="xnot_admin_count_y">'.adm_translate("Oui").'</label>
-               </div>
-               <div class="form-check form-check-inline">
-                  <input type="radio" class="form-check-input" id="xnot_admin_count_n" name="xnot_admin_count" value="0" '.$ckn.' />
-                  <label class="form-check-label" for="xnot_admin_count_n">'.adm_translate("Non").'</label>
-               </div>
+            <div class="form-check form-check-inline">
+               <input type="radio" class="form-check-input" id="xnot_admin_count_y" name="xnot_admin_count" value="1" '.$cky.' />
+               <label class="form-check-label" for="xnot_admin_count_y">'.adm_translate("Oui").'</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input type="radio" class="form-check-input" id="xnot_admin_count_n" name="xnot_admin_count" value="0" '.$ckn.' />
+               <label class="form-check-label" for="xnot_admin_count_n">'.adm_translate("Non").'</label>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xDefault_Theme">'.adm_translate("Thème d'affichage par défaut").'</label>
-            <div class="col-sm-8">
-               <select class="form-select" id="xDefault_Theme" name="xDefault_Theme">';
+         <div class="row gy-0 gx-3">
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <select class="form-select" id="xDefault_Theme" name="xDefault_Theme">';
    include("themes/list.php");
    $themelist = explode(" ", $themelist);
    for ($i=0; $i < sizeof($themelist); $i++) {
       if($themelist[$i]!='') {
          echo '
-                  <option value="'.$themelist[$i].'" ';
+                     <option value="'.$themelist[$i].'" ';
              if($themelist[$i]==$Default_Theme) echo 'selected="selected"';
              echo '>'.$themelist[$i].'</option>';
       }
    }
    echo '
-               </select>
+                  </select>
+                  <label for="xDefault_Theme">'.adm_translate("Thème d'affichage par défaut").'</label>
+               </div>
             </div>
-         </div>
-         <div class="mb-3 row" id="skin_choice">
-            <label class="col-form-label col-sm-4" for="xDefault_Skin">'.adm_translate("Skin d'affichage par défaut").'</label>
-            <div class="col-sm-8">
+         <div class="col-md-6">
+            <div class="form-floating mb-3" id="skin_choice">
                <select class="form-select" id="xDefault_Skin" name="xDefault_Skin">';
       // les skins disponibles
       $handle=opendir('themes/_skins');
@@ -244,51 +240,34 @@ function Configure() {
          else if($Default_Skin=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
          echo '>'.$skins[$k]['name'].'</option>';
       }
-   
-      echo '
-    <script type="text/javascript">
-    //<![CDATA[
-    $(function () {
-      $("#xDefault_Theme").change(function () {
-         sk = $("#xDefault_Theme option:selected").text().substr(-3);
-         if(sk=="_sk") {
-            $("#skin_choice").removeClass("collapse");
-         } else {
-            $("#skin_choice").addClass("collapse");
-         }
-      })
-     .change();
-    });
-    //]]
-    </script>';
-
     echo '
                </select>
+               <label for="xDefault_Skin">'.adm_translate("Skin d'affichage par défaut").'</label>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xstart_page">'.adm_translate("Page de démarrage").'</label>
-            <div class="col-sm-8">
+         <div class="col-md-6">
+            <div class="form-floating mb-3">
                <input class="form-control" type="text" name="xstart_page" id="xstart_page" value="'.$Start_Page.'" maxlength="100" />
+               <label for="xstart_page">'.adm_translate("Page de démarrage").'</label>
                <span class="help-block text-end" id="countcar_xstart_page"></span>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xlanguage">'.adm_translate("Sélectionner la langue du site").'</label>
-            <div class="col-sm-8">
+         <div class="col-md-6">
+            <div class="form-floating mb-3">
                <select class="form-select" id="xlanguage" name="xlanguage">';
     include("manuels/list.php");
     $languageslist = explode(' ', $languageslist);
     for ($i=0; $i < sizeof($languageslist); $i++) {
         if ($languageslist[$i]!='') {
            echo '
-                     <option value="'.$languageslist[$i].'" ';
+                  <option value="'.$languageslist[$i].'" ';
            if ($languageslist[$i]==$language) echo 'selected="selected"';
               echo '>'.$languageslist[$i].'</option>';
         }
     }
     echo '
                </select>
+               <label for="xlanguage">'.adm_translate("Sélectionner la langue du site").'</label>
             </div>
          </div>
          <div class="mb-3 row">
@@ -307,33 +286,32 @@ function Configure() {
                </div>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xlocale">'.adm_translate("Heure locale").'</label>
-            <div class="col-sm-8">
+         <div class="col-md-6">
+            <div class="form-floating mb-3">
                <input class="form-control" type="text" name="xlocale" id="xlocale" value="'.$locale.'" maxlength="100" />
+               <label for="xlocale">'.adm_translate("Heure locale").'</label>
                <span class="help-block text-end" id="countcar_xlocale"></span>
             </div>
          </div>';
       if ($lever=='') $lever='08:00';
       if ($coucher=='') $coucher='20:00';
       echo '
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xlever">'.adm_translate("Le jour commence à").'</label>
-            <div class="col-sm-8">
+         <div class="col-md-6">
+            <div class="form-floating mb-3">
                <input class="form-control js-hhmm" type="text" name="xlever" id="xlever" value="'.$lever.'" maxlength="5" required="required" />
+               <label for="xlever">'.adm_translate("Le jour commence à").'</label>
                <span class="help-block">(HH:MM)<span class="float-end ms-1" id="countcar_xlever"></span></span>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xcoucher">'.adm_translate("La nuit commence à").'</label>
-            <div class="col-sm-8">
+         <div class="col-md-6">
+            <div class="form-floating mb-3">
                <input class="form-control js-hhmm" type="text" name="xcoucher" id="xcoucher" value="'.$coucher.'" maxlength="5" required="required" />
+               <label for="xcoucher">'.adm_translate("La nuit commence à").'</label>
                <span class="help-block">(HH:MM)<span class="float-end ms-1" id="countcar_xcoucher"></span></span>
             </div>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xgmt">UTC</label>
-            <div class="col-sm-8">
+         <div class="col-md-6">
+            <div class="form-floating mb-3">
                <select class="form-select" id="xgmt" name="xgmt">
                   <option value="'.$gmt.'" selected="selected">'.$gmt.'</option>
                   <option value="-1">UTC-01:00</option>
@@ -375,12 +353,24 @@ function Configure() {
                   <option value="+13">UTC+13:00</option>
                   <option value="+14">UTC+14:00</option>
                </select>
+               <label for="xgmt">UTC</label>
             </div>
          </div>
       </div>
       <script type="text/javascript">
       //<![CDATA[
       tog(\'info_gene\',\'show_info_gene\',\'hide_info_gene\');
+      $(function () {
+         $("#xDefault_Theme").change(function () {
+            sk = $("#xDefault_Theme option:selected").text().substr(-3);
+            if(sk=="_sk") {
+               $("#skin_choice").removeClass("collapse");
+            } else {
+               $("#skin_choice").addClass("collapse");
+            }
+         })
+        .change();
+       });
       //]]>
       </script>
    </fieldset>
@@ -419,29 +409,21 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_mes_ppage" title="'.adm_translate("Replier la liste").'"><i id="i_mes_ppage" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Message de pied de page").'</legend>
       <div id="mes_ppage" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-12" for="xfoot1">'.adm_translate("Ligne 1").'</label>
-            <div class="col-sm-12">
-               <textarea class="form-control" id="xfoot1" name="xfoot1" rows="5">'.htmlentities(stripslashes($foot1),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
-            </div>
+         <div class="form-floating mb-3">
+            <textarea class="form-control" id="xfoot1" name="xfoot1" style="height:100px;">'.htmlentities(stripslashes($foot1),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
+            <label for="xfoot1">'.adm_translate("Ligne 1").'</label>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-12" for="xfoot2">'.adm_translate("Ligne 2").'</label>
-            <div class="col-sm-12">
-               <textarea class="form-control" id="xfoot2" name="xfoot2" rows="5">'.htmlentities(stripslashes($foot2),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
-            </div>
+         <div class="form-floating mb-3">
+            <textarea class="form-control" id="xfoot2" name="xfoot2" style="height:100px;">'.htmlentities(stripslashes($foot2),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
+            <label for="xfoot2">'.adm_translate("Ligne 2").'</label>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-12" for="xfoot3">'.adm_translate("Ligne 3").'</label>
-            <div class="col-sm-12">
-               <textarea class="form-control col-sm-12" id="xfoot3" name="xfoot3" rows="5">'.htmlentities(stripslashes($foot3),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
-            </div>
+         <div class="form-floating mb-3">
+            <textarea class="form-control col-sm-12" id="xfoot3" name="xfoot3" style="height:100px;">'.htmlentities(stripslashes($foot3),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
+            <label for="xfoot3">'.adm_translate("Ligne 3").'</label>
          </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-12" for="xfoot4">'.adm_translate("Ligne 4").'</label>
-            <div class="col-sm-12">
-               <textarea class="form-control" id="xfoot4" name="xfoot4" rows="5">'.htmlentities(stripslashes($foot4),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
-            </div>
+         <div class="form-floating mb-3">
+            <textarea class="form-control" id="xfoot4" name="xfoot4" style="height:100px;">'.htmlentities(stripslashes($foot4),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
+            <label for="xfoot4">'.adm_translate("Ligne 4").'</label>
          </div>
       </div>
       <script type="text/javascript">
@@ -453,37 +435,39 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_bakend_rs" title="'.adm_translate("Replier la liste").'"><i id="i_bakend_rs" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Configuration des infos en Backend & Réseaux Sociaux").'</legend>
       <div id="bakend_rs" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xbackend_title">'.adm_translate("Titre du backend").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xbackend_title" id="xbackend_title" value="'.$backend_title.'" maxlength="100" />
-               <span class="help-block text-end" id="countcar_xbackend_title"></span>
+         <div class="row gy-0 gx-3">
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xbackend_title" id="xbackend_title" value="'.$backend_title.'" maxlength="100" />
+                  <label for="xbackend_title">'.adm_translate("Titre du backend").'</label>
+                  <span class="help-block text-end" id="countcar_xbackend_title"></span>
+               </div>
             </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xbackend_language">'.adm_translate("Langue du backend").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xbackend_language" id="xbackend_language" value="'.$backend_language.'" maxlength="10" />
-               <span class="help-block text-end" id="countcar_xbackend_language"></span>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xbackend_language" id="xbackend_language" value="'.$backend_language.'" maxlength="10" />
+                  <label for="xbackend_language">'.adm_translate("Langue du backend").'</label>
+                  <span class="help-block text-end" id="countcar_xbackend_language"></span>
+               </div>
             </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xbackend_image">'.adm_translate("URL de l'image du backend").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="url" name="xbackend_image" id="xbackend_image" value="'.$backend_image.'" maxlength="200" />
-               <span class="help-block text-end" id="countcar_xbackend_image"></span>
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="url" name="xbackend_image" id="xbackend_image" value="'.$backend_image.'" maxlength="200" />
+                  <label for="xbackend_image">'.adm_translate("URL de l'image du backend").'</label>
+                  <span class="help-block text-end" id="countcar_xbackend_image"></span>
+               </div>
             </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xbackend_width">'.adm_translate("Largeur de l'image du backend").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" id="xbackend_width" name="xbackend_width" value="'.$backend_width.'" min="0" max="9999" />
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="number" id="xbackend_width" name="xbackend_width" value="'.$backend_width.'" min="0" max="9999" />
+                  <label for="xbackend_width">'.adm_translate("Largeur de l'image du backend").'</label>
+               </div>
             </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xbackend_height">'.adm_translate("Hauteur de l'image du backend").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="number" id="xbackend_height" name="xbackend_height" value="'.$backend_height.'" min="0" max="9999" />
+            <div class="col-md-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="number" id="xbackend_height" name="xbackend_height" value="'.$backend_height.'" min="0" max="9999" />
+                  <label for="xbackend_height">'.adm_translate("Hauteur de l'image du backend").'</label>
+               </div>
             </div>
          </div>
          <div class="mb-3 row">
@@ -872,25 +856,27 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_para_illu" title="'.adm_translate("Replier la liste").'"><i id="i_para_illu" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Paramètres liés à l'illustration").'</legend>
       <div id="para_illu" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xtipath">'.adm_translate("Chemin des images des sujets").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xtipath" id="xtipath" value="'.$tipath.'" maxlength="100" />
-               <span class="help-block text-end" id="countcar_xtipath"></span>
+         <div class="row">
+            <div class="col-lg-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xtipath" id="xtipath" value="'.$tipath.'" maxlength="100" />
+                  <label for="xtipath">'.adm_translate("Chemin des images des sujets").'</label>
+                  <span class="help-block text-end" id="countcar_xtipath"></span>
+               </div>
             </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xuserimg">'.adm_translate("Chemin de certaines images (vote, ...)").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xuserimg" id="xuserimg" value="'.$userimg.'" maxlength="100" />
-               <span class="help-block text-end" id="countcar_xuserimg"></span>
+            <div class="col-lg-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xuserimg" id="xuserimg" value="'.$userimg.'" maxlength="100" />
+                  <label for="xuserimg">'.adm_translate("Chemin de certaines images (vote, ...)").'</label>
+                  <span class="help-block text-end" id="countcar_xuserimg"></span>
+               </div>
             </div>
-         </div>
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xadminimg">'.adm_translate("Chemin des images du menu administrateur").'</label>
-            <div class="col-sm-8">
-               <input class="form-control" type="text" name="xadminimg" id="xadminimg" value="'.$adminimg.'" maxlength="100" />
-               <span class="help-block text-end" id="countcar_xadminimg"></span>
+            <div class="col-lg-6">
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" name="xadminimg" id="xadminimg" value="'.$adminimg.'" maxlength="100" />
+                  <label for="xadminimg">'.adm_translate("Chemin des images du menu administrateur").'</label>
+                  <span class="help-block text-end" id="countcar_xadminimg"></span>
+               </div>
             </div>
          </div>
          <div class="mb-3 row">
@@ -1266,15 +1252,13 @@ function Configure() {
        if ($savemysql_size=='1024') $sel_size1024='selected="selected"'; else $sel_size1024='';
     }
    echo '
-   <div class="mb-3 row">
-      <label class="col-form-label col-sm-4" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
-      <div class="col-sm-8">
-         <select class="form-select" id="xsavemysql_size" name="xsavemysql_size">
-            <option value="256" '.$sel_size256.'>256 Ko</option>
-            <option value="512" '.$sel_size512.'>512 Ko</option>
-            <option value="1024" '.$sel_size1024.'>1024 Ko</option>
-         </select>
-      </div>
+   <div class="form-floating mb-3">
+      <select class="form-select" id="xsavemysql_size" name="xsavemysql_size">
+         <option value="256" '.$sel_size256.'>256 Ko</option>
+         <option value="512" '.$sel_size512.'>512 Ko</option>
+         <option value="1024" '.$sel_size1024.'>1024 Ko</option>
+      </select>
+      <label class="text-primary" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
    </div>';
     if (!$savemysql_mode)
        $savemysql_mode='1';
@@ -1284,15 +1268,13 @@ function Configure() {
        if ($savemysql_mode=='3') $type_save3='selected="selected"'; else $type_save3='';
     }
    echo '
-   <div class="mb-3 row">
-      <label class="col-form-label col-sm-4" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
-      <div class="col-sm-8">
-         <select class="form-select" id="xsavemysql_mode" name="xsavemysql_mode">
-            <option value="1" '.$type_save1.'>'.adm_translate("Toute tables. Fichier envoyé au navigateur. Pas de limite de taille").'</option>
-            <option value="2" '.$type_save2.'>'.adm_translate("Fichiers dans /slogs. table par table, tables non scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
-            <option value="3" '.$type_save3.'>'.adm_translate("Fichiers dans /slogs. table par table, lignes par lignes, tables scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
-         </select>
-      </div>
+   <div class="form-floating mb-3">
+      <select class="form-select" id="xsavemysql_mode" name="xsavemysql_mode">
+         <option value="1" '.$type_save1.'>'.adm_translate("Toute tables. Fichier envoyé au navigateur. Pas de limite de taille").'</option>
+         <option value="2" '.$type_save2.'>'.adm_translate("Fichiers dans /slogs. table par table, tables non scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
+         <option value="3" '.$type_save3.'>'.adm_translate("Fichiers dans /slogs. table par table, lignes par lignes, tables scindées : limite").'&nbsp;'.$savemysql_size.' Ko</option>
+      </select>
+      <label class="text-primary" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
    </div>
    <div class="mb-3 row">
       <label class="col-form-label col-sm-4" for="xtiny_mce">'.adm_translate("Activer l'éditeur Tinymce").'</label>';
@@ -1319,7 +1301,7 @@ function Configure() {
    </script>
    </fieldset>
    <input type="hidden" name="op" value="ConfigSave" />
-   <div class="mb-3">
+   <div class="my-3">
       <button class="btn btn-primary" type="submit">'.adm_translate("Sauver les modifications").'</button>
    </div>
    </form>';
