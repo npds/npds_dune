@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -94,7 +94,7 @@
    <body>
       <nav class="<?php echo $headerclasses; ?>">
          <div class="container-fluid">
-            <a class="navbar-brand" href="#">NPDS skins</a>
+            <a class="navbar-brand" href="#"><img class="me-2" width="32px" height="32px" src="<?php echo implode($result[1]); ?>images/admin/message_npds.png" alt="logo_npds">NPDS skins</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav" aria-controls="barnav" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
             </button>
