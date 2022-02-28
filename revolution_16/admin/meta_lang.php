@@ -5,7 +5,7 @@
 /*                                                                      */
 /* NEO - 2007                                                           */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -32,6 +32,7 @@ function go_back($label) {
    //]]>
    </script>';
 }
+
 function list_meta($meta, $type_meta) {
    global $NPDS_Prefix;
    $sel='';
@@ -51,6 +52,7 @@ function list_meta($meta, $type_meta) {
    </select>';
    return ($list);
 }
+
 function list_meta_type() {
    $list = '
    <select class="form-select" name="type_meta" onchange="window.location=eval(\'this.options[this.selectedIndex].value\')">
@@ -62,6 +64,7 @@ function list_meta_type() {
    </select>';
    return ($list);
 }
+
 function list_type_meta($type_meta) {
    global $NPDS_Prefix;
    $sel = ''; settype($url,'string');
@@ -80,6 +83,7 @@ function list_type_meta($type_meta) {
    </select>';
    return $list;
 }
+
 function List_Meta_Lang() {
    global $hlpfile, $NPDS_Prefix, $meta, $type_meta, $f_meta_nom, $f_titre, $adminimg;
 
@@ -155,6 +159,7 @@ function List_Meta_Lang() {
    echo $tablmeta;
    adminfoot('','','','');
 }
+
 function Edit_Meta_Lang() {
    global $hlpfile, $NPDS_Prefix, $ml, $local_user_language, $language, $f_meta_nom, $f_titre, $adminimg;
 
@@ -194,26 +199,22 @@ function Edit_Meta_Lang() {
       echo '
    <div class="row">
       <div class="text-muted col-sm-12">'.adm_translate("Script").'</div>
-      <div class=" col-sm-12" style="overflow-x:scroll;">
-         <pre><code>'.htmlspecialchars($Q['content'], ENT_QUOTES).'</code></pre>
+      <div class=" col-sm-12">
+         <pre class="language-php"><code class="language-php">'.htmlspecialchars($Q['content'], ENT_QUOTES).'</code></pre>
       </div>
    </div>';
    }
    if ($Q['obligatoire'] != true) {
       echo '
    <form id="metalangedit" name="edit_meta_lang" action="admin.php" method="post">
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="def">META</label>
-         <div class="col-sm-12">
-            <input class="form-control" type="text" id="def" name="def" value="'.$Q['def'].'" readonly="readonly" />
-         </div>
-      </div>
-      <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="typemeta">'.adm_translate("Type").'</label>
-         <div class="col-sm-12">
-            <input class="form-control" type="text" id="typemeta" name="type_meta" value="'.$Q['type_meta'].'" maxlength="10" readonly="readonly" />
-         </div>
-      </div>
+      <div class="form-floating mb-3">
+         <input class="form-control" type="text" id="def" name="def" value="'.$Q['def'].'" readonly="readonly" />
+         <label for="def">META</label>
+     </div>
+      <div class="form-floating mb-3">
+         <input class="form-control" type="text" id="typemeta" name="type_meta" value="'.$Q['type_meta'].'" maxlength="10" readonly="readonly" />
+         <label for="typemeta">'.adm_translate("Type").'</label>
+     </div>
       <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="desc">'.adm_translate("Description").'</label>
          <div class="col-sm-12">';
@@ -274,15 +275,19 @@ function Edit_Meta_Lang() {
          </div>
       </div>
    </form>';
-   }
-   else
-      go_back('');
-  $arg1='
+   
+     $arg1='
    var formulid = ["metalangedit"];
-   inpandfieldlen("uri",255);
-   ';
+   inpandfieldlen("uri",255);';
    adminfoot('fv','',$arg1,'');
+
+   }
+   else {
+      go_back('');
+      adminfoot('','','','');
+   }
 }
+
 function Creat_Meta_Lang() {
    global $NPDS_Prefix, $hlpfile, $type_meta, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
@@ -372,6 +377,7 @@ function Creat_Meta_Lang() {
    inpandfieldlen("uri",255);';
    adminfoot('fv','',$arg1,'');
 }
+
 function kill_Meta_Lang($nbr, $action) {
    global $NPDS_Prefix;
    $i=0;
@@ -382,6 +388,7 @@ function kill_Meta_Lang($nbr, $action) {
    }
    Header("Location: admin.php?op=Meta-LangAdmin");
 }
+
 function meta_exist($def) {
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg;
    include("header.php");
@@ -397,6 +404,7 @@ function meta_exist($def) {
    </div>';
    adminfoot('','','','');
 }
+
 function Maj_Bdd_ML($Maj_Bdd_ML, $def, $content, $type_meta, $type_uri, $uri, $desc) {
    global $NPDS_Prefix;
    if ($type_uri =='plus') {$type_uri = '+';} else {$type_uri = '-';}
