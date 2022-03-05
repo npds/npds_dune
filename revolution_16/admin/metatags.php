@@ -22,9 +22,10 @@ function MetaTagAdmin($saved = false) {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
+   $sel=' selected="selected"';
    echo '
    <hr />';
-   if ($saved)
+   if ($saved) // this not work
       echo '<div class="alert alert-success">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</div>';
    echo '
    <form id="metatagsadm" action="admin.php" method="post">
@@ -44,9 +45,14 @@ function MetaTagAdmin($saved = false) {
          <span class="help-block">'.adm_translate("(Ex. : l'adresse e-mail du webmaster)").'<span class="float-end ms-1" id="countcar_newtagreplyto"></span></span>
       </div>
       <div class="form-floating mb-3">
-         <input class="form-control" id="newtaglanguage" type="text" name="newtag[language]" value="'.$tags['language'].'" maxlength="5" />
+         <select class="form-select" id="newtaglanguage" name="newtag[language]">
+            <option value="zh"'.($tags['lang']=='zh' ? $sel : '').'>'.adm_translate("chinese").'</option>
+            <option value="en"'.($tags['lang']=='en' ? $sel : '').'>'.adm_translate("english").'</option>
+            <option value="fr"'.($tags['lang']=='fr' ? $sel : '').'>'.adm_translate("french").'</option>
+            <option value="de"'.($tags['lang']=='de' ? $sel : '').'>'.adm_translate("german").'</option>
+            <option value="es"'.($tags['lang']=='es' ? $sel : '').'>'.adm_translate("spanish").'</option>
+         </select>
          <label for="newtaglanguage">'.adm_translate("Langue principale").'</label>
-         <span class="help-block">'.adm_translate("(Ex. : fr(Français), en(Anglais), en-us(Américain), de(Allemand), it(Italien), pt(Portugais), etc)").'<span class="float-end ms-1" id="countcar_newtaglanguage"></span></span>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagdescription" type="text" name="newtag[description]" value="'.$tags['description'].'" maxlength="200" />
@@ -60,18 +66,18 @@ function MetaTagAdmin($saved = false) {
       </div>
       <div class="form-floating mb-3">
          <select class="form-select" id="newtagrating" name="newtag[rating]">
-            <option value="general"'.(!strcasecmp($tags['rating'], 'general') ? ' selected="selected"' : '').'>'.adm_translate("Tout public").'</option>
-            <option value="mature"'.(!strcasecmp($tags['rating'], 'mature') ? ' selected="selected"' : '').'>'.adm_translate("Adulte").'</option>
-            <option value="restricted"'.(!strcasecmp($tags['rating'], 'restricted') ? ' selected="selected"' : '').'>'.adm_translate("Accés restreint").'</option>
-            <option value="14 years"'.(!strcasecmp($tags['rating'], '14 years') ? ' selected="selected"' : '').'>'.adm_translate("14 ans").'</option>
+            <option value="general"'.(!strcasecmp($tags['rating'], 'general') ? $sel : '').'>'.adm_translate("Tout public").'</option>
+            <option value="mature"'.(!strcasecmp($tags['rating'], 'mature') ? $sel : '').'>'.adm_translate("Adulte").'</option>
+            <option value="restricted"'.(!strcasecmp($tags['rating'], 'restricted') ? $sel : '').'>'.adm_translate("Accés restreint").'</option>
+            <option value="14 years"'.(!strcasecmp($tags['rating'], '14 years') ? $sel : '').'>'.adm_translate("14 ans").'</option>
          </select>
          <label for="newtagrating">'.adm_translate("Audience").'</label>
          <span class="help-block">'.adm_translate("(Définissez le public intéressé par votre site)").'</span>
       </div>
       <div class="form-floating mb-3">
          <select class="form-select" id="newtagdistribution" name="newtag[distribution]">
-            <option value="global"'.(!strcasecmp($tags['distribution'], 'global') ? ' selected="selected"' : '').'>'.adm_translate("Large").'</option>
-            <option value="local"'.(!strcasecmp($tags['distribution'], 'local') ? ' selected="selected"' : '').'>'.adm_translate("Restreinte").'</option>
+            <option value="global"'.(!strcasecmp($tags['distribution'], 'global') ? $sel : '').'>'.adm_translate("Large").'</option>
+            <option value="local"'.(!strcasecmp($tags['distribution'], 'local') ? $sel : '').'>'.adm_translate("Restreinte").'</option>
          </select>
          <label for="newtagdistribution">'.adm_translate("Distribution").'</label>
       </div>
@@ -82,12 +88,12 @@ function MetaTagAdmin($saved = false) {
       </div>
       <div class="form-floating mb-3">
          <select class="form-select" id="newtagrobots" name="newtag[robots]">
-            <option value="all"'.(!strcasecmp($tags['robots'], 'all') ? ' selected="selected"' : '').'>'.adm_translate("Tout contenu (page/liens/etc)").'</option>
-            <option value="none"'.(!strcasecmp($tags['robots'], 'none') ? ' selected="selected"' : '').'>'.adm_translate("Aucune indexation").'</option>
-            <option value="index,nofollow"'.(!strcasecmp($tags['robots'], 'index,nofollow') ? ' selected="selected"' : '').'>'.adm_translate("Page courante sans liens locaux").'</option>
-            <option value="noindex,follow"'.(!strcasecmp($tags['robots'], 'noindex,follow') ? ' selected="selected"' : '').'>'.adm_translate("Liens locaux sauf page courante").'</option>
-            <option value="noarchive"'.(!strcasecmp($tags['robots'], 'noarchive') ? ' selected="selected"' : '').'>'.adm_translate("Pas d'affichage du cache").'</option>
-            <option value="noodp,noydir"'.(!strcasecmp($tags['robots'], 'noodp,noydir') ? ' selected="selected"' : '').'>'.adm_translate("Pas d'utilisation des descriptions ODP ou YDIR").'</option>
+            <option value="all"'.(!strcasecmp($tags['robots'], 'all') ? $sel : '').'>'.adm_translate("Tout contenu (page/liens/etc)").'</option>
+            <option value="none"'.(!strcasecmp($tags['robots'], 'none') ? $sel : '').'>'.adm_translate("Aucune indexation").'</option>
+            <option value="index,nofollow"'.(!strcasecmp($tags['robots'], 'index,nofollow') ? $sel : '').'>'.adm_translate("Page courante sans liens locaux").'</option>
+            <option value="noindex,follow"'.(!strcasecmp($tags['robots'], 'noindex,follow') ? $sel : '').'>'.adm_translate("Liens locaux sauf page courante").'</option>
+            <option value="noarchive"'.(!strcasecmp($tags['robots'], 'noarchive') ? $sel : '').'>'.adm_translate("Pas d'affichage du cache").'</option>
+            <option value="noodp,noydir"'.(!strcasecmp($tags['robots'], 'noodp,noydir') ? $sel : '').'>'.adm_translate("Pas d'utilisation des descriptions ODP ou YDIR").'</option>
          </select>
          <label for="newtagrobots">'.adm_translate("Robots/Spiders").'</label>
          <span class="help-block">'.adm_translate("(Définissez la méthode d'analyse que doivent adopter les robots des moteurs de recherche)").'</span>
@@ -101,8 +107,8 @@ function MetaTagAdmin($saved = false) {
          <div class="col-md-6">
             <div class="form-floating mb-3">
                <select class="form-select" id="newtagcontenttype" name="newtag[content-type]">
-                  <option value="text/html; charset=iso-8859-1"'.(!strcasecmp($tags['content-type'], 'text/html; charset=iso-8859-1') ? ' selected="selected"' : '').'>charset=ISO-8859-1</option>
-                  <option value="text/html; charset=utf-8"'.(!(strcasecmp($tags['content-type'], 'text/html; charset=utf-8') and strcasecmp($tags['content-type'], 'text/html')) ? ' selected="selected"' : '').'>charset=UTF-8</option>
+                  <option value="text/html; charset=iso-8859-1"'.(!strcasecmp($tags['content-type'], 'text/html; charset=iso-8859-1') ? $sel : '').'>charset=ISO-8859-1</option>
+                  <option value="text/html; charset=utf-8"'.(!(strcasecmp($tags['content-type'], 'text/html; charset=utf-8') and strcasecmp($tags['content-type'], 'text/html')) ? $sel : '').'>charset=UTF-8</option>
                </select>
                <label for="newtagcontenttype">'.adm_translate("Encodage").'</label>
             </div>
@@ -110,9 +116,9 @@ function MetaTagAdmin($saved = false) {
          <div class="col-md-6">
             <div class="form-floating mb-3">
                <select class="form-select" id="newtagdoctype" name="newtag[doctype]">
-                  <option value="XHTML 1.0 Transitional"'.(!strcasecmp(doctype, 'XHTML 1.0 Transitional') ? ' selected="selected"' : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
-                  <option value="XHTML 1.0 Strict"'.(!strcasecmp(doctype, 'XHTML 1.0 Strict') ? ' selected="selected"' : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
-                  <option value="HTML 5.0"'.(!strcasecmp(doctype, 'HTML 5.0') ? ' selected="selected"' : '').'>HTML 5.0</option>
+                  <option value="XHTML 1.0 Transitional"'.(!strcasecmp(doctype, 'XHTML 1.0 Transitional') ? $sel : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
+                  <option value="XHTML 1.0 Strict"'.(!strcasecmp(doctype, 'XHTML 1.0 Strict') ? $sel : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
+                  <option value="HTML 5.1"'.(!strcasecmp(doctype, 'HTML 5.1') ? $sel : '').'>HTML 5.1</option>
                </select>
                <label for="newtagdoctype">DOCTYPE</label>
             </div>
@@ -126,12 +132,10 @@ function MetaTagAdmin($saved = false) {
    inpandfieldlen("newtagauthor",100);
    inpandfieldlen("newtagowner",100);
    inpandfieldlen("newtagreplyto",100);
-   inpandfieldlen("newtaglanguage",5);
    inpandfieldlen("newtagdescription",200);
    inpandfieldlen("newtagkeywords",1000);
    inpandfieldlen("newtagcopyright",100);
-   inpandfieldlen("newtagrevisitafter",30);
-   ';
+   inpandfieldlen("newtagrevisitafter",30);';
    adminfoot('fv','',$arg1,'');
 }
 
