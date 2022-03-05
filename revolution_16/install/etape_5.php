@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -27,32 +27,31 @@ function etape_5() {
    settype($slogan, 'string');
    include_once('config.php');
    echo '
-               <h3 class="mb-2">'.ins_translate('Autres paramètres').'</h3>
+               <h3 class="mb-3">'.ins_translate('Autres paramètres').'</h3>
                <div class="col-sm-12">
                   <form id="others_parameters" name="others_parameters" method="post" action="install.php">
-                  <div class="form-group row">
-                     <label class="col-form-label" for="new_nuke_url">'.ins_translate('Adresse (URL) de votre site').'</label>
+                  <div class="form-floating mb-3">
                      <input class="form-control" type="url" name="new_nuke_url" id="new_nuke_url" maxlength="80" value="'.$nuke_url.'" required="required" data-fv-uri___allow-local="true" />
-                     <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Exemples :').' http://www.monsite.com | http://www.monsite.com/npds | http://127.0.0.1/</div><div class="ml-auto" id="countcar_new_nuke_url"></div></div>
+                     <label class="col-form-label" for="new_nuke_url">'.ins_translate('Adresse (URL) de votre site').'</label>
+                     <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Exemples :').' http://www.monsite.com | http://www.monsite.com/npds | http://127.0.0.1/</div><div class="ms-auto" id="countcar_new_nuke_url"></div></div>
                   </div>
-                  <div class="form-group row">
-                     <label class="col-form-label" for="new_sitename">'.ins_translate('Nom de votre site').'</label>
+                  <div class="form-floating mb-3">
                      <input class="form-control" type="text" name="new_sitename" id="new_sitename" maxlength="80" value="'.$sitename.'" />
+                     <label for="new_sitename">'.ins_translate('Nom de votre site').'</label>
                      <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_sitename"></div>
                   </div>
-                  <div class="form-group row">
-                     <label class="col-form-label" for="new_Titlesitename">'.ins_translate('Intitulé de votre site').'</label>
+                  <div class="form-floating mb-3">
                      <input class="form-control" type="text" name="new_Titlesitename" id="new_Titlesitename" maxlength="80" value="'.$Titlesitename.'" />
+                     <label for="new_Titlesitename">'.ins_translate('Intitulé de votre site').'</label>
                      <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_Titlesitename"></div>
                   </div>
-                  <div class="form-group row">
-                     <label class="col-form-label" for="new_slogan">'.ins_translate('Slogan de votre site').'</label>
+                  <div class="form-floating mb-3">
                      <input class="form-control" type="text" name="new_slogan" id="new_slogan" maxlength="80" value="'.$slogan.'" />
+                     <label for="new_slogan">'.ins_translate('Slogan de votre site').'</label>
                      <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_slogan"></div>
                   </div>
-                  <div class="form-group row">
-                     <label class="col-form-label" for="new_Default_Theme">'.ins_translate('Thème graphique').'</label>
-                     <select class="custom-select form-control" id="new_Default_Theme" name="new_Default_Theme" />';
+                  <div class="form-floating mb-3">
+                     <select class="form-select" id="new_Default_Theme" name="new_Default_Theme" />';
    include('themes/list.php');
    $themelist = explode(' ', $themelist);
    $sel='';
@@ -66,6 +65,7 @@ function etape_5() {
    }
    echo '
                      </select>
+                     <label for="new_Default_Theme">'.ins_translate('Thème graphique').'</label>
                   </div>';
    $today = getdate();
    $tday = $today['mday'];
@@ -76,7 +76,7 @@ function etape_5() {
    if($langue == 'english') $startdate = $tmon.'/'.$tday.'/'.$tyear;
    else $startdate = $tday.'/'.$tmon.'/'.$tyear;
    echo '
-                  <div class="form-group row">
+                  <div class="mb-3">
                      <input type="hidden" name="langue" value="'.$langue.'" />
                      <input type="hidden" name="stage" value="'.$stage.'" />
                      <input type="hidden" name="new_startdate" value="'.$startdate.'" />

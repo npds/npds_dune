@@ -49,14 +49,14 @@ if(!isset($M2)) $M2='';
 
 $m->add_comment(aff_langue('<div class="row"><p class="lead">[french]En savoir plus[/french][english]More[/english][spanish]M&#xE1;s[/spanish][german]Mehr[/german]</p></div>'));
 $m->add_field('C1', aff_langue('[french]Activit&#x00E9; professionnelle[/french][english]Professional activity[/english][spanish]Actividad profesional[/spanish][german]Berufliche T&#xE4;tigkeit[/german]'),$C1,'text',false,100,'','');
-$m->add_extender('C1', '', '<span class="help-block text-right" id="countcar_C1"></span>');
+$m->add_extender('C1', '', '<span class="help-block text-end" id="countcar_C1"></span>');
 $m->add_field('C2',aff_langue('[french]Code postal[/french][english]Postal code[/english][spanish]C&#xF3;digo postal[/spanish][german]Postleitzahl[/german]'), $C2, 'text',false,5,'','');
-$m->add_extender('C2', '', '<span class="help-block text-right" id="countcar_C2"></span>');
+$m->add_extender('C2', '', '<span class="help-block text-end" id="countcar_C2"></span>');
 $m->add_date('T1', aff_langue('[french]Date de naissance[/french][english]Birth date[/english][spanish]Fecha de nacimiento[/spanish][german]Geburtsdatum[/german]'),$T1,'text','',false,20);
 $m->add_extender('T1', '','<span class="help-block">JJ/MM/AAAA</span>');
 $m->add_field('M2',"R&#x00E9;seaux sociaux",$M2,'hidden',false);
-include('modules/geoloc/geoloc_conf.php');
-$m->add_comment(aff_langue('<div class="row"><p class="lead"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fas fa-map-marker-alt fa-2x" title="[french]Modifier ou d&#xE9;finir votre position[/french][english]Define or change your geolocation[/english][chinese]Define or change your geolocation[/chinese][spanish]Definir o cambiar la geolocalizaci&#243;n[/spanish][german]Definieren oder &#xE4;ndern Sie Ihre Geolokalisierung[/german]" data-toggle="tooltip" data-placement="right"></i></a>&nbsp;[french]G&#xE9;olocalisation[/french][english]Geolocation[/english][chinese]&#x5730;&#x7406;&#x5B9A;&#x4F4D;[/chinese][spanish]Geolocalizaci&#243;n[/spanish][german]Geolokalisierung[/german]</p></div>'));
+include('modules/geoloc/geoloc.conf');
+$m->add_comment(aff_langue('<div class="row"><p class="lead"><a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fas fa-map-marker-alt fa-2x" title="[french]Modifier ou d&#xE9;finir votre position[/french][english]Define or change your geolocation[/english][chinese]Define or change your geolocation[/chinese][spanish]Definir o cambiar la geolocalizaci&#243;n[/spanish][german]Definieren oder &#xE4;ndern Sie Ihre Geolokalisierung[/german]" data-bs-toggle="tooltip" data-bs-placement="right"></i></a>&nbsp;[french]G&#xE9;olocalisation[/french][english]Geolocation[/english][chinese]&#x5730;&#x7406;&#x5B9A;&#x4F4D;[/chinese][spanish]Geolocalizaci&#243;n[/spanish][german]Geolokalisierung[/german]</p></div>'));
 $m->add_field($ch_lat,aff_langue('[french]Latitude[/french][english]Latitude[/english][chinese]&#x7ECF;&#x5EA6;[/chinese][spanish]Latitud[/spanish][german]Breitengrad[/german]'),$$ch_lat,'text',false,'','','lat');
 $m->add_field($ch_lon,aff_langue('[french]Longitude[/french][english]Longitude[/english][chinese]&#x7EAC;&#x5EA6;[/chinese][spanish]Longitud[/spanish][german]L&#228;ngengrad[/german]'),$$ch_lon,'text',false,'','','long');
 

@@ -21,7 +21,7 @@ body {
    color: #000;
 }
 
-a:hover {text-decoration:none;}
+a, a:hover {text-decoration:none;}
 /* pas de contour sur le focus des ancres */
 a:focus {
    outline: none;
@@ -35,7 +35,7 @@ a:focus {
 }
 /** <== Balise html                                                         **/
 
-/** ==> Classes BS4                                                         **/
+/** ==> Classes BS5                                                         **/
 /*                                                                           */
 /* ==> élément ayant la class btn (boutons, a, input) */
 .btn {
@@ -43,21 +43,23 @@ a:focus {
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
+/* ==> remove the no aesthetic border provided by BS5 css*/
+.table > :not(:first-child) { border-color: var(--bs-gray-300); }
 /* ==> hauteur et scroll des modal */
 .modal-body {
   max-height: calc(100vh - 210px);
   overflow-y: auto;
 }
 
-.page-link {color:#be2525;}
-.page-link:hover {color:#000000;}
+.page-link , .nav-link {color:#be2525;}
+.page-link:hover, .nav-link:hover {color:#000000;}
 .custom-control-input:checked~.custom-control-indicator {
    color: #fff;
    background-color: #be2525;
    }
 .card-header, .card-footer {background-color: #dad7c3;}
 
-/** <== Classes BS4                                                         **/
+/** <== Classes BS5                                                         **/
 
 /** ==> Classes NPDS-core [prefixe n-]                                      **/
 /* ==> pour les avatars et images */
@@ -119,8 +121,6 @@ a:focus {
   hyphens: auto;
 }
 .n-ellipses {
-  display:inline-block;
-  width: 100%;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -238,127 +238,6 @@ ui-menu-item-wrapper {
   border-width: 1px;
 }
 /* <== Personalisation menu autocomplete [jquery ui]*/
-
-/*ajustement des icones etat form validation en attente update du plugin*/
-.fv-form-bootstrap4 .form-group.row .fv-control-feedback {
-  position: absolute;
-  display: inline-block;
-  right: 45px;
-}
-
-/*adaptation pour form validation*/
-.has-warning .text-help,
-.has-warning .form-control-label,
-.has-warning .radio,
-.has-warning .checkbox,
-.has-warning .radio-inline,
-.has-warning .checkbox-inline,
-.has-warning.radio label,
-.has-warning.checkbox label,
-.has-warning.radio-inline label,
-.has-warning.checkbox-inline label,
-.has-warning small.help-block,
-.has-warning span.help-block {
-  color: #d9534f;
-}
-.fv-form-bootstrap4 .has-warning .fv-control-feedback, .fv-form-bootstrap4 .has-warning label {
-  color: #d9534f
-}
-.has-warning .text-help, .has-warning .form-control-feedback, .has-warning .form-control-label {
-  color: #d9534f
-}
-.has-warning .form-control {
-  border-color: #d9534f;
-}
-.has-warning .input-group-addon {
-  color: #d9534f;
-  background-color: #fdf7f7;
-  border-color: #d9534f;
-}
-.has-warning .form-control-feedback {
-  color: #d9534f;
-}
-.has-warning .form-control-warning {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MTIgNzkyIj48cGF0aCBmaWxsPSIjZDk1MzRmIiBkPSJNNDQ3IDU0NC40Yy0xNC40IDE0LjQtMzcuNiAxNC40LTUyIDBsLTg5LTkyLjctODkgOTIuN2MtMTQuNSAxNC40LTM3LjcgMTQuNC01MiAwLTE0LjQtMTQuNC0xNC40LTM3LjYgMC01Mmw5Mi40LTk2LjMtOTIuNC05Ni4zYy0xNC40LTE0LjQtMTQuNC0zNy42IDAtNTJzMzcuNi0xNC4zIDUyIDBsODkgOTIuOCA4OS4yLTkyLjdjMTQuNC0xNC40IDM3LjYtMTQuNCA1MiAwIDE0LjMgMTQuNCAxNC4zIDM3LjYgMCA1MkwzNTQuNiAzOTZsOTIuNCA5Ni40YzE0LjQgMTQuNCAxNC40IDM3LjYgMCA1MnoiLz48L3N2Zz4=");
-}
-
-.has-success .text-help,
-.has-success .form-control-label,
-.has-success .radio,
-.has-success .checkbox,
-.has-success .radio-inline,
-.has-success .checkbox-inline,
-.has-success.radio label,
-.has-success.checkbox label,
-.has-success.radio-inline label,
-.has-success.checkbox-inline label,
-.has-success small.help-block,
-.has-success span.help-block {
-  color: #28a745;
-}
-.fv-form-bootstrap4 .has-success .fv-control-feedback, .fv-form-bootstrap4 .has-success label {
-  color: #28a745
-}
-.has-success .text-help, .has-success .form-control-feedback, .has-success .form-control-label {
-  color: #28a745
-}
-.has-success .form-control {
-  border-color: #28a745;
-}
-.has-success .input-group-addon {
-  color: #28a745;
-  background-color: #fdf7f7;
-  border-color: #28a745;
-}
-.has-success .form-control-feedback {
-  color: #28a745;
-}
-
-.has-warning .custom-control-input:invalid ~ .custom-control-indicator, .custom-control-input.is-invalid ~ .custom-control-indicator {
-  background-color: rgba(220, 53, 69, 0.25);
-}
-
-.has-warning .custom-control-input:invalid ~ .custom-control-description, .custom-control-input.is-invalid ~ .custom-control-description {
-  color: #dc3545;
-}
-
-.has-warning .custom-file-input:invalid ~ .custom-file-control, .custom-file-input.is-invalid ~ .custom-file-control {
-  border-color: #dc3545;
-}
-
-.has-warning .custom-file-input:invalid ~ .custom-file-control::before, .custom-file-input.is-invalid ~ .custom-file-control::before {
-  border-color: inherit;
-}
-
-.has-warning .custom-file-input:invalid:focus, .custom-file-input.is-invalid:focus {
-  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-}
-
-.has-success .form-check-input:valid + .form-check-label, .form-check-input.is-valid + .form-check-label {
-  color: #28a745;
-}
-
-.has-success .custom-control-input:valid ~ .custom-control-indicator, .custom-control-input.is-valid ~ .custom-control-indicator {
-  background-color: rgba(40, 167, 69, 0.25);
-}
-
-.has-success .custom-control-input:valid ~ .custom-control-description, .custom-control-input.is-valid ~ .custom-control-description {
-  color: #28a745;
-}
-
-.has-success .custom-file-input:valid ~ .custom-file-control, .custom-file-input.is-valid ~ .custom-file-control {
-  border-color: #28a745;
-}
-
-.has-success .custom-file-input:valid ~ .custom-file-control::before, .custom-file-input.is-valid ~ .custom-file-control::before {
-  border-color: inherit;
-}
-
-.has-success .custom-file-input:valid:focus, .custom-file-input.is-valid:focus {
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-}
-
-
 
 /** ==> classes présentes dans le core de npds
 ********************************************** */
@@ -1920,47 +1799,30 @@ textarea[required='required'] {
 border: 1px solid ;
 }
 
-.custom-file-input:lang(fr) ~ .custom-file-label::after {
-    content: "Choisir ..."
+/* input file customisation */
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  width:1px;
 }
-.custom-file-input:lang(es) ~ .custom-file-label::after {
-    content: "Elegir ..."
+.n-ci:lang(fr)::before {
+  content: "Choisir";
 }
-.custom-file-input:lang(de) ~ .custom-file-label::after {
-    content: "Wählen ..."
+.n-ci:lang(es)::before {
+  content: "Elegir";
 }
-.custom-file-input:lang(en) ~ .custom-file-label::after {
-    content: "Browse ..."
+.n-ci:lang(de)::before {
+  content: "Wählen";
 }
-.custom-file-input:lang(zh) ~ .custom-file-label::after {
-    content: "选择 ..."
+.n-ci:lang(en)::before {
+  content: "Browse";
 }
-
+.n-ci:lang(zh)::before {
+  content: "选择";
+}
 .n-irl {
    max-width: 100%;
     height: auto;
 }
-/* ==> personalisation responsivité des colonnes de card */
-
-@media (min-width: 576px) and (max-width: 640px) {
-.card-columns {
- column-count: 2;
- }
-}
-@media (min-width: 760px) and (max-width: 991px) {
-.card-columns {
- column-count: 4;
- }
-}
-@media (min-width: 991px) and (max-width: 1080px) {
-.card-columns {
- column-count: 2;
- }
-}
-@media (min-width: 1200px) { card-columns {
- column-count: 3;
- }}
-/* <== personalisation responsivité des colonnes de card */
 /* ==> pour popover contenant les emoji */
 div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
 div[data-type=emojiPopper] div .card-body{padding:.4rem}

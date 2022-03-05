@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -123,20 +123,18 @@ function translate_pass1($phrase) {
    case "Ajouter une catégorie principale": $tmp="添加主分类"; break;
    case "Ajouter une sous-catégorie": $tmp="添加子分类"; break;
    case "Ajouter une url": $tmp="添加一个网址"; break;
-   case "Ajouter": $tmp="加入网站"; break;
    case "Ajouter": $tmp="添加"; break;
    case "Aller à la page": $tmp="前往页面: "; break;
    case "Anciens articles": $tmp="个被下载最多的文件"; break;
    case "Anciens sondages": $tmp="以前的调查"; break;
-   case "Année": $tmp="Année"; break;
+   case "Année": $tmp="年"; break;
    case "Annuler l'envoi": $tmp="取消发送"; break;
    case "Annuler la contribution": $tmp="取消发言"; break;
    case "Annuler la réponse": $tmp="取消回复"; break;
    case "Annuler": $tmp="取消"; break;
-   case "Annuler": $tmp="取消"; break;
    case "Anonyme": $tmp="匿名游客"; break;
    case "Anti-Spam / Merci de répondre à la question suivante : ": $tmp="反垃圾邮件 / 感谢您回答这个问题 :"; break;
-   case "Août": $tmp="Août"; break;
+   case "Août": $tmp="八月"; break;
    case "Aperçu des sujets :": $tmp="热门主题"; break;
    case "Archives": $tmp="档案资料"; break;
    case "Article de": $tmp="新闻提供"; break;
@@ -151,8 +149,6 @@ function translate_pass1($phrase) {
    case "Articles présents dans les rubriques : ": $tmp="在精华区中的文章： : "; break;
    case "Articles publiés : ": $tmp="已发表文章： : "; break;
    case "Articles publiés : ": $tmp="篇文章被发布 : "; break;
-   case "Articles": $tmp="文章"; break;
-   case "Articles": $tmp="文章"; break;
    case "Articles": $tmp="文章"; break;
    case "Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté": $tmp="请确保填入的信息均有效、语法正确、注意大小写。比如，不要用大写书写文本，这样会拒绝写入的。 !"; break;
    case "ATTENTION : Etes-vous certain de vouloir effacer cette catégorie et tous ses Liens ?": $tmp="警告：您确认删除该分类和其下的所有链接？ ?"; break;
@@ -177,7 +173,7 @@ function translate_pass1($phrase) {
    case "Autres": $tmp="其它的"; break;
    case "Avatar : ": $tmp="头像 : "; break;
    case "Avatar": $tmp="头像"; break;
-   case "Avril": $tmp="Avril"; break;
+   case "Avril": $tmp="四月"; break;
    case "Bannière": $tmp="广告条"; break;
    case "Bannières - Publicité": $tmp="广告(Banner)"; break;
    case "Bannières actives pour": $tmp="当前广告为"; break;
@@ -193,8 +189,8 @@ function translate_pass1($phrase) {
    case "Boîte d'émission": $tmp="发件夹"; break;
    case "Boîte de réception": $tmp="收件夹"; break;
    case "Bonjour": $tmp="您好"; break;
-   case "Bonjour": $tmp="欢迎"; break;
    case "Caché": $tmp="隐藏"; break;
+   case "caractères au minimum": $tmp = "characters minimum"; break;
    case "caractères de plus": $tmp="字节"; break;
    case "caractères": $tmp="个英文字符长"; break;
    case "Carnet d'adresses": $tmp="地址簿"; break;
@@ -206,7 +202,9 @@ function translate_pass1($phrase) {
    case "Catégories les plus actives": $tmp="最活跃的分类"; break;
    case "Catégories": $tmp="分类"; break;
    case "Ce fichier n'existe pas ...": $tmp="该文件不存在 ..."; break;
+   case "Ce nom n\'est pas disponible": $tmp="此名称不可用"; break;
    case "Ce sujet est verrouillé : il ne peut accueillir aucune nouvelle contribution.": $tmp="此主题被锁定：它不能接受任何新的提交信息。"; break;
+   case "Ce surnom n\'est pas disponible": $tmp="此昵称不可用"; break;
    case "Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder": $tmp="这是私人论坛。您必须输入密码才能进入。"; break;
    case "Cela peut être retiré ou ajouté dans vos paramètres personnels": $tmp="本项可以在你的个人参数中添加或撤消"; break;
    case "Cela pourrait vous intéresser": $tmp="您可能对此感兴趣："; break;
@@ -306,7 +304,7 @@ function translate_pass1($phrase) {
    case "de": $tmp="来自"; break;
    case "de": $tmp="来自于"; break;
    case "Début de l'article": $tmp="盼恼碌钠鹗"; break;
-   case "Décembre": $tmp="日"; break;
+   case "Décembre": $tmp="十二月"; break;
    case "Déconnexion": $tmp="注销"; break;
    case "Décroissant": $tmp="递减"; break;
    case "demandes en cours pour le même utilistaeur.": $tmp="同一个用户的申请."; break;
@@ -412,7 +410,7 @@ function translate_pass1($phrase) {
    case "Fermé": $tmp="关闭"; break;
    case "Fermer ce sujet": $tmp="锁定本帖"; break;
    case "Fermer le sujet": $tmp="锁定本帖"; break;
-   case "Février": $tmp="Février"; break;
+   case "Février": $tmp="二月"; break;
    case "Fichiers les + récents": $tmp="可下载的文件"; break;
    case "Fichiers": $tmp="文件"; break;
    case "File manager du groupe.": $tmp="组文件管理器."; break;
@@ -486,19 +484,18 @@ function translate_pass1($phrase) {
    case "Isoloir du vote en cours": $tmp="Current Survey Voting Booth"; break;
    case "Isoloir": $tmp="投票区"; break;
    case "Italique": $tmp="斜体"; break;
-   case "Janvier": $tmp="Janvier"; break;
-   case "Jeudi": $tmp="本产品的评分 : "; break;
+   case "Janvier": $tmp="一月"; break;
+   case "Jeudi": $tmp="星期四"; break;
    case "Jour": $tmp="天"; break;
    case "Jour(s)": $tmp="日"; break;
    case "Journal en ligne de ": $tmp="在线读物，为 "; break;
    case "Journal": $tmp="Journal"; break;
    case "jours": $tmp="天"; break;
-   case "Juillet": $tmp="Juillet"; break;
-   case "Juin": $tmp="Juin"; break;
+   case "Juillet": $tmp="七月"; break;
+   case "Juin": $tmp="六月"; break;
    case "L'accès à cette application est réservé aux utilisateurs Avancés. Merci de vous enregistrer.": $tmp="本功能只提供给超级注册用户。请您注册。"; break;
    case "L'article le plus consulté aujourd'hui est :": $tmp="今天最受欢迎文章： :"; break;
    case "L'article le plus lu à propos de": $tmp="人气最高的文章在"; break;
-   case "L'article": $tmp="文章"; break;
    case "L'article": $tmp="文章"; break;
    case "L'url pour cet article est : ": $tmp="这篇文章的URL是： : "; break;
    case "La fonction mise à jour du mot de passe ne peut mettre à jour la base de données. Contactez le WebMaster.": $tmp="邮件密码(Mail_Password)不能更新。请联系网站管理员。"; break;
@@ -512,6 +509,11 @@ function translate_pass1($phrase) {
    case "Le forum ou le topic que vous tentez de publier n'existe pas, refaites un essai.": $tmp=" 您所选择的论坛或主题不存在，请重试。"; break;
    case "Le forum sélectionné n'existe pas.": $tmp="您选择的论坛不存在。请返回并重试。"; break;
    case "Le message sélectionné n'existe pas dans la base forum.": $tmp="所选的信息在数据库中不存在"; break;
+   case "Le mot de passe doit contenir au moins un caractère en majuscule.": $tmp = "密码必须至少包含一个大写字符。"; break;
+   case "Le mot de passe doit contenir au moins un caractère en minuscule.": $tmp = "密码必须至少包含一个小写字符。"; break;
+   case "Le mot de passe doit contenir au moins un caractère non alphanumérique.": $tmp = "密码必须至少包含一个非字母数字字符。"; break;
+   case "Le mot de passe doit contenir au moins un chiffre.": $tmp = "密码必须至少包含一个数字。"; break;
+   case "Le mot de passe doit contenir": $tmp = "密码必须包含"; break;
    case "Le mot de passe vous sera envoyé à l'adresse Email indiquée.": $tmp="Le mot de passe vous sera envoyé à l'adresse Email indiquée."; break;
    case "Le moteur de recherche ne trouve pas la base forum.": $tmp="搜索引擎"; break;
    case "Le nombre de hits doit être un entier positif": $tmp="点击数必须为正整数"; break;
@@ -524,6 +526,7 @@ function translate_pass1($phrase) {
    case "Les dernières nouvelles à propos de": $tmp="最新消息，关于"; break;
    case "Les derniers articles de": $tmp="Last articles sent by"; break;
    case "Les derniers commentaires de": $tmp="最近10篇评论来自"; break;
+   case "Les deux mots de passe ne sont pas identiques.": $tmp = "这两个密码并不相同。"; break;
    case "les Liens": $tmp="网站链接"; break;
    case "Les modifications seront seulement valides pour vous.": $tmp="这些改变只对您在登录后有效。"; break;
    case "Les mots de passe sont différents. Ils doivent être identiques.": $tmp="这两个密码是不同的。他们必须有所区别。"; break;
@@ -547,8 +550,6 @@ function translate_pass1($phrase) {
    case "Liens relatifs : ": $tmp="相关链接 : "; break;
    case "Liens relatifs": $tmp="相关链接"; break;
    case "Liens Web": $tmp="网站链接"; break;
-   case "Liens": $tmp="个链接在我们的数据库中"; break;
-   case "Liens": $tmp="等待的链接"; break;
    case "Liens": $tmp="链接"; break;
    case "Limite des référants : pensez à archiver vos référants via l'administration du site.": $tmp="对来访网站的统计限制于以下数量:  请注意保存您的相关统计数据到管理页面."; break;
    case "Lire la suite...": $tmp="更多"; break;
@@ -567,12 +568,12 @@ function translate_pass1($phrase) {
    case "M2M bloc": $tmp="M2M 室"; break;
    case "Ma note : ": $tmp="我的评分： : "; break;
    case "Ma page perso : ": $tmp="我的主页： : "; break;
-   case "Mai": $tmp="Mai"; break;
+   case "Mai": $tmp="五月"; break;
    case "Mais ne titrez pas -un article-, ou -à lire-,...": $tmp="但是不要命名为”一篇文章”或”读读..”。"; break;
    case "Manuel en ligne": $tmp="在线手册"; break;
-   case "Mardi": $tmp="Mardi"; break;
+   case "Mardi": $tmp="星期二"; break;
    case "Marquer tous les messages comme lus": $tmp="把所有的主题标记为已读"; break;
-   case "Mars": $tmp="Mars"; break;
+   case "Mars": $tmp="三月"; break;
    case "Masquer ce commentaire": $tmp="隐藏此评论"; break;
    case "Masquer ce post": $tmp="Masquer ce post"; break;//
    case "Mèl": $tmp="E-mail"; break;
@@ -594,7 +595,7 @@ function translate_pass1($phrase) {
    case "Merci pour votre contribution.": $tmp="感谢您的提问。我们将会在不久查看它。"; break;
    case "Merci pour votre contribution": $tmp="感谢您的提问。我们将会在不久查看它。 !"; break;
    case "Merci": $tmp="谢谢！"; break;
-   case "Mercredi": $tmp="&#x5468"; break;
+   case "Mercredi": $tmp="星期三"; break;
    case "Message à un membre": $tmp="给会员发送的消息"; break;
    case "Message édité par": $tmp="讯息编辑者"; break;
    case "Message interne": $tmp="Internal Message"; break;
@@ -628,7 +629,6 @@ function translate_pass1($phrase) {
    case "Monnaie": $tmp="货币"; break;
    case "Montrer :": $tmp="显示 :"; break;
    case "Mot de passe : ": $tmp="密码 : "; break;
-   case "Mot de passe erroné, refaites un essai.": $tmp=" 该密码无效。请返回并重试。"; break;
    case "Mot de passe erroné, refaites un essai.": $tmp="密码不正确，请返回并重新输入"; break;
    case "Mot de passe mis à jour. Merci de vous re-connecter": $tmp="Password update, please re-connect you."; break;//
    case "Mot de passe pour": $tmp="密码给"; break;
@@ -690,7 +690,7 @@ function translate_pass1($phrase) {
    case "O=Non - 1=Oui": $tmp="O=否 - 1=是"; break;
    case "Objet": $tmp="产品名称"; break;
    case "Obligatoire seulement si vous soumettez un lien relatif": $tmp="如果您有相关链接请填写，否则不必填写。"; break;
-   case "Octobre": $tmp="Octobre"; break;
+   case "Octobre": $tmp="十月"; break;
    case "Offre": $tmp="商品资源"; break;
    case "Offres par page": $tmp="每页展示的商品信息数量"; break;
    case "Ok": $tmp="Ok"; break;
@@ -814,13 +814,12 @@ function translate_pass1($phrase) {
    case "Rubriques": $tmp="精华区"; break;
    case "S'inscrire à la liste de diffusion du site": $tmp="在网站的邮件列表中注册"; break;
    case "Salle": $tmp="房间"; break;
-   case "Samedi": $tmp="保存更改"; break;
+   case "Samedi": $tmp="星期六"; break;
    case "Sans titre": $tmp="无标题"; break;
    case "Sans": $tmp="无"; break;
    case "Sauter à : ": $tmp="转跳到 : "; break;
    case "Sauter à :": $tmp="转跳到 :"; break;
    case "Sauver les modifications": $tmp="保存您的日志"; break;
-   case "Sauver les modifications": $tmp="保存更改"; break;
    case "Sauvez votre journal": $tmp="保存"; break;
    case "Se connecter": $tmp="连接"; break;
    case "Seconde(s)": $tmp="第二"; break;
@@ -832,7 +831,7 @@ function translate_pass1($phrase) {
    case "Sélectionnez un thème d'affichage": $tmp="选择一个主题样式"; break;
    case "semaine": $tmp="周"; break;
    case "semaines": $tmp="周"; break;
-   case "Septembre": $tmp="Septembre"; break;
+   case "Septembre": $tmp="九月"; break;
    case "Seulement": $tmp="只"; break;
    case "Seuls les modérateurs peuvent poster de nouveaux sujets et répondre dans ce forum.": $tmp="只有版主才能在本论坛中张贴新主题并回复"; break;
    case "Si vous étiez enregistré, vous pourriez proposer des liens.": $tmp="如果您是注册用户您可以在本站提交链接。"; break;
@@ -881,15 +880,15 @@ function translate_pass1($phrase) {
    case "Téléchargements": $tmp="下載次數"; break;
    case "Télécharger un avatar personnel": $tmp="上传个人头象"; break;
    case "Terminer": $tmp="完成"; break;
+   case "Texte : ": $tmp="文本 : "; break;
    case "Texte aligné à droite": $tmp="文本对齐，右"; break;
    case "Texte aligné à gauche": $tmp="文字左对齐"; break;
    case "Texte centré": $tmp="居中的文字"; break;
-   case "Texte justifié": $tmp="Texte justifié"; break;//
-   case "Texte : ": $tmp="文本 : "; break;
    case "Texte complet": $tmp="完整文章"; break;
    case "Texte d'introduction": $tmp="介绍文章"; break;
    case "Texte de critique non valide... Il ne peut pas être vide": $tmp="评论文本不能为空"; break;
    case "Texte étendu": $tmp="文章主体"; break;
+   case "Texte justifié": $tmp="Texte justifié"; break;//
    case "Texte": $tmp="Texte"; break;
    case "Thème": $tmp="Thème"; break;
    case "Thème(s)": $tmp=""; break;
@@ -983,7 +982,6 @@ function translate_pass1($phrase) {
    case "Votre nom complet. C'est indispensable.": $tmp="您的全名。必填项。"; break;
    case "Votre nom est trop long ou vide. Il doit faire moins de 50 caractères.": $tmp="名字太长或未输入。名字必须少于50个字符的长度。"; break;
    case "Votre nom": $tmp="您的名字"; break;
-   case "Votre nom": $tmp="您的姓名"; break;
    case "Votre offre": $tmp="您提供的商品资源"; break;
    case "Votre page Web": $tmp=" 您的主页"; break;
    case "Votre requête": $tmp="你的要求"; break;
@@ -1016,7 +1014,6 @@ function translate_pass1($phrase) {
    case "Vous n'avez pas l'autorisation d'éditer ce message.": $tmp="您没有权利修改此信息。"; break;
    case "Vous n'êtes pas (encore) enregistré ou vous n'êtes pas (encore) connecté.": $tmp="您的登录帐号 :"; break;
    case "Vous n'êtes pas autorisé à participer à ce forum": $tmp="您不是注册用户或者您没有登录。"; break;
-   case "Vous n'êtes pas autorisé à participer à ce forum": $tmp="您不能在本论坛发言"; break;
    case "Vous n'êtes pas encore autorisé à vous connecter.": $tmp="您未被允许连接到这个页面。"; break;
    case "Vous n'êtes pas identifié comme modérateur de ce forum. Opération interdite.": $tmp="您没有被授权在该论坛回复。"; break;
    case "Vous n'êtes pas le modérateur de ce forum, vous ne pouvez utiliser cette fonction.": $tmp="您不是本论坛的版主。您不能使用该功能。"; break;

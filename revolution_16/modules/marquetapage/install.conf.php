@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -42,10 +42,10 @@ $list_fich = array(array(''), array(''));
 #autodoc Synopsis: $sql = array("requête_sql_1","requête_sql_2");
 global $NPDS_Prefix;
 $sql = array("CREATE TABLE ".$NPDS_Prefix."marquetapage (uid int(11) NOT NULL default '0',
- uri varchar(255) NOT NULL default '',
- topic varchar(255) NOT NULL default '',
- PRIMARY KEY (uid,uri),
- KEY uid (uid)) ENGINE=MyISAM DEFAULT CHARSET=utf8");
+ uri varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+ topic varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+ PRIMARY KEY (uid,uri(100)),
+ KEY uid (uid)) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
 #autodoc $blocs = array(array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""))
 #autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description

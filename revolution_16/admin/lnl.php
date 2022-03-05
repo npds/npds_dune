@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -25,7 +25,6 @@ function error_handler($ibid) {
    echo "<p align=\"center\"><span class=\"rouge\">".adm_translate("Merci d'entrer l'information en fonction des spécifications")."<br /><br />";
    echo "$ibid</span><br /><a href=\"index.php\" class=\"noir\">".adm_translate("Retour en arrière")."</a></p>";
 }
-
 
 function ShowHeader() {
    global $NPDS_Prefix;
@@ -51,7 +50,7 @@ function ShowHeader() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -84,7 +83,7 @@ function Detail_Header_Footer($ibid, $type) {
    echo '
    <hr />
    <form action="admin.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" cols="70" rows="20" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
@@ -103,9 +102,9 @@ function Detail_Header_Footer($ibid, $type) {
       <input type="hidden" name="op" value="lnl_Add_Footer_Mod" />';
    echo '
       <input type="hidden" name="ref" value="'.$ibid.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
-            <button class="btn btn-primary mr-1" type="submit">'.adm_translate("Valider").'</button>
+            <button class="btn btn-primary me-1" type="submit">'.adm_translate("Valider").'</button>
             <a class="btn btn-secondary" href="admin.php?op=lnl" >'.adm_translate("Retour en arrière").'</a>
          </div>
       </div>
@@ -137,7 +136,7 @@ function ShowBody() {
          <td>'.$ref.'</td>
          <td>'.$text.'</td>
          <td><code>'.$html.'</code></td>
-         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
       </tr>';
    }
    echo '
@@ -163,7 +162,7 @@ function Detail_Body($ibid) {
       <div class="card card-body">'.nl2br($tmp[0]).'</div>';
    echo '
    <form action="admin.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Corps de message").'</label>
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="30" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
@@ -177,7 +176,7 @@ function Detail_Body($ibid) {
    echo '
       <input type="hidden" name="op" value="lnl_Add_Body_Mod" />
       <input type="hidden" name="ref" value="'.$ibid.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>&nbsp;
             <button href="javascript:history.go(-1)" class="btn btn-secondary">'.adm_translate("Retour en arrière").'</button>
@@ -197,14 +196,14 @@ Function Add_Body() {
    <h3 class="mb-2">'.adm_translate("Corps de message").'</h3>
    <form id="lnlbody" action="admin.php" method="post" name="adminForm">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="html">'.adm_translate("Format de données").'</label>
             <div class="col-sm-8">
                <input class="form-control" id="html" type="number" min="0" max="1" step="1" value="1" name="html" required="required" />
                <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" id="xtext" rows="30" name="xtext" ></textarea>
@@ -214,7 +213,7 @@ Function Add_Body() {
    $tiny_mce_relurl="false";
    echo aff_editeur("xtext", "false");
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <input type="hidden" name="op" value="lnl_Add_Body_Submit" />
             <button class="btn btn-primary col-sm-12 col-md-6" type="submit"><i class="fa fa-plus-square fa-lg"></i>&nbsp;'.adm_translate("Ajouter").' '.adm_translate("corps de message").'</button>
             <a href="admin.php?op=lnl" class="btn btn-secondary col-sm-12 col-md-6">'.adm_translate("Retour en arrière").'</a>
@@ -266,7 +265,7 @@ function ShowFooter() {
             <td>'.$ref.'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip" data-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-toggle="tooltip" data-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -292,20 +291,20 @@ Function Add_Header_Footer($ibid) {
       <h3 class="mb-2">'.ucfirst(adm_translate("$ti")).'</h3>
       <form id="lnlheadfooter" action="admin.php" method="post" name="adminForm">
       <fieldset>
-         <div class="form-group">
+         <div class="mb-3">
                <label class="col-form-label" for="html">'.adm_translate("Format de données").'</label>
                <div>
                   <input class="form-control" id="html" type="number" min="0" max="1" value="1" name="html" required="required" />
                   <span class="help-block"> <code>html</code> ==&#x3E; [1] / <code>text</code> ==&#x3E; [0]</span>
                </div>
             </div>
-         <div class="form-group">
+         <div class="mb-3">
             <label class="col-form-label" for="xtext">'.adm_translate("Texte").'</label>
             <div>
                <textarea class="form-control" id="xtext" rows="20" name="xtext" ></textarea>
             </div>
          </div>
-         <div class="form-group">';
+         <div class="mb-3">';
    global $tiny_mce_relurl;
    $tiny_mce_relurl='false';
    echo aff_editeur('xtext', 'false');
@@ -348,36 +347,48 @@ function main() {
    echo '
    <hr />
    <h3 class="mb-2">'.adm_translate("Petite Lettre D'information").'</h3>
-   <a href="admin.php?op=lnl_List">'.adm_translate("Liste des LNL envoyées").'</a>
-   <a href="admin.php?op=lnl_User_List">'.adm_translate("Afficher la liste des prospects").'</a>
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Message d'entête").'</h4>';
+   <ul class="nav flex-md-row flex-column">
+      <li class="nav-item">
+         <a class="nav-link active" href="admin.php?op=lnl_List">'.adm_translate("Liste des LNL envoyées").'</a>
+      </li>
+      <li class="nav-item">
+         <a class="nav-link active" href="admin.php?op=lnl_User_List">'.adm_translate("Afficher la liste des prospects").'</a>
+      </li>
+   </ul>
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Message d'entête").'</h4>';
       ShowHeader();
    echo '
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Corps de message").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Corps de message").'</h4>';
       ShowBody();
       echo '
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square mr-2"></i></a>'.adm_translate("Message de pied de page").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Message de pied de page").'</h4>';
       ShowFooter();
    echo '
    <hr />
    <h4>'.adm_translate("Assembler une lettre et la tester").'</h4>
    <form id="ltesto" action="admin.php" method="post">
       <div class="row">
-         <div class="form-group col-sm-4">
-            <label class="col-form-label" for="testXheader">'.adm_translate("Entête").'</label>
-            <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" />
+               <label for="testXheader">'.adm_translate("Entête").'</label>
+            </div>
          </div>
-         <div class="form-group col-sm-4">
-            <label class="col-form-label" for="testXbody">'.adm_translate("Corps").'</label>
-            <input class="form-control" type="number" name="Xbody" id="testXbody" maxlength="11" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xbody" id="testXbody" maxlength="11" />
+               <label for="testXbody">'.adm_translate("Corps").'</label>
+            </div>
          </div>
-         <div class="form-group col-sm-4">
-            <label class="col-form-label" for="testXfooter">'.adm_translate("Pied").'</label>
-            <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" />
+               <label for="testXfooter">'.adm_translate("Pied").'</label>
+            </div>
          </div>
-         <div class="form-group col-sm-12">
+         <div class="mb-3 col-sm-12">
             <input type="hidden" name="op" value="lnl_Test" />
-            <button class="btn btn-primary my-3" type="submit">'.adm_translate("Valider").'</button>
+            <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
          </div>
       </div>
    </form>
@@ -385,36 +396,44 @@ function main() {
    <h4>'.adm_translate("Envoyer La Lettre").'</h4>
    <form id="lsendo" action="admin.php" method="post">
       <div class="row">
-         <div class="form-group col-sm-4">
-            <label class="col-form-label" for="Xheader">'.adm_translate("Entête").'</label>
-            <input class="form-control" type="number" name="Xheader" id="Xheader" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xheader" id="Xheader" />
+               <label for="Xheader">'.adm_translate("Entête").'</label>
+            </div>
          </div>
-         <div class="form-group col-sm-4">
-            <label class="col-form-label" for="Xbody">'.adm_translate("Corps").'</label>
-            <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" />
+               <label for="Xbody">'.adm_translate("Corps").'</label>
+            </div>
          </div>
-         <div class="form-group col-sm-4">
-            <label class="col-form-label" for="Xfooter">'.adm_translate("Pied").'</label>
-            <input class="form-control" type="number" name="Xfooter" id="Xfooter" />
+         <div class="col-sm-4">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="number" name="Xfooter" id="Xfooter" />
+               <label for="Xfooter">'.adm_translate("Pied").'</label>
+            </div>
          </div>
-         <div class="form-group col-sm-12">
-            <label class="col-form-label" for="Xsubject">'.adm_translate("Sujet").'</label>
-            <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" />
-            <span class="help-block text-right"><span id="countcar_Xsubject"></span></span>
+         <div class="col-sm-12">
+            <div class="form-floating mb-3">
+               <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" />
+               <label for="Xsubject">'.adm_translate("Sujet").'</label>
+               <span class="help-block text-end"><span id="countcar_Xsubject"></span></span>
+            </div>
          </div>
          <hr />
-         <div class="form-group col-sm-12">
-            <div class="custom-control custom-radio custom-control-inline">
-               <input type="radio" class="custom-control-input" value="All" checked="checked" id="tous" name="Xtype" />
-               <label class="custom-control-label" for="tous">'.adm_translate("Tous les Utilisateurs").'</label>
+         <div class="mb-3 col-sm-12">
+            <div class="form-check form-check-inline">
+               <input type="radio" class="form-check-input" value="All" checked="checked" id="tous" name="Xtype" />
+               <label class="form-check-label" for="tous">'.adm_translate("Tous les Utilisateurs").'</label>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-               <input type="radio" class="custom-control-input" value="Mbr" id="mem" name="Xtype" />
-               <label class="custom-control-label" for="mem">'.adm_translate("Seulement aux membres").'</label>
+            <div class="form-check form-check-inline">
+               <input type="radio" class="form-check-input" value="Mbr" id="mem" name="Xtype" />
+               <label class="form-check-label" for="mem">'.adm_translate("Seulement aux membres").'</label>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-               <input type="radio" class="custom-control-input" value="Out" id="prosp" name="Xtype" />
-               <label class="custom-control-label" for="prosp">'.adm_translate("Seulement aux prospects").'</label>
+            <div class="form-check form-check-inline">
+               <input type="radio" class="form-check-input" value="Out" id="prosp" name="Xtype" />
+               <label class="form-check-label" for="prosp">'.adm_translate("Seulement aux prospects").'</label>
             </div>
          </div>';
       $mX=liste_group();
@@ -425,11 +444,11 @@ function main() {
          <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
       }
       echo '
-         <div class="form-group col-sm-12">
-            <select class="custom-select form-control" name="Xgroupe">'.$tmp_groupe.'</select>
+         <div class="mb-3 col-sm-12">
+            <select class="form-select" name="Xgroupe">'.$tmp_groupe.'</select>
          </div>
          <input type="hidden" name="op" value="lnl_Send" />
-         <div class="form-group col-sm-12">
+         <div class="mb-3 col-sm-12">
             <button class="btn btn-primary" type="submit">'.adm_translate("Valider").'</button>
          </div>
       </div>
@@ -582,7 +601,7 @@ function lnl_user_list() {
          echo '
             <td class="text-success">'.$status.'</td>';
       echo '
-            <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="fas fa-trash fa-lg text-danger" data-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
+            <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="fas fa-trash fa-lg text-danger" data-bs-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
          </tr>';
    }
    echo '
@@ -735,13 +754,11 @@ switch ($op) {
                $resultGP = sql_query("SELECT u.email, u.uid, s.groupe FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1' ORDER BY u.email LIMIT $debut,$limit");
                while(list($email, $uid, $groupe) = sql_fetch_row($resultGP)) {
                   $tab_groupe=explode(',',$groupe);
-                  if ($tab_groupe) {
+                  if ($tab_groupe)
                      foreach($tab_groupe as $groupevalue) {
-                        if ($groupevalue==$Xgroupe) {
+                        if ($groupevalue==$Xgroupe)
                            $result[]=$email;
-                        }
                      }
-                  }
                }
                $fonction="each";///???gloups
                if (is_array($result)) $boucle=true; else $boucle=false;

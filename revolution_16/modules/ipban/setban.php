@@ -39,13 +39,13 @@ echo '
          '.ipban_translate("Ce fichier est mis à jour automatiquement par l'anti-spam de NPDS.").'
       </div>
       <form id="ipban_mod" action="admin.php" method="post">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="ip_ban">'.ipban_translate("Liste des IP").'</label>
             <div class="col-sm-12">
                <textarea id="ip_ban" class="form-control" name="ipban" rows="15">'.$ip_ban.'</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12">
                <button class="btn btn-primary" type="submit">'.adm_translate("Sauver les modifications").'</button>
                <input type="hidden" name="op" value="Extend-Admin-SubModule" />

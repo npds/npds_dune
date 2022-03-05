@@ -37,8 +37,8 @@ admindroits($aid,$f_meta_nom);
 
 function nmig_copyright() {
    global $ModInstall, $ModDesinstall;
-      $clspin =' text-success';
-      if ($ModInstall == '' && $ModDesinstall != '')
+   $clspin =' text-success';
+   if ($ModInstall == '' && $ModDesinstall != '')
       $clspin =' text-danger';
    $display = '
    <div class="text-center mt-4">
@@ -430,7 +430,7 @@ function nmig_clean($name_module) {
          <hr />
          <div class="lead mb-3">'.adm_translate("Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.").'</div>
          <div class="mb-3">
-            <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a>
+            <a href="JavaScript:history.go(-1)" class="btn btn-secondary me-2 mb-2">'.adm_translate("Retour en arrière").'</a>
          </div>'.nmig_copyright();
          adminfoot('','','','');
          die();
@@ -579,7 +579,7 @@ function nmig_clean($name_module) {
          $display .='
          </div>
          <div class="text-center mb-3">
-            <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Désinstaller le module").'</a>
+            <a href="JavaScript:history.go(-1)" class="btn btn-secondary me-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Désinstaller le module").'</a>
          </div>';
       }
       else {
@@ -588,7 +588,7 @@ function nmig_clean($name_module) {
          <p>'.adm_translate("Vous devez désinstaller le module manuellement. Pour cela, référez vous au fichier install.txt de l'archive du module, et faites les opérations inverses de celles décrites dans la section \"Installation manuelle\", et en partant de la fin.").'
          <p>'.adm_translate("Enfin, pour pouvoir réinstaller le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme désinstallé\".").'</p>
       <div class="text-center mb-3">
-         <a href="JavaScript:history.go(-1)" class="btn btn-secondary mr-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Marquer le module comme désinstallé").'</a>
+         <a href="JavaScript:history.go(-1)" class="btn btn-secondary me-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Marquer le module comme désinstallé").'</a>
       </div>
       ';}
       $display .= nmig_copyright();

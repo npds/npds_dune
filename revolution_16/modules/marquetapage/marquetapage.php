@@ -5,7 +5,7 @@
 /*                                                                      */
 /* This module : MarqueTaPage  Copyright (c) 2012 by Philippe Brunier   */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2020 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -57,16 +57,16 @@ function marquetapage() {
       if (sql_num_rows($result)) {
          $content.='
    <h6>
-   <a class="mb-2" data-toggle="collapse" data-target="#lst_fav" id="show_fav" title="'.translate("Déplier la liste").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary mr-2" ></i>&nbsp;</a><span class="align-top">Bookmarks</span><span class="badge badge-secondary float-right">'.sql_num_rows($result).'</span>
+   <a class="mb-2" data-bs-toggle="collapse" data-bs-target="#lst_fav" id="show_fav" title="'.translate("Déplier la liste").'"><i id="i_lst_fav" class="fa fa-caret-down fa-lg toggle-icon text-primary me-2" ></i></a><span class="align-top">Bookmarks</span><span class="badge bg-secondary float-end">'.sql_num_rows($result).'</span>
    </h6>
    <div id="lst_fav" class="collapse" >
-   <a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fas fa-trash text-danger fa-lg" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a>';
+      <a class="float-end" href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp_all&amp;uri='.$_SERVER['PHP_SELF'].'"><i class="fas fa-trash text-danger fa-lg" title="'.translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><br /><hr />';
          while(list($uri, $topic)=sql_fetch_row($result)) {
             $content.='
-            <div class="row">
-               <div class="col-10 n-ellipses"><a href="'.$uri.'" class="small ">'.$topic.'</a></div>
-               <div class="col-2 text-right"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fas fa-trash text-danger" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a></div>
-            </div>';
+      <div class="row g-0 my-2">
+         <div class="col-11 n-ellipses"><a href="'.$uri.'" class="small ">'.$topic.'</a></div>
+         <div class="col-1"><a class="float-end" href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=supp&amp;uri='.urlencode($uri).'"><i class="fas fa-trash text-danger" title="'.translate("Effacer").'" data-bs-toggle="tooltip"></i></a></div>
+      </div>';
          }
          $content.='
    </div>';
@@ -74,12 +74,9 @@ function marquetapage() {
       global $block_title;
       $uri=urlencode($REQUEST_URI);
       if ($post) {$title.='/'.$post;}
-      if ($title=='') {$title_MTP=basename(urldecode($uri));} else {$title_MTP=$title;}
-      $boxTitle='<span><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="far fa-bookmark " title="'.translate("Ajouter").' '.translate("favori").'" data-toggle="tooltip"></i></a></span>';
-            if ($block_title=='')
-         $boxTitle.='&nbsp;MarqueTaPage';
-      else
-         $boxTitle.='&nbsp;'.$block_title;
+      $title_MTP= $title=='' ? basename(urldecode($uri)) : $title;
+      $boxTitle='<span class="me-2 fs-4"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="fas fa-bookmark align-middle" title="'.translate("Ajouter").' '.translate("favori").'" data-bs-toggle="tooltip"></i></a></span>';
+      $boxTitle.= $block_title=='' ? 'MarqueTaPage' : $block_title;
       themesidebox($boxTitle, $content);
    }
 }

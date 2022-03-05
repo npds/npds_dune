@@ -36,9 +36,9 @@ if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
 
 function colsyst($coltarget) {
    $coltoggle ='
-      <div class="col d-lg-none mr-2 my-2">
+      <div class="col d-lg-none me-2 my-2">
          <hr />
-         <a class=" small float-right" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
+         <a class=" small float-end" href="#" data-bs-toggle="collapse" data-bs-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
       </div>
    ';
    echo $coltoggle;
@@ -52,12 +52,12 @@ $ContainerGlobal='
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
    global $powerpack;
-   if (!isset($powerpack)) {include ("powerpack.php");}
+   if (!isset($powerpack)) include ("powerpack.php");
 // Ne supprimez pas cette ligne / Don't remove this line
 
    echo '
    <div id="corps" class="container n-hyphenate">
-      <div class="row">';
+      <div class="row g-3">';
 switch ($pdst) {
    case '-1':
       echo '

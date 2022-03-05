@@ -5,20 +5,20 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
-/* geoloc_bloc.php file 2008-2021 by Jean Pierre Barbary (jpb)          */
+/* geoloc_bloc.php file 2008-2022 by Jean Pierre Barbary (jpb)          */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
 $ModPath='geoloc';
 $content = '';
-include('modules/'.$ModPath.'/geoloc_conf.php');
+include('modules/'.$ModPath.'/geoloc.conf');
 $source_fond='';
 switch ($cartyp_b) {
    case 'OSM':
@@ -117,9 +117,9 @@ $content .='
 //]]>
 </script>';
 
-$content .='<div class="mt-1"><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg mr-1"></i>[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese][spanish]Mapa[/spanish][german]Karte[/german]</a>';
+$content .='<div class="mt-1"><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg me-1"></i>[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese][spanish]Mapa[/spanish][german]Karte[/german]</a>';
 if($admin)
-   $content .= '<div class="text-right"><a class="tooltipbyclass" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set" title="[french]Administration[/french][english]Administration[/english][chinese]&#34892;&#25919;[/chinese][spanish]Administraci&oacute;n[/spanish][german]Verwaltung[/german]" data-placement="left"><i class="fa fa-cogs fa-lg ml-1"></i></a></div>';
+   $content .= '<div class="text-end"><a class="tooltipbyclass" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set" title="[french]Administration[/french][english]Administration[/english][chinese]&#34892;&#25919;[/chinese][spanish]Administraci&oacute;n[/spanish][german]Verwaltung[/german]" data-bs-placement="left"><i class="fa fa-cogs fa-lg ms-1"></i></a></div>';
 $content .= '</div>';
 $content = aff_langue($content);
 ?>

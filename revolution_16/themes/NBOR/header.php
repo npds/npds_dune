@@ -12,6 +12,7 @@
 /************************************************************************/
 
 global $NPDS_Prefix, $pdst;
+$moreclass = 'col-12 mb-3';
 
 $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1'");
 $nb_blg_actif = sql_num_rows($blg_actif);
@@ -81,7 +82,7 @@ $ContainerGlobal='
 /* =====================================================================*/
    echo '
    <div id="corps" class="container-fluid n-hyphenate">
-      <div class=" row1 row">';
+      <div class=" row1 row g-3">';
 switch ($pdst) {
    case '-1':
       echo '<div id="col_princ" class="col-12 w100">';
@@ -90,7 +91,7 @@ switch ($pdst) {
    case '1':
       echo '
    <div id="col_LB" class="n-c col-lg-3 w18">';
-        leftblocks();
+        leftblocks($moreclass);
       echo '
    </div>
    <div id="col_princ" class="col-lg-6 w64">';
@@ -100,10 +101,10 @@ case '2':
 break;
 case '3':
      echo '<div id="col_LB" class=" n-c col-lg-3 w18">';
-        leftblocks();
+        leftblocks($moreclass);
      echo '</div>
      <div id="col_RB" class="n-c col-lg-3 w18">';
-        rightblocks();
+        rightblocks($moreclass);
      echo '</div>
      <div id="col_princ" class="col-lg-6 w64">';
 break;
@@ -113,7 +114,7 @@ break;
 
 case '5':
      echo '<div id="col_RB" class="n-c col-lg-3 w18">';
-        rightblocks();
+        rightblocks($moreclass);
      echo '</div>
      div id="col_princ" class="col-lg-9 w82">';
 break;
@@ -125,7 +126,7 @@ break;
 default:
    echo '
    <div id="col_LB" class="n-c col-lg-3 w18">';
-        leftblocks();
+        leftblocks($moreclass);
    echo '
    </div>
    <div id="col_princ" class="col-lg-9 w82">';

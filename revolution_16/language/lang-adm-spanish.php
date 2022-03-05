@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -20,6 +20,11 @@ function adm_translate($phrase) {
   case "linksdatestring": $tmp="%d-%b-%Y"; break;
   case "datestring2": $tmp="%A, %B %d"; break;
   case "dateforop": $tmp="m-d-y"; break;
+  case "english": $tmp="Inglés"; break;
+  case "french": $tmp="Francés"; break;
+  case "spanish": $tmp="Español"; break;
+  case "chinese": $tmp="Chino"; break;
+  case "german": $tmp="Alemán"; break;
 
   case " à ": $tmp=" a "; break;
   case " Actualiser l'Auteur": $tmp="Actualizar el autor"; break;
@@ -285,6 +290,7 @@ function adm_translate($phrase) {
   case "Configuration Forums": $tmp="Foros Configuración"; break;
   case "Configuration par défaut des Liens Web": $tmp="Configuracion por defecto de los vinculos"; break;
   case "Configurer MySql (Recommandé)": $tmp="Configurar MySql (Recomendado)"; break;
+  case "Confirmer la lecture": $tmp="Confirmar la lectura"; break;
   case "Connexion": $tmp="Conexión"; break;
   case "Contacter l'administration du site.": $tmp="Póngase en contacto con la administración del sitio."; break;
   case "Contenu :": $tmp="Contenido:"; break;

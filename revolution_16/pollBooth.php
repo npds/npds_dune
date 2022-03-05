@@ -85,7 +85,7 @@ function pollList() {
       list ($sum) = sql_fetch_row($result2);
       echo '
       <div class="col-sm-8">'.aff_langue($pollTitle).'</div>
-      <div class="col-sm-4 text-right">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Résultats").'</a> - '.$sum.' '.translate("votes").')</div>';
+      <div class="col-sm-4 text-end">(<a href="pollBooth.php?op=results&amp;pollID='.$id.'">'.translate("Résultats").'</a> - '.$sum.' '.translate("votes").')</div>';
    }
    echo '
    </div>';
@@ -103,7 +103,7 @@ function pollResults($pollID) {
      $result = sql_query("SELECT SUM(optionCount) AS SUM FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
      list($sum) = sql_fetch_row($result);
      echo '
-   <h4><span class="badge badge-secondary">'.$sum.'</span>&nbsp;'.translate("Résultats").'</h4>';
+   <h4><span class="badge bg-secondary">'.$sum.'</span>&nbsp;'.translate("Résultats").'</h4>';
      for ($i = 1; $i <= $maxOptions; $i++) {
         $result = sql_query("SELECT optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID') AND (voteID='$i')");
         $object = sql_fetch_assoc($result);
@@ -120,9 +120,9 @@ function pollResults($pollID) {
    <div class="row">
       <div class="col-sm-5 mt-3">'.aff_langue($optionText).'</div>
       <div class="col-sm-7">
-         <span class="badge badge-secondary mb-1">'.wrh($optionCount).'</span>
+         <span class="badge bg-secondary mb-1">'.wrh($optionCount).'</span>
             <div class="progress">
-               <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;" title="'.$percentInt.'%" data-toggle="tooltip"></span>
+               <span class="progress-bar" role="progressbar" aria-valuenow="'.$percentInt.'%" aria-valuemin="0" aria-valuemax="100" style="width:'.$percentInt.'%;" title="'.$percentInt.'%" data-bs-toggle="tooltip"></span>
             </div>
       </div>
    </div>';
@@ -161,9 +161,9 @@ function pollboxbooth($pollID,$pollClose) {
             <div class="custom-controls-stacked">';
       while($object=sql_fetch_assoc($result)) {
          $boxContent .= '
-               <div class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" id="voteID'.$j.'" name="voteID" value="'.$object['voteID'].'" />
-                  <label class="custom-control-label" for="voteID'.$j.'">'.aff_langue($object['optionText']).'</label>
+               <div class="form-check">
+                  <input type="radio" class="form-check-input" id="voteID'.$j.'" name="voteID" value="'.$object['voteID'].'" />
+                  <label class="form-check-label" for="voteID'.$j.'">'.aff_langue($object['optionText']).'</label>
                </div>';
          $sum = $sum + $object['optionCount'];
          $j++;
@@ -182,7 +182,7 @@ function pollboxbooth($pollID,$pollClose) {
          <button class="btn btn-primary btn-sm my-2" type="submit" value="'.translate("Voter").'" title="'.translate("Voter").'" />'.translate("Voter").'</button>';
    }
    $boxContent .= '
-         <div class="form-group">'.$inputvote.'</div>
+         <div class="mb-3">'.$inputvote.'</div>
    </form>';
    $boxContent .= '<div><ul><li><a href="pollBooth.php">'.translate("Anciens sondages").'</a></li>';
    if ($pollcomm) {

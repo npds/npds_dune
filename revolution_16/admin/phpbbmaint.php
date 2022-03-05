@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -99,7 +99,7 @@ function ForumMaintTopics($before,$forum_name) {
    while (list($forum_id, $forum_name)=sql_fetch_row($resultF)) {
       echo '
        <h4>'.$forum_name.'</h4>
-       <div class="form-group border p-4">';
+       <div class="mb-3 border p-4">';
        $resultT=sql_query("SELECT topic_id, topic_title FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id' $add_sql ORDER BY topic_id ASC");
        while (list($topic_id, $topic_title)=sql_fetch_row($resultT)) {
           if ($parse==0)
@@ -109,16 +109,16 @@ function ForumMaintTopics($before,$forum_name) {
              
          $oo = urlencode($tt);
           echo '
-         <div class="custom-control custom-checkbox custom-control-inline">
-            <input type="checkbox" class="custom-control-input" name="topics['.$topic_id.']" id="topics'.$topic_id.'" '.$topic_check.'/>
-            <label class="custom-control-label" for="topics'.$topic_id.'"><a href="admin.php?op=MaintForumTopicDetail&amp;topic='.$topic_id.'&amp;topic_title='.$tt.'" data-toggle="tooltip" title="'.$tt.'" >'.$topic_id.'</a></label>
+         <div class="form-check form-check-inline">
+            <input type="checkbox" class="form-check-input" name="topics['.$topic_id.']" id="topics'.$topic_id.'" '.$topic_check.'/>
+            <label class="form-check-label" for="topics'.$topic_id.'"><a href="admin.php?op=MaintForumTopicDetail&amp;topic='.$topic_id.'&amp;topic_title='.$tt.'" data-bs-toggle="tooltip" title="'.$tt.'" >'.$topic_id.'</a></label>
          </div>';
        }
        echo '
        </div>';
     }
     echo '
-       <div class="form-group>"
+       <div class="mb-3>"
           <input type="hidden" name="op" value="ForumMaintTopicMassiveSup" />
           <input class="btn btn-danger" type="submit" name="Topics_Del" value="'.adm_translate("Supprimer massivement les Topics").'" />
       </div>
@@ -139,7 +139,7 @@ function ForumMaintTopicDetail($topic, $topic_title) {
    <h3 class="mb-3 text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>
    <div class="lead">Topic : '.$topic.' | '.stripslashes($topic_title).'</div>
    <div class="card p-4 my-3 border-danger">
-   <p class="text-right small text-muted">[ '.convertdate($post_time).' ]</p>
+   <p class="text-end small text-muted">[ '.convertdate($post_time).' ]</p>
    '.stripslashes($post_text).'
    </div>
    <form action="admin.php" method="post">
@@ -228,10 +228,10 @@ function MergeForum() {
    <h3 class="mb-3">'.adm_translate("Fusionner des forums").'</h3>
    <form id="fad_mergeforum" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="oriforum">'.adm_translate("Forum d'origine").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="oriforum" name="oriforum">';
+               <select class="form-select" id="oriforum" name="oriforum">';
    $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums ORDER BY forum_index,forum_id";
    if ($result = sql_query($sql)) {
       if ($myrow = sql_fetch_assoc($result)) {
@@ -249,10 +249,10 @@ function MergeForum() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="destforum">'.adm_translate("Forum de destination").'</label>
             <div class="col-sm-8">
-               <select class="custom-select form-control" id="destforum" name="destforum">';
+               <select class="form-select" id="destforum" name="destforum">';
     if ($result = sql_query($sql)) {
        if ($myrow = sql_fetch_assoc($result)) {
           do {
@@ -269,8 +269,8 @@ function MergeForum() {
                </select>
             </div>
          </div>
-         <div class="form-group row">
-            <div class="col-sm-8 ml-sm-auto">
+         <div class="mb-3 row">
+            <div class="col-sm-8 ms-sm-auto">
                <input type="hidden" name="op" value="MergeForumAction" />
                <button class="btn btn-primary col-12" type="submit" name="Merge_Forum_Action">'.adm_translate("Fusionner").'</button>
             </div>
@@ -331,26 +331,24 @@ function ForumMaintAdmin() {
    </div>
    <h3 class="my-3">'.adm_translate("Supprimer massivement les Topics").'</h3>
    <form id="faddeletetop" action="admin.php" method="post" autocomplete="nope" >
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="titreforum">'.adm_translate("Nom du forum").'</label>
          <div class="col-sm-8">
             <input type="text" class="form-control" name="forum_name" id="titreforum" maxlength="150" autocomplete="nope" placeholder="   " />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="before">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <div class="input-group-prepend date " id="datePicker">
-                  <span class="input-group-text bg-light"><i class="far fa-calendar-check fa-lg"></i></span>
-               </div>
+               <span id="datePicker" class="input-group-text bg-light date"><i class="far fa-calendar-check fa-lg"></i></span>
                <input type="text" class="form-control" name="before" id="before" />
             </div>
-            <span class="help-block text-right">Avant cette date !</span>
+            <span class="help-block text-end">Avant cette date !</span>
          </div>
       </div>
-      <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
+      <div class="mb-3 row">
+         <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="op" value="MaintForumTopics" />
             <button class="btn btn-primary" type="submit" name="Topics_Mark">'.adm_translate("Envoyer").'</button>
          </div>

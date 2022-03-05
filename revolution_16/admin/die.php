@@ -29,7 +29,7 @@
             <hr />
             <div>
                <span class="text-muted">NPDS - Portal System</span>
-               <img width="48px" class="adm_img ml-2" src="images/admin/message_npds.png" alt="icon_npds">
+               <img width="48px" class="adm_img ms-2" src="images/admin/message_npds.png" alt="icon_npds">
             </div>
          </div>
       </div>

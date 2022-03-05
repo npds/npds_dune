@@ -18,14 +18,14 @@ font-family: Arial, sans-serif;
 font-size: .95rem;
 line-height: 1.5;
 color: #000;}
-a:hover {text-decoration:none;}
+a, a:hover {text-decoration:none;}
 a:focus {
    outline: none;
 }
 /** <== Balise html
 
 
-/** ==> Classes BS4                                                         **/
+/** ==> Classes BS5                                                         **/
 /*                                                                           */
 /* ==> élément ayant la class btn (boutons, a, input) */ 
 .btn {
@@ -33,13 +33,15 @@ a:focus {
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
+/* ==> remove the no aesthetic border provided by BS5 css*/
+.table > :not(:first-child) { border-color: var(--bs-gray-300); }
 /* ==> hauteur et scroll des modal */
 .modal-body {
   max-height: calc(100vh - 210px);
   overflow-y: auto;
 }
 
-/** <== Classes BS4                                                         **/
+/** <== Classes BS5                                                         **/
 
 /** ==> Classes NPDS-core [prefixe n-]                                      **/
 /* ==> pour les avatars et images */
@@ -95,8 +97,6 @@ a:focus {
   hyphens: auto;
 }
 .n-ellipses {
-  display:inline-block;
-  width: 100%;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -1954,47 +1954,30 @@ textarea[required='required'] {
 border: 1px solid ;
 }
 
-.custom-file-input:lang(fr) ~ .custom-file-label::after {
-    content: "Choisir ..."
+/* input file customisation */
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  width:1px;
 }
-.custom-file-input:lang(es) ~ .custom-file-label::after {
-    content: "Elegir ..."
+.n-ci:lang(fr)::before {
+  content: "Choisir";
 }
-.custom-file-input:lang(de) ~ .custom-file-label::after {
-    content: "Wählen ..."
+.n-ci:lang(es)::before {
+  content: "Elegir";
 }
-.custom-file-input:lang(en) ~ .custom-file-label::after {
-    content: "Browse ..."
+.n-ci:lang(de)::before {
+  content: "Wählen";
 }
-.custom-file-input:lang(zh) ~ .custom-file-label::after {
-    content: "选择 ..."
+.n-ci:lang(en)::before {
+  content: "Browse";
 }
-
+.n-ci:lang(zh)::before {
+  content: "选择";
+}
 .n-irl {
    max-width: 100%;
     height: auto;
 }
-/* ==> personalisation responsivité des colonnes de card */
-
-@media (min-width: 576px) and (max-width: 640px) {
-.card-columns {
- column-count: 2;
- }
-}
-@media (min-width: 760px) and (max-width: 991px) {
-.card-columns {
- column-count: 4;
- }
-}
-@media (min-width: 991px) and (max-width: 1080px) {
-.card-columns {
- column-count: 2;
- }
-}
-@media (min-width: 1200px) { card-columns {
- column-count: 3;
- }}
-/* <== personalisation responsivité des colonnes de card */
 /* ==> pour popover contenant les emoji */
 div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
 div[data-type=emojiPopper] div .card-body{padding:.4rem}

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -15,9 +15,6 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include ("publication.php");
-/*
-settype($admin,'string');
-*/
 settype($user,'string');
 
 if ($mod_admin_news>0) {
@@ -60,17 +57,17 @@ function defaultDisplay() {
       <input type="hidden" name="name" value="'.$anonymous.'" />';
    }
    echo '
-      <div class="form-group row">
-         <label class="col-form-label col-sm-3" for="subject">'.translate("Titre").' </label>
+      <div class="mb-3 row">
+         <label class="col-form-label col-sm-3" for="subject">'.translate("Titre").'</label>
          <div class="col-sm-9">
             <input type="text" id="subject" name="subject" class="form-control" autofocus="autofocus">
             <p class="help-block">'.translate ("Faites simple").'! '.translate("Mais ne titrez pas -un article-, ou -à lire-,...").'</p>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="topic">'.translate("Sujet").'</label>
          <div class="col-sm-9">
-            <select class="custom-select form-control" name="topic">';
+            <select class="form-select" name="topic">';
    $toplist = sql_query("SELECT topicid, topicname, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Sélectionner un sujet").'</option>';
@@ -88,7 +85,7 @@ function defaultDisplay() {
             </select>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="story" >'.translate("Texte d'introduction").'</label>
          <div class="col-sm-12">
             <textarea class=" form-control tin" rows="25" id="story" name="story"></textarea>
@@ -96,7 +93,7 @@ function defaultDisplay() {
       </div>';
    echo aff_editeur('story', '');
    echo'
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="bodytext">'.translate("Texte complet").'</label>
          <div class="col-sm-12">
             <textarea class="form-control tin " rows="25" id="bodytext" name="bodytext"></textarea>
@@ -105,7 +102,7 @@ function defaultDisplay() {
    echo aff_editeur('bodytext', '');
    publication('','','','', 0);
    echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <span class="help-block">'.translate("Vous devez prévisualiser avant de pouvoir envoyer").'</span>
             <input class="btn btn-outline-primary" type="submit" name="op" value="'.translate("Prévisualiser").'" />
@@ -117,7 +114,7 @@ function defaultDisplay() {
 
 function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    global $tipath, $NPDS_Prefix, $topictext, $topicimage;
-   $topiclogo = '<span class="badge badge-secondary float-right"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge bg-secondary float-end"><strong>'.aff_langue($topictext).'</strong></span>';
    include ('header.php');
    $story = stripslashes(dataimagetofileurl($story, 'cache/ai'));
    $bodytext = stripslashes(dataimagetofileurl($bodytext, 'cache/ac'));
@@ -154,16 +151,16 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
 //    }
    echo '
    </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="subject">'.translate("Titre").'</label>
          <div class="col-sm-9">
             <input type="text" name="subject" class="form-control" value="'.$subject.'" />
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="topic">'.translate("Sujet").'</label>
          <div class="col-sm-9">
-            <select class="custom-select form-control" name="topic">';
+            <select class="form-select" name="topic">';
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
                <option value="">'.translate("Sélectionner un sujet").'</option>';
@@ -178,7 +175,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
             <span class="help-block text-danger">'.$warning.'</span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="story">'.translate("Texte d'introduction").'</label>
          <div class="col-sm-12">
             <span class="help-block">'.translate("Les spécialistes peuvent utiliser du HTML, mais attention aux erreurs").'</span>
@@ -186,7 +183,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    echo aff_editeur('story', '');
    echo '</div>
       </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12">'.translate("Texte complet").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" rows="25" name="bodytext">'.$bodytext.'</textarea>
@@ -196,7 +193,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
    publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur);
    echo Q_spambot();
    echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12">
                <input class="btn btn-secondary" type="submit" name="op" value="'.translate("Prévisualiser").'" />&nbsp;
                <input class="btn btn-primary" type="submit" name="op" value="Ok" />

@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -235,7 +235,7 @@ function MNSremoveHack($Xstring) {
      "'&#160;'i"=>'&nbsp;',
      "'.htaccess'i"=>"",
      "'!blog_editeur!'i"=>$blog_editor,
-     "'!l_blog_ajouterOK!'i"=>'<a class="list-group-item list-group-item-action" href="minisite.php?op='.$op.'&amp;action=A"><i class="fas fa-pencil-alt fa-lg mr-2"></i> '.translate("Ajouter un article").'</a>',
+     "'!l_blog_ajouterOK!'i"=>'<a class="list-group-item list-group-item-action" href="minisite.php?op='.$op.'&amp;action=A"><i class="fas fa-pencil-alt fa-lg me-2"></i> '.translate("Ajouter un article").'</a>',
      "'\<\?php'i"=>"&lt;?php",
      "'\<\?'i"=>"&lt;?",
      "'\?\>'i"=>"?&gt;",
@@ -441,12 +441,6 @@ function convert_ressources ($Xcontent) {
          $Xcontent=meta_lang(MNSremoveHack($Xcontent));
          //applique aff_video que sur la partie affichage
          $rupt=strpos($Xcontent, '#v_yt#');
-/*
-         $a=substr($Xcontent, 0, $rupt);
-         $b=aff_video_yt(substr($Xcontent,$rupt+6));
-*/
-
-//echo $a.$b;         
         echo substr($Xcontent, 0, $rupt);
         echo aff_video_yt(substr($Xcontent,$rupt+6));
 

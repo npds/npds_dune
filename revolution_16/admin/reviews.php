@@ -43,20 +43,20 @@ function reviews() {
    <h3>'.adm_translate("Configuration de la page").'</h3>
    <form id="reviewspagecfg" class="" action="admin.php" method="post">
       <fieldset>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="tit_cri">'.adm_translate("Titre de la Page des Critiques").'</label>
             <div class="col-sm-12">
                <input class="form-control" type="text" id="tit_cri" name="title" value="'.$title.'" maxlength="100" />
-               <span class="help-block text-right" id="countcar_tit_cri"></span>
+               <span class="help-block text-end" id="countcar_tit_cri"></span>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="description">'.adm_translate("Description de la Page des Critiques").'</label>
             <div class="col-sm-12">
                <textarea class="form-control" id="description" name="description" rows="10">'.$description.'</textarea>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12">
                <input type="hidden" name="op" value="mod_main" />
                <button class="btn btn-primary col-12" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Sauver les modifications").'</button>
@@ -67,7 +67,7 @@ function reviews() {
    <hr />';
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews_add ORDER BY id");
    $numrows = sql_num_rows($result);
-   echo '<h3>'.adm_translate("Critiques en attente de validation").'<span class="badge badge-danger float-right">'.$numrows.'</span></h3>';
+   echo '<h3>'.adm_translate("Critiques en attente de validation").'<span class="badge bg-danger float-end">'.$numrows.'</span></h3>';
    $jsfvc='';$jsfvf='';
    if ($numrows>0) {
       while(list($id, $date, $title, $text, $reviewer, $email, $score, $url, $url_title) = sql_fetch_row($result)) {
@@ -77,45 +77,43 @@ function reviews() {
    <h4 class="my-3">'.adm_translate("Ajouter la critique N° : ").' '.$id.'</h4>
    <form id="reviewsaddcr'.$id.'" action="admin.php" method="post">
    <input type="hidden" name="id" value="'.$id.'" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="reviewdate">'.adm_translate("Date").'</label>
          <div class="col-sm-8">
             <div class="input-group">
-               <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="far fa-calendar-check fa-lg"></i></span>
-               </div>
+               <span class="input-group-text"><i class="far fa-calendar-check fa-lg"></i></span>
                <input class="form-control reviewdate-js" type="text" id="reviewdate" name="date" value="'.$date.'" maxlength="10" required="required" />
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="title'.$id.'">'.adm_translate("Nom du produit").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="title'.$id.'" name="title" value="'.$title.'" maxlength="40" required="required" />
-            <span class="help-block text-right" id="countcar_title'.$id.'"></span>
+            <span class="help-block text-end" id="countcar_title'.$id.'"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="text'.$id.'">'.adm_translate("Texte").'</label>
          <div class="col-sm-8">
             <textarea class="form-control" id="text'.$id.' name="text" rows="6">'.$text.'</textarea>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="reviewer'.$id.'">'.adm_translate("Le critique").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="reviewer'.$id.'" name="reviewer" value="'.$reviewer.'" maxlength="20" required="required" />
-            <span class="help-block text-right" id="countcar_reviewer'.$id.'"></span>
+            <span class="help-block text-end" id="countcar_reviewer'.$id.'"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="email'.$id.'">'.adm_translate("E-mail").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="email" id="email'.$id.'" name="email" value="'.$email.'" maxlength="60" required="required" />
-            <span class="help-block text-right" id="countcar_email'.$id.'"></span>
+            <span class="help-block text-end" id="countcar_email'.$id.'"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="score'.$id.'">'.adm_translate("Note").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="number" id="score'.$id.'" name="score" value="'.$score.'"  min="1" max="10" />
@@ -123,31 +121,31 @@ function reviews() {
       </div>';
          if ($url != '') {
             echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="url'.$id.'">'.adm_translate("Liens relatifs").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="url" id="url'.$id.'" name="url" value="'.$url.'" maxlength="100" />
-            <span class="help-block text-right" id="countcar_url'.$id.'"></span>
+            <span class="help-block text-end" id="countcar_url'.$id.'"></span>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="url_title'.$id.'">'.adm_translate("Titre du lien").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="url_title'.$id.'" name="url_title" value="'.$url_title.'" maxlength="50" />
-            <span class="help-block text-right" id="countcar_url_title'.$id.'"></span>
+            <span class="help-block text-end" id="countcar_url_title'.$id.'"></span>
          </div>
       </div>';
          }
          echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="cover'.$id.'">'.adm_translate("Image de garde").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="cover'.$id.'" name="cover" maxlength="100" />
-            <span class="help-block">150*150 pixel => images/covers<span class="float-right ml-1" id="countcar_cover'.$id.'"></span></span>
+            <span class="help-block">150*150 pixel => images/covers<span class="float-end ms-1" id="countcar_cover'.$id.'"></span></span>
          </div>
       </div>
-      <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
+      <div class="mb-3 row">
+         <div class="col-sm-8 ms-sm-auto">
             <input type="hidden" name="op" value="add_review">
             <button class="btn btn-primary" type="submit">'.adm_translate("Ajouter").'</button>
             <a href="admin.php?op=deleteNotice&amp;id='.$id.'&amp;op_back=reviews" class="btn btn-danger" role="button">'.adm_translate("Supprimer").'</a>

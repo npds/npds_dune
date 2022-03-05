@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -61,7 +61,7 @@ function entete() {
             </div>
             <div class="row">
                <div class="col-sm-6"></div>
-               <div class="col-sm-6 text-sm-right">'.$Version_Sub.' '.$Version_Num.'</div>
+               <div class="col-sm-6 text-sm-end">'.$Version_Sub.' '.$Version_Num.'</div>
             </div>
          </div>
          <hr class="lead" />';
@@ -69,7 +69,9 @@ function entete() {
 function pied_depage() {
    global $stage;
    echo '
-         <div class="col-sm-12 text-center"><hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="sr-only">On work...</span></div>
+         <div class="col text-center">
+            <hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="visually-hidden">On work...</span>
+         </div>
       </div>
    </body>
 </html>';
@@ -98,10 +100,8 @@ function menu() {
                   <li class="list-group-item list-group-item'.$colorst8.'">'.ins_translate('Compte Admin').'</li>
                   <li class="list-group-item list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
                   <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
+                  <li class="list-group-item list-group-item-light"><code class="small">Version Php '.$phpver.'</code></li>
                </ul>
-               <div class ="list-group mb-3">
-               <code class="small">Version Php '.$phpver.'</code>
-               </div>
             </div>
             <div class="col-md-9">';
    return $menu;

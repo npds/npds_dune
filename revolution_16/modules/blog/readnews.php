@@ -78,21 +78,21 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
       if (substr($action,0,1)=='A') {
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=AOK">
-            <div class="form-group row">
-               <label class="form-control-label col-sm-12" for="title">'.translate("Titre").'</label>
+            <div class="mb-3 row">
+               <label class="form-label" for="title">'.translate("Titre").'</label>
                <div class="col-sm-12">
                   <input class="form-control" type="text" name="title" />
                </div>
             </div>
-            <div class="form-group row">
-               <label class="form-control-label col-sm-12" for="story">'.translate("Texte complet").'</label>
+            <div class="mb-3 row">
+               <label class="form-label" for="story">'.translate("Texte complet").'</label>
                <div class="col-sm-12">
                   <textarea class="tin form-control" name="story" rows="25"></textarea>';
             $content.="&nbsp;!blog_editeur!";
             $content.='
                </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <div class="col-sm-12">
                   <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
                </div>
@@ -132,17 +132,17 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          }
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=MOK&index='.$index.'">
-            <div class="form-group">
-               <label class="form-control-label" for="title">'.translate("Titre").'</label>
+            <div class="mb-3">
+               <label class="form-label" for="title">'.translate("Titre").'</label>
                <input class="form-control" type="text" name="title" value="'.$crtsplit[1].'" />
             </div>
-            <div class="form-group">
-               <label class="form-control-label" for="story" >'.translate("Texte complet").'</label>
+            <div class="mb-3">
+               <label class="form-label" for="story" >'.translate("Texte complet").'</label>
                <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
       $content.="&nbsp;!blog_editeur!";
       $content.='
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
             </div>
          </form>
@@ -154,8 +154,8 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    $new_pages=false;
    for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
        $crtsplit=explode('!;!',$xnews[$i]);
-       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modifier").'" data-toggle="tooltip" ><i class="fa fa-edit fa-lg mr-1"></i></a>';
-       $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Effacer").'" data-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>';
+       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modifier").'" data-bs-toggle="tooltip" ><i class="fa fa-edit fa-lg me-1"></i></a>';
+       $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Effacer").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>';
        $content.= '
       <div class="card mb-3">
          <div class="card-body">

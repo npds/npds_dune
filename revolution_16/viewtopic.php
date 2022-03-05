@@ -122,14 +122,14 @@ $original_poster=$myrow['topic_poster'];
 function aff_pub($lock_state, $topic, $forum, $mod) {
    global $language;
    if ($lock_state==0)
-      echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("Nouveau sujet").'" data-toggle="tooltip" ><i class="fa fa-plus-square mr-2"></i><span class="d-none d-md-inline">'.translate("Nouveau sujet").'<br /></span></a>&nbsp;';
+      echo '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("Nouveau sujet").'" data-bs-toggle="tooltip" ><i class="fa fa-plus-square me-2"></i><span class="d-none d-md-inline">'.translate("Nouveau sujet").'<br /></span></a>&nbsp;';
    else if ($lock_state==1)
-      echo '<i class="fa fa-lock fa-lg text-danger mr-2" aria-hidden="true" title="'.translate("Vous ne pouvez répondre à ce topic il est verrouillé. Contacter l'administrateur du site.").'" data-toggle="tooltip"></i>';
+      echo '<i class="fa fa-lock fa-lg text-danger me-2" aria-hidden="true" title="'.translate("Vous ne pouvez répondre à ce topic il est verrouillé. Contacter l'administrateur du site.").'" data-bs-toggle="tooltip"></i>';
 }
 function aff_pub_in($lock_state, $topic, $forum, $mod) {
    global $language;
    if ($lock_state==0)
-      echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Répondre").'" data-toggle="tooltip"><span class="d-none d-md-inline"></span><i class="fa fa-reply mr-2"></i><span class="d-none d-md-inline">'.translate("Répondre").'</span></a>';
+      echo '<a class="me-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'" title="'.translate("Répondre").'" data-bs-toggle="tooltip"><span class="d-none d-md-inline"></span><i class="fa fa-reply me-2"></i><span class="d-none d-md-inline">'.translate("Répondre").'</span></a>';
 }
 
 $contributeurs = get_contributeurs($forum, $topic);
@@ -161,7 +161,7 @@ include('header.php');
          aff_pub($lock_state,$topic,$forum,$mod);
    }
 
-   echo $topic_subject.'<span class="text-muted ml-1">#'.$topic.'</span>';
+   echo $topic_subject.'<span class="text-muted ms-1">#'.$topic.'</span>';
    if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
@@ -181,8 +181,8 @@ include('header.php');
       <div class="card mb-3">
          <div class="card-body p-2">
          <div class="d-flex ">
-            <div class=" align-self-center badge badge-secondary mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class=" mr-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Contributeur(s)").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributeur(s)").'</span></div>
-            <div class=" align-self-center mr-auto">';
+            <div class=" align-self-center badge bg-secondary mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class=" me-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ms-1 d-inline d-md-none" title="'.translate("Contributeur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributeur(s)").'</span></div>
+            <div class=" align-self-center me-auto">';
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
       if($contributeurs[$i] !== '0') {
@@ -193,10 +193,10 @@ include('header.php');
                if ($ibid=theme_image("forum/avatar/".$contri['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$contri['user_avatar'];}
             }
          }
-         echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-toggle="tooltip" />';
+         echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-bs-toggle="tooltip" />';
       }
       else 
-         echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" title="'.$anonymous.'" data-toggle="tooltip" />';
+         echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" title="'.$anonymous.'" data-bs-toggle="tooltip" />';
    }
    echo '
             </div>
@@ -204,8 +204,8 @@ include('header.php');
    $ibidcountmod = count($moderator);
    echo '
          <div class="d-flex">
-            <div class="badge badge-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class="mr-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ml-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
-            <div class=" align-self-center mr-auto">';
+            <div class="badge bg-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class="me-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ms-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
+            <div class=" align-self-center me-auto">';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
@@ -215,7 +215,7 @@ include('header.php');
           if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
    }
    echo '
             </div>
@@ -230,7 +230,7 @@ include('header.php');
          <div id="fo-postpagi">
             <ul class="pagination pagination-sm">
                <li class="page-item">
-                  <a class="page-link" href="#botofpage"><i class="fa fa-angle-double-down" title="'.translate("Bas de page").'" data-toggle="tooltip"></i></a>
+                  <a class="page-link" href="#botofpage"><i class="fa fa-angle-double-down" title="'.translate("Bas de page").'" data-bs-toggle="tooltip"></i></a>
                </li>
                <li class="page-item disabled">
                   <a class="page-link" href="#" aria-label="'.translate("Contributions").'">'.$total.' '.translate("Contributions").'</a>
@@ -300,7 +300,7 @@ include('header.php');
          if (!$short_user) {
             $posterdata_extend = get_userdata_extend_from_id($myrow['poster_id']);
             include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-            include('modules/geoloc/geoloc_conf.php');
+            include('modules/geoloc/geoloc.conf');
             if($user or autorisation(-127)) {
                if (array_key_exists('M2', $posterdata_extend)) {
                   if ($posterdata_extend['M2']!='') {
@@ -314,7 +314,7 @@ include('header.php');
                         foreach($res_id as $y1) {
                            $k = array_search( $y1[0],$v1);
                            if (false !== $k) {
-                              $my_rs.='<a class="mr-2" href="';
+                              $my_rs.='<a class="me-2" href="';
                               if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                               $my_rs.= '" target="_blank"><i class="fab fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a> ';
                               break;
@@ -330,20 +330,20 @@ include('header.php');
          $useroutils = '';
          if($user or autorisation(-127)) {
             if ($posterdata['uid']!= 1 and $posterdata['uid']!='')
-               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-toggle="tooltip"><i class="fa fa-user fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
+               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-start" href="user.php?op=userinfo&amp;uname='.$posterdata['uname'].'" target="_blank" title="'.translate("Profil").'" data-bs-toggle="tooltip"><i class="fa fa-user fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
             if ($posterdata['uid']!= 1)
-               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-start" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip"><i class="far fa-envelope fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Message").'</span></a>';
             if ($posterdata['femail']!='')
-               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-toggle="tooltip"><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
+               $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-start" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" title="'.translate("Email").'" data-bs-toggle="tooltip"><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Email").'</span></a>';
             if ($myrow['poster_id']!=1 and array_key_exists($ch_lat, $posterdata_extend)) {
                if ($posterdata_extend[$ch_lat] !='')
-                  $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
+                  $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-start" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&amp;op=u'.$posterdata['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw">&nbsp;</i><span class="ms-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
             }
          }
          if ($posterdata['url']!='')
-            $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
+            $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-start" href="'.$posterdata['url'].'" target="_blank" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
          if ($posterdata['mns'])
-             $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-left" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
+             $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-start" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
       }
       echo '
       <div class="row mb-3">
@@ -363,10 +363,10 @@ include('header.php');
                }
             }
             echo '
-          <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-trigger="focus" data-html="true" data-title="'.$posterdata['uname'].'" data-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div> \'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>
+          <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div> \'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>
           <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
          } else {
-            echo '<a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" /></a>
+            echo '<a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-bs-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" /></a>
             <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$anonymous.'</strong></span>'; }
       } else {
          if($myrow['poster_id'] !== '0')
@@ -374,7 +374,7 @@ include('header.php');
          else
             echo '<span class="text-muted"><strong>'.$anonymous.'</strong></span>';
       }
-      echo '<span class="float-right">';
+      echo '<span class="float-end">';
       if ($myrow['image'] != '') {
          if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
          echo '<img class="n-smil" src="'.$imgtmp.'" alt="icon_post" />';
@@ -390,7 +390,7 @@ include('header.php');
       if (isset($last_read)) {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !='0' AND $userdata[0]!=$myrow['poster_id']) {
             //echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />';
-            echo '<span class="mr-2 badge badge-success animated faa-flash">NEW</span>';
+            echo '<span class="me-2 badge bg-success animated faa-flash">NEW</span>';
          }
       }
 
@@ -425,7 +425,7 @@ include('header.php');
                <div class="card-footer">
                   <div class="row">
                      <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
-                     <div class=" col-sm-6 text-right">';
+                     <div class=" col-sm-6 text-end">';
 
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -451,26 +451,26 @@ include('header.php');
       } else
           $postuser=false;
       if (($Mmod) or ($postuser) and (!$lock_state) and ($posterdata['uid']!='')) {
-         echo '<a class="mr-3" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Editer").'" data-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
+         echo '<a class="me-3" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Editer").'" data-bs-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
          if ($allow_upload_forum) {
             $PopUp=win_upload("forum_npds",$myrow['post_id'],$forum,$topic,"popup");
-            echo '<a class="mr-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Fichiers").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
+            echo '<a class="me-3" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Fichiers").'" data-bs-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
 
 /*
             echo '
-            <a class="mr-3" href="#themodal" data-remote="" data-toggle="modal" data-target="#themodal" title="'.translate("Files").'" data-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
+            <a class="me-3" href="#themodal" data-remote="" data-bs-toggle="modal" data-bs-target="#themodal" title="'.translate("Files").'" data-bs-toggle="tooltip"><i class="fa fa-download fa-lg"></i></a>';
 */
          }
       }
       if ($allow_to_post and !$lock_state and $posterdata['uid']!='')
-         echo '<a class="mr-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Citation").'" data-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
-      echo '<a class="mr-3" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Imprimer").'" data-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
+         echo '<a class="me-3" href="reply.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post='.$myrow['post_id'].'&amp;citation=1" title="'.translate("Citation").'" data-bs-toggle="tooltip"><i class="fa fa-quote-left fa-lg"></i></a>';
+      echo '<a class="me-3" href="prntopic.php?forum='.$forum.'&amp;topic='.$topic.'&amp;post_id='.$myrow['post_id'].'" title="'.translate("Imprimer").'" data-bs-toggle="tooltip"><i class="fa fa-print fa-lg"></i></a>';
       if ($Mmod or $adminforum) {
-         echo '<a class="mr-3" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
+         echo '<a class="me-3" href="topicadmin.php?mode=viewip&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;forum='.$forum.'&amp;arbre=0" title="IP" data-bs-toggle="tooltip" ><i class="fa fa-laptop fa-lg"></i></a>';
          if (!$myrow['post_aff'])
-            echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Afficher ce post").'" data-toggle="tooltip"><i class="fa fa-eye text-danger fa-lg"></i></a>&nbsp;';
+            echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=1&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Afficher ce post").'" data-bs-toggle="tooltip"><i class="fa fa-eye text-danger fa-lg"></i></a>&nbsp;';
          else
-            echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Masquer ce post").'" data-toggle="tooltip"><i class="fa fa-eye-slash fa-lg "></i></a>&nbsp;';
+            echo '&nbsp;<a href="topicadmin.php?mode=aff&amp;topic='.$topic.'&amp;post='.$myrow['post_id'].'&amp;ordre=0&amp;forum='.$forum.'&amp;arbre=0" title="'.translate("Masquer ce post").'" data-bs-toggle="tooltip"><i class="fa fa-eye-slash fa-lg "></i></a>&nbsp;';
       }
    }
       echo '
@@ -491,7 +491,7 @@ include('header.php');
           <nav>
             <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
                <li class="page-item">
-                  <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Haut de page").'" data-toggle="tooltip"></i></a>
+                  <a class="page-link" href="#topofpage"><i class="fa fa-angle-double-up" title="'.translate("Haut de page").'" data-bs-toggle="tooltip"></i></a>
                </li>
                <li class="page-item disabled">
                   <a class="page-link" href="#">'.translate("Haut de page").'</a>
@@ -508,7 +508,7 @@ include('header.php');
       if ((($Mmod) or ($original_poster==$userdata[0])) and (!$lock_state)) {
          $sec_clef=md5($forum.$topic.md5($NPDS_Key));
          echo '
-          <p><a href="viewforum.php?forum='.$forum.'&amp;topic_id='.$topic.'&amp;topic_title='.rawurlencode($topic_subject).'&amp;op=solved&amp;sec_clef='.$sec_clef.'"><i class="fa fa-lock fa-2x align-middle mr-1"></i>'.translate("Résolu").'</a></p>';
+          <p><a href="viewforum.php?forum='.$forum.'&amp;topic_id='.$topic.'&amp;topic_title='.rawurlencode($topic_subject).'&amp;op=solved&amp;sec_clef='.$sec_clef.'"><i class="fa fa-lock fa-2x align-middle me-1"></i>'.translate("Résolu").'</a></p>';
          unset($sec_clef);
       }
    }
@@ -520,10 +520,10 @@ include('header.php');
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
       echo '
 <form action="viewforum.php" method="post">
-   <div class="form-group row">
+   <div class="mb-3 row">
       <div class="col-12">
-         <label class="sr-only" for="forum">'.translate("Sauter à : ").'</label>
-         <select class="form-control custom-select" name="forum" onchange="submit();">
+         <label class="visually-hidden" for="forum">'.translate("Sauter à : ").'</label>
+         <select class="form-select" name="forum" onchange="submit();">
             <option value="index">'.translate("Sauter à : ").'</option>
             <option value="index">'.translate("Index du forum").'</option>';
       $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
@@ -553,27 +553,27 @@ include('header.php');
       echo '
          <ul class="nav justify-content-center border rounded">
             <li class="nav-item ">
-               <a class="nav-link disabled" href="#"><i class="fa fa-cogs fa-lg" title="'.translate("Outils administrateur").'" data-toggle="tooltip"></i><span class="d-none d-md-inline">&nbsp;</span></a>
+               <a class="nav-link disabled" href="#"><i class="fa fa-cogs fa-lg" title="'.translate("Outils administrateur").'" data-bs-toggle="tooltip"></i><span class="d-none d-md-inline">&nbsp;</span></a>
             </li>';
       if ($lock_state==0)
          echo '
             <li class="nav-item">
-               <a class="nav-link" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-lock fa-lg d-md-none" title="'.translate("Fermer ce sujet").'" data-toggle="tooltip" ></i><span class="ml-2 d-none d-md-inline">'.translate("Fermer ce sujet").'</span></a>
+               <a class="nav-link" role="button" href="topicadmin.php?mode=lock&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-lock fa-lg d-md-none" title="'.translate("Fermer ce sujet").'" data-bs-toggle="tooltip" ></i><span class="ms-2 d-none d-md-inline">'.translate("Fermer ce sujet").'</span></a>
             </li>';
       else
          echo '
             <li class="nav-item">
-               <a class="nav-link" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class ="fa fa-unlock fa-lg d-md-none" title="'.translate("Ouvrir ce sujet").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Ouvrir ce sujet").'</span></a>
+               <a class="nav-link" role="button" href="topicadmin.php?mode=unlock&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class ="fa fa-unlock fa-lg d-md-none" title="'.translate("Ouvrir ce sujet").'" data-bs-toggle="tooltip"></i><span class="ms-2 d-none d-md-inline">'.translate("Ouvrir ce sujet").'</span></a>
             </li>';
       echo '
             <li class="nav-item">
-               <a class="nav-link" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-share fa-lg d-md-none" title="'.translate("Déplacer ce sujet").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Déplacer ce sujet").'</span></a>
+               <a class="nav-link" role="button" href="topicadmin.php?mode=move&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fa fa-share fa-lg d-md-none" title="'.translate("Déplacer ce sujet").'" data-bs-toggle="tooltip"></i><span class="ms-2 d-none d-md-inline">'.translate("Déplacer ce sujet").'</span></a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fas fa-level-up-alt fa-lg d-md-none" title="'.translate("Mettre ce sujet en premier").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Mettre ce sujet en premier").'</span></a>
+               <a class="nav-link" role="button" href="topicadmin.php?mode=first&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fas fa-level-up-alt fa-lg d-md-none" title="'.translate("Mettre ce sujet en premier").'" data-bs-toggle="tooltip"></i><span class="ms-2 d-none d-md-inline">'.translate("Mettre ce sujet en premier").'</span></a>
             </li>
             <li class="nav-item">
-               <a class="nav-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fas fa-trash fa-lg d-md-none" title="'.translate("Effacer ce sujet").'" data-toggle="tooltip"></i><span class="ml-2 d-none d-md-inline">'.translate("Effacer ce sujet").'</span></a>
+               <a class="nav-link text-danger" role="button" href="topicadmin.php?mode=del&amp;topic='.$topic.'&amp;forum='.$forum.'" ><i class="fas fa-trash fa-lg d-md-none" title="'.translate("Effacer ce sujet").'" data-bs-toggle="tooltip"></i><span class="ms-2 d-none d-md-inline">'.translate("Effacer ce sujet").'</span></a>
             </li>
          </ul>';
    }

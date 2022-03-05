@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,7 +13,7 @@
 /************************************************************************/
    if (!function_exists("Mysql_Connexion"))
       include ("mainfile.php");
-   $offset=3;//25 
+   $offset=25; 
    $limit_full_search=250;
 
    if (!isset($min)) $min=0;
@@ -61,14 +61,14 @@
    }
    */
    echo '
-      <div class="form-group">
+      <div class="mb-3">
          <input class="form-control" type="text" name="query" value="'.$query.'" />
       </div>';
 
    $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
    echo '
-   <div class="form-group">
-      <select class="custom-select form-control" name="topic">
+   <div class="mb-3">
+      <select class="form-select" name="topic">
          <option value="">'.translate("Tous les sujets").'</option>';
    $sel='';
    while(list($topicid, $topics) = sql_fetch_row($toplist)) {
@@ -80,8 +80,8 @@
    echo '
       </select>
    </div>
-   <div class="form-group">
-      <select class="custom-select form-control" name="category">
+   <div class="mb-3">
+      <select class="form-select" name="category">
          <option value="0">'.translate("Articles").'</option>';
    $catlist = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
    settype($category,"integer");
@@ -98,8 +98,8 @@
 
    $thing = sql_query("SELECT aid FROM ".$NPDS_Prefix."authors ORDER BY aid");
    echo '
-   <div class="form-group">
-      <select class="custom-select form-control" name="author">
+   <div class="mb-3">
+      <select class="form-select" name="author">
          <option value="">'.translate("Tous les auteurs").'</option>';
    settype($author,'string');
    $sel='';
@@ -128,8 +128,8 @@
       $sel6 = 'selected="selected"';
 
    echo '
-      <div class="form-group">
-         <select class="custom-select form-control" name="days">
+      <div class="mb-3">
+         <select class="form-select" name="days">
             <option '.$sel1.' value="0">'.translate("Tous").'</option>
             <option '.$sel2.' value="7">1 '.translate("semaine").'</option>
             <option '.$sel3.' value="14">2 '.translate("semaines").'</option>
@@ -151,31 +151,31 @@
       $sel6 = 'checked="checked"';
 
    echo '
-      <div class="form-group">
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="sto" name="type" value="stories" '.$sel1.' />
-            <label class="custom-control-label" for="sto">'.translate("Articles").'</label>
+      <div class="mb-3">
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="sto" name="type" value="stories" '.$sel1.' />
+            <label class="form-check-label" for="sto">'.translate("Articles").'</label>
          </div>
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="arc" name="type" value="archive" '.$sel6.' />
-            <label class="custom-control-label" for="arc">'.translate("Archives").'</label>
-         </div>
-      </div>
-      <div class="form-group">
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="sec" name="type" value="sections" '.$sel3.' />
-            <label class="custom-control-label" for="sec">'.translate("Rubriques").'</label>
-         </div>
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="use" name="type" value="users" '.$sel4.' />
-            <label class="custom-control-label" for="use">'.translate("Utilisateurs").'</label>
-         </div>
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="rev" name="type" value="reviews" '.$sel5.' />
-            <label class="custom-control-label" for="rev">'.translate("Critiques").'</label>
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="arc" name="type" value="archive" '.$sel6.' />
+            <label class="form-check-label" for="arc">'.translate("Archives").'</label>
          </div>
       </div>
-      <div class="form-group">
+      <div class="mb-3">
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="sec" name="type" value="sections" '.$sel3.' />
+            <label class="form-check-label" for="sec">'.translate("Rubriques").'</label>
+         </div>
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="use" name="type" value="users" '.$sel4.' />
+            <label class="form-check-label" for="use">'.translate("Utilisateurs").'</label>
+         </div>
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="rev" name="type" value="reviews" '.$sel5.' />
+            <label class="form-check-label" for="rev">'.translate("Critiques").'</label>
+         </div>
+      </div>
+      <div class="mb-3">
          <input class="btn btn-primary" type="submit" value="'.translate("Recherche").'" />
       </div>
    </form>';
@@ -260,7 +260,7 @@
       if ($x==0) {
       echo '
          <div class="alert alert-danger lead" role="alert">
-            <i class="fa fa-exclamation-triangle fa-lg mr-2"></i>'.translate("Aucune correspondance à votre recherche n'a été trouvée").' !
+            <i class="fa fa-exclamation-triangle fa-lg me-2"></i>'.translate("Aucune correspondance à votre recherche n'a été trouvée").' !
          </div>';
       }
 
@@ -399,7 +399,7 @@
                if ($name=='') $name = translate("Aucun nom n'a été entré");
                echo '
                <tr>
-                  <td><a href="'.$furl.'"><i class="fa fa-user text-muted mr-2"></i>'.$uname.'</a> ('.$name.')</td>
+                  <td><a href="'.$furl.'"><i class="fa fa-user text-muted me-2"></i>'.$uname.'</a> ('.$name.')</td>
                </tr>';
                $x++;
             }

@@ -100,7 +100,7 @@ function translate_pass1($phrase) {
    case "Accessible à tous": $tmp="Accesible a todos"; break;
    case "Activé": $tmp="Activado"; break;
    case "Activer votre menu personnel": $tmp="Activar el Menú personal"; break;
-   case "Activité du site": $tmp="Actividad"; break;
+   case "Activité du site": $tmp="Actividad del sitio web"; break;
    case "Activité": $tmp="Su actividad"; break;
    case "Actuellement connecté en administrateur... Cette critique sera": $tmp="Actualmente conectado como administrador... esta critica sera"; break;
    case "Administrateur : ": $tmp="Administrador : "; break;
@@ -123,7 +123,6 @@ function translate_pass1($phrase) {
    case "Ajouter une catégorie principale": $tmp="Añadir una categoría principal"; break;
    case "Ajouter une sous-catégorie": $tmp="Añadir una sub-categoria"; break;
    case "Ajouter une url": $tmp="Insertar une URL"; break;
-   case "Ajouter": $tmp="Insertar un vinculo"; break;
    case "Ajouter": $tmp="Insertar"; break;
    case "Aller à la page": $tmp="Ir a la página"; break;
    case "Anciens articles": $tmp="Noticias anteriores"; break;
@@ -133,7 +132,6 @@ function translate_pass1($phrase) {
    case "Annuler la contribution": $tmp="Anular la contribución"; break;
    case "Annuler la réponse": $tmp="Anular la respuesta"; break;
    case "Annuler": $tmp="Anular"; break;
-   case "Annuler": $tmp="Limpiar"; break;
    case "Anonyme": $tmp="Anónimo"; break;
    case "Anti-Spam / Merci de répondre à la question suivante : ": $tmp="Anti-Spam / Merci de répondre à la question suivante : "; break;
    case "Août": $tmp="Agosto"; break;
@@ -151,8 +149,6 @@ function translate_pass1($phrase) {
    case "Articles présents dans les rubriques : ": $tmp="Noticias presentes en las secciones : "; break;
    case "Articles publiés : ": $tmp="Noticias publicadas : "; break;
    case "Articles publiés : ": $tmp="Noticias publicadas : "; break;
-   case "Articles": $tmp="Noticias"; break;
-   case "Articles": $tmp="Noticias"; break;
    case "Articles": $tmp="Noticias"; break;
    case "Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté": $tmp="Asegúrese de la veracidad de las informaciones que somete. No escriba todo en mayúsculas, su texto sera automáticamente borrado !"; break;
    case "ATTENTION : Etes-vous certain de vouloir effacer cette catégorie et tous ses Liens ?": $tmp="ATENCION : Esta seguro que quiere borrar esta categoría y todos sus vínculos ?"; break;
@@ -193,8 +189,8 @@ function translate_pass1($phrase) {
    case "Boîte d'émission": $tmp="Buzón de envío"; break;
    case "Boîte de réception": $tmp="Buzón de recepción"; break;
    case "Bonjour": $tmp="Buenos días"; break;
-   case "Bonjour": $tmp="Buenos días"; break;
    case "Caché": $tmp="Escondido"; break;
+   case "caractères au minimum": $tmp = "caracteres como mínimo"; break;
    case "caractères de plus": $tmp="caracteres de mas"; break;
    case "caractères": $tmp="caracteres"; break;
    case "Carnet d'adresses": $tmp="Carnet de direcciones"; break;
@@ -206,7 +202,9 @@ function translate_pass1($phrase) {
    case "Catégories les plus actives": $tmp="Categorías las mas activas"; break;
    case "Catégories": $tmp="Categorías"; break;
    case "Ce fichier n'existe pas ...": $tmp="El fichero no existe en el servidor ..."; break;
+   case "Ce nom n\'est pas disponible": $tmp="Este nombre no está disponible"; break;
    case "Ce sujet est verrouillé : il ne peut accueillir aucune nouvelle contribution.": $tmp="Este Tema esta cerrado : no se pueden añadir mas Asuntos."; break;
+   case "Ce surnom n\'est pas disponible": $tmp="Este apodo no está disponible"; break;
    case "Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder": $tmp="Este es un foro privado. Incorporar por favor la contraseña para acceder"; break;
    case "Cela peut être retiré ou ajouté dans vos paramètres personnels": $tmp="Esto se puede cambiar en su perfil"; break;
    case "Cela pourrait vous intéresser": $tmp="Esto podría interesarle"; break;
@@ -499,7 +497,6 @@ function translate_pass1($phrase) {
    case "L'article le plus consulté aujourd'hui est :": $tmp="La noticia mas vista de hoy es :"; break;
    case "L'article le plus lu à propos de": $tmp="La noticia mas leída de"; break;
    case "L'article": $tmp="La noticia"; break;
-   case "L'article": $tmp="La Noticia"; break;
    case "L'url pour cet article est : ": $tmp="La URL de esta Noticia es : "; break;
    case "La fonction mise à jour du mot de passe ne peut mettre à jour la base de données. Contactez le WebMaster.": $tmp="La función Mail_Password no puede actualizar la base de datos. Contacte con el Webmaster."; break;
    case "La lettre": $tmp="Letra de información"; break;
@@ -512,6 +509,11 @@ function translate_pass1($phrase) {
    case "Le forum ou le topic que vous tentez de publier n'existe pas, refaites un essai.": $tmp="El foro o Asunto que intenta agregar no existe, inténtelo de nuevo. "; break;
    case "Le forum sélectionné n'existe pas.": $tmp="El foro que selecciono no existe, inténtelo de nuevo."; break;
    case "Le message sélectionné n'existe pas dans la base forum.": $tmp="El mensaje seleccionado no existe en la base de foros."; break;
+   case "Le mot de passe doit contenir au moins un caractère en majuscule.": $tmp = "La contraseña debe contener al menos un carácter en mayúsculas."; break;
+   case "Le mot de passe doit contenir au moins un caractère en minuscule.": $tmp = "La contraseña debe contener al menos un carácter en minúscula."; break;
+   case "Le mot de passe doit contenir au moins un caractère non alphanumérique.": $tmp = "La contraseña debe contener al menos un carácter no alfanumérico."; break;
+   case "Le mot de passe doit contenir au moins un chiffre.": $tmp = "La contraseña debe contener al menos un número."; break;
+   case "Le mot de passe doit contenir": $tmp = "La contraseña debe contener"; break;
    case "Le mot de passe vous sera envoyé à l'adresse Email indiquée.": $tmp="La contraseña le sera enviada a la dirección E-mail que dio."; break;
    case "Le moteur de recherche ne trouve pas la base forum.": $tmp="El motor de búsqueda no encontró la base del foro."; break;
    case "Le nombre de hits doit être un entier positif": $tmp="El nombre de clics deben ser  nombres enteros positivos"; break;
@@ -524,6 +526,7 @@ function translate_pass1($phrase) {
    case "Les dernières nouvelles à propos de": $tmp="Las ultimas noticias de"; break;
    case "Les derniers articles de": $tmp="Last articles sent by"; break;
    case "Les derniers commentaires de": $tmp="Los últimos comentarios de"; break;
+   case "Les deux mots de passe ne sont pas identiques.": $tmp = "Las dos contraseñas no son idénticas."; break;
    case "les Liens": $tmp="Los vínculos"; break;
    case "Les modifications seront seulement valides pour vous.": $tmp="Los cambios solo serán validos para usted."; break;
    case "Les mots de passe sont différents. Ils doivent être identiques.": $tmp="Las dos contraseñas son diferentes. Deben ser idénticas."; break;
@@ -547,8 +550,6 @@ function translate_pass1($phrase) {
    case "Liens relatifs : ": $tmp="Vínculos relativos : "; break;
    case "Liens relatifs": $tmp="Vínculos relativos"; break;
    case "Liens Web": $tmp="Vínculos web"; break;
-   case "Liens": $tmp="Vínculos en espera"; break;
-   case "Liens": $tmp="Vínculos"; break;
    case "Liens": $tmp="Vínculos"; break;
    case "Limite des référants : pensez à archiver vos référants via l'administration du site.": $tmp="Limite de referentes : Archive sus referentes por favor."; break;
    case "Lire la suite...": $tmp="Leer lo que sigue..."; break;
@@ -629,7 +630,6 @@ function translate_pass1($phrase) {
    case "Montrer :": $tmp="Mostrar :"; break;
    case "Mot de passe : ": $tmp="Contraseña : "; break;
    case "Mot de passe erroné, refaites un essai.": $tmp="Contraseña errónea, inténtelo de nuevo."; break;
-   case "Mot de passe erroné, refaites un essai.": $tmp="Contraseña errónea, Inténtelo de nuevo."; break;
    case "Mot de passe mis à jour. Merci de vous re-connecter": $tmp="Actualización de contraseña, vuelva a conectarlo."; break;
    case "Mot de passe pour": $tmp="Contraseña para"; break;
    case "Mot de passe utilisateur pour": $tmp="Contraseña usuario para"; break;
@@ -821,7 +821,6 @@ function translate_pass1($phrase) {
    case "Sauter à : ": $tmp="Saltar a: "; break;
    case "Sauter à :": $tmp="Saltar a: "; break;
    case "Sauver les modifications": $tmp="Guardar cambios"; break;
-   case "Sauver les modifications": $tmp="Guardar las modificaciones"; break;
    case "Sauvez votre journal": $tmp="Registrar el diario"; break;
    case "Se connecter": $tmp="Conectarse"; break;
    case "Seconde(s)": $tmp="Segundo(s)"; break;
@@ -928,7 +927,6 @@ function translate_pass1($phrase) {
    case "Url : ": $tmp="URL : "; break;
    case "Url de la page : ": $tmp="URL de la Página  : "; break;
    case "Url": $tmp="URL"; break;
-   case "Url": $tmp="URL"; break;
    case "Utilisateur avancé": $tmp="Usuario avanzado"; break;
    case "Utilisateur enregistré": $tmp="Usuario registrado"; break;
    case "Utilisateur ou message inexistant dans la base.": $tmp="Usuario o mensaje inexistente en la base."; break;
@@ -1016,7 +1014,6 @@ function translate_pass1($phrase) {
    case "Vous n'avez pas l'autorisation d'éditer ce message.": $tmp="Usted no tiene autorización para editar este mensaje."; break;
    case "Vous n'êtes pas (encore) enregistré ou vous n'êtes pas (encore) connecté.": $tmp="No esta registrado o no se conecto."; break;
    case "Vous n'êtes pas autorisé à participer à ce forum": $tmp="No esta autorizado a participar en este Foro"; break;
-   case "Vous n'êtes pas autorisé à participer à ce forum": $tmp="No tiene ninguna autorización para responder en este foro"; break;
    case "Vous n'êtes pas encore autorisé à vous connecter.": $tmp="Todavía no esta autorizado a conectarse."; break;
    case "Vous n'êtes pas identifié comme modérateur de ce forum. Opération interdite.": $tmp="No se identifico como moderador de este foro. Operación prohibida."; break;
    case "Vous n'êtes pas le modérateur de ce forum, vous ne pouvez utiliser cette fonction.": $tmp="Usted no es moderador de este foro, esta función no puede utilizarla."; break;

@@ -12,6 +12,7 @@
 /************************************************************************/
 
 global $pdst;
+$moreclass = '';
 switch ($pdst) {
    case '-1':
       echo '
@@ -22,8 +23,8 @@ switch ($pdst) {
       echo '
     </div>
        <div id="col_RB" class="col-md-3 col-sm-12">';
-           leftblocks();
-           rightblocks();
+           leftblocks($moreclass);
+           rightblocks($moreclass);
       echo '
        </div>
     </div>';
@@ -32,8 +33,8 @@ switch ($pdst) {
       echo '
     </div>
        <div id="col_RB" class="col-md-3 col-sm-12">';
-           leftblocks();
-           rightblocks();
+           leftblocks($moreclass);
+           rightblocks($moreclass);
       echo '
        </div>
     </div>';

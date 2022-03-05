@@ -72,7 +72,7 @@ include("functions.php");
    echo '
          <input type="hidden" name="name" value="'.$pseudo.'" />
          <textarea id="chatarea" class="form-control my-3" type="text" rows="2" '.$xJava.' placeholder=""></textarea>
-         <div class="float-right">';
+         <div class="float-end">';
          putitems("chatarea");
    echo '
          </div>

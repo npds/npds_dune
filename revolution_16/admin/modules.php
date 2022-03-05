@@ -80,13 +80,13 @@ global $language,$adminimg, $admf_ext;
 
       if ($row["minstall"] == 0) {
          if (file_exists("modules/".$row["mnom"]."/install.conf.php"))
-            $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModInstall='.$row["mnom"].'" ><i class="fa fa-compress fa-lg text-success"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90 text-success" title="'.adm_translate("Installer le module").'" data-toggle="tooltip"></i></a>';
+            $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModInstall='.$row["mnom"].'" ><i class="fa fa-compress fa-lg text-success"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90 text-success" title="'.adm_translate("Installer le module").'" data-bs-toggle="tooltip"></i></a>';
          else
-            $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModInstall='.$row["mnom"].'&amp;subop=install"><i class="far fa-check-square fa-2x" title="'.adm_translate("Pas d'installeur disponible").' '.adm_translate("Marquer le module comme installé").'" data-toggle="tooltip"></i></a>';
+            $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModInstall='.$row["mnom"].'&amp;subop=install"><i class="far fa-check-square fa-2x" title="'.adm_translate("Pas d'installeur disponible").' '.adm_translate("Marquer le module comme installé").'" data-bs-toggle="tooltip"></i></a>';
          $clatd='table-danger';
       }
       else {
-         $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModDesinstall='.$row["mnom"].'" ><i class="fa fa-expand fa-lg text-danger"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate-90 text-danger" title="'.adm_translate("Désinstaller le module").'" data-toggle="tooltip"></i></a>';
+         $status_chngac = '<a href="admin.php?op=Module-Install&amp;ModDesinstall='.$row["mnom"].'" ><i class="fa fa-expand fa-lg text-danger"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate-90 text-danger" title="'.adm_translate("Désinstaller le module").'" data-bs-toggle="tooltip"></i></a>';
          $clatd='table-success';
       }
       echo '

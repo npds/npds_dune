@@ -98,7 +98,7 @@ if (!function_exists("Mysql_Connexion"))
    <h2>'.translate("Statistiques").'</h2>
    <div class="card card-body lead">
       <div>
-      '.translate("Nos visiteurs ont visualisé").' <span class="badge badge-secondary">'.wrh($total).'</span> '.translate("pages depuis le").' '.$startdate.'
+      '.translate("Nos visiteurs ont visualisé").' <span class="badge bg-secondary">'.wrh($total).'</span> '.translate("pages depuis le").' '.$startdate.'
       </div>
    </div>
    <h3 class="my-4">'.translate("Navigateurs web").'</h3>
@@ -466,30 +466,30 @@ if (!function_exists("Mysql_Connexion"))
    echo '
    <h3 class="my-4">'.translate("Statistiques diverses").'</h3>
    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-muted"></i>&nbsp;'.translate("Utilisateurs enregistrés : ").' <span class="badge badge-secondary ml-auto">'.wrh($unum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted"></i>&nbsp;<i class="fas fa-pencil-alt fa-lg text-muted"></i>&nbsp;'.translate("Auteurs actifs : ").' <span class="badge badge-secondary ml-auto">'.wrh($anum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-muted"></i>&nbsp;'.translate("Utilisateurs enregistrés : ").' <span class="badge bg-secondary ms-auto">'.wrh($unum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted"></i>&nbsp;<i class="fas fa-pencil-alt fa-lg text-muted"></i>&nbsp;'.translate("Auteurs actifs : ").' <span class="badge bg-secondary ms-auto">'.wrh($anum).' </span></li>';
    if ($ibid=theme_image("stats/postnew.png")) $imgtmp=$ibid; else $imgtmp="images/admin/postnew.png";
    echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Articles publiés : ").' <span class="badge badge-secondary ml-auto">'.wrh($snum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Articles publiés : ").' <span class="badge bg-secondary ms-auto">'.wrh($snum).' </span></li>';
    if ($ibid=theme_image("stats/topicsman.png")) $imgtmp=$ibid; else $imgtmp="images/admin/topicsman.png";
    echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Sujets actifs : ").' <span class="badge badge-secondary ml-auto">'.wrh($tnum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-muted"></i>&nbsp;'.translate("Commentaires postés : ").' <span class="badge badge-secondary ml-auto">'.wrh($cnum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Sujets actifs : ").' <span class="badge bg-secondary ms-auto">'.wrh($tnum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-muted"></i>&nbsp;'.translate("Commentaires postés : ").' <span class="badge bg-secondary ms-auto">'.wrh($cnum).' </span></li>';
    if ($ibid=theme_image("stats/sections.png")) $imgtmpS=$ibid; else $imgtmpS="images/admin/sections.png";
    echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmpS.'" alt="" />&nbsp;'.translate("Rubriques spéciales : ").' <span class="badge badge-secondary ml-auto">'.wrh($secnum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmpS.'" alt="" />&nbsp;'.translate("Rubriques spéciales : ").' <span class="badge bg-secondary ms-auto">'.wrh($secnum).' </span></li>';
    if ($ibid=theme_image("stats/sections.png")) $imgtmp=$ibid; else $imgtmp="images/admin/sections.png";
    echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Articles présents dans les rubriques : ").' <span class="badge badge-secondary ml-auto">'.wrh($secanum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" />&nbsp;'.translate("Articles présents dans les rubriques : ").' <span class="badge bg-secondary ms-auto">'.wrh($secanum).' </span></li>';
    echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Liens présents dans la rubrique des liens web : ").' <span class="badge badge-secondary ml-auto">'.wrh($links).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Catégories dans la rubrique des liens web : ").' <span class="badge badge-secondary ml-auto">'.wrh($cat).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Liens présents dans la rubrique des liens web : ").' <span class="badge bg-secondary ms-auto">'.wrh($links).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Catégories dans la rubrique des liens web : ").' <span class="badge bg-secondary ms-auto">'.wrh($cat).' </span></li>';
    if ($ibid=theme_image("stats/submissions.png")) $imgtmp=$ibid; else $imgtmp="images/admin/submissions.png";
    echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'"  alt="" />&nbsp;'.translate("Article en attente d'édition : ").' <span class="badge badge-secondary ml-auto">'.wrh($subnum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Num <span class="badge badge-danger ml-auto">'.$Version_Num.'</span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Id <span class="badge badge-danger ml-auto">'.$Version_Id.'</span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Sub <span class="badge badge-danger ml-auto">'.$Version_Sub.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'"  alt="" />&nbsp;'.translate("Article en attente d'édition : ").' <span class="badge bg-secondary ms-auto">'.wrh($subnum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Num <span class="badge bg-danger ms-auto">'.$Version_Num.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Id <span class="badge bg-danger ms-auto">'.$Version_Id.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Sub <span class="badge bg-danger ms-auto">'.$Version_Sub.'</span></li>
    </ul>
    <br />
    <p class="text-center"><a href="http://www.npds.org" >http://www.npds.org</a> - French Portal Generator Gnu/Gpl Licence</p><br />';

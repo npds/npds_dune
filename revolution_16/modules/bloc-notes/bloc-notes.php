@@ -49,17 +49,17 @@ function blocnotes ($typeBlocNote='shared', $nomBlocNote='', $largeur='', $nblBl
          $title=$block_title;
       $aff.= '
          <form class="'.$largeur.'" method="post" action="modules.php?ModPath=bloc-notes&amp;ModStart=blocnotes" name="A'.$bnid.'">
-            <div class="form-group">
+            <div class="mb-3">
                <textarea class="form-control '.$bnclass.'" rows="'.$nblBlocNote.'" name="texteBlocNote" id="texteBlocNote_'.$bnid.'" placeholder="..."></textarea>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                <input type="hidden" name="uriBlocNote" value="'.urlencode($REQUEST_URI).'" />
                <input type="hidden" name="typeBlocNote" value="'.$typeBlocNote.'" />
                <input type="hidden" name="nomBlocNote" value="'.$nomBlocNote.'" />
                <div class="row">
                   <div class="col-12">
-                     <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check mr-1"></i>'.translate("Valider").'</button>
-                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fas fa-times mr-1"></i>'.translate("Effacer").'</button>
+                     <button type="submit" name="okBlocNote" class="btn btn-outline-primary btn-sm btn-block" > <i class="fa fa-check me-1"></i>'.translate("Valider").'</button>
+                     <button type="submit" name="supBlocNote" class="btn btn-outline-danger btn-sm btn-block" value="RAZ"><i class="fas fa-times me-1"></i>'.translate("Effacer").'</button>
                   </div>
                </div>
             </div>

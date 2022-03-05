@@ -12,6 +12,7 @@
 /************************************************************************/
 
 global $NPDS_Prefix, $pdst;
+$moreclass = 'col-12';
 
 $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1'");
 $nb_blg_actif = sql_num_rows($blg_actif);
@@ -58,9 +59,9 @@ if ($nb_bld_actif == 0) {
 }
 function colsyst($coltarget) {
    $coltoggle ='
-      <div class="col d-lg-none mr-2 my-2">
+      <div class="col d-lg-none me-2 my-2">
          <hr />
-         <a class=" small float-right" href="#" data-toggle="collapse" data-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
+         <a class=" small float-end" href="#" data-bs-toggle="collapse" data-bs-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
       </div>
    ';
    echo $coltoggle;
@@ -98,7 +99,7 @@ case '1':
    colsyst('#col_LB');
    echo '
          <div id="col_LB" class="collapse show col-lg-3">';
-     leftblocks();
+     leftblocks($moreclass);
    echo '
          </div>
          <div id="col_princ" class="col-lg-6">';
@@ -111,7 +112,7 @@ case '3':
    colsyst('#col_LB');
    echo '
       <div id="col_LB" class="collapse show col-lg-3">';
-   leftblocks();
+   leftblocks($moreclass);
    echo '
       </div>';
    colsyst('#col_RB');
@@ -130,7 +131,7 @@ case '5':
    colsyst('#col_RB');
    echo '
       <div id="col_RB" class="collapse show col-lg-3">';
-   rightblocks();
+   rightblocks($moreclass);
    echo '
       </div>
       <div id="col_princ" class="col-lg-9">';
@@ -139,7 +140,7 @@ default:
    colsyst('#col_LB');
    echo '
          <div id="col_LB" class="collapse show col-lg-3">';
-   leftblocks();
+   leftblocks($moreclass);
    echo '
          </div>
          <div id="col_princ" class="col-lg-9">';

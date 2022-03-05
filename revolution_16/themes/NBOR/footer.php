@@ -12,6 +12,8 @@
 /************************************************************************/
 
 global $pdst;
+$moreclass = 'col-12 mb-3';
+
 switch ($pdst)
 {
 case '-1':case '3':case '5':
@@ -25,7 +27,7 @@ case '1':case '2':
    echo '
    </div>
     <div id="col_RB" class="n-c col-lg-3 w18">';
-        rightblocks();
+        rightblocks($moreclass);
    echo '
          </div>
       </div>
@@ -36,11 +38,11 @@ case "4":
    echo '
          </div>
          <div id="col_LB" class="n-c col-lg-3 w18">';
-            leftblocks();
+            leftblocks($moreclass);
    echo '
          </div>
          <div id="col_RB"  class="n-c col-lg-3 w18">';
-        rightblocks();
+        rightblocks($moreclass);
    echo '
          </div>
       </div>
@@ -51,7 +53,7 @@ case '6':
    echo '
          </div>
          <div id="col_LB" class="n-c col-lg-3 w18">';
-            leftblocks();
+            leftblocks($moreclass);
     echo '
          </div>
       </div>

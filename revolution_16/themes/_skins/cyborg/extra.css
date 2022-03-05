@@ -1,1 +1,4 @@
 /* extra css for cyborg */
+:root{
+--th-hauteurnavbar:59px;
+}

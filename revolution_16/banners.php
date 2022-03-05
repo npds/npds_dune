@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -63,16 +63,14 @@ function viewbanner() {
             sql_query("DELETE FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
          }
 
-         if ($imageurl!='') {
+         if ($imageurl!='')
             echo'<a href="banners.php?op=click&amp;bid='.$bid.'" target="_blank"><img class="img-fluid" src="'.aff_langue($imageurl).'" alt="" /></a>';
-         } else {
+         else {
             if (stristr($clickurl,'.txt')) {
-               if (file_exists($clickurl)) {
+               if (file_exists($clickurl))
                   include_once($clickurl);
-               }
-            } else {
+            } else
                echo $clickurl;
-            }
          }
       }
    }
@@ -95,32 +93,28 @@ function clientlogin() {
    header_page();
    echo '
       <div class="card card-body mb-3">
-      <h3 class="mb-4"><i class="fas fa-sign-in-alt fa-lg mr-3"></i>'.translate("Connection").'</h3>
-         <form action="banners.php" method="post">
+         <h3 class="mb-4"><i class="fas fa-sign-in-alt fa-lg me-3 align-middle"></i>'.translate("Connexion").'</h3>
+         <form id="loginbanner" action="banners.php" method="post">
             <fieldset>
-               <div class="form-group row">
-                  <label class="form-control-label col-sm-4" for="login">'.translate("Identifiant ").'</label>
-                  <div class="col-sm-8">
-                     <input class="form-control" type="text" id="login" name="login" maxlength="10" required="required" />
-                  </div>
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="text" id="login" name="login" maxlength="10" required="required" />
+                  <label for="login">'.translate("Identifiant ").'</label>
                </div>
-               <div class="form-group row">
-                  <label class="form-control-label col-sm-4" for="pass">'.translate("Mot de passe").'</label>
-                  <div class="col-sm-8">
-                     <input class="form-control" type="password" id="pass" name="pass" maxlength="10" required="required" />
-                     <span class="help-block">'.translate("Merci de saisir vos informations").'</span>
-                  </div>
+               <div class="form-floating mb-3">
+                  <input class="form-control" type="password" id="pass" name="pass" maxlength="10" required="required" />
+                  <label for="pass">'.translate("Mot de passe").'</label>
+                  <span class="help-block">'.translate("Merci de saisir vos informations").'</span>
                </div>
-               <div class="form-group row">
-                  <div class="col-sm-8 ml-sm-auto">
-                     <input type="hidden" name="op" value="Ok" />
-                     <button class="btn btn-primary col-sm-6 col-12" type="submit">'.translate("Valider").'</button>
-                  </div>
+               <input type="hidden" name="op" value="Ok" />
+               <button class="btn btn-primary my-3" type="submit">'.translate("Valider").'</button>
                </div>
             </fieldset>
          </form>
       </div>';
-      adminfoot('fv','','','no');
+      $arg1='
+      var formulid=["loginbanner"];
+      ';
+      adminfoot('fv','',$arg1,'no');
       footer_page();
 }
 
@@ -151,17 +145,20 @@ function header_page() {
    </head>
    <body style="margin-top:64px;">
       <div class="container-fluid">
-      <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-primary">
-        <a class="navbar-brand" href="index.php">Home</a>
-     </nav>
-         <h2 class="mt-4">'.translate("Bannières - Publicité").' @ '.$Titlesitename.'</h2>
-         <p align="center">';
+      <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-primary">
+         <div class="container-fluid">
+           <a class="navbar-brand" href="index.php"><i class="fa fa-home fa-lg me-2"></i></a>
+           <span class="navbar-text">'.translate("Bannières - Publicité").'</span>
+         </div>
+      </nav>
+      <h2 class="mt-4">'.translate("Bannières - Publicité").' @ '.$Titlesitename.'</h2>
+      <p align="center">';
 }
 
 function footer_page() {
+include('modules/include/footer_after.inc');
    echo '</p>
       </div>
-      <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
    </body>
 </html>';
 }
@@ -170,9 +167,9 @@ function bannerstats($login, $pass) {
    global $NPDS_Prefix;
    $result = sql_query("SELECT cid, name, passwd FROM ".$NPDS_Prefix."bannerclient WHERE login='$login'");
    list($cid, $name, $passwd) = sql_fetch_row($result);
-   if ($login=='' AND $pass=='' OR $pass=='') {
+   if ($login=='' AND $pass=='' OR $pass=='')
       IncorrectLogin();
-   } else {
+   else {
       if ($pass==$passwd) {
          header_page();
          echo '
@@ -180,7 +177,7 @@ function bannerstats($login, $pass) {
          <table data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-show-columns="true" data-icons="icons" data-icons-prefix="fa">
             <thead>
                <tr>
-                  <th class="n-t-col-xs-1" data-halign="center" data-align="right"  data-sortable="true">ID</th>
+                  <th class="n-t-col-xs-1" data-halign="center" data-align="right" data-sortable="true">ID</th>
                   <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Réalisé").'</th>
                   <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Impressions").'</th>
                   <th class="n-t-col-xs-2" data-halign="center" data-align="right" data-sortable="true">'.translate("Imp. restantes").'</th>
@@ -192,17 +189,8 @@ function bannerstats($login, $pass) {
             <tbody>';
          $result = sql_query("SELECT bid, imptotal, impmade, clicks, date FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
          while (list($bid, $imptotal, $impmade, $clicks, $date) = sql_fetch_row($result)) {
-            $rowcolor = tablos();
-            if ($impmade==0) {
-               $percent = 0;
-            } else {
-               $percent = substr(100 * $clicks / $impmade, 0, 5);
-            }
-            if ($imptotal==0) {
-               $left = translate("Illimité");
-            } else {
-               $left = $imptotal-$impmade;
-            }
+            $percent = $impmade==0 ? '0' : substr(100 * $clicks / $impmade, 0, 5);
+            $left = $imptotal==0 ? translate("Illimité") : $imptotal-$impmade;
             echo '
                <tr>
                   <td>'.$bid.'</td>
@@ -211,7 +199,7 @@ function bannerstats($login, $pass) {
                   <td>'.$left.'</td>
                   <td>'.$clicks.'</td>
                   <td>'.$percent.'%</td>
-                  <td><a href="banners.php?op=EmailStats&amp;login='.$login.'&amp;cid='.$cid.'&amp;bid='.$bid.'" ><i class="far fa-envelope fa-lg mr-2" title="E-mail Stats"></i></a></td>
+                  <td><a href="banners.php?op=EmailStats&amp;login='.$login.'&amp;cid='.$cid.'&amp;bid='.$bid.'" ><i class="far fa-envelope fa-lg me-2 tooltipbyclass" data-bs-placement="top" title="E-mail Stats"></i></a></td>
                </tr>';
          }
          
@@ -219,7 +207,9 @@ function bannerstats($login, $pass) {
          echo '
             </tbody>
          </table>
-         <a href="'.$nuke_url.'" class="header" target="_blank">'.$sitename.'</a>';
+         <div class="lead my-3">
+            <a href="'.$nuke_url.'" target="_blank">'.$sitename.'</a>
+         </div>';
          $result = sql_query("SELECT bid, imageurl, clickurl FROM ".$NPDS_Prefix."banner WHERE cid='$cid'");
 
          while (list($bid, $imageurl, $clickurl) = sql_fetch_row($result)) {
@@ -242,7 +232,7 @@ function bannerstats($login, $pass) {
             <form action="banners.php" method="get">';
             if ($imageurl!='') {
                echo '
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <label class="control-label col-sm-12" for="url">'.translate("Changer").' URL</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="text" name="url" maxlength="200" value="'.$clickurl.'" />
@@ -250,7 +240,7 @@ function bannerstats($login, $pass) {
                </div>';
             } else {
                echo '
-               <div class="form-group row">
+               <div class="mb-3 row">
                   <label class="control-label col-sm-12" for="url">'.translate("Changer").' URL</label>
                   <div class="col-sm-12">
                      <input class="form-control" type="text" name="url" maxlength="200" value="'.htmlentities($clickurl, ENT_QUOTES, cur_charset).'" />
@@ -258,11 +248,11 @@ function bannerstats($login, $pass) {
                </div>';
             }
             echo '
-            <input type="hidden" name="login" value="'.$login.'" />
-            <input type="hidden" name="bid" value="'.$bid.'" />
-            <input type="hidden" name="pass" value="'.$pass.'" />
-            <input type="hidden" name="cid" value="'.$cid.'" />
-            <input class="btn btn-primary" type="submit" name="op" value="'.translate("Changer").'" />
+               <input type="hidden" name="login" value="'.$login.'" />
+               <input type="hidden" name="bid" value="'.$bid.'" />
+               <input type="hidden" name="pass" value="'.$pass.'" />
+               <input type="hidden" name="cid" value="'.$cid.'" />
+               <input class="btn btn-primary" type="submit" name="op" value="'.translate("Changer").'" />
             </form>
             </p>
             </div>';
@@ -301,9 +291,8 @@ function bannerstats($login, $pass) {
          </table>';
          adminfoot('fv','','','no');
          footer_page();
-      } else {
+      } else
          IncorrectLogin();
-      }
    }
 }
 
@@ -322,34 +311,30 @@ function EmailStats($login, $cid, $bid) {
       } else {
          $result = sql_query("SELECT bid, imptotal, impmade, clicks, imageurl, clickurl, date FROM ".$NPDS_Prefix."banner WHERE bid='$bid' AND cid='$cid'");
          list($bid, $imptotal, $impmade, $clicks, $imageurl, $clickurl, $date) = sql_fetch_row($result);
-         if ($impmade==0) {
-            $percent = 0;
-         } else {
-            $percent = substr(100 * $clicks / $impmade, 0, 5);
-         }
-
+         $percent = $impmade==0 ? '0': substr(100 * $clicks / $impmade, 0, 5) ;
          if ($imptotal==0) {
             $left = translate("Illimité");
             $imptotal = translate("Illimité");
-         } else {
+         } else
             $left = $imptotal-$impmade;
-         }
          global $sitename, $gmt;
          $fecha = date(translate("dateinternal"),time()+((integer)$gmt*3600));
-         $subject = translate("Bannières - Publicité").' : '.$sitename;
+         $subject = html_entity_decode(translate("Bannières - Publicité"),ENT_COMPAT | ENT_HTML401,cur_charset).' : '.$sitename;
          $message  = "Client : $name\n".translate("Bannière")." ID : $bid\n".translate("Bannière")." Image : $imageurl\n".translate("Bannière")." URL : $clickurl\n\n";
          $message .= "Impressions ".translate("Réservées")." : $imptotal\nImpressions ".translate("Réalisées")." : $impmade\nImpressions ".translate("Restantes")." : $left\nClicks ".translate("Reçus")." : $clicks\nClicks ".translate("Pourcentage")." : $percent%\n\n";
          $message .= translate("Rapport généré le").' : '."$fecha\n\n";
          include("signat.php");
 
-         send_email($email, $subject, $message, '', true, 'text');
+         send_email($email, $subject, $message, '', true, 'html');
          header_page();
          echo '
-         <div class="jumbotron">
-            <p>'.$fecha.'</p>
-            <p>'.translate("Statistics for Banner ID").' : '.$bid.' '.translate("ont été envoyées.").'</p>
-            <p>'.$email.' : Client : '.$name.'</p>
-            <p><a href="javascript:history.go(-1)" class="btn btn-primary btn-lg">'.translate("Retour en arrière").'</a></p>
+         <div class="card bg-light">
+            <div class="card-body"
+               <p>'.$fecha.'</p>
+               <p>'.translate("Les statistiques pour la bannières ID").' : '.$bid.' '.translate("ont été envoyées.").'</p>
+               <p>'.$email.' : Client : '.$name.'</p>
+               <p><a href="javascript:history.go(-1)" class="btn btn-primary">'.translate("Retour en arrière").'</a></p>
+            </div>
          </div>';
       }
    } else {
@@ -358,6 +343,7 @@ function EmailStats($login, $cid, $bid) {
    }
    footer_page();
 }
+
 function change_banner_url_by_client($login, $pass, $cid, $bid, $url) {
     global $NPDS_Prefix;
     header_page();
@@ -366,10 +352,11 @@ function change_banner_url_by_client($login, $pass, $cid, $bid, $url) {
     if (!empty($pass) AND $pass==$passwd) {
         sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
         sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
-        echo "<p align=\"center\"><br />".translate("Vous avez changé l'url de la bannière")."<br /><br /><a href=\"javascript:history.go(-1)\" class=\"noir\">".translate("Retour en arrière")."</a></p>";
-    } else {
-        echo "<p align=\"center\"><br />".translate("Identifiant incorrect !")."<br /><br />".translate("Merci de")." <a href=\"banners.php?op=login\" class=\"noir\">".translate("vous reconnecter.")."</a></p>";
-    }
+        echo '
+        <div class="alert alert-success">'.translate("Vous avez changé l'url de la bannière").'<br /><a href="javascript:history.go(-1)" class="alert-link">'.translate("Retour en arrière").'</a></div>';
+    } else
+        echo '
+        <div class="alert alert-danger">'.translate("Identifiant incorrect !").'<br />'.translate("Merci de").' <a href="banners.php?op=login" class="alert-link">'.translate("vous reconnecter.").'</a></div>';
     footer_page();
 }
 settype($op,'string');
@@ -390,11 +377,10 @@ switch ($op) {
       EmailStats($login, $cid, $bid);
    break;
    default:
-      if ($banners) {
+      if ($banners)
          viewbanner();
-      } else {
+      else
          redirect_url('index.php');
-      }
    break;
 }
 ?>

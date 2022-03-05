@@ -55,7 +55,7 @@ function subscribe($var) {
          '.Q_spambot().'
          <input type="hidden" name="email" value="'.$var.'" />
          <input type="hidden" name="op" value="subscribeOK" />
-         <input type="submit" class="btn btn-outline-primary mr-2" value="'.translate("Valider").'" />
+         <input type="submit" class="btn btn-outline-primary me-2" value="'.translate("Valider").'" />
          <a href="index.php" class="btn btn-outline-secondary">'.translate("Retour en arrière").'</a>
       </form>';
       include("footer.php");
@@ -78,7 +78,7 @@ function subscribe_ok($xemail) {
             sql_query("INSERT INTO ".$NPDS_Prefix."lnl_outside_users VALUES ('$xemail', '$host_name', '$timeX', 'OK')");
             // Email validation + url to unsubscribe
             global $sitename, $nuke_url;
-            $subject = translate("La lettre").' / '.$sitename;
+            $subject = html_entity_decode(translate("La lettre"),ENT_COMPAT | ENT_HTML401,cur_charset).' / '.$sitename;
             $message = translate("Merci d'avoir consacré du temps pour vous enregistrer.").'<br /><br />'.translate("Pour supprimer votre abonnement à notre lettre, merci d'utiliser").' : <br />'.$nuke_url.'/lnl.php?op=unsubscribe&email='.$xemail.'<br /><br />';
             include("signat.php");
             send_email($xemail, $subject, $message, '', true, 'html');

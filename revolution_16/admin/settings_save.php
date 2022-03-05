@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011                                   */
-/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,7 +16,7 @@ function GetMetaTags($filename) {
       $temp = file($filename);
       foreach($temp as $line) {
          $aline = trim(stripslashes($line));
-         if (preg_match("#<meta (name|http-equiv)=\"([^\"]*)\" content=\"([^\"]*)\"#i",$aline,$regs)) {
+         if (preg_match("#<meta (name|http-equiv|property)=\"([^\"]*)\" content=\"([^\"]*)\"#i",$aline,$regs)) {
             $regs[2] = strtolower($regs[2]);
             $tags[$regs[2]] = $regs[3];
          }
@@ -37,35 +37,32 @@ function MetaTagMakeSingleTag($name, $content, $type='name') {
 }
 
 function MetaTagSave($filename, $tags) {
-   if (!is_array($tags)) { return false; }
+   if (!is_array($tags)) return false;
    global $adminmail, $Version_Id, $Version_Num, $Version_Sub;
    $fh = fopen($filename, "w");
    if ($fh) {
       $content = "<?php\n/* Do not change anything in this file manually. Use the administration interface*/\n";
+      $content.= "global \$nuke_url;\n";
       $content.= "settype(\$meta_doctype,'string');\n";
       $content.= "settype(\$nuke_url,'string');\n";
       $content.= "settype(\$meta_op,'string');\n";
       $content.= "settype(\$m_description,'string');\n";
       $content.= "settype(\$m_keywords,'string');\n";
+      $content .= "\$taglang=\"<meta name=\\\"lang\\\" content=\\\"".$tags['language']."\\\" />\";\n";
       $content.= "if (\$meta_doctype==\"\")\n";
       if (!empty($tags['doctype'])) {
-         if ($tags['doctype']=="HTML 4.01 Transitional")
-            $content .="   \$l_meta=\"<!DOCTYPE HTML PUBLIC \\\"-//W3C//DTD HTML 4.01 Transitional//EN\\\">\\n<html>\\n<head>\\n<title>\\n\\n\";\n";
-         if ($tags['doctype']=="HTML 4.01 Strict")
-            $content .="   \$l_meta=\"<!DOCTYPE HTML PUBLIC \\\"-//W3C//DTD HTML 4.01//EN\\\" \\\"http://www.w3.org/TR/html4/strict.dtd\\\">\\n<html>\\n<head>\\n<title>\\n\\n\";\n";
          if ($tags['doctype']=="XHTML 1.0 Transitional")
-            $content .="   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head><title>\\n\\n\";\n";
+            $content .="   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\n<html lang=\\\"".$tags['language']."\\\" xml:lang=\\\"".$tags['language']."\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n\";\n";
          if ($tags['doctype']=="XHTML 1.0 Strict")
-            $content .="   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Strict//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\\\">\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n<title>\\n\\n\";\n";
-        if ($tags['doctype']=="HTML 5.0")
-            $content .="   \$l_meta=\"<!DOCTYPE html>\\n<html>\\n<head>\\n<title>\\n\\n\";\n";
+            $content .="   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Strict//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\\\">\\n<html lang=\\\"".$tags['language']."\\\" xml:lang=\\\"".$tags['language']."\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n\";\n";
+        if ($tags['doctype']=="HTML 5.1")
+            $content .="   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"".$tags['language']."\\\">\\n<head>\\n\";\n";
        } else {
-         $tags['doctype']="HTML 4.01 Transitional";
-         $content .="   \$l_meta=\"<!DOCTYPE HTML PUBLIC \\\"-//W3C//DTD HTML 4.01 Transitional//EN\\\" \\\"http://www.w3.org/TR/html4/loose.dtd\\\">\\n<html>\\n<head>\\n<title>\\n\\n\";\n";
+         $tags['doctype']="HTML 5.1";
+         $content .="   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"".$tags['language']."\\\">\\n<head>\\n\";\n";
       }
-
       $content.="else\n";
-      $content.="   \$l_meta=\$meta_doctype.\"\\n<html>\\n<head><title>\\n\\n\";\n";
+      $content.="   \$l_meta=\$meta_doctype.\"\\n<html lang=\\\"".$tags['language']."\\\">\\n<head>\\n\";\n";
 
       if (!empty($tags['content-type'])) {
          $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']),ENT_COMPAT|ENT_HTML401,cur_charset);
@@ -75,23 +72,23 @@ function MetaTagSave($filename, $tags) {
             fwrite($fp, "if (!defined(\"doctype\"))\n   define ('doctype', \"".$tags['doctype']."\");\n?>");
          }
          fclose($fp);
-         if ($tags['doctype']=="HTML 5.0") {
-            $content .= MetaTagMakeSingleTag('content-type', 'text/html', 'http-equiv');
+         if ($tags['doctype']=="HTML 5.1") {
+//            $content .= MetaTagMakeSingleTag('content-type', 'text/html', 'http-equiv');
             $content .= MetaTagMakeSingleTag('utf-8', '', 'charset');
          } else
             $content .= MetaTagMakeSingleTag('content-type', $tags['content-type'], 'http-equiv');
       } else {
          $fp = fopen("meta/cur_charset.php", "w");
          if ($fp) {
-            fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"iso-8859-1\");\n");
+            fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"utf-8\");\n");
             fwrite($fp, "if (!defined(\"doctype\"))\n   define ('doctype', \"".$tags['doctype']."\");\n?>");
          }
          fclose($fp);
-         $content .= MetaTagMakeSingleTag('content-type', "text/html; charset=iso-8859-1", 'http-equiv');
+         $content .= MetaTagMakeSingleTag('content-type', "text/html; charset=utf-8", 'http-equiv');
       }
-      
-      $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no');//to do =>put in admin interface
-      $content .= MetaTagMakeSingleTag('X-UA-Compatible', 'IE=edge', 'http-equiv');//to do =>put in admin interface
+      $content .= "\$l_meta.=\"<title>\$Titlesitename</title>\\n\";\n";
+      $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no');
+      $content .= MetaTagMakeSingleTag('X-UA-Compatible', 'IE=edge', 'http-equiv');//to remove ?
       $content .= MetaTagMakeSingleTag('content-script-type', 'text/javascript', 'http-equiv');
       $content .= MetaTagMakeSingleTag('content-style-type', 'text/css', 'http-equiv');
       $content .= MetaTagMakeSingleTag('expires', '0', 'http-equiv');
@@ -110,18 +107,8 @@ function MetaTagSave($filename, $tags) {
       if (!empty($tags['reply-to'])) {
          $tags['reply-to'] = htmlspecialchars(stripslashes($tags['reply-to']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('reply-to', $tags['reply-to']);
-      } else {
+      } else
          $content .= MetaTagMakeSingleTag('reply-to', $adminmail);
-      }
-      if (!empty($tags['language'])) {
-         $tags['language'] = htmlspecialchars(stripslashes($tags['language']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= MetaTagMakeSingleTag('language', $tags['language']);
-         if ($tags['language'] == "fr") {
-            $content .= MetaTagMakeSingleTag('content-language', 'fr, fr-be, fr-ca, fr-lu, fr-ch', 'http-equiv');
-         } else {
-            $content .= MetaTagMakeSingleTag('content-language', $tags['language'], 'http-equiv');
-         }
-      }
       if (!empty($tags['description'])) {
          $tags['description'] = htmlspecialchars(stripslashes($tags['description']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .="if (\$m_description!=\"\")\n";
@@ -151,14 +138,19 @@ function MetaTagSave($filename, $tags) {
       if (!empty($tags['revisit-after'])) {
          $tags['revisit-after'] = htmlspecialchars(stripslashes($tags['revisit-after']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= MetaTagMakeSingleTag('revisit-after', $tags['revisit-after']);
-      } else {
+      } else
          $content .= MetaTagMakeSingleTag('revisit-after', "14 days");
-      }
       $content .= MetaTagMakeSingleTag('resource-type', "document");
       $content .= MetaTagMakeSingleTag('robots', $tags['robots']);
       $content .= MetaTagMakeSingleTag('generator', "$Version_Id $Version_Num $Version_Sub");
-
-      $content .= "\$l_meta=str_replace(\"<title>\",\"<title>\$Titlesitename</title>\",\$l_meta);\n";
+      //==> OpenGraph Meta Tags
+      $content .= MetaTagMakeSingleTag('og:type', 'website', 'property');
+      $content .= MetaTagMakeSingleTag('og:url', '$nuke_url', 'property');
+      $content .= MetaTagMakeSingleTag('og:title', '$Titlesitename', 'property');
+      $content .= MetaTagMakeSingleTag('og:description', $tags['description'], 'property');
+      $content .= MetaTagMakeSingleTag('og:image', '$nuke_url/images/ogimg.jpg', 'property');
+      $content .= MetaTagMakeSingleTag('twitter:card', 'summary', 'property');
+      //<== OpenGraph Meta Tags
       $content .= "if (\$meta_op==\"\") echo \$l_meta; else \$l_meta=str_replace(\"\\n\",\"\",str_replace(\"\\\"\",\"'\",\$l_meta));\n?>";
       fwrite($fh, $content);
       fclose($fh);
@@ -563,7 +555,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
    $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
    if ($NPDS_Key=='') $NPDS_Key=uniqid("");
    $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-   $content .= "\$Version_Num = \"v.16.3\";\n";
+   $content .= "\$Version_Num = \"v.16.4\";\n";
    $content .= "\$Version_Id = \"NPDS\";\n";
    $content .= "\$Version_Sub = \"REvolution\";\n";
    $content .= "\n";

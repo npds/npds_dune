@@ -1,13 +1,12 @@
 <?php
-   global $cookie, $anonymous, $NPDS_Prefix, $mns, $Default_Skin;
-   $con='';$ava='';$cha='';$bal='';$menuser='';
+   global $cookie, $anonymous, $NPDS_Prefix, $Default_Skin;
+   $ava='';$cha='';$bal='';$menuser='';
    if ($user) {
+      include_once('functions.php');
+      $userdata = get_userdata_from_id($cookie[0]);
       $username = $cookie[1];
       $ibix=explode('+', urldecode($cookie[9]));
-      if(array_key_exists(1, $ibix))
-         $skinname = $ibix[1];
-      else
-         $skinname = "default";
+      $skinname = array_key_exists(1, $ibix) ? $ibix[1] : "default";
    }
    else {
       $skinname = $Default_Skin;
@@ -30,32 +29,34 @@
          $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
       break;
       default :
-         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti yeren default
+         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti default
       break;
    }
 
    if (!isset($powerpack)) include_once ("powerpack.php");
 
    if (autorisation(-1)) {
-      $con = '!nb_online! - <a href="user.php">Se connecter</a>';
-      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connexion").'</a>';
-      $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-4x text-muted"></i></a>';
-   } elseif (autorisation(1)) {
+      $btn_con = '<a class="dropdown-item" href="user.php"><i class="fas fa-sign-in-alt fa-lg me-2 align-middle"></i>'.translate("Connexion").'</a>';
+      $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-3x text-muted"></i></a>';
+   }
+   elseif (autorisation(1)) {
+      list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
+      $cl = $nbmes>0 ? ' faa-shake animated ' : '';
       $menuser .='
-                  <li><a class="dropdown-item" href="user.php?op=edituser" title="'.translate("Vous").'"  ><i class="fa fa-user fa-lg mr-2"></i>'.translate("Vous").'</a></li>
-                  <li><a class="dropdown-item" href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" ><i class="fa fa-edit fa-lg mr-2"></i>'.translate("Journal").'</a></li>';
+                  <li><a class="dropdown-item" href="user.php?op=edituser" title="'.translate("Vous").'"  ><i class="fa fa-user-edit fa-lg me-2"></i>'.translate("Vous").'</a></li>
+                  <li><a class="dropdown-item" href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" ><i class="fa fa-edit fa-lg me-2"></i>'.translate("Journal").'</a></li>';
       include_once ("modules/upload/upload.conf.php");
-      if (($mns) and ($autorise_upload_p)) {
-         include ("modules/blog/upload_minisite.php");
-         $PopUp=win_upload("popup");
+      if (($userdata['mns']) and ($autorise_upload_p)) {
+         include_once ("modules/blog/upload_minisite.php");
+         $Pop=win_upload("popup");
          $menuser .= '
-                  <li><a class="dropdown-item" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Gérer votre miniSite").'"><i class="fa fa-desktop fa-lg mr-2"></i>'.translate("MiniSite").'</a></li>';
+                  <li><a class="dropdown-item" href="javascript:void(0);" onclick="window.open('.$Pop.')" title="'.translate("Gérer votre miniSite").'"><i class="fa fa-desktop fa-lg me-2"></i>'.translate("MiniSite").'</a></li>';
       }
       $menuser .= '
-                  <li><a class="dropdown-item " href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" ><i class="fa fa-edit fa-lg mr-2 "></i>'.translate("Page").'</a></li>
-                  <li><a class="dropdown-item " href="user.php?op=chgtheme" title="'.translate("Changer le thème").'" ><i class="fa fa-paint-brush fa-lg mr-2"></i>'.translate("Thème").'</a></li>
-                  <li><a class="dropdown-item " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'" ><i class="fa fa-share-alt-square fa-lg mr-2"></i>'.translate("Réseaux sociaux").'</a></li>
-                  <li><a class="dropdown-item " href="viewpmsg.php" title="'.translate("Message personnel").'" ><i class="fa fa-envelope fa-lg mr-2"></i>'.translate("Message").'</a></li>';
+                  <li><a class="dropdown-item " href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" ><i class="fa fa-edit fa-lg me-2 "></i>'.translate("Page").'</a></li>
+                  <li><a class="dropdown-item " href="user.php?op=chgtheme" title="'.translate("Changer le thème").'" ><i class="fa fa-paint-brush fa-lg me-2"></i>'.translate("Thème").'</a></li>
+                  <li><a class="dropdown-item " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'" ><i class="fa fa-share-alt-square fa-lg me-2"></i>'.translate("Réseaux sociaux").'</a></li>
+                  <li><a class="dropdown-item " href="viewpmsg.php" title="'.translate("Message personnel").'" ><i class="fa fa-envelope fa-lg me-2 '.$cl.'"></i>'.translate("Message").'</a></li>';
       settype($cookie[0], 'integer');
       list($user_avatar)=sql_fetch_row(sql_query("SELECT user_avatar FROM ".$NPDS_Prefix."users WHERE uname='".$username."'"));
 
@@ -68,43 +69,44 @@
          if (!file_exists($imgtmp)) {$imgtmp="images/forum/avatar/blank.gif";}
       }
 
-      list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
       if ($nbmes>0)
-         $bal = '<li class="nav-item"><a class="nav-link" href="viewpmsg.php"><i class="fa fa-envelope fa-lg faa-shake animated" title="'.translate("Message personnel").' <span class=\'badge-pill badge-danger ml-2\'>'.$nbmes.'</span>" data-html="true" data-toggle="tooltip" data-placement="right"></i></a></li>';
+         $bal = '<li class="nav-item"><a class="nav-link" href="viewpmsg.php"><i class="fa fa-envelope fs-4 faa-shake animated" title="'.translate("Message personnel").' <span class=\'badge rounded-pill bg-danger ms-2\'>'.$nbmes.'</span>" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right"></i></a></li>';
 
-      $ava='<a class="dropdown-item" href="user.php" ><img src="'.$imgtmp.'" width="64" height="64" alt="avatar" title="'.translate("Votre compte").'" data-toggle="tooltip" data-placement="right" /></a><li class="dropdown-divider"></li>';
-      $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fas fa-sign-out-alt fa-lg text-danger"></i>'.translate("Déconnexion").'</a>';
+      $ava='<a class="dropdown-item" href="user.php" ><img src="'.$imgtmp.'" class="n-ava-64" alt="avatar" title="'.translate("Votre compte").'" data-bs-toggle="tooltip" data-bs-placement="right" /></a><li class="dropdown-divider"></li>';
+      $btn_con='<a class="dropdown-item" href="user.php?op=logout"><i class="fas fa-sign-out-alt fa-lg text-danger me-2"></i>'.translate("Déconnexion").'</a>';
    }
 ?>
 
    <nav id="uppernavbar" class=" <?php echo $headerclasses; ?>">
-      <a class="navbar-brand" href="index.php" ><span data-toggle="tooltip" data-html="true" data-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt;&lt;/i&gt;">NPDS^ 16</span></a>
-      <button href="#" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barnav">
-         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="barnav">
-         <ul class="navbar-nav">
-            <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">News</a>
-               <ul class="dropdown-menu" role="menu">
-                  <li><a class="dropdown-item" href="index.php?op=index.php">[french]Les articles[/french][english]Stories[/english][chinese]&#x6587;&#x7AE0;[/chinese][spanish]Art&#xED;culo[/spanish][german]Artikeln[/german]</a></li>
-                  <li><a class="dropdown-item" href="search.php">[french]Les archives[/french][english]Archives[/english][chinese]&#x6863;&#x6848;&#x9986;[/chinese][spanish]Los archivos[/spanish][german]Die Archive[/german]</a></li>
-                  <li><a class="dropdown-item" href="submit.php">[french]Soumettre un article[/french][english]Submit a New[/english][chinese]&#x63D0;&#x8BAE;&#x51FA;&#x7248;&#x4E00;&#x4EFD;&#x51FA;&#x7248;&#x7269;[/chinese][spanish]Enviar un artículo[/spanish][german]Publikation vorschlagen[/german]</a></li>
-               </ul>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="forum.php">Forums</a></li>
-            <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
-            <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
-            <li class="nav-item dropdown">
-               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
-               <ul class="dropdown-menu">
-                  <li><?php echo $ava; ?></li>
-                  <?php echo $menuser; ?>
-                  <li class="dropdown-divider"></li>
-                  <li><?php echo $btn_con; ?></li>
-               </ul>
-            </li>
-            <?php echo $bal; ?>
-         </ul>
+      <div class="container-fluid">
+         <a class="navbar-brand" href="index.php" ><span data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt;&lt;/i&gt;">NPDS^ 16</span></a>
+         <button href="#" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="barnav">
+            <ul class="navbar-nav">
+               <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">News</a>
+                  <ul class="dropdown-menu" role="menu">
+                     <li><a class="dropdown-item" href="index.php?op=index.php">[french]Les articles[/french][english]Stories[/english][chinese]&#x6587;&#x7AE0;[/chinese][spanish]Art&#xED;culo[/spanish][german]Artikeln[/german]</a></li>
+                     <li><a class="dropdown-item" href="search.php">[french]Les archives[/french][english]Archives[/english][chinese]&#x6863;&#x6848;&#x9986;[/chinese][spanish]Los archivos[/spanish][german]Die Archive[/german]</a></li>
+                     <li><a class="dropdown-item" href="submit.php">[french]Soumettre un article[/french][english]Submit a New[/english][chinese]&#x63D0;&#x8BAE;&#x51FA;&#x7248;&#x4E00;&#x4EFD;&#x51FA;&#x7248;&#x7269;[/chinese][spanish]Enviar un artículo[/spanish][german]Publikation vorschlagen[/german]</a></li>
+                  </ul>
+               </li>
+               <li class="nav-item"><a class="nav-link" href="forum.php">[french]Forums[/french][english]Forums[/english][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese][spanish]Foros[/spanish][german]Foren[/german]</a></li>
+               <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
+               <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
+               <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
+                  <ul class="dropdown-menu">
+                     <li><?php echo $ava; ?></li>
+                     <?php echo $menuser; ?>
+                     <li class="dropdown-divider"></li>
+                     <li><?php echo $btn_con; ?></li>
+                  </ul>
+               </li>
+               <?php echo $bal; ?>
+            </ul>
+         </div>
       </div>
    </nav>
    <div class="page-header">
@@ -113,11 +115,11 @@
          <div id="logo_header" class="col-sm-6">
             <h1 class="my-4">NPDS<br /><small class="text-muted">Responsive</small></h1>
          </div>
-         <div id="ban" class="col-sm-4 text-right">!banner!</div>
+         <div id="ban" class="col-sm-4 text-end">!banner!</div>
       </div>
       <div class="row">
          <div id="slogan" class="col-sm-8 text-muted slogan"><strong>!slogan!</strong></div>
-         <div id="online" class="col-sm-4 text-muted text-right">!nb_online!</div>
+         <div id="online" class="col-sm-4 text-muted text-end">!nb_online!</div>
       </div>
    </div>
    <script type="text/javascript">

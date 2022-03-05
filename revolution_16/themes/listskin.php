@@ -4,12 +4,27 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
+
+   $lepath = dirname($_SERVER['PHP_SELF']);
+   $rech = '#(.*\/)(themes\/_skins)\/(.*)#';
+   preg_match_all($rech, $lepath, $result);
+/*
+   var_dump($matches);
+   var_dump($result[0]);
+   var_dump($result[1]);
+   var_dump($result[2]);
+   var_dump($result[3]);
+*/
+//$host = $_SERVER['HTTP_HOST'];
+//var_dump($_SERVER['HTTP_HOST']); 
+
+// Print the entire match result
 
    $optskins=array('');
    $handle=opendir('../../../themes/_skins');
@@ -22,6 +37,7 @@
    natcasesort($optskins);
    $optskins=implode(' ',$optskins);
    $skinpath = dirname($_SERVER['PHP_SELF']);
+//   var_dump($skinpath);
    $parts = explode('/', $skinpath);
    $skinametitre = end($parts);
 
@@ -42,7 +58,7 @@
          $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
       break;
       default :
-         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti yeren default
+         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti default
       break;
    }
 
@@ -54,8 +70,9 @@
       <title>NPDS <?php echo $skinametitre; ?> skin by Bootswatch</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <link rel="stylesheet" href="../../../../lib/font-awesome/css/all.min.css">
+      <link rel="stylesheet" href="<?php echo implode($result[1]); ?>lib/font-awesome/css/all.min.css">
       <link rel="stylesheet" href="bootstrap.min.css" />
+      <link rel="stylesheet" href="<?php echo implode($result[1]); ?>lib/css/prism.css" />
       <link rel="stylesheet" href="../assets/css/custom.min.css" />
       <style>
          .scrollable-menu {
@@ -76,23 +93,24 @@
    </head>
    <body>
       <nav class="<?php echo $headerclasses; ?>">
-        <a class="navbar-brand" href="#">NPDS skins</a>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barnav" aria-controls="barnav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="barnav">
-            <ul class="nav navbar-nav">
-                  <li class="nav-item"><a class="nav-link" href="../../../../"><i class="fa fa-home fa-lg"></i></a></li>
-                  <li class="nav-item"><a class="nav-link" href="../../../../user.php?op=chgtheme"><i class="fas fa-paint-brush fa-lg"></i></a></li>
+         <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img class="me-2" width="32px" height="32px" src="<?php echo implode($result[1]); ?>images/admin/message_npds.png" alt="logo_npds">NPDS skins</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav" aria-controls="barnav" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="barnav">
+               <ul class="nav navbar-nav">
+                  <li class="nav-item"><a class="nav-link" href="<?php echo implode($result[1]); ?>"><i class="fa fa-home fa-lg"></i></a></li>
+                  <li class="nav-item"><a class="nav-link" href="<?php echo implode($result[1]); ?>user.php?op=chgtheme"><i class="fas fa-paint-brush fa-lg"></i></a></li>
                   <li class="nav-item dropdown">
-                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
+                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
                      <div class="dropdown-menu" aria-labelledby="skins"  role="menu">
                         <a class="dropdown-item" href="../default">Default</a>
                         <?php echo $optskins; ?>
                      </div>
                   </li>
                   <li class="nav-item dropdown">
-                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">T&eacute;l&eacute;chargement</a>
+                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">T&eacute;l&eacute;chargement</a>
                         <ul class="dropdown-menu">
                            <li><a class="dropdown-item" href="./bootstrap.css" target="_blank">bootstrap.css</a></li>
                            <li><a class="dropdown-item" href="./bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
@@ -101,11 +119,12 @@
                            <li><a class="dropdown-item" href="./_variables.scss">_variables.scss</a></li>
                         </ul>
                      </li>
-                </ul>
-               <ul class="nav navbar-nav ml-auto">
+               </ul>
+               <ul class="nav navbar-nav ms-auto">
                   <li class="nav-item"><a class="nav-link" href="http://bootswatch.com/" target="_blank">Built With Bootswatch</a></li>
                </ul>
             </div>
+         </div>
       </nav>
       <div class="container">
          <div class="" style="background-position: 0px -65px;">
@@ -145,78 +164,78 @@
             <div class="page-header">
               <h1 id="navbars">Barre de navigation</h1>
             </div>
-
             <div class="bs-component">
               <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation" style="">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="navbar-collapse collapse show" id="navbarColor01" style="">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">About</a>
-                    </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                  </form>
+                 <div class="container-fluid">
+                   <a class="navbar-brand" href="#">Navbar</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation" style="">
+                     <span class="navbar-toggler-icon"></span>
+                   </button>
+                   <div class="navbar-collapse collapse" id="navbarColor01" style="">
+                     <ul class="navbar-nav me-auto">
+                       <li class="nav-item active">
+                         <a class="nav-link" href="#">Home <span class="visually-hidden"">(current)</span></a>
+                       </li>
+                       <li class="nav-item">
+                         <a class="nav-link" href="#">Features</a>
+                       </li>
+                       <li class="nav-item">
+                         <a class="nav-link" href="#">Pricing</a>
+                       </li>
+                       <li class="nav-item">
+                         <a class="nav-link" href="#">About</a>
+                       </li>
+                     </ul>
+                     <form class="d-flex">
+                       <input class="form-control me-sm-2" type="text" placeholder="Search" />
+                       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                     </form>
+                   </div>
                 </div>
               </nav>
             </div>
-
             <div class="bs-component">
               <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="true" aria-label="Toggle navigation" style="">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="navbar-collapse collapse show" id="navbarColor02" style="">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">About</a>
-                    </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                  </form>
+                <div class="container-fluid">
+                   <a class="navbar-brand" href="#">Navbar</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="true" aria-label="Toggle navigation" style="">
+                     <span class="navbar-toggler-icon"></span>
+                   </button>
+                   <div class="navbar-collapse collapse show" id="navbarColor02" style="">
+                     <ul class="navbar-nav me-auto">
+                       <li class="nav-item active">
+                         <a class="nav-link" href="#">Home <span class="visually-hidden"">(current)</span></a>
+                       </li>
+                       <li class="nav-item">
+                         <a class="nav-link" href="#">Features</a>
+                       </li>
+                       <li class="nav-item">
+                         <a class="nav-link" href="#">Pricing</a>
+                       </li>
+                       <li class="nav-item">
+                         <a class="nav-link" href="#">About</a>
+                       </li>
+                     </ul>
+                     <form class="d-flex">
+                       <input class="form-control me-sm-2" type="text" placeholder="Search">
+                       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                     </form>
+                   </div>
                 </div>
               </nav>
             </div>
-
             <div class="bs-component">
               <nav class="navbar navbar-expand-lg navbar-light bg-light">
+               <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="true" aria-label="Toggle navigation" style="">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="true" aria-label="Toggle navigation" style="">
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="navbar-collapse collapse show" id="navbarColor03" style="">
-                  <ul class="navbar-nav mr-auto">
+                  <ul class="navbar-nav me-auto">
                     <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="#">Home <span class="visually-hidden"">(current)</span></a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">Features</a>
@@ -228,14 +247,14 @@
                       <a class="nav-link" href="#">About</a>
                     </li>
                   </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                  <form class="d-flex">
+                    <input class="form-control me-sm-2" type="text" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                   </form>
                 </div>
+                </div>
               </nav>
             </div>
-
           </div>
         </div>
       </div>
@@ -286,7 +305,7 @@
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-primary">Primary</button>
                 <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                     <a class="dropdown-item" href="#">Dropdown link</a>
                     <a class="dropdown-item" href="#">Dropdown link</a>
@@ -297,7 +316,7 @@
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-success">Success</button>
                 <div class="btn-group" role="group">
-                  <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                  <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop2" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                     <a class="dropdown-item" href="#">Dropdown link</a>
                     <a class="dropdown-item" href="#">Dropdown link</a>
@@ -308,7 +327,7 @@
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-info">Info</button>
                 <div class="btn-group" role="group">
-                  <button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                  <button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop3" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                     <a class="dropdown-item" href="#">Dropdown link</a>
                     <a class="dropdown-item" href="#">Dropdown link</a>
@@ -319,7 +338,7 @@
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-danger">Danger</button>
                 <div class="btn-group" role="group">
-                  <button id="btnGroupDrop4" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                  <button id="btnGroupDrop4" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop4" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                     <a class="dropdown-item" href="#">Dropdown link</a>
                     <a class="dropdown-item" href="#">Dropdown link</a>
@@ -342,7 +361,7 @@
             </p>
 
             <div class="bs-component" style="margin-bottom: 15px;">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <div class="btn-group btn-group-toggle" data-bs-toggle="buttons">
                 <label class="btn btn-primary active">
                   <input type="checkbox" checked="" autocomplete="off"> Active
                 </label>
@@ -356,7 +375,7 @@
             </div>
 
             <div class="bs-component" style="margin-bottom: 15px;">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <div class="btn-group btn-group-toggle" data-bs-toggle="buttons">
                 <label class="btn btn-primary active">
                   <input type="radio" name="options" id="option1" autocomplete="off" checked=""> Active
                 </label>
@@ -370,7 +389,7 @@
             </div>
 
             <div class="bs-component">
-              <div class="btn-group-vertical" data-toggle="buttons">
+              <div class="btn-group-vertical" data-bs-toggle="buttons">
                 <button type="button" class="btn btn-primary">Button</button>
                 <button type="button" class="btn btn-primary">Button</button>
                 <button type="button" class="btn btn-primary">Button</button>
@@ -390,13 +409,13 @@
 
             <div class="bs-component" style="margin-bottom: 15px;">
               <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group mr-2" role="group" aria-label="First group">
+                <div class="btn-group me-2" role="group" aria-label="First group">
                   <button type="button" class="btn btn-secondary">1</button>
                   <button type="button" class="btn btn-secondary">2</button>
                   <button type="button" class="btn btn-secondary">3</button>
                   <button type="button" class="btn btn-secondary">4</button>
                 </div>
-                <div class="btn-group mr-2" role="group" aria-label="Second group">
+                <div class="btn-group me-2" role="group" aria-label="Second group">
                   <button type="button" class="btn btn-secondary">5</button>
                   <button type="button" class="btn btn-secondary">6</button>
                   <button type="button" class="btn btn-secondary">7</button>
@@ -437,7 +456,7 @@
                 <small class="text-muted">with muted text</small>
               </h3>
               <p class="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
+            <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
@@ -490,7 +509,7 @@
           </div>
           <div class="col-lg-4">
             <div class="bs-component">
-              <blockquote class="blockquote text-right">
+              <blockquote class="blockquote text-end">
                 <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                 <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
               </blockquote>
@@ -580,7 +599,7 @@
                   </tr>
                 </tbody>
               </table> 
-            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div><!-- /example -->
+            <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div><!-- /example -->
           </div>
         </div>
       </div>
@@ -598,213 +617,185 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="bs-component">
-              <form>
-                <fieldset>
-                  <legend>L&eacute;gende</legend>
-                  <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                      <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleSelect1">Example select</label>
-                    <select class="form-control" id="exampleSelect1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleSelect2">Example multiple select</label>
-                    <select multiple="" class="form-control" id="exampleSelect2">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleTextarea">Example textarea</label>
-                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-                    <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-                  </div>
-                  <fieldset class="form-group">
-                    <legend>Boutons radio</legend>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                        Option one is this and that—be sure to include why it's great
-                      </label>
-                    </div>
-                    <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
-                        Option two can be something else and selecting it will deselect option one
-                      </label>
-                    </div>
-                    <div class="form-check disabled">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">
-                        Option three is disabled
-                      </label>
-                    </div>
-                  </fieldset>
-                  <fieldset class="form-group">
-                    <legend>Case &agrave; cocher</legend>
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" checked="">
-                        Option one is this and that—be sure to include why it's great
-                      </label>
-                    </div>
-                    <div class="form-check disabled">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="" disabled="">
-                        Option two is disabled
-                      </label>
-                    </div>
-                  </fieldset>
-                  <fieldset class="form-group">
-                     <legend>Sliders</legend>
-                     <label for="customRange1">Example range</label>
-                     <input type="range" class="custom-range" id="customRange1">
-                   </fieldset>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </fieldset>
-              </form>
-            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
+<form>
+  <fieldset>
+    <legend>Legend</legend>
+    <div class="mb-3 row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10">
+        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <div class="mb-3">
+      <label for="exampleSelect1" class="form-label mt-4">Example select</label>
+      <select class="form-select" id="exampleSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleSelect2" class="form-label mt-4">Example multiple select</label>
+      <select multiple="" class="form-select" id="exampleSelect2">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleTextarea" class="form-label mt-4">Example textarea</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="formFile" class="form-label mt-4">Default file input example</label>
+      <input class="form-control" type="file" id="formFile">
+    </div>
+    <fieldset class="mb-3">
+      <legend class="mt-4">Radio buttons</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+          Option one is this and that—be sure to include why it's great
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+          Option two can be something else and selecting it will deselect option one
+        </label>
+      </div>
+      <div class="form-check disabled">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">
+          Option three is disabled
+        </label>
+      </div>
+    </fieldset>
+    <fieldset class="mb-3">
+      <legend class="mt-4">Checkboxes</legend>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Default checkbox
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked="">
+        <label class="form-check-label" for="flexCheckChecked">
+          Checked checkbox
+        </label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend class="mt-4">Switches</legend>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
+        <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+      </div>
+    </fieldset>
+    <fieldset class="mb-3">
+      <legend class="mt-4">Ranges</legend>
+        <label for="customRange1" class="form-label">Example range</label>
+        <input type="range" class="form-range" id="customRange1">
+        <label for="disabledRange" class="form-label">Disabled range</label>
+        <input type="range" class="form-range" id="disabledRange" disabled="">
+        <label for="customRange3" class="form-label">Example range</label>
+        <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+            <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
           <div class="col-lg-4 offset-lg-1">
 
             <form class="bs-component">
-              <div class="form-group">
-                <fieldset disabled="">
-                  <label class="control-label" for="disabledInput">Disabled input</label>
-                  <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="">
-                </fieldset>
-              </div>
+<div class="mb-3">
+  <fieldset disabled="">
+    <label class="form-label" for="disabledInput">Disabled input</label>
+    <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="">
+  </fieldset>
+</div>
 
-              <div class="form-group">
-                <fieldset>
-                  <label class="control-label" for="readOnlyInput">Readonly input</label>
-                  <input class="form-control" id="readOnlyInput" type="text" placeholder="Readonly input here…" readonly="">
-                </fieldset>
-              </div>
+<div class="mb-3">
+  <fieldset>
+    <label class="form-label mt-4" for="readOnlyInput">Readonly input</label>
+    <input class="form-control" id="readOnlyInput" type="text" placeholder="Readonly input here..." readonly="">
+  </fieldset>
+</div>
 
-              <div class="form-group has-success">
-                <label class="form-control-label" for="inputSuccess1">Valid input</label>
-                <input type="text" value="correct value" class="form-control is-valid" id="inputValid">
-                <div class="valid-feedback">Success! You've done it.</div>
-              </div>
+<div class="mb-3 has-success">
+  <label class="form-label mt-4" for="inputValid">Valid input</label>
+  <input type="text" value="correct value" class="form-control is-valid" id="inputValid">
+  <div class="valid-feedback">Success! You've done it.</div>
+</div>
 
-              <div class="form-group has-danger">
-                <label class="form-control-label" for="inputDanger1">Invalid input</label>
-                <input type="text" value="wrong value" class="form-control is-invalid" id="inputInvalid">
-                <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
-              </div>
+<div class="mb-3 has-danger">
+  <label class="form-label mt-4" for="inputInvalid">Invalid input</label>
+  <input type="text" value="wrong value" class="form-control is-invalid" id="inputInvalid">
+  <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
+</div>
 
-              <div class="form-group">
-                <label class="col-form-label col-form-label-lg" for="inputLarge">Large input</label>
-                <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" id="inputLarge">
-              </div>
+<div class="mb-3">
+  <label class="col-form-label col-form-label-lg mt-4" for="inputLarge">Large input</label>
+  <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" id="inputLarge">
+</div>
 
-              <div class="form-group">
-                <label class="col-form-label" for="inputDefault">Default input</label>
-                <input type="text" class="form-control" placeholder="Default input" id="inputDefault">
-              </div>
+<div class="mb-3">
+  <label class="col-form-label mt-4" for="inputDefault">Default input</label>
+  <input type="text" class="form-control" placeholder="Default input" id="inputDefault">
+</div>
 
-              <div class="form-group">
-                <label class="col-form-label col-form-label-sm" for="inputSmall">Small input</label>
-                <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" id="inputSmall">
-              </div>
+<div class="mb-3">
+  <label class="col-form-label col-form-label-sm mt-4" for="inputSmall">Small input</label>
+  <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" id="inputSmall">
+</div>
 
-              <div class="form-group">
-                <label class="control-label">Input addons</label>
-                <div class="form-group">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">$</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    <div class="input-group-append">
-                      <span class="input-group-text">.00</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
+<div class="mb-3">
+  <label class="form-label mt-4">Input addons</label>
+  <div class="mb-3">
+    <div class="input-group mb-3">
+      <span class="input-group-text">$</span>
+      <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+      <span class="input-group-text">.00</span>
+    </div>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button class="btn btn-primary" type="button" id="button-addon2">Button</button>
+    </div>
+  </div>
+</div>
 
-            <div class="bs-component">
-              <fieldset>
-                <legend>Custom forms</legend>
-                <div class="form-group">
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
-                    <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" disabled="">
-                    <label class="custom-control-label" for="customRadio3">Disabled custom radio</label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" checked="">
-                    <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-                  </div>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck2" disabled="">
-                    <label class="custom-control-label" for="customCheck2">Disabled custom checkbox</label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
-                    <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
-                  </div>
-                  <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" disabled="" id="customSwitch2">
-                    <label class="custom-control-label" for="customSwitch2">Disabled switch element</label>
-                  </div>
-                </div>
+<div class="mb-3">
+  <label class="form-label mt-4">Floating labels</label>
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+    <label for="floatingInput">Email address</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+    <label for="floatingPassword">Password</label>
+  </div>
+</div>
+</form>
 
-                <div class="form-group">
-                  <select class="custom-select">
-                    <option selected="">Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label class="custom-file">
-                    <input type="file" id="file2" class="custom-file-input">
-                    <span class="custom-file-control"></span>
-                  </label>
-                </div>
-              </fieldset>
-            </div>
 
           </div>
         </div>
@@ -825,16 +816,16 @@
             <div class="bs-component">
               <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+                  <a class="nav-link active" data-bs-toggle="tab" href="#home">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#profile">Profile</a>
+                  <a class="nav-link" data-bs-toggle="tab" href="#profile">Profile</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
@@ -869,7 +860,7 @@
                   <a class="nav-link active" href="#">Active</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
@@ -893,7 +884,7 @@
                   <a class="nav-link active" href="#">Active</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
@@ -929,7 +920,7 @@
                 <li class="breadcrumb-item"><a href="#">Library</a></li>
                 <li class="breadcrumb-item active">Data</li>
               </ol>
-            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
+            <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
 
           <div class="col-lg-6">
@@ -1032,7 +1023,7 @@
             <h2>Alertes</h2>
             <div class="bs-component">
               <div class="alert alert-dismissible alert-warning">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <h4 class="alert-heading">Warning!</h4>
                 <p class="mb-0">Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a>.</p>
               </div>
@@ -1043,7 +1034,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
               </div>
             </div>
@@ -1051,7 +1042,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-success">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
               </div>
             </div>
@@ -1059,7 +1050,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-info">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important.
               </div>
             </div>
@@ -1069,7 +1060,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-primary">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
               </div>
             </div>
@@ -1077,7 +1068,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-secondary">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
               </div>
             </div>
@@ -1085,7 +1076,7 @@
           <div class="col-lg-4">
             <div class="bs-component">
               <div class="alert alert-dismissible alert-light">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important.
               </div>
             </div>
@@ -1094,24 +1085,24 @@
         <div>
           <h2>Badges</h2>
           <div class="bs-component" style="margin-bottom: 40px;">
-            <span class="badge badge-primary">Primary</span>
-            <span class="badge badge-secondary">Secondary</span>
-            <span class="badge badge-success">Success</span>
-            <span class="badge badge-danger">Danger</span>
-            <span class="badge badge-warning">Warning</span>
-            <span class="badge badge-info">Info</span>
-            <span class="badge badge-light">Light</span>
-            <span class="badge badge-dark">Dark</span>
-          <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
+            <span class="badge bg-primary">Primary</span>
+            <span class="badge bg-secondary">Secondary</span>
+            <span class="badge bg-success">Success</span>
+            <span class="badge bg-danger">Danger</span>
+            <span class="badge bg-warning">Warning</span>
+            <span class="badge bg-info">Info</span>
+            <span class="badge bg-light">Light</span>
+            <span class="badge bg-dark">Dark</span>
+          <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           <div class="bs-component">
-            <span class="badge badge-pill badge-primary">Primary</span>
-            <span class="badge badge-pill badge-secondary">Secondary</span>
-            <span class="badge badge-pill badge-success">Success</span>
-            <span class="badge badge-pill badge-danger">Danger</span>
-            <span class="badge badge-pill badge-warning">Warning</span>
-            <span class="badge badge-pill badge-info">Info</span>
-            <span class="badge badge-pill badge-light">Light</span>
-            <span class="badge badge-pill badge-dark">Dark</span>
+            <span class="badge rounded-pill bg-primary">Primary</span>
+            <span class="badge rounded-pill bg-secondary">Secondary</span>
+            <span class="badge rounded-pill bg-success">Success</span>
+            <span class="badge rounded-pill bg-danger">Danger</span>
+            <span class="badge rounded-pill bg-warning">Warning</span>
+            <span class="badge rounded-pill bg-info">Info</span>
+            <span class="badge rounded-pill bg-light">Light</span>
+            <span class="badge rounded-pill bg-dark">Dark</span>
           </div>
         </div>
       </div>
@@ -1143,7 +1134,7 @@
               <div class="progress">
                 <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
+            <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
             <h3 id="progress-multiple">Multiple</h3>
             <div class="bs-component">
               <div class="progress">
@@ -1187,17 +1178,6 @@
             <div class="page-header">
               <h1 id="containers">Conteneurs</h1>
             </div>
-            <div class="bs-component">
-              <div class="jumbotron">
-                <h1 class="display-3">Hello, world!</h1>
-                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <hr class="my-4">
-                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                <p class="lead">
-                  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                </p>
-              </div>
-            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
         </div>
         <div class="row">
@@ -1211,15 +1191,15 @@
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   Cras justo odio
-                  <span class="badge badge-primary badge-pill">14</span>
+                  <span class="badge bg-primary rounded-pill">14</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   Dapibus ac facilisis in
-                  <span class="badge badge-primary badge-pill">2</span>
+                  <span class="badge bg-primary rounded-pill">2</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   Morbi leo risus
-                  <span class="badge badge-primary badge-pill">1</span>
+                  <span class="badge bg-primary rounded-pill">1</span>
                 </li>
               </ul>
             </div>
@@ -1384,7 +1364,7 @@
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
               </div>
-            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
+            <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
           </div>
 
           <div class="col-lg-4">
@@ -1444,78 +1424,88 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <p>Modal body text goes here.</p>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary">Save changes</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
               </div>
-            <div id="source-button" class="btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
+            <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div>
+            </div>
           </div>
             <div class="col-lg-6">
             <h2 class="my-3">Popovers</h2>
             <div class="bs-component" style="margin-bottom: 3em;">
-              <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">Left</button>
-
-              <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">Top</button>
-
-              <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
-              sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">Bottom</button>
-
-              <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">Right</button>
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="Popover Title">Gauche</button>
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="Popover Title">Haut</button>
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="Popover Title">Bas</button>
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="Popover Title">Droite</button>
             </div>
             <h2>Tooltips</h2>
-            <div class="bs-component">
-              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Left</button>
-
-              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">Top</button>
-
-              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom">Bottom</button>
-
-              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right">Right</button>
+            <div class="bs-component" style="margin-bottom: 3em;">
+              <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip à gauche">Gauche</button>
+              <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip en haut">Haut</button>
+              <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip en bas">Bas</button>
+              <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip à droite">Droite</button>
             </div>
+            <h2>Toasts</h2>
+            <div class="bs-component">
+              <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                  <strong class="me-auto">Bootstrap</strong>
+                  <small>11 mins ago</small>
+                  <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="toast-body">
+                  Hello, world! This is a toast message.
+                </div>
+              </div>
+            <button class="source-button btn btn-primary btn-xs" role="button" tabindex="0">&lt; &gt;</button></div>
+            
+            
           </div>
         </div>
       </div>
 
       <div id="source-modal" class="modal fade">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title">Source Code</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+         <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title">Source Code</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+               </div>
+               <div class="modal-body">
+                  <pre class="language-html"><code></code></pre>
+               </div>
             </div>
-            <div class="modal-body">
-              <pre></pre>
-            </div>
-          </div>
-        </div>
+         </div>
       </div>
 
-      <footer>
+      <footer class="mt-5">
         <div class="row">
           <div class="col-sm-12">
             <ul class="list-unstyled">
-              <li class="float-xs-right"><a href="#top">Back to top</a></li>
+              <li class="float-end"><a href="#top">Back to top</a></li>
             </ul>
             <p>Made by <a href="http://thomaspark.co" rel="nofollow">Thomas Park</a>. Contact him at <a href="mailto:thomas@bootswatch.com">thomas@bootswatch.com</a>.</p>
             <p>Npds fork by <a href="#" rel="nofollow">Jpb</a>. Contact him at <a href="mailto:jpb@npds.org">jpb@npds.org</a>.</p>
             <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/gh-pages/LICENSE">MIT License</a>.</p>
-            <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap 4</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
+            <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap 5</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
           </div>
         </div>
       </footer>
-    </div>
-      <script type="text/javascript" src="../../../../lib/js/jquery.min.js"></script>
-      <script type="text/javascript" src="../../../../lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script type="text/javascript" src="<?php echo implode($result[1]); ?>lib/js/jquery.min.js"></script>
+      <script type="text/javascript" src="<?php echo implode($result[1]); ?>lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script type="text/javascript" src="<?php echo implode($result[1]); ?>lib/js/prism.js"></script>
       <script type="text/javascript" src="../assets/js/bootswatch.js"></script>
    </body>
 </html>

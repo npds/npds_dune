@@ -66,12 +66,12 @@ if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
             <input type="hidden" name="groupe" value="'.$groupe.'" />';
    }
    echo '
-            <div class="form-group row">
+            <div class="mb-3 row">
                <input type="hidden" name="actiontype" value="upload" />
-               <label class="form-control-label">'.upload_translate("Fichier").'</label>
+               <label class="form-label">'.upload_translate("Fichier").'</label>
                <input class="form-control" name="pcfile" type="file" id="pcfile" value="" />
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                <input type="submit" class="btn btn-primary btn-sm" name="insert" value="'.upload_translate("Joindre").'" />
             </div>
          </form>

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -38,59 +38,30 @@ function message_pass($ibid) {
    include("footer.php");
 }
 
-function nav($mns) {
-   global $op;
-   $ed_u='';$ed_j='';$ed_h='';$ch_t='';
-   if($op=='edituser') $ed_u='active';
-   if($op=='editjournal') $ed_j='active';
-   if($op=='edithome') $ed_h='active';
-   if($op=='chgtheme') $ch_t='active';
-
-   echo '
-   <ul class="nav nav-tabs d-flex flex-wrap"> 
-      <li class="nav-item"><a class="nav-link '.$ed_u.'" href="user.php?op=edituser" title="'.translate("Vous").'" data-toggle="tooltip" ><i class="fas fa-user fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Vous").'</span></a></li>
-      <li class="nav-item"><a class="nav-link '.$ed_j.' " href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" data-toggle="tooltip"><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Journal").'</span></a></li>';
-   include ("modules/upload/upload.conf.php");
-   if (($mns) and ($autorise_upload_p)) {
-      include ("modules/blog/upload_minisite.php");
-      $PopUp=win_upload("popup");
-      echo '
-      <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="window.open('.$PopUp.')" title="'.translate("Gérer votre miniSite").'"  data-toggle="tooltip"><i class="fas fa-desktop fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Gérer votre miniSite").'</span></a></li>';
-   }
-   echo '
-      <li class="nav-item"><a class="nav-link '.$ed_h.'" href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" data-toggle="tooltip" ><i class="fas fa-edit fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Page").'</span></a></li>
-      <li class="nav-item"><a class="nav-link '.$ch_t.'" href="user.php?op=chgtheme" title="'.translate("Changer le thème").'"  data-toggle="tooltip" ><i class="fas fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Thème").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate("Réseaux sociaux").'"  data-toggle="tooltip" ><i class="fas fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Réseaux sociaux").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="viewpmsg.php" title="'.translate("Message personnel").'"  data-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate("Message").'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate("Déconnexion").'" data-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Déconnexion").'</span></a></li>
-   </ul>
-   <div class="mt-3"></div>';
-}
-
 function userCheck($uname, $email) {
    global $NPDS_Prefix;
    include_once('functions.php');
    $stop='';
    if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email)))
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : Email invalide");
+      $stop = '<i class="fa fa-exclamation me-2"></i>'.translate("Erreur : Email invalide");
    if (strrpos($email,' ') > 0)
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : une adresse Email ne peut pas contenir d'espaces");
+      $stop = '<i class="fa fa-exclamation me-2"></i>'.translate("Erreur : une adresse Email ne peut pas contenir d'espaces");
    if(checkdnsmail($email) === false)
       $stop = translate("Erreur : DNS ou serveur de mail incorrect") .'!<br />';
    if ((!$uname) || ($uname=='') || (preg_match('#[^a-zA-Z0-9_-]#',$uname))) 
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : identifiant invalide");
+      $stop = '<i class="fa fa-exclamation me-2"></i>'.translate("Erreur : identifiant invalide");
    if (strlen($uname) > 25)
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Votre surnom est trop long. Il doit faire moins de 25 caractères.");
+      $stop = '<i class="fa fa-exclamation me-2"></i>'.translate("Votre surnom est trop long. Il doit faire moins de 25 caractères.");
    if (preg_match('#^(root|adm|linux|webmaster|admin|god|administrator|administrador|nobody|anonymous|anonimo|an€nimo|operator|dune|netadm)$#i', $uname))
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : nom existant.");
+      $stop = '<i class="fa fa-exclamation me-2"></i>'.translate("Erreur : nom existant.");
    if (strrpos($uname,' ') > 0)
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Il ne peut pas y avoir d'espace dans le surnom.");
+      $stop = '<i class="fa fa-exclamation me-2"></i>'.translate("Il ne peut pas y avoir d'espace dans le surnom.");
    if (sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname='$uname'")) > 0) {
-      $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : cet identifiant est déjà utilisé");
+      $stop = '<i class="fa fa-exclamation me-2"></i>'.translate("Erreur : cet identifiant est déjà utilisé");
    }
    if ($uname!='edituser') {
       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0) {
-         $stop = '<i class="fa fa-exclamation mr-2"></i>'.translate("Erreur : adresse Email déjà utilisée");
+         $stop = '<i class="fa fa-exclamation me-2"></i>'.translate("Erreur : adresse Email déjà utilisée");
       }
    }
    return($stop);
@@ -156,7 +127,7 @@ function Only_NewUser() {
       </p>';
       if (!$memberpass) {
          echo '
-      <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("Le mot de passe vous sera envoyé à l'adresse Email indiquée.").'</div>';
+      <div class="alert alert-success lead"><i class="fa fa-exclamation me-2"></i>'.translate("Le mot de passe vous sera envoyé à l'adresse Email indiquée.").'</div>';
       }
       echo '
    </div>
@@ -207,16 +178,16 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
    $stop=userCheck($uname, $email);
    if ($memberpass) {
       if ((isset($pass)) and ($pass != $vpass))
-         $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Les mots de passe sont différents. Ils doivent être identiques.");
+         $stop='<i class="fa fa-exclamation me-2"></i>'.translate("Les mots de passe sont différents. Ils doivent être identiques.");
       elseif (strlen($pass) < $minpass)
-         $stop='<i class="fa fa-exclamation mr-2"></i>'.translate("Désolé, votre mot de passe doit faire au moins").' <strong>'.$minpass.'</strong> '.translate("caractères");
+         $stop='<i class="fa fa-exclamation me-2"></i>'.translate("Désolé, votre mot de passe doit faire au moins").' <strong>'.$minpass.'</strong> '.translate("caractères");
    }
    if (!$stop) {
       include("header.php");
       echo '
       <h2>'.translate("Utilisateur").'</h2>
       <hr />
-      <h3 class="mb-3"><i class="fa fa-user mr-2"></i>'.translate("Votre fiche d'inscription").'</h3>
+      <h3 class="mb-3"><i class="fa fa-user me-2"></i>'.translate("Votre fiche d'inscription").'</h3>
       <div class="card">
          <div class="card-body">';
       include ("modules/sform/extend-user/aff_extend-user.php");
@@ -228,7 +199,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
       if (!$charte)
          echo '
                <div class="alert alert-danger lead mt-3">
-                  <i class="fa fa-exclamation mr-2"></i>'.translate("Vous devez accepter la charte d'utilisation du site").'
+                  <i class="fa fa-exclamation me-2"></i>'.translate("Vous devez accepter la charte d'utilisation du site").'
                </div>
                <input type="hidden" name="op" value="only_newuser" />
                <input class="btn btn-secondary mt-1" type="submit" value="'.translate("Retour en arrière").'" />
@@ -289,9 +260,9 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
             echo '
             <h2>'.translate("Utilisateur").'</h2>
             <hr />
-            <h2><i class="fa fa-user mr-2"></i>'.translate("Inscription").'</h2>
+            <h2><i class="fa fa-user me-2"></i>'.translate("Inscription").'</h2>
             <p class="lead">'.translate("Votre mot de passe est : ").'<strong>'.$makepass.'</strong></p>
-            <p class="lead">'.translate("Vous pourrez le modifier après vous être connecté sur").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.urlencode($makepass).'"><i class="fas fa-sign-in-alt fa-lg mr-2"></i><strong>'.$sitename.'</strong></a></p>';
+            <p class="lead">'.translate("Vous pourrez le modifier après vous être connecté sur").' : <br /><a href="user.php?op=login&amp;uname='.$uname.'&amp;pass='.urlencode($makepass).'"><i class="fas fa-sign-in-alt fa-lg me-2"></i><strong>'.$sitename.'</strong></a></p>';
 
             $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")." : \n\n";
             $message .=
@@ -326,8 +297,8 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
 
             echo '
             <h2>'.translate("Utilisateur").'</h2>
-            <h2><i class="fa fa-user mr-2"></i>Inscription</h2>
-            <div class="alert alert-success lead"><i class="fa fa-exclamation mr-2"></i>'.translate("Vous êtes maintenant enregistré. Vous allez recevoir un code de confirmation dans votre boîte à lettres électronique.").'</div>';
+            <h2><i class="fa fa-user me-2"></i>Inscription</h2>
+            <div class="alert alert-success lead"><i class="fa fa-exclamation me-2"></i>'.translate("Vous êtes maintenant enregistré. Vous allez recevoir un code de confirmation dans votre boîte à lettres électronique.").'</div>';
           }
           //------------------------------------------------
           if (file_exists("modules/include/new_user.inc")) {
@@ -401,7 +372,7 @@ function userinfo($uname) {
             foreach($res_id as $y1) {
                $k = array_search( $y1[0],$v1);
                if (false !== $k) {
-                  $my_rs.='<a class="mr-3" href="';
+                  $my_rs.='<a class="me-3" href="';
                   if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                   $my_rs.= '" target="_blank"><i class="fab fa-'.$v1[2].' fa-2x"></i></a> ';
                   break;
@@ -415,19 +386,19 @@ function userinfo($uname) {
    $posterdata = get_userdata_from_id($uid);
    $useroutils = '';
    if (($user) and ($uid!=1))
-      $useroutils .= '<a class=" text-primary mr-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="far fa-envelope fa-2x" title="'.translate("Envoyer un message interne").'" data-toggle="tooltip"></i></a>&nbsp;';
+      $useroutils .= '<a class=" text-primary me-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="far fa-envelope fa-2x" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['femail']!='')
-      $useroutils .= '<a class=" text-primary mr-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-toggle="tooltip"></i></a>&nbsp;';
+      $useroutils .= '<a class=" text-primary me-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['url']!='')
-      $useroutils .= '<a class=" text-primary mr-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visiter ce site web").'" data-toggle="tooltip"></i></a>&nbsp;';
+      $useroutils .= '<a class=" text-primary me-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
    if ($posterdata['mns'])
-       $useroutils .= '<a class=" text-primary mr-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-toggle="tooltip"></i></a>&nbsp;';
+       $useroutils .= '<a class=" text-primary me-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
 
    echo '
    <div class="d-flex flex-row flex-wrap">
-      <div class="mr-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
+      <div class="me-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
       <div class="align-self-center">
-         <h2>'.translate("Utilisateur").'<span class="d-inline-block text-muted ml-1">'.$uname.'</span></h2>';
+         <h2>'.translate("Utilisateur").'<span class="d-inline-block text-muted ms-1">'.$uname.'</span></h2>';
    if ($uname !== $cookie[1])
       echo $useroutils;
    echo $my_rs;
@@ -440,9 +411,9 @@ function userinfo($uname) {
    <hr />';
 
    if ($uname == $cookie[1])
-      nav($mns);
+      member_menu($mns,$uname);
 
-   include('modules/geoloc/geoloc_conf.php'); 
+   include('modules/geoloc/geoloc.conf'); 
    echo '
    <div class="card card-body">
       <div class="row">';
@@ -457,7 +428,7 @@ function userinfo($uname) {
    echo '
          </div>';
 
-   //==> openlayers implementation
+   //==> geoloc
    if(array_key_exists($ch_lat, $posterdata_extend) and array_key_exists($ch_lon, $posterdata_extend))
       if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
          $content = '';
@@ -565,14 +536,14 @@ function userinfo($uname) {
             <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg"></i>&nbsp;[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese][spanish]Mapa[/spanish][german]Karte[/german]</a>';
          if($admin)
             $content .= '
-            <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ml-3"></i>&nbsp;[french]Admin[/french][english]Admin[/english][chinese]Admin[/chinese][spanish]Admin[/spanish][german]Admin[/german]</a>';
+            <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set"><i class="fa fa-cogs fa-lg ms-3"></i>&nbsp;[french]Admin[/french][english]Admin[/english][chinese]Admin[/chinese][spanish]Admin[/spanish][german]Admin[/german]</a>';
          $content .= '
             </div>
          </div>';
          $content = aff_langue($content);
          echo $content;
    }
-   //<== openlayers implementation
+   //<== geoloc
 
    echo '
       </div>
@@ -619,7 +590,7 @@ function userinfo($uname) {
       echo '
       <div class="d-flex">
         <div class="p-2"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></div>
-        <div class="ml-auto p-2">'.$time.'</div>
+        <div class="ms-auto p-2">'.$time.'</div>
       </div>';
    }
    echo '
@@ -659,18 +630,18 @@ function userinfo($uname) {
          $replys = sql_num_rows($TableRep)-1;
          $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id' AND uid = '$cookie[0]' AND status != '0'";
             if (sql_num_rows(sql_query($sqlR))==0)
-               $image = '<a href="" title="'.translate("Non lu").'" data-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a>';
+               $image = '<a href="" title="'.translate("Non lu").'" data-bs-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a>';
             else
-               $image = '<a title="'.translate("Lu").'" data-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a>';
+               $image = '<a title="'.translate("Lu").'" data-bs-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a>';
          $content .='
          <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start" >
             <span class="d-flex w-100 mt-1">
             <span>'.$post_time.'</span>
-            <span class="ml-auto">
-               <span class="badge badge-secondary ml-1" title="'.translate("Réponses").'" data-toggle="tooltip" data-placement="left">'.$replys.'</span>
+            <span class="ms-auto">
+               <span class="badge bg-secondary ms-1" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$replys.'</span>
             </span>
          </span>
-         <span class="d-flex w-100"><br /><a href="viewtopic.php?topic='.$topic_id.'&forum='.$forum_id.'" data-toggle="tooltip" title="'.$forum_name.'">'.$topic_title.'</a><span class="ml-auto">'.$image.'</span></span>
+         <span class="d-flex w-100"><br /><a href="viewtopic.php?topic='.$topic_id.'&forum='.$forum_id.'" data-bs-toggle="tooltip" title="'.$forum_name.'">'.$topic_title.'</a><span class="ms-auto">'.$image.'</span></span>
          </p>';
          $j++;
       }
@@ -690,40 +661,37 @@ function main($user) {
       include("header.php");
       echo '<h2>'.translate("Utilisateur").'</h2>';
       if ($stop==99)
-         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Vous n'êtes pas encore autorisé à vous connecter.").'</p>';
+         echo '<p class="alert alert-danger"><i class="fa fa-exclamation me-2"></i>'.translate("Vous n'êtes pas encore autorisé à vous connecter.").'</p>';
       elseif ($stop)
-         echo '<p class="alert alert-danger"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Identifiant incorrect !").'</p>';
+         echo '<p class="alert alert-danger"><i class="fa fa-exclamation me-2"></i>'.translate("Identifiant incorrect !").'<br />'.translate("ou").'<br /><i class="fa fa-exclamation me-2"></i>'.translate("Mot de passe erroné, refaites un essai.").'</p>';
       if (!$user) {
          echo '
          <div class="card card-body mb-3">
             <h3><a href="user.php?op=only_newuser" role="button" title="'.translate("Nouveau membre").'"><i class="fa fa-user-plus"></i>&nbsp;'.translate("Nouveau membre").'</a></h3>
          </div>
-          <div class="card card-body">
-          <h3><i class="fas fa-sign-in-alt fa-lg"></i>&nbsp;'.translate("Connexion").'</h3>
-          <form action="user.php" method="post" name="userlogin">
-             <div class="form-group row">
-               <label for="inputuser" class="col-form-label col-sm-4">'.translate("Identifiant").'</label>
-               <div class="col-sm-8">
-                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
+         <div class="card card-body">
+            <h3 class="mb-4"><i class="fas fa-sign-in-alt fa-lg me-2 align-middle"></i>'.translate("Connexion").'</h3>
+            <form action="user.php" method="post" name="userlogin">
+               <div class="row g-2">
+                  <div class="col-sm-6">
+                     <div class="mb-3 form-floating">
+                        <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
+                        <label for="inputuser">'.translate("Identifiant").'</label>
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="mb-0 form-floating">
+                        <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Mot de passe").'" required="required" />
+                        <label for="inputPassuser">'.translate("Mot de passe").'</label>
+                     </div>
+                     <span class="help-block small float-end"><a href="user.php?op=forgetpassword" title="'.translate("Vous avez perdu votre mot de passe ?").'">'.translate("Vous avez perdu votre mot de passe ?").'</a></span>
+                  </div>
                </div>
-            </div>
-            <div class="form-group row">
-               <label for="inputPassuser" class="col-form-label col-sm-4">'.translate("Mot de passe").'</label>
-               <div class="col-sm-8">
-                  <input type="password" class="form-control" name="pass" id="inputPassuser" placeholder="'.translate("Mot de passe").'" required="required" />
-                  <span class="help-block small"><a href="user.php?op=forgetpassword" title="'.translate("Vous avez perdu votre mot de passe ?").'">'.translate("Vous avez perdu votre mot de passe ?").'</a></span>
-               </div>
-            </div>
-            <input type="hidden" name="op" value="login" />
-            <div class="form-group row">
-               <div class="col-sm-8 ml-sm-auto">
-                  <button class="btn btn-primary" type="submit" title="'.translate("Valider").'">'.translate("Valider").'</button>
-               </div>
-            </div>
-         </form>
-         </div>';
-
-          echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.userlogin.uname.focus();\n//]]>\n</script>";
+               <input type="hidden" name="op" value="login" />
+               <button class="btn btn-primary btn-lg" type="submit" title="'.translate("Valider").'">'.translate("Valider").'</button>
+            </form>
+         </div>
+         <script type="text/javascript">//<![CDATA[document.userlogin.uname.focus();//]]></script>';
 
          // include externe file from modules/include for functions, codes ...
          if (file_exists("modules/include/user.inc"))
@@ -752,35 +720,29 @@ function ForgetPassword() {
    echo '
    <h2 class="mb-3">'.translate("Utilisateur").'</h2>
    <div class="card card-body">
-   <div  class="alert alert-danger text-center">'.translate("Vous avez perdu votre mot de passe ?").'</div>
-   <div  class="alert alert-success text-center">'.translate("Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.").'</div>
-   <form id="forgetpassword" action="user.php" method="post">
-      <div class="form-group row">
-         <label for="inputuser" class="col-sm-3 col-form-label">'.translate("Identifiant").'</label>
-         <div class="col-sm-9">
-            <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
-         </div>
-      </div>
-      <div class="form-group row">
-         <label for="inputpassuser" class="col-sm-3 col-form-label">'.translate("Mot de passe").'</label>
-         <div class="col-sm-9">
-            <input type="password" class="form-control" name="code" id="inputpassuser" placeholder="'.translate("Mot de passe").'" required="required" />
-         </div>
-      </div>
-      <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto" >
-            <div class="progress" style="height: 0.2rem;">
-               <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+      <div class="alert alert-danger lead"><i class="fa fa-exclamation me-2"></i>'.translate("Vous avez perdu votre mot de passe ?").'</div>
+      <div class="alert alert-success"><i class="fa fa-exclamation me-2"></i>'.translate("Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.").'</div>
+      <form id="forgetpassword" action="user.php" method="post">
+         <div class="row g-2">
+            <div class="col-sm-6 ">
+               <div class="mb-3 form-floating">
+                  <input type="text" class="form-control" name="uname" id="inputuser" placeholder="'.translate("Identifiant").'" required="required" />
+                  <label for="inputuser">'.translate("Identifiant").'</label>
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <div class="mb-3 form-floating">
+                  <input type="password" class="form-control" name="code" id="inputpassuser" placeholder="'.translate("Mot de passe").'" required="required" />
+                  <label for="inputpassuser">'.translate("Mot de passe").'</label>
+               </div>
+               <div class="progress" style="height: 0.4rem;">
+                  <div id="passwordMeter_cont" class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+               </div>
             </div>
          </div>
-      </div>
-      <input type="hidden" name="op" value="mailpasswd" />
-      <div class="form-group row">
-         <div class="col-sm-9 ml-sm-auto">
-            <input class="btn btn-primary" type="submit" value ="'.translate("Envoyer").'" />
-         </div>
-      </div>
-   </form>
+         <input type="hidden" name="op" value="mailpasswd" />
+         <input class="btn btn-primary btn-lg my-3" type="submit" value ="'.translate("Envoyer").'" />
+      </form>
    </div>';
    $fv_parametres ='
       code: {
@@ -840,7 +802,7 @@ function valid_password ($code) {
             </div>
             <div class="col-sm-5">
                <form id="lostpassword" action="user.php" method="post">
-                  <div class="form-group row">
+                  <div class="mb-3 row">
                      <label class="col-form-label col-sm-12" for="passwd">'.translate("Mot de passe").'</label>
                      <div class="col-sm-12">
                         <input type="password" class="form-control" name="passwd" placeholder="'.$ibid[1].'" required="required" />
@@ -848,7 +810,7 @@ function valid_password ($code) {
                   </div>
                   <input type="hidden" name="op" value="updatepasswd" />
                   <input type="hidden" name="code" value="'.$code.'" />
-                  <div class="form-group row">
+                  <div class="mb-3 row">
                      <div class="col-sm-12">
                         <input class="btn btn-primary" type="submit" value="'.translate("Valider").'" />
                      </div>
@@ -888,7 +850,7 @@ function update_password ($code, $passwd) {
                $cryptpass = crypt($ibid[1], $hashpass);
                sql_query("UPDATE ".$NPDS_Prefix."users SET pass='$cryptpass', hashkey='1' WHERE uname='$uname'");
 
-               message_pass('<div class="alert alert-success lead text-center"><a class="alert-link" href="user.php"><i class="fa fa-exclamation mr-2"></i>'.translate ("Mot de passe mis à jour. Merci de vous re-connecter").'<i class="fas fa-sign-in-alt fa-lg ml-2"></i></a></div>');
+               message_pass('<div class="alert alert-success lead text-center"><a class="alert-link" href="user.php"><i class="fa fa-exclamation me-2"></i>'.translate ("Mot de passe mis à jour. Merci de vous re-connecter").'<i class="fas fa-sign-in-alt fa-lg ms-2"></i></a></div>');
                Ecr_Log('security', 'Lost_password_update OK : '.$uname, '');
             } else {
                message_pass('<div class="alert alert-danger lead text-center">'.translate("Erreur").' : '.translate("Les mots de passe sont différents. Ils doivent être identiques.").'</div>');
@@ -976,9 +938,9 @@ function login($uname, $pass) {
 function edituser() {
    global $NPDS_Prefix, $user, $smilies, $short_user, $subscribe, $member_invisible, $avatar_size;
    include("header.php");
+   include_once('functions.php');
    $userinfo=getusrinfo($user);
-   nav($userinfo['mns']);
-
+   member_menu($userinfo['mns'],$userinfo['uname']);
    global $C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2,$B1;
    $result = sql_query("SELECT C1, C2, C3, C4, C5, C6, C7, C8, M1, M2, T1, T2, B1 FROM ".$NPDS_Prefix."users_extend WHERE uid='".$userinfo['uid']."'");
    list($C1, $C2, $C3, $C4, $C5, $C6, $C7, $C8, $M1, $M2, $T1, $T2, $B1) = sql_fetch_row($result);
@@ -995,9 +957,9 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
    list($vuid, $vemail) = sql_fetch_row($result);
    if (($check == $uname) AND ($uid == $vuid)) {
       if ((isset($pass)) && ("$pass" != "$vpass"))
-         message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Les mots de passe sont différents. Ils doivent être identiques.").'<br />','');
+         message_error('<i class="fa fa-exclamation me-2"></i>'.translate("Les mots de passe sont différents. Ils doivent être identiques.").'<br />','');
       elseif (($pass != '') && (strlen($pass) < $minpass))
-         message_error('<i class="fa fa-exclamation mr-2"></i>'.translate("Désolé, votre mot de passe doit faire au moins").' <strong>'.$minpass.'</strong> '.translate("caractères").'<br />','');
+         message_error('<i class="fa fa-exclamation me-2"></i>'.translate("Désolé, votre mot de passe doit faire au moins").' <strong>'.$minpass.'</strong> '.translate("caractères").'<br />','');
       else {
          $stop=userCheck('edituser', $email);
          if (!$stop) {
@@ -1119,15 +1081,15 @@ function saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bi
 function edithome() {
    global $user, $Default_Theme, $Default_skin;
    include ("header.php");
+   include_once('functions.php');
    $userinfo=getusrinfo($user);
-   nav($userinfo['mns']);
-   if ($userinfo['theme']=='') {
+   member_menu($userinfo['mns'],$userinfo['uname']);
+   if ($userinfo['theme']=='')
       $userinfo['theme'] = "$Default_Theme+$Default_skin";
-   }
    echo '
    <h2 class="mb-3">'.translate("Editer votre page principale").'</h2>
    <form id="changehome" action="user.php" method="post">
-   <div class="form-group row">
+   <div class="mb-3 row">
       <label class="col-form-label col-sm-7" for="storynum">'.translate("Nombre d'articles sur la page principale").' (max. 127) :</label>
       <div class="col-sm-5">
          <input class="form-control" type="text" min="0" max="127" id="storynum" name="storynum" maxlength="3" value="'.$userinfo['storynum'].'" />
@@ -1136,11 +1098,11 @@ function edithome() {
    if ($userinfo['ublockon']==1) $sel = 'checked="checked"';
    else $sel = '';
    echo '
-   <div class="form-group row">
+   <div class="mb-3 row">
       <div class="col-sm-10">
-         <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" type="checkbox" id="ublockon" name="ublockon" value="1" '.$sel.' />
-            <label class="custom-control-label" for="ublockon">'.translate("Activer votre menu personnel").'</label>
+         <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="ublockon" name="ublockon" value="1" '.$sel.' />
+            <label class="form-check-label" for="ublockon">'.translate("Activer votre menu personnel").'</label>
          </div>
       </div>
    </div>
@@ -1148,12 +1110,12 @@ function edithome() {
       <li>'.translate("Validez cette option et le texte suivant apparaîtra sur votre page d'accueil").'</li>
       <li>'.translate("Vous pouvez utiliser du code html, pour créer un lien par exemple").'</li>
    </ul>
-   <div class="form-group row">
+   <div class="mb-3 row">
       <div class="col-sm-12">
          <textarea class="form-control" rows="20" name="ublock">'.$userinfo['ublock'].'</textarea>
       </div>
    </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <input type="hidden" name="theme" value="'.$userinfo['theme'].'" />
          <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
          <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
@@ -1205,41 +1167,39 @@ function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
 function chgtheme() {
    global $user;
    include ("header.php");
+   include_once('functions.php');
    $userinfo=getusrinfo($user);
-   
-   // nouvel version de la gestion des Themes et Skins
    $ibid=explode('+', $userinfo['theme']);
    $theme=$ibid[0];
    if (array_key_exists(1, $ibid)) $skin=$ibid[1]; else $skin='';
-
-   nav($userinfo['mns']);
+   member_menu($userinfo['mns'],$userinfo['uname']);
    echo '
-   <h2>'.translate("Changer le thème").'</h2>
-   <form role="form" action="user.php" method="post">
-      <div class="form-group row">
-         <label class="col-form-label col-sm-5" for="theme_local">'.translate("Sélectionnez un thème d'affichage").'</label>
-         <div class="col-sm-7">
-            <select class="custom-select form-control" id="theme_local" name="theme_local">';
+   <h2 class="mb-3">'.translate("Changer le thème").'</h2>
+   <form action="user.php" method="post">
+      <div class="row">
+         <div class="col-md-6">
+            <div class="mb-3 form-floating">
+               <select class="form-select" id="theme_local" name="theme_local">';
    include("themes/list.php");
    $themelist = explode(' ', $themelist);
    $thl= sizeof($themelist);
    for ($i=0; $i < $thl; $i++) {
       if ($themelist[$i]!='') {
          echo '
-               <option value="'.$themelist[$i].'" ';
+                  <option value="'.$themelist[$i].'" ';
          if ((($theme=='') && ($themelist[$i]==$Default_Theme)) || ($theme==$themelist[$i])) echo 'selected="selected"';
          echo '>'.$themelist[$i].'</option>';
       }
    }
    echo '
-            </select>
-            <p class="help-block">
+               </select>
+               <label for="theme_local">'.translate("Sélectionnez un thème d'affichage").'</label>
+            </div>
+            <p class="help-block mb-4">
                <span>'.translate("Cette option changera l'aspect du site.").'</span> 
                <span>'.translate("Les modifications seront seulement valides pour vous.").'</span> 
                <span>'.translate("Chaque utilisateur peut voir le site avec un thème graphique différent.").'</span>
-            </p>
-         </div>
-      </div>';
+            </p>';
 
    $handle=opendir('themes/_skins');
    while (false!==($file = readdir($handle))) {
@@ -1250,32 +1210,28 @@ function chgtheme() {
    closedir($handle);
    asort($skins);
       echo '
-      <div class="form-group row" id="skin_choice">
-         <label class="col-form-label col-sm-5" for="skins">'.translate("Choisir une charte graphique").'</label>
-         <div class="col-sm-7">
-            <select class="custom-select form-control" id="skins" name="skins">';
+            <div class="mb-3 form-floating" id="skin_choice">
+               <select class="form-select" id="skins" name="skins">';
    foreach ($skins as $k => $v) {
       echo '
-               <option value="'.$skins[$k]['name'].'" ';
+                  <option value="'.$skins[$k]['name'].'" ';
       if ($skins[$k]['name'] == $skin) echo 'selected="selected"';
       else if($skin=='' and $skins[$k]['name'] == 'default') echo 'selected="selected"';
       echo '>'.$skins[$k]['name'].'</option>';
    }
       echo '
-            </select>
+               </select>
+               <label for="skins">'.translate("Choisir une charte graphique").'</label>
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div id="skin_thumbnail"></div>
          </div>
       </div>
-      <div class="form-group row">
-         <div id="skin_thumbnail" class="col-sm-7 ml-sm-auto"></div>
-      </div>
-      <div class="form-group row">
-         <div class="col-sm-7 ml-sm-auto">
-            <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
-            <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
-            <input type="hidden" name="op" value="savetheme" />
-            <input class="btn btn-primary" type="submit" value="'.translate("Sauver les modifications").'" />
-         </div>
-      </div>
+      <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
+      <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
+      <input type="hidden" name="op" value="savetheme" />
+      <input class="btn btn-primary my-3" type="submit" value="'.translate("Sauver les modifications").'" />
    </form>
    <script type="text/javascript">
    //<![CDATA[
@@ -1302,11 +1258,9 @@ function chgtheme() {
 
 function savetheme($uid, $theme) {
    global $NPDS_Prefix, $user;
-     
    $cookie=cookiedecode($user);
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($vuid) = sql_fetch_row($result);
-   
    if ($uid == $vuid) {
       sql_query("UPDATE ".$NPDS_Prefix."users SET theme='$theme' WHERE uid='$uid'");
       $userinfo=getusrinfo($user);
@@ -1322,12 +1276,13 @@ function savetheme($uid, $theme) {
 function editjournal(){
    global $user;
    include("header.php");
+   include_once('functions.php');
    $userinfo=getusrinfo($user);
-   nav($userinfo['mns']);
+   member_menu($userinfo['mns'],$userinfo['uname']);
    echo '
    <h2 class="mb-3">'.translate("Editer votre journal").'</h2>
    <form action="user.php" method="post" name="adminForm">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <textarea class="tin form-control" rows="25" name="journal">'.$userinfo['user_journal'].'</textarea>'
          .aff_editeur('journal', '').'
@@ -1336,15 +1291,15 @@ function editjournal(){
       <input type="hidden" name="uname" value="'.$userinfo['uname'].'" />
       <input type="hidden" name="uid" value="'.$userinfo['uid'].'" />
       <input type="hidden" name="op" value="savejournal" />
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
-            <div class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" id="datetime" name="datetime" value="1" />
-               <label class="custom-control-label" for="datetime">'.translate("Ajouter la date et l'heure").'</label>
+            <div class="form-check">
+               <input class="form-check-input" type="checkbox" id="datetime" name="datetime" value="1" />
+               <label class="form-check-label" for="datetime">'.translate("Ajouter la date et l'heure").'</label>
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-12">
             <input class="btn btn-primary" type="submit" value="'.translate("Sauvez votre journal").'" />
          </div>
@@ -1367,14 +1322,12 @@ function savejournal($uid, $journal, $datetime){
          global $gmt;
          $journalentry .= date(translate("dateinternal"),time()+((integer)$gmt*3600));
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journalentry' WHERE uid='$uid'");
-      } else {
+      } else
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journal' WHERE uid='$uid'");
-      }
       $userinfo=getusrinfo($user);
       Header("Location: user.php");
-   } else {
+   } else
       Header("Location: index.php");
-   }
 }
 
 settype($op,'string');
@@ -1452,9 +1405,8 @@ switch ($op) {
          settype($user_lnl,'integer');
          settype($raz_avatar,'integer');
          saveuser($uid, $name, $uname, $email, $femail, $url, $pass, $vpass, $bio, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $attach, $usend_email, $uis_visible, $user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$MAX_FILE_SIZE,$raz_avatar);
-      } else {
+      } else
          Header("Location: user.php");
-      }
    break;
    case 'edithome':
       if ($user)

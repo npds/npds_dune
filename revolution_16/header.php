@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -22,9 +22,8 @@ $skin='';
 
 function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords) {
    global $slogan, $site_font, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
-   global $topic, $hlpfile, $user, $hr, $bgcolor1, $bgcolor2, $bgcolor3, $bgcolor4, $bgcolor5, $bgcolor6, $textcolor1, $textcolor2, $long_chain;
-   global $bargif, $theme_width, $bloc_width, $page_width;
-   
+   global $topic, $hlpfile, $user, $hr, $long_chain;
+
    settype($m_keywords, 'string');
    settype($m_description, 'string');
    if ($gzhandler==1) ob_start("ob_gzhandler");

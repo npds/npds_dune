@@ -71,8 +71,8 @@ if (!function_exists("Mysql_Connexion"))
          $story_limit++;
          if ($catid!=0)
          list($cattitle) = sql_fetch_row(sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'"));
-         $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate("Page spéciale pour impression").'" data-toggle="tooltip" data-placement="left"></i></a>';
-         $sendF = '<a class="ml-4" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Envoyer cet article à un ami").'" data-toggle="tooltip" data-placement="left" ></i></a>';
+         $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a>';
+         $sendF = '<a class="ms-4" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Envoyer cet article à un ami").'" data-bs-toggle="tooltip" data-bs-placement="left" ></i></a>';
          $sid = $s_sid;
          if ($catid != 0) {
             $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");

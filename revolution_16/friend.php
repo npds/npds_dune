@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -39,51 +39,38 @@ function FriendSend($sid, $archive) {
       list($yn, $ye) = sql_fetch_row($result);
    }
    echo '
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="fname">'.translate("Nom du destinataire").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
-            <span class="help-block text-right"><span class="muted" id="countcar_fname"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="fname" name="fname" maxlength="100" required="required" />
+         <label for="fname">'.translate("Nom du destinataire").'</label>
+         <span class="help-block text-end"><span class="muted" id="countcar_fname"></span></span>
       </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="fmail">'.translate("Email du destinataire").'</label>
-         <div class="col-sm-8">
-            <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
-            <span class="help-block text-right"><span class="muted" id="countcar_fmail"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="email" class="form-control" id="fmail" name="fmail" maxlength="100" required="required" />
+         <label for="fmail">'.translate("Email du destinataire").'</label>
+         <span class="help-block text-end"><span class="muted" id="countcar_fmail"></span></span>
       </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="yname">'.translate("Votre nom").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" maxlength="100" required="required" />
-            <span class="help-block text-right"><span class="muted" id="countcar_yname"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" maxlength="100" required="required" />
+         <label for="yname">'.translate("Votre nom").'</label>
+         <span class="help-block text-end"><span class="muted" id="countcar_yname"></span></span>
       </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="ymail">'.translate("Votre Email").'</label>
-         <div class="col-sm-8">
-            <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
-            <span class="help-block text-right"><span class="muted" id="countcar_ymail"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
+         <label for="ymail">'.translate("Votre Email").'</label>
+         <span class="help-block text-end"><span class="muted" id="countcar_ymail"></span></span>
       </div>';
    echo ''.Q_spambot();
    echo '
-   <input type="hidden" name="archive" value="'.$archive.'" />
-   <input type="hidden" name="op" value="SendStory" />
-      <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
-            <button type="submit" class="btn btn-primary" title="'.translate("Envoyer").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Envoyer").'</button>
-         </div>
-      </div>
+      <input type="hidden" name="archive" value="'.$archive.'" />
+      <input type="hidden" name="op" value="SendStory" />
+      <button type="submit" class="btn btn-primary" title="'.translate("Envoyer").'"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Envoyer").'</button>
    </form>';
   $arg1='
    var formulid = ["friendsendstory"];
    inpandfieldlen("yname",100);
    inpandfieldlen("ymail",100);
    inpandfieldlen("fname",100);
-   inpandfieldlen("fmail",100);
-   ';
+   inpandfieldlen("fmail",100);';
    adminfoot('fv','',$arg1,'');
 }
 
@@ -105,7 +92,7 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    list($title, $time, $topic) = sql_fetch_row($result2);
    $result3=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext) = sql_fetch_row($result3);
-   $subject = translate("Article intéressant sur")." $sitename";
+   $subject = html_entity_decode(translate("Article intéressant sur"),ENT_COMPAT | ENT_HTML401,cur_charset)." $sitename";
    $fname=removeHack($fname);
    $message = translate("Bonjour")." $fname :\n\n".translate("Votre ami")." $yname ".translate("a trouvé cet article intéressant et a souhaité vous l'envoyer.")."\n\n".aff_langue($title)."\n".translate("Date :")." $time\n".translate("Sujet : ")." ".aff_langue($topictext)."\n\n".translate("L'article")." : <a href=\"$nuke_url/article.php?sid=$sid&amp;archive=$archive\">$nuke_url/article.php?sid=$sid&amp;archive=$archive</a>\n\n";
    include("signat.php");
@@ -155,37 +142,29 @@ function RecommendSite() {
    <hr />
    <form id="friendrecomsite" action="friend.php" method="post">
       <input type="hidden" name="op" value="SendSite" />
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="yname">'.translate("Votre nom").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" required="required" maxlength="100" />
-            <span class="help-block text-right"><span class="muted" id="countcar_yname"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="yname" name="yname" value="'.$yn.'" required="required" maxlength="100" />
+         <label for="yname">'.translate("Votre nom").'</label>
+         <span class="help-block text-end"><span class="muted" id="countcar_yname"></span></span>
       </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="ymail">'.translate("Votre Email").'</label>
-         <div class="col-sm-8">
-            <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" required="required" maxlength="100" />
-            <span class="help-block text-right"><span class="muted" id="countcar_ymail"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" required="required" maxlength="100" />
+         <label for="ymail">'.translate("Votre Email").'</label>
       </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="fname">'.translate("Nom du destinataire").'</label>
-         <div class="col-sm-8">
-            <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
-            <span class="help-block text-right"><span class="muted" id="countcar_fname"></span></span>
-         </div>
+      <span class="help-block text-end"><span class="muted" id="countcar_ymail"></span></span>
+      <div class="form-floating mb-3">
+         <input type="text" class="form-control" id="fname" name="fname" required="required" maxlength="100" />
+         <label for="fname">'.translate("Nom du destinataire").'</label>
+         <span class="help-block text-end"><span class="muted" id="countcar_fname"></span></span>
       </div>
-      <div class="form-group row">
-         <label class="col-form-label col-sm-4" for="fmail">'.translate("Email du destinataire").'</label>
-         <div class="col-sm-8">
-            <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
-            <span class="help-block text-right"><span class="muted" id="countcar_fmail"></span></span>
-         </div>
+      <div class="form-floating mb-3">
+         <input type="email" class="form-control" id="fmail" name="fmail" required="required" maxlength="100" />
+         <label for="fmail">'.translate("Email du destinataire").'</label>
+         <span class="help-block text-end"><span class="muted" id="countcar_fmail"></span></span>
       </div>
       '.Q_spambot().'
-      <div class="form-group row">
-         <div class="col-sm-8 ml-sm-auto">
+      <div class="mb-3 row">
+         <div class="col-sm-8 ms-sm-auto">
             <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-at"></i>&nbsp;'.translate("Envoyer").'</button>
          </div>
       </div>
@@ -211,7 +190,7 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    }
 
    global $sitename, $nuke_url;
-   $subject = translate("Site à découvrir : ")." $sitename";
+   $subject = html_entity_decode(translate("Site à découvrir : "),ENT_COMPAT | ENT_HTML401,cur_charset)." $sitename";
    $fname=removeHack($fname);
    $message = translate("Bonjour")." $fname :\n\n".translate("Votre ami")." $yname ".translate("a trouvé notre site")." $sitename ".translate("intéressant et a voulu vous le faire connaître.")."\n\n$sitename : <a href=\"$nuke_url\">$nuke_url</a>\n\n";
    include("signat.php");

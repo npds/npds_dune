@@ -1,4 +1,7 @@
 /* extra css for cerulean */
+:root{
+--th-hauteurnavbar:59px;
+}
 div.list-group-item.list-group-item-action.active h5 {
 color:white;
 }

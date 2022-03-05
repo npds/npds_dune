@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /* Translated by :  Zhang Yingzhu                                       */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -20,6 +20,11 @@ function adm_translate($phrase) {
   case "linksdatestring": $tmp="%d-%b-%Y"; break;
   case "datestring2": $tmp="%A, %B %d"; break;
   case "dateforop": $tmp="m-d-y"; break;
+  case "english": $tmp="英语"; break;
+  case "french": $tmp="法国人"; break;
+  case "spanish": $tmp="西班牙文"; break;
+  case "chinese": $tmp="中文"; break;
+  case "german": $tmp="德语"; break;
 
   case " à ": $tmp=" 在 "; break;
   case " Actualiser l'Auteur": $tmp="作者情况更新"; break;
@@ -100,7 +105,7 @@ function adm_translate($phrase) {
   case "Administration de META-LANG": $tmp="META-LANG administration"; break;
   case "Administration des bannières": $tmp="广告管理"; break;
   case "Administration des MétaTags": $tmp="管理页首html"; break;
-  case "Administration": $tmp="Administration"; break;
+  case "Administration": $tmp="网站治理"; break;
   case "Adresse E-mail de l'administrateur": $tmp="管理员Email"; break;
   case "Adresse E-mail masquée": $tmp="公开Email"; break;
   case "Adresse E-mail où envoyer le message": $tmp="发送信息的电子邮件地址："; break;
@@ -285,6 +290,7 @@ function adm_translate($phrase) {
   case "Configuration Forums": $tmp="Forums Configuration"; break;
   case "Configuration par défaut des Liens Web": $tmp="链接的默认设置"; break;
   case "Configurer MySql (Recommandé)": $tmp="Configure MySql (Recommended)"; break;
+  case "Confirmer la lecture": $tmp="确认阅读内容"; break;
   case "Connexion": $tmp="Login"; break;
   case "Contacter l'administration du site.": $tmp="联系网站的管理部门。"; break;
   case "Contenu :": $tmp="内容:"; break;

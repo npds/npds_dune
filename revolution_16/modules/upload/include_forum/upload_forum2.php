@@ -63,7 +63,7 @@ global $Titlesitename;
       echo ' 
          <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
    echo '
-         <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.css" />';//hardcoded lol
+         <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />';//hardcoded lol
    echo import_css($theme, $language, $site_font, '','');
    echo '
       </head>
@@ -139,7 +139,7 @@ function forum_upload() {
          $pcfile_name = $names;
       }
       $pcfile_size = $att_size;
-      $thanks_msg .= '<div class="alert alert-success alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.str_replace ('{NAME}', '<strong>'.$pcfile_name.'</strong>', str_replace('{SIZE}', $pcfile_size, upload_translate("Fichier {NAME} bien reçu ({SIZE} octets transférés)"))).'</div>';
+      $thanks_msg .= '<div class="alert alert-success alert-dismissible fade show" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'.str_replace ('{NAME}', '<strong>'.$pcfile_name.'</strong>', str_replace('{SIZE}', $pcfile_size, upload_translate("Fichier {NAME} bien reçu ({SIZE} octets transférés)"))).'</div>';
       $total_att_count += $att_count;
       $total_att_size += $att_size;
    }

@@ -44,7 +44,7 @@ function alpha() {
    echo '
    <br />
    <form action="memberslist.php" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3" for="mblst_search">'.translate("Recherche").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="input" id="mblst_search" name="letter" />
@@ -168,7 +168,7 @@ if (!isset($gr_from_ws)) {
             <img src="'.$ibid_avatar.'" class=" media-object n-ava img-thumbnail" alt="avatar" />
          </div>';
    echo '
-         <div class="media-body ml-2">
+         <div class="media-body ms-2">
          '.translate("Bienvenue au dernier membre affilié : ").' <br /><h4 class="media-heading"><a href="user.php?op=userinfo&amp;uname='.$lastuser.'">'.$lastuser.'</a></h4>
          </div>
       </div>
@@ -252,7 +252,7 @@ if ( $letter != 'front' ) {
          if (!$short_user) {
             $posterdata_extend = get_userdata_extend_from_id($temp_user['uid']);
             include('modules/reseaux-sociaux/reseaux-sociaux.conf.php');
-            include('modules/geoloc/geoloc_conf.php');
+            include('modules/geoloc/geoloc.conf');
             if (array_key_exists('M2', $posterdata_extend)) {
                $socialnetworks= explode(';',$posterdata_extend['M2']);
                foreach ($socialnetworks as $socialnetwork) {
@@ -264,7 +264,7 @@ if ( $letter != 'front' ) {
                   foreach($res_id as $y1) {
                      $k = array_search( $y1[0],$v1);
                      if (false !== $k) {
-                        $my_rs.='<a class="mr-2" href="';
+                        $my_rs.='<a class="me-2" href="';
                         if($v1[2]=='skype') $my_rs.= $v1[1].$y1[1].'?chat'; else $my_rs.= $v1[1].$y1[1];
                         $my_rs.= '" target="_blank"><i class="fab fa-'.$v1[2].' fa-lg fa-fw mb-2"></i></a> ';
                         break;
@@ -277,22 +277,22 @@ if ( $letter != 'front' ) {
          settype($ch_lat,'string');
          $useroutils = '';
          if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profil").'" ><i class="fa fa-user fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-start" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profil").'" ><i class="fa fa-user fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Profil").'</span></a>';
          if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Envoyer un message interne").'" ><i class="far fa-envelope fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Message").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-start" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Envoyer un message interne").'" ><i class="far fa-envelope fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Message").'</span></a>';
          if ($temp_user['femail']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Email").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-start" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Email").'</span></a>';
          if ($temp_user['url']!='')
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visiter ce site web").'"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-start" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visiter ce site web").'"><i class="fas fa-external-link-alt fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
          if ($temp_user['mns'])
-             $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" ><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
+             $useroutils .= '<a class="list-group-item text-primary text-center text-md-start" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" ><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
          if($user)
             if ($temp_user['uid']!= 1)
-            $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Ajouter à la liste de diffusion").'" ><i class="fa fa-plus-circle fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Liste de diffusion").'</span></a>';
+            $useroutils .= '<a class="list-group-item text-primary text-center text-md-start" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.urlencode($temp_user['uname']).',&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" title="'.translate("Ajouter à la liste de diffusion").'" ><i class="fa fa-plus-circle fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Liste de diffusion").'</span></a>';
 
          if ($temp_user['uid']!= 1 and array_key_exists($ch_lat, $posterdata_extend)) {
             if ($posterdata_extend[$ch_lat] !='')
-               $useroutils .= '<a class="list-group-item text-primary text-center text-md-left" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw"></i><span class="ml-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
+               $useroutils .= '<a class="list-group-item text-primary text-center text-md-start" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Localisation").'</span></a>';
          }
          $op_result = sql_query("SELECT open FROM ".$NPDS_Prefix."users_status WHERE uid='".$temp_user['uid']."'");
          list($open_user) = sql_fetch_row($op_result);
@@ -301,8 +301,8 @@ if ( $letter != 'front' ) {
             if ($open_user==0) {
                $clconnect ='danger';
                echo '
-         <tr class="table-danger" title="'.translate("Connexion non autorisée").'" data-toggle="tooltip">
-            <td title="'.translate("Connexion non autorisée").'" data-toggle="tooltip">';
+         <tr class="table-danger" title="'.translate("Connexion non autorisée").'" data-bs-toggle="tooltip">
+            <td title="'.translate("Connexion non autorisée").'" data-bs-toggle="tooltip">';
             }
             else  {
                $clconnect ='primary';
@@ -311,12 +311,12 @@ if ( $letter != 'front' ) {
             <td>';
             }
          if ($ibid_avatar=avatar($temp_user['user_avatar']))
-         echo '<a tabindex="0" data-toggle="popover" data-placement="right" data-trigger="focus" data-html="true" data-title="'.$temp_user['uname'].'" data-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-html="true" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>
+         echo '<a tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>
             </td>
             <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.translate("Inscription").' : '.date(translate("dateinternal"),(integer)$temp_user['user_regdate']);
          if ($admin and $temp_user['user_lastvisit']!='')
             echo '<br />'.translate("Connexion").' : '.date(translate("dateinternal"),(integer)$temp_user['user_lastvisit']);
-         echo '"  data-html="true" data-toggle="tooltip" data-placement="right">'.$temp_user['uname'].'</a>
+         echo '"  data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right">'.$temp_user['uname'].'</a>
             </td>
             <td>'.$temp_user['name'].'</td>
             ';
@@ -348,8 +348,8 @@ if ( $letter != 'front' ) {
          if ($admin) {
             echo '
             <td>
-               <a class="mr-3" href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Editer").'" data-toggle="tooltip"></i></a> 
-               <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Effacer").'" data-toggle="tooltip"></i></a>';
+               <a class="me-3" href="admin.php?chng_uid='.$temp_user['uid'].'&amp;op=modifyUser" ><i class="fa fa-edit fa-lg" title="'.translate("Editer").'" data-bs-toggle="tooltip"></i></a> 
+               <a href="admin.php?op=delUser&amp;chng_uid='.$temp_user['uid'].'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Effacer").'" data-bs-toggle="tooltip"></i></a>';
             if (!$temp_user['is_visible'])
                echo '<img src="images/admin/ws/user_invisible.gif" alt="'.translate("Membre invisible").'" title="'.translate("Membre invisible").'" />';
             else
@@ -378,9 +378,9 @@ if ( $letter != 'front' ) {
       if ($list) {
          echo urldecode($list);
          echo '
-            <span class="float-right">
-               <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" ><i class="far fa-envelope fa-lg" title="'.translate("Ecrire à la liste").'" data-toggle="tooltip" ></i></a>
-               <a class="ml-3" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Raz de la liste").'" data-toggle="tooltip" ></i></a>
+            <span class="float-end">
+               <a href="replypmsg.php?send='.substr($list,0,strlen($list)-3).'" ><i class="far fa-envelope fa-lg" title="'.translate("Ecrire à la liste").'" data-bs-toggle="tooltip" ></i></a>
+               <a class="ms-3" href="memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;page='.$page.'&amp;gr_from_ws='.$gr_from_ws.'" ><i class="fas fa-trash fa-lg text-danger" title="'.translate("Raz de la liste").'" data-bs-toggle="tooltip" ></i></a>
             </span>';
       }
       echo '</p>
@@ -390,7 +390,7 @@ if ( $letter != 'front' ) {
    if ( $num_rows_per_order > $pagesize ) {
       echo '
       <div class="mt-3 lead align-middle">
-         <span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés pour").' <strong>'.$letter.'</strong> ('.$total_pages.' '.translate("pages").', '.$num_users.' '.translate("Utilisateurs montrés").').
+         <span class="badge bg-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés pour").' <strong>'.$letter.'</strong> ('.$total_pages.' '.translate("pages").', '.$num_users.' '.translate("Utilisateurs montrés").').
       </div>
       <ul class="pagination pagination-sm my-3 flex-wrap">';
       $total_pages = ceil($num_rows_per_order / $pagesize);
@@ -404,7 +404,7 @@ if ( $letter != 'front' ) {
          $current = $nbPages;
       echo paginate_single('memberslist.php?letter='.$letter.'&amp;sortby='.$sortby.'&amp;list='.$list.'&amp;gr_from_ws='.$gr_from_ws.'&amp;page=', '', $nbPages, $current, $adj=3, '', '');
    } else
-      echo '<div class="mt-3 lead align-middle"><span class="badge badge-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés").'</div>';
+      echo '<div class="mt-3 lead align-middle"><span class="badge bg-secondary lead">'.$num_rows_per_order.'</span> '.translate("Utilisateurs trouvés").'</div>';
 }
    include("footer.php");
 ?>

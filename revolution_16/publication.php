@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Sur une idée originale de PSTL                                       */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -48,35 +48,37 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    }
    echo '
    <hr />
-   <p class="small text-right">
+   <p class="small text-end">
    '.translate(date("l")).date(" ".translate("dateinternal"),time()+((integer)$gmt*3600)).'
    </p>';
 
    if($dd_pub!=-1 and $dh_pub!=-1)
       echo '
-   <div class="form-row">
-      <label class="col-form-label col-sm-4">'.translate("Date de publication").'</label>
-      <div class="col-sm-5 mb-3">
+   <div class="row mb-3">
+      <div class="col-sm-5 mb-2">
+         <label class="form-label" for="dd_pub">'.translate("Date de publication").'</label>
          <input type="text" class="form-control flatpi" id="dd_pub" name="dd_pub" value="'.$dd_pub.'" />
       </div>
-      <div class="input-group col-sm-3 mb-3">
-         <div class="input-group-prepend">
-             <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
+      <div class="col-sm-3 mb-2">
+         <label class="form-label" for="dh_pub">'.translate("Heure").'</label>
+         <div class="input-group">
+            <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
+            <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
          </div>
-      <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
       </div>
    </div>';
    echo '
-   <div class="form-row">
-      <label class="col-form-label col-sm-4">'.translate("Date de fin de publication").'</label>
-      <div class="col-sm-5 mb-3">
+   <div class="row mb-3">
+      <div class="col-sm-5 mb-2">
+         <label class="form-label" for="fd_pub">'.translate("Date de fin de publication").'</label>
          <input type="text" class="form-control flatpi" id="fd_pub" name="fd_pub" value="'.$fd_pub.'" />
       </div>
-      <div class="input-group col-sm-3 mb-3">
-         <div class="input-group-prepend">
+      <div class="col-sm-3 mb-2">
+         <label class="form-label" for="fh_pub">'.translate("Heure").'</label>
+         <div class="input-group">
             <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
+            <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
          </div>
-         <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
       </div>
    </div>
    <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
@@ -88,9 +90,9 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
          $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
          $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/css/bootstrap-clockpicker.min.css"});
          $("#dh_pub,#fh_pub").clockpicker({
-         placement: "bottom",
-         align: "right",
-         autoclose: "true"
+            placement: "bottom",
+            align: "right",
+            autoclose: "true"
          });
       })
       const fp = flatpickr(".flatpi", {
@@ -102,20 +104,20 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    //]]>
    </script>
 
-   <div class="form-group row">
-      <label class="col-form-label col-sm-4">'.translate("Epuration de la new à la fin de sa date de validité").'</label>';
+   <div class="mb-3 row">
+      <label class="col-form-label">'.translate("Epuration de la new à la fin de sa date de validité").'</label>';
       $sel1=''; $sel2='';
       if (!$epur) $sel2='checked="checked"';
       else $sel1='checked="checked"';
       echo '
       <div class="col-sm-8 my-2">
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="epur_y" name="epur" value="1" '.$sel1.' />
-            <label class="custom-control-label" for="epur_y">'.translate("Oui").'</label>
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="epur_y" name="epur" value="1" '.$sel1.' />
+            <label class="form-check-label" for="epur_y">'.translate("Oui").'</label>
          </div>
-         <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="radio" id="epur_n" name="epur" value="0" '.$sel2.' />
-            <label class="custom-control-label" for="epur_n">'.translate("Non").'</label>
+         <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="epur_n" name="epur" value="0" '.$sel2.' />
+            <label class="form-check-label" for="epur_n">'.translate("Non").'</label>
          </div>
       </div>
    </div>

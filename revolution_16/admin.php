@@ -56,41 +56,35 @@ function login() {
    echo '
    <h1>'.adm_translate("Administration").'</h1>
    <div id ="adm_men">
-      <div class="men_tit">
-         <h2 class="mb-3"><img class="adm_img vam" src="'.$adminimg.'login.png" />&nbsp;<a href="admin.php">'.adm_translate("Connexion").'</a></h2>
-      </div>
+      <h2 class="mb-3"><i class="fas fa-sign-in-alt fa-lg align-middle me-2"></i>'.adm_translate("Connexion").'</h2>
       <form action="admin.php" method="post" id="adminlogin" name="adminlogin">
-         <fieldset>
-            <div class="form-group row">
-               <label class="col-form-label col-sm-3" for="aid">'.adm_translate("Administrateur ID").'</label>
-               <div class="col-sm-8">
+         <div class="row g-3">
+            <div class="col-sm-6">
+               <div class="mb-3 form-floating">
                   <input id="aid" class="form-control" type="text" name="aid" maxlength="20" placeholder="'.adm_translate("Administrateur ID").'" required="required" />
-                  <span class="help-block text-right"><span id="countcar_aid"></span></span>
+                  <label for="aid">'.adm_translate("Administrateur ID").'</label>
                </div>
+               <span class="help-block text-end"><span id="countcar_aid"></span></span>
             </div>
-            <div class="form-group row">
-               <label class="col-form-label col-sm-3" for="pwd">'.adm_translate("Mot de Passe").'</label>
-               <div class="col-sm-8">
+            <div class="col-sm-6">
+               <div class="mb-3 form-floating">
                   <input id="pwd" class="form-control" type="password" name="pwd" maxlength="18" placeholder="'.adm_translate("Mot de Passe").'" required="required" />
-                  <span class="help-block text-right"><span id="countcar_pwd"></span></span>
+                  <label for="pwd">'.adm_translate("Mot de Passe").'</label>
                </div>
+               <span class="help-block text-end"><span id="countcar_pwd"></span></span>
             </div>
-            <div class="form-group row">
-               <div class="col-sm-9 ml-sm-auto">
-                  <button class="btn btn-outline-primary" type="submit"><i class="fa fa-check-square fa-lg"></i>&nbsp;'.adm_translate("Valider").'</button>
-               </div>
-            </div>
-            <input type="hidden" name="op" value="login" />
-         </fieldset>
+         </div>
+         <button class="btn btn-primary btn-lg" type="submit">'.adm_translate("Valider").'</button>
+         <input type="hidden" name="op" value="login" />
       </form>
       <script type="text/javascript">
-      //<![CDATA[
-      document.adminlogin.aid.focus();
-      $(document).ready(function() {
-         inpandfieldlen("pwd",18);
-         inpandfieldlen("aid",20);
-      });
-      //]]>
+         //<![CDATA[
+            document.adminlogin.aid.focus();
+            $(document).ready(function() {
+               inpandfieldlen("pwd",18);
+               inpandfieldlen("aid",20);
+            });
+         //]]>
       </script>';
       $arg1='
       var formulid =["adminlogin"];
@@ -129,7 +123,7 @@ function GraphicAdmin($hlpfile) {
    if($versus_info[1] == $Version_Sub and $versus_info[2] == $Version_Num)
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
    else
-      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-toggle=\"modal\" data-target=\"#versusModal\"', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-bs-toggle=\"modal\" data-bs-target=\"#versusModal\"', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
 
    $mess=array_slice($messages_npds, 1);
 
@@ -146,7 +140,7 @@ function GraphicAdmin($hlpfile) {
          $fico = $ibid[0] != 'Note'? 'message_npds_a':'message_npds_i';
          $QM=sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom='mes_npds_".$o."'"));
          if($QM===false)
-            sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface,fnom_affich,furlscript) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1','".addslashes($ibid[2])."','data-toggle=\"modal\" data-target=\"#messageModal\");\n");
+            sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface,fnom_affich,furlscript) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1','".addslashes($ibid[2])."','data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\");\n");
          $o++;
       }
    }
@@ -168,7 +162,7 @@ function GraphicAdmin($hlpfile) {
                   sql_query('UPDATE '.$NPDS_Prefix.'fonctions SET fdroits1_descr="", fnom_affich="'.addslashes($ibid[2]).'" WHERE fnom="mes_npds_'.$i.'"');
             }
          } else
-            sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$ibid[1].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1", fnom_affich="'.addslashes($ibid[2]).'", furlscript="data-toggle=\"modal\" data-target=\"#messageModal\"",fdroits1_descr=""');
+            sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$ibid[1].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1", fnom_affich="'.addslashes($ibid[2]).'", furlscript="data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\"",fdroits1_descr=""');
       }
       if(count ($f_mes)!==0) {
          foreach ( $f_mes as $v ) {
@@ -251,16 +245,16 @@ function GraphicAdmin($hlpfile) {
          if(preg_match('#mes_npds_\d#', $SAQ['fnom'])) {
             if(!in_array($aid, $adm_lecture, true))
                $bloc_foncts_A .='
-         <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$SAQ['furlscript'].' >
+         <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$SAQ['furlscript'].' >
             <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
-            <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
+            <span class="badge bg-danger ms-1">'.$SAQ['fretour'].'</span>
          </a>';
          }
          else
             $bloc_foncts_A .='
-         <a class=" btn btn-outline-primary btn-sm mr-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-html="true" '.$SAQ['furlscript'].' >
+         <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$SAQ['furlscript'].' >
             <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
-            <span class="badge badge-danger ml-1">'.$SAQ['fretour'].'</span>
+            <span class="badge bg-danger ms-1">'.$SAQ['fretour'].'</span>
          </a>';
          array_pop($cat_n);
       } 
@@ -269,7 +263,7 @@ function GraphicAdmin($hlpfile) {
          <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
-            <li id="'.$SAQ['fid'].'"  data-toggle="tooltip" data-placement="top" title="';
+            <li id="'.$SAQ['fid'].'"  data-bs-toggle="tooltip" data-bs-placement="top" title="';
          $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
          $li_c .='"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
          if ($admingraphic==1)
@@ -372,11 +366,11 @@ function GraphicAdmin($hlpfile) {
    var itemStr = getItems('#lst_men_main');
    //console.log(htmmll);
 
-         $('[data-toggle=\"tooltip\"]').tooltip();
-         $('[data-toggle=\"popover\"]').popover();
+         $('[data-bs-toggle=\"tooltip\"]').tooltip();
+         $('[data-bs-toggle=\"popover\"]').popover();
          $('table').on('all.bs.table', function (e, name, args) {
-            $('[data-toggle=\"tooltip\"]').tooltip();
-            $('[data-toggle=\"popover\"]').popover();
+            $('[data-bs-toggle=\"tooltip\"]').tooltip();
+            $('[data-bs-toggle=\"popover\"]').popover();
          });
       });
 
@@ -414,13 +408,13 @@ function GraphicAdmin($hlpfile) {
             lst_id.fadeIn(1000);//show();
             btn_show.attr('id',hid)
             btn_show.attr('title','".adm_translate("Replier la liste")."');
-            i_id.attr('class','fa fa-caret-up fa-lg text-primary mr-1');
+            i_id.attr('class','fa fa-caret-up fa-lg text-primary me-1');
          } else if (buttonID == hid) {
             lst_id.fadeOut(1000);//hide();
             btn_hide=$('#'+hid);
             btn_hide.attr('id',sho);
             btn_hide.attr('title','".html_entity_decode(adm_translate("Déplier la liste"),ENT_QUOTES|ENT_HTML401,cur_charset)."');
-            i_id.attr('class','fa fa-caret-down fa-lg text-primary mr-1');
+            i_id.attr('class','fa fa-caret-down fa-lg text-primary me-1');
         }
        });
    };
@@ -462,12 +456,12 @@ function GraphicAdmin($hlpfile) {
          <div class="col-6 col-lg-6 men_tit align-self-center">
             <h2><a href="admin.php">'.adm_translate("Menu").'</a></h2>
          </div>
-         <div id="adm_men_man" class="col-6 col-lg-6 men_man text-right">
+         <div id="adm_men_man" class="col-6 col-lg-6 men_man text-end">
             <ul class="liste" id="lst_men_top">
-               <li data-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a class="btn btn-outline-danger btn-sm" href="admin.php?op=logout" ><i class="fas fa-sign-out-alt fa-2x"></i></a></li>';
+               <li data-bs-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a class="btn btn-outline-danger btn-sm" href="admin.php?op=logout" ><i class="fas fa-sign-out-alt fa-2x"></i></a></li>';
    if ($hlpfile) {
       $adm_ent .='
-              <li class="ml-2" data-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a class="btn btn-outline-primary btn-sm" href="javascript:openwindow();"><i class="fa fa-question-circle fa-2x"></i></a></li>';
+              <li class="ms-2" data-bs-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a class="btn btn-outline-primary btn-sm" href="javascript:openwindow();"><i class="fa fa-question-circle fa-2x"></i></a></li>';
    }
    $adm_ent .='
             </ul>
@@ -487,18 +481,16 @@ function GraphicAdmin($hlpfile) {
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id="versusModalLabel"><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" />'.adm_translate("Version").' NPDS</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-               </button>
+               <h5 class="modal-title" id="versusModalLabel"><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" />'.adm_translate("Version").' NPDS</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                <p>Vous utilisez NPDS '.$Version_Sub.' '.$Version_Num.'</p>
                <p>'.adm_translate("Une nouvelle version de NPDS est disponible !").'</p>
                <p class="lead mt-3">'.$versus_info[1].' '.$versus_info[2].'</p>
                <p class="my-3">
-                  <a class="mr-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x mr-1"></i>.zip</a>
-                  <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x mr-1"></i>.tar.gz</a>
+                  <a class="me-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-bs-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.zip</a>
+                  <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-bs-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.tar.gz</a>
                </p>
             </div>
             <div class="modal-footer">
@@ -510,20 +502,18 @@ function GraphicAdmin($hlpfile) {
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id=""><span id="messageModalIcon" class="mr-2"></span><span id="messageModalLabel"></span></h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-               </button>
+               <h5 class="modal-title" id=""><span id="messageModalIcon" class="me-2"></span><span id="messageModalLabel"></span></h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                <p id="messageModalContent"></p>
                <form class="mt-3" id="messageModalForm" action="" method="POST">
                   <input type="hidden" name="id" id="messageModalId" value="0" />
-                  <button type="submit" class="btn btn btn-primary btn-sm">'.adm_translate("Confirmation lecture").'</button>
+                  <button type="submit" class="btn btn btn-primary btn-sm">'.adm_translate("Confirmer la lecture").'</button>
                </form>
             </div>
             <div class="modal-footer">
-            <span class="small text-muted">Information de npds.org</span><img class="adm_img mr-2" src="images/admin/message_npds.png" alt="icon_" />
+            <span class="small text-muted">Information de npds.org</span><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" />
             </div>
          </div>
       </div>
@@ -616,12 +606,12 @@ function adminMain($deja_affiches) {
             echo $title.' <i>(archive)</i>';
          else {
             if ($affiche) {
-               echo '<a data-toggle="popover" data-placement="left" data-trigger="hover" href="article.php?sid='.$sid.'" data-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-html="true">'.ucfirst($title).'</a>';
+               echo '<a data-bs-toggle="popover" data-bs-placement="left" data-bs-trigger="hover" href="article.php?sid='.$sid.'" data-bs-content=\'   <div class="thumbnail"><img class="img-rounded" src="images/topics/'.$topicimage.'" height="80" width="80" alt="topic_logo" /><div class="caption">'.htmlentities($hometext,ENT_QUOTES).'</div></div>\' title="'.$sid.'" data-bs-html="true">'.ucfirst($title).'</a>';
                if($ihome==1)
-                  echo '<br /><small><span class="badge badge-secondary" title="'.adm_translate("Catégorie").'" data-toggle="tooltip">'.aff_langue($cat_title).'</span> <span class="text-danger">non publié en index</span></small>';
+                  echo '<br /><small><span class="badge bg-secondary" title="'.adm_translate("Catégorie").'" data-bs-toggle="tooltip">'.aff_langue($cat_title).'</span> <span class="text-danger">non publié en index</span></small>';
                else
                if($catid>0)
-                  echo '<br /><small><span class="badge badge-secondary" title="'.adm_translate("Catégorie").'" data-toggle="tooltip"> '.aff_langue($cat_title).'</span> <span class="text-success"> publié en index</span></small>';
+                  echo '<br /><small><span class="badge bg-secondary" title="'.adm_translate("Catégorie").'" data-bs-toggle="tooltip"> '.aff_langue($cat_title).'</span> <span class="text-success"> publié en index</span></small>';
             } else {
                echo '<i>'.$title.'</i>';
             }
@@ -636,8 +626,8 @@ function adminMain($deja_affiches) {
          if ($affiche)
             echo '</td>
             <td>
-            <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fas fa-edit fa-lg mr-2" title="'.adm_translate("Editer").'" data-toggle="tooltip"></i></a>
-            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-toggle="tooltip"></i></a>';
+            <a href="admin.php?op=EditStory&amp;sid='.$sid.'" ><i class="fas fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip"></i></a>
+            <a href="admin.php?op=RemoveStory&amp;sid='.$sid.'" ><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"></i></a>';
          else
             echo '</td>
             <td>';
@@ -659,13 +649,13 @@ function adminMain($deja_affiches) {
 
       echo '
       <form id="fad_articles" class="form-inline" action="admin.php" method="post">
-         <label class="mr-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
-         <input class="form-control  mr-2 mt-sm-3 mb-2" type="number" name="sid" />
-         <select class="custom-select form-control mr-2 mt-sm-3 mb-2" name="op">
+         <label class="me-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
+         <input class="form-control  me-2 mt-sm-3 mb-2" type="number" name="sid" />
+         <select class="form-select me-2 mt-sm-3 mb-2" name="op">
             <option value="EditStory" selected="selected">'.adm_translate("Editer un Article").'</option>
             <option value="RemoveStory">'.adm_translate("Effacer l'Article").'</option>
          </select>
-         <button class="btn btn-primary ml-sm-2 mt-sm-3 mb-2" type="submit">'.adm_translate("Ok").' </button>
+         <button class="btn btn-primary ms-sm-2 mt-sm-3 mb-2" type="submit">'.adm_translate("Ok").' </button>
       </form>';
    }
    echo '</div>';

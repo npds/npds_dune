@@ -112,10 +112,10 @@ margin-top:264px;
       display: block;
       text-decoration: none;
       padding: 3px 5px; }
-      .ol-geocoder ul.gcd-gl-result > li > a:hover {color: var(--white);
-        background-color: var(--primary); }
+      .ol-geocoder ul.gcd-gl-result > li > a:hover {color: var(--bs-white);
+        background-color: var(--bs-primary); }
   .ol-geocoder ul.gcd-gl-result > li:nth-child(odd) {
-    background-color: var(--light); }
+    background-color: var(--bs-light); }
 
 .ol-geocoder ul.gcd-gl-result:empty {
   display: none; }
@@ -251,19 +251,19 @@ margin-top:264px;
 .gcd-address {
   font-size: 0.875em;
   font-weight: 500;
-  color: var(--ligth); }
+  color: var(--bs-ligth); }
 
 .gcd-road {
   font-size: 0.875em;
   font-weight: 500;
-  color: var(--ligth); }
+  color: var(--bs-ligth); }
 
 .gcd-city {
   font-size: 0.75em;
   font-weight: normal;
-  color: var(--ligth); }
+  color: var(--bs-ligth); }
 
 .gcd-country {
   font-size: 0.75em;
   font-weight: lighter;
-  color: var(--ligth); }
+  color: var(--bs-ligth); }

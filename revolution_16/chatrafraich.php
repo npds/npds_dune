@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -89,9 +89,9 @@ settype($connectes,'integer');
    if (intval($connectes)!=$numofchatters) {
       $rafraich_connectes=1;
       if (($numofchatters==1) or ($numofchatters==0)) {
-         $nbre_connectes="'".$numofchatters." ".utf8_java(translate("personne connectée."))." GP [$id]'";
+         $nbre_connectes="'".$numofchatters." ".utf8_java(html_entity_decode(translate("personne connectée."),ENT_QUOTES | ENT_HTML401, 'UTF-8'))." GP [$id]'";
       } else {
-         $nbre_connectes="'".$numofchatters." ".utf8_java(translate("personnes connectées."))." GP [$id]'";
+         $nbre_connectes="'".$numofchatters." ".utf8_java(html_entity_decode(translate("personnes connectées."),ENT_QUOTES | ENT_HTML401, 'UTF-8'))." GP [$id]'";
       }
    }
    $commande="self.location='chatrafraich.php?repere=$repere&aff_entetes=0&connectes=$numofchatters&id=$id&auto=$auto'";

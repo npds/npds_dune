@@ -30,25 +30,25 @@ function displayUsers() {
    <hr />
     <h3>'.adm_translate("Extraire l'annuaire").'</h3>
     <form method="post" class="form-inline" action="admin.php">
-            <div class="form-group">
-                <label class="mr-2 mt-sm-3" for="op">'.adm_translate("Format de fichier").'</label>
-                <select class="custom-select form-control mr-2 mt-sm-3" name="op">
+            <div class="mb-3">
+                <label class="me-2 mt-sm-3" for="op">'.adm_translate("Format de fichier").'</label>
+                <select class="form-select me-2 mt-sm-3" name="op">
                     <option value="extractUserCSV">'.adm_translate("Au format CSV").'</option>
                 </select>
             </div>
-            <button class="btn btn-primary ml-2 mt-3" type="submit">'.adm_translate("Ok").' </button>
+            <button class="btn btn-primary ms-2 mt-3" type="submit">'.adm_translate("Ok").' </button>
     </form>
     <hr />
     <h3>'.adm_translate("Rechercher utilisateur").'</h3>
     <form method="post" class="form-inline" action="admin.php">
-      <label class="mr-2 mt-sm-1" for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
-      <input class="form-control mr-2 mt-sm-3 mb-2" type="text" id="chng_uid" name="chng_uid" size="20" maxlength="10" />
-      <select class="custom-select form-control mr-2 mt-sm-3 mb-2" name="op">
+      <label class="me-2 mt-sm-1" for="chng_uid">'.adm_translate("Identifiant Utilisateur").'</label>
+      <input class="form-control me-2 mt-sm-3 mb-2" type="text" id="chng_uid" name="chng_uid" size="20" maxlength="10" />
+      <select class="form-select me-2 mt-sm-3 mb-2" name="op">
          <option value="modifyUser">'.adm_translate("Modifier un utilisateur").'</option>
          <option value="unsubUser">'.adm_translate("Désabonner un utilisateur").'</option>
          <option value="delUser">'.adm_translate("Supprimer un utilisateur").'</option>
       </select>
-      <button class="btn btn-primary ml-sm-2 mt-sm-3 mb-2" type="submit" >'.adm_translate("Ok").' </button>
+      <button class="btn btn-primary ms-sm-2 mt-sm-3 mb-2" type="submit" >'.adm_translate("Ok").' </button>
     </form>';
     $chng_is_visible=1;
     echo '
@@ -284,11 +284,11 @@ function nonallowedUsers() {
    $newsuti = sql_query("SELECT u.uid, u.uname, u.name, u.user_regdate FROM ".$NPDS_Prefix."users AS u LEFT JOIN users_status AS us ON u.uid = us.uid WHERE us.open='0' ORDER BY u.user_regdate DESC");
    echo '
    <hr />
-   <h3>'.adm_translate("Utilisateur(s) en attente de validation").'<span class="badge badge-secondary float-right">'.sql_num_rows($newsuti).'</span></h3>
+   <h3>'.adm_translate("Utilisateur(s) en attente de validation").'<span class="badge bg-secondary float-end">'.sql_num_rows($newsuti).'</span></h3>
    <table class="table table-no-bordered table-sm " data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa" data-show-columns="true">
       <thead>
          <tr>
-            <th data-halign="center" data-align="center" class="n-t-col-xs-1" ><i class="fa fa-user-o fa-lg mr-1 align-middle"></i>ID</th>
+            <th data-halign="center" data-align="center" class="n-t-col-xs-1" ><i class="fa fa-user-o fa-lg me-1 align-middle"></i>ID</th>
             <th data-halign="center" data-sortable="true">'.adm_translate("Identifiant").'</th>
             <th data-halign="center" data-align="left" data-sortable="true">'.adm_translate("Name").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Date").'</th>
@@ -304,7 +304,7 @@ function nonallowedUsers() {
             <td>'.$unallowed_users['name'].'</td>
             <td>'.date('d/m/Y @ h:m',$unallowed_users['user_regdate']).'</td>
             <td>
-               <a class="mr-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-toggle="tooltip"></i></a>
+               <a class="me-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-bs-toggle="tooltip"></i></a>
             </td>
          </tr>';
    }
@@ -381,7 +381,7 @@ function checkdnsmailusers() {
             $datelimit= date('d/m/Y',$res[1]+5184000);
          }
          $wrongdnsmail++;
-         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-right"><i class="far fa-envelope mr-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
+         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-end"><i class="far fa-envelope me-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
       }
    }
 
@@ -398,10 +398,10 @@ function checkdnsmailusers() {
       settype($autocont,'integer');
       if($autocont==1){$ck='checked="checked"';} else {$ck='';};
       echo '
-      <div>'.adm_translate("Serveurs de mails contrôlés").'<span class="badge badge-success float-right">'.($page*$pagesize).'</span><br /></div>
+      <div>'.adm_translate("Serveurs de mails contrôlés").'<span class="badge bg-success float-end">'.($page*$pagesize).'</span><br /></div>
       <a class="btn btn-success btn-sm mt-2" href="admin.php?op=checkdnsmail_users&amp;page='.$next_page.'&amp;end='.$end.'">Continuer</a>
       <hr />
-      <div class="text-right"><input id="controlauto" '.$ck.' type="checkbox" /></div>
+      <div class="text-end"><input id="controlauto" '.$ck.' type="checkbox" /></div>
       <script type="text/javascript">
       //<![CDATA[
          $(function () {
@@ -420,14 +420,14 @@ function checkdnsmailusers() {
       </script>';
    }
    else 
-      echo adm_translate("Serveurs de mails contrôlés").'<span class="badge badge-success float-right">'.$total.'</span>';
+      echo adm_translate("Serveurs de mails contrôlés").'<span class="badge bg-success float-end">'.$total.'</span>';
    echo
    '</div>';
    if($end!=1) {
       if($wrongdnsmail>0) {
          echo '
       <div class="alert alert-danger">
-         <p class="lead">'.adm_translate("DNS ou serveur de mail incorrect").'<span class="badge badge-danger float-right">'.$wrongdnsmail.'</span></p>
+         <p class="lead">'.adm_translate("DNS ou serveur de mail incorrect").'<span class="badge bg-danger float-end">'.$wrongdnsmail.'</span></p>
          <hr />
          '.adm_translate("Toutes les souscriptions de ces utilisateurs ont été suspendues.").'<br />
          '.adm_translate("Un message privé leur a été envoyé sans réponse à ce message sous 60 jours ces utilisateurs ne pourront plus se connecter au site.").'<br /><br />
@@ -449,7 +449,7 @@ function checkdnsmailusers() {
       while($names = sql_fetch_array($result)){ $unames[]=$names['uname'];$uids[]=$names['uid'];};
       echo '
    <div class="alert alert-danger">
-      <div class="lead">'.adm_translate("DNS ou serveur de mail incorrect").' <span class="badge badge-danger float-right">'.$nbu.'</span></div>';
+      <div class="lead">'.adm_translate("DNS ou serveur de mail incorrect").' <span class="badge bg-danger float-end">'.$nbu.'</span></div>';
       if($nbu>0) {
          echo'
          <hr />'.adm_translate("Toutes les souscriptions de ces utilisateurs ont été suspendues.").'<br />
@@ -459,7 +459,7 @@ function checkdnsmailusers() {
             $dateenvoi=date('d/m/Y',$t[$row]);
             $datelimit= date('d/m/Y',$t[$row]+5184000);
             echo '
-            <li>'.adm_translate("DNS ou serveur de mail incorrect").' <i class="fa fa-user-o mr-1 "></i> : <a class="alert-link" href="admin.php?chng_uid='. $uids[$row].'&amp;op=modifyUser">'. $unames[$row].'</a><span class="float-right"><i class="far fa-envelope mr-1 align-middle"></i><small>'.$dateenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
+            <li>'.adm_translate("DNS ou serveur de mail incorrect").' <i class="fa fa-user-o me-1 "></i> : <a class="alert-link" href="admin.php?chng_uid='. $uids[$row].'&amp;op=modifyUser">'. $unames[$row].'</a><span class="float-end"><i class="far fa-envelope me-1 align-middle"></i><small>'.$dateenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
          }
          echo '
       </ul>';
@@ -592,7 +592,7 @@ switch ($op) {
          include("header.php");
          GraphicAdmin($hlpfile);
          adminhead ($f_meta_nom, $f_titre, $adminimg);
-         echo error_handler('<i class="fa fa-exclamation mr-2"></i>'.adm_translate("ERREUR : cet identifiant est déjà utilisé").'<br />');
+         echo error_handler('<i class="fa fa-exclamation me-2"></i>'.adm_translate("ERREUR : cet identifiant est déjà utilisé").'<br />');
          adminfoot('','','','');
          return;
       }

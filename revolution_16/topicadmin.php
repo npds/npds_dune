@@ -93,10 +93,10 @@ global $NPDS_Prefix, $adminforum;
                echo '
       <h2>'.translate("Forum").'</h2>
       <form action="topicadmin.php" method="post">
-         <div class="form-group row">
-            <label class="form-control-label col-sm-12" for="newforum">'.translate("Déplacer le sujet vers : ").'</label>
+         <div class="mb-3 row">
+            <label class="form-label" for="newforum">'.translate("Déplacer le sujet vers : ").'</label>
             <div class="col-sm-12">
-               <select class="custom-select form-control" name="newforum">';
+               <select class="form-select" name="newforum">';
                $sql = "SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums WHERE forum_id!='$forum' ORDER BY cat_id,forum_index,forum_id";
                if ($result = sql_query($sql)) {
                   if ($myrow = sql_fetch_assoc($result)) {
@@ -116,7 +116,7 @@ global $NPDS_Prefix, $adminforum;
                   </select>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <div class="col-sm-12">
                <input type="hidden" name="mode" value="move" />
                <input type="hidden" name="topic" value="'.$topic.'" />

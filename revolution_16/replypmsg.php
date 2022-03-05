@@ -215,7 +215,7 @@ else {
             forumerror('0024');
       }
       echo '
-      <h2><a href="viewpmsg.php"><i class="mr-2 fa fa-inbox"></i></a>'.translate("Message personnel").'</h2>
+      <h2><a href="viewpmsg.php"><i class="me-2 fa fa-inbox"></i></a>'.translate("Message personnel").'</h2>
       <hr />
       <blockquote class="blockquote">'.translate("A propos des messages publiés :").'<br />'.
          translate("Tous les utilisateurs enregistrés peuvent poster des messages privés.").'</blockquote>';
@@ -242,7 +242,7 @@ else {
          }
          echo '
          <form id="pmessage" action="replypmsg.php" method="post" name="coolsus">
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="to_user">'.translate("Destinataire").'</label>
             <div class="col-sm-9">';
          if ($reply)
@@ -266,15 +266,15 @@ else {
          settype($copie,'string');
          if ($copie) $checked='checked="checked"'; else $checked='';
          echo '
-         <div class="form-group row">
-            <div class="col-sm-9 ml-auto">
-            <div class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" id="copie" name="copie" '.$checked.' />
-               <label class="custom-control-label" for="copie"> '.translate("Conserver une copie").'</label>
+         <div class="mb-3 row">
+            <div class="col-sm-9 ms-auto">
+            <div class="form-check">
+               <input class="form-check-input" type="checkbox" id="copie" name="copie" '.$checked.' />
+               <label class="form-check-label" for="copie"> '.translate("Conserver une copie").'</label>
             </div>
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="subject">'.translate("Sujet").'</label>
             <div class="col-sm-12">';
          settype($subject,'string');
@@ -287,7 +287,7 @@ else {
          settype($image_subject,'string');
          if ($smilies) {
             echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12">'.translate("Icone du message").'</label>
             <div class="col-sm-12">
                <div class="border rounded pt-3 px-2 n-fond_subject d-flex flex-row flex-wrap">
@@ -297,15 +297,15 @@ else {
          </div>';
          }
       echo '
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">';
          if ($allow_html == 1)
-            echo '<span class="text-success float-right" title="HTML '.translate("Activé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
+            echo '<span class="text-success float-end" title="HTML '.translate("Activé").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
          else
-            echo '<span class="text-danger float-right" title="HTML '.translate("Désactivé").'" data-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+            echo '<span class="text-danger float-end" title="HTML '.translate("Désactivé").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
          echo '
             </div>
             <div class="card-body">';
@@ -341,9 +341,9 @@ else {
          if ($Xreply) echo $Xreply;
          echo '
          </textarea>
-         <span class="help-block text-right">
-            <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-toggle="tooltip" ><i class="fas fa-times " ></i></button>
-            <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-toggle="tooltip" ><i class="fa fa-eye "></i></button>
+         <span class="help-block text-end">
+            <button class="btn btn-outline-danger btn-sm" type="reset" value="'.translate("Annuler").'" title="'.translate("Annuler").'" data-bs-toggle="tooltip" ><i class="fas fa-times " ></i></button>
+            <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-bs-toggle="tooltip" ><i class="fa fa-eye "></i></button>
          </span>
                </div>
                <div class="card-footer text-muted">';
@@ -354,16 +354,16 @@ else {
             </div>
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <label class="col-form-label col-sm-3">'.translate("Options").'</label>';
          if ($allow_html==1) {
             settype($html,'string');
             if ($html=='on') $checked='checked="checked"'; else $checked='';
             echo '
          <div class="col-sm-9 my-2">
-            <div class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" id="html" name="html" '.$checked.' />
-               <label class="custom-control-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
+            <div class="form-check">
+               <input class="form-check-input" type="checkbox" id="html" name="html" '.$checked.' />
+               <label class="form-check-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
             </div>';
          }
 
@@ -372,9 +372,9 @@ else {
             settype($sig,'string');
             if ($submitP) {if($sig=='on') $checked = 'checked="checked"'; else $checked = '';}
             echo '
-            <div class="custom-control custom-checkbox">
-               <input class="custom-control-input" type="checkbox" id="sig" name="sig" '.$checked.' />
-               <label class="custom-control-label" for="sig">'.translate("Afficher la signature").'</label>
+            <div class="form-check">
+               <input class="form-check-input" type="checkbox" id="sig" name="sig" '.$checked.' />
+               <label class="form-check-label" for="sig">'.translate("Afficher la signature").'</label>
             </div>
             <small class="help-block">'.translate("Cela peut être retiré ou ajouté dans vos paramètres personnels").'</small>';
          }
@@ -383,7 +383,7 @@ else {
          echo '
          </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="msg_id" value="'.$msg_id.'" />
             <input type="hidden" name="full_interface" value="'.$full_interface.'" />';
@@ -400,10 +400,10 @@ else {
             <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" />&nbsp;';
          if ($reply)
             echo '
-            <input class="btn btn-danger ml-2" type="submit" name="cancel" value="'.translate("Annuler la réponse").'" />';
+            <input class="btn btn-danger ms-2" type="submit" name="cancel" value="'.translate("Annuler la réponse").'" />';
          else {
             echo '
-            <input class="btn btn-danger ml-2" type="submit" name="cancel" value="'.translate("Annuler l'envoi").'" />';
+            <input class="btn btn-danger ms-2" type="submit" name="cancel" value="'.translate("Annuler l'envoi").'" />';
             echo auto_complete ('membre','uname','users','to_user','86400');
          }
          echo '

@@ -151,7 +151,7 @@ $lock_state = $myrow['topic_status'];
       <hr />
          <p class="">'.translate("Forum").'&nbsp;&raquo;&nbsp;&raquo;&nbsp;'.stripslashes($forum_name).'&nbsp;&raquo;&nbsp;&raquo;&nbsp;<strong>'.$topic_subject.'</strong></p>
          <hr />
-         <p class="text-right">
+         <p class="text-end">
          <small>'.translate("Posté : ").convertdate($myrow['post_time']).'</small> ';
 
    if ($myrow['image'] != '') {

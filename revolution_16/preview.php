@@ -88,7 +88,7 @@ switch ($acc) {
       if (($forum_type!=6) and ($forum_type!=5)) {
          $messageP = af_cod($messageP);
          $messageP = str_replace("\n", '<br />', removeHack($messageP));
-         $messageP .= '<br /><div class=" text-muted text-right small"><i class="fa fa-edit"></i> '.translate("Message édité par").' : '.$userdata['uname'].'</div';
+         $messageP .= '<br /><div class=" text-muted text-end small"><i class="fa fa-edit"></i> '.translate("Message édité par").' : '.$userdata['uname'].'</div';
          if ($allow_bbcode) $messageP = aff_video_yt($messageP);
       } 
       else
@@ -113,12 +113,12 @@ switch ($acc) {
                   if ($ibid=theme_image("forum/avatar/".$theposterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$theposterdata['user_avatar'];}
                }
                 echo '
-                   <a style="position:absolute; top:1rem;" tabindex="0" data-toggle="popover" data-html="true" data-title="'.$theposterdata['uname'].'" data-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rang']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-html="true" data-bs-title="'.$theposterdata['uname'].'" data-bs-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rang']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
             }
          }
                echo'
                   &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$userdatat[1].'</strong></span>
-                  <span class="float-right">';
+                  <span class="float-end">';
       if (isset($image_subject)) {
          if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
          echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';
@@ -129,7 +129,7 @@ switch ($acc) {
       echo '</span>
                   </div>
                   <div class="card-body">
-                     <span class="text-muted float-right small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
+                     <span class="text-muted float-end small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
                      <div id="post_preview" class="card-text pt-3">';
 
       $messageP=stripslashes($messageP);

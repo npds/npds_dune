@@ -33,10 +33,10 @@ function etape_1() {
                   </div>
                </div>
                <form name="welcome" method="post" action="install.php">
-                  <div class="form-group">
-                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="qi" name="qi" value="1" />
-                        <label class="custom-control-label" for="qi">'.ins_translate("Installation rapide").'</label>
+                  <div class="mb-3">
+                     <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="qi" name="qi" value="1" />
+                        <label class="form-check-label" for="qi">'.ins_translate("Installation rapide").'</label>
                         <span class="help-block small">'.ins_translate("Cette option valide l'acceptation de la licence GNU/GPL V3 et supprime l'affichage des résultats de certaines opérations d'installation.").'</span>
                     </div>
                   </div>

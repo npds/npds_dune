@@ -46,29 +46,29 @@ function AddLink() {
       <form id="addlink" method="post" action="modules.php" name="adminForm">
          <input type="hidden" name="ModPath" value="'.$ModPath.'" />
          <input type="hidden" name="ModStart" value="'.$ModStart.'" />
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="title">'.translate("Titre").'</label>
             <div class="col-sm-9">
                <input class="form-control" type="text" id="title" name="title" maxlength="100" required="required" />
-               <span class="help-block text-right" id="countcar_title"></span>
+               <span class="help-block text-end" id="countcar_title"></span>
            </div>
         </div>';
       global $links_url;
       if (($links_url) or ($links_url==-1))
         echo'
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="url">URL</label>
             <div class="col-sm-9">
                <input class="form-control" type="url" id="url" name="url" maxlength="320" value="http://" required="required" />
-               <span class="help-block text-right" id="countcar_url"></span>
+               <span class="help-block text-end" id="countcar_url"></span>
            </div>
         </div>';
         $result=sql_query("SELECT cid, title FROM ".$links_DB."links_categories ORDER BY title");
         echo'
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="cat">'.translate("Catégorie").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" id="cat" name="cat">';
+               <select class="form-select" id="cat" name="cat">';
         while (list($cid, $title) = sql_fetch_row($result)) {
            echo '
                   <option value="'.$cid.'">'.aff_langue($title).'</option>';
@@ -85,10 +85,10 @@ function AddLink() {
         global $links_topic;
         if ($links_topic) {
            echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="topicL">'.translate("Sujets").'</label>
             <div class="col-sm-9">
-               <select class="custom-select form-control" id="topicL" name="topicL">';
+               <select class="form-select" id="topicL" name="topicL">';
            $toplist = sql_query("SELECT topicid, topictext FROM ".$NPDS_Prefix."topics ORDER BY topictext");
            echo '
                   <option value="">'.translate("Tous les sujets").'</option>';
@@ -102,7 +102,7 @@ function AddLink() {
          </div>';
         }
         echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xtext">'.translate("Description").'</label>
             <div class="col-sm-12">
                <textarea class="tin form-control" name="xtext" id="xtext" rows="10"></textarea>
@@ -111,24 +111,24 @@ function AddLink() {
         echo aff_editeur('xtext','');
         global $cookie;
         echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="name">'.translate("Votre nom").'</label>
             <div class="col-sm-9">
                <input type="text" class="form-control" id="name" name="name" maxlength="60" value="'.$cookie[1].'" required="required" />
             </div>
          </div>
-         <div class="form-group row">
+         <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="email">'.translate("Votre Email").'</label>
             <div class="col-sm-9">
                <input type="email" class="form-control" id="email" name="email" maxlength="254" required="required" />
-               <span class="help-block text-right" id="countcar_email"></span>
+               <span class="help-block text-end" id="countcar_email"></span>
             </div>
          </div>';
         echo Q_spambot();
         echo '
-         <div class="form-group row">
+         <div class="mb-3 row">
             <input type="hidden" name="op" value="Add" />
-            <div class="col-sm-9 ml-sm-auto">
+            <div class="col-sm-9 ms-sm-auto">
                <input type="submit" class="btn btn-primary" value="'.translate("Ajouter une url").'" />
             </div>
          </div>

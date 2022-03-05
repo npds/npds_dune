@@ -20,6 +20,11 @@ function adm_translate($phrase) {
       case "linksdatestring": $tmp="%d-%b-%Y"; break;
       case "datestring2": $tmp="%A, %d %B"; break;
       case "dateforop": $tmp="d-m-y"; break;
+      case "english": $tmp="Anglais"; break;
+      case "french": $tmp="Français"; break;
+      case "spanish": $tmp="Espagnol"; break;
+      case "chinese": $tmp="Chinois"; break;
+      case "german": $tmp="Allemand"; break;
       default: $tmp = $phrase; break;
    }
    return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
