@@ -1,4 +1,4 @@
-changelog-rev16.4 [ révision : 46 - jpb /9-01-2022 ]
+changelog-rev16.4 [ révision : 48 - jpb /9-01-2022 ]
 (non exhaustif...)
 
 Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes en grande partie à la mise à jour du framework bs, des autres dépendances et des corrections et amélioration de la version précédente. La base de données n'est que très peu impactée, principalement sur des données (... quelques métamots).
@@ -18,12 +18,14 @@ bug track :
 - pic manager, file manager : erreur 429 lors du traitement de dossier avec de nombreuses images (résolu partiellement le cas peut encore exister ...)
 - geoloc correction : contruction des listes de choix des fonds de carte, remplissage du viewport en fonction de l'extension de la couche.
 - affichage correct des IPV6 dans session log
+- correction de l'affichage du titre de la fenêtre du chat (affichage des entités html (renvoyées par la traduction) au lieu d'un format text ...) @phrev
 
 améliorations :
 - pic manager, file manager : mise en page et changement d'iconographie (bs webfont au lieu de font awesome)
 - mise en page de formulaires
 - menu utilisateur (externalisation ...)
 
+thèmes : possibilité d'ajouter à partir du thème une classe à "l'élément html primaire" d'un bloc 
 
 ################################################################################
 changelog-rev16.3 [ révision : 46 - jpb /20-12-2021 ]
