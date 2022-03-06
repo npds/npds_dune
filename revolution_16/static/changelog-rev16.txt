@@ -1,4 +1,4 @@
-changelog-rev16.4 [ révision : 48 - jpb /9-01-2022 ]
+changelog-rev16.4 [ révision : 49 - jpb /6-03-2022 ]
 (non exhaustif...)
 
 Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes en grande partie à la mise à jour du framework bs, des autres dépendances et des corrections et amélioration de la version précédente. La base de données n'est que très peu impactée, principalement sur des données (... quelques métamots).
@@ -9,7 +9,7 @@ Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes 
    formvalidation v.1.9.0 (lié à maj BS)
    colorpicker v.3.4
    bootstrap table 1.19.1
-   openlayers 6.11.0
+   openlayers 6.13.0
 - mise à jour skin et theme + 3 nouveaux skins
 - validation des formulaire : formvalidation ajout rowselector (pour bon fonctionnement des icônes de validation de formulaire) .. (probablement à affiner encore) 
 bug track :
