@@ -451,7 +451,7 @@ if (!function_exists("Mysql_Connexion"))
    if ($result) $secnum = sql_num_rows($result); else $secnum=0;
    $result = sql_query("SELECT artid FROM ".$NPDS_Prefix."seccont");
    if ($result) $secanum = sql_num_rows($result); else $secanum=0;
-   $result = sql_query("SELECT gid FROM ".$NPDS_Prefix."queue");
+   $result = sql_query("SELECT qid FROM ".$NPDS_Prefix."queue");
    if ($result) $subnum = sql_num_rows($result); else $subnum=0;
    $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics");
    if ($result) $tnum = sql_num_rows($result); else $tnum=0;
