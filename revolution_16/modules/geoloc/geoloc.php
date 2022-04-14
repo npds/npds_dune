@@ -292,7 +292,7 @@ while ($row = sql_fetch_array($result)) {
       if ($us_url != '')
          $imm .= ' <a href="'.$us_url.'" target="_blank" ><i class="fas fa-external-link-alt fa-2x me-2 tooltipbyclass" title="'.geoloc_translate("Visitez le site").'"></i></a>';
       if ($us_mns != '')
-         $imm .='<a href="minisite.php?op='.$users_uname.'" target="_blank" ><i class="fa fa-desktop fa-2x me-2 tooltipbyclass" title="'.geoloc_translate("Visitez le minisite").'"></i></a>';
+         $imm .='<a href="minisite.php?op='.$users_uname.'" target="_blank" ><i class="fa fa-desktop fa-2x me-2 tooltipbyclass" title="'.geoloc_translate("Visitez le minisite").'"></i>'.$us_mns.'</a>';
 
       //construction marker membre on line
       if($mark_typ !==1) $ic_sb_mbgc ='<i style=\"color:'.$mbgc_f_co.';\" class=\"fa fa-'.strtolower($f_mbg).' fa-lg animated faa-pulse me-1\"></i>';
@@ -407,7 +407,7 @@ while ($row = sql_fetch_array($membre)) {
          $imm .= '<a href="powerpack.php?op=instant_message&to_userid='.$us_uname.'" ><i class="far fa-envelope fa-lg me-3 tooltipbyclass" title="'.geoloc_translate("Envoyez un message interne").'"></i></a>';
       if ($us_url != '')
          $imm .= '<a href="'.$us_url.'" target="_blank" ><i class="fas fa-external-link-alt fa-lg me-3 tooltipbyclass" title="'.geoloc_translate("Visitez le site").'"></i></a>';
-      if ($us_mns != '')
+      if ($us_mns)
          $imm .='<a href="minisite.php?op='.$us_uname.'" target="_blank" ><i class="fa fa-desktop fa-lg me-3 tooltipbyclass" title="'.geoloc_translate("Visitez le minisite").'"></i></a>';
 
       //==> construction du fichier json
@@ -482,7 +482,11 @@ $fond_provider = array(
    ['Road', geoloc_translate("Plan").' (Bing maps)'],
    ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
    ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
-   ['sat-google', geoloc_translate("Satellite").' (Google maps)']
+   ['sat-google', geoloc_translate("Satellite").' (Google maps)'],
+   ['World_Imagery', geoloc_translate("Satellite").' (ESRI)'],
+   ['World_Shaded_Relief', geoloc_translate("Relief").' (ESRI)'],
+   ['World_Physical_Map', geoloc_translate("Physique").' (ESRI)'],
+   ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)']
 );
 if($api_key_bing=='' and $api_key_mapbox=='')
    unset($fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8],$fond_provider[9]);
@@ -506,11 +510,13 @@ foreach ($fond_provider as $k => $v) {
                            <optgroup label="Bing maps">'; break;
       case '10': $optcart .= '
                            <optgroup label="Google">';break;
+      case '11': $optcart .= '
+                           <optgroup label="ESRI">';break;
    }
    $optcart .= '
                               <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
    switch($k){
-      case '0': case '3': case '4': case '6': case '9': case '10': $optcart .= '
+      case '0': case '3': case '4': case '6': case '9': case '10': case '14': $optcart .= '
                            </optgroup>'; break;
    }
 }
@@ -560,6 +566,17 @@ switch ($cartyp) {
       'new ol.source.XYZ({
          url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/2013-06-15/GoogleMapsCompatible_Level13/{z}/{y}/{x}.jpg"
       })';
+      $max_r='40000';
+      $min_r='0';
+      $layer_id= $cartyp;
+   break;
+   case 'World_Imagery':case 'World_Shaded_Relief':case 'World_Physical_Map':case 'World_Topo_Map':
+      $source_fond='new ol.source.XYZ({
+         attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
+         attributionsCollapsible: true,
+         url: "https://services.arcgisonline.com/ArcGIS/rest/services/"+cartyp+"/MapServer/tile/{z}/{y}/{x}",
+         maxZoom: 23
+     })';
       $max_r='40000';
       $min_r='0';
       $layer_id= $cartyp;
@@ -935,12 +952,12 @@ $ecr_scr .='
          if($("#sidebar").hasClass("show")) {
             $("#sidebar").collapse("toggle");
             button.innerHTML = "&#xf0d7";
-            button.setAttribute("data-original-title", "'.geoloc_translate('Voir').'")
+            button.setAttribute("data-bs-original-title", "'.geoloc_translate('Voir').'")
          }
          else {
             $("#sidebar").collapse("show");
             button.innerHTML = "&#xf0d8";
-            button.setAttribute("data-original-title", "'.geoloc_translate('Masquer').'")
+            button.setAttribute("data-bs-original-title", "'.geoloc_translate('Masquer').'")
          }
       };
       button.addEventListener("click", sidebarSwitch, true);
@@ -1099,7 +1116,7 @@ if(autorisation(-127) and $geo_ip==1)
 $ecr_scr .='
             map.addOverlay(georef_popup);
             map.addLayer(georef_marker);
-            containertip.attr("data-original-title", "'.geoloc_translate('Cliquer sur la carte pour modifier votre position.').'").tooltip("show");
+            containertip.attr("data-bs-original-title", "'.geoloc_translate('Cliquer sur la carte pour modifier votre position.').'").tooltip("show");
             pointGeoref.getGeometry().setCoordinates(view.getCenter());
             popuptooltip.setPosition(view.getCenter());
             $("#l_sb_member, #l_sb_ip, #l_sb_ano").removeClass("show");
@@ -1189,7 +1206,7 @@ $ecr_scr .='
       switch (cartyp) {
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
-            map.getLayers().R[0].setProperties({"id":cartyp});
+            map.getLayers().item(0).setProperties({"id":cartyp});
             fond_carte.setMinResolution(1);
          break;
          case "sat-google":
@@ -1197,13 +1214,13 @@ $ecr_scr .='
                url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous",
                attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"
             }));
-            map.getLayers().R[0].setProperties({"id":cartyp});
+            map.getLayers().item(0).setProperties({"id":cartyp});
          break;
          case "Road":case "Aerial":case "AerialWithLabels":
             fond_carte.setSource(new ol.source.BingMaps({
                key: "'.$api_key_bing.'",imagerySet: cartyp
             }));
-            map.getLayers().R[0].setProperties({"id":cartyp});
+            map.getLayers().item(0).setProperties({"id":cartyp});
             fond_carte.setMinResolution(1);
          break;
          case "natural-earth-hypso-bathy": case "geography-class":
@@ -1213,13 +1230,13 @@ $ecr_scr .='
             }));
             fond_carte.setMinResolution(3000);
             fond_carte.setMaxResolution(40000);
-            map.getLayers().R[0].setProperties({"id":cartyp});
+            map.getLayers().item(0).setProperties({"id":cartyp});
          break;
          case "terrain": case "toner": case "watercolor":
             fond_carte.setSource(new ol.source.Stamen({layer:cartyp}));
             fond_carte.setMinResolution(0);
             fond_carte.setMaxResolution(40000);
-            map.getLayers().R[0].setProperties({"id":cartyp});
+            map.getLayers().item(0).setProperties({"id":cartyp});
          break;
          case "modisterra":
             $("#dayslider").addClass("show");
@@ -1242,7 +1259,16 @@ $ecr_scr .='
             });
             fond_carte.setMinResolution(2);
             fond_carte.setMaxResolution(40000);
-            map.getLayers().R[0].setProperties({"id":cartyp});
+            map.getLayers().item(0).setProperties({"id":cartyp});
+         break;
+         case "World_Imagery":case "World_Shaded_Relief":case "World_Physical_Map":case "World_Topo_Map":
+            fond_carte.setSource(new ol.source.XYZ({
+               attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
+               attributionsCollapsible: true,
+               url: "https://services.arcgisonline.com/ArcGIS/rest/services/"+cartyp+"/MapServer/tile/{z}/{y}/{x}",
+               maxZoom: 23
+           }));
+           map.getLayers().item(0).setProperties({"id":cartyp});
          break;
       }
    });
@@ -1391,10 +1417,10 @@ $ecr_scr .= '
       }
    }
    fullscreen.on("enterfullscreen",function(){
-      $(dic.olfullscreentrue.cla).attr("data-original-title", dic["olfullscreentrue"][lang]);
+      $(dic.olfullscreentrue.cla).attr("data-bs-original-title", dic["olfullscreentrue"][lang]);
    })
    fullscreen.on("leavefullscreen",function(){
-      $(dic.olfullscreenfalse.cla).attr("data-original-title", dic["olfullscreenfalse"][lang]);
+      $(dic.olfullscreenfalse.cla).attr("data-bs-original-title", dic["olfullscreenfalse"][lang]);
    })
    $("#map .ol-zoom-in, #map .ol-zoom-out").tooltip({placement: "right", container:"#map",});
    $(".ol-sidebar button[title], .ol-full-screen-false, .ol-full-screen-true, .ol-rotate-reset, .ol-attribution button[title]").tooltip({placement: "left", container:"#map",});
@@ -1467,39 +1493,46 @@ $ecr_scr .='
 //<== filtrage des markers dans sidebar
 
 //==> tooltip des markers
-var containertip = $("#ol_tooltip");
-containertip.tooltip({
-   animation: false,
-   container: "#map",
-   trigger: "manual",
-   placement:"bottom",
-   offset:"10,10",
-   html : true,
-});
-function voirInfo(evt) {
-   containertip.tooltip("hide");
-   popuptooltip.setPosition(undefined);
-   var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
-      if (feature) {
-         var coord = map.getCoordinateFromPixel(evt.pixel);
-         if (typeof feature.get("features") === "undefined") {
-            if(layer.get("id") == "utilisateurs")
-                containertip.attr("data-original-title", feature.get("pseudo")).tooltip("show");
-            if(layer.get("id") == "georeferencement")
-                containertip.attr("data-original-title", "'.geoloc_translate('Cliquer sur la carte pour modifier votre position.').'").tooltip("show");
-            if(layer.get("id") == "anony")
-                containertip.attr("data-original-title", "IP : "+feature.get("ip")).tooltip("show");
-         }
-         popuptooltip.setPosition(coord);
-      } else {
-         popuptooltip.setPosition(undefined);
-         containertip.tooltip("hide");
-      }
-      containertip.tooltip();
+   var containertip = $("#ol_tooltip");
+   containertip.tooltip({
+      animation: false,
+      container: "#map",
+      trigger: "manual",
+      placement:"bottom",
+      offset:"10,10",
+      html : true,
    });
-}
-map.on("pointermove", voirInfo);
+   function voirInfo(evt) {
+      containertip.tooltip("hide");
+      popuptooltip.setPosition(undefined);
+      var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
+         if (feature) {
+            var coord = map.getCoordinateFromPixel(evt.pixel);
+            if (typeof feature.get("features") === "undefined") {
+               if(layer.get("id") == "utilisateurs")
+                   containertip.attr("data-bs-original-title", feature.get("pseudo")).tooltip("show");
+               if(layer.get("id") == "georeferencement")
+                   containertip.attr("data-bs-original-title", "'.geoloc_translate('Cliquer sur la carte pour modifier votre position.').'").tooltip("show");
+               if(layer.get("id") == "anony")
+                   containertip.attr("data-bs-original-title", "IP : "+feature.get("ip")).tooltip("show");
+            }
+            popuptooltip.setPosition(coord);
+         } else {
+            popuptooltip.setPosition(undefined);
+            containertip.tooltip("hide");
+         }
+         containertip.tooltip();
+      });
+   }
+   map.on("pointermove", voirInfo);
 //<== tooltip des markers
+
+   map.on("loadstart", function () {
+      map.getTargetElement().classList.add("spinner");
+   });
+   map.on("loadend", function () {
+     map.getTargetElement().classList.remove("spinner");
+   });
 });
 
 $(\'[data-bs-toggle="tab_ajax"]\').click(function(e) {
