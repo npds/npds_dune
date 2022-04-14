@@ -299,7 +299,7 @@ function print_form($bg) {
     // todo utilisation de tabindex dans les input
    $str.='
       <fieldset>
-         <legend class="mb-4">'.$this->title.'</legend>';
+         <div class="mb-4">'.$this->title.'</div>';
 
    for($i=0;$i<count($this->form_fields);$i++){
       if (array_key_exists('size',$this->form_fields[$i])) {
