@@ -635,7 +635,7 @@ tarteaucitron.services.dailymotion = {
             } else {
                 frame_height += '"" ';
             }
-            video_frame = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="//www.dailymotion.com/embed/video/' + video_id + '?' + params + '" ' + frame_width + frame_height + ' frameborder="0" allowfullscreen></iframe></div>';
+            video_frame = '<div class="ratio ratio-16x9"><iframe src="//www.dailymotion.com/embed/video/' + video_id + '?' + params + '" ' + frame_width + frame_height + ' frameborder="0" allowfullscreen></iframe></div>';
             return video_frame;
         });
     },
@@ -2270,10 +2270,7 @@ tarteaucitron.services.vimeo = {
             if (video_qs === "?") {
                 video_qs = "";
             }
-            video_frame = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="//player.vimeo.com/video/' + video_id + '" ' + frame_width + frame_height + ' frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
-
-//            video_frame = '<iframe src="//player.vimeo.com/video/' + video_id + video_qs + '" ' + frame_width + frame_height + ' frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-
+            video_frame = '<div class="ratio ratio-16x9"><iframe src="//player.vimeo.com/video/' + video_id + '" ' + frame_width + frame_height + ' frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
             return video_frame;
         });
     },
@@ -2472,7 +2469,7 @@ tarteaucitron.services.youtube = {
             } else {
                 frame_height += '"" ';
             }
-            video_frame = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" type="text/html" ' + frame_width + frame_height + ' src="//www.youtube-nocookie.com/embed/' + video_id + '?' + params + '" frameborder="0"></iframe></div>';
+            video_frame = '<div class="ratio ratio-16x9"><iframe type="text/html" ' + frame_width + frame_height + ' src="//www.youtube-nocookie.com/embed/' + video_id + '?' + params + '" frameborder="0"></iframe></div>';
             return video_frame;
         });
     },

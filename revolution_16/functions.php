@@ -287,8 +287,8 @@ function aff_video_yt($ibid) {
                case 'yt':
                   if(!defined('CITRON'))
                      $ibid_code = '
-                     <div class="embed-responsive embed-responsive-16by9 my-3">
-                       <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$id_vid.'?rel=0" allowfullscreen></iframe>
+                     <div class="ratio ratio-16x9 my-3">
+                       <iframe src="https://www.youtube.com/embed/'.$id_vid.'?rel=0" allowfullscreen></iframe>
                      </div>';
                   else
                      $ibid_code = '
@@ -297,8 +297,8 @@ function aff_video_yt($ibid) {
                case 'vm':
                   if(!defined('CITRON'))
                      $ibid_code = '
-                     <div class="embed-responsive embed-responsive-16by9 my-3">
-                        <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/'.$id_vid.'" allowfullscreen="" frameborder="0"></iframe>
+                     <div class="ratio ratio-16x9 my-3">
+                        <iframe src="https://player.vimeo.com/video/'.$id_vid.'" allowfullscreen="" frameborder="0"></iframe>
                      </div>';
                   else
                      $ibid_code = '
@@ -307,8 +307,8 @@ function aff_video_yt($ibid) {
                case 'dm':
                   if(!defined('CITRON'))
                      $ibid_code = '
-                     <div class="embed-responsive embed-responsive-16by9 my-3">
-                        <iframe class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/'.$id_vid.'" allowfullscreen="" frameborder="0"></iframe>
+                     <div class="ratio ratio-16x9 my-3">
+                        <iframe src="https://www.dailymotion.com/embed/video/'.$id_vid.'" allowfullscreen="" frameborder="0"></iframe>
                      </div>';
                   else
                      $ibid_code = '
