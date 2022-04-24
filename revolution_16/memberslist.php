@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -161,15 +161,15 @@ echo '</h2>
 
 if (!isset($gr_from_ws)) {
    echo '
-      <div class="media">';
+      <div class="row">';
    if ($ibid_avatar=avatar($lastava))
       echo '
-         <div class="media-left media-middle">
-            <img src="'.$ibid_avatar.'" class=" media-object n-ava img-thumbnail" alt="avatar" />
+         <div class="col-md-1">
+            <img src="'.$ibid_avatar.'" class="n-ava img-thumbnail" alt="avatar" loading="lazy" />
          </div>';
    echo '
-         <div class="media-body ms-2">
-         '.translate("Bienvenue au dernier membre affilié : ").' <br /><h4 class="media-heading"><a href="user.php?op=userinfo&amp;uname='.$lastuser.'">'.$lastuser.'</a></h4>
+         <div class="col">
+         '.translate("Bienvenue au dernier membre affilié : ").' <br /><h4><a href="user.php?op=userinfo&amp;uname='.$lastuser.'">'.$lastuser.'</a></h4>
          </div>
       </div>
       <hr />';
