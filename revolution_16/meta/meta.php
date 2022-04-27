@@ -39,6 +39,15 @@ $l_meta.="<meta name=\"revisit-after\" content=\"15 days\" />\n";
 $l_meta.="<meta name=\"resource-type\" content=\"document\" />\n";
 $l_meta.="<meta name=\"robots\" content=\"all\" />\n";
 $l_meta.="<meta name=\"generator\" content=\"NPDS 16 REvolution\" />\n";
+$l_meta.="<meta property=\"og:type\" content=\"website\" />\n";
+$l_meta.="<meta property=\"og:url\" content=\"$nuke_url\" />\n";
+$l_meta.="<meta property=\"og:title\" content=\"$Titlesitename\" />\n";
+if ($m_description!="")
+   $l_meta.="<meta property=\"og:description\" content=\"$m_description\" />\n";
+else
+   $l_meta.="<meta property=\"og:description\" content=\"Générateur de portail Français en Open-Source sous licence Gnu-Gpl utilisant Php et MySql\" />\n";
+$l_meta.="<meta property=\"og:image\" content=\"$nuke_url/images/ogimg.jpg\" />\n";
+$l_meta.="<meta property=\"twitter:card\" content=\"summary\" />\n";
 $l_meta=str_replace("<title>","<title>$Titlesitename</title>",$l_meta);
 if ($meta_op=="") echo $l_meta; else $l_meta=str_replace("\n","",str_replace("\"","'",$l_meta));
 ?>
