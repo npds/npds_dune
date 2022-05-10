@@ -396,7 +396,7 @@ function userinfo($uname) {
 
    echo '
    <div class="d-flex flex-row flex-wrap">
-      <div class="me-2"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block" /></div>
+      <div class="me-2 my-auto"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block n-ava-64 align-middle"/></div>
       <div class="align-self-center">
          <h2>'.translate("Utilisateur").'<span class="d-inline-block text-muted ms-1">'.$uname.'</span></h2>';
    if ($uname !== $cookie[1])
