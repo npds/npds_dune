@@ -36,18 +36,35 @@ switch ($cartyp_b) {
    case 'terrain':case 'toner':case 'watercolor':
       $source_fond='new ol.source.Stamen({layer:"'.$cartyp_b.'"})';
    break;
+   case 'World_Imagery':case 'World_Shaded_Relief':case 'World_Physical_Map':case 'World_Topo_Map':
+      $source_fond='new ol.source.XYZ({
+         attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
+         attributionsCollapsible: true,
+         url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp_b.'/MapServer/tile/{z}/{y}/{x}",
+         maxZoom: 23
+     })';
+      $max_r='40000';
+      $min_r='0';
+   break;
    default:
    $source_fond='new ol.source.OSM()';
 }
 $content .='
 <div class="mb-2" id="map_bloc_ol" tabindex="200" style=" min-height:'.$h_b.'px;" lang="'.language_iso(1,0,0).'"></div>
+
+<script type="text/javascript" src="/lib/ol/ol.js"></script>
 <script type="text/javascript">
 //<![CDATA[
       if (!$("link[href=\'/lib/ol/ol.css\']").length)
          $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_bloc.css\' type=\'text/css\' media=\'screen\'>");
-      if (typeof ol=="undefined")
-         $("head").append($("<script />").attr({"type":"text/javascript","src":"/lib/ol/ol.js"}));
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/bootstrap/dist/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
+
+/*
+      if (typeof ol=="undefined"){console.log("test");
+         $("head").append($("<script />").attr({"type":"text/javascript","src":"https://labo.infocapagde.com/lib/ol/ol.js"}));
+      }
+*/
       $(function(){
       var
       georefUser_icon = new ol.style.Style({
@@ -66,9 +83,74 @@ $content .='
       }),
       attribution = new ol.control.Attribution({collapsible: true}),
       fullscreen = new ol.control.FullScreen();
+/*      
+      var extent = new ol.proj.transformExtent(
+      new ol.source.Vector({
+         features: new ol.format.GeoJSON().readFeatures(users)
+      }).getExtent(),
+      "EPSG:4326",
+      "EPSG:3857"
+      );
+*/
+      // ==> cluster users
+      var
+      clusterSource = new ol.source.Cluster({
+          distance: "40",
+          minDistance: "15",
+          source: srcUsers
+      }),
+      styleCache = {},
+      users_cluster = new ol.layer.Vector({
+          id: "cluster_users",
+          source: clusterSource,
+          style: function(feature) {
+              var size = feature.get("features").length;
+              var style = styleCache[size];
+              if (!style) {
+                  let r = 19;
+                  if (size < 10)
+                      r = 15;
+                  else if (size < 100)
+                      r = 17;
+                  else if (size > 999)
+                      r = 24;
+                  if (size > 1) {
+                      style = new ol.style.Style({
+                          image: new ol.style.Circle({
+                              radius: r,
+                              stroke: new ol.style.Stroke({
+                                  color: "rgba(255, 255, 255,0.1)",
+                                  width: 8
+                              }),
+                              fill: new ol.style.Fill({
+                                  color: "rgba(99, 99, 98, 0.7)"
+                              }),
+                          }),
+                          text: new ol.style.Text({
+                              text: size.toString() + "\n" + "\uf4da",
+                              font: "13px \'bootstrap-icons\'",
+                              fill: new ol.style.Fill({
+                                  color: "#fff"
+                              }),
+                              textBaseline: "bottom",
+                              offsetY: 14,
+                          })
+                      });
+                  }
+                  else {
+                      style = georefUser_icon;
+                  }
+                  styleCache[size] = style;
+              }
+              return style;
+          }
+      });
+  // <== cluster users
+      
       var map = new ol.Map({
          interactions: new ol.interaction.defaults({
-            constrainResolution: true, onFocusOnly: true
+            constrainResolution: true,
+            onFocusOnly: true
          }),
          controls: new ol.control.defaults({attribution: false}).extend([attribution, fullscreen]),
          target: document.getElementById("map_bloc_ol"),
@@ -76,7 +158,8 @@ $content .='
          new ol.layer.Tile({
             source: '.$source_fond.'
           }),
-          georeferencedUsers
+//          georeferencedUsers
+          users_cluster,
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat([0, 45]),

@@ -5,21 +5,20 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
-/* geoloc_set.php file 2007-2021 by Jean Pierre Barbary (jpb)           */
+/* geoloc_set.php file 2007-2022 by Jean Pierre Barbary (jpb)           */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
 if (!strstr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
-define('GEO_AD', true);
 $f_meta_nom ='geoloc';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -88,7 +87,11 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       ['Road', geoloc_translate("Plan").' (Bing maps)'],
       ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
       ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
-      ['sat-google', geoloc_translate("Satellite").' (Google maps)']
+      ['sat-google', geoloc_translate("Satellite").' (Google maps)'],
+      ['World_Imagery', geoloc_translate("Satellite").' (ESRI)'],
+      ['World_Shaded_Relief', geoloc_translate("Relief").' (ESRI)'],
+      ['World_Physical_Map', geoloc_translate("Physique").' (ESRI)'],
+      ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)']
    );
    if($api_key_bing=='' and $api_key_mapbox=='')
       unset($fond_provider[4],$fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8]);
@@ -195,11 +198,12 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          case '4': echo '<optgroup label="Mapbox">';break;
          case '6': echo '<optgroup label="Bing maps">';break;
          case '9': echo '<optgroup label="Google">';break;
+         case '10': echo '<optgroup label="ESRI">';break;
          }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($k){
-         case '0': case '3': case '5': case '8': case '9': echo '</optgroup>'; break;
+         case '0': case '3': case '5': case '8': case '9': case '13': echo '</optgroup>'; break;
          }
    }
    echo '
@@ -483,12 +487,12 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          case '4': echo '<optgroup label="Mapbox">';break;
          case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') echo '<optgroup label="Google maps">';} break;
          case '9': echo '<optgroup label="Google maps">';break;
-
+         case '10': echo '<optgroup label="ESRI">';break;
          }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($j){
-         case '0': case '3': case '5': case '9': echo '</optgroup>'; break;
+         case '0': case '3': case '5': case '9': case '13': echo '</optgroup>'; break;
          }
       $j++;
    }
@@ -586,6 +590,22 @@ switch ($cartyp) {
    case 'terrain':case 'toner':case 'watercolor':
       $source_fond='new ol.source.Stamen({layer:"'.$cartyp.'"})';
    break;
+   case 'World_Imagery':case 'World_Shaded_Relief':case 'World_Physical_Map':case 'World_Topo_Map':
+      $source_fond='new ol.source.XYZ({
+         attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
+         attributionsCollapsible: true,
+         url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp.'/MapServer/tile/{z}/{y}/{x}",
+         maxZoom: 23
+     })';
+/*
+      $max_r='40000';
+      $min_r='0';
+*/
+      $layer_id= $cartyp;
+   break;
+
+   
+   
    default:
    $source_fond='new ol.source.OSM()';
 }
@@ -942,6 +962,14 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
          break;
          case "sat-google":
             fond_carte.setSource(new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"}));
+         break;
+         case "World_Imagery":case "World_Shaded_Relief":case "World_Physical_Map":case "World_Topo_Map":
+            fond_carte.setSource(new ol.source.XYZ({
+               attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
+               attributionsCollapsible: true,
+               url: "https://services.arcgisonline.com/ArcGIS/rest/services/"+cartyp+"/MapServer/tile/{z}/{y}/{x}",
+               maxZoom: 23
+           }));
          break;
       }
    });

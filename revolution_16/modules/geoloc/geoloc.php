@@ -574,7 +574,7 @@ switch ($cartyp) {
       $source_fond='new ol.source.XYZ({
          attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
          attributionsCollapsible: true,
-         url: "https://services.arcgisonline.com/ArcGIS/rest/services/"+cartyp+"/MapServer/tile/{z}/{y}/{x}",
+         url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp.'/MapServer/tile/{z}/{y}/{x}",
          maxZoom: 23
      })';
       $max_r='40000';
@@ -583,7 +583,7 @@ switch ($cartyp) {
    break;
    default:
       $source_fond='new ol.source.OSM()';
-      $max_r='40000';
+//      $max_r='40000';
       $min_r='0';
       $layer_id= 'OSM';
 }
@@ -1207,12 +1207,13 @@ $ecr_scr .='
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
             map.getLayers().item(0).setProperties({"id":cartyp});
-            fond_carte.setMinResolution(1);
+//            fond_carte.setMinResolution(1);
          break;
          case "sat-google":
             fond_carte.setSource(new ol.source.XYZ({
                url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous",
-               attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"
+               attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>",
+               maxZoom: 19,
             }));
             map.getLayers().item(0).setProperties({"id":cartyp});
          break;
@@ -1299,7 +1300,7 @@ $ecr_scr .='
 
 // ==> opacité sur couche de base
    $("#baselayeropacity").on("input change", function() {
-      map.getLayers().R[0].setOpacity(parseFloat(this.value));
+      map.getLayers().item(0).setOpacity(parseFloat(this.value));
    });
 // <== opacité sur couche de base
 
@@ -1527,6 +1528,12 @@ $ecr_scr .='
    map.on("pointermove", voirInfo);
 //<== tooltip des markers
 
+   map.on("rendercomplete",function(e) {
+     var zoomLevel = map.getView().getZoom();
+     var zoomRounded = Math.round(zoomLevel*10)/10;
+     document.getElementById("ZoomElement").innerHTML = zoomRounded;
+   })
+   
    map.on("loadstart", function () {
       map.getTargetElement().classList.add("spinner");
    });
@@ -1616,6 +1623,7 @@ $affi = '
                         <input class="form-check-input" type="checkbox" data-bs-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer la couche').'" id="coastandborder" />
                         <label class="form-check-label" for="coastandborder">'.geoloc_translate('Côtes et frontières').'</label>
                      </div>
+                     <div id="ZoomElement"></div>
                   </div>
                </div>
             </div>
