@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS USER                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -60,6 +60,8 @@ $m->add_comment(aff_langue('<div class="row"><p class="lead"><a href="modules.ph
 $m->add_field($ch_lat,aff_langue('[french]Latitude[/french][english]Latitude[/english][chinese]&#x7ECF;&#x5EA6;[/chinese][spanish]Latitud[/spanish][german]Breitengrad[/german]'),$$ch_lat,'text',false,'','','lat');
 $m->add_field($ch_lon,aff_langue('[french]Longitude[/french][english]Longitude[/english][chinese]&#x7EAC;&#x5EA6;[/chinese][spanish]Longitud[/spanish][german]L&#228;ngengrad[/german]'),$$ch_lon,'text',false,'','','long');
 
+// Les champ B1 et M2 sont utilisé par NPDS dans le cadre des fonctions USERs
+// Si vous avez besoin d'un ou de champs ci-dessous - le(s) définir selon vos besoins et l'(les) enlever du tableau $fielddispo
 $fielddispo = array('C3','C4','C5','C6','C7','C8','M1','T2');
 $geofield = array($ch_lat,$ch_lon);
 $fieldrest = array_diff($fielddispo, $geofield);
@@ -79,15 +81,4 @@ $m->add_extra('
       //]]>
       </script>');
 
-// Si vous avez besoin des champs ci-dessous - les définir selon vos besoins - sinon les laisser en hidden
-/*
-$m->add_field('C3','C3','','hidden',false);
-$m->add_field('C4','C4','','hidden',false);
-$m->add_field('C5','C5','','hidden',false);
-$m->add_field('C6','C6','','hidden',false);
-// idem pour les champ Mx
-$m->add_field('M1','M1','','hidden',false);
-$m->add_field('T2','T2','','hidden',false);
-*/
-// Les champ B1 et M2 sont utilisé par NPDS dans le cadre des fonctions USERs
 ?>
