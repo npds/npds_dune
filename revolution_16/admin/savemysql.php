@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -15,7 +15,9 @@
 /* originally inspired by the build_dump librarie of phpMyAdmin (http://www.phpmyadmin.org)  */
 /* Adapted by : M. PASCAL aKa EBH (plan.net@free.fr)                                         */
 /*********************************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='SavemySQL';
 //==> controle droit
 admindroits($aid,$f_meta_nom);

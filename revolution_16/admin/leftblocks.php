@@ -5,24 +5,24 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='blocks';// à voir si on réimplémente les droits spécifique droit et gauche
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-
 global $language;
 $hlpfile = "manuels/$language/leftblocks.html";
 
 function makelblock($title, $content, $members, $Mmember, $Lindex, $Scache, $BLaide, $SHTML, $css) {
    global $NPDS_Prefix;
-
    if (is_array($Mmember) and ($members==1)) {
       $members=implode(',',$Mmember);
       if ($members==0) $members=1;
@@ -40,7 +40,6 @@ function makelblock($title, $content, $members, $Mmember, $Lindex, $Scache, $BLa
 
 function changelblock($id, $title, $content, $members, $Mmember, $Lindex, $Scache, $Sactif, $BLaide, $css) {
    global $NPDS_Prefix;
-
    if (is_array($Mmember) and ($members==1)) {
       $members=implode(',',$Mmember);
       if ($members==0) $members=1;
@@ -59,7 +58,6 @@ function changelblock($id, $title, $content, $members, $Mmember, $Lindex, $Scach
 
 function changedroitelblock($id, $title, $content, $members, $Mmember, $Lindex, $Scache, $Sactif, $BLaide, $css) {
    global $NPDS_Prefix;
-
    if (is_array($Mmember) and ($members==1)) {
       $members=implode(',',$Mmember);
       if ($members==0) $members=1;

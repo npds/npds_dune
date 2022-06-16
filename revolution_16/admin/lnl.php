@@ -11,10 +11,11 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='lnl';
 $f_titre = adm_translate("Petite Lettre D'information");
-
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit

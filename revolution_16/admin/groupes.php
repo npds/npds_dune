@@ -12,10 +12,10 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='groupes';
 $f_titre = adm_translate('Gestion des groupes');
-
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit

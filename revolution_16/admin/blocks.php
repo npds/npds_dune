@@ -11,15 +11,15 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='blocks';
 $f_titre = adm_translate('Gestion des blocs');
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-
 global $NPDS_Prefix, $language;
-
 $hlpfile = "manuels/$language/blocks.html";
 
 function groupe($groupe) {

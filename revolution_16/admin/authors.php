@@ -11,7 +11,8 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='mod_authors';
 $f_titre = adm_translate("Administrateurs");
 //==> controle droit

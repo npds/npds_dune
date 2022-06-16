@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -21,7 +21,8 @@
 /* Version 1.3 - 2015                                                   */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='modules';
 $f_titre = adm_translate("Gestion, Installation Modules");
 //==> controle droit

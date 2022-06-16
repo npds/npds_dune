@@ -5,19 +5,20 @@
 /*                                                                      */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='ForumAdmin';
 $f_titre = adm_translate('Gestion des forums');
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-
 global $language, $adminimg, $admf_ext;
 $hlpfile = "manuels/$language/forumcat.html";
 include ("auth.php");

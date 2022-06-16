@@ -9,7 +9,9 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='MetaTagAdmin';
 $f_titre = adm_translate("Administration des MétaTags");
 //==> controle droit
@@ -19,6 +21,7 @@ admindroits($aid,$f_meta_nom);
 function MetaTagAdmin($saved = false) {
    global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
    $tags = GetMetaTags("meta/meta.php");
+///   var_dump($tags);////
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -108,7 +111,7 @@ function MetaTagAdmin($saved = false) {
             <div class="form-floating mb-3">
                <select class="form-select" id="newtagcontenttype" name="newtag[content-type]">
                   <option value="text/html; charset=iso-8859-1"'.(!strcasecmp($tags['content-type'], 'text/html; charset=iso-8859-1') ? $sel : '').'>charset=ISO-8859-1</option>
-                  <option value="text/html; charset=utf-8"'.(!(strcasecmp($tags['content-type'], 'text/html; charset=utf-8') and strcasecmp($tags['content-type'], 'text/html')) ? $sel : '').'>charset=UTF-8</option>
+                  <option value="text/html; charset=utf-8"'.(!(strcasecmp($tags['charset'], 'utf-8')) ? $sel : '').'>charset=utf-8</option>
                </select>
                <label for="newtagcontenttype">'.adm_translate("Encodage").'</label>
             </div>

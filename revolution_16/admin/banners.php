@@ -11,14 +11,15 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='BannersAdmin';
 $f_titre = adm_translate("Administration des bannières");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 global $language;
-
 $hlpfile = "manuels/$language/banners.html";
 
 function BannersAdmin() {

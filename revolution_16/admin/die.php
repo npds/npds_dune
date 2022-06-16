@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2022 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -13,7 +13,7 @@
    if (file_exists("meta/meta.php"))
    include ("meta/meta.php");
    echo '
-   <link id="bsth" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+   <link id="bsth" rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
    </head>
    <body>
       <div class="contenair-fluid mt-5">
@@ -29,7 +29,7 @@
             <hr />
             <div>
                <span class="text-muted">NPDS - Portal System</span>
-               <img width="48px" class="adm_img ms-2" src="images/admin/message_npds.png" alt="icon_npds">
+               <img width="48px" class="adm_img ms-2" src="/images/admin/message_npds.png" alt="icon_npds">
             </div>
          </div>
       </div>

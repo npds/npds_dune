@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011 and cast MySql engine type        */
-/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -24,16 +24,13 @@
 /* Version 2.0 - 30/08/2015 by jpb                                      */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='modules';
 $f_titre = adm_translate("Gestion, Installation Modules");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-
-// *****************************
-// * Fonctions de l'installeur *
-// *****************************
 
 function nmig_copyright() {
    global $ModInstall, $ModDesinstall;

@@ -5,20 +5,20 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 
+if (!function_exists('admindroits'))
+   include('die.php');
 $f_meta_nom ='submissions';
 $f_titre = adm_translate('Article en attente de validation');
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-
 global $language;
 $hlpfile = "manuels/$language/submissions.html";
 
