@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2022 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on phpmyadmin.net  grabber library                             */
@@ -12,10 +12,12 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 /* This library grabs the names and values of the variables sent or     */
-/* posted to a script in the '$HTTP_*_VARS' arrays and sets simple      */
-/* globals variables from them and  use the new globals arrays defined  */
-/* with php 4.1+                                                        */
+/* posted to a script in superglobals arrays and sets simple globals    */
+/* variables from them                                                  */
 /************************************************************************/
+
+if (stristr($_SERVER['PHP_SELF'],'grab_globals.php') and strlen($_SERVER['QUERY_STRING']) !='') 
+   include('admin/die.php');
 
 if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
    define('NPDS_GRAB_GLOBALS_INCLUDED', 1);
@@ -25,62 +27,38 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
    //error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE); // Devel report
    error_reporting(E_ERROR | E_WARNING | E_PARSE); // standard ERROR report
    //error_reporting(E_ALL);
-
-    function getip() {
-       if (isset($_SERVER)) {
-         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+   function getip() {
+      if (isset($_SERVER)) {
+         if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
             $realip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-         } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+         elseif (isset($_SERVER['HTTP_CLIENT_IP']))
             $realip = $_SERVER['HTTP_CLIENT_IP'];
-         } else {
+         else
             $realip = $_SERVER['REMOTE_ADDR'];
-         }
-       } else {
-         if ( getenv('HTTP_X_FORWARDED_FOR') ) {
+      } else {
+         if (getenv('HTTP_X_FORWARDED_FOR'))
             $realip = getenv('HTTP_X_FORWARDED_FOR');
-         } elseif (getenv('HTTP_CLIENT_IP')) {
+         elseif (getenv('HTTP_CLIENT_IP'))
             $realip = getenv('HTTP_CLIENT_IP');
-         } else {
+         else
             $realip = getenv('REMOTE_ADDR');
-         }
-       }
-       if (strpos($realip, ",")>0) {
-          $realip=substr($realip,0,strpos($realip, ",")-1);
-       }
-       // from Gu1ll4um3r0m41n - 08-05-2007 - dev 2012
-       return (urlencode(trim($realip)));
-    } 
+    }
+    if (strpos($realip, ",")>0)
+       $realip=substr($realip,0,strpos($realip, ",")-1);
+    // from Gu1ll4um3r0m41n - 08-05-2007 - dev 2012
+    return (urlencode(trim($realip)));
+   } 
 
    function access_denied() {
       include("admin/die.php");
    }
-
-    // Boris 2012 - simulate PHP5 fonction array_walk_recursive / Mod by Dev to realy support PHP4 
-    if (!function_exists("array_walk_recursive")) {
-       function array_walk_recursive(&$tab, $callback, $userdata = null) {
-          foreach($tab as $key => $dumy) {
-             $value =& $tab[$key];
-             if (is_array($value)) {
-                if (!array_walk_recursive($value, $callback, $userdata)) {
-                   return false;
-                }
-             } else {
-                $callback($value, $key, $userdata);
-             }
-          }
-          return true;
-       }
-    }
 
     // First of all : Spam from IP / |5 indicate that the same IP has passed 6 times with status KO in the anti_spambot function
    if (file_exists("slogs/spam.log"))
       $tab_spam=str_replace("\r\n","",file("slogs/spam.log"));
    if (is_array($tab_spam)) {
       $ipadr = urldecode(getip());
-      if (strstr($ipadr, ':'))
-         $ipv='6';
-      else
-         $ipv='4';
+      $ipv = strstr($ipadr, ':') ? '6' : '4';
       if (in_array($ipadr."|5",$tab_spam))
           access_denied();
       //=> nous pouvons bannir une plage d'adresse ip en V4 (dans l'admin IPban sous forme x.x.%|5 ou x.x.x.%|5)
@@ -112,50 +90,65 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
    include ("modules/include/url_protect.php");
 
    function url_protect($arr,$key) {
-      global $bad_uri_content;
-      reset($bad_uri_content);//no need now ?
+      global $bad_uri_content, $bad_uri_key, $badname_in_uri;
       $ibid=true;
-
       // mieux faire face aux techniques d'évasion de code : base64_decode(utf8_decode(bin2hex($arr))));
       $arr=rawurldecode($arr);
       $RQ_tmp=strtolower($arr);
       $RQ_tmp_large=strtolower($key)."=".$RQ_tmp;
-      //==> proposition de correction à suivre de près ... seems ok
-      if(in_array($RQ_tmp, $bad_uri_content) OR in_array($RQ_tmp_large, $bad_uri_content))
+      if(
+         in_array($RQ_tmp, $bad_uri_content)
+         OR
+         in_array($RQ_tmp_large, $bad_uri_content)
+         OR
+         in_array($key, $bad_uri_key,true)
+         OR
+         count($badname_in_uri)>0
+      )
          access_denied();
    }
-
+/*
+var_dump($_POST);
+var_dump($_SERVER['ORIG_PATH_INFO']);
+*/
+/*
+   function post_protect($arr,$key) {
+      global $bad_uri_key, $badname_in_uri;
+      if(
+         in_array($key, $bad_uri_key,true)
+         OR
+         count($badname_in_uri)>0
+      )
+         access_denied();
+   }
+*/
    // Get values, slash, filter and extract
    if (!empty($_GET)) {
       array_walk_recursive($_GET,'addslashes_GPC');
-      reset($_GET);
+      reset($_GET);// no need
       array_walk_recursive($_GET,'url_protect');
       extract($_GET, EXTR_OVERWRITE);
-   } else if (!empty($HTTP_GET_VARS)) {
-      array_walk_recursive($HTTP_GET_VARS,'addslashes_GPC');
-      reset($HTTP_GET_VARS);
-      array_walk_recursive($HTTP_GET_VARS,'url_protect');
-      extract($HTTP_GET_VARS, EXTR_OVERWRITE);
    }
-
    if (!empty($_POST)) {
       array_walk_recursive($_POST,'addslashes_GPC');
-      reset($_POST);
-      //array_walk_recursive($_POST,'url_protect');
+/*
+      array_walk_recursive($_POST,'post_protect');
+      if(!isset($_SERVER['HTTP_REFERER'])) {
+         Ecr_Log('security','Ghost form in '.$_SERVER['ORIG_PATH_INFO'].' => who playing with form ?','');
+         L_spambot('',"false");
+         access_denied();
+      }
+      else if ($_SERVER['HTTP_REFERER'] !== $nuke_url.$_SERVER['ORIG_PATH_INFO']) {
+         Ecr_Log('security','Ghost form in '.$_SERVER['ORIG_PATH_INFO'].'. => '.$_SERVER["HTTP_REFERER"],'');
+         L_spambot('',"false");
+         access_denied();
+      }
+*/
       extract($_POST, EXTR_OVERWRITE);
-   } else if (!empty($HTTP_POST_VARS)) {
-      array_walk_recursive($HTTP_POST_VARS,'addslashes_GPC');
-      reset($HTTP_POST_VARS);
-      //array_walk_recursive($HTTP_POST_VARS,'url_protect');
-      extract($HTTP_POST_VARS, EXTR_OVERWRITE);
    }
-
    // Cookies - analyse et purge - shiney 07-11-2010
    if (!empty($_COOKIE))
       extract($_COOKIE, EXTR_OVERWRITE);
-   else if (!empty($HTTP_COOKIE_VARS))
-      extract($HTTP_COOKIE_VARS, EXTR_OVERWRITE);
-
    if (isset($user)) {
       $ibid=explode(':',base64_decode($user));
       array_walk($ibid,'url_protect');
@@ -172,27 +165,17 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
       $admin=base64_encode(str_replace('%3A',':', urlencode(base64_decode($admin))));
    }
    // Cookies - analyse et purge - shiney 07-11-2010
-
    if (!empty($_SERVER))
       extract($_SERVER, EXTR_OVERWRITE);
-   else if (!empty($HTTP_SERVER_VARS))
-      extract($HTTP_SERVER_VARS, EXTR_OVERWRITE);
-
    if (!empty($_ENV))
       extract($_ENV, EXTR_OVERWRITE);
-   else if (!empty($HTTP_ENV_VARS))
-      extract($HTTP_ENV_VARS, EXTR_OVERWRITE);
-
    if (!empty($_FILES)) {
       foreach ($_FILES as $key => $value) {
          $$key=$value['tmp_name'];
       }
-   } else if (!empty($HTTP_POST_FILES)) {
-      foreach ($HTTP_POST_FILES as $key => $value) {
-         $$key=$value['tmp_name'];
-      }
    }
-
    unset($bad_uri_content);
+   unset($bad_uri_key);
+   unset($badname_in_uri);
 }
 ?>
