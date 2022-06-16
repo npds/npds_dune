@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -15,19 +15,17 @@
 
    if (!defined('NPDS_GRAB_GLOBALS_INCLUDED'))
       include("grab_globals.php");
-
    $Titlesitename='NPDS';
    $nuke_url='';
    $meta_op='';
-   $meta_doctype="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset///EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">";
+   $meta_doctype='<!DOCTYPE html>';
    include("meta/meta.php");
    echo '
          <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-      </head>
-      <frameset rows="1%,60%,240">
-         <frame src="chatrafraich.php?repere=0&amp;aff_entetes=1&amp;connectes=-1&amp;id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="no" noresize="noresize" name="rafraich">
-         <frame src="chattop.php" frameborder="0" scrolling="yes" noresize="noresize" name="haut">
-         <frame src="chatinput.php?id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="yes" noresize="noresize" name="bas">
-      </frameset>
+      </head>  
+         <div style="height:1vh;" class=""><iframe src="chatrafraich.php?repere=0&amp;aff_entetes=1&amp;connectes=-1&amp;id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="no" noresize="noresize" name="rafraich" width="100%" height="100%"></iframe></div>
+         <div style="height:58vh;" class=""><iframe src="chattop.php" frameborder="0" scrolling="yes" noresize="noresize" name="haut" width="100%" height="100%"></iframe></div>
+         <div style="height:39vh;" class=""><iframe src="chatinput.php?id='.$id.'&amp;auto='.$auto.'" frameborder="0" scrolling="yes" noresize="noresize" name="bas" width="100%" height="100%"></iframe></div>
    </html>';
+
 ?>
