@@ -1,7 +1,7 @@
-changelog-rev16.4 [ révision : 50 - jpb /14-04-2022 ]
+changelog-rev16.4 [ révision : 51 - jpb /16-06-2022 ]
 (non exhaustif...)
 
-Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes en grande partie à la mise à jour du framework bootstrap, des autres dépendances et des corrections et amélioration de la version précédente. La base de données n'est que très peu impactée, principalement sur des données (... quelques métamots).
+Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes en grande partie à la mise à jour du framework bootstrap, des autres dépendances et des corrections et amélioration de la version précédente. La base de données n'est que très peu impactée, principalement sur des données (... quelques métamots). Elle fixe aussi un certain nombre de problème de sécurité en renforçant la protection d'accès fichiers et le filtrage des urls.
 
 - update dépendances :
    bootstrap 5.1.3 
@@ -10,7 +10,7 @@ Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes 
    bootstrap table 1.19.1
    openlayers 6.14.1
    geocoder 4.1.2
-- mise à jour skin et theme + 3 nouveaux skins
+- mise à jour skin et thème : + 1 theme et 3 nouveaux skins
 - validation des formulaire : formvalidation ajout rowselector (pour bon fonctionnement des icônes de validation de formulaire) .. (probablement à affiner encore) 
 bug track :
 - correction du chemin d'accès au fichier langue pour l'aide de l'admin d'upload (typo variable
@@ -29,6 +29,9 @@ améliorations :
 - metatag : 
 -- ajout de création automatique de balise meta de type og et twitter la combinaison de ces balise permet la céation automatique de "card" pour différents réseau sociaux ...(à documenter)
 -- ajout de l'attibut lang dans balise html
+
+sécurité :
+suite audit thanks @Nosp, renforcement de url_protect, des accès aux fichiers, et xss sur chat ... 
 
 
 ################################################################################
