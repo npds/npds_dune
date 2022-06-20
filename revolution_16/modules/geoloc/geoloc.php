@@ -255,8 +255,9 @@ while ($row = sql_fetch_array($result)) {
    $us_rs = $row['M2'];
 
    //determine si c un avatar perso ou standard et fixe l'url de l'image
-   if (preg_match('#\/#', $users_user_avatar) === 1)
-      {$av_ch = $users_user_avatar;}else{$av_ch = 'images/forum/avatar/'.$users_user_avatar;};
+   $av_ch = preg_match('#\/#', $users_user_avatar) === 1 ?
+      $users_user_avatar :
+      'images/forum/avatar/'.$users_user_avatar;
 
    $socialnetworks=array(); $res_id=array();$my_rs='';
    if (!$short_user) {
@@ -285,6 +286,7 @@ while ($row = sql_fetch_array($result)) {
 
    if ($user_lat !='') { // c un membre géoréférencé
       $mbcg++;
+      $ip_visi_pag ='';
       //=== menu fenetre info
       $imm = ' <a href="user.php?op=userinfo&amp;uname='.$users_uname.'"  target="_blank" ><i class="fa fa-user fa-2x me-2 tooltipbyclass" title="'.translate("Profil").'"></i></a>';
       if ($user)
@@ -526,7 +528,8 @@ switch ($cartyp) {
    case 'sat-google':
       $source_fond='
       new ol.source.XYZ({
-         url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous",
+         url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+         crossOrigin: "Anonymous",
          attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"
       })';
       $max_r='40000';
@@ -907,13 +910,16 @@ $ecr_scr .='
             id:layer_id,
             source: src_fond,
             minResolution: minR,
-            maxResolution: maxR
+            maxResolution: maxR,
+            preload: Infinity,
           }),
           attribution = new ol.control.Attribution({collapsible: true}),
           view = new ol.View({
             center: ol.proj.fromLonLat([13, 46]),
             zoom: 5,
             minZoom:2,
+//                        maxZoom:19,//////
+
             extent,
           }),
           fullscreen = new ol.control.FullScreen({

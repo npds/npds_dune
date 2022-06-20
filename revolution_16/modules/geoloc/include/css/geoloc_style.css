@@ -230,8 +230,8 @@ display: block;
   font-weight: bold;
 }
 .ol-tooltip-static {
-  background-color: #ffcc33;
-  color: black;
+  background-color: var(--bs-primary);
+  color: white;
   border: 1px solid white;
 }
 .ol-tooltip-measure:before,
@@ -246,7 +246,7 @@ display: block;
   left: 50%;
 }
 .ol-tooltip-static:before {
-  border-top-color: #ffcc33;
+  border-top-color: var(--bs-primary);
 }
 
 #map #georefpopup .popover-body{min-width: 250px};
