@@ -56,9 +56,8 @@ function ShowFaqAll($id_cat) {
     if ($SuperCache) {
        $cache_obj = new cacheManager();
        $cache_obj->startCachingPage();
-    } else {
+    } else
        $cache_obj = new SuperCacheEmpty();
-    }
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
        $result = sql_query("SELECT id_cat, categories FROM ".$NPDS_Prefix."faqcategories ORDER BY id_cat ASC");
        echo '
