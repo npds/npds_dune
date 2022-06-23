@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -41,7 +41,7 @@ function ShowFaqAll($id_cat) {
             </h4>
             <div class="collapse" id="faq_'.$id.'" >
                <div class="card-text">
-               '.aff_langue($answer).'
+               '.meta_lang(aff_langue($answer)).'
                </div>
             </div>
          </div>
@@ -73,9 +73,8 @@ function ShowFaqAll($id_cat) {
        echo'
        </div>';
     }
-    if ($SuperCache) {
+    if ($SuperCache)
        $cache_obj->endCachingPage();
-    }
     include ("footer.php");
 
  } else {
@@ -85,16 +84,14 @@ function ShowFaqAll($id_cat) {
     if ($SuperCache) {
        $cache_obj = new cacheManager();
        $cache_obj->startCachingPage();
-    } else {
+    } else
        $cache_obj = new SuperCacheEmpty();
-    }
     if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
        ShowFaq($id_cat, removeHack($categories));
        ShowFaqAll($id_cat);
     }
-    if ($SuperCache) {
+    if ($SuperCache)
        $cache_obj->endCachingPage();
-    }
     include("footer.php");
  }
 ?>
