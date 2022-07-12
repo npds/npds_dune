@@ -453,7 +453,7 @@ echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-muted"></i>&nbsp;'.translate("Commentaires postés : ").' <span class="badge bg-secondary ms-auto">'.wrh($cnum).' </span></li>';
 $imgtmp = $ibid=theme_image('stats/sections.png') ? $ibid : 'images/admin/sections.png';
 echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmpS.'" alt="" loading="lazy"/>&nbsp;'.translate("Rubriques spéciales : ").' <span class="badge bg-secondary ms-auto">'.wrh($secnum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" loading="lazy"/>&nbsp;'.translate("Rubriques spéciales : ").' <span class="badge bg-secondary ms-auto">'.wrh($secnum).' </span></li>';
 $imgtmp = $ibid=theme_image('stats/sections.png') ? $ibid : 'images/admin/sections.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" loading="lazy"/>&nbsp;'.translate("Articles présents dans les rubriques : ").' <span class="badge bg-secondary ms-auto">'.wrh($secanum).' </span></li>';
