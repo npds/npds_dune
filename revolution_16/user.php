@@ -630,9 +630,9 @@ function userinfo($uname) {
          $replys = sql_num_rows($TableRep)-1;
          $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id' AND uid = '$cookie[0]' AND status != '0'";
             if (sql_num_rows(sql_query($sqlR))==0)
-               $image = '<a href="" title="'.translate("Non lu").'" data-bs-toggle="tooltip"><i class="fa fa-file fa-lg "></i></a>';
+               $image = '<a href="" title="'.translate("Non lu").'" data-bs-toggle="tooltip"><i class="far fa-file-alt fa-lg faa-shake animated text-primary "></i></a>';
             else
-               $image = '<a title="'.translate("Lu").'" data-bs-toggle="tooltip"><i class="fa fa-file-o fa-lg "></i></a>';
+               $image = '<a title="'.translate("Lu").'" data-bs-toggle="tooltip"><i class="far fa-file-alt fa-lg text-primary"></i></a>';
          $content .='
          <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start" >
             <span class="d-flex w-100 mt-1">
@@ -641,7 +641,7 @@ function userinfo($uname) {
                <span class="badge bg-secondary ms-1" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$replys.'</span>
             </span>
          </span>
-         <span class="d-flex w-100"><br /><a href="viewtopic.php?topic='.$topic_id.'&forum='.$forum_id.'" data-bs-toggle="tooltip" title="'.$forum_name.'">'.$topic_title.'</a><span class="ms-auto">'.$image.'</span></span>
+         <span class="d-flex w-100"><br /><a href="viewtopic.php?topic='.$topic_id.'&forum='.$forum_id.'" data-bs-toggle="tooltip" title="'.$forum_name.'">'.$topic_title.'</a><span class="ms-auto mt-1">'.$image.'</span></span>
          </p>';
          $j++;
       }
