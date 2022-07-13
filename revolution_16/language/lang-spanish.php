@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -139,16 +139,16 @@ function translate_pass1($phrase) {
    case "Archives": $tmp="Archivos"; break;
    case "Article de": $tmp="Noticias de"; break;
    case "Article du Jour": $tmp="Noticia de hoy"; break;
-   case "Article en attente d'édition : ": $tmp="Noticias que esperan para ser publicadas : "; break;
+   case "Article en attente d'édition": $tmp="Noticias que esperan para ser publicadas"; break;
    case "Article intéressant sur": $tmp="Noticia interesante de"; break;
    case "Articles envoyés : ": $tmp="Noticias enviadas : "; break;
    case "Articles les plus commentés": $tmp="Noticias las mas comentadas"; break;
    case "Articles les plus lus dans les rubriques spéciales": $tmp="Noticias las mas leídas en las secciones especiales"; break;
    case "articles les plus lus": $tmp="Noticias las mas leídas"; break;
    case "Articles plus anciens": $tmp="Noticias mas ancianas"; break;
-   case "Articles présents dans les rubriques : ": $tmp="Noticias presentes en las secciones : "; break;
+   case "Articles présents dans les rubriques": $tmp="Noticias presentes en las secciones"; break;
    case "Articles publiés : ": $tmp="Noticias publicadas : "; break;
-   case "Articles publiés : ": $tmp="Noticias publicadas : "; break;
+   case "Articles publiés": $tmp="Noticias publicadas"; break;
    case "Articles": $tmp="Noticias"; break;
    case "Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté": $tmp="Asegúrese de la veracidad de las informaciones que somete. No escriba todo en mayúsculas, su texto sera automáticamente borrado !"; break;
    case "ATTENTION : Etes-vous certain de vouloir effacer cette catégorie et tous ses Liens ?": $tmp="ATENCION : Esta seguro que quiere borrar esta categoría y todos sus vínculos ?"; break;
@@ -163,7 +163,7 @@ function translate_pass1($phrase) {
    case "Aucune réponse pour les mots que vous cherchez. Elargissez votre recherche.": $tmp="Ninguna respuesta por las palabras que indico. Ensanche su búsqueda."; break;
    case "Auteur": $tmp="Autor"; break;
    case "Auteur": $tmp="Autor"; break;
-   case "Auteurs actifs : ": $tmp="Autores activos : "; break;
+   case "Auteurs actifs": $tmp="Autores activos"; break;
    case "Auteurs de news les plus regardées": $tmp="Autores de noticias los mas prolíficos"; break;
    case "Auteurs les plus actifs": $tmp="Autores los más activos"; break;
    case "Autoriser la création automatique des membres ?": $tmp="Autorizar la creación automática de miembros ?"; break;
@@ -198,7 +198,7 @@ function translate_pass1($phrase) {
    case "Catégorie : ": $tmp="Categoría : "; break;
    case "Catégorie :": $tmp="Categoría :"; break;
    case "Catégorie": $tmp="Categoría"; break;
-   case "Catégories dans la rubrique des liens web : ": $tmp="Categorías en la página  de vínculos web : "; break;
+   case "Catégories dans la rubrique des liens web": $tmp="Categorías en la página  de vínculos web"; break;
    case "Catégories les plus actives": $tmp="Categorías las mas activas"; break;
    case "Catégories": $tmp="Categorías"; break;
    case "Ce fichier n'existe pas ...": $tmp="El fichero no existe en el servidor ..."; break;
@@ -546,7 +546,7 @@ function translate_pass1($phrase) {
    case "Lien": $tmp="Vinculo : "; break;
    case "Lien(s) en attente de validation": $tmp="Vínculos en espera de validación"; break;
    case "Liens cassés rapportés par un ou plusieurs utilisateurs": $tmp="Vínculos rotos señalados por los usuarios"; break;
-   case "Liens présents dans la rubrique des liens web : ": $tmp="Vínculos presentes en la página  de vínculos web : "; break;
+   case "Liens présents dans la rubrique des liens web": $tmp="Vínculos presentes en la página  de vínculos web"; break;
    case "Liens relatifs : ": $tmp="Vínculos relativos : "; break;
    case "Liens relatifs": $tmp="Vínculos relativos"; break;
    case "Liens Web": $tmp="Vínculos web"; break;
@@ -811,7 +811,7 @@ function translate_pass1($phrase) {
    case "Revue de l'éditeur": $tmp="Revista del editor"; break;
    case "Rien": $tmp="nada"; break;
    case "Robots - Spiders": $tmp="Robots - Spiders"; break;
-   case "Rubriques spéciales : ": $tmp="Secciones especiales : "; break;
+   case "Rubriques spéciales": $tmp="Secciones especiales"; break;
    case "Rubriques": $tmp="Secciones"; break;
    case "S'inscrire à la liste de diffusion du site": $tmp="Inscribirse a la lista de difusión de la página  web"; break;
    case "Salle": $tmp="Sala"; break;

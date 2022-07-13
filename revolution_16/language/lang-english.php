@@ -139,16 +139,16 @@ function translate_pass1($phrase) {
    case "Archives": $tmp="Archives"; break;
    case "Article de": $tmp="News by"; break;
    case "Article du Jour": $tmp="Today's Big Story"; break;
-   case "Article en attente d'édition : ": $tmp="News Waiting to be Published: "; break;
+   case "Article en attente d'édition": $tmp="News Waiting to be Published"; break;
    case "Article intéressant sur": $tmp="Interesting Article at"; break;
    case "Articles envoyés : ": $tmp="sent news:"; break;
    case "Articles les plus commentés": $tmp="most commented stories"; break;
    case "Articles les plus lus dans les rubriques spéciales": $tmp="most read articles in special sections"; break;
    case "articles les plus lus": $tmp="most read stories"; break;
    case "Articles plus anciens": $tmp="Older Articles"; break;
-   case "Articles présents dans les rubriques : ": $tmp="Articles in Sections: "; break;
+   case "Articles présents dans les rubriques": $tmp="Articles in Sections"; break;
    case "Articles publiés : ": $tmp="news published:"; break;
-   case "Articles publiés : ": $tmp="Stories Published: "; break;
+   case "Articles publiés": $tmp="Stories published"; break;
    case "Articles": $tmp="Articles"; break;
    case "Articles": $tmp="Stories"; break;
    case "Articles": $tmp="Submissions"; break;
@@ -165,7 +165,7 @@ function translate_pass1($phrase) {
    case "Aucune réponse pour les mots que vous cherchez. Elargissez votre recherche.": $tmp="No records match that query. Please broaden your search."; break;
    case "Auteur": $tmp="Author"; break;
    case "Auteur": $tmp="Submitter"; break;
-   case "Auteurs actifs : ": $tmp="Active Authors: "; break;
+   case "Auteurs actifs": $tmp="Active Authors"; break;
    case "Auteurs de news les plus regardées": $tmp="most active news submitters"; break;
    case "Auteurs les plus actifs": $tmp="most active authors"; break;
    case "Autoriser la création automatique des membres ?": $tmp="Allow automated new-users configuration?"; break;
@@ -200,7 +200,7 @@ function translate_pass1($phrase) {
    case "Catégorie : ": $tmp="Category:"; break;
    case "Catégorie :": $tmp="Cat:"; break;
    case "Catégorie": $tmp="Category"; break;
-   case "Catégories dans la rubrique des liens web : ": $tmp="Categories in Web Links: "; break;
+   case "Catégories dans la rubrique des liens web": $tmp="Categories in Web Links"; break;
    case "Catégories les plus actives": $tmp="most active categories"; break;
    case "Catégories": $tmp="Categories"; break;
    case "Ce fichier n'existe pas ...": $tmp="There is no such file..."; break;
@@ -548,7 +548,7 @@ function translate_pass1($phrase) {
    case "Lien": $tmp="Link"; break;
    case "Lien(s) en attente de validation": $tmp="Links Waiting for Validation"; break;
    case "Liens cassés rapportés par un ou plusieurs utilisateurs": $tmp="User Reported Broken Links"; break;
-   case "Liens présents dans la rubrique des liens web : ": $tmp="Links in Web Links: "; break;
+   case "Liens présents dans la rubrique des liens web": $tmp="Links in Web Links"; break;
    case "Liens relatifs : ": $tmp="Related Link:"; break;
    case "Liens relatifs": $tmp="Related Links"; break;
    case "Liens Web": $tmp="Web Links"; break;
@@ -813,7 +813,7 @@ function translate_pass1($phrase) {
    case "Revue de l'éditeur": $tmp="Editor Review"; break;
    case "Rien": $tmp="No posts"; break;
    case "Robots - Spiders": $tmp="Robots - Spiders"; break;
-   case "Rubriques spéciales : ": $tmp="Special Sections: "; break;
+   case "Rubriques spéciales": $tmp="Special Sections"; break;
    case "Rubriques": $tmp="Sections"; break;
    case "S'inscrire à la liste de diffusion du site": $tmp="Register to web site' mailing list"; break;
    case "Salle": $tmp="Room"; break;

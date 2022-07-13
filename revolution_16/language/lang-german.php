@@ -139,16 +139,16 @@ function translate_pass1($phrase) {
    case "Archives": $tmp="Archive"; break;
    case "Article de": $tmp="Beitrag von"; break;
    case "Article du Jour": $tmp="Artikel des Tages"; break;
-   case "Article en attente d'édition : ": $tmp="Beitrag wartet auf Freigabe : "; break;
+   case "Article en attente d'édition": $tmp="Beitrag wartet auf Freigabe"; break;
    case "Article intéressant sur": $tmp="Interessanter Artikel bei"; break;
    case "Articles envoyés : ": $tmp="Sende neuen Artikel : "; break;
    case "Articles les plus commentés": $tmp="Meist kommentierte Arktikel"; break;
    case "Articles les plus lus dans les rubriques spéciales": $tmp="Meistgelesene Artikel in der Spezialkategorie"; break;
    case "articles les plus lus": $tmp="Meistgelesene Artikel"; break;
    case "Articles plus anciens": $tmp="Älteste Artikel"; break;
-   case "Articles présents dans les rubriques : ": $tmp="Beiträge in Rubriken : "; break;
+   case "Articles présents dans les rubriques": $tmp="Beiträge in Rubriken"; break;
    case "Articles publiés : ": $tmp="Beiträge publiziert : "; break;
-   case "Articles publiés : ": $tmp="Veröffentlichte Beiträge : "; break;
+   case "Articles publiés": $tmp="Veröffentlichte Beiträge"; break;
    case "Articles": $tmp="Artikel"; break;
    case "Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté": $tmp="Achten Sie darauf, das ihre Texteingabe gültig ist. Benutzen Sie nicht nur Grossbuchstaben und achten Sie auf die Grammatik !"; break;
    case "ATTENTION : Etes-vous certain de vouloir effacer cette catégorie et tous ses Liens ?": $tmp="WARNUNG : Wollen Sie wirklich die Kategorie und alle darin enthaltenen Links löschen? ?"; break;
@@ -163,7 +163,7 @@ function translate_pass1($phrase) {
    case "Aucune réponse pour les mots que vous cherchez. Elargissez votre recherche.": $tmp="Nichts gefunden zur Anfrage. Erweitern Sie die Suche ."; break;
    case "Auteur": $tmp="Autor"; break;
    case "Auteur": $tmp="Autor"; break;
-   case "Auteurs actifs : ": $tmp="Aktive Autoren : "; break;
+   case "Auteurs actifs": $tmp="Aktive Autoren"; break;
    case "Auteurs de news les plus regardées": $tmp="Aktivste Autoren"; break;
    case "Auteurs les plus actifs": $tmp="Aktivste Autoren"; break;
    case "Autoriser la création automatique des membres ?": $tmp="Automatisches Anlegen von neuen Benutzern erlauben ?"; break;
@@ -198,7 +198,7 @@ function translate_pass1($phrase) {
    case "Catégorie : ": $tmp="Kategorie : "; break;
    case "Catégorie :": $tmp="Kategorie :"; break;
    case "Catégorie": $tmp="Kategorie"; break;
-   case "Catégories dans la rubrique des liens web : ": $tmp="Kategorien in den Weblinks : "; break;
+   case "Catégories dans la rubrique des liens web": $tmp="Kategorien in den Weblinks"; break;
    case "Catégories les plus actives": $tmp="Aktivste Kategorien"; break;
    case "Catégories": $tmp="Kategorien"; break;
    case "Ce fichier n'existe pas ...": $tmp="Keine Datei vorhanden ..."; break;
@@ -546,7 +546,7 @@ function translate_pass1($phrase) {
    case "Lien": $tmp="Link : "; break;
    case "Lien(s) en attente de validation": $tmp="Link wartet auf Freigabe"; break;
    case "Liens cassés rapportés par un ou plusieurs utilisateurs": $tmp="Defekte Links, die von einem oder mehreren Usern gemeldet wurden"; break;
-   case "Liens présents dans la rubrique des liens web : ": $tmp="Links in Weblinks : "; break;
+   case "Liens présents dans la rubrique des liens web": $tmp="Links in Weblinks"; break;
    case "Liens relatifs : ": $tmp="Relativer Link : "; break;
    case "Liens relatifs": $tmp="Relativer Link"; break;
    case "Liens Web": $tmp="Web Links"; break;
@@ -811,7 +811,7 @@ function translate_pass1($phrase) {
    case "Revue de l'éditeur": $tmp="Benutzer Bewertung"; break;
    case "Rien": $tmp="Nichts"; break;
    case "Robots - Spiders": $tmp="Robots - Spiders"; break;
-   case "Rubriques spéciales : ": $tmp="Spezial Rubriken : "; break;
+   case "Rubriques spéciales": $tmp="Spezial Rubriken"; break;
    case "Rubriques": $tmp="Rubriken"; break;
    case "S'inscrire à la liste de diffusion du site": $tmp="Bitte melden Sie sich an"; break;
    case "Salle": $tmp="Raum"; break;

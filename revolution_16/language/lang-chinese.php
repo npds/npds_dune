@@ -139,16 +139,16 @@ function translate_pass1($phrase) {
    case "Archives": $tmp="档案资料"; break;
    case "Article de": $tmp="新闻提供"; break;
    case "Article du Jour": $tmp="今天发表最受欢迎文章"; break;
-   case "Article en attente d'édition : ": $tmp="等待发表的文章： : "; break;
+   case "Article en attente d'édition": $tmp="等待发表的文章"; break;
    case "Article intéressant sur": $tmp="一篇特别的文章在以下网址"; break;
    case "Articles envoyés : ": $tmp="文章已经发送 : "; break;
    case "Articles les plus commentés": $tmp="篇评论最多的文章"; break;
    case "Articles les plus lus dans les rubriques spéciales": $tmp="在特别栏目中的焦点文章"; break;
    case "articles les plus lus": $tmp="人气最高的文章"; break;
    case "Articles plus anciens": $tmp="较旧文章"; break;
-   case "Articles présents dans les rubriques : ": $tmp="在精华区中的文章： : "; break;
+   case "Articles présents dans les rubriques": $tmp="在精华区中的文章"; break;
    case "Articles publiés : ": $tmp="已发表文章： : "; break;
-   case "Articles publiés : ": $tmp="篇文章被发布 : "; break;
+   case "Articles publiés": $tmp="篇文章被发布"; break;
    case "Articles": $tmp="文章"; break;
    case "Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté": $tmp="请确保填入的信息均有效、语法正确、注意大小写。比如，不要用大写书写文本，这样会拒绝写入的。 !"; break;
    case "ATTENTION : Etes-vous certain de vouloir effacer cette catégorie et tous ses Liens ?": $tmp="警告：您确认删除该分类和其下的所有链接？ ?"; break;
@@ -163,7 +163,7 @@ function translate_pass1($phrase) {
    case "Aucune réponse pour les mots que vous cherchez. Elargissez votre recherche.": $tmp="对该关键词的搜索没有结果。请扩大您的搜索范围。"; break;
    case "Auteur": $tmp="作者 "; break;
    case "Auteur": $tmp="提交者"; break;
-   case "Auteurs actifs : ": $tmp="作品丰富的作者 : "; break;
+   case "Auteurs actifs": $tmp="作品丰富的作者"; break;
    case "Auteurs de news les plus regardées": $tmp="位最活跃的新闻提交者"; break;
    case "Auteurs les plus actifs": $tmp="位最活跃的作者"; break;
    case "Autoriser la création automatique des membres ?": $tmp="允许自动创建新会员？"; break;
@@ -198,7 +198,7 @@ function translate_pass1($phrase) {
    case "Catégorie : ": $tmp="分类 : "; break;
    case "Catégorie :": $tmp="分类 :"; break;
    case "Catégorie": $tmp="分类"; break;
-   case "Catégories dans la rubrique des liens web : ": $tmp="Categories in Web Links: "; break;
+   case "Catégories dans la rubrique des liens web": $tmp="Categories in Web Links"; break;
    case "Catégories les plus actives": $tmp="最活跃的分类"; break;
    case "Catégories": $tmp="分类"; break;
    case "Ce fichier n'existe pas ...": $tmp="该文件不存在 ..."; break;
@@ -546,7 +546,7 @@ function translate_pass1($phrase) {
    case "Lien": $tmp="链接 : "; break;
    case "Lien(s) en attente de validation": $tmp="该链接在等待实现中。"; break;
    case "Liens cassés rapportés par un ou plusieurs utilisateurs": $tmp="用户报告无效链接"; break;
-   case "Liens présents dans la rubrique des liens web : ": $tmp="链接资源数： : "; break;
+   case "Liens présents dans la rubrique des liens web": $tmp="链接资源数"; break;
    case "Liens relatifs : ": $tmp="相关链接 : "; break;
    case "Liens relatifs": $tmp="相关链接"; break;
    case "Liens Web": $tmp="网站链接"; break;
@@ -810,7 +810,7 @@ function translate_pass1($phrase) {
    case "Revue de l'éditeur": $tmp="出版者的对该文章的评论 "; break;
    case "Rien": $tmp="没有帖子"; break;
    case "Robots - Spiders": $tmp="Robots"; break;
-   case "Rubriques spéciales : ": $tmp="精华区： : "; break;
+   case "Rubriques spéciales": $tmp="精华区"; break;
    case "Rubriques": $tmp="精华区"; break;
    case "S'inscrire à la liste de diffusion du site": $tmp="在网站的邮件列表中注册"; break;
    case "Salle": $tmp="房间"; break;

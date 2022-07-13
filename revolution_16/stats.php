@@ -367,11 +367,11 @@ echo '
    <h3 class="my-4">'.translate("Thème(s)").'</h3>
    <table data-toggle="table" data-striped="true">
       <thead>
-      <tr>
-         <th data-sortable="true" data-halign="center">'.translate("Thème(s)").'</th>
-         <th data-halign="center" data-align="right">'.translate("Nombre d'utilisateurs par thème").'</th>
-         <th data-halign="center">'.translate("Status").'</th>
-      </tr>
+         <tr>
+            <th data-sortable="true" data-halign="center">'.translate("Thème(s)").'</th>
+            <th data-halign="center" data-align="right">'.translate("Nombre d'utilisateurs par thème").'</th>
+            <th data-halign="center">'.translate("Status").'</th>
+         </tr>
       </thead>
       <tbody>';
 
@@ -380,12 +380,12 @@ global $Default_Theme;
 while(list($themelist)=sql_fetch_row($resultX)) {
    if ($themelist!='') {
       $ibix=explode('+',$themelist);
-      if (is_dir("themes/$ibix[0]")) $T_exist=''; else $T_exist='<span class="text-danger">'.translate("Ce fichier n'existe pas ...").'</span>';
+      $T_exist = is_dir("themes/$ibix[0]") ? '' : '<span class="text-danger">'.translate("Ce fichier n'existe pas ...").'</span>';
       if ($themelist==$Default_Theme) {
          $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
-         if ($result) $themeD1 = sql_num_rows($result); else $themeD1=0;
+         $themeD1 = $result ? sql_num_rows($result) : 0 ;
          $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme=''");
-         if ($result) $themeD2 = sql_num_rows($result); else $themeD2=0;
+         $themeD2 = $result ? sql_num_rows($result) : 0 ;
          echo '
             <tr>
                <td>'.$themelist.' <b>('.translate("par défaut").')</b></td>
@@ -394,15 +394,11 @@ while(list($themelist)=sql_fetch_row($resultX)) {
             </tr>';
       } else {
          $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE theme='$themelist'");
-
-         if ($result) {$themeU = sql_num_rows($result);} else {$themeU=0;}
+         $themeU = $result ? sql_num_rows($result) : 0 ;
          echo '
             <tr>';
-         if(substr($ibix[0],-3)=="_sk") 
-            echo '
-               <td>'.$themelist.'</td>';
-         else
-            echo '
+         echo substr($ibix[0],-3)=="_sk" ? '
+               <td>'.$themelist.'</td>': '
                <td>'.$ibix[0].'</td>';
          echo '
                <td><b>'.wrh($themeU).'</b></td>
@@ -417,6 +413,8 @@ echo '
 
 $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users");
 $unum = $result ? sql_num_rows($result)-1 : 0;
+$result = sql_query("SELECT groupe_id FROM ".$NPDS_Prefix."groupes");
+$gnum = $result ? sql_num_rows($result) : 0;
 $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
 $snum = $result ? sql_num_rows($result) : 0;
 $result = sql_query("SELECT aid FROM ".$NPDS_Prefix."authors");
@@ -442,30 +440,31 @@ $cat = $cat1+$cat2;
 echo '
    <h3 class="my-4">'.translate("Statistiques diverses").'</h3>
    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-muted"></i>&nbsp;'.translate("Utilisateurs enregistrés : ").' <span class="badge bg-secondary ms-auto">'.wrh($unum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted"></i>&nbsp;<i class="fas fa-pencil-alt fa-lg text-muted"></i>&nbsp;'.translate("Auteurs actifs : ").' <span class="badge bg-secondary ms-auto">'.wrh($anum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted me-1"></i>'.translate("Utilisateurs enregistrés").' <span class="badge bg-secondary ms-auto">'.wrh($unum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-muted me-1"></i>'.translate("Groupe").' <span class="badge bg-secondary ms-auto">'.wrh($gnum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user-edit fa-2x text-muted me-1"></i>'.translate("Auteurs actifs").' <span class="badge bg-secondary ms-auto">'.wrh($anum).' </span></li>';
 $imgtmp = $ibid=theme_image('stats/postnew.png') ? $ibid : 'images/admin/postnew.png';
 echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" loading="lazy"/>&nbsp;'.translate("Articles publiés : ").' <span class="badge bg-secondary ms-auto">'.wrh($snum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Articles publiés").' <span class="badge bg-secondary ms-auto">'.wrh($snum).' </span></li>';
 $imgtmp = $ibid=theme_image('stats/topicsman.png') ? $ibid : 'images/admin/topicsman.png';
 echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" loading="lazy"/>&nbsp;'.translate("Sujets actifs : ").' <span class="badge bg-secondary ms-auto">'.wrh($tnum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-muted"></i>&nbsp;'.translate("Commentaires postés : ").' <span class="badge bg-secondary ms-auto">'.wrh($cnum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Sujets actifs").' <span class="badge bg-secondary ms-auto">'.wrh($tnum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-muted me-1"></i>'.translate("Commentaires").' <span class="badge bg-secondary ms-auto">'.wrh($cnum).' </span></li>';
 $imgtmp = $ibid=theme_image('stats/sections.png') ? $ibid : 'images/admin/sections.png';
 echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" loading="lazy"/>&nbsp;'.translate("Rubriques spéciales : ").' <span class="badge bg-secondary ms-auto">'.wrh($secnum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Rubriques spéciales").' <span class="badge bg-secondary ms-auto">'.wrh($secnum).' </span></li>';
 $imgtmp = $ibid=theme_image('stats/sections.png') ? $ibid : 'images/admin/sections.png';
 echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'" alt="" loading="lazy"/>&nbsp;'.translate("Articles présents dans les rubriques : ").' <span class="badge bg-secondary ms-auto">'.wrh($secanum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Articles présents dans les rubriques").' <span class="badge bg-secondary ms-auto">'.wrh($secanum).' </span></li>';
 echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Liens présents dans la rubrique des liens web : ").' <span class="badge bg-secondary ms-auto">'.wrh($links).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted"></i>&nbsp;'.translate("Catégories dans la rubrique des liens web : ").' <span class="badge bg-secondary ms-auto">'.wrh($cat).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted me-1"></i>'.translate("Liens présents dans la rubrique des liens web").' <span class="badge bg-secondary ms-auto">'.wrh($links).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted me-1"></i>'.translate("Catégories dans la rubrique des liens web").' <span class="badge bg-secondary ms-auto">'.wrh($cat).' </span></li>';
 $imgtmp = $ibid=theme_image('stats/submissions.png') ? $ibid : 'images/admin/submissions.png';
 echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><img src="'.$imgtmp.'"  alt="" />&nbsp;'.translate("Article en attente d'édition : ").' <span class="badge bg-secondary ms-auto">'.wrh($subnum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Num <span class="badge bg-danger ms-auto">'.$Version_Num.'</span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Id <span class="badge bg-danger ms-auto">'.$Version_Id.'</span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted"></i>&nbsp;Version Sub <span class="badge bg-danger ms-auto">'.$Version_Sub.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'"  alt="" />'.translate("Article en attente d'édition").' <span class="badge bg-secondary ms-auto">'.wrh($subnum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted me-1"></i>Version Num <span class="badge bg-danger ms-auto">'.$Version_Num.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted me-1"></i>Version Id <span class="badge bg-danger ms-auto">'.$Version_Id.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted me-1"></i>Version Sub <span class="badge bg-danger ms-auto">'.$Version_Sub.'</span></li>
    </ul>
    <br />
    <p class="text-center"><a href="http://www.npds.org" >http://www.npds.org</a> - French Portal Generator Gnu/Gpl Licence</p><br />';
