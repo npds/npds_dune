@@ -1324,7 +1324,6 @@ function savejournal($uid, $journal, $datetime){
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journalentry' WHERE uid='$uid'");
       } else
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journal' WHERE uid='$uid'");
-      $userinfo=getusrinfo($user);
       Header("Location: user.php");
    } else
       Header("Location: index.php");
