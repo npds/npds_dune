@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -338,19 +338,13 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
     settype($maxforums,"integer");
     settype($maxtopics,"integer");
 
-    if ($maxforums==0)
-       $lim='';
-    else
-       $lim=" LIMIT $maxforums";
-    if ($user)
-       $query = "SELECT * FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id".$lim;
-    else
-       $query = "SELECT * FROM ".$NPDS_Prefix."forums WHERE forum_type!='9' AND forum_type!='7' AND forum_type!='5' ORDER BY cat_id,forum_index,forum_id".$lim;
+    $lim = $maxforums==0 ? '' : " LIMIT $maxforums";
+    $query = $user ?
+      "SELECT * FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id".$lim :
+      "SELECT * FROM ".$NPDS_Prefix."forums WHERE forum_type!='9' AND forum_type!='7' AND forum_type!='5' ORDER BY cat_id,forum_index,forum_id".$lim;
     $result = sql_query($query);
 
     if (!$result) exit();
-
-    $premier=false;
     $boxstuff = '<ul>';
 
     while ($row = sql_fetch_row($result)) {
