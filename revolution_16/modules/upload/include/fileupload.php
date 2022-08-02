@@ -69,7 +69,7 @@ function halt ($msg='') {
    }
    /*je ne trouve pas quand et ou cette variable défini ci dessus peut etre changé donc ne comprend pas les conditions ci dessous ?*/
    if ($this->Halt_On_Error == 'report') {
-      printf('<div class="alert alert-danger m-3 alert-dismissible fade show" role="alert"><button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button><h4 class="alert-heading">'.upload_translate("Attention").'</h4> %s<br /><p class="mt-2 text-center"> %s </p>', $msg, '<strong>'.$reason.'</strong>');
+      printf('<div class="alert alert-danger m-3 alert-dismissible fade show" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><h4 class="alert-heading">'.upload_translate("Attention").'</h4> %s<br /><p class="mt-2 text-center"> %s </p>', $msg, '<strong>'.$reason.'</strong>');
    } else {
       printf('<div class="alert alert-danger m-3" role="alert"> %s %s<br /><p class="mt-2 text-center"> %s </p></span>', '<h4 class="alert-heading">File management</h4>', $msg, '<strong>'.$reason.'</strong>');
    }
