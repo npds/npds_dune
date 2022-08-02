@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -58,22 +58,23 @@ function halt ($msg='') {
 
    switch ($this->errno) {
       case FILE_TOO_BIG:
-         $reason = upload_translate("La taille de ce fichier excède la taille maximum autorisée").'</div>';
+         $reason = upload_translate("La taille de ce fichier excède la taille maximum autorisée").' !</div>';
          break;
       case INVALID_FILE_TYPE:
-         $reason = upload_translate("Ce type de fichier n'est pas autorisé").'</div>';
+         $reason = upload_translate("Ce type de fichier n'est pas autorisé").' !</div>';
          break;
       default;
          $reason = sprintf(upload_translate("Le code erreur est : %s"), $this->errno);
          break;
    }
+   /*je ne trouve pas quand et ou cette variable défini ci dessus peut etre changé donc ne comprend pas les conditions ci dessous ?*/
    if ($this->Halt_On_Error == 'report') {
-      printf("&nbsp;<div class=\"alert alert-danger\" role=\"alert\"><strong>".upload_translate("Attention")."</strong> : %s<br />\n<p align=\"center\"> %s </p>", $msg, $reason);
+      printf('<div class="alert alert-danger m-3 alert-dismissible fade show" role="alert"><button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button><h4 class="alert-heading">'.upload_translate("Attention").'</h4> %s<br /><p class="mt-2 text-center"> %s </p>', $msg, '<strong>'.$reason.'</strong>');
    } else {
-      printf("&nbsp;<div class=\"alert alert-danger\" role=\"alert\"><span class=\"text-danger\">%s </span><span class=\"noir\"> : %s<br />\n<p align=\"center\">-: %s :-</p></span>\n", "File management", $msg, $reason);
+      printf('<div class="alert alert-danger m-3" role="alert"> %s %s<br /><p class="mt-2 text-center"> %s </p></span>', '<h4 class="alert-heading">File management</h4>', $msg, '<strong>'.$reason.'</strong>');
    }
    if ($this->Halt_On_Error!='report')
-      die("&nbsp;".upload_translate("Session terminée."));
+      die('<div class="alert alert-danger m-3" role="alert">'.upload_translate("Session terminée.").'</div>');
 }
 
 /**
@@ -100,9 +101,8 @@ function uploadFile ($IdPost, $IdTopic, $name, $size, $type, $src_file, $inline=
    if ($size == 0) {
       $this->errno = FILE_EMPTY;
       return false;
-   } else {
+   } else
       $fsize = filesize ($src_file);
-   }
 
    if ($size != $fsize) {
       $this->errno = ERR_FILE;
