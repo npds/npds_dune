@@ -14,7 +14,7 @@ if (!function_exists("Mysql_Connexion"))
 
 // chatbox avec salon privatif - on utilise id pour filtrer les messages -> id = l'id du groupe au sens autorisation de NPDS (-127,-1,0,1,2...126))
 settype ($id,'integer');
-if ($id=='' || unserialize(decrypt($auto))!=$id) die();
+if ($id==='' || unserialize(decrypt($auto))!=$id) die();
 
 if (!function_exists("makeChatBox")) {include ("powerpack_f.php");}
 include("functions.php");
