@@ -16,7 +16,8 @@
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
-if (!strstr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+if (!function_exists('admindroits'))
+   include($_SERVER['DOCUMENT_ROOT'].'/admin/die.php');
 if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
 $f_meta_nom ='geoloc';

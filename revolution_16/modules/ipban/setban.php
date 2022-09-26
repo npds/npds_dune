@@ -3,14 +3,15 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],"admin.php")) Access_Error();
+if (!function_exists('admindroits'))
+   include($_SERVER['DOCUMENT_ROOT'].'/admin/die.php');
 $f_meta_nom ='setban';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
@@ -19,6 +20,7 @@ include ("modules/$ModPath/lang/ipban.lang-$language.php");
 $f_titre = ipban_translate("Administration de l'IpBan");
 settype($hlpfile,'string');
 $hlpfile='manuels/'.$language.'/ipban.html';
+
 function ConfigureBan($ModPath, $ModStart) {
 global $f_meta_nom, $f_titre, $adminimg,$language, $hlpfile;
 settype($ip_ban,'string');

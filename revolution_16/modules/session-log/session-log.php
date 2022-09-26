@@ -12,7 +12,8 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
+if (!function_exists('admindroits'))
+   include($_SERVER['DOCUMENT_ROOT'].'/admin/die.php');
 $f_meta_nom ='session_log';
 //==> controle droit
 admindroits($aid,$f_meta_nom);

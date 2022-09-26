@@ -13,9 +13,9 @@
 /* npds-twi_set.php file 2015 by Jean Pierre Barbary (jpb)              */
 /* dev team :                                                           */
 /************************************************************************/
-if (!function_exists("Access_Error")) die();
-if (!strstr($_SERVER['PHP_SELF'],'admin.php')) die();
 
+if (!function_exists('admindroits'))
+   include($_SERVER['DOCUMENT_ROOT'].'/admin/die.php');
 include ('modules/'.$ModPath.'/lang/twi.lang-'.$language.'.php');
 $f_meta_nom ='npds_twi';
 $f_titre='npds_twitter';
