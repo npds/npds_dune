@@ -48,13 +48,13 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
       <tbody>';
       
    foreach ($rs as $v1) {
-        echo '
+      echo '
          <tr>
             <td>'.$v1[0].'</td>
             <td>'.$v1[1].'</td>
             <td><i class="fab fa-'.$v1[2].' fa-2x text-muted align-middle"></i></td>
             <td>
-               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-lg me-2 align-middle" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip"></i></a>
+               <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-lg me-2 align-middle" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a>
                <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=DeleteReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fas fa-trash fa-lg text-danger align-middle" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"></i></a>
             </td>
         </tr>';
@@ -171,29 +171,22 @@ function SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop, $
    @chmod("modules/$ModPath/reseaux-sociaux.conf.php",0666);
 }
 
-   settype($subop,'string');
-   settype($rs_id,'string');
-   settype($rs_url,'string');
-   settype($rs_ico,'string');
-   settype($old_id,'string');
+settype($subop,'string');
+settype($rs_id,'string');
+settype($rs_url,'string');
+settype($rs_ico,'string');
+settype($old_id,'string');
 
-   switch ($subop) {
-      case "SaveSetReseaux":
-         SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop, $old_id);
-         ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
-      break;
-      case "DeleteReseaux":
-         SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop, $old_id);
-         ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
-      break;
-      case "AddReseaux":
-         EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop,$old_id);
-      break;
-      case "EditReseaux":
-         EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop, $old_id);break;
-         ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
-      default:
-         ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
-      break;
-   }
+switch ($subop) {
+   case "SaveSetReseaux": case "DeleteReseaux":
+      SaveSetReseaux($ModPath, $ModStart, $rs_id, $rs_url, $rs_ico, $subop, $old_id);
+      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+   break;
+   case "AddReseaux": case "EditReseaux":
+      EditReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg, $rs_id, $rs_url, $rs_ico, $subop,$old_id);
+   break;
+   default:
+      ListReseaux($ModPath, $ModStart,$f_meta_nom, $f_titre, $adminimg);
+   break;
+}
 ?>
