@@ -1,22 +1,22 @@
-changelog-rev16.4 [ révision : 51 - jpb /16-06-2022 ]
+changelog-rev16.4 [ révision : 52 - jpb /06-09-2022 ]
 (non exhaustif...)
 
-Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes en grande partie à la mise à jour du framework bootstrap, des autres dépendances et des corrections et amélioration de la version précédente. La base de données n'est que très peu impactée, principalement sur des données (... quelques métamots). Elle fixe aussi un certain nombre de problème de sécurité en renforçant la protection d'accès fichiers et le filtrage des urls.
+Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes en grande partie à la mise à jour du framework bootstrap, des autres dépendances et des corrections et amélioration de la version précédente. La base de données n'est que très peu impactée, principalement sur des données (... quelques métamots). Elle fixe aussi un certain nombre de problèmes de sécurité en renforçant la protection d'accès fichiers et le filtrage des urls.
 
 - update dépendances :
-   bootstrap 5.1.3 
+   bootstrap 5.2.0
    formvalidation v.1.9.0 (lié à maj BS)
    colorpicker v.3.4
    bootstrap table 1.19.1
-   openlayers 6.14.1
+   openlayers 6.15.1
    geocoder 4.1.2
 - mise à jour skin et thème : + 1 theme et 3 nouveaux skins
 - validation des formulaire : formvalidation ajout rowselector (pour bon fonctionnement des icônes de validation de formulaire) .. (probablement à affiner encore) 
 bug track :
-- correction du chemin d'accès au fichier langue pour l'aide de l'admin d'upload (typo variable
+- correction du chemin d'accès au fichier langue pour l'aide de l'admin d'upload (typo variable)
 - pic manager : correction d'une condition, celle-ci générait une erreur php dans certain cas (plus d'affichage du pic manager)
 - pic manager, file manager : erreur 429 lors du traitement de dossier avec de nombreuses images (résolu partiellement le cas peut encore exister ...)
-- geoloc correction : contruction des listes de choix des fonds de carte, remplissage du viewport en fonction de l'extension de la couche.
+- geoloc correction : contruction des listes de choix des fonds de carte, remplissage du viewport en fonction de l'extension de la couche, openlayers updates...
 - affichage correct des IPV6 dans session log
 - correction de l'affichage du titre de la fenêtre du chat (affichage des entités html (renvoyées par la traduction) au lieu d'un format text ...) @phrev
 
@@ -28,7 +28,7 @@ améliorations :
 - thèmisation (code) : possibilité d'ajouter à partir du thème une classe à "l'élément html primaire" d'un bloc
 - metatag : 
 -- ajout de création automatique de balise meta de type og et twitter la combinaison de ces balise permet la céation automatique de "card" pour différents réseau sociaux ...(à documenter)
--- ajout de l'attibut lang dans balise html
+-- ajout de l'attribut lang dans balise html
 
 sécurité :
 suite audit thanks @Nosp, renforcement de url_protect, des accès aux fichiers, et xss sur chat ... 
