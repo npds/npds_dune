@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset "utf-8";
 /* CSS corporate pour NPDS Revolution                                    */
 /* Theme : Dyna-boost (c) 2015 by jpb                                        */
 /* style.css                                                                 */
@@ -52,6 +52,11 @@ table{table-layout: fixed;}
 .n-ava-64 {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
+}
+.n-ava-56 {
+  max-width:56px;
+  max-height:56px;
   border-radius:50%!important;
 }
 .n-ava-48 {
@@ -163,10 +168,6 @@ table{table-layout: fixed;}
   }
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-  margin-top: 0;
-}
 ul.dropdown-menu {
   margin-top: 0;
 }
@@ -200,25 +201,6 @@ ul.dropdown-menu {
 /* ombre sur tout les icones
 .fa {text-shadow:2px 2px 4px #d9d9d9;}
 */
-
-/* ==> Personalisation (opacité & couleur) des tooltips bootstrap V5 */
-.tooltip.show {} /* opacité default 0.9 */
-.tooltip-inner {
-  background-color: #484848;
-}
-.tooltip.bs-tooltip-top .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="top"] .tooltip-arrow::before {
-  border-top-color: #484848;
-}
-.tooltip.bs-tooltip-end .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="right"] .tooltip-arrow::before {
-  border-right-color: #484848;
-}
-.tooltip.bs-tooltip-bottom .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="bottom"] .tooltip-arrow::before {
-  border-bottom-color: #484848;
-}
-.tooltip.bs-tooltip-start .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="left"] .tooltip-arrow::before {
-border-left-color: #484848;
-}
-/* <== Personalisation des tooltips bootstrap V5 */
 
 #adm_men a:hover
 {text-decoration: none;}
@@ -275,6 +257,8 @@ ui-menu-item-wrapper {
 
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */
+ 
+/* 
 .fixed-table-footer, .fixed-table-header {
   height: 1px;
   border:1px;
@@ -282,12 +266,6 @@ ui-menu-item-wrapper {
 
 .fixed-table-container{border-top:0px;}
  */ 
- 
-.bootstrap-table .table{
-border-bottom:0px;
-}
-
-
 .card-views .card-view 
 {
     margin-bottom: .25rem;
@@ -432,7 +410,6 @@ a.tooltip_ws:hover em span {
   margin-bottom: 10px;
   color: #626262;
 } 
-
 
 @-webkit-keyframes fa-blink {
   0% { opacity: 1; }

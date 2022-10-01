@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset "utf-8";
 /* CSS npds-boost_sk pour NPDS Revolution                                    */
 /* Theme : Dyna-boost (c) 2015 by jpb                                        */
 /* style.css                                                                 */
@@ -10,7 +10,19 @@
 html{}
 body {}
 a, a:hover {text-decoration:none;}
+/* pas de contour sur le focus des ancres */
+a:focus {
+   outline: none;
+}
 table{table-layout: fixed;}
+/* descend vers le bas les targets des ancres pour qu'elle ne soit pas couverte par le navbar*/
+:target:before {
+  content: "";
+  display: block;
+  height: 80px;
+  margin-top: -80px;
+}
+
 /** <== Balise html                                                         **/
 
 /** ==> Classes BS5                                                         **/
@@ -30,26 +42,37 @@ table{table-layout: fixed;}
 .n-ava {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
 }
 .n-ava-small {
   max-width:48px;
   max-height:48px;
+  border-radius:50%!important;
 }
 .n-ava-64 {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
+}
+.n-ava-56 {
+  max-width:56px;
+  max-height:56px;
+  border-radius:50%!important;
 }
 .n-ava-48 {
   max-width:48px;
   max-height:48px;
+  border-radius:50%!important;
 }
 .n-ava-40 {
   max-width:40px;
   max-height:40px;
+  border-radius:50%!important;
 }
 .n-ava-36 {
   max-width:36px;
   max-height:36px;
+  border-radius:50%!important;
 }
 .n-smil {
   width:24px;
@@ -119,7 +142,7 @@ table{table-layout: fixed;}
 
 @media (max-width: 767px) {
   #container {margin-top:4rem;}
-  nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0.5rem 0.5rem;}
+  nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 2.5rem 0.5rem;}
   .navbar-divider {display:none;}
   ul.nav.navbar-nav {
     line-height: 1.5rem;
@@ -139,10 +162,6 @@ table{table-layout: fixed;}
   }
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-  margin-top: 0;
-}
 ul.dropdown-menu {
   margin-top: 0;
 }
@@ -156,13 +175,6 @@ ul.dropdown-menu {
 .card-block-small {
   padding:0.4rem;
 }
-
-/* ==> toggle systeme identique au navbar mais pour les col */
-
-@media (max-width: 991px) {
-  .n-c {display:none;}
-}
-/* <== toggle systeme identique au navbar mais pour les col */
 
 #col_LB ul, #col_RB ul{
   list-style: none;
@@ -183,25 +195,6 @@ ul.dropdown-menu {
 /* ombre sur tout les icones
 .fa {text-shadow:2px 2px 4px #d9d9d9;}
 */
-
-/* ==> Personalisation (opacité & couleur) des tooltips bootstrap V5 */
-.tooltip.show {} /* opacité default 0.9 */
-.tooltip-inner {
-  background-color: #484848;
-}
-.tooltip.bs-tooltip-top .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="top"] .tooltip-arrow::before {
-  border-top-color: #484848;
-}
-.tooltip.bs-tooltip-end .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="right"] .tooltip-arrow::before {
-  border-right-color: #484848;
-}
-.tooltip.bs-tooltip-bottom .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="bottom"] .tooltip-arrow::before {
-  border-bottom-color: #484848;
-}
-.tooltip.bs-tooltip-start .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="left"] .tooltip-arrow::before {
-border-left-color: #484848;
-}
-/* <== Personalisation des tooltips bootstrap V5 */
 
 #adm_men a:hover
 {text-decoration: none;}
@@ -267,12 +260,6 @@ ui-menu-item-wrapper {
 
 .fixed-table-container{border-top:0px;}
  */ 
- 
-.bootstrap-table .table{
-border-bottom:0px;
-}
-
-
 .card-views .card-view 
 {
     margin-bottom: .25rem;
@@ -1587,3 +1574,36 @@ a.tooltip_ws:hover em span {
 input[required='required'] {
 border: 1px solid ;
 }
+textarea[required='required'] {
+border: 1px solid ;
+}
+
+/* input file customisation */
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  width:1px;
+}
+.n-ci:lang(fr)::before {
+  content: "Choisir";
+}
+.n-ci:lang(es)::before {
+  content: "Elegir";
+}
+.n-ci:lang(de)::before {
+  content: "Wählen";
+}
+.n-ci:lang(en)::before {
+  content: "Browse";
+}
+.n-ci:lang(zh)::before {
+  content: "选择";
+}
+
+.n-irl {
+   max-width: 100%;
+    height: auto;
+}
+/* ==> pour popover contenant les emoji */
+div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
+div[data-type=emojiPopper] div .card-body{padding:.4rem}
+/* <== pour popover contenant les emoji */

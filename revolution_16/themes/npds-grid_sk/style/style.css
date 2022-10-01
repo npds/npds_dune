@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset "utf-8";
 /* CSS npds-grid_sk pour NPDS Revolution                                     */
 /* Theme : npds-grid_sk 2022 by jpb                                          */
 /* style.css                                                                 */
@@ -203,9 +203,7 @@ table{table-layout: fixed;}
 /** <== Classes NPDS-core                                                   **/
 
 /** ==> ID NPDS-Core                                                        **/
-#corps{
-
-}
+#corps{}
 #footer{}
 #pied{text-align:center;}
 #col_princ{}
@@ -290,25 +288,6 @@ ul.dropdown-menu {
 .fa {text-shadow:2px 2px 4px #d9d9d9;}
 */
 
-/* ==> Personalisation (opacité & couleur) des tooltips bootstrap V5 */
-.tooltip.show {} /* opacité default 0.9 */
-.tooltip-inner {
-  background-color: #484848;
-}
-.tooltip.bs-tooltip-top .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="top"] .tooltip-arrow::before {
-  border-top-color: #484848;
-}
-.tooltip.bs-tooltip-end .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="right"] .tooltip-arrow::before {
-  border-right-color: #484848;
-}
-.tooltip.bs-tooltip-bottom .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="bottom"] .tooltip-arrow::before {
-  border-bottom-color: #484848;
-}
-.tooltip.bs-tooltip-start .tooltip-arrow::before, .tooltip.bs-tooltip-auto[x-placement^="left"] .tooltip-arrow::before {
-border-left-color: #484848;
-}
-/* <== Personalisation des tooltips bootstrap V5 */
-
 #adm_men a:hover
 {text-decoration: none;}
 #adm_men,#adm_workarea a:hover
@@ -373,12 +352,6 @@ ui-menu-item-wrapper {
 
 .fixed-table-container{border-top:0px;}
  */ 
- 
-.bootstrap-table .table{
-border-bottom:0px;
-}
-
-
 .card-views .card-view 
 {
     margin-bottom: .25rem;
