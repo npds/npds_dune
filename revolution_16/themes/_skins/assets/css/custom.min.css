@@ -2,11 +2,6 @@ body {
     padding-top:120px
 }
 
-iframe {
-    overflow: hidden;
-    border:none
-}
-
 @media (min-width: 768px) {
     body > .navbar-transparent {
         box-shadow:none
@@ -17,13 +12,6 @@ iframe {
     }
 }
 
-/* 
-.navbar .fa, .navbar .fab {
-    margin-right: .25rem;
-    font-size:1rem
-}
-
- */
 #home .navbar, #help .navbar {
     background: #375ee3;
     background: linear-gradient(145deg, #375ee3 0%, #6543e0 80%);
@@ -178,90 +166,7 @@ iframe {
     color:#fff
 }
 
-.section-tout {
-    padding: 6em 0 1em;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    background-color: #eaf1f1;
-    text-align:center
-}
 
-.section-tout .icon {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1rem;
-    background: #375ee3;
-    background: linear-gradient(145deg, #375ee3 0%, #6543e0 80%);
-    border-radius: 50%;
-    font-size: 2rem;
-    color:rgba(255, 255, 255, 0.9)
-}
-
-.section-tout p {
-    margin-bottom:5em
-}
-
-.section-preview {
-    padding:4em 0
-}
-
-.section-preview .preview {
-    margin-bottom: 4em;
-    background-color:#eaf1f1
-}
-
-.section-preview .preview .image {
-    position:relative
-}
-
-.section-preview .preview .image img {
-    width: 100%;
-    height:auto
-}
-
-.section-preview .preview .options {
-    padding: 2em;
-    border-top: 1px solid rgba(0, 0, 0, 0.125);
-    text-align:center
-}
-
-.section-preview .preview .options p {
-    margin-bottom:2em
-}
-
-.section-preview .dropdown-menu {
-    text-align:left
-}
-
-.section-preview .lead {
-    margin-bottom:2em
-}
-
-.sponsor a {
-    text-decoration:none
-}
-
-.sponsor #carbonads {
-    max-width: 240px;
-    margin:0 auto
-}
-
-.sponsor .carbon-text {
-    display: block;
-    margin-top: 1em;
-    font-size:12px
-}
-
-.sponsor .carbon-poweredby {
-    float: right;
-    margin-top: 1em;
-    font-size:10px
-}
 
 @media (max-width: 767px) {
     .splash {
@@ -282,11 +187,6 @@ iframe {
     }
 }
 
-@media (max-width: 991px) {
-    .navbar .fa {
-        display:none
-    }
-}
 
 @media (min-width: 992px) {
     .navbar-transparent {
