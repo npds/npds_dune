@@ -186,13 +186,13 @@ $PAGES['admin.php']['blocs']="0";
 $PAGES['admin.php']['run']="yes";
 $PAGES['admin.php']['TinyMce']=1;
 $PAGES['admin.php']['TinyMce-theme']="full";
-$PAGES['admin.php']['css']=array("admin.css+",$nuke_url."lib/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css+",$nuke_url."lib/ol/ol.css+");
+$PAGES['admin.php']['css']=array("admin.css+",$nuke_url."lib/ol/ol.css+");
 $PAGES['admin.php']['TinyMceRelurl']="false";
 
 $PAGES['forum.php']['title']="[french]Les forums de discussion[/french][english]Forums[/english][spanish]Foros de discusi&oacute;n[/spanish][german]Diskussionsforen[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese]+";
 $PAGES['forum.php']['run']="yes";
 $PAGES['forum.php']['sitemap']="0.9";
-$PAGES['forum.php']['meta-keywords']="forum,forums,discussion,discussions,aide,entraide,Èchange,Èchanges";
+$PAGES['forum.php']['meta-keywords']="forum,forums,discussion,discussions,aide,entraide,échange,échanges";
 $PAGES['forum.php']['blocs']="0";
 
 $PAGES['viewforum.php']['title']="[french]Forum[/french][english]Forum[/english][spanish]Foro[/spanish][german]Forum[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese] : $title+";
