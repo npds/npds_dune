@@ -59,11 +59,9 @@ function file_contents_exist($url, $response_code = 200) {
     else
         return FALSE;
 }
-
 #autodoc session_manage() : Mise à jour la table session
 function session_manage() {
    global $NPDS_Prefix, $cookie, $REQUEST_URI, $nuke_url;
-
    $guest=0;
    $ip=getip();
    $username = isset($cookie[1]) ? $cookie[1] : $ip;
@@ -72,7 +70,7 @@ function session_manage() {
       //==> mod_geoloc
       include("modules/geoloc/geoloc.conf");
       $file_path = array(
-      'https://ipapi.co/'.urldecode($ip).'/json',
+      'https://ipapi.co/'.urldecode($ip).'/json/',
       'https://api.ipdata.co/'.urldecode($ip).'?api-key='.$api_key_ipdata,
       'https://extreme-ip-lookup.com/json/'.urldecode($ip),
       'http://ip-api.com/json/'.urldecode($ip)
@@ -174,11 +172,9 @@ function session_manage() {
             sql_query("UPDATE ".$NPDS_Prefix."users SET user_lastvisit='".(time()+(integer)$gmt*3600)."' WHERE uname='$username'");
          }
       }
-   } else {
+   } else
       sql_query("INSERT INTO ".$NPDS_Prefix."session (username, time, host_addr, guest, uri, agent) VALUES ('$username', '".time()."', '$ip', '$guest', '$REQUEST_URI', '".getenv("HTTP_USER_AGENT")."')");
-   }
 }
-
 #autodoc NightDay() : Pour obtenir Nuit ou Jour ... Un grand Merci à P.PECHARD pour cette fonction
 function NightDay() {
    global $lever, $coucher;
@@ -403,7 +399,7 @@ function removeHack($Xstring) {
   return($Xstring);
 }
 #autodoc getmicrotime() : Retourne le temps en micro-seconde
-// a supprimer remplacé par fonction native php5 microtime(true)
+// a supprimer (aussi dans metamots !) remplacer par fonction native php5 microtime(true)
 function getmicrotime() {
    list($usec, $sec) = explode(' ',microtime());
    return ((float)$usec + (float)$sec);
@@ -664,61 +660,6 @@ function secur_static($sec_type) {
       break;
    }
 }
-// Opentable - closetable
-#autodoc sub_opentable() : Ouverture de tableaux pour le thème : return
-function sub_opentable() {
-   if (function_exists("opentable_theme")) {
-      $content=opentable_theme();
-   } else {
-      $content ="<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"0\" class=\"ligna\"><tr><td>\n";
-      $content.="<table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"6\" class=\"lignb\"><tr><td>\n";
-   }
-   return ($content);
-}
-#autodoc opentable() : Ouverture de tableaux pour le thème : echo
-function opentable() {
-   echo sub_opentable();
-}
-#autodoc sub_closetable() : Fermeture de tableaux pour le thème : return
-function sub_closetable() {
-   if (function_exists("closetable_theme")) {
-      return(closetable_theme());
-   } else {
-      return("</td></tr></table></td></tr></table>\n");
-   }
-}
-#autodoc closetable() : Fermeture de tableaux pour le thème : echo
-function closetable() {
-   echo sub_closetable();
-}
-#autodoc opentable2() : Ouverture de tableaux pour le thème : return
-function sub_opentable2() {
-   if (function_exists("opentable2_theme")) {
-      $content=opentable2_theme();
-   } else {
-      $content ="<table border=\"0\" cellspacing=\"1\" cellpadding=\"0\" class=\"ligna\"><tr><td>\n";
-      $content.="<table border=\"0\" cellspacing=\"1\" cellpadding=\"6\" class=\"lignb\"><tr><td>\n";
-   }
-   return ($content);
-}
-#autodoc opentable2() : Ouverture de tableaux pour le thème : echo
-function opentable2() {
-   echo sub_opentable2();
-}
-#autodoc closetable2() : Fermeture de tableaux pour le thème : return
-function sub_closetable2() {
-   if (function_exists("opentable2_theme")) {
-      $content=closetable2_theme();
-   } else {
-      return("</td></tr></table></td></tr></table>\n");
-   }
-   return ($content);
-}
-#autodoc closetable2() : Fermeture de tableaux pour le thème : echo
-function closetable2() {
-   echo sub_closetable2();
-}
-// Opentable - closetable
 #autodoc ultramode() : Génération des fichiers ultramode.txt et net2zone.txt dans /cache
 function ultramode() {
    global $NPDS_Prefix, $nuke_url, $storyhome;
@@ -1486,7 +1427,6 @@ function pollSecur($pollID) {
    }
    return ( array($pollID, $pollClose));
 }
-
 #autodoc pollMain($pollID,$pollClose) : Construit le bloc sondage
 function pollMain($pollID,$pollClose) {
    global $NPDS_Prefix, $maxOptions, $boxTitle, $boxContent, $userimg, $language, $pollcomm, $cookie;
@@ -1554,7 +1494,6 @@ function pollMain($pollID,$pollClose) {
    }
    themesidebox($boxTitle, $boxContent);
 }
-
 #autodoc fab_edito() : Construit l'edito
 function fab_edito() {
    global $cookie;
@@ -1708,9 +1647,9 @@ function preview_local_langue($local_user_language,$ibid) {
    return ($ibid);
 }
 #autodoc af_cod($ibid) : Analyse le contenu d'une chaîne et converti les pseudo-balises [code]...[/code] et leur contenu en html
-   function change_cod($r) {
-      return '<'.$r[2].' class="language-'.$r[3].'">'.htmlentities($r[5],ENT_COMPAT|ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset).'</'.$r[2].'>';
-   }
+function change_cod($r) {
+   return '<'.$r[2].' class="language-'.$r[3].'">'.htmlentities($r[5],ENT_COMPAT|ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset).'</'.$r[2].'>';
+}
 
 function af_cod($ibid) {
    $pat='#(\[)(\w+)\s+([^\]]*)(\])(.*?)\1/\2\4#s';
@@ -2390,7 +2329,6 @@ function adminblock() {
       themesidebox($title, $content);
    }
 }
-
 #autodoc ephemblock() : Bloc ephemerid <br />=> syntaxe : function#ephemblock
 function ephemblock() {
    global $NPDS_Prefix, $gmt;
@@ -2842,7 +2780,6 @@ function bloc_espace_groupe($gr, $i_gr) {
       $title=$block_title;
    themesidebox($title, fab_espace_groupe($gr, "0", $i_gr));
 }
-
 function fab_espace_groupe($gr, $t_gr, $i_gr) {
    global $NPDS_Prefix, $short_user;
 
@@ -2878,10 +2815,10 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $count=0;
    $li_mb.='
       <div class="my-4">
-      <a data-bs-toggle="collapse" data-bs-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Déplier la liste").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ms-3 align-middle" title="'.translate("Liste des membres du groupe.").'" data-bs-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Membres").'</a><span class="badge bg-secondary float-end">'.$nb_mb.'</span>';
+         <a data-bs-toggle="collapse" data-bs-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Déplier la liste").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ms-3 align-middle" title="'.translate("Liste des membres du groupe.").'" data-bs-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Membres").'</a><span class="badge bg-secondary float-end">'.$nb_mb.'</span>';
    $tab=online_members();
    $li_mb.='
-         <ul id="lst_mb_ws_'.$gr.'" class=" ul_bloc_ws collapse ">';
+         <ul id="lst_mb_ws_'.$gr.'" class="list-group ul_bloc_ws collapse">';
    while(list($uid, $groupe) = sql_fetch_row($result)) {
       $socialnetworks=array(); $posterdata_extend=array();$res_id=array();$my_rs='';
       if (!$short_user) {
@@ -2974,7 +2911,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       $nb_foru=sql_num_rows ($res_forum);
       if ($nb_foru >= 1) {
          $lst_for_tog='<a data-bs-toggle="collapse" data-bs-target="#lst_for_gr_'.$gr.'" class="text-primary" id="show_lst_for_'.$gr.'" title="'.translate("Déplier la liste").'" ><i id="i_lst_for_gr_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a>';
-         $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="ul_bloc_ws collapse" style ="list-style-type:none;">';
+         $lst_for.='<ul id="lst_for_gr_'.$gr.'" class="list-group ul_bloc_ws collapse" style ="list-style-type:none;">';
          $nb_for_gr='  <span class="badge bg-secondary float-end">'.$nb_foru.'</span>';
          while(list($id_fo,$fo_name) = sql_fetch_row($res_forum)) {
             $lst_for.='
@@ -2996,12 +2933,12 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       if ($nb_doc >= 1) {
          $lst_doc_tog ='<a data-bs-toggle="collapse" data-bs-target="#lst_doc_gr_'.$gr.'" class="text-primary" id="show_lst_doc_'.$gr.'" title="'.translate("Déplier la liste").'"><i id="i_lst_doc_gr_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a>';
          $lst_doc.='
-         <ul id="lst_doc_gr_'.$gr.'" class="ul_bloc_ws mt-3 collapse">';
+         <ul id="lst_doc_gr_'.$gr.'" class="list-group ul_bloc_ws mt-3 collapse">';
          $nb_doc_gr='  <span class="badge bg-secondary float-end">'.$nb_doc.'</span>';
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
             $lst_doc.='
-            <li class="list-group-item list-group-item-action" style="line-height:14px;"><div id="last_editor_'.$p.'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernier éditeur").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:1rem; height:1rem; background-color:'.$surlignage.'"></div><i class="fa fa-edit text-muted mx-1" data-bs-toggle="tooltip" title="'.translate("Document co-rédigé").'." ></i><a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a></li>';
+            <li class="list-group-item list-group-item-action px-1 py-3" style="line-height:14px;"><div id="last_editor_'.$p.'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernier éditeur").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:1rem; height:1rem; background-color:'.$surlignage.'"></div><i class="fa fa-edit text-muted mx-1" data-bs-toggle="tooltip" title="'.translate("Document co-rédigé").'." ></i><a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a></li>';
          }
          $lst_doc.='
          </ul>';
