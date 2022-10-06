@@ -1,12 +1,11 @@
 @charset "utf-8";
-/* CSS npds-boost_sk pour NPDS Revolution                                    */
+/* CSS corporate pour NPDS Revolution                                    */
 /* Theme : Dyna-boost (c) 2015 by jpb                                        */
 /* style.css                                                                 */
 /* pour ajuster et modifier les css du framework                             */
 /* pour utiliser les classes et #ID spécifiques à NPDS                       */
 
-/** ==> Balise html                                                         **/
-/*     Balise html                                                           */
+/** ==> Balises html                                                        **/
 html{}
 body {}
 a, a:hover {text-decoration:none;}
@@ -23,10 +22,9 @@ table{table-layout: fixed;}
   margin-top: -80px;
 }
 
-/** <== Balise html                                                         **/
+/** <== Balises html                                                         **/
 
 /** ==> Classes BS5                                                         **/
-/*                                                                           */
 /* ==> remove the no aesthetic border provided by BS5 css*/
 .table > :not(:first-child) { border-color: var(--bs-gray-300); }
 /* ==> hauteur et scroll des modal */
@@ -126,10 +124,15 @@ table{table-layout: fixed;}
 #footer{}
 #pied{text-align:center;}
 #col_princ{}
-#col_LB{}
+#col_LB{
+   border: 1px solid rgba(0,0,0,.125);
+   border-radius: .25rem;
+   padding-top:1rem;
+   margin-bottom: 1rem;
+}
+#col_LB .card, #col_RB .card {border:0;}
 #col_RB{}
 /** <== ID NPDS-Core                                                        **/
-
 
 /* ==> adaptation menu */
 
@@ -142,7 +145,7 @@ table{table-layout: fixed;}
 
 @media (max-width: 767px) {
   #container {margin-top:4rem;}
-  nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 2.5rem 0.5rem;}
+  nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0.5rem 0.5rem;}
   .navbar-divider {display:none;}
   ul.nav.navbar-nav {
     line-height: 1.5rem;
@@ -158,7 +161,8 @@ table{table-layout: fixed;}
   nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
   .page-header {
     margin: 1.5rem 0 20px;
-    padding:1rem;display:none;
+    padding:1rem;
+    display:none;
   }
 }
 
@@ -192,8 +196,8 @@ ul.dropdown-menu {
   font-weight: 400;
 }
 
-/* ombre sur tout les icones
-.fa {text-shadow:2px 2px 4px #d9d9d9;}
+/* ombre sur tout les icones 
+.fa, .fas, .far  {text-shadow:2px 2px 4px #d9d9d9;}
 */
 
 #adm_men a:hover
@@ -1599,10 +1603,6 @@ border: 1px solid ;
   content: "选择";
 }
 
-.n-irl {
-   max-width: 100%;
-    height: auto;
-}
 /* ==> pour popover contenant les emoji */
 div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
 div[data-type=emojiPopper] div .card-body{padding:.4rem}

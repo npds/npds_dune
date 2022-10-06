@@ -5,8 +5,7 @@
 /* pour ajuster et modifier les css du framework                             */
 /* pour utiliser les classes et #ID spécifiques à NPDS                       */
 
-/** ==> Balise html                                                         **/
-/*     Balise html                                                           */
+/** ==> Balises html                                                        **/
 html{}
 body {}
 a, a:hover {text-decoration:none;}
@@ -51,6 +50,11 @@ table{table-layout: fixed;}
 .n-ava-64 {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
+}
+.n-ava-56 {
+  max-width:56px;
+  max-height:56px;
   border-radius:50%!important;
 }
 .n-ava-48 {
@@ -124,14 +128,13 @@ table{table-layout: fixed;}
 #col_RB{}
 /** <== ID NPDS-Core                                                        **/
 
-
 /* ==> adaptation menu */
 
-@media (min-width: 768px) {
-  .page-header {
-    margin: 53px 0 20px;
-    padding:1rem;
-  }
+.page-header {
+   margin-top: calc(var(--th-hauteurnavbar) + 0.5rem);
+   padding-bottom:1rem;
+   padding-left:1rem;
+   padding-right:1rem;
 }
 
 @media (max-width: 767px) {
@@ -147,14 +150,11 @@ table{table-layout: fixed;}
   nav#uppernavbar {padding-top:0.6rem;padding-bottom:0.6rem;}
   .page-header {
     margin: 1.5rem 0 20px;
-    padding:1rem;display:none;
+    padding:1rem;
+    display:none;
   }
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-  margin-top: 0;
-}
 ul.dropdown-menu {
   margin-top: 0;
 }
@@ -244,9 +244,6 @@ ui-menu-item-wrapper {
 
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */
-.fixed-table-footer, .fixed-table-header {
-  height: 0px;
-}
 /* idem grid BS pour largeur d'élément*/
 .n-t-col-xs-0-5 {
   width: 4.166666%;

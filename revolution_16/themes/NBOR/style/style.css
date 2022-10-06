@@ -1,9 +1,9 @@
+@charset "utf-8";
 /* ----------------------------------------------------------------------
    1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
    theme: NBOR
 ---------------------------------------------------------------------- */
-@charset "utf-8";
-/* CSS npds-boots pour NPDS Revolution                                       */
+/* CSS NBOR pour NPDS Revolution                                       */
 /* Theme : Dyna-boost (c) 2015 by jpb                                        */
 /* style.css                                                                 */
 /* pour ajuster et modifier les css du framework                             */
@@ -11,19 +11,21 @@
 
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-/** ==> Balise html                                                         **/                                                          */
+/** ==> Balises html                                                        **/
 html{}
 body {
-font-family: Arial, sans-serif;
-font-size: .95rem;
-line-height: 1.5;
-color: #000;}
-a, a:hover {text-decoration:none;}
+   font-family: Arial, sans-serif;
+   font-size: .95rem;
+   line-height: 1.5;
+   color: #000;
+}
+a, a:hover {
+   text-decoration:none;
+}
 a:focus {
    outline: none;
 }
-/** <== Balise html
-
+/** ==> Balises html                                                        **/
 
 /** ==> Classes BS5                                                         **/
 /*                                                                           */
@@ -56,6 +58,10 @@ a:focus {
 .n-ava-64 {
   max-width:64px;
   max-height:64px;
+}
+.n-ava-56 {
+  max-width:56px;
+  max-height:56px;
 }
 .n-ava-48 {
   max-width:48px;
@@ -127,12 +133,9 @@ text-align:center;
 #col_RB{padding: 0;}
 /** <== ID NPDS-Core                                                        **/
 
-
-
 /**************************************************
- adapt JMD pour correspondances avec Rocssti
- ****************************************************/
- 
+adapt JMD pour correspondances avec Rocssti
+****************************************************/
 /* Liens */
 #col_LB a {
   color: #b00000;
@@ -711,9 +714,6 @@ input, select, textarea {
    border-radius: 0.2rem;
 }
 
- /********************************
-      travail Jpb
- ******************************/
 /*bloc admin*/
 .adm_img {
   height: 32px;
@@ -1974,10 +1974,7 @@ border: 1px solid ;
 .n-ci:lang(zh)::before {
   content: "选择";
 }
-.n-irl {
-   max-width: 100%;
-    height: auto;
-}
+
 /* ==> pour popover contenant les emoji */
 div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
 div[data-type=emojiPopper] div .card-body{padding:.4rem}

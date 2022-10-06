@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset "utf-8";
 /* --------------------------------------------------------------------------
    1. BASE MINIMUM    classe et ID by JPB pour correspondance BT et Rocssti
    thème: BaseRoc
@@ -12,7 +12,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 /** ==> Balise html                                                         **/
-/*     Balise html                                                           */
 html{font-size: 14px;}
 body {
    font-family: Helvetica,Arial,Tahoma,Sans-Serif;
@@ -33,16 +32,10 @@ a:focus {
   height: 80px;
   margin-top: -80px;
 }
-/** <== Balise html                                                         **/
+
+/** <== Balises html                                                         **/
 
 /** ==> Classes BS5                                                         **/
-/*                                                                           */
-/* ==> élément ayant la class btn (boutons, a, input) */
-.btn {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-}
 /* ==> remove the no aesthetic border provided by BS5 css*/
 .table > :not(:first-child) { border-color: var(--bs-gray-300); }
 /* ==> hauteur et scroll des modal */
@@ -76,6 +69,11 @@ a:focus {
 .n-ava-64 {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
+}
+.n-ava-56 {
+  max-width:56px;
+  max-height:56px;
   border-radius:50%!important;
 }
 .n-ava-48 {
@@ -476,7 +474,6 @@ ul, ol {
 }
 
 #footer a:hover {color: #000;}
-
 
  /* texte et alignements*/
  
@@ -1819,10 +1816,7 @@ border: 1px solid ;
 .n-ci:lang(zh)::before {
   content: "选择";
 }
-.n-irl {
-   max-width: 100%;
-    height: auto;
-}
+
 /* ==> pour popover contenant les emoji */
 div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
 div[data-type=emojiPopper] div .card-body{padding:.4rem}

@@ -5,8 +5,7 @@
 /* pour ajuster et modifier les css du framework                             */
 /* pour utiliser les classes et #ID spécifiques à NPDS                       */
 
-/** ==> Balise html                                                         **/
-/*     Balise html                                                           */
+/** ==> Balises html                                                        **/
 html{}
 body {
   font-family: Georgia, "Bitstream Charter", serif;
@@ -41,10 +40,9 @@ a {
 a:active, a:hover {
     color: #ff4b33;
 }
-/** <== Balise html                                                         **/
+/** <== Balises html                                                         **/
 
 /** ==> Classes BS5                                                         **/
-/*                                                                           */
 /* ==> remove the no aesthetic border provided by BS5 css*/
 .table > :not(:first-child) { border-color: var(--bs-gray-300); }
 /* ==> hauteur et scroll des modal */
@@ -142,6 +140,7 @@ a:active, a:hover {
 #col_RB{}
 /** <== ID NPDS-Core                                                        **/
 
+/* ==> adaptation menu */
 
 /* ==> adaptation Header */
 
@@ -240,19 +239,6 @@ ui-menu-item-wrapper {
 
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */
-.fixed-table-footer, .fixed-table-header {
-  height: 1px;
-  border:1px;
-}
-
-.fixed-table-container{border-top:0px;}
- */ 
- 
-.bootstrap-table .table{
-border-bottom:0px;
-}
-
-
 .card-views .card-view 
 {
     margin-bottom: .25rem;
@@ -1590,10 +1576,8 @@ border: 1px solid ;
 }
 .n-ci:lang(zh)::before {
   content: "选择";
-}.n-irl {
-   max-width: 100%;
-    height: auto;
 }
+
 /* ==> pour popover contenant les emoji */
 div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
 div[data-type=emojiPopper] div .card-body{padding:.4rem}

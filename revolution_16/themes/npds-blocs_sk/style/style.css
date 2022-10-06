@@ -1,12 +1,11 @@
 @charset "utf-8";
-/* CSS npds-boost_sk pour NPDS Revolution                                    */
+/* CSS npds-blocs_sk pour NPDS Revolution                                    */
 /* Theme : Dyna-boost (c) 2015 by jpb                                        */
 /* style.css                                                                 */
 /* pour ajuster et modifier les css du framework                             */
 /* pour utiliser les classes et #ID spécifiques à NPDS                       */
 
-/** ==> Balise html                                                         **/
-/*     Balise html                                                           */
+/** ==> Balises html                                                         **/
 html{}
 body {}
 a, a:hover {text-decoration:none;}
@@ -23,7 +22,7 @@ table{table-layout: fixed;}
   margin-top: -80px;
 }
 
-/** <== Balise html                                                         **/
+/** <== Balises html                                                         **/
 
 /** ==> Classes BS5                                                         **/
 /*                                                                           */
@@ -52,6 +51,11 @@ table{table-layout: fixed;}
 .n-ava-64 {
   max-width:64px;
   max-height:64px;
+  border-radius:50%!important;
+}
+.n-ava-56 {
+  max-width:56px;
+  max-height:56px;
   border-radius:50%!important;
 }
 .n-ava-48 {
@@ -119,29 +123,28 @@ table{table-layout: fixed;}
 /** ==> ID NPDS-Core                                                        **/
 #corps{}
 #footer{}
-
 #footer a {
-    color: var(--bs-dark);
-  }
-  #footer a:hover{
-    color: var(--bs-light);
-  }
-  
+   color: var(--bs-dark);
+}
+#footer a:hover{
+   color: var(--bs-light);
+}
 #pied{text-align:center;}
 #col_princ{}
 #col_LB{
-padding-top:6rem;}
+   padding-top:6rem;
+}
 #col_RB{}
 /** <== ID NPDS-Core                                                        **/
 
 
 /* ==> adaptation menu */
 
-@media (min-width: 768px) {
-  .page-header {
-    margin: 53px 0 0;
-    padding:1rem;
-  }
+.page-header {
+   margin-top: calc(var(--th-hauteurnavbar) + 0.5rem);
+   padding-bottom:1rem;
+   padding-left:1rem;
+   padding-right:1rem;
 }
 
 @media (max-width: 767px) {
@@ -166,15 +169,9 @@ padding-top:6rem;}
   }
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-  margin-top: 0;
-}
-
 ul.dropdown-menu {
   margin-top: 0;
 }
-
 /* <== adaptation menu */
 
 .dropdown-submenu {
@@ -277,7 +274,6 @@ ui-menu-item-wrapper {
 
 .fixed-table-container{border-top:0px;}
  */ 
-
 .card-views .card-view 
 {
     margin-bottom: .25rem;
@@ -1616,10 +1612,7 @@ border: 1px solid ;
 .n-ci:lang(zh)::before {
   content: "选择";
 }
-.n-irl {
-   max-width: 100%;
-    height: auto;
-}
+
 /* ==> pour popover contenant les emoji */
 div[data-type=emojiPopper] span{cursor:pointer;font-size:1.6rem}
 div[data-type=emojiPopper] div .card-body{padding:.4rem}
