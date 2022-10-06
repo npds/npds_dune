@@ -668,59 +668,50 @@ function ForumCatEdit($cat_id) {
 }
 
 function ForumCatSave($old_catid, $cat_id, $cat_title) {
-    global $NPDS_Prefix;
-
-    $return=sql_query("UPDATE ".$NPDS_Prefix."catagories SET cat_id='$cat_id', cat_title='".AddSlashes($cat_title)."' WHERE cat_id='$old_catid'");
-    if ($return) {
-       sql_query("UPDATE ".$NPDS_Prefix."forums SET cat_id='$cat_id' WHERE cat_id='$old_catid'");
-    }
-    Q_Clean();
-
-    global $aid; Ecr_Log("security", "UpdateForumCat($old_catid, $cat_id, $cat_title) by AID : $aid", '');
-    Header("Location: admin.php?op=ForumAdmin");
+   global $NPDS_Prefix;
+   $return=sql_query("UPDATE ".$NPDS_Prefix."catagories SET cat_id='$cat_id', cat_title='".AddSlashes($cat_title)."' WHERE cat_id='$old_catid'");
+   if ($return)
+      sql_query("UPDATE ".$NPDS_Prefix."forums SET cat_id='$cat_id' WHERE cat_id='$old_catid'");
+   Q_Clean();
+   global $aid; Ecr_Log("security", "UpdateForumCat($old_catid, $cat_id, $cat_title) by AID : $aid", '');
+   Header("Location: admin.php?op=ForumAdmin");
 }
 
 function ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg) {
-    global $hlpfile, $NPDS_Prefix;
+   global $hlpfile, $NPDS_Prefix;
 
-    // il faut supprimer le dernier , à cause de l'auto-complete
-    $forum_mod=rtrim(chop($forum_mod),',');
-    $moderator=explode(',',$forum_mod);
-
-    $forum_mod='';
-    $error_mod='';
-    for ($i = 0; $i < count($moderator); $i++) {
-       $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".trim($moderator[$i])."'");
-       list($forum_moderator) = sql_fetch_row($result);
-       if ($forum_moderator!='') {
-          $forum_mod.=$forum_moderator.' ';
-          sql_query("UPDATE ".$NPDS_Prefix."users_status SET level='2' WHERE uid='$forum_moderator'");
-       } else {
-          $error_mod.=$moderator[$i].' ';
-       }
-    }
-    if ($error_mod!='') {
-       include ("header.php");
-       GraphicAdmin($hlpfile);
-       opentable();
-       echo "<p align=\"center\">".adm_translate("Le Modérateur sélectionné n'existe pas.")." : $error_mod<br />";
-       echo "[ <a href=\"javascript:history.go(-1)\" >".adm_translate("Retour en arriére")."</a> ]</p>";
-       closetable();
-       include("footer.php");
-    } else {
-       $forum_mod=str_replace(' ',',',chop($forum_mod));
-       if ($arbre>1) $arbre=1;
-       if ($forum_pass) {
-          if (($forum_type==7) and ($forum_access==0) ) {$forum_access=1;}
-          sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_name='$forum_name', forum_desc='$forum_desc', forum_access='$forum_access', forum_moderator='$forum_mod', cat_id='$cat_id', forum_type='$forum_type', forum_pass='$forum_pass', arbre='$arbre', attachement='$attachement', forum_index='$forum_index' WHERE forum_id='$forum_id'");
-       } else {
-          sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_name='$forum_name', forum_desc='$forum_desc', forum_access='$forum_access', forum_moderator='$forum_mod', cat_id='$cat_id', forum_type='$forum_type', forum_pass='', arbre='$arbre', attachement='$attachement', forum_index='$forum_index' WHERE forum_id='$forum_id'");
-       }
-       Q_Clean();
-
-       global $aid; Ecr_Log("security", "UpdateForum($forum_id, $forum_name) by AID : $aid", '');
-       Header("Location: admin.php?op=ForumGo&cat_id=$cat_id");
-    }
+   // il faut supprimer le dernier , à cause de l'auto-complete
+   $forum_mod=rtrim(chop($forum_mod),',');
+   $moderator=explode(',',$forum_mod);
+   $forum_mod='';
+   $error_mod='';
+   for ($i = 0; $i < count($moderator); $i++) {
+      $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".trim($moderator[$i])."'");
+      list($forum_moderator) = sql_fetch_row($result);
+      if ($forum_moderator!='') {
+         $forum_mod.=$forum_moderator.' ';
+         sql_query("UPDATE ".$NPDS_Prefix."users_status SET level='2' WHERE uid='$forum_moderator'");
+      } else
+         $error_mod.=$moderator[$i].' ';
+   }
+   if ($error_mod!='') {
+      include ("header.php");
+      GraphicAdmin($hlpfile);
+      echo "<div><p align=\"center\">".adm_translate("Le Modérateur sélectionné n'existe pas.")." : $error_mod<br />";
+      echo "[ <a href=\"javascript:history.go(-1)\" >".adm_translate("Retour en arrière")."</a> ]</p></div>";
+      include("footer.php");
+   } else {
+      $forum_mod=str_replace(' ',',',chop($forum_mod));
+      if ($arbre>1) $arbre=1;
+      if ($forum_pass) {
+         if (($forum_type==7) and ($forum_access==0) ) {$forum_access=1;}
+         sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_name='$forum_name', forum_desc='$forum_desc', forum_access='$forum_access', forum_moderator='$forum_mod', cat_id='$cat_id', forum_type='$forum_type', forum_pass='$forum_pass', arbre='$arbre', attachement='$attachement', forum_index='$forum_index' WHERE forum_id='$forum_id'");
+      } else
+         sql_query("UPDATE ".$NPDS_Prefix."forums SET forum_name='$forum_name', forum_desc='$forum_desc', forum_access='$forum_access', forum_moderator='$forum_mod', cat_id='$cat_id', forum_type='$forum_type', forum_pass='', arbre='$arbre', attachement='$attachement', forum_index='$forum_index' WHERE forum_id='$forum_id'");
+      Q_Clean();
+      global $aid; Ecr_Log("security", "UpdateForum($forum_id, $forum_name) by AID : $aid", '');
+      Header("Location: admin.php?op=ForumGo&cat_id=$cat_id");
+   }
 }
 
 function ForumCatAdd($catagories) {
@@ -731,73 +722,68 @@ function ForumCatAdd($catagories) {
 }
 
 function ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg) {
-    global $hlpfile, $NPDS_Prefix;
-
-    // il faut supprimer le dernier , à cause de l'auto-complete
-    $forum_mod=rtrim(chop($forum_mod),",");
-    $moderator=explode(",",$forum_mod);
-
-    $forum_mod='';
-    $error_mod='';
-    for ($i = 0; $i < count($moderator); $i++) {
-       $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".trim($moderator[$i])."'");
-       list($forum_moderator) = sql_fetch_row($result);
-       if ($forum_moderator!="") {
-          $forum_mod.=$forum_moderator." ";
-          sql_query("UPDATE ".$NPDS_Prefix."users_status SET level='2' WHERE uid='$forum_moderator'");
-       } else {
-          $error_mod.=$moderator[$i]." ";
-       }
-    }
-    if ($error_mod!='') {
-       include ("header.php");
-       GraphicAdmin($hlpfile);
-       opentable();
-       echo "<p align=\"center\">".adm_translate("Le Modérateur sélectionné n'existe pas.")." : $error_mod<br />";
-       echo "[ <a href=\"javascript:history.go(-1)\" class=\"noir\">".adm_translate("Retour en arriére")."</a> ]</p>";
-       closetable();
-       include("footer.php");
-    } else {
-       if ($arbre>1) $arbre=1;
-       $forum_mod=str_replace(" ",",",chop($forum_mod));
-       sql_query("INSERT INTO ".$NPDS_Prefix."forums VALUES (NULL, '$forum_name', '$forum_desc', '$forum_access', '$forum_mod', '$cat_id', '$forum_type', '$forum_pass', '$arbre', '$attachement', '$forum_index')");
-       Q_Clean();
-
-       global $aid; Ecr_Log("security", "AddForum($forum_name) by AID : $aid", "");
-       Header("Location: admin.php?op=ForumGo&cat_id=$cat_id");
-    }
+   global $hlpfile, $NPDS_Prefix;
+   // il faut supprimer le dernier , à cause de l'auto-complete
+   $forum_mod=rtrim(chop($forum_mod),',');
+   $moderator=explode(",",$forum_mod);
+   $forum_mod='';
+   $error_mod='';
+   for ($i = 0; $i < count($moderator); $i++) {
+      $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='".trim($moderator[$i])."'");
+      list($forum_moderator) = sql_fetch_row($result);
+      if ($forum_moderator!='') {
+         $forum_mod.=$forum_moderator.' ';
+         sql_query("UPDATE ".$NPDS_Prefix."users_status SET level='2' WHERE uid='$forum_moderator'");
+      } else
+         $error_mod.=$moderator[$i].' ';
+   }
+   if ($error_mod!='') {
+      include ("header.php");
+      GraphicAdmin($hlpfile);
+      echo '
+      <div class="alert alert-danger">
+         <p>'.adm_translate("Le Modérateur sélectionné n'existe pas.").' : '.$error_mod.'</p>
+         <a href="javascript:history.go(-1)" class="btn btn-secondary">'.adm_translate("Retour en arrière").'</a>
+      </div>';
+      include("footer.php");
+   } else {
+      if ($arbre>1) $arbre=1;
+      $forum_mod=str_replace(' ',',',chop($forum_mod));
+      sql_query("INSERT INTO ".$NPDS_Prefix."forums VALUES (NULL, '$forum_name', '$forum_desc', '$forum_access', '$forum_mod', '$cat_id', '$forum_type', '$forum_pass', '$arbre', '$attachement', '$forum_index')");
+      Q_Clean();
+      global $aid; Ecr_Log("security", "AddForum($forum_name) by AID : $aid", "");
+      Header("Location: admin.php?op=ForumGo&cat_id=$cat_id");
+   }
 }
 
 function ForumCatDel($cat_id, $ok=0) {
-    global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
-    if ($ok==1) {
-       $result = sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
-       while(list($forum_id) = sql_fetch_row($result)) {
-           sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
-           sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
-           control_efface_post("forum_npds","","",$forum_id);
-            // why not here clean also the posts implemented for test => waiting feedback !
-            sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum_id'");
-            //
-       }
-       sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
-       sql_query("DELETE FROM ".$NPDS_Prefix."catagories WHERE cat_id='$cat_id'");
-       Q_Clean();
-
-       global $aid; Ecr_Log("security", "DeleteForumCat($cat_id) by AID : $aid", "");
-       Header("Location: admin.php?op=ForumAdmin");
-    } else {
-       include("header.php");
-       GraphicAdmin($hlpfile);
-       adminhead ($f_meta_nom, $f_titre, $adminimg);
-       echo '
-       <hr />
-       <div class="jumbotron">
-       <p class="text-danger">'.adm_translate("ATTENTION :  êtes-vous sûr de vouloir supprimer cette Catégorie, ses Forums et tous ses Sujets ?").'</p>';
-    }
-    echo '<a href="admin.php?op=ForumCatDel&amp;cat_id='.$cat_id.'&amp;ok=1" class="btn btn-danger ">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=ForumAdmin" class="btn btn-secondary">'.adm_translate("Non").'</a>';
-   echo '</div>';
+   global $NPDS_Prefix, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
+   if ($ok==1) {
+      $result = sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
+      while(list($forum_id) = sql_fetch_row($result)) {
+         sql_query("DELETE FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id'");
+         sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
+         control_efface_post("forum_npds","","",$forum_id);
+         sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum_id'");
+      }
+      sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE cat_id='$cat_id'");
+      sql_query("DELETE FROM ".$NPDS_Prefix."catagories WHERE cat_id='$cat_id'");
+      Q_Clean();
+      global $aid; Ecr_Log("security", "DeleteForumCat($cat_id) by AID : $aid", "");
+      Header("Location: admin.php?op=ForumAdmin");
+   } else {
+      include("header.php");
+      GraphicAdmin($hlpfile);
+      adminhead ($f_meta_nom, $f_titre, $adminimg);
+      echo '
+      <hr />
+      <div class="alert alert-danger">
+         <p>'.adm_translate("ATTENTION :  êtes-vous sûr de vouloir supprimer cette Catégorie, ses Forums et tous ses Sujets ?").'</p>
+         <a href="admin.php?op=ForumCatDel&amp;cat_id='.$cat_id.'&amp;ok=1" class="btn btn-danger me-2">'.adm_translate("Oui").'</a>
+         <a href="admin.php?op=ForumAdmin" class="btn btn-secondary">'.adm_translate("Non").'</a>
+      </div>';
    adminfoot('','','','');
+   }
 }
 
 function ForumGoDel($forum_id, $ok=0) {
@@ -807,9 +793,7 @@ function ForumGoDel($forum_id, $ok=0) {
       sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum_id'");
       control_efface_post('forum_npds','','',$forum_id);
       sql_query("DELETE FROM ".$NPDS_Prefix."forums WHERE forum_id='$forum_id'");
-      // why not here clean also the posts implemented for test => waiting feedback !
       sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum_id'");
-      //
       Q_Clean();
       global $aid; Ecr_Log('security', "DeleteForum($forum_id) by AID : $aid", '');
       Header("Location: admin.php?op=ForumAdmin");
@@ -819,8 +803,11 @@ function ForumGoDel($forum_id, $ok=0) {
       adminhead ($f_meta_nom, $f_titre, $adminimg);
       echo '
       <hr />
-      <div class="alert alert-danger"><b>'.adm_translate("ATTENTION :  êtes-vous certain de vouloir effacer ce Forum et tous ses Sujets ?").'</b></div>';
-      echo '<a class="btn btn-danger" href="admin.php?op=ForumGoDel&amp;forum_id='.$forum_id.'&amp;ok=1">'.adm_translate("Oui").'</a> <a class="btn btn-secondary" href="admin.php?op=ForumAdmin" >'.adm_translate("Non").'</a><br />';
+      <div class="alert alert-danger">
+         <p>'.adm_translate("ATTENTION :  êtes-vous certain de vouloir effacer ce Forum et tous ses Sujets ?").'</p>
+         <a class="btn btn-danger me-2" href="admin.php?op=ForumGoDel&amp;forum_id='.$forum_id.'&amp;ok=1">'.adm_translate("Oui").'</a>
+         <a class="btn btn-secondary" href="admin.php?op=ForumAdmin" >'.adm_translate("Non").'</a>
+      </div>';
       adminfoot('','','','');
    }
 }
