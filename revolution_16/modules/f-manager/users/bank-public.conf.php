@@ -3,7 +3,7 @@
 /* NPDS DUNE : Net Portal Dynamic System .                              */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -11,9 +11,7 @@
 /************************************************************************/
 
    // Ne pas modifier cette ligne -------
-   $racine_fma=dirname($SCRIPT_FILENAME);
-   // si nécessaire, remplacer la ligne du dessus par
-   // $racine_fma=dirname($_SERVER['SCRIPT_FILENAME']);
+    $racine_fma=dirname($_SERVER['SCRIPT_FILENAME']);
    // -----------------------------------
 
 // ----------------
@@ -54,7 +52,7 @@
    // => $basedir_fma=$racine_fma."/static";
    $basedir_fma=$racine_fma."/modules/upload/upload";
 
-   // $dirlimit_fma permet de controler la navigation dans des sous-répertoires
+   // $dirlimit_fma permet de contrôler la navigation dans des sous-répertoires
    // CETTE LIMITE s'etend à tout le système de fichier !!
    // anonyme  => ce répertoire n'est visible que par les anonymes
    // membre   => ce répertoire n'est visible que par les membres
@@ -74,7 +72,7 @@
    // ATTENTION cette fonction peut-être consommatrice de CPU si vos répertoires contiennent de nombreux fichiers
    $dirsize_fma=true;
 
-   // $dirpres_fma permet de controler les informations affichées relatives aux répertoires (0 non affiché / 1 affiché)
+   // $dirpres_fma permet de contrôler les informations affichées relatives aux répertoires (0 non affiché / 1 affiché)
    // position 1 = icone
    // position 2 = nom et lien sur le répertoire
    // position 3 = Date
@@ -84,7 +82,7 @@
    // => $dirpres_fma="111011";
    $dirpres_fma="111100";
 
-   // $dircmd_fma permet de controler les actions autorisées relatives aux répertoires (0 non-autorisé / 1 autorisé)
+   // $dircmd_fma permet de contrôler les actions autorisées relatives aux répertoires (0 non-autorisé / 1 autorisé)
    // position 1 = create
    // position 2 = rename
    // position 3 = delete
@@ -97,7 +95,7 @@
 // -------------
 // FICHIERS ----
 // -------------
-   // $extension_fma permet de définir la liste des extensions valide
+   // $extension_fma permet de définir la liste des extensions valides
    // $extension_fma="doc xls pps ppt sxw xls sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf mp3";
    // => Si $extension_fma="*"; : tous les types de fichiers sont autorisés
    $extension_fma="doc xls pps ppt sxw xls sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf mp3";
@@ -106,12 +104,12 @@
    // $extension_Edit_fma="txt php js html htm";
    $extension_Edit_fma="";
 
-   // $extension_Wysiwyg_fma permet de définir la liste des extensions Editables qui supporteront un editeur Wysiwyg (TinyMce par exemple)
+   // $extension_Wysiwyg_fma permet de définir la liste des extensions éditables qui supporteront un editeur Wysiwyg (TinyMce par exemple)
    // $extension_Wysiwyg_fma="html htm";
    $extension_Wysiwyg_fma="";
 
-   // $ficlimit_fma permet de controler l'affichage de certains fichiers (.htaccess, config.php ...)
-   // CETTE LIMITE s'etend à tout le système de fichier !!
+   // $ficlimit_fma permet de contrôler l'affichage de certains fichiers (.htaccess, config.php ...)
+   // CETTE LIMITE s'étend à tout le système de fichier !!
    // anonyme  => ce fichier n'est visible que par les anonymes
    // membre   => ce fichier n'est visible que par les membres
    // '2,5'    => ce fichier n'est visible que par les membres du(des) groupes x,y,...
@@ -137,7 +135,7 @@
    $infos_fma="infos.txt";
    $ficlimit_fma[$infos_fma]="999"; // permet de ne pas afficher le fichier dans la liste des fichiers ... car il est affecté à un groupe qui n'existe pas !
 
-   // $ficpres_fma permet de controler les informations affichées relatives aux fichiers (0 non affiché / 1 affiché)
+   // $ficpres_fma permet de contrôler les informations affichées relatives aux fichiers (0 non affiché / 1 affiché)
    // position 1 = icone
    // position 2 = nom et lien sur le fichier
    // position 3 = Date
@@ -146,7 +144,7 @@
    // => $ficpres_fma="11101";
    $ficpres_fma="11110";
 
-   // $ficcmd_fma permet de controler les actions autorisées relatives aux fichiers (0 non-autorisé / 1 autorisé)
+   // $ficcmd_fma permet de contrôler les actions autorisées relatives aux fichiers (0 non-autorisé / 1 autorisé)
    // position 1 = create / upload
    // position 2 = rename
    // position 3 = delete
@@ -164,7 +162,7 @@
 // THEME ----
 // ----------
    // Vous pouvez spécifier les fichiers de theme utilisés par ce fichier de configuration
-   // fichier du theme général
+   // fichier du thème général
    $themeG_fma="f-manager-banque.html";
    // fichier utilisé lors des actions (delete, edit, ...)
    $themeC_fma="f-manager-cmd.html";

@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -93,7 +93,7 @@ function login() {
 }
 
 function GraphicAdmin($hlpfile) {
-   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $httpref, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent, $nuke_url;
+   global $aid, $admingraphic, $adminimg, $language, $admin, $banners, $filemanager, $Version_Sub, $Version_Num, $httprefmax, $httpref, $short_menu_admin, $admf_ext, $NPDS_Prefix, $adm_ent, $nuke_url, $Default_Theme;
    $bloc_foncts ='';
    $bloc_foncts_A ='';
    $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
@@ -264,12 +264,21 @@ function GraphicAdmin($hlpfile) {
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
             <li id="'.$SAQ['fid'].'"  data-bs-toggle="tooltip" data-bs-placement="top" title="';
-         $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
-         $li_c .='"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].'>';
+         $li_c .= $SAQ['fcategorie'] == 6 ? $SAQ['fnom_affich'] : adm_translate($SAQ['fnom_affich']) ;
+         // lancement du FileManager 
+         $blank=''; 
+         if ($SAQ['fnom']=="FileManager") {
+            if (file_exists("modules/f-manager/users/".strtolower($aid).".conf.php")) {
+                include ("modules/f-manager/users/".strtolower($aid).".conf.php");
+                if (!$NPDS_fma)
+                   $blank=' target="_blank"';
+            }
+         }
+         $li_c .='"><a class="btn btn-outline-primary" '.$SAQ['furlscript'].$blank.'>';
          if ($admingraphic==1)
             $li_c .='<img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" loading="lazy" />';
          else
-            $li_c .= $SAQ['fcategorie'] == 6? $SAQ['fnom_affich']:adm_translate($SAQ['fnom_affich']);
+            $li_c .= $SAQ['fcategorie'] == 6 ? $SAQ['fnom_affich'] : adm_translate($SAQ['fnom_affich']) ;
          $li_c .='</a></li>';
          $ul_f='';
          if ($j!==0)
@@ -489,8 +498,8 @@ function GraphicAdmin($hlpfile) {
                <p>'.adm_translate("Une nouvelle version de NPDS est disponible !").'</p>
                <p class="lead mt-3">'.$versus_info[1].' '.$versus_info[2].'</p>
                <p class="my-3">
-                  <a class="me-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-bs-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.zip</a>
-                  <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-bs-toggle="tooltip" data-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.tar.gz</a>
+                  <a class="me-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-bs-toggle="tooltip" data-bs-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.zip</a>
+                  <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-bs-toggle="tooltip" data-bs-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.tar.gz</a>
                </p>
             </div>
             <div class="modal-footer">
