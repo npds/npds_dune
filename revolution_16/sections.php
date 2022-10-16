@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -342,7 +342,6 @@ function viewarticle($artid, $page) {
             echo '
             </ul>';
          }
-         
       }
       sql_free_result($result_S);
       if ($SuperCache)
@@ -353,55 +352,41 @@ function viewarticle($artid, $page) {
 }
 
 function PrintSecPage($artid) {
-   global $NPDS_Prefix, $user, $cookie, $theme, $Default_Theme, $site_logo, $sitename, $nuke_url, $language, $site_font, $Titlesitename;
-
+   global $NPDS_Prefix, $site_logo, $sitename, $nuke_url, $language, $Titlesitename;
    include("meta/meta.php");
-   if (isset($user)) {
-      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
-      if (isset($theme)) $cookie[9]=$theme;
-      $tmp_theme=$cookie[9];
-      if (!$file=@opendir("themes/$cookie[9]")) {
-         $tmp_theme=$Default_Theme;
-      }
-   } else
-      $tmp_theme=$Default_Theme;
    echo '
-         <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
-
-//   echo import_css($tmp_theme, $language, $site_font, '','');
-   echo '
+         <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
       </head>
       <body>
-      <div id="print_sect" max-width="640" class="container p-1 n-hyphenate">
-      <p class="text-center">';
+         <div id="print_sect" max-width="640" class="container p-1 n-hyphenate">
+            <p class="text-center">';
    $pos = strpos($site_logo, "/");
-   if ($pos)
-      echo '<img src="'.$site_logo.'" alt="" />';
-   else
-      echo '<img src="images/'.$site_logo.'" alt="" />';
+   echo $pos ? 
+      '<img src="'.$site_logo.'" alt="logo" />' :
+      '<img src="images/'.$site_logo.'" alt="logo" />' ;
 
    $result=sql_query("SELECT title, content FROM ".$NPDS_Prefix."seccont WHERE artid='$artid'");
    list($title, $content) = sql_fetch_row($result);
 
-   echo '<br /><br /><strong>'.aff_langue($title).'</strong><br /><br /></p>';
+   echo '<strong class="my-3 d-block">'.aff_langue($title).'</strong></p>';
    $content=aff_code(aff_langue($content));
    $pos_page=strpos($content,"[page");
-   if ($pos_page) {
+   if ($pos_page)
       $content=str_replace("[page",str_repeat("-",50)."&nbsp;[page",$content);
-   }
    echo meta_lang($content);
    echo '
-         <hr />
-         <p class="text-center">
-         '.translate("Cet article provient de").' '.$sitename.'<br /><br />
-         '.translate("L'url pour cet article est : ").'
-         <a href="'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'">'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'</a>
-         </p>
-         </div>
-         <script type="text/javascript" src="lib/js/jquery.min.js"></script>
-         <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
-      </body>
-   </html>';
+               <hr />
+               <p class="text-center">
+               '.translate("Cet article provient de").' '.$sitename.'<br /><br />
+               '.translate("L'url pour cet article est : ").'
+               <a href="'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'">'.$nuke_url.'/sections.php?op=viewarticle&amp;artid='.$artid.'</a>
+               </p>
+            </div>
+            <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+            <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
+         </body>
+      </html>';
 }
 
 function verif_aff($artid) {
