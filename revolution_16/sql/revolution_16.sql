@@ -41,11 +41,10 @@ CREATE TABLE authors (
   pwd varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   hashkey tinyint(1) NOT NULL DEFAULT '0',
   counter int(11) NOT NULL DEFAULT '0',
-  radminfilem tinyint(2) NOT NULL DEFAULT '0',
   radminsuper tinyint(2) NOT NULL DEFAULT '1',
   PRIMARY KEY (aid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-INSERT INTO authors (aid, name, url, email, pwd, hashkey, counter, radminfilem, radminsuper) VALUES ('Root', 'Root', '', 'root@npds.org', 'd.8V.L9nSMMvE', 0, 0, 0, 1);
+INSERT INTO authors (aid, name, url, email, pwd, hashkey, counter, radminsuper) VALUES ('Root', 'Root', '', 'root@npds.org', 'd.8V.L9nSMMvE', 0, 0, 1);
 
 CREATE TABLE autonews (
   anid int(11) NOT NULL AUTO_INCREMENT,

@@ -519,7 +519,7 @@ switch ($op) {
       $hashpass = password_hash($add_pwd, $AlgoCrypt, $options);
       $add_pwdX=crypt($add_pwd, $hashpass);
 
-      $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '1', '0', '0', '$add_radminsuper')");
+      $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '1', '0', '$add_radminsuper')");
       updatedroits($add_aid);
       // Copie du fichier pour filemanager
       if ($add_radminsuper or $ad_d_27 !='')
