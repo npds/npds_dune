@@ -1,5 +1,5 @@
 # npds_dune
-REvolution 16
+
 [NPDS](http://www.npds.org) CMS ... depuis 2001.
 
 Au delà de la gestion de contenu 'classique', NPDS met en oeuvre un ensemble de fonctions spécifiquement dédiées à la gestion de Communauté et de groupes de travail collaboratif.
