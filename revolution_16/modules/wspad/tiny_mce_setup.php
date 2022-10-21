@@ -3,9 +3,9 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* Collab WS-Pad 1.44 by Developpeur and Jpb                            */
+/* Collab WS-Pad 1.5 by Developpeur and Jpb                             */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -17,11 +17,12 @@
 
 global $surlignage, $font_size, $auteur, $groupe;
 $tmp.="
-theme_advanced_path : false,
-toolbar : 'image | tablecontrols | npds_img npds_gperso npds_gmns npds_gupl',
-tiny_mce_groupe : '&groupe=$groupe',
-
+toolbar : 'image | npds_img npds_gperso npds_gmns npds_gupl',
 setup: function (ed) {
+   ed.options.register('tiny_mce_groupe', {
+      processor: 'string',
+      default: '&groupe=".$groupe."'
+   });
    ed.on('keydown',function(e) {
       // faisons une 'static' en javascript
       if ( typeof this.counter == 'undefined' ) this.counter = 0;
@@ -36,9 +37,6 @@ setup: function (ed) {
          this.counter=0;
          return true;
       }
-
-     //console.log('key : ' + e.keyCode);//<==debug
-
       if (this.counter==0) {
          tinymce.activeEditor.formatter.register('wspadformat', {
             inline     : 'span',

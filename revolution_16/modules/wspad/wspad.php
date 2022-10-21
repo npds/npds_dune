@@ -3,9 +3,9 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* Collab WS-Pad 1.44 by Developpeur and Jpb                            */
+/* Collab WS-Pad 1.5 by Developpeur and Jpb                             */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -22,7 +22,7 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php")) die();
 if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
 
-global $title, $language, $NPDS_Prefix, $user, $admin;
+global $title, $language, $NPDS_Prefix, $user, $admin, $nuke_url;
 // For More security
 
 if (file_exists("modules/$ModPath/pages.php"))
@@ -101,10 +101,9 @@ function Liste_Page() {
    $nb_pages=sql_num_rows(sql_query("SELECT COUNT(page) FROM ".$NPDS_Prefix."wspad WHERE member='$groupe' GROUP BY page"));
    if ($groupe>0) {
       $gp=sql_fetch_assoc(sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$groupe'"));
-      $aff.=$nb_pages.' '.wspad_trans("Document(s) et révision(s) disponible(s) pour le groupe")." ".aff_langue($gp['groupe_name'])." [$groupe]</h3>";
-   } else {
-      $aff.=$nb_pages.' '.wspad_trans("Document(s) et révision(s) disponible(s) pour les administrateurs")."</strong><br />";
-   }
+      $aff.='<span class="badge bg-secondary me-2">'.$nb_pages.'</span>'.wspad_trans("Document(s) et révision(s) disponible(s) pour le groupe").' <span class="text-muted">'.aff_langue($gp['groupe_name'])." [$groupe]</span></h3>";
+   } else
+      $aff.='<span class="badge bg-secondary me-2">'.$nb_pages.'</span>'.wspad_trans("Document(s) et révision(s) disponible(s) pour les administrateurs").'</h3>';
    $aff.='<div id="lst_paddoc" class="collapse" style =" padding-left:10px;">';
    if ($nb_pages>0) {
       $ibid=0; $pgibid=0;
@@ -159,8 +158,8 @@ function Liste_Page() {
          <hr />
          <h4><a class="arrow-toggle text-primary" id="show_lst_page_'.$pgibid.'" data-bs-toggle="collapse" data-bs-target="#lst_page_'.$pgibid.'" title="'.wspad_trans("Déplier la liste").'"><i id="i_lst_page_'.$pgibid.'" class="fa fa-caret-down fa-lg" ></i></a>&nbsp;'.$page.'
             <span class="float-end">
-               <a href="#" data-bs-toggle="modal" data-bs-target="#renomeModal_'.$page.'" ><i class="fa fa-edit " title="'.wspad_trans("Renommer le document et toutes ses révisions").'" data-bs-toggle="tooltip"></i></a>&nbsp;
-               <a class="text-danger" href="javascript:" onclick="confirm_deletedoc(\''.$page.'\',\''.$groupe.'\');" title="'.wspad_trans("Supprimer le document et toutes ses révisions").'" data-bs-toggle="tooltip"><i class="fas fa-trash"></i></a>&nbsp;
+               <a class="me-3" href="#" data-bs-toggle="modal" data-bs-target="#renomeModal_'.$page.'" ><i class="bi bi-pencil-square" title="'.wspad_trans("Renommer le document et toutes ses révisions").'" data-bs-toggle="tooltip"></i></a>
+               <a class="text-danger" href="javascript:" onclick="confirm_deletedoc(\''.$page.'\',\''.$groupe.'\');" title="'.wspad_trans("Supprimer le document et toutes ses révisions").'" data-bs-toggle="tooltip" data-bs-custom-class="n-danger-tooltip"><i class="bi bi-trash2-fill"></i></a>
             </span>
          </h4>
          <div id="lst_page_'.$pgibid.'" class="collapse" style ="padding-left:10px;">';
@@ -170,8 +169,8 @@ function Liste_Page() {
          <table class=" table-sm" data-toggle="table" data-striped="true" data-mobile-responsive="true" >
             <thead>
                <tr>
-                  <th class="n-t-col-xs-2" data-sortable="true" data-halign="center" data-align="right">'.wspad_trans("Rev.").'</th>
-                  <th data-sortable="true" data-halign="center">'.wspad_trans("Auteur").'</th>
+                  <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">'.wspad_trans("Rev.").'</th>
+                  <th class="n-t-col-xs-4" data-sortable="true" data-halign="center">'.wspad_trans("Auteur").'</th>
                   <th data-sortable="true" data-halign="center" data-align="right">'.wspad_trans("Date").'</th>';
          $act=0;
          while (list($modtime,$editedby,$ranq,$verrou)=sql_fetch_row($result2)) {
@@ -179,18 +178,21 @@ function Liste_Page() {
                if (($auteur==$verrou) or ($verrou=='')) {
                   $aff.='
                   <th data-halign="center" data-align="right">'.wspad_trans("Actions").'</th>';
-                  $divid=uniqid(mt_rand());
+//                  $divid=uniqid(mt_rand()); //usefull ???
                   $aff.='
-               </tr>
-            </thead>
-            <tbody>';
-               } else {
-                  $aff.='
-                  <th>&nbsp;</th>
                </tr>
             </thead>
             <tbody>';
                }
+
+               else {
+                  $aff.='
+                  <th>'.wspad_trans("Actions").'</th>
+               </tr>
+            </thead>
+            <tbody>';
+               }
+
                $act=1;
             }
             if ($ranq>=100) $ibid='';
@@ -200,32 +202,30 @@ function Liste_Page() {
             $aff.='
                <tr>
                   <td>'.$ibid.$ranq.'</td>
-                  <td><div style="float: left; margin-top: 2px; width: 1rem; height: 1.5rem; background-color: '.$couleur[hexfromchr($editedby)].';"></div>&nbsp;'.$editedby.'</td>
+                  <td><div class="me-1" style="float: left; margin-top: 0.5rem; width: 1.5rem; height: 1.5rem; border-radius:50%; background-color: '.$couleur[hexfromchr($editedby)].';"></div>'.userpopover($editedby,'40').'&nbsp;'.$editedby.'</td>
                   <td class="small">'.date(translate("dateinternal"),$modtime+((integer)$gmt*3600)).'</td>';
             // voir la révision du ranq x
             $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=preview&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",500,400);
             $aff.='
                   <td>
-                     <a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.wspad_trans("Prévisualiser").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/preview.gif" /></a>&nbsp';
+                     <a class="me-2 fs-5" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.wspad_trans("Prévisualiser").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="bi bi-eye"></i></a>';
             if (($auteur==$verrou) or ($verrou=='')) {
                // recharger la révision du ranq x
                $aff.='
-                     <a href="'.$ThisFile.'&amp;op=relo&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Choisir").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/reload.gif" /></a>&nbsp';
+                     <a class="ms-2 fs-5" href="'.$ThisFile.'&amp;op=relo&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Choisir").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="bi bi-hand-index-thumb"></i></a>';
                // supprimer la révision du ranq x
                $aff.='
-                     <a href="'.$ThisFile.'&amp;op=supp&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Supprimer la révision").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/delete.gif" /></a>&nbsp';
+                     <a class="ms-2 fs-5 text-danger" href="'.$ThisFile.'&amp;op=supp&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Supprimer la révision").'" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="n-danger-tooltip"><i class="bi bi-trash2-fill"></i></a>';
                // exporter la révision du ranq x
                $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=export&amp;type=doc&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",5,5);
                $aff.='
-                     <a href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.wspad_trans("Exporter .doc").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/export.gif" /></a>&nbsp';
+                     <a class="ms-2 fs-5" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.wspad_trans("Exporter .doc").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="bi bi-filetype-doc"></i></a>';
                // exporter en article 
                $aff.='
-                     <a href="'.$ThisFile.'&amp;op=conv_new&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Transformer en New").'" data-bs-toggle="tooltip" data-bs-placement="left"><img src="modules/'.$ModPath.'/images/news.gif" /></a>
+                     <a class="ms-2 fs-5" href="'.$ThisFile.'&amp;op=conv_new&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Transformer en New").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="bi bi-newspaper"></i></a>
                   </td>';
-            } else {
-               $aff.='
-                  <td>'.wspad_trans("Verrouillé par : ").$verrou.'</td>';
-            }
+            } else
+               $aff.= '<i class="text-danger fs-5 me-2 bi bi-lock-fill"></i>'.wspad_trans("Verrouillé par : ").userpopover($verrou,'40').'</td>';
             $aff.='
                </tr>';
          }
@@ -237,53 +237,50 @@ function Liste_Page() {
       }
    }
    echo $aff.'
-   </div>
-   <br />';
+   </div>';
 }
 
 function Page($page, $ranq) {
    global $NPDS_Prefix, $ModPath, $ModStart, $gmt, $auteur, $groupe, $mess;
-
    $tmp= "
    <script type='text/javascript'>
-   //<![CDATA[
-   // timerID=10 secondes (verrou) : timerTTL=20 minutes (force la deconnexion)// 240000 pour debug
-   var timerID = null;
-   var timerTTL = null;
-   function TimerInit() {
-       timerID = setTimeout('TimerAct()',10000);
-       timerTTL= setTimeout('TimerDes()',240000);
-   }
-   function TimerAct() {
-       clearTimeout(timerID);
-          ws_verrou('$auteur', '$page', '$groupe');
-       TimerInit();
-   }
-   function TimerDes() {
-       if (timerID != 0) {
-       bootbox.alert('".wspad_trans("note : Enregistrer votre travail")."', function() {});
-       }
-       clearTimeout(timerID);
-       timerID = 0;
-       clearTimeout(timerTTL);
-       timerTTL = 0;
-   }
-   function ws_verrou(xuser, xpage, xgroupe) {
-      var xmlhttp;
-      if (window.XMLHttpRequest) {
-         xmlhttp=new XMLHttpRequest();
-      } else {
-         xmlhttp=new ActiveXObject(\"Microsoft.XMLHTTP\");
-      }
-      var url='modules/$ModPath/ws_verrou.php?verrou_user='+xuser+'&verrou_page='+xpage+'&verrou_groupe='+xgroupe+'&random='+Math.random();
-      xmlhttp.open('GET', url, true);
-      xmlhttp.send();
-      document.getElementById('verrous').src='modules/$ModPath/images/ajax_waiting.gif';
-      document.getElementById('mess').innerHTML='';
-   }
-
-   document.getElementsByTagName('body')[0].setAttribute('onload','TimerInit();');
-   //]]>
+      //<![CDATA[
+         // timerID=10 secondes (verrou) : timerTTL=20 minutes (force la deconnexion)
+         var timerID = null;
+         var timerTTL = null;
+         function TimerInit() {
+            timerID = setTimeout('TimerAct()',10000);
+            timerTTL= setTimeout('TimerDes()',1200000);
+         }
+         function TimerAct() {
+            clearTimeout(timerID);
+            ws_verrou('$auteur', '$page', '$groupe');
+            TimerInit();
+         }
+         function TimerDes() {
+            if (timerID != 0) {
+               bootbox.alert('".wspad_trans("note : Enregistrer votre travail")."', function() {});
+            }
+            clearTimeout(timerID);
+            timerID = 0;
+            clearTimeout(timerTTL);
+            timerTTL = 0;
+         }
+         function ws_verrou(xuser, xpage, xgroupe) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+               xmlhttp=new XMLHttpRequest();
+            } else {
+               xmlhttp=new ActiveXObject(\"Microsoft.XMLHTTP\");
+            }
+            var url='modules/$ModPath/ws_verrou.php?verrou_user='+xuser+'&verrou_page='+xpage+'&verrou_groupe='+xgroupe+'&random='+Math.random();
+            xmlhttp.open('GET', url, true);
+            xmlhttp.send();
+            document.getElementById('verrous').src='modules/$ModPath/images/ajax_waiting.gif';
+            document.getElementById('mess').innerHTML='';
+         }
+         document.getElementsByTagName('body')[0].setAttribute('onload','TimerInit();');
+      //]]>
    </script>";
 
    // Analyse des verrous
@@ -334,12 +331,14 @@ function Page($page, $ranq) {
       $row['ranq']+=1;
    global $surlignage;
    echo '
-   <h4>'.wspad_trans("Document : ").$page.'<span class="text-muted">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+((integer)$gmt*3600)).' ] </span> <span style="float: right;"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
-   <div id="mess" class="alert alert-success" role="alert">test debug'.$mess.'</div>
+   <hr /><h3>'.wspad_trans("Document : ").'</h3><h4>'.$page.'<span class="text-muted">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+((integer)$gmt*3600)).' ] </span> <span class="float-end"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
+   <div id="" class="alert alert-success" role="alert">
+      <div id="mess">'.$mess.'</div>
+   </div>
    <form action="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;member='.$groupe.'" method="post" name="wspadformcont">
-   <div class="mb-3">
-      <textarea class="tin form-control" rows="30" name="content" ><div class="mceEditable">'.$row['content'].'</div></textarea>
-   </div>';
+      <div class="mb-3">
+         <textarea class="tin form-control" rows="30" name="content" ><div class="mceEditable">'.$row['content'].'</div></textarea>
+      </div>';
    echo aff_editeur('content', '');
    if ($edition)
       echo '
@@ -362,7 +361,7 @@ settype($groupe, 'integer');
 
 switch($op) {
   case "sauve":
-     $content=removeHack(stripslashes(FixQuotes($content)));
+     $content=removeHack(stripslashes(FixQuotes(dataimagetofileurl($content,'modules/upload/upload/ws'))));
      $auteur=removeHack(stripslashes(FixQuotes($auteur)));
      $row=sql_fetch_assoc(sql_query("SELECT MAX(ranq) AS ranq FROM ".$NPDS_Prefix."wspad WHERE page='$page' AND member='$groupe'"));
      $result = sql_query("INSERT INTO ".$NPDS_Prefix."wspad VALUES ('0', '$page', '$content', '".time()."', '$auteur', '".($row['ranq']+1)."', '$groupe','')");
