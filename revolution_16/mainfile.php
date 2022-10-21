@@ -408,9 +408,8 @@ function getmicrotime() {
 function send_email($email, $subject, $message, $from="", $priority=false, $mime="text") {
    global $mail_fonction, $adminmail;
    $advance='';
-   if ($priority) {
+   if ($priority)
       $advance="X-Priority: 2\n";
-   }
    if ($mime=='mixed') {
       // dans $message se trouve le nom du fichier à joindre (voir le module session-log pour un exemple)
       $boundary = '_'.md5 (uniqid(mt_rand()));
@@ -419,9 +418,8 @@ function send_email($email, $subject, $message, $from="", $priority=false, $mime
       $message = "\n\n". "--" .$boundary . "\nContent-Type: application; name=\"".basename($message)."\" charset=".cur_charset."\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"".basename($message)."\"\r\n\n".$attached_file . "--" . $boundary . "--";
       $advance.= "MIME-Version: 1.0\r\nContent-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
    }
-   if ($mime=='text') {
+   if ($mime=='text')
       $advance.="Content-Type: text/plain; charset=".cur_charset."\n";
-   }
    if (($mime=='html') or ($mime=='html-nobr')) {
       $advance.="Content-Type: text/html; charset=".cur_charset."\n";
       if ($mime!='html-nobr')
@@ -507,19 +505,19 @@ function req_stat() {
    global $NPDS_Prefix;
    // Les membres
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users");
-   if ($result) {$xtab[0]=sql_num_rows($result);} else {$xtab[0]="0";}
+   $xtab[0] = $result ? sql_num_rows($result) : '0' ;
    // Les Nouvelles (News)
    $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
-   if ($result) {$xtab[1]=sql_num_rows($result);} else {$xtab[1]="0";}
+   $xtab[1] = $result ? sql_num_rows($result) : '0' ;
    // Les Critiques (Reviews))
    $result = sql_query("SELECT id FROM ".$NPDS_Prefix."reviews");
-   if ($result) {$xtab[2]=sql_num_rows($result);} else {$xtab[2]="0";}
+   $xtab[2] = $result ? sql_num_rows($result) : '0' ;
    // Les Forums
    $result = sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums");
-   if ($result) {$xtab[3]=sql_num_rows($result);} else {$xtab[3]="0";}
+   $xtab[3] = $result ? sql_num_rows($result) : '0' ;
    // Les Sujets (topics)
    $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics");
-   if ($result) {$xtab[4]=sql_num_rows($result);} else {$xtab[4]="0";}
+   $xtab[4] = $result ? sql_num_rows($result) : '0' ;
    // Nombre de pages vues
    $result = sql_query("SELECT count FROM ".$NPDS_Prefix."counter WHERE type='total'");
    if ($result) {list($totalz)=sql_fetch_row($result);}
@@ -1421,11 +1419,10 @@ function pollSecur($pollID) {
       list($pollType)=sql_fetch_row($result);
       $pollClose = (($pollType / 128) >= 1 ? 1 : 0);
       $pollType = $pollType%128;
-      if (($pollType==1) and !isset($user)) {
+      if (($pollType==1) and !isset($user))
          $pollClose=99;
-      }
    }
-   return ( array($pollID, $pollClose));
+   return (array($pollID, $pollClose));
 }
 #autodoc pollMain($pollID,$pollClose) : Construit le bloc sondage
 function pollMain($pollID,$pollClose) {
@@ -1441,15 +1438,12 @@ function pollMain($pollID,$pollClose) {
    $result = sql_query("SELECT pollTitle, voters FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
    list($pollTitle, $voters) = sql_fetch_row($result);
    global $block_title;
-   if ($block_title=='')
-      $boxTitle=translate("Sondage");
-   else
-      $boxTitle=$block_title;
+   $boxTitle = $block_title=='' ? translate("Sondage") :  $block_title ;
    $boxContent .= '<legend>'.aff_langue($pollTitle).'</legend>';
    $result = sql_query("SELECT pollID, optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID' AND optionText<>'') ORDER BY voteID");
    $sum = 0; $j=0;
    if (!$pollClose) {
-         $boxContent .= '
+      $boxContent .= '
          <div class="mb-3">';
       while($object=sql_fetch_assoc($result)) {
          $boxContent .= '
@@ -1469,29 +1463,23 @@ function pollMain($pollID,$pollClose) {
       }
    }
    settype($inputvote,'string');
-   if (!$pollClose) {
+   if (!$pollClose)
       $inputvote = '<button class="btn btn-outline-primary btn-sm btn-block" type="submit" value="'.translate("Voter").'" title="'.translate("Voter").'" ><i class="fa fa-check fa-lg"></i> '.translate("Voter").'</button>';
-   }
    $boxContent .= '
       <div class="mb-3">'.$inputvote.'</div>
    </form>
-   <a href="pollBooth.php?op=results&amp;pollID='.$pollID.'" title="'.translate("Résultats").'">'.translate("Résultats").'</a>&nbsp;&nbsp;<a href="pollBooth.php">'.translate("Anciens sondages").'</a>';
+   <a href="pollBooth.php?op=results&amp;pollID='.$pollID.'" title="'.translate("Résultats").'">'.translate("Résultats").'</a>&nbsp;&nbsp;<a href="pollBooth.php">'.translate("Anciens sondages").'</a>
+   <ul class="list-group mt-3">
+      <li class="list-group-item">'.translate("Votes : ").' <span class="badge rounded-pill bg-secondary float-end">'.$sum.'</span></li>';
    if ($pollcomm) {
-      if (file_exists("modules/comments/pollBoth.conf.php")) {
+      if (file_exists("modules/comments/pollBoth.conf.php"))
          include ("modules/comments/pollBoth.conf.php");
-      }
-      list($numcom) = sql_fetch_row(sql_query("select count(*) from ".$NPDS_Prefix."posts where forum_id='$forum' and topic_id='$pollID' and post_aff='1'"));
+      list($numcom) = sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$pollID' AND post_aff='1'"));
       $boxContent .= '
-      <ul>
-         <li>'.translate("Votes : ").' <span class="badge rounded-pill bg-secondary float-end">'.$sum.'</span></li>
-         <li>'.translate("Commentaire(s) : ").' <span class="badge rounded-pill bg-secondary float-end">'.$numcom.'</span></li>
-      </ul>';
-   } else {
-      $boxContent .= '
-      <ul>
-         <li>'.translate("Votes : ").' <span class="badge rounded-pill bg-secondary float-end">'.$sum.'</span></li>
-      <ul>';
+      <li class="list-group-item">'.translate("Commentaire(s) : ").' <span class="badge rounded-pill bg-secondary float-end">'.$numcom.'</span></li>';
    }
+   $boxContent .= '
+   </ul>';
    themesidebox($boxTitle, $boxContent);
 }
 #autodoc fab_edito() : Construit l'edito
@@ -1534,12 +1522,8 @@ function fab_edito() {
       $Xcontents='';
       if (isset($affichJ) and $affichJ===true)
          $Xcontents=$contentJ;
-      if (isset($affichN) and $affichN===true) {
-         if ($contentN!='')
-            $Xcontents=$contentN;
-         else
-            $Xcontents=$contentJ;
-      }
+      if (isset($affichN) and $affichN===true)
+         $Xcontents = $contentN!='' ? $contentN : $contentJ ;
       if ($Xcontents!='') $affich=true;
    } else
       $affich=true;
@@ -1650,7 +1634,6 @@ function preview_local_langue($local_user_language,$ibid) {
 function change_cod($r) {
    return '<'.$r[2].' class="language-'.$r[3].'">'.htmlentities($r[5],ENT_COMPAT|ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset).'</'.$r[2].'>';
 }
-
 function af_cod($ibid) {
    $pat='#(\[)(\w+)\s+([^\]]*)(\])(.*?)\1/\2\4#s';
    $ibid=preg_replace_callback($pat, "change_cod", $ibid, -1, $nb);
@@ -1666,7 +1649,6 @@ function desaf_cod($ibid) {
    $ibid=preg_replace_callback($pat, 'rechange_cod', $ibid, -1);
    return $ibid;
 }
-
 #autodoc aff_code($ibid) : Analyse le contenu d'une chaîne et converti les balises [code]...[/code]
 function aff_code($ibid) {
    $pasfin=true;
@@ -1766,7 +1748,7 @@ function anti_spam($str, $highcode = 0) {
 }
 #autodoc aff_editeur($Xzone, $Xactiv) : Charge l'éditeur ... ou non : $Xzone = nom du textarea / $Xactiv = deprecated <br /> si $Xzone="custom" on utilise $Xactiv pour passer des paramètres spécifiques
 function aff_editeur($Xzone, $Xactiv) {
-   global $language, $tmp_theme, $tiny_mce,$tiny_mce_theme,$tiny_mce_relurl;
+   global $language, $tmp_theme, $tiny_mce, $tiny_mce_theme, $tiny_mce_relurl;
    $tmp='';
    if ($tiny_mce) {
       static $tmp_Xzone;
@@ -1778,17 +1760,14 @@ function aff_editeur($Xzone, $Xactiv) {
                $tmp="
       <script type=\"text/javascript\">
       //<![CDATA[
-      $(document).ready(function() {
-         tinymce.init({
-            selector: 'textarea.tin',
-            branding:false,
-            height: 300,
-            theme : 'silver',
-            mobile: { theme: 'mobile', menubar: true },
-            language : '".language_iso(1,'','')."',";
-               include ("editeur/tinymce/themes/advanced/npds.conf.php");
-               $tmp.='
-            });
+         document.addEventListener(\"DOMContentLoaded\", function(e) {
+            tinymce.init({
+               selector: 'textarea.tin',
+               mobile: {menubar: true},
+               language : '".language_iso(1,'','')."',";
+                  include ("editeur/tinymce/themes/advanced/npds.conf.php");
+                  $tmp.='
+               });
          });
       //]]>
       </script>';
@@ -2061,7 +2040,6 @@ function hexfromchr($txt) {
    }
    return ($tmp%=16);
 }
-
 #autodoc:<Mainfile.php>
 #autodoc <span class="text-success">BLOCS NPDS</span>:
 #autodoc Site_Activ() : Bloc activité du site <br />=> syntaxe : function#Site_Activ
@@ -2708,7 +2686,7 @@ function headlines($hid='', $block=true) {
          ob_end_clean();
       }
       $boxstuff .= '
-         <div class="text-right"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
+         <div class="text-end"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
       if ($block) {
          themesidebox($boxtitle, $boxstuff);
          $boxstuff='';
@@ -2723,11 +2701,11 @@ function PollNewest($id='') {
    if ($id!=0) {
       settype($id, "integer");
       list($ibid,$pollClose)=pollSecur($id);
-      if ($ibid) {pollMain($ibid,$pollClose);}
+      if ($ibid) pollMain($ibid,$pollClose);
    } elseif ($result = sql_query("SELECT pollID FROM ".$NPDS_Prefix."poll_data ORDER BY pollID DESC LIMIT 1")) {
       list($pollID)=sql_fetch_row($result);
       list($ibid,$pollClose)=pollSecur($pollID);
-      if ($ibid) {pollMain($ibid,$pollClose);}
+      if ($ibid) pollMain($ibid,$pollClose);
    }
 }
 #autodoc bloc_langue() : Bloc langue <br />=> syntaxe : function#bloc_langue
@@ -2891,7 +2869,10 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
                   '.$conn.'<a class="ms-2" tabindex="0" data-bs-title="'.$uname.'" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-content=\'<div class="list-group mb-3">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">';
       if (!$short_user)
          $li_mb.= $my_rsos[$count];
-      $li_mb.= '</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" loading="lazy" /></a><span class="ms-2">'.$uname.'</span>
+      $li_mb.= '</div>\'>
+      <img class=" btn-outline-primary img-thumbnail img-fluid n-ava-small " src="'.$imgtmp.'" alt="avatar" title="'.$uname.'" loading="lazy" /></a>
+      <span class="ms-2">'.$uname.'</span>
+
                </div>
             </li>';
    $count++;
@@ -2986,7 +2967,6 @@ $content.='<div class="px-1 card card-body d-flex flex-row mt-3 flex-wrap text-c
    </div>';
    return ($content);
 }
-
 #autodoc:</Mainfile.php>
 
 #autodoc theme_image($theme_img) : Retourne le chemin complet si l'image est trouvée dans le répertoire image du thème sinon false
@@ -3061,12 +3041,10 @@ function import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref=''
    }
    return($tmp);
 }
-
 #autodoc import_css($tmp_theme, $language, $fw_css, $css_pages_ref, $css) : Fonctionnement identique à import_css_javascript sauf que le code HTML en retour ne contient que de double quote
 function import_css ($tmp_theme, $language, $fw_css, $css_pages_ref, $css) {
    return (str_replace("'","\"",import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref, $css)));
 }
-
 #autodoc auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) : fabrique un array js à partir de la requete sql et implente un auto complete pour l'input (dependence : jquery.min.js ,jquery-ui.js) $nom_array_js=> nom du tableau javascript; $nom_champ=>nom de champ bd; $nom_tabl=>nom de table bd,$id_inpu=> id de l'input,$temps_cache=>temps de cache de la requête. Si $id_inpu n'est pas défini retourne un array js.
 function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) {
    global $NPDS_Prefix;
@@ -3105,7 +3083,6 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    }
    return ($scri_js);
 }
-
 #autodoc auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) : fabrique un pseudo array json à partir de la requete sql et implente un auto complete pour le champ input (dependence : jquery-2.1.3.min.js ,jquery-ui.js)
 function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) {
    global $NPDS_Prefix;
@@ -3182,7 +3159,6 @@ function language_iso($l,$s,$c) {
     if (($l==1) and ($c!==1)) $ietf=$iso_lang;
     return ($ietf);
 }
-
 #autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres (js), fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> éléments de l'objet fields differents input (objet js ex :   xxx: {},...) si !###! est trouvé dans la variable la partie du code suivant sera inclu à la fin de la fonction d'initialisation, $arg1=>js pur au début du script js, $foo =='' ==> </div> et inclusion footer.php $foo =='foo' ==> inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
    global $minpass;
@@ -3336,7 +3312,6 @@ function adminfoot($fv,$fv_parametres,$arg1,$foo) {
       break;
    }
 }
-
 #autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) : permet de calculer le coût algorythmique optimum pour la procédure de hashage ($AlgoCrypt) d'un mot de pass ($pass) avec un temps minimum alloué ($min_ms)
 function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) {
    for ($i = 8; $i < 13; $i++) {
@@ -3348,7 +3323,6 @@ function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) {
          return $i;
    }
 }
-
 #autodoc dataimagetofileurl($base_64_string, $output_path) : Analyse la chaine $base_64_string pour touver "src data:image" SI oui : fabrication de fichiers (gif | png | jpeg) (avec $output_path) - redimensionne l'image si supérieure aux dimensions maxi fixées et remplacement de "src data:image" par "src url", et retourne $base_64_string modifié ou pas
 function dataimagetofileurl($base_64_string, $output_path) {
    $rechdataimage = '#src=\\\"(data:image/[^"]+)\\\"#m';
