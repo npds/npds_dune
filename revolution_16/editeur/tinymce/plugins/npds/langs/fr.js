@@ -19,5 +19,6 @@ npds_spanishonly_desc : 'Espagnol seul',
 npds_chinese_desc : 'Chinois',
 npds_chineseonly_desc : 'Chinois seul',
 npds_german_desc : 'Allemand',
-npds_germanonly_desc : 'Allemand seul'
+npds_germanonly_desc : 'Allemand seul',
+npds_upl_groupe : 'T\u00E9l\u00E9charger vers groupe',
 });
