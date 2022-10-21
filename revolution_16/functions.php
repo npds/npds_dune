@@ -41,10 +41,7 @@ function get_contributeurs($fid, $tid) {
 
 function get_total_posts($fid, $tid, $type, $Mmod) {
    global $NPDS_Prefix;
-   if ($Mmod)
-      $post_aff='';
-   else
-      $post_aff=" AND post_aff='1'";
+   $post_aff = $Mmod ? '' : " AND post_aff='1'";
    switch($type) {
       case 'forum':
            $sql = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$fid'$post_aff";
@@ -87,7 +84,8 @@ function get_last_post($id, $type, $cmd, $Mmod) {
          $val=translate("Rien");
       else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
-         $val=convertdate($myrow[0]).' '.userpopover($rowQ1[0]['uname'],40);
+         $val = convertdate($myrow[0]);
+         $val .= $rowQ1 ? ' '.userpopover($rowQ1[0]['uname'],40) : '';
       }
    }
    sql_free_result($result);
@@ -112,10 +110,7 @@ function convertdateTOtimestamp($myrow) {
 }
 
 function post_convertdate($tmst) {
-   if ($tmst>0)
-      $val=date(translate("dateinternal"),$tmst);
-   else
-      $val='';
+   $val = $tmst>0 ? date(translate("dateinternal"),$tmst) : '';
    return ($val);
 }
 
@@ -179,9 +174,9 @@ function get_userdata_extend_from_id($userid) {
    else
       $myrow=array_merge($myrow,(array)sql_fetch_assoc(sql_query($sql1)));
  */
-$myrow= (array)sql_fetch_assoc(sql_query($sql1));
+   $myrow= (array)sql_fetch_assoc(sql_query($sql1));
  
- return($myrow);
+   return($myrow);
 }
 
 function get_userdata($username) {
@@ -617,8 +612,7 @@ function control_efface_post($apli,$post_id,$topic_id,$IdForum) {
 }
 
 function autorize() {
-   global $apli,$IdPost,$IdTopic,$IdForum,$user;
-   global $NPDS_Prefix;
+   global $IdPost, $IdTopic, $IdForum, $user, $NPDS_Prefix;
    list($poster_id)= sql_fetch_row(sql_query("SELECT poster_id FROM ".$NPDS_Prefix."posts WHERE post_id='$IdPost' AND topic_id='$IdTopic'"));
    $Mmod=false;
    if ($poster_id) {
@@ -641,18 +635,15 @@ function autorize() {
 }
 
 function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
-   // anti_flood : nd de post dans les 90 puis 30 dernières minutes / les modérateurs echappent à cette règle
+   // anti_flood : nb de post dans les 90 puis 30 dernières minutes / les modérateurs echappent à cette règle
    // security.log est utilisée pour enregistrer les tentatives
    global $NPDS_Prefix, $anonymous;
-   if (!array_key_exists('uname',$userdataX)) $compte=$anonymous; else $compte=$userdataX['uname'];
-
+   $compte = !array_key_exists('uname',$userdataX) ? $anonymous : $userdataX['uname'] ;
    if ((!$modoX) AND ($paramAFX>0)) {
       $sql="SELECT COUNT(poster_ip) AS total FROM ".$NPDS_Prefix."posts WHERE post_time>'";
-      if ($userdataX['uid']!=1)
-         $sql2="' AND (poster_ip='$poster_ipX' OR poster_id='".$userdataX['uid']."')";
-      else
-         $sql2="' AND poster_ip='$poster_ipX'";
-
+      $sql2 = $userdataX['uid']!=1 ?
+         "' AND (poster_ip='$poster_ipX' OR poster_id='".$userdataX['uid']."')" :
+         "' AND poster_ip='$poster_ipX'" ;
       $timebase=date("Y-m-d H:i",time()+($gmtX*3600)-5400);
       list($time90)=sql_fetch_row(sql_query ($sql.$timebase.$sql2));
       if ($time90>($paramAFX*2)) {
@@ -875,14 +866,16 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
    if ($total > 1) {
       $pagination .= '
       <nav>
-      <ul class="pagination pagination-sm d-flex flex-wrap">';
+         <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 2)
-         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
+         $pagination .= '
+            <li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
       elseif ($current > 2)
-         $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
+         $pagination .= '
+            <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
       else
-         $pagination .= '<li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
-
+         $pagination .= '
+            <li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
       /*
        * Début affichage des pages, l'exemple reprend le cas de 3 numéros de pages adjacents (par défaut) de chaque côté du numéro courant
        * - CAS 1 : il y a au plus 12 pages, insuffisant pour faire une troncature
@@ -893,24 +886,28 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
       if ($total < 7 + ($adj * 2)) {
          $pagination .= ($current == 1) ? '<li class="page-item active"><a class="page-link" href="#">1</a></li>' : '<li class="page-item"><a class="page-link" href="'.$url.$urlmore.'">1</a></li>';
          for ($i=2; $i<=$total; $i++) {
-            if ($i == $current)
-               $pagination .= '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-            else
-               $pagination .= '<li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>';
+            $pagination .= $i == $current ?
+               '
+            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>' :
+               '
+            <li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>' ;
          }
       }
       //  CAS 2 : au moins 13 pages -> troncature
       else {
          /* Troncature 1 : 1 2 3 4 5 6 7 8 9 … 16 17 */
          if ($current < 2 + ($adj * 2)) {
-            $pagination .= ($current == 1) ? '<li class="page-item active"><a class="page-link" href="#">1</a></li>' : '<li class="page-item"><a class="page-link" href="'.$url.'">1</a></li>';
+            $pagination .= ($current == 1) ? 
+               '
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>' :
+               '
+            <li class="page-item"><a class="page-link" href="'.$url.'">1</a></li>';
             for ($i = 2; $i < 4 + ($adj * 2); $i++) {
-               if ($i == $current) 
-                  $pagination .= '
-            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-               else 
-                  $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>';
+               $pagination .= $i == $current ? 
+                  '
+            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>' :
+                  '
+            <li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>' ;
             }
             $pagination .= '
             <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>
@@ -924,12 +921,11 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
             <li class="page-item"><a class="page-link" href="'.$url.'2'.$urlmore.'">2</a></li>
             <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>';
             for ($i = ($current - $adj); $i <= $current + $adj; $i++) {
-               if ($i == $current) 
-                  $pagination .= '
-            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-               else 
-                  $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>';
+               $pagination .= $i == $current ?
+                  '
+            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>' :
+                  '
+            <li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>' ;
             }
             $pagination .= '
             <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>
@@ -943,21 +939,19 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
             <li class="page-item"><a class="page-link" href="'.$url.'2'.$urlmore.'">2</a></li>
             <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>';
             for ($i = $total - (2 + ($adj * 2)); $i <= $total; $i++) {
-               if ($i == $current) 
-                  $pagination .= '
-            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-                else 
-                  $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>';
+               $pagination .= $i == $current ?
+                  '
+            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>' :
+                  '
+            <li class="page-item"><a class="page-link" href="'.$url.$i.$urlmore.'">'.$i.'</a></li>' ;
             }
          }
       }
-      if ($current == $total)
-         $pagination .= '
-            <li class="page-item disabled"><a class="page-link" href="#">►</a></li>';
-      else
-         $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-bs-toggle="tooltip">►</a></li>';
+      $pagination .= $current == $total ?
+         '
+         <li class="page-item disabled"><a class="page-link" href="#">►</a></li>' :
+         '
+         <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-bs-toggle="tooltip">►</a></li>';
       $pagination .= '
       </ul>
    </nav>';
@@ -975,16 +969,15 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
       $pagination .= '
       <nav>
       <ul class="pagination pagination-sm d-flex flex-wrap">';
-      if ($current == 1) {
+      if ($current == 1)
          $pagination .= '
          <li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
-      } elseif ($current > 1) {
+      elseif ($current > 1)
          $pagination .= '
          <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
-      } else {
+      else
          $pagination .= '
          <li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
-      }
 
       /**
        * Début affichage des pages, l'exemple reprend le cas de 3 numéros de pages adjacents (par défaut) de chaque côté du numéro courant
@@ -997,27 +990,22 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
          $pagination .= ($current == 0) ? '
             <li class="page-item active"><a class="page-link" href="#">1</a></li>' : '<li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'">1</a></li>';
          for ($i=2; $i<=$total; $i++) {
-            if ($i == $current+1)
-               $pagination .= '
-            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-            else
-               $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
+            $pagination .= $i == $current+1 ?
+            '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>' :
+            '<li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>' ;
          }
       }
       //  CAS 2 : au moins 13 pages -> troncature
       else {
          /* Troncature 1 : 1 2 3 4 5 6 7 8 9 … 16 17 */
          if ($current < 2 + ($adj * 2)) {
-            $pagination .= ($current == 0) ? '
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>' : '<li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'">1</a></li>';
+            $pagination .= ($current == 0) ? 
+            '<li class="page-item active"><a class="page-link" href="#">1</a></li>' :
+            '<li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'">1</a></li>' ;
             for ($i = 2; $i < 4 + ($adj * 2); $i++) {
-               if ($i == $current+1) 
-                  $pagination .= '
-            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-               else 
-                  $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
+               $pagination .= $i == $current+1 ?
+            '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>' :
+            '<li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>' ;
             }
             $pagination .= '
             <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>
@@ -1032,12 +1020,9 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
             <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>';
             // les pages du milieu : les trois précédant la page courante, la page courante, puis les trois lui succédant
             for ($i = ($current - $adj); $i <= $current + $adj; $i++) {
-               if ($i == $current+1) 
-                  $pagination .= '
-            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-               else 
-                  $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
+               $pagination .= $i == $current+1 ?
+                  '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>' :
+                  '<li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>' ;
             }
             $pagination .= '
             <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>
@@ -1051,29 +1036,23 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
             <li class="page-item"><a class="page-link" href="'.$url.$topics_per_page.$urlmore.'">2</a></li>
             <li class="page-item disabled"><a class="page-link" href="#">&hellip;</a></li>';
             for ($i = $total - (2 + ($adj * 2)); $i <= $total; $i++) {
-               if ($i == $current+1) 
-                  $pagination .= '
-            <li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>';
-                else 
-                  $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>';
+               $pagination .= $i == $current+1 ?
+            '<li class="page-item active"><a class="page-link" href="#">'.$i.'</a></li>' :
+            '<li class="page-item"><a class="page-link" href="'.$url.(($i*$topics_per_page)-$topics_per_page).$urlmore.'">'.$i.'</a></li>' ;
             }
          }
       }
-      if ($current+1 == $total)
-         $pagination .= '
-            <li class="page-item disabled"><a class="page-link" href="#">►</a></li>';
-      else
-         $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-bs-toggle="tooltip">►</a></li>';
-   $pagination .= '
+      $pagination .= $current+1 == $total ?
+            '<li class="page-item disabled"><a class="page-link" href="#">►</a></li>' :
+            '<li class="page-item"><a class="page-link" href="'.$url.$next.$urlmore.'" title="'.translate("Page suivante").'" data-bs-toggle="tooltip">►</a></li>' ;
+      $pagination .= '
       </ul>
    </nav>';
    }
    return ($pagination);
 }
 
-#autodoc checkdnsmail($email) : Controle si le domaine existe et si il dispose d'un serveur de mail
+#autodoc checkdnsmail($email) : Contrôle si le domaine existe et si il dispose d'un serveur de mail
 function checkdnsmail($email) {
    $ibid = explode('@',$email);
    if(!checkdnsrr($ibid[1],'MX'))
