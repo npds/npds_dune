@@ -11,7 +11,7 @@
 /************************************************************************/
 global $nuke_url, $multi_langue;
 
-if($multi_langue!==false) $tinylangmenu='npds_langue'; else $tinylangmenu='';
+$tinylangmenu = $multi_langue!==false ? 'npds_langue' : '' ;
 // skin : "oxide" ou "oxide-dark"
 $tmp.='
             promotion : false,
@@ -75,6 +75,10 @@ if (!array_key_exists(1,$setup)) $setup[1]='';
 if ($tiny_mce_theme=='full') {
    $tmp.= "
             plugins: ['quickbars', 'autoresize', 'preview', 'importcss', 'searchreplace', 'autolink', 'autosave', 'save', 'directionality', 'code', 'visualblocks', 'visualchars', 'fullscreen', 'image', 'link', 'media', 'template', 'codesample', 'table', 'charmap', 'pagebreak', 'nonbreaking', 'anchor', 'insertdatetime', 'advlist', 'lists', 'wordcount', 'help', 'charmap', 'emoticons', 'npds'],
+//            extended_valid_elements : 'img[class|src|alt|title|width|loading=lazy]',
+
+  extended_valid_elements: 'img[class=img-fluid|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|loading=lazy]',
+
             image_class_list : [{title: 'Responsive', value: 'img_fluid'}],
             style_formats_merge : true,
             style_formats : [
@@ -93,12 +97,12 @@ if ($tiny_mce_theme=='full') {
             }}],
             font_family_formats: 'Andale Mono=andale mono,times;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Georgia=georgia,palatino;Helvetica=helvetica;Impact=impact,chicago;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Trebuchet MS=trebuchet ms,geneva;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats',
             font_size_formats: '0.4rem 0.5rem 0.6rem 0.7rem 0.8rem 0.9rem 1rem 1.1rem 1.2rem 1.3rem 1.4rem 1.5rem 1.6rem 1.7rem 1.8rem 1.9rem 2rem',
-            toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen preview save print | image media template link anchor codesample | ltr rtl help | npds_img npds_perso npds_metal npds_upl npds_mns npds_langue',";
+            toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen preview save print | image media template link anchor codesample | ltr rtl help | npds_img npds_perso npds_metal npds_upl npds_mns ".$tinylangmenu."',";
 
 } else if ($tiny_mce_theme=='short') {
    // Short Theme
    $tmp.=" 
-            plugins : ['quickbars autoresize autolink wordcount image table link media npds'],
+            plugins : ['quickbars', 'autoresize', 'autolink', 'wordcount', 'image', 'table', 'link', 'media', 'npds'],
             toolbar : 'bold italic underline strikethrough | pastetext pasteword | justifyleft justifycenter justifyright justifyfull | fontsizeselect | bullist numlist outdent indent forecolor backcolor | search link unlink code | image media npds_img npds_perso npds_mns npds_upl npds_metal ".$tinylangmenu."',\n";
 }
 $tmp.="
