@@ -29,7 +29,7 @@ function etape_2() {
       fclose($myfile);
       $nohalt = true;
    } else {
-      $licence_text = inst_translate('Fichier de licence indisponible !');
+      $licence_text = ins_translate('Fichier de licence indisponible !');
       $nohalt = false;
    }
    echo '
