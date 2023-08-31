@@ -1,12 +1,13 @@
-changelog-rev16.4 [ révision : 52 - jpb /06-09-2022 ]
+changelog-rev16.4 [ révision : 53 - jpb /05-10-2022 ]
 (non exhaustif...)
 
 Cette version entraine de nombreuses modifications (plus de 600 fichiers) dûes en grande partie à la mise à jour du framework bootstrap, des autres dépendances et des corrections et amélioration de la version précédente. La base de données n'est que très peu impactée, principalement sur des données (... quelques métamots). Elle fixe aussi un certain nombre de problèmes de sécurité en renforçant la protection d'accès fichiers et le filtrage des urls.
 
 - update dépendances :
-   bootstrap 5.2.0
+   bootstrap 5.2.2
+   bootstrap-icons 1.9.1
    formvalidation v.1.9.0 (lié à maj BS)
-   colorpicker v.3.4
+   colorpicker v.3.4 (non maintenu) ==> puis remplacé par jscolor
    bootstrap table 1.19.1
    openlayers 6.15.1
    geocoder 4.1.2
@@ -26,6 +27,7 @@ améliorations :
 - menu utilisateur (externalisation ...)
 
 - thèmisation (code) : possibilité d'ajouter à partir du thème une classe à "l'élément html primaire" d'un bloc
+- thèmisation : simplification des dossiers thèmes ajout explicatif sur les templates html des themes dynamique
 - metatag : 
 -- ajout de création automatique de balise meta de type og et twitter la combinaison de ces balise permet la céation automatique de "card" pour différents réseau sociaux ...(à documenter)
 -- ajout de l'attribut lang dans balise html
