@@ -27,7 +27,6 @@ if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script
    die();
 
 //function geoloc() {
-
 global $pdst, $language, $title;
 include ('modules/'.$ModPath.'/geoloc.conf');
 include_once('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
@@ -237,7 +236,7 @@ $total_connect = sql_num_rows($result_con);
 $result = sql_query ('SELECT * FROM '.$NPDS_Prefix.'session s
 LEFT JOIN '.$NPDS_Prefix.'users u ON s.username = u.uname
 LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid');
-$krs=0; $mb_con_g='#######'; $ano_o_conn='const ano_features=['; $mbr_geo_on='const mbrOn_features=['; $mbr_geo_on_v ='';
+$krs=0; $mb_con_g='#######'; $ano_o_conn='const ano_features=['; /*$mbr_geo_on='const mbrOn_features=[';*/ $mbr_geo_on_v ='';
 $sidebaronline = '';   $i=0;
 
 while ($row = sql_fetch_array($result)) {
@@ -303,10 +302,12 @@ while ($row = sql_fetch_array($result)) {
 //      $mbr_geo_on .= '[['.$user_long.','.$user_lat.'], "u'.$users_uid.'","'. addslashes($users_uname) .'","'.$av_ch.'", "'.addslashes($imm).'","'.addslashes($my_rsos[$krs]).'"],';
       $sidebaronline .= '';
 
+/*
       $ano_o_conn.= '
       [['.$user_long.','.$user_lat.'],"'. addslashes($users_uname) .'","'.$session_host_addr.'","'.$ip_visi_pag.'","'.$ip_visite.'","'.$ip_city1.'","'.$ip_country1.'","'.$ch_img.'flags/'.strtolower($ip_code_country1).'","'.@gethostbyaddr($ip_ip1).'","AM","'.$av_ch.'", "'.addslashes($imm).'","'.addslashes($my_rsos[$krs]).'"],';
       $sidebaronline .= '
       <a id="a'.$i.'" style="min-height:38px;" class="sb_js sb_ano list-group-item list-group-item-action py-1 px-2 border-left-0 border-right-0 small">'.$ic_b_mbgc.'<span class="ms-2"><span class="float-end">'.addslashes($users_uname).'</span></span></a>';
+*/
       $ac++;
    }
 
@@ -357,8 +358,6 @@ while ($row = sql_fetch_array($result)) {
    $i++;
 }
 $ano_o_conn = trim($ano_o_conn,',').'
-   ];';
-$mbr_geo_on = trim($mbr_geo_on,',').'
    ];';
 $sidebaronline ='
             <div id="sb_ano" class="list-group mb-2">
@@ -576,7 +575,6 @@ switch ($cartyp) {
    case 'World_Imagery':case 'World_Shaded_Relief':case 'World_Physical_Map':case 'World_Topo_Map':
       $source_fond='new ol.source.XYZ({
          attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
-         attributionsCollapsible: true,
          url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp.'/MapServer/tile/{z}/{y}/{x}",
          maxZoom: 23
      })';
@@ -586,24 +584,29 @@ switch ($cartyp) {
    break;
    default:
       $source_fond='new ol.source.OSM()';
-//      $max_r='40000';
+      $max_r='40000';
       $min_r='0';
       $layer_id= 'OSM';
 }
 
 //==> construction js
-$ecr_scr = '
+if(!defined('OL')) {
+   define('OL','ol');
+   $ecr_scr ='
+<script type="text/javascript" src="'.$nuke_url.'/lib/ol/ol.js"></script>';
+}
+$ecr_scr .= '
 <script type="text/javascript">
 //<![CDATA[
    var map;
    var dd = new Date().toISOString().split("T");
 
    if (!$("link[href=\'/lib/ol/ol.css\']").length)
-      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
    if (!$("link[href=\'modules/geoloc/include/css/geoloc_style.css\']").length)
-      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
    if (!$("link[href=\'lib/bootstrap/dist/css/bootstrap-icons.css\']").length)
-      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/bootstrap/dist/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
 
    $(function () {
    //==>  affichage des coordonnées...
@@ -620,7 +623,7 @@ $ecr_scr .= '
         undefinedHTML: "&nbsp;"
       });
    //<==
-   '.$mbr_geo_on.$ano_o_conn.$mbr_geo_off.$mbr_geo_off_v.$ip_o.'
+   '.$ano_o_conn.$mbr_geo_off.$mbr_geo_off_v.$ip_o.'
    var popup = new ol.Overlay({
       element: document.getElementById("ol_popup"),
       offset : [0,-10],
@@ -636,8 +639,8 @@ $ecr_scr .= '
      stopEvent : true,
    });
 
-   var src_con = new ol.source.Vector({});
-   var src_con_length = ano_features.length;
+   var src_con = new ol.source.Vector({}),
+       src_con_length = ano_features.length;
    for (let i = 0; i < src_con_length; i++){
       var iconFeature = new ol.Feature({
          geometry: new ol.geom.Point(ol.proj.transform(ano_features[i][0], "EPSG:4326","EPSG:3857")),
@@ -667,22 +670,6 @@ $ecr_scr .= '
       iconFeature.setId(mbr_features[i][1]);
       src_user.addFeature(iconFeature);
    }
-/*
-   var src_userOn = new ol.source.Vector({});
-   var src_userOn_length = mbrOn_features.length;
-   for (var i = 0; i < src_userOn_length; i++){
-      var iconFeature = new ol.Feature({
-         geometry: new ol.geom.Point(ol.proj.transform(mbrOn_features[i][0], "EPSG:4326","EPSG:3857")),
-         pseudo: mbrOn_features[i][2],
-         ava: mbrOn_features[i][3],
-         userlinks : mbrOn_features[i][4],
-         social: mbrOn_features[i][5]
-      });
-      iconFeature.setId("on"+mbrOn_features[i][1]);
-      src_userOn.addFeature(iconFeature);
-   }
-*/
-   
    ';
 if(autorisation(-127) and $geo_ip==1)
    $ecr_scr .='
@@ -1071,17 +1058,6 @@ $ecr_scr .='
             view.setCenter(src_con.getFeatureById(u).getGeometry().getFlatCoordinates());
             view.adjustCenter([240,80]);
          }
-/*
-         if(u.substr(0,1) == "o") {
-            let mbOn = src_userOn.getFeatureById(u);
-            let ici = mbOn.getGeometry().getFlatCoordinates();
-            view.setCenter(ici);
-            view.adjustCenter([240,0]);
-            $("#ol_popup").show();
-            container.innerHTML = \'<div class="text-center">\' + mbOn.get("userlinks") + \'</div><hr /><i class="fa fa-plug faa-flash animated text-primary me-1" data-bs-toggle="tooltip" title="\' + mbOn.get("pseudo") + \' est connecté"></i><img class="me-2 img-thumbnail n-ava" src="\' + mbOn.get("ava") + \'" align="middle" /><span class="lead">\' + mbOn.get("pseudo") + \'</span><hr /><div class="text-center">\' + mbOn.get("social") + \'</div>\';
-            popup.setPosition(ici);
-         }
-*/
          if(u.substr(0,1) == "u") {
             let mb = src_user.getFeatureById(u);
             let ici = mb.getGeometry().getFlatCoordinates();
@@ -1285,7 +1261,7 @@ $ecr_scr .='
    map.getView().on("propertychange", function(e) {
       switch (e.key) {
          case "resolution":
-            var idLayer = map.getLayers().R[0].A.id;
+            var idLayer = map.getLayers().item(0).get("id");
             if((idLayer=="natural-earth-hypso-bathy" || idLayer=="geography-class") && e.oldValue < 3000) {
                fond_carte.setSource(new ol.source.OSM());
                fond_carte.setProperties({"id":"OSM", "minResolution":"0", "maxResolution":"40000" });

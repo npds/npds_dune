@@ -122,6 +122,33 @@ display: block;
    background-color: var(--bs-primary);
    opacity: 0.8;
 }
+.ol-scale-singlebar-even {
+   background-color: var(--bs-primary);
+   opacity: 0.8;
+}
+.ol-scale-singlebar {
+   border: 1px solid var(--bs-primary);
+   opacity: 0.8;
+}
+.ol-scale-step-text {
+   font-size: 0.75rem;
+   color: whitesmoke;
+   text-shadow: 1px 1px 2px black, 0 0 1em var(--bs-primary), 0 0 0.2em var(--bs-primary);
+   font-weight: 700;
+   font-family: arial;
+}
+.ol-scale-step-marker{
+   background-color: var(--bs-primary);
+   opacity: 0.8;
+}
+.ol-scale-text {
+   font-family: arial;
+   font-size: 0.75rem;
+   color: whitesmoke;
+   text-shadow: 1px 1px 2px black, 0 0 1em var(--bs-primary), 0 0 0.2em var(--bs-primary);
+   font-weight: 700;
+}
+
 #map .ol-full-screen {
    right: 3em;
 }
@@ -135,14 +162,18 @@ display: block;
 }
 
 .custom-mouse-position {
+/* 
    font-family: "Courier New", Lucida, console, Monaco, monospace;
+ */
+ font-family: arial;
    font-size: 0.8rem;
    color: whitesmoke;
-   bottom: 35px;
+   bottom: 50px;
    position: absolute;
    left: 8px;
-   text-shadow: black 0.1em 0.1em 0.2em;
    font-weight: 700;
+   text-shadow: 1px 1px 2px black, 0 0 1em var(--bs-primary), 0 0 0.2em var(--bs-primary);
+   color: white;
 }
 
 .ol-popup {
@@ -213,6 +244,11 @@ display: block;
 #map .ol-zoom-out.ol-has-tooltip:hover [role=tooltip],
 #map .ol-zoom-out.ol-has-tooltip:focus [role=tooltip] {
   top: 232px;
+}
+
+#map .ol-download {
+  top: .5em;
+  right: 5.5em;
 }
 
 .ol-tooltip {

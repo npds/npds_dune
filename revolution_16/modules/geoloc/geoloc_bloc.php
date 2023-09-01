@@ -15,8 +15,8 @@
 /* geoloc_bloc.php file 2008-2022 by Jean Pierre Barbary (jpb)          */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
-
 $ModPath='geoloc';
+global $nuke_url;
 $content = '';
 include('modules/'.$ModPath.'/geoloc.conf');
 $source_fond='';
@@ -25,13 +25,23 @@ switch ($cartyp_b) {
       $source_fond='new ol.source.OSM()';
    break;
    case 'sat-google':
-      $source_fond=' new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"})';
+      $source_fond=' new ol.source.XYZ({
+      url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+      attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>",
+      crossOrigin: "Anonymous",
+      })';
    break;
    case 'Road':case 'Aerial':case 'AerialWithLabels':
-      $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp_b.'"})';
+      $source_fond='new ol.source.BingMaps({
+      key: "'.$api_key_bing.'",
+      imagerySet: "'.$cartyp_b.'"
+      })';
    break;
    case 'natural-earth-hypso-bathy': case 'geography-class':
-      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'"})';
+      $source_fond=' new ol.source.TileJSON({
+      url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'",
+      crossOrigin: "Anonymous",
+      })';
    break;
    case 'terrain':case 'toner':case 'watercolor':
       $source_fond='new ol.source.Stamen({layer:"'.$cartyp_b.'"})';
@@ -39,8 +49,8 @@ switch ($cartyp_b) {
    case 'World_Imagery':case 'World_Shaded_Relief':case 'World_Physical_Map':case 'World_Topo_Map':
       $source_fond='new ol.source.XYZ({
          attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
-         attributionsCollapsible: true,
          url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp_b.'/MapServer/tile/{z}/{y}/{x}",
+         crossOrigin: "Anonymous",
          maxZoom: 23
      })';
       $max_r='40000';
@@ -50,21 +60,18 @@ switch ($cartyp_b) {
    $source_fond='new ol.source.OSM()';
 }
 $content .='
-<div class="mb-2" id="map_bloc_ol" tabindex="200" style=" min-height:'.$h_b.'px;" lang="'.language_iso(1,0,0).'"></div>
-
-<script type="text/javascript" src="/lib/ol/ol.js"></script>
+<div class="mb-2" id="map_bloc_ol" tabindex="200" style=" min-height:'.$h_b.'px;" lang="'.language_iso(1,0,0).'"></div>';
+if(!defined('OL')) {
+   define('OL','ol');
+   $content .= '<script type="text/javascript" src="'.$nuke_url.'/lib/ol/ol.js"></script>';
+}
+$content .='
 <script type="text/javascript">
 //<![CDATA[
       if (!$("link[href=\'/lib/ol/ol.css\']").length)
-         $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
-      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_bloc.css\' type=\'text/css\' media=\'screen\'>");
-      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/bootstrap/dist/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
-
-/*
-      if (typeof ol=="undefined"){console.log("test");
-         $("head").append($("<script />").attr({"type":"text/javascript","src":"https://labo.infocapagde.com/lib/ol/ol.js"}));
-      }
-*/
+         $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/modules/geoloc/include/css/geoloc_bloc.css\' type=\'text/css\' media=\'screen\'>");
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
       $(function(){
       var
       georefUser_icon = new ol.style.Style({
@@ -83,21 +90,12 @@ $content .='
       }),
       attribution = new ol.control.Attribution({collapsible: true}),
       fullscreen = new ol.control.FullScreen();
-/*      
-      var extent = new ol.proj.transformExtent(
-      new ol.source.Vector({
-         features: new ol.format.GeoJSON().readFeatures(users)
-      }).getExtent(),
-      "EPSG:4326",
-      "EPSG:3857"
-      );
-*/
       // ==> cluster users
       var
       clusterSource = new ol.source.Cluster({
-          distance: "40",
-          minDistance: "15",
-          source: srcUsers
+         distance: "40",
+         minDistance: "15",
+         source: srcUsers
       }),
       styleCache = {},
       users_cluster = new ol.layer.Vector({
@@ -145,8 +143,8 @@ $content .='
               return style;
           }
       });
-  // <== cluster users
-      
+      // <== cluster users
+
       var map = new ol.Map({
          interactions: new ol.interaction.defaults({
             constrainResolution: true,
@@ -158,7 +156,6 @@ $content .='
          new ol.layer.Tile({
             source: '.$source_fond.'
           }),
-//          georeferencedUsers
           users_cluster,
         ],
         view: new ol.View({
@@ -166,8 +163,6 @@ $content .='
           zoom: '.$z_b.'
         })
       });
-      
-//            console.log(georeferencedUsers.getSource().getExtent());
 
       function checkSize() {
         var small = map.getSize()[0] < 600;
@@ -186,7 +181,6 @@ $content .='
             $("#map_bloc_ol "+dic[i].cla).prop("title", dic[i][lang]);
          }
       }
-
       fullscreen.on("enterfullscreen",function(){
          $(dic.olfullscreentrue.cla).attr("data-original-title", dic["olfullscreentrue"][lang]);
       })
