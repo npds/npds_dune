@@ -117,6 +117,13 @@ table{table-layout: fixed;}
   border:0px;
 }
 
+.n-danger-tooltip{--bs-tooltip-bg: var(--bs-danger);}
+.n-info-tooltip{--bs-tooltip-bg: var(--bs-info);}
+.n-warning-tooltip{--bs-tooltip-bg: var(--bs-warning);}
+.n-secondary-tooltip{--bs-tooltip-bg: var(--bs-secondary);}
+.n-primary-tooltip{--bs-tooltip-bg: var(--bs-primary);}
+
+
 /** <== Classes NPDS-core                                                   **/
 
 /** ==> ID NPDS-Core                                                        **/

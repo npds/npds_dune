@@ -44,6 +44,7 @@ if ($rep) {
 
    $Xcontent=ob_get_contents();
    ob_end_clean();
+
    echo meta_lang(aff_langue($Xcontent));
 }
 ?>

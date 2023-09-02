@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* CSS corporate pour NPDS Revolution                                    */
+/* CSS npds-boost_sk pour NPDS Revolution                                    */
 /* Theme : Dyna-boost (c) 2015 by jpb                                        */
 /* style.css                                                                 */
 /* pour ajuster et modifier les css du framework                             */
@@ -124,28 +124,22 @@ table{table-layout: fixed;}
 #footer{}
 #pied{text-align:center;}
 #col_princ{}
-#col_LB{
-   border: 1px solid rgba(0,0,0,.125);
-   border-radius: .25rem;
-   padding-top:1rem;
-   margin-bottom: 1rem;
-}
-#col_LB .card, #col_RB .card {border:0;}
+#col_LB{}
 #col_RB{}
 /** <== ID NPDS-Core                                                        **/
 
 /* ==> adaptation menu */
 
-@media (min-width: 768px) {
-  .page-header {
-    margin: 53px 0 20px;
-    padding:1rem;
-  }
+.page-header {
+   margin-top: calc(var(--th-hauteurnavbar) + 0.5rem);
+   padding-bottom:1rem;
+   padding-left:1rem;
+   padding-right:1rem;
 }
 
 @media (max-width: 767px) {
   #container {margin-top:4rem;}
-  nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 0.5rem 0.5rem;}
+  nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 2.5rem 0.5rem;}
   .navbar-divider {display:none;}
   ul.nav.navbar-nav {
     line-height: 1.5rem;
@@ -196,7 +190,7 @@ ul.dropdown-menu {
   font-weight: 400;
 }
 
-/* ombre sur tout les icones 
+/* ombre sur tout les icones
 .fa, .fas, .far  {text-shadow:2px 2px 4px #d9d9d9;}
 */
 
@@ -255,16 +249,7 @@ ui-menu-item-wrapper {
 
 /* ==> plugins table bootstrap */
 /* Requis pour tous les thèmes */
- 
-/* 
-.fixed-table-footer, .fixed-table-header {
-  height: 1px;
-  border:1px;
-}
-
-.fixed-table-container{border-top:0px;}
- */ 
-.card-views .card-view 
+ .card-views .card-view 
 {
     margin-bottom: .25rem;
     margin-top: .25rem;
