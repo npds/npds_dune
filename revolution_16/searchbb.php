@@ -251,7 +251,7 @@ settype($term,'string');
          </tbody>
       </table>';
    }
-   sql_free_result();
+   sql_free_result($result);
    echo auto_complete ('membre','uname','users','username','86400');
    include('footer.php');
 ?>

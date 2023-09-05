@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2023 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Multi DataBase Support - MysqlI                                      */
@@ -130,8 +130,9 @@ $sql_nbREQ=0;
          return (true);
    }
 // Libère toute la mémoire et les ressources utilisées par la requête $query_id
-   function sql_free_result($q_id='') {
-      return @mysqli_free_result($q_id);
+   function sql_free_result($q_id) {
+      if ( isset($q_id) && is_resource($q_id)) 
+         return @mysqli_free_result($q_id);
    }
 // Ferme la connexion avec la Base de données
    function sql_close($dblink) {

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -829,12 +829,12 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
    }
    if ($type_req=='old_news') {
       $Xstorynum=$oldnum*$coef;
-      $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY time DESC LIMIT $storynum,$Xstorynum",3600);
+      $result = Q_select("SELECT sid, catid, ihome, time FROM ".$NPDS_Prefix."stories $sel ORDER BY time DESC LIMIT $storynum,$Xstorynum",3600);
       $Znum=$oldnum;
    }
    if (($type_req=='big_story') or ($type_req=='big_topic')) {
       $Xstorynum=$oldnum*$coef;
-      $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum,$Xstorynum",3600);
+      $result = Q_select("SELECT sid, catid, ihome, counter FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum,$Xstorynum",3600);
       $Znum=$oldnum;
    }
    if ($type_req=='libre') {
@@ -875,7 +875,7 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
         }
       }
    }
-   @sql_free_result($result);
+      @sql_free_result($result);
    return ($tab);
 }
 #autodoc themepreview($title, $hometext, $bodytext, $notes) : Permet de prévisualiser la présentation d'un NEW
@@ -1413,7 +1413,7 @@ function subscribe_query($Xuser,$Xtype, $Xclef) {
 #autodoc pollSecur($pollID) : Assure la gestion des sondages membres
 function pollSecur($pollID) {
    global $NPDS_Prefix, $user;
-   $pollIDX=false;
+   $pollIDX=false; $pollClose='';
    $result = sql_query("SELECT pollType FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
    if (sql_num_rows($result)) {
       list($pollType)=sql_fetch_row($result);
@@ -1607,8 +1607,8 @@ function aff_localzone_langue($ibid) {
       </noscript>';
    return ($M_langue);
 }
-#autodoc aff_local_langue($mess, $ibid_index, $ibid) : Charge une FORM de selection de langue $ibid_index = URL de la Form, $ibid = nom du champ
-function aff_local_langue($mess='' ,$ibid_index, $ibid) {
+#autodoc aff_local_langue($ibid_index, $ibid, $mess) : Charge une FORM de selection de langue $ibid_index = URL de la Form, $ibid = nom du champ
+function aff_local_langue($ibid_index, $ibid, $mess='') {
    if ($ibid_index=='') {
       global $REQUEST_URI;
       $ibid_index=$REQUEST_URI;
@@ -1788,10 +1788,9 @@ function utf8_java($ibid) {
       if ($bidon) {
          $bidon=substr($bidon,0,strpos($bidon,";"));
          $hex=strpos($bidon,'x');
-         if ($hex===false)
-            $ibid=str_replace('&#'.$bidon.';','\\u'.dechex($bidon),$ibid);
-         else
-            $ibid=str_replace('&#'.$bidon.';','\\u'.substr($bidon,1),$ibid);
+         $ibid = ($hex===false) ?
+            str_replace('&#'.$bidon.';','\\u'.dechex((int)$bidon),$ibid) :
+            str_replace('&#'.$bidon.';','\\u'.substr($bidon,1),$ibid);
       }
    }
    return ($ibid);
@@ -2694,8 +2693,9 @@ function headlines($hid='', $block=true) {
          return ($boxstuff);
    }
 }
+////////après correction pour php8 (prob with argument) pas sûr que cela fonctionne en 5 ...
 #autodoc PollNewest() : Bloc Sondage <br />=> syntaxe : <br />function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
-function PollNewest($id='') {
+function PollNewest(int $id=null) : void {
    global $NPDS_Prefix;
    // snipe : multi-poll evolution
    if ($id!=0) {

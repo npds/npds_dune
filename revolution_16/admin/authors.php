@@ -491,10 +491,13 @@ switch ($op) {
       modifyadmin($chng_aid);
    break;
    case 'UpdateAuthor':
-      settype( $chng_radminsuper,'string');
+      settype( $chng_radminsuper,'int');
+      settype( $ad_d_27,'int');
       updateadmin($chng_aid, $chng_name, $chng_email, $chng_url, $chng_radminsuper, $chng_pwd, $chng_pwd2, $ad_d_27, $old_pwd);
    break;
    case 'AddAuthor':
+         settype( $add_radminsuper,'int');
+
       if (!($add_aid && $add_name && $add_email && $add_pwd)) {
          global $hlpfile;
          include("header.php");
@@ -522,7 +525,7 @@ switch ($op) {
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."authors VALUES ('$add_aid', '$add_name', '$add_url', '$add_email', '$add_pwdX', '1', '0', '$add_radminsuper')");
       updatedroits($add_aid);
       // Copie du fichier pour filemanager
-      if ($add_radminsuper or $ad_d_27 !='')
+      if ($add_radminsuper or isset($ad_d_27)) // $ad_d_27 pas là ?
          @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($add_aid).".conf.php");
       global $aid; Ecr_Log('security', "AddAuthor($add_aid) by AID : $aid", '');
       Header("Location: admin.php?op=mod_authors");

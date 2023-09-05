@@ -379,31 +379,36 @@ function userinfo($uname) {
    $useroutils = '';
    if (($user) and ($uid!=1))
       $useroutils .= '<a class=" text-primary me-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="far fa-envelope fa-2x" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
-   if ($posterdata['femail']!='')
-      $useroutils .= '<a class=" text-primary me-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
-   if ($posterdata['url']!='')
-      $useroutils .= '<a class=" text-primary me-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
-   if ($posterdata['mns'])
-       $useroutils .= '<a class=" text-primary me-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
+   if(array_key_exists('femail', $posterdata))
+      if ($posterdata['femail']!='')
+         $useroutils .= '<a class=" text-primary me-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
+   if(array_key_exists('url', $posterdata))
+      if ($posterdata['url']!='')
+         $useroutils .= '<a class=" text-primary me-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
+   if(array_key_exists('mns', $posterdata))
+      if ($posterdata['mns'])
+          $useroutils .= '<a class=" text-primary me-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
 
    echo '
    <div class="d-flex flex-row flex-wrap">
       <div class="me-2 my-auto"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block n-ava-64 align-middle" /></div>
       <div class="align-self-center">
          <h2>'.translate("Utilisateur").'<span class="d-inline-block text-muted ms-1">'.$uname.'</span></h2>';
-   if ($uname !== $cookie[1])
-      echo $useroutils;
+   if(isset($cookie[1]))
+      if ($uname !== $cookie[1])
+         echo $useroutils;
    echo $my_rs;
-   if ($uname == $cookie[1])
-      echo '
+   if(isset($cookie[1]))
+      if ($uname == $cookie[1])
+         echo '
          <p class="lead">'.translate("Si vous souhaitez personnaliser un peu le site, c'est l'endroit indiqué. ").'</p>';
    echo '
       </div>
    </div>
    <hr />';
-
-   if ($uname == $cookie[1])
-      member_menu($mns,$uname);
+   if(isset($cookie[1]))
+      if ($uname == $cookie[1])
+         member_menu($mns,$uname);
 
    include('modules/geoloc/geoloc.conf'); 
    echo '
@@ -620,7 +625,8 @@ function userinfo($uname) {
          // Nbre de postes par sujet
          $TableRep = sql_query("SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id > 0 AND topic_id = '$topic_id'");
          $replys = sql_num_rows($TableRep)-1;
-         $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id' AND uid = '$cookie[0]' AND status != '0'";
+         $id_lecteur = isset($cookie[0]) ? $cookie[0] : '0';
+         $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id' AND uid = '$id_lecteur' AND status != '0'";
             if (sql_num_rows(sql_query($sqlR))==0)
                $image = '<a href="" title="'.translate("Non lu").'" data-bs-toggle="tooltip"><i class="far fa-file-alt fa-lg faa-shake animated text-primary "></i></a>';
             else
@@ -905,7 +911,8 @@ function login($uname, $pass) {
             $scryptPass = crypt($dbpass, $hashpass);
          }
       }
-
+      else
+         $scryptPass = '';
       if(password_verify(urldecode($pass), $dbpass) or password_verify($pass, $dbpass))
          $CryptpPWD = $dbpass;
       elseif (password_verify($dbpass, $scryptPass) or strcmp($dbpass, $pass)==0)
