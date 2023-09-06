@@ -32,7 +32,7 @@ $result = sql_query("CREATE TABLE IF NOT EXISTS ".$NPDS_Prefix."optimy (optid IN
 $result = sql_query("SELECT optid FROM ".$NPDS_Prefix."optimy");
 list($idopt) = sql_fetch_row($result);
 if(!$idopt OR ($idopt == ''))
-    $result = sql_query("INSERT INTO ".$NPDS_Prefix."optimy (optid, optgain, optdate, opthour, optcount) VALUES ('1', '', '', '', '0')");
+    $result = sql_query("INSERT INTO ".$NPDS_Prefix."optimy (optid, optgain, optdate, opthour, optcount) VALUES ('1', '0', '', '', '0')");
 // Extraction de la date et de l'heure de la précédente optimisation
 $last_opti='';
 $result = sql_query("SELECT optdate, opthour FROM ".$NPDS_Prefix."optimy WHERE optid='1'");
