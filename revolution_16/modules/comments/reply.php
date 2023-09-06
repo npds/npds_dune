@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -117,6 +117,7 @@ if (isset($submitS)) {
       $image_subject='';
       $message = addslashes(dataimagetofileurl($message,'modules/upload/upload/co'));
       $time = date("Y-m-d H:i:s",time()+((integer)$gmt*3600));
+//      var_dump($topic); die;// debug 
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (post_idH, topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('0', '$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
       if (!$result = sql_query($sql))
          forumerror('0020');
@@ -327,7 +328,7 @@ if (isset($submitS)) {
          $post_aff='';
       else
          $post_aff=" AND post_aff='1' ";
-      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic'".$post_aff." AND forum='$forum' ORDER BY post_id DESC LIMIT 0,10";
+      $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic'".$post_aff." AND forum_id='$forum' ORDER BY post_id DESC LIMIT 0,10";
       $result = sql_query($sql);
       if (sql_num_rows($result)) {
          echo translate("Aperçu des sujets :");
