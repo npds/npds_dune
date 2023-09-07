@@ -305,6 +305,7 @@ if (isset($submitS)) {
             <input type="hidden" name="ModStart" value="reply" />
             <input type="hidden" name="topic" value="'.$topic.'" />
             <input type="hidden" name="sid" value="'.$sid.'" />
+            <input type="hidden" name="pollID" value="'.$topic.'" />
             <input type="hidden" name="file_name" value="'.$file_name.'" />
             <input type="hidden" name="archive" value="'.$archive.'" />
             <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" />
