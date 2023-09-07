@@ -917,7 +917,7 @@ CREATE TABLE session (
   time varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   host_addr varchar(54) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   guest int(1) NOT NULL DEFAULT '0',
-  uri varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  uri varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   agent varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   KEY username (username),
   KEY time (time),
