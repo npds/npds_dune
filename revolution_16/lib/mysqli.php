@@ -131,7 +131,7 @@ $sql_nbREQ=0;
    }
 // Libère toute la mémoire et les ressources utilisées par la requête $query_id
    function sql_free_result($q_id) {
-      if ( isset($q_id) && is_resource($q_id)) 
+      if ($q_id instanceof mysqli_result) 
          return @mysqli_free_result($q_id);
    }
 // Ferme la connexion avec la Base de données
