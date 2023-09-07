@@ -850,7 +850,6 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
    $ibid=0; settype($tab,'array');
 
   foreach($result as $myrow) {
-//   while(list(,$myrow) = each($result)) {
       $s_sid=$myrow['sid'];
       $catid=$myrow['catid'];
       $ihome=$myrow['ihome'];
