@@ -37,8 +37,7 @@ if ($forum>=0)
 $forum_name = 'comments';
 $forum_type=0;
 $allow_to_post=false;
-if ($anonpost) $forum_access=0;
-else $forum_access=1;
+$forum_access = $anonpost ? 0 : 1;
 global $user;
 if ($moderate==1 and isset($admin))
    $Mmod=true;
@@ -47,10 +46,7 @@ elseif ($moderate==2) {
    $userdata=explode(':', $userX);
    $result=sql_query("SELECT level FROM ".$NPDS_Prefix."users_status WHERE uid='".$userdata[0]."'");
    list($level)=sql_fetch_row($result);
-   if ($level>=2)
-      $Mmod=true;
-   else
-      $Mmod=false;
+   $Mmod = $level>=2 ? true : false;
 } else
    $Mmod=false;
 // gestion des params du 'forum' : type, accès, modérateur ...
@@ -117,7 +113,6 @@ if (isset($submitS)) {
       $image_subject='';
       $message = addslashes(dataimagetofileurl($message,'modules/upload/upload/co'));
       $time = date("Y-m-d H:i:s",time()+((integer)$gmt*3600));
-//      var_dump($topic); die;// debug 
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (post_idH, topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('0', '$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
       if (!$result = sql_query($sql))
          forumerror('0020');
@@ -302,12 +297,14 @@ if (isset($submitS)) {
       </div>';
 
         echo Q_spambot();
+        if(!isset($sid)) $sid = null;
         echo '
       <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="ModPath" value="comments" />
             <input type="hidden" name="ModStart" value="reply" />
             <input type="hidden" name="topic" value="'.$topic.'" />
+            <input type="hidden" name="sid" value="'.$sid.'" />
             <input type="hidden" name="file_name" value="'.$file_name.'" />
             <input type="hidden" name="archive" value="'.$archive.'" />
             <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" />
@@ -332,12 +329,10 @@ if (isset($submitS)) {
       $result = sql_query($sql);
       if (sql_num_rows($result)) {
          echo translate("Aperçu des sujets :");
-
          while($myrow = sql_fetch_assoc($result)) {
-
             $posterdata = get_userdata_from_id($myrow['poster_id']);
             if ($posterdata['uname']!=$anonymous)
-               echo "<a href=\"powerpack.php?op=instant_message&amp;to_userid=".$posterdata['uname']."\" class=\"noir\">".$posterdata['uname']."</a>";
+               echo "<a href=\"powerpack.php?op=instant_message&amp;to_userid=".$posterdata['uname']."\">".$posterdata['uname']."</a>";
             else
                echo $posterdata['uname'];
             echo '<br />';
@@ -358,13 +353,11 @@ if (isset($submitS)) {
             echo "&nbsp;".translate("Posté : ").convertdate($myrow['post_time']);
             echo '<hr /> ';
             $message = stripslashes($myrow['post_text']);
-            if ($allow_bbcode) {
+            if ($allow_bbcode)
                $message = smilie($message);
-            }
             // <a href in the message
-            if (stristr($message,'<a href')) {
+            if (stristr($message,'<a href'))
                $message=preg_replace('#_blank(")#i','_blank\1 class=\1 \1',$message);
-            }
             $message = str_replace('[addsig]', '<br /><br />' . nl2br($posterdata['user_sig']), $message);
             echo $message.'<br />';
          }

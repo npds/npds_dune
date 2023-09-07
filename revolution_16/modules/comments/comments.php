@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -42,9 +42,12 @@ elseif ($moderate==2) {
 } else
    $Mmod=false;
 
-function Caff_pub($topic, $file_name, $archive) {
+function Caff_pub($topic, $file_name, $archive, $sid=null) {
    global $language;
-   $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
+   if(!isset($sid))
+      $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
+   else
+      $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'&amp;sid='.$sid.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
    return ($tmp);
 }
    if ($forum_access==0)
@@ -54,9 +57,11 @@ function Caff_pub($topic, $file_name, $archive) {
          $allow_to_post=true;
 
    global $anonymous;
+    if(!isset($sid))
+      $sid = null;
    settype($archive,'integer');
    if ($allow_to_post)
-      echo '<nav class="text-end my-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      echo '<nav class="text-end my-2">'.Caff_pub($topic,$file_name, $archive, $sid).'</nav>';
 
    // Pagination
    settype($C_start,'integer');
@@ -231,9 +236,9 @@ if ($mycount) {
       </div>';
       $count++;
     } while($myrow = sql_fetch_assoc($result));
-    unset ($tmp_imp); // not sure we need ?
+   unset ($tmp_imp); // not sure we need ?
 
-      echo '
+   echo '
       <div class="d-flex my-2 justify-content-between flex-wrap">
          <nav id="co-pagibasse">
             <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
@@ -254,20 +259,24 @@ if ($mycount) {
       </div>';
    if ($allow_to_post)
       echo '
-      <nav class="text-end mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      <nav class="text-end mb-2">'.Caff_pub($topic, $file_name, $archive, $sid).'</nav>';
    echo '
       <blockquote class="blockquote my-3">'.translate("Les commentaires sont la propriété de leurs auteurs. Nous ne sommes pas responsables de leur contenu.").'</blockquote>';
-   if ($Mmod)
-       echo '
+   if ($Mmod) {
+      echo '
       <nav class="text-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Outils administrateur").'</a>
             </li>
-            <li class="page-item">
-               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Effacer les commentaires.").'" data-bs-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>
-            </li>
+            <li class="page-item">';
+      if (!isset($sid))
+         echo '<a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Effacer les commentaires.").'" data-bs-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>';
+      else
+         echo '<a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'&amp;sid='.$sid.'" title="'.translate("Effacer les commentaires.").'" data-bs-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>';
+      echo '</li>
          </ul>
       </nav>';
+   }
 }
 ?>

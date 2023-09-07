@@ -432,14 +432,14 @@ function f_date($xdate) {
    $year = substr($xdate,0,4);
    $month = substr($xdate,5,2);
    $day = substr($xdate,8,2);
-   $fdate=date(str_replace("%",'',translate("linksdatestring")),mktime (0,0,0,$month,$day,$year));
+   $fdate=date(str_replace("%",'',translate("linksdatestring")),mktime (0,0,0,(int)$month,(int)$day,(int)$year));
    return $fdate;
 }
 
 function showcontent($id) {
    global $admin, $NPDS_Prefix;
    include ('header.php');
-   settype($id,'integer');
+   //settype($id,'integer');
    sql_query("UPDATE ".$NPDS_Prefix."reviews SET hits=hits+1 WHERE id='$id'");
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews WHERE id='$id'");
    $myrow = sql_fetch_assoc($result);
@@ -665,7 +665,7 @@ function del_review($id_del) {
 
 settype($op,'string');
 settype($hits,'integer');
-settype($id,'integer');
+//settype($id,'integer');
 settype($cover,'string');
 settype($asb_question,'string');
 settype($asb_reponse,'string');

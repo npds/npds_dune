@@ -19,9 +19,7 @@ $file_name="reviews";
 $forum=-3;
 
 // $topic : permet d'allouer un numéro UNIQUE pour chaque publication sur laquelle un commentaire peut être réalisé (article numéro X, sondage numéro Y, ...)
-settype($id,'integer');
-if ($id!='') $topic=$id;
-
+$topic = (!$id) ? $topic : $id;
 // $url_ret : URL de retour lorsque la soumission du commentaire est OK
 $url_ret="reviews.php?op=showcontent&id=$topic";
 
