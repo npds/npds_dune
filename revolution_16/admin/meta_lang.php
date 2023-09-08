@@ -5,7 +5,7 @@
 /*                                                                      */
 /* NEO - 2007                                                           */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -175,7 +175,7 @@ function Edit_Meta_Lang() {
    if ($Q['obligatoire'] != true) 
       echo '
    <h3>'.adm_translate("Modifier un ").' META-MOT</h3>';
-   echo aff_local_langue('<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language').'<br />';
+   echo aff_local_langue('','local_user_language').'<br />','<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>';
    echo '
    <div class="row">
       <div class="text-muted col-sm-3">META</div>

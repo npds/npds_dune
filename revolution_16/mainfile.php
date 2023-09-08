@@ -2711,7 +2711,7 @@ function PollNewest(int $id=null) : void {
 function bloc_langue() {
    global $block_title;
    $title = $block_title=='' ? translate("Choisir une langue") : $block_title;
-   themesidebox($title,aff_local_langue('' ,"index.php", "choice_user_language"));
+   themesidebox($title,aff_local_langue("index.php", "choice_user_language", ''));
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
 function bloc_rubrique() {

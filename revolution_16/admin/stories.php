@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -762,7 +762,7 @@ function editStory ($sid) {
    $result=sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext, $topicimage) = sql_fetch_row($result);
 
-   echo '<hr />'.aff_local_langue('<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language');
+   echo '<hr />'.aff_local_langue('','local_user_language','<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>');
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;

@@ -205,7 +205,7 @@ function FaqCatGoEdit($id) {
    <h4>'.adm_translate("Prévisualiser").'</h4>';
    echo'
    <label class="col-form-label" for="">'
-      .aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language').'
+      .aff_local_langue('','local_user_language',adm_translate("Langue de Prévisualisation")).'
    </label>
    <div class="card card-body mb-3">
    <p>'.preview_local_langue($local_user_language, $question).'</p>';
