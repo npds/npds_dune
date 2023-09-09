@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -222,7 +222,7 @@ function topicedit($topicid) {
       <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="url">'.adm_translate("URL").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="url" name="url" id="url" maxlength="200" placeholder="http://www.valideurl.org" />
+            <input class="form-control" type="url" name="url" id="url" maxlength="320" placeholder="http://www.valideurl.org" />
             <span class="help-block">'.adm_translate("max caractères").' : <span id="countcar_url"></span></span>
          </div>
       </div>
@@ -313,7 +313,7 @@ function topicedit($topicid) {
    inpandfieldlen("topictext",250);
    inpandfieldlen("topicimage",20);
    inpandfieldlen("name",30);
-   inpandfieldlen("url",200);
+   inpandfieldlen("url",320);
    ';
    echo auto_complete_multi('admin','aid','authors','topicadmin','');
    adminfoot('fv',$fv_parametres,$arg1,'');
@@ -356,7 +356,7 @@ function relatededit($tid, $rid) {
                  <span class="input-group-text">
                       <a href="'.$url.'" target="_blank"><i class="fas fa-external-link-alt fa-lg"></i></a>
                  </span>
-                 <input type="url" class="form-control" name="url" id="url" value="'.$url.'" maxlength="200" />
+                 <input type="url" class="form-control" name="url" id="url" value="'.$url.'" maxlength="320" />
                </div>
                <span class="help-block text-end"><span id="countcar_url"></span></span>
             </div>
@@ -374,7 +374,7 @@ function relatededit($tid, $rid) {
    //<![CDATA[
       $(document).ready(function() {
          inpandfieldlen("name",30);
-         inpandfieldlen("url",200);
+         inpandfieldlen("url",320);
       });
    //]]>
    </script>';
@@ -424,8 +424,15 @@ function topicchange($topicid, $topicname, $topicimage, $topictext, $topicadmin,
    }
    foreach ($topad as $value){//pour chaque droit adminsujet on regarde le nom de l'adminsujet
       if (!in_array($value, $topicadminX)) {//si le nom de l'adminsujet n'est pas dans les nouveaux adminsujet
-      //on cherche si il administre un aure sujet
-      $resu=sql_query("SELECT * FROM ".$NPDS_Prefix."topics WHERE topicadmin REGEXP '[[:<:]]".$value."[[:>:]]'");
+      //on cherche si il administre un autre sujet
+      $resu =  mysqli_get_client_info() <= '8.0' ?
+      sql_query("SELECT * FROM ".$NPDS_Prefix."topics WHERE topicadmin REGEXP '[[:<:]]".$value."[[:>:]]'") :
+      sql_query("SELECT * FROM ".$NPDS_Prefix."topics WHERE topicadmin REGEXP '\\b".$value."\\b'") ;
+
+
+//      $resu=sql_query("SELECT * FROM ".$NPDS_Prefix."topics WHERE topicadmin REGEXP '[[:<:]]".$value."[[:>:]]'");
+
+
       $nbrow = sql_num_rows($resu);
       list($tid) = sql_fetch_row($resu);
       if( ($nbrow==1) and ($topicid==$tid) ) {sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_aut_aid='$value' AND d_droits=11112 AND d_fon_fid=2");}
