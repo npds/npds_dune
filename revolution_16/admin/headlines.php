@@ -140,11 +140,10 @@ function HeadlinesEdit($hid) {
             <label class="col-form-label col-sm-4" for="status">'.adm_translate("Etat").'</label>
             <div class="col-sm-8">
                <select class="form-select" name="status">';
-   if ($status == 1)
-      $sel_a = 'selected="selected"';
-   else
-      $sel_i = 'selected="selected"';
+   $sel_a = $status == 1 ? 'selected="selected"' : '';
+   $sel_i = $status == 0 ? 'selected="selected"' : '';
    echo '
+
                   <option name="status" value="1" '.$sel_a.'>'.adm_translate("Actif(s)").'</option>
                   <option name="status" value="0" '.$sel_i.'>'.adm_translate("Inactif(s)").'</option>
                </select>
