@@ -802,10 +802,9 @@ function editStory ($sid) {
          }
       }
       if ($affiche) {
-         if ($topicid==$topic) $sel = 'selected="selected"';
+         $sel = $topicid==$topic ? 'selected="selected"' : '';
          echo '
                <option value="'.$topicid.'" '.$sel.'>'.aff_langue($topics).'</option>';
-         $sel = '';
       }
    }
    echo '
