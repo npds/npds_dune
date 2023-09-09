@@ -5,7 +5,7 @@
 /*                                                                      */
 /* BIG mod by JPB for NPDS-WS                                           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -314,7 +314,12 @@ function membre_add($gp) {
    var formulid = ["groupesaddmb"];
    inpandfieldlen("luname",255);
    ';
-   echo auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'[[:<:]]'.$gp.'[[:>:]]\'');
+   
+   echo  (mysqli_get_client_info() <= '8.0') ?
+      auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'[[:<:]]'.$gp.'[[:>:]]\'') : 
+      auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'\\b'.$gp.'\\b\'') ;  
+
+//   echo auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'[[:<:]]'.$gp.'[[:>:]]\'');
    adminfoot('fv','',$arg1,'');
 }
 
