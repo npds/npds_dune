@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2023 by Philippe Brunier                     */
 /* =========================                                            */
 /* Snipe 2003                                                           */
 /*                                                                      */
@@ -75,7 +75,7 @@ switch($apli) {
                // work with mimetypes.php for showing source'code
                if ($att_type=='text/source') {
                   include ('meta/meta.php');
-                  echo import_css($Default_Theme, $language, $site_font, '','');
+                  echo import_css($Default_Theme, $language, '', '','');
                   echo '
                   </head>
                   <body>

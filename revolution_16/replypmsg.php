@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -187,7 +187,7 @@ else {
       include("meta/meta.php");
       include("modules/include/header_before.inc");
       include("modules/include/header_head.inc");
-      echo import_css($tmp_theme, $language, $site_font, '','');
+      echo import_css($tmp_theme, $language, '', '','');
       echo '
    </head>
    <body class="my-4 mx-4">';

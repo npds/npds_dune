@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -64,7 +64,7 @@ global $Titlesitename;
          <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
    echo '
          <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />';//hardcoded lol
-   echo import_css($theme, $language, $site_font, '','');
+   echo import_css($theme, $language, '', '','');
    echo '
       </head>
    <body>';
