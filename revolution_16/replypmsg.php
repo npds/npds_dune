@@ -151,7 +151,7 @@ else {
       header("Location: viewpmsg.php");
    }
 
-   settype($delete,'integer');
+//   settype($delete,'integer');
    if ($delete) {
       if ($type=='outbox')
          $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND from_userid='".$userdata['uid']."' AND type_msg='1'";

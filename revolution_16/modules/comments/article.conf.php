@@ -19,12 +19,11 @@ $file_name='article';
 $forum=-1;
 
 // $topic : permet d'allouer un numéro UNIQUE pour chaque publication sur laquelle un commentaire peut être réalisé (article numéro X, sondage numéro Y, ...)
-$topic= $sid!='' ? $topic : $sid;
+if (isset($sid)) $topic=$sid;
 
  // $url_ret : URL de retour lorsque la soumission du commentaire est OK
 global $archive;
-settype($archive,'integer');
-$url_ret="article.php?sid=$sid&archive=$archive";
+$url_ret="article.php?sid=$topic&archive=$archive";
 
 // $formulaire : Formulaire SFORM si vous souhaitez avoir une grille de saisie en lieu et place de l'interface standard de saisie - sinon ""
 $formulaire='';
@@ -36,7 +35,7 @@ $comments_per_page=2;
 // $req_add = opération à effectuer lorsque je rajoute un commentaire
 // $req_del = opération à effectuer lorsque je cache un commentaire
 // $req_raz = opération à effectuer lorsque je supprime tous les commentaires
-$comments_req_add="stories SET comments=comments+1 WHERE sid='$sid'";
-$comments_req_del="stories SET comments=comments-1 WHERE sid='$sid'";
-$comments_req_raz="stories SET comments=0 WHERE sid='$sid'";
+$comments_req_add="stories SET comments=comments+1 WHERE sid='$topic'";
+$comments_req_del="stories SET comments=comments-1 WHERE sid='$topic'";
+$comments_req_raz="stories SET comments=0 WHERE sid='$topic'";
 ?>

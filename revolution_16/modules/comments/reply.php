@@ -24,9 +24,8 @@ if (file_exists("modules/comments/$file_name.conf.php"))
 else
    die();
 
-settype($cancel,'string');
 settype($url_ret,'string');
-if ($cancel)
+if (isset($cancel))
    header("Location: $url_ret");
 
 settype($forum,'integer');
@@ -296,16 +295,13 @@ if (isset($submitS)) {
       echo '</div>
       </div>';
 
-        echo Q_spambot();
-        if(!isset($sid)) $sid = null;
-        echo '
+     echo Q_spambot();
+     echo '
       <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="ModPath" value="comments" />
             <input type="hidden" name="ModStart" value="reply" />
             <input type="hidden" name="topic" value="'.$topic.'" />
-            <input type="hidden" name="sid" value="'.$sid.'" />
-            <input type="hidden" name="pollID" value="'.$topic.'" />
             <input type="hidden" name="file_name" value="'.$file_name.'" />
             <input type="hidden" name="archive" value="'.$archive.'" />
             <input class="btn btn-primary" type="submit" name="submitS" value="'.translate("Valider").'" />
@@ -332,27 +328,16 @@ if (isset($submitS)) {
          echo translate("Aperçu des sujets :");
          while($myrow = sql_fetch_assoc($result)) {
             $posterdata = get_userdata_from_id($myrow['poster_id']);
-            if ($posterdata['uname']!=$anonymous)
-               echo "<a href=\"powerpack.php?op=instant_message&amp;to_userid=".$posterdata['uname']."\">".$posterdata['uname']."</a>";
-            else
+            echo '
+            <div class="card my-3">
+               <div class="card-header">';
+               if ($smilies) echo userpopover($posterdata['uname'],'48');
                echo $posterdata['uname'];
-            echo '<br />';
+            echo '<span class="float-end text-muted small">'.translate("Posté : ").convertdate($myrow['post_time']).'
+               </span>
+               </div>
+               <div class="card-body">';
             $posts = $posterdata['posts'];
-            echo member_qualif($posterdata['uname'], $posts, $posterdata['rang']);
-            echo '<br /><br />';
-            if ($smilies) {
-               if ($posterdata['user_avatar'] != '') {
-                  if (stristr($posterdata['user_avatar'],"users_private")) {
-                     $imgtmp=$posterdata['user_avatar'];
-                  } else {
-                     if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
-                  }
-                  echo '<div class="avatar_cadre"><img src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" border="0" /></div>';
-               }
-            }
-
-            echo "&nbsp;".translate("Posté : ").convertdate($myrow['post_time']);
-            echo '<hr /> ';
             $message = stripslashes($myrow['post_text']);
             if ($allow_bbcode)
                $message = smilie($message);
@@ -360,7 +345,7 @@ if (isset($submitS)) {
             if (stristr($message,'<a href'))
                $message=preg_replace('#_blank(")#i','_blank\1 class=\1 \1',$message);
             $message = str_replace('[addsig]', '<br /><br />' . nl2br($posterdata['user_sig']), $message);
-            echo $message.'<br />';
+            echo $message.'<br /></div></div>';
          }
       }
    }

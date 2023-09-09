@@ -314,12 +314,9 @@ function membre_add($gp) {
    var formulid = ["groupesaddmb"];
    inpandfieldlen("luname",255);
    ';
-   
    echo  (mysqli_get_client_info() <= '8.0') ?
-      auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'[[:<:]]'.$gp.'[[:>:]]\'') : 
-      auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'\\b'.$gp.'\\b\'') ;  
-
-//   echo auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 and groupe not regexp \'[[:<:]]'.$gp.'[[:>:]]\'');
+      auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 AND groupe NOT REGEXP \'[[:<:]]'.$gp.'[[:>:]]\'') : 
+      auto_complete_multi ('membre','uname','users','luname','inner join users_status on users.uid=users_status.uid WHERE users.uid<>1 AND groupe NOT REGEXP \'\\b'.$gp.'\\b\'') ;  
    adminfoot('fv','',$arg1,'');
 }
 
@@ -797,12 +794,10 @@ function bloc_groupe_create($groupe_id) {
       $row=sql_fetch_row(sql_query("SELECT COUNT(id) FROM ".$NPDS_Prefix."rblocks WHERE content='$menu_workspace'"));
       if ($row[0]<>0)
          $bloc=true;
-   } else {
+   } else
       $bloc=true;
-   }
-   if ($bloc==false) {
+   if ($bloc==false)
       sql_query("INSERT INTO ".$NPDS_Prefix."lblocks VALUES (NULL, '', '$menu_workspace', '$groupe_id', '3', '0', '1', '0', NULL)");
-   }
 }
 
 switch ($op) {
@@ -896,9 +891,8 @@ switch ($op) {
             $groupe_id=$row[0]+1;
             $ok_grp=true;
          }
-      } else {
+      } else
          $ok_grp=true;
-      }
       if ($ok_grp) {
          sql_query("INSERT INTO ".$NPDS_Prefix."groupes VALUES ('$groupe_id', '$groupe_name','$groupe_description','0','0','0','0','0')");
          @mkdir('users_private/groupe/'.$groupe_id);

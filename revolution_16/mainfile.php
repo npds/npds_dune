@@ -1473,7 +1473,7 @@ function pollMain($pollID,$pollClose) {
    if ($pollcomm) {
       if (file_exists("modules/comments/pollBoth.conf.php"))
          include ("modules/comments/pollBoth.conf.php");
-      list($numcom) = sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$pollID' AND post_aff='1'"));
+      list($numcom) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$pollID' AND post_aff='1'"));
       $boxContent .= '
       <li class="list-group-item">'.translate("Commentaire(s) : ").' <span class="badge rounded-pill bg-secondary float-end">'.$numcom.'</span></li>';
    }
@@ -2559,124 +2559,77 @@ function headlines($hid='', $block=true) {
       $max_items = 6;
       $rss_timeout = 15;
       $rss_font = '<span class="small">';
+      if ( (!(file_exists($cache_file))) or (filemtime($cache_file)<(time()-$cache_time)) or (!(filesize($cache_file))) ) {
+         $rss=parse_url($url);
+         if ($rss_host_verif==true) {
+            $verif = fsockopen($rss['host'], 80, $errno, $errstr, $rss_timeout);
+            if ($verif) {
+               fclose($verif);
+               $verif=true;
+            }
+         } else
+            $verif=true;
+         if (!$verif) {
+            $cache_file_sec=$cache_file.".security";
+            if (file_exists($cache_file))
+               $ibid=rename($cache_file, $cache_file_sec);
+            themesidebox($boxtitle, "Security Error");
+            return;
+         } else {
+            if (!$long_chain) $long_chain=15;
+            $fpwrite = fopen($cache_file, 'w');
+            if ($fpwrite) {
+               fputs($fpwrite, "<ul>\n");
+               $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
+               $namespaces = $flux->getNamespaces(true); // get namespaces
+               $ic='';
+               //ATOM//
+               if($flux->entry) {
+                  $j=0;
+                  $cont='';
+                  foreach ($flux->entry as $entry) {
+                     if($entry->content) $cont=(string) $entry->content;
+                     fputs($fpwrite,'<li><a href="'.(string)$entry->link['href'].'" target="_blank" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
+                     if($j==$max_items) break;
+                     $j++;
+                  }
+               }
 
-    if ( (!(file_exists($cache_file))) or (filemtime($cache_file)<(time()-$cache_time)) or (!(filesize($cache_file))) ) {
-       $rss=parse_url($url);
-       if ($rss_host_verif==true) {
-          $verif = fsockopen($rss['host'], 80, $errno, $errstr, $rss_timeout);
-          if ($verif) {
-             fclose($verif);
-             $verif=true;
-          }
-       } else {
-          $verif=true;
-       }
+               if($flux->{'item'}) {
+                  $j=0;
+                  $cont='';
+                  foreach ($flux->item as $item) {
+                     if($item->description) $cont=(string) $item->description;
+                     fputs($fpwrite,'<li><a href="'.(string)$item->link['href'].'"  target="_blank" >'.(string) $item->title.'</a><br /></li>');
+                     if($j==$max_items) break;
+                     $j++;
+                  }
+               }
+               //RSS
+               if($flux->{'channel'}) {
+               $j=0;
+               $cont='';
+                  foreach ($flux->channel->item as $item) {
+                     if($item->description) $cont=(string) $item->description;
+                     fputs($fpwrite,'<li><a href="'.(string)$item->link.'"  target="_blank" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
+                     if($j==$max_items) break;
+                     $j++;
+                  }
+               }
 
-       if (!$verif) {
-          $cache_file_sec=$cache_file.".security";
-          if (file_exists($cache_file)) {
-             $ibid=rename($cache_file, $cache_file_sec);
-          }
-          themesidebox($boxtitle, "Security Error");
-          return;
-       } else {
-       
-/*
-          if (isset($proxy_url[$hid])) {
-             $fpread=fsockopen($proxy_url[$hid],$proxy_port[$hid],$errno,$errstr,$rss_timeout);
-             fputs($fpread,"GET $headlinesurl/ HTTP/1.0\n\n");
-          } else {
-             $fpread = fopen($headlinesurl, 'r');
-          }
-*/
-          if (!$long_chain) {$long_chain=15;}
+               $j=0;
+               if($flux->image) $ico='<img class="img-fluid" src="'.$flux->image->url.'" />&nbsp;'; 
+               foreach ($flux->item as $item) {
+                  fputs($fpwrite,'<li>'.$ico.'<a href="'.(string) $item->link.'" target="_blank" >'.(string) $item->title.'</a></li>');
+                  if($j==$max_items) break;
+                  $j++;
+               }
 
-
-//           if ($fpread) {
-             $fpwrite = fopen($cache_file, 'w');
-             if ($fpwrite) {
-                fputs($fpwrite, "<ul>\n");
-/*                while (!feof($fpread)) {
-                   $buffer = ltrim(Chop(fgets($fpread, 512)));
-                   if (($buffer == "<item>") and ($items < $max_items)) {
-                      $title = ltrim(Chop(fgets($fpread, 256)));
-                      $link = ltrim(Chop(fgets($fpread, 256)));
-                      $title = str_replace( "<title>", "", $title );
-                      $title = str_replace( "</title>", "", $title );
-                      $link = str_replace( "<link>", "", $link );
-                      $link = str_replace( "</link>", "", $link );
-
-                      if (function_exists("mb_detect_encoding")) {
-                         $encoding=mb_detect_encoding($title);
-                      } else {
-                         $encoding="UTF-8";
-                      }
-                    $title=$look_title=iconv($encoding,cur_charset."//TRANSLIT", $title);
-                      if ($block) {
-                         if (strlen($look_title)>$long_chain) {
-                            $title=(substr($look_title, 0, $long_chain))." ...";
-                         }
-                      }
-                      fputs($fpwrite,"<li><a href=\"$link\" alt=\"$look_title\" title=\"$look_title\" target=\"_blank\">$title</a></li>\n");
-                      $items++;
-                   }
-                }
-*/
-
-// this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome ! à peaufiner ...
-   $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
-   $namespaces = $flux->getNamespaces(true); // get namespaces
-   $ic='';
-   //ATOM//
-   if($flux->entry) {
-      $j=0;
-      $cont='';
-      foreach ($flux->entry as $entry) {
-         if($entry->content) $cont=(string) $entry->content;
-         fputs($fpwrite,'<li><a href="'.(string)$entry->link['href'].'" target="_blank" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
-         if($j==$max_items) break;
-         $j++;
+               fputs($fpwrite, "\n".'</ul>');
+               fclose($fpwrite);
+            }
+         }
       }
-   }
-   
-   if($flux->{'item'}) {
-   $j=0;
-   $cont='';
-      foreach ($flux->item as $item) {
-         if($item->description) $cont=(string) $item->description;
-         fputs($fpwrite,'<li><a href="'.(string)$item->link['href'].'"  target="_blank" >'.(string) $item->title.'</a><br /></li>');
-         if($j==$max_items) break;
-         $j++;
-      }
-   }
-   //RSS
-   if($flux->{'channel'}) {
-   $j=0;
-   $cont='';
-      foreach ($flux->channel->item as $item) {
-         if($item->description) $cont=(string) $item->description;
-         fputs($fpwrite,'<li><a href="'.(string)$item->link.'"  target="_blank" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
-         if($j==$max_items) break;
-         $j++;
-      }
-   }
-   
-   $j=0;
-   if($flux->image) $ico='<img class="img-fluid" src="'.$flux->image->url.'" />&nbsp;'; 
-   foreach ($flux->item as $item) {
-      fputs($fpwrite,'<li>'.$ico.'<a href="'.(string) $item->link.'" target="_blank" >'.(string) $item->title.'</a></li>');
-      if($j==$max_items) break;
-      $j++;
-   }
-
-                fputs($fpwrite, "\n".'</ul>');
-                fclose($fpwrite);
-             }
-//              fclose($fpread);
-//           }
-       }
-    }
-
       if (file_exists($cache_file)) {
          ob_start();
          $ibid=readfile($cache_file);
@@ -2684,7 +2637,7 @@ function headlines($hid='', $block=true) {
          ob_end_clean();
       }
       $boxstuff .= '
-         <div class="text-end"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
+            <div class="text-end"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
       if ($block) {
          themesidebox($boxtitle, $boxstuff);
          $boxstuff='';
@@ -2716,11 +2669,11 @@ function bloc_langue() {
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
 function bloc_rubrique() {
    global $NPDS_Prefix, $language, $user;
-   $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' AND rubname<>'divers' ORDER BY ordre");
+   $result = sql_query("SELECT rubid, rubname, ordre FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' AND rubname<>'divers' ORDER BY ordre");
    $boxstuff = '<ul>';
    while (list($rubid, $rubname) = sql_fetch_row($result)) {
       $title=aff_langue($rubname);
-      $result2 = sql_query("SELECT secid, secname, userlevel FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
+      $result2 = sql_query("SELECT secid, secname, userlevel, ordre FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
       $boxstuff.='<li><strong>'.$title.'</strong></li>';
       //$ibid++;//??? only for notice ???
       while (list($secid, $secname, $userlevel) = sql_fetch_row($result2)) {
@@ -2784,10 +2737,11 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $content.='<p>'.aff_langue($rsql['groupe_description']).'</p>'."\n";
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
       $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-fluid mx-auto d-block rounded" alt="'.translate("Groupe").'" loading="lazy" />';
-
    //=> liste des membres
    $li_mb=''; $li_ic='';
-   $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
+   $result = mysqli_get_client_info() <= '8.0' ?
+      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC") :
+      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE `groupe` REGEXP \"\\\\b$gr\\\\b\" ORDER BY uid ASC;") ;
    $nb_mb=sql_num_rows ($result);
    $count=0;
    $li_mb.='

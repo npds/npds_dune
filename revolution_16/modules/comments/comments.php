@@ -42,12 +42,9 @@ elseif ($moderate==2) {
 } else
    $Mmod=false;
 
-function Caff_pub($topic, $file_name, $archive, $sid=null) {
+function Caff_pub($topic, $file_name, $archive) {
    global $language;
-   if(!isset($sid))
-      $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
-   else
-      $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'&amp;sid='.$sid.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
+      $tmp='<a href="modules.php?ModPath=comments&ModStart=reply&topic='.$topic.'&file_name='.$file_name.'&archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
    return ($tmp);
 }
    if ($forum_access==0)
@@ -57,14 +54,14 @@ function Caff_pub($topic, $file_name, $archive, $sid=null) {
          $allow_to_post=true;
 
    global $anonymous;
-    if(!isset($sid))
-      $sid = null;
-   settype($archive,'integer');
+   if(!isset($archive))
+      $archive=0;
    if ($allow_to_post)
-      echo '<nav class="text-end my-2">'.Caff_pub($topic,$file_name, $archive, $sid).'</nav>';
+      echo '<nav class="text-end my-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
 
    // Pagination
-   settype($C_start,'integer');
+   if(!isset($C_start))
+      $C_start=0;
    settype($comments_per_page,'integer');
    $result=sql_query ("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic' AND post_aff='1'");
    list($total)=sql_fetch_row($result);
@@ -259,7 +256,7 @@ if ($mycount) {
       </div>';
    if ($allow_to_post)
       echo '
-      <nav class="text-end mb-2">'.Caff_pub($topic, $file_name, $archive, $sid).'</nav>';
+      <nav class="text-end mb-2">'.Caff_pub($topic, $file_name, $archive).'</nav>';
    echo '
       <blockquote class="blockquote my-3">'.translate("Les commentaires sont la propriété de leurs auteurs. Nous ne sommes pas responsables de leur contenu.").'</blockquote>';
    if ($Mmod) {
@@ -269,12 +266,9 @@ if ($mycount) {
             <li class="page-item disabled">
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Outils administrateur").'</a>
             </li>
-            <li class="page-item">';
-      if (!isset($sid))
-         echo '<a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Effacer les commentaires.").'" data-bs-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>';
-      else
-         echo '<a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'&amp;sid='.$sid.'" title="'.translate("Effacer les commentaires.").'" data-bs-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>';
-      echo '</li>
+            <li class="page-item">
+               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Effacer les commentaires.").'" data-bs-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>
+            </li>
          </ul>
       </nav>';
    }

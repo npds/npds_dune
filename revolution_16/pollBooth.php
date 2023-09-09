@@ -83,7 +83,7 @@ function pollList() {
    </div>';
 }
 
-function pollResults($pollID) {
+function pollResults(int $pollID): void {
    global $NPDS_Prefix, $maxOptions, $setCookies;
 
    if (!isset($pollID) OR empty($pollID)) $pollID = 1;
@@ -99,8 +99,13 @@ function pollResults($pollID) {
      for ($i = 1; $i <= $maxOptions; $i++) {
         $result = sql_query("SELECT optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID') AND (voteID='$i')");
         $object = sql_fetch_assoc($result);
-        $optionText = $object['optionText'];
-        $optionCount = $object['optionCount'];
+         if (!is_null($object)) {
+           $optionText = $object['optionText'];
+           $optionCount = $object['optionCount'];
+        } else {
+           $optionText = '';
+           $optionCount = 0;
+        }
         if ($optionText!= "") {
            if ($sum) {
               $percent = 100*$optionCount/$sum;
@@ -197,7 +202,6 @@ if (!isset($pollID)) {
    pollList();
 }
 
-settype($pollID,'integer');
 settype($op,'string');
 
 if (isset($forwarder)) {
