@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -29,14 +29,13 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
       <nav>
          <ul class="pagination pagination-sm d-flex flex-wrap my-2">';
       for ($j=1;$j<=ceil($ubound/$perpage);$j++) {
-          if ($j==$startpage+1)
-             $contentT.='
-             <li class=" page-item active"><a class="page-link" href="#">'.$j.'</a></li>';
-          else
-             $contentT.='
-             <li class="page-item"><a href="minisite.php?op='.$op.'&amp;startpage='.$j.'" class="page-link blog_lien">'.$j.'</a></li>';
+         $contentT.= ($j==$startpage+1) ?
+            '
+             <li class=" page-item active"><a class="page-link" href="#">'.$j.'</a></li>' :
+            '
+             <li class="page-item"><a href="minisite.php?op='.$op.'&amp;startpage='.$j.'" class="page-link blog_lien">'.$j.'</a></li>' ;
       }
-       $contentT.='
+      $contentT.='
          </ul>
       </nav>';
    }
@@ -49,7 +48,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
          $xnews=array_reverse($xnews);
          $fp=fopen($blog_file,"w");
          for ($j=0;$j<count($xnews);$j++) {
-             fwrite($fp,$xnews[$j]);
+            fwrite($fp,$xnews[$j]);
          }
          fclose($fp);
          redirect_url("minisite.php?op=$op");
@@ -65,11 +64,10 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             $formatted=str_replace("\n",'<br />',$formatted);
          } else {
             $formatted=str_replace("\r\n",'',$story);
-            $formatted=str_replace('<img','<img class="img-fluid" ',$story);
             $formatted=str_replace("\n",'',$formatted);
          }
          $newsto=date("d m Y").'!;!'.$title.'!;!'.$formatted;
-         dataimagetofileurl($newsto, 'users_private/'.$op.'/mns');
+         $newsto = dataimagetofileurl($newsto, 'users_private/'.$op.'/mns');
          fwrite($fp,StripSlashes($newsto)."\n");
          fclose($fp);
          redirect_url("minisite.php?op=$op");
@@ -109,10 +107,10 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             $formatted=str_replace("\n",'<br />',$formatted);
          } else {
             $formatted=str_replace("\r\n",'',$story);
-            $formatted=str_replace("<img",'<img class="img-fluid" ',$story); // a revoir ??
             $formatted=str_replace("\n",'',$formatted);
          }
          $newsto=date("d m Y").'!;!'.$title.'!;!'.$formatted;
+         $newsto = dataimagetofileurl($newsto, 'users_private/'.$op.'/mns');
          $xnews[$index]=StripSlashes($newsto)."\n";
          $xnews=array_reverse($xnews);
          $fp=fopen($blog_file,"w");
@@ -139,8 +137,8 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
             <div class="mb-3">
                <label class="form-label" for="story" >'.translate("Texte complet").'</label>
                <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
-      $content.="&nbsp;!blog_editeur!";
-      $content.='
+         $content.="&nbsp;!blog_editeur!";
+         $content.='
             </div>
             <div class="mb-3">
                <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
