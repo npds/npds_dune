@@ -14,7 +14,7 @@ Ses points forts : sa richesse fonctionnelle, sa sécurité, sa rapidité, sa fa
 
 ## Required  
 un serveur (local ou distant : Lamp, Wamp ...) avec
-- php >= 5.6  
+- php >= 7  
 - mysql >= 5.5.3
 - une base de donnée existante 
 
