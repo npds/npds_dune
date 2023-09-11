@@ -134,11 +134,7 @@ function Minisites($chng_mns,$chng_uname) {
       include ("modules/upload/upload.conf.php");
       if ($DOCUMENTROOT=='') {
          global $DOCUMENT_ROOT;
-         if ($DOCUMENT_ROOT) {
-            $DOCUMENTROOT=$DOCUMENT_ROOT;
-         } else {
-            $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
-         }
+         $DOCUMENTROOT = ($DOCUMENT_ROOT) ? $DOCUMENT_ROOT : $_SERVER['DOCUMENT_ROOT'] ;
       }
       $user_dir=$DOCUMENTROOT.$racine."/users_private/".$chng_uname;
       $repertoire=$user_dir."/mns";
