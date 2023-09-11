@@ -3,7 +3,7 @@
 /* NPDS DUNE : Net Portal Dynamic System .                              */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -27,9 +27,9 @@ echo '
             (tarteaucitron.job = tarteaucitron.job || []).push("vimeo");
             (tarteaucitron.job = tarteaucitron.job || []).push("youtube");
             (tarteaucitron.job = tarteaucitron.job || []).push("dailymotion");
-            //tarteaucitron.user.gtagUa = "";
-            tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
-            (tarteaucitron.job = tarteaucitron.job || []).push("gtag");
+            //tarteaucitron.user.gtagUa = ""; /*uncomment the line and add your gtag*/
+            //tarteaucitron.user.gtagMore = function () { /* uncomment the line add here your optionnal gtag() */ };
+            //(tarteaucitron.job = tarteaucitron.job || []).push("gtag");
          //]]
       </script>';
 // <== core
