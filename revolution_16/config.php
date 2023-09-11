@@ -3,7 +3,7 @@
 # DUNE by NPDS : Net Portal Dynamic System
 # ===================================================
 #
-# This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier
+# This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier
 #
 # This module is to configure the main options for your site
 #
@@ -79,7 +79,7 @@ $not_used2 = '';
 # $Start_Page:     Default Page for your site (default : index.php but you can use : topics.php, links.php ...)
 # $foot(x):        Messages for all footer pages (Can include HTML code)
 # $anonymous:      Anonymous users Default Name
-# $site_font:      Font for your entire site (Comma separated for many fonts type)
+# $not_used3:      unused
 # $minpass:        Minimum character for users passwords
 # $show_user:      Number off user showed in memberslist page
 ######################################################################
@@ -92,8 +92,8 @@ $sitename = "NPDS REvolution 16";
 $Titlesitename = "NPDS - Gestion de Contenu et de Communaut&eacute; - Open Source";
 $nuke_url = "http://localhost";
 $site_logo = "images/npds_p.gif";
-$slogan = "NPDS REvolution 16";
-$startdate = "21/12/2021";
+$slogan = "NPDS REvolution 16.8";
+$startdate = "21/12/2023";
 $anonpost = 1;
 $troll_limit = 5;
 $moderate = 1;
@@ -112,7 +112,7 @@ $foot2 = "Tous les Logos et Marques sont d&eacute;pos&eacute;s, les commentaires
 $foot3 = "";
 $foot4 = "";
 $anonymous = "Visiteur";
-$site_font = "Verdana, Arial, Helvetica";
+$not_used3 = '';
 $minpass = 8;
 $show_user = 20;
 
@@ -319,7 +319,7 @@ $tiny_mce = true;
 
 $NPDS_Prefix = "";
 $NPDS_Key = "";
-$Version_Num = "v.16.4";
+$Version_Num = "v.16.8";
 $Version_Id = "NPDS";
 $Version_Sub = "REvolution";
 
