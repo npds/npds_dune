@@ -1299,6 +1299,18 @@ function savejournal($uid, $journal, $datetime){
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($vuid) = sql_fetch_row($result);
    if ($uid == $vuid) {
+      include ("modules/upload/upload.conf.php");
+      if ($DOCUMENTROOT=='') {
+         global $DOCUMENT_ROOT;
+         $DOCUMENTROOT = ($DOCUMENT_ROOT) ? $DOCUMENT_ROOT : $_SERVER['DOCUMENT_ROOT'] ;
+      }
+      $user_dir=$DOCUMENTROOT.$racine."/users_private/".$cookie[1];
+      if (!is_dir($user_dir)) {
+         mkdir($user_dir,0777);
+         $fp = fopen($user_dir.'/index.html', 'w');
+         fclose($fp);
+         chmod($user_dir.'/index.html', 0644);
+      }
       $journal = dataimagetofileurl($journal,'users_private/'.$cookie[1].'/jou');//
       $journal = removeHack(stripslashes(FixQuotes($journal)));
       if ($datetime) {
