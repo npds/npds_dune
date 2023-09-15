@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,12 +14,8 @@
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-
 include('functions.php');
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else 
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj = $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
 include('auth.php');
 global $NPDS_Prefix,$admin;
 
@@ -268,7 +264,8 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
             echo '
                <td>'.$image.'</td>';
             if ($image_subject != '') {
-               if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
+               $imgtmp = $ibid=theme_image("forum/subject/$image_subject") ?
+                  $ibid : "images/forum/subject/$image_subject";
                echo '
                <td><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
             } else 
@@ -385,11 +382,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
        if ($res = sql_query($sub_sql)) {
           while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
              if (($forum_type != '9') or ($userdata)) {
-                if (($forum_type == '7') or ($forum_type == '5')) {
-                   $ok_affich=false;
-                } else {
-                   $ok_affich=true;
-                }
+                $ok_affich = (($forum_type != '9') or ($userdata)) ? false : true ;
                 if ($ok_affich) echo '<option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
              }
           }
