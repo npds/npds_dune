@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,7 +14,7 @@
 
 if (!function_exists('admindroits'))
    include('die.php');
-$f_meta_nom ='blocks';// à voir si on réimplémente les droits spécifique droit et gauche
+$f_meta_nom ='blocks';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -83,7 +83,7 @@ function deletelblock($id) {
 }
 
 settype($css,'integer');
-settype($Mmember,'string');
+$Mmember = isset($Mmember) ? $Mmember : '' ;
 settype($Sactif,'string');
 settype($SHTML,'string');
 
