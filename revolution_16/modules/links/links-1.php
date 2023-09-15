@@ -110,11 +110,12 @@ function AddLink() {
          </div>';
         echo aff_editeur('xtext','');
         global $cookie;
+        $nom = isset($cookie) ? $cookie[1] : '' ;
         echo '
          <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="name">'.translate("Votre nom").'</label>
             <div class="col-sm-9">
-               <input type="text" class="form-control" id="name" name="name" maxlength="60" value="'.$cookie[1].'" required="required" />
+               <input type="text" class="form-control" id="name" name="name" maxlength="60" value="'.$nom.'" required="required" />
             </div>
          </div>
          <div class="mb-3 row">
