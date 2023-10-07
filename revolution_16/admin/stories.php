@@ -116,7 +116,7 @@ function SelectCategory($cat) {
 
 // CATEGORIES
 function AddCategory () {
-   global $NPDS_Prefix, $hlpfile, $language, $aid, $radminsuper,$adminimg;
+   global $hlpfile, $language, $aid, $radminsuper,$adminimg;
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Articles");
    //==> controle droit
@@ -150,6 +150,7 @@ function AddCategory () {
    inpandfieldlen("title",255);';
    adminfoot('fv','',$arg1,'');
 }
+
 function SaveCategory($title) {
    global $NPDS_Prefix, $aid, $f_meta_nom, $adminimg;
 

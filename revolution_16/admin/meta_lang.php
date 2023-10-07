@@ -19,7 +19,7 @@ $f_titre = 'META-LANG';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-global $language, $NPDS_Prefix;
+global $language;
 $hlpfile = 'manuels/'.$language.'/meta_lang.html';
 
 function go_back($label) {
@@ -291,7 +291,7 @@ function Edit_Meta_Lang() {
 }
 
 function Creat_Meta_Lang() {
-   global $NPDS_Prefix, $hlpfile, $type_meta, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $type_meta, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -302,7 +302,6 @@ function Creat_Meta_Lang() {
    if (!$type_meta)
       echo adm_translate("Veuillez choisir un type de META-MOT").' ';
    echo list_meta_type($type_meta);
-//   echo $type_meta;
    if ($type_meta) {
       echo '
       <div class="mb-3 row">

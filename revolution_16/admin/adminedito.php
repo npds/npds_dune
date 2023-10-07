@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Manage the EDITO (static/edito.txt) of your web site                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -18,7 +18,7 @@ $f_titre = adm_translate("Edito");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-global $language, $NPDS_Prefix;
+global $language;
 $hlpfile = "manuels/$language/edito.html";
 
 function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
@@ -44,11 +44,10 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
    adminfoot('','','','');
 
    } else {
-      if ($edito_type=='G') {
+      if ($edito_type=='G')
          $edito_typeL=' '.adm_translate("Anonyme");
-      } elseif ($edito_type=='M') {
+      elseif ($edito_type=='M')
          $edito_typeL=' '.adm_translate("Membre");;
-      }
       if (strpos($contents,'[/jour]')>0) {
          $contentJ=substr($contents,strpos($contents,'[jour]')+6,strpos($contents,'[/jour]')-6);
          $contentN=substr($contents,strpos($contents,'[nuit]')+6,strpos($contents,'[/nuit]')-19-strlen($contentJ));
@@ -125,77 +124,73 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          }
       }
    },
-
-   
-   
    ';
    adminfoot('fv',$fv_parametres,$arg1,'');
    }
 }
 
 function edito_mod_save($edito_type, $XeditoJ, $XeditoN, $aff_jours, $aff_jour, $aff_nuit) {
-    if ($aff_jours<=0) {$aff_jours='999';}
-    if ($edito_type=='G') {
-       $fp=fopen("static/edito.txt","w");
-       fputs($fp,"[jour]".str_replace('&quot;','"',stripslashes($XeditoJ)).'[/jour][nuit]'.str_replace('&quot;','"',stripslashes($XeditoN)).'[/nuit]');
-       fputs($fp,'aff_jours='.$aff_jours);
-       fputs($fp,'&aff_jour='.$aff_jour);
-       fputs($fp,'&aff_nuit='.$aff_nuit);
-       fputs($fp,'&aff_date='.time());
-       fclose($fp);
-    }  elseif ($edito_type=='M') {
-       $fp=fopen('static/edito_membres.txt','w');
-       fputs($fp,'[jour]'.str_replace('&quot;','"',stripslashes($XeditoJ)).'[/jour][nuit]'.str_replace('&quot;','"',stripslashes($XeditoN)).'[/nuit]');
-       fputs($fp,'aff_jours='.$aff_jours);
-       fputs($fp,'&aff_jour='.$aff_jour);
-       fputs($fp,'&aff_nuit='.$aff_nuit);
-       fputs($fp,'&aff_date='.time());
-       fclose($fp);
-    }
-    global $aid; Ecr_Log('security', "editoSave () by AID : $aid", '');
+   if ($aff_jours<=0) {$aff_jours='999';}
+   if ($edito_type=='G') {
+      $fp=fopen("static/edito.txt","w");
+      fputs($fp,"[jour]".str_replace('&quot;','"',stripslashes($XeditoJ)).'[/jour][nuit]'.str_replace('&quot;','"',stripslashes($XeditoN)).'[/nuit]');
+      fputs($fp,'aff_jours='.$aff_jours);
+      fputs($fp,'&aff_jour='.$aff_jour);
+      fputs($fp,'&aff_nuit='.$aff_nuit);
+      fputs($fp,'&aff_date='.time());
+      fclose($fp);
+   }  elseif ($edito_type=='M') {
+      $fp=fopen('static/edito_membres.txt','w');
+      fputs($fp,'[jour]'.str_replace('&quot;','"',stripslashes($XeditoJ)).'[/jour][nuit]'.str_replace('&quot;','"',stripslashes($XeditoN)).'[/nuit]');
+      fputs($fp,'aff_jours='.$aff_jours);
+      fputs($fp,'&aff_jour='.$aff_jour);
+      fputs($fp,'&aff_nuit='.$aff_nuit);
+      fputs($fp,'&aff_date='.time());
+      fclose($fp);
+   }
+   global $aid; Ecr_Log('security', "editoSave () by AID : $aid", '');
 
-    redirect_url('admin.php?op=Edito');
+   redirect_url('admin.php?op=Edito');
 }
 
 switch ($op) {
-    case 'Edito_save':
-        edito_mod_save($edito_type, $XeditoJ, $XeditoN, $aff_jours, $aff_jour, $aff_nuit);
-        break;
-
-    case 'Edito_load':
-        if ($edito_type=='G') {
-           if (file_exists('static/edito.txt')) {
-              $fp=fopen('static/edito.txt','r');
-              if (filesize('static/edito.txt')>0)
-                 $Xcontents=fread($fp,filesize('static/edito.txt'));
-              fclose($fp);
-           }
-        } elseif ($edito_type=='M') {
-           if (file_exists('static/edito_membres.txt')) {
-              $fp=fopen('static/edito_membres.txt','r');
-              if (filesize('static/edito_membres.txt')>0)
-                 $Xcontents=fread($fp,filesize('static/edito_membres.txt'));
-              fclose($fp);
-           }
-        }
-        $Xcontents=preg_replace('#<!--|/-->#', '', $Xcontents);
-        if ($Xcontents=='') {
-           $Xcontents='Edito ...';
-        } else {
-           $ibid=strstr($Xcontents,'aff_jours');
-           parse_str($ibid,$Xibidout);
-        }
-        if ($Xibidout['aff_jours']) {
-           $Xcontents=substr($Xcontents,0,strpos($Xcontents,'aff_jours'));
-        } else {
-           $Xibidout['aff_jours']=20;
-           $Xibidout['aff_jour']='checked="checked"';
-           $Xibidout['aff_nuit']='checked="checked"';
-        }
-        edito($edito_type, $Xcontents, $Xibidout['aff_jours'], $Xibidout['aff_jour'], $Xibidout['aff_nuit']);
-        break;
-    default:
-        edito('','','','','');
-        break;
+   case 'Edito_save':
+      edito_mod_save($edito_type, $XeditoJ, $XeditoN, $aff_jours, $aff_jour, $aff_nuit);
+   break;
+   case 'Edito_load':
+      if ($edito_type=='G') {
+         if (file_exists('static/edito.txt')) {
+            $fp=fopen('static/edito.txt','r');
+            if (filesize('static/edito.txt')>0)
+               $Xcontents=fread($fp,filesize('static/edito.txt'));
+            fclose($fp);
+         }
+      } elseif ($edito_type=='M') {
+         if (file_exists('static/edito_membres.txt')) {
+            $fp=fopen('static/edito_membres.txt','r');
+            if (filesize('static/edito_membres.txt')>0)
+               $Xcontents=fread($fp,filesize('static/edito_membres.txt'));
+            fclose($fp);
+         }
+      }
+      $Xcontents=preg_replace('#<!--|/-->#', '', $Xcontents);
+      if ($Xcontents=='')
+         $Xcontents='Edito ...';
+      else {
+         $ibid=strstr($Xcontents,'aff_jours');
+         parse_str($ibid,$Xibidout);
+      }
+      if ($Xibidout['aff_jours'])
+         $Xcontents=substr($Xcontents,0,strpos($Xcontents,'aff_jours'));
+      else {
+         $Xibidout['aff_jours']=20;
+         $Xibidout['aff_jour']='checked="checked"';
+         $Xibidout['aff_nuit']='checked="checked"';
+      }
+      edito($edito_type, $Xcontents, $Xibidout['aff_jours'], $Xibidout['aff_jour'], $Xibidout['aff_nuit']);
+   break;
+   default:
+     edito('','','','','');
+   break;
 }
 ?>

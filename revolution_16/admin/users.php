@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -278,7 +278,7 @@ function nonallowedUsers() {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $newsuti = sql_query("SELECT u.uid, u.uname, u.name, u.user_regdate FROM ".$NPDS_Prefix."users AS u LEFT JOIN users_status AS us ON u.uid = us.uid WHERE us.open='0' ORDER BY u.user_regdate DESC");
+   $newsuti = sql_query("SELECT u.uid, u.uname, u.name, u.user_regdate FROM ".$NPDS_Prefix."users AS u LEFT JOIN ".$NPDS_Prefix."users_status AS us ON u.uid = us.uid WHERE us.open='0' ORDER BY u.user_regdate DESC");
    echo '
    <hr />
    <h3>'.adm_translate("Utilisateur(s) en attente de validation").'<span class="badge bg-secondary float-end">'.sql_num_rows($newsuti).'</span></h3>

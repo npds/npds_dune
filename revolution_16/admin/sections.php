@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Major changes from ALAT 2004-2005                                    */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -344,7 +344,7 @@ function sections() {
       echo  '
       <hr />
       <h3 class="mb-3"><a name="droits des auteurs"><i class="fa fa-user-edit me-2"></i>'.adm_translate("Droits des auteurs").'</a></h3>';
-      $result = sql_query("SELECT aid, name, radminsuper FROM authors");
+      $result = sql_query("SELECT aid, name, radminsuper FROM ".$NPDS_Prefix."authors");
       echo '<div class="row">';
       while(list($Xaid, $name, $Xradminsuper) = sql_fetch_row($result)) {
          if (!$Xradminsuper) {
@@ -1000,7 +1000,7 @@ function secartpublish($artid, $secid, $title, $content, $author, $members, $Mme
       sql_query("INSERT INTO ".$NPDS_Prefix."seccont VALUES (NULL,'$secid','$title','$content', '0', '$author', '99', '$members', '$timestamp')");
       global $aid; Ecr_Log('security', "PublicateArticleSections($artid, $secid, $title) by AID : $aid", '');
 
-      $result = sql_query("SELECT email FROM authors WHERE aid='$author'");
+      $result = sql_query("SELECT email FROM ".$NPDS_Prefix."authors WHERE aid='$author'");
       list($lemail) = sql_fetch_row($result);
       $sujet = html_entity_decode(adm_translate("Validation de votre publication"),ENT_COMPAT | ENT_HTML401,cur_charset);
       $message = adm_translate("La publication que vous aviez en attente vient d'être validée");

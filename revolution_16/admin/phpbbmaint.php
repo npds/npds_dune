@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -89,11 +89,8 @@ function ForumMaintTopics($before,$forum_name) {
       $add_sql='';
       $topic_check='';
    }
-   if ($forum_name!='')
-      $add_sql2="WHERE forum_name='$forum_name'";
-   else
-      $add_sql2='';
 
+   $add_sql2 = $forum_name!='' ? "WHERE forum_name='$forum_name'" : '';
    echo '
    <form action="admin.php" method="post">';
    $resultF=sql_query("SELECT forum_id, forum_name FROM ".$NPDS_Prefix."forums $add_sql2 ORDER BY forum_id ASC");
@@ -153,70 +150,70 @@ function ForumMaintTopicDetail($topic, $topic_title) {
 }
 
 function ForumMaintTopicMassiveSup($topics) {
-    global $NPDS_Prefix;
-    if ($topics) {
-       foreach($topics as $topic_id => $value) {
-          if ($value=='on') {
-             $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topic_id'";
-             if (!$result = sql_query($sql))
-                forumerror('0009');
-             $sql = "DELETE FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topic_id'";
-             if (!$result = sql_query($sql))
-                forumerror('0010');
-             $sql = "DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id'";
-             if (!$r = sql_query($sql))
-                forumerror('0001');
-             control_efface_post("forum_npds","",$topic_id,"");
-          }
-       }
-       sql_free_result();
-    }
-    Q_Clean();
-    header("location: admin.php?op=MaintForumAdmin");
+   global $NPDS_Prefix;
+   if ($topics) {
+      foreach($topics as $topic_id => $value) {
+         if ($value=='on') {
+            $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topic_id'";
+            if (!$result = sql_query($sql))
+               forumerror('0009');
+            $sql = "DELETE FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topic_id'";
+            if (!$result = sql_query($sql))
+               forumerror('0010');
+            $sql = "DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id'";
+            if (!$r = sql_query($sql))
+               forumerror('0001');
+            control_efface_post("forum_npds","",$topic_id,"");
+         }
+      }
+      sql_free_result();
+   }
+   Q_Clean();
+   header("location: admin.php?op=MaintForumAdmin");
 }
 
 function ForumMaintTopicSup($topic) {
-    global $NPDS_Prefix;
-    $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topic'";
-    if (!$result = sql_query($sql))
-       forumerror('0009');
-    $sql = "DELETE FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topic'";
-    if (!$result = sql_query($sql))
-       forumerror('0010');
-    $sql = "DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic'";
-    if (!$r = sql_query($sql))
-       forumerror('0001');
-    sql_free_result();
-    control_efface_post("forum_npds","",$topic,"");
-    Q_Clean();
-    header("location: admin.php?op=MaintForumTopics");
+   global $NPDS_Prefix;
+   $sql = "DELETE FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topic'";
+   if (!$result = sql_query($sql))
+      forumerror('0009');
+   $sql = "DELETE FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topic'";
+   if (!$result = sql_query($sql))
+      forumerror('0010');
+   $sql = "DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic'";
+   if (!$r = sql_query($sql))
+      forumerror('0001');
+   sql_free_result();
+   control_efface_post("forum_npds","",$topic,"");
+   Q_Clean();
+   header("location: admin.php?op=MaintForumTopics");
 }
 
 function SynchroForum() {
-    global $NPDS_Prefix;
-    // affectation d'un topic à un forum
-    if (!$result1 = sql_query("SELECT topic_id, forum_id FROM ".$NPDS_Prefix."forumtopics ORDER BY topic_id ASC"))
-       forumerror('0009');
-    while (list($topi_cid, $foru_mid)=sql_fetch_row($result1)) {
-      sql_query("UPDATE ".$NPDS_Prefix."posts SET forum_id='$foru_mid' WHERE topic_id='$topi_cid' and forum_id>0");
-    }
-    sql_free_result();
+   global $NPDS_Prefix;
+   // affectation d'un topic à un forum
+   if (!$result1 = sql_query("SELECT topic_id, forum_id FROM ".$NPDS_Prefix."forumtopics ORDER BY topic_id ASC"))
+      forumerror('0009');
+   while (list($topi_cid, $foru_mid)=sql_fetch_row($result1)) {
+     sql_query("UPDATE ".$NPDS_Prefix."posts SET forum_id='$foru_mid' WHERE topic_id='$topi_cid' and forum_id>0");
+   }
+   sql_free_result();
 
-    // table forum_read et contenu des topic
-    if (!$result1 = sql_query("SELECT topicid, uid, rid FROM ".$NPDS_Prefix."forum_read ORDER BY topicid ASC"))
-       forumerror('0009');
-    while (list($topicid, $uid, $rid)=sql_fetch_row($result1)) {
-       if (($topicid.$uid)==$tmp)
-          $resultD = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid='$topicid' and uid='$uid' and rid='$rid'");
-       $tmp=$topicid.$uid;
-       if ($result2 = sql_query("SELECT topic_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topicid'")) {
-          list($topic_id)=sql_fetch_row($result2);
-          if (!$topic_id)
-             $result3 = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid='$topicid'");
-       }
-    }
-    sql_free_result();
-    header("location: admin.php?op=MaintForumAdmin");
+   // table forum_read et contenu des topic
+   if (!$result1 = sql_query("SELECT topicid, uid, rid FROM ".$NPDS_Prefix."forum_read ORDER BY topicid ASC"))
+      forumerror('0009');
+   while (list($topicid, $uid, $rid)=sql_fetch_row($result1)) {
+      if (($topicid.$uid)==$tmp)
+         $resultD = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid='$topicid' and uid='$uid' and rid='$rid'");
+      $tmp=$topicid.$uid;
+      if ($result2 = sql_query("SELECT topic_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$topicid'")) {
+         list($topic_id)=sql_fetch_row($result2);
+         if (!$topic_id)
+            $result3 = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid='$topicid'");
+      }
+   }
+   sql_free_result();
+   header("location: admin.php?op=MaintForumAdmin");
 }
 
 function MergeForum() {
@@ -240,13 +237,13 @@ function MergeForum() {
             echo '
                   <option value="'.$myrow['forum_id'].'">'.$myrow['forum_name'].'</option>';
          } while($myrow = sql_fetch_assoc($result));
-         } else
-            echo '
-                  <option value="-1">'.translate("No More Forums").'</option>';
       } else
          echo '
+                  <option value="-1">'.translate("No More Forums").'</option>';
+   } else
+      echo '
                   <option value="-1">Database Error</option>';
-    echo '
+   echo '
                </select>
             </div>
          </div>
@@ -254,19 +251,19 @@ function MergeForum() {
             <label class="col-form-label col-sm-4" for="destforum">'.adm_translate("Forum de destination").'</label>
             <div class="col-sm-8">
                <select class="form-select" id="destforum" name="destforum">';
-    if ($result = sql_query($sql)) {
-       if ($myrow = sql_fetch_assoc($result)) {
-          do {
-             echo '
+   if ($result = sql_query($sql)) {
+      if ($myrow = sql_fetch_assoc($result)) {
+         do {
+            echo '
                   <option value="'.$myrow['forum_id'].'">'.$myrow['forum_name'].'</option>';
-          } while($myrow = sql_fetch_assoc($result));
-       } else
-          echo '
-                  <option value="-1">'.translate("No More Forums").'</option>';
-    } else
-       echo '
-                  <option value="-1">Database Error</option>';
-    echo '
+         } while($myrow = sql_fetch_assoc($result));
+      } else
+         echo '
+                 <option value="-1">'.translate("No More Forums").'</option>';
+   } else
+      echo '
+                 <option value="-1">Database Error</option>';
+   echo '
                </select>
             </div>
          </div>
@@ -278,30 +275,31 @@ function MergeForum() {
          </div>
       </fieldset>
    </form>';
-    sql_free_result();
-    adminfoot('','','','');
+   sql_free_result();
+   adminfoot('','','','');
 }
+
 function MergeForumAction($oriforum,$destforum) {
-    global $upload_table;
-    global $NPDS_Prefix;
-    $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET forum_id='$destforum' WHERE forum_id='$oriforum'";
-    if (!$r = sql_query($sql))
-       forumerror('0010');
-    $sql = "UPDATE ".$NPDS_Prefix."posts SET forum_id='$destforum' WHERE forum_id='$oriforum'";
-    if (!$r = sql_query($sql))
-       forumerror('0010');
-    $sql = "UPDATE ".$NPDS_Prefix."forum_read SET forum_id='$destforum' WHERE forum_id='$oriforum'";
-    if (!$r = sql_query($sql))
-       forumerror('0001');
-    $sql = "UPDATE $upload_table SET forum_id='$destforum' WHERE apli='forum_npds' and forum_id='$oriforum'";
-    sql_query($sql);
-    sql_free_result();
-    Q_Clean();
-    header("location: admin.php?op=MaintForumAdmin");
+   global $upload_table;
+   global $NPDS_Prefix;
+   $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET forum_id='$destforum' WHERE forum_id='$oriforum'";
+   if (!$r = sql_query($sql))
+      forumerror('0010');
+   $sql = "UPDATE ".$NPDS_Prefix."posts SET forum_id='$destforum' WHERE forum_id='$oriforum'";
+   if (!$r = sql_query($sql))
+      forumerror('0010');
+   $sql = "UPDATE ".$NPDS_Prefix."forum_read SET forum_id='$destforum' WHERE forum_id='$oriforum'";
+   if (!$r = sql_query($sql))
+      forumerror('0001');
+   $sql = "UPDATE $upload_table SET forum_id='$destforum' WHERE apli='forum_npds' and forum_id='$oriforum'";
+   sql_query($sql);
+   sql_free_result();
+   Q_Clean();
+   header("location: admin.php?op=MaintForumAdmin");
 }
 
 function ForumMaintAdmin() {
-   global $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg, $language;
+   global $hlpfile, $f_meta_nom, $f_titre, $adminimg, $language;
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);

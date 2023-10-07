@@ -23,7 +23,7 @@ global $language;
 $hlpfile = "manuels/$language/surveys.html";
 
 function poll_createPoll() {
-   global $hlpfile, $maxOptions, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $maxOptions, $f_meta_nom, $f_titre, $adminimg, $NPDS_Prefix;
    include ('header.php');
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);

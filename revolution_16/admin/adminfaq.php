@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,7 +19,7 @@ $f_titre = adm_translate("Faq");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-global $language, $adminimg, $admf_ext;
+global $language;
 $hlpfile = "manuels/$language/faqs.html";
 
 function FaqAdmin() {

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,7 +19,7 @@ $f_titre = adm_translate('Gestion des blocs');
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-global $NPDS_Prefix, $language;
+global $language;
 $hlpfile = "manuels/$language/blocks.html";
 
 function groupe($groupe) {
@@ -52,13 +52,13 @@ function droits_bloc($member,$j,$lb) {
    echo '
    <div class="mb-3">
       <div class="form-check form-check-inline">';
-   if ($member==-127) $checked=' checked="checked"'; else $checked='';
+   $checked = $member==-127 ? ' checked="checked"' : '' ;
    echo '
          <input type="radio" id="adm'.$j.$lb.'" name="members" value="-127" '.$checked.' class="form-check-input" />
          <label class="form-check-label" for="adm'.$j.$lb.'">'.adm_translate("Administrateurs").'</label>
       </div>
       <div class="form-check form-check-inline">';
-   if ($member==-1) $checked=' checked="checked"'; else $checked='';
+   $checked = $member==-1 ? ' checked="checked"' : '' ;
    echo '
          <input type="radio" id="ano'.$j.$lb.'" name="members" value="-1" '.$checked.' class="form-check-input" />
          <label class="form-check-label" for="ano'.$j.$lb.'">'.adm_translate("Anonymes").'</label>
@@ -82,7 +82,7 @@ function droits_bloc($member,$j,$lb) {
       </div>
    </div>';
    } else {
-      if ($member==0) $checked=' checked="checked"'; else $checked='';
+      $checked = $member==0 ? ' checked="checked"' : '' ;
       echo '
          <input type="radio" id="mem'.$j.$lb.'" name="members" value="1" class="form-check-input" />
          <label class="form-check-label" for="mem'.$j.$lb.'">'.adm_translate("Membres").'</label>
