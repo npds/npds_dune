@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -148,8 +148,8 @@ include ("admin/settings_save.php");
 global $language;
 $hlpfile = "manuels/$language/metatags.html";
 
-   settype($meta_saved,'string');
-   switch ($op) {
+settype($meta_saved,'string');
+switch ($op) {
    case 'MetaTagSave':
       $meta_saved = MetaTagSave("meta/meta.php", $newtag);
       header("location: admin.php?op=MetaTagAdmin");
@@ -157,5 +157,5 @@ $hlpfile = "manuels/$language/metatags.html";
    case 'MetaTagAdmin':
       MetaTagAdmin($meta_saved);
    break;
-   }
+}
 ?>
