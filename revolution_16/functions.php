@@ -105,7 +105,7 @@ function convertdateTOtimestamp($myrow) {
    $hour=substr($myrow,11,2);
    $mns=substr($myrow,14,2);
    $sec=substr($myrow,17,2);
-   $tmst=mktime($hour,$mns,$sec,$month,$day,$year);
+   $tmst=mktime((int) $hour,(int) $mns,(int) $sec,(int) $month,(int) $day,(int) $year);
    return ($tmst);
 }
 
@@ -473,7 +473,7 @@ function searchblock() {
             <input type="hidden" name="sortby" value="0" />
             <div class="col">
                <div class="form-floating">
-                  <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'" />
+                  <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'" required="required" />
                   <label for="term"><i class="fa fa-search fa-lg me-2"></i>'.translate('Recherche').'</label>
                </div>
             </div>
