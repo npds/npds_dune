@@ -5,7 +5,7 @@
 /*                                                                      */
 /* From ALL STORIES Add-On ... ver. 1.4.1a                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -44,6 +44,7 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
       <tbody>';
 
    if (!isset($count)) {
+      global $NPDS_Prefix;
       $result0 = Q_select("SELECT COUNT(sid) AS count FROM ".$NPDS_Prefix."stories WHERE archive='$arch'",3600);
       $count= $result0[0];
       $count=$count['count'];
@@ -57,11 +58,9 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
       $current=0;
    else
       $current = $nbPages;
-
-   if ($arch==0)
-      $xtab=news_aff("libre", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount);
-   else
-      $xtab=news_aff("archive", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount);
+   $xtab = $arch==0 ?
+      news_aff("libre", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount) :
+      news_aff("archive", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount) ;
 
    $ibid=0;
    $story_limit=0;
@@ -82,8 +81,8 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
       setlocale (LC_TIME, aff_langue($locale));
       preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
       $datetime = strftime("%d-%m-%Y %H:%M:%S", mktime($datetime[4]+(integer)$gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
-      if (cur_charset!="utf-8")
-         $datetime = ucfirst($datetime);
+      if (cur_charset!="utf-8") //no need !
+         $datetime = ucfirst($datetime);// no need ! capital sur un chiffre ?
       echo '
         <tr>
            <td>'.$title.'</td>

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* BLOC-NOTES engine for NPDS - Philippe Brunier & Arnaud Latourrette   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,6 +14,7 @@
 
 if (strstr($bnid,'..') || strstr($bnid,'./') || stristr($bnid, 'script') || stristr($bnid, 'cookie') || stristr($bnid, 'iframe') || stristr($bnid, 'applet') || stristr($bnid, 'object') || stristr($bnid, 'meta') )
    die();
+global $NPDS_Prefix;
 $result = sql_query("SELECT texte FROM ".$NPDS_Prefix."blocnotes WHERE bnid='$bnid'");
 if (sql_num_rows($result) > 0) {
    list($texte)=sql_fetch_row($result);

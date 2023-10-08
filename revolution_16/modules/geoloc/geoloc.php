@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
-/* geoloc_geoloc.php file 2008-2022 by Jean Pierre Barbary (jpb)        */
+/* geoloc_geoloc.php file 2008-2023 by Jean Pierre Barbary (jpb)        */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
@@ -197,7 +197,7 @@ if(isset($cookie)) {
    $found = sql_num_rows($resul);
    //mise à jour users_extend si besoin
    if ($found == 0)
-      $res = sql_query("INSERT INTO users_extend VALUES ('$uid','','','','','','','','','','','','','')");
+      $res = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$uid','','','','','','','','','','','','','')");
 }
 //==> georeferencement utilisateur
 if (array_key_exists('mod',$_GET)) {

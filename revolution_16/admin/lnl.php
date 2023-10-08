@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,7 +19,7 @@ $f_titre = adm_translate("Petite Lettre D'information");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-global $language;
+global $language, $NPDS_Prefix;
 $hlpfile = "manuels/$language/lnl.html";
 
 function error_handler($ibid) {
@@ -44,7 +44,7 @@ function ShowHeader() {
    while (list($ref, $text, $html) = sql_fetch_row($result)) {
       $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
       if (strlen($text)>100) 
-      $text=substr($text,0,100).'<span class="text-danger"> .....</span>';
+         $text=substr($text,0,100).'<span class="text-danger"> .....</span>';
       if ($html==1) $html='html'; else $html='txt';
       echo '
          <tr>
@@ -496,8 +496,8 @@ function Test($Yheader, $Ybody, $Yfooter) {
    $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' AND html='$Xheader[1]' AND ref='$Yfooter'");
    $Xfooter=sql_fetch_row($result);
    // For Meta-Lang
-   global $cookie;
-   $uid=$cookie[0];
+//   global $cookie; // a quoi ca sert
+//   $uid=$cookie[0]; // a quoi ca sert
    if ($Xheader[1]==1) {
       echo '
       <hr />
@@ -713,11 +713,7 @@ switch ($op) {
          $message =$Yheader[0].$Ybody[0].$Yfooter[0];
 
          global $sitename;
-         if ($Yheader[1]==1)
-            $Xmime='html-nobr';
-         else
-            $Xmime='text';
-
+         $Xmime = $Yheader[1]==1 ? 'html-nobr' : 'text';
          if ($Xtype=="All") {
             $Xtype="Out";
             $OXtype="All";
@@ -788,7 +784,7 @@ switch ($op) {
          if ($deb>=$nrows) {
             if ((($OXtype=="All") and ($Xtype=="Mbr")) OR ($OXtype=="")) {
                if (($message!='') and ($subject!='')) {
-                  $timeX=strftime("%Y-%m-%d %H:%M:%S",time());
+                  $timeX=date("Y-m-d H:m:s",time());
                   if ($OXtype=="All") {$Xtype="All";}
                   if (($Xtype=="Mbr") and ($Xgroupe!="")) {$Xtype=$Xgroupe;}
                   sql_query("INSERT INTO ".$NPDS_Prefix."lnl_send VALUES ('0', '$Xheader', '$Xbody', '$Xfooter', '$number_send', '$Xtype', '$timeX', 'OK')");
@@ -815,11 +811,21 @@ switch ($op) {
                setTimeout(\"redirect()\",10000);
                //]]>
                </script>";
-         echo "</head>
-         <body style=\"background-color: #FFFFFF;\"><br /><p align=\"center\" style=\"font-size: 12px; font-family: Arial; font-weight: bold; color: black;\">";
-         echo adm_translate("Transmission LNL en cours")." => ".$chartmp;
-         echo '<br /><br />NPDS - Portal System
-               </p>
+         echo '
+         <link href="'.$nuke_url.'/themes/npds-boost_sk/style/style.css" title="default" rel="stylesheet" type="text/css" media="all">
+         <link id="bsth" rel="stylesheet" href="'.$nuke_url.'/themes/_skins/default/bootstrap.min.css">
+         </head>
+            <body>
+               <div class="d-flex justify-content-center mt-4">
+                 <div class="spinner-border text-success" role="status">
+                   <span class="visually-hidden">Loading...</span>
+                 </div>
+               </div>
+               <div class="d-flex justify-content-center mt-4">
+                  <div class="text-center mt-4">
+                  '.adm_translate("Transmission LNL en cours").' => '.$chartmp.'<br /><br />NPDS - Portal System
+                  </div>
+               </div>
             </body>
          </html>';
          break;
