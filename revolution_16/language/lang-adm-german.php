@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -326,6 +326,7 @@ function adm_translate($phrase) {
   case "Critiques": $tmp="Kritische"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
   case "dans": $tmp="in"; break;
+  case "dans le groupe": $tmp="in der Gruppe"; break;
   case "Date :": $tmp="Datum:"; break;
   case "Date de début": $tmp="Anfangsdatum"; break;
   case "Date de démarrage du site": $tmp="Site Start Date"; break;
@@ -334,6 +335,8 @@ function adm_translate($phrase) {
   case "Date": $tmp="Datum"; break;
   case "de": $tmp="of"; break;
   case "Déconnexion": $tmp="Logout / Exit"; break;
+  case "Demande acceptée.": $tmp="Anfrage akzeptiert."; break;
+  case "Demande refusée pour votre participation au groupe": $tmp="Antrag für Ihre Teilnahme an der Gruppe abgelehnt"; break;  
   case "Déplier la liste": $tmp="Erweitern Sie die Liste"; break;
   case "Dernière optimisation effectuée le": $tmp="Letzte Optimierung erfolgt am"; break;
   case "Derniers": $tmp="Letzten"; break;
@@ -961,6 +964,7 @@ function adm_translate($phrase) {
   case "URL pour le fichier RDF/XML": $tmp="URL für RDF / XML-Datei"; break;
   case "Url": $tmp="Url"; break;
   case "URL": $tmp="URL"; break;
+  case "Utilisateur en attente de groupe !": $tmp="Benutzer wartet auf Gruppe!"; break;
   case "Utilisateur en attente de validation !": $tmp="Benutzer warten auf Bestätigung !"; break;
   case "Utilisateur enregistré uniquement": $tmp="Nur registrierter Benutzer"; break;
   case "Utilisateur enregistré": $tmp="Registrierter Benutzer"; break;
@@ -1010,7 +1014,6 @@ function adm_translate($phrase) {
   case "Vous pouvez simplement Effacer / Modifier les Critiques en naviguant sur": $tmp="Sie können hier einfach Kritiken löschen/ändern"; break;
   case "Vous pouvez supprimer la Catégorie, les Articles et Commentaires": $tmp="Sie können Kategorie, Artikel und Kommentare löschen"; break;
   case "Vous pouvez utiliser notre moteur de recherche sur : ": $tmp="You can browse our search engine at:"; break;
-
   default: $tmp="Es gibt keine Übersetzung [** $phrase **]"; break;
   }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));

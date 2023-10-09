@@ -630,9 +630,9 @@ function note_create($groupe_id) {
    sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_blocnote = '1' WHERE groupe_id = '$groupe_id';");
    global $aid; Ecr_Log('security', "CreateBlocnoteWS($groupe_id) by AID : $aid", '');
 }
+
 function note_remove($groupe_id) {
    global $NPDS_Prefix;
-   
    sql_query("DELETE FROM ".$NPDS_Prefix."blocnotes WHERE bnid='".md5("WS-BN".$groupe_id)."'");
    sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_blocnote = '0' WHERE groupe_id = '$groupe_id';");
 
@@ -800,6 +800,76 @@ function bloc_groupe_create($groupe_id) {
       sql_query("INSERT INTO ".$NPDS_Prefix."lblocks VALUES (NULL, '', '$menu_workspace', '$groupe_id', '3', '0', '1', '0', NULL)");
 }
 
+function groupe_member_ask() {
+   global $sub_op, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg, $myrow, $hlpfile, $groupe_asked, $user_asked;
+   $directory = "users_private/groupe";
+   if (isset($sub_op)) {
+      include_once('powerpack_f.php');
+      $res = sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid='".$user_asked."'");
+      list($uname) = sql_fetch_row($res);
+
+      $r = sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='".$groupe_asked."'");
+      list($gn)=sql_fetch_row($r);
+      $subject=adm_translate('Nouvelles du groupe').' '.$gn;
+      $image = '18.png';
+      if($sub_op==adm_translate("Oui")) {
+         $message='✅ '.adm_translate('Demande acceptée.'). ' '.adm_translate('Vous faites désormais partie des membres du groupe').' : '.$gn.' ['.$groupe_asked.'].';
+         unlink($directory.'/ask4group_'.$user_asked.'_'.$groupe_asked.'_.txt');
+         $result2 = sql_query("SELECT groupe FROM ".$NPDS_Prefix."users_status WHERE uid='".$user_asked."'");
+         $ibid2=sql_fetch_assoc($result2);
+         $lesgroupes=explode(',',$ibid2['groupe']);
+         $nbregroupes=count($lesgroupes);
+         $groupeexistedeja=false;
+         for ($i=0; $i<$nbregroupes;$i++) {
+            if ($lesgroupes[$i]==$groupe_asked) { $groupeexistedeja=true; break; }
+         }
+         if (!$groupeexistedeja) {
+            $groupesmodif = $ibid2['groupe'] ? $ibid2['groupe'].','.$groupe_asked : $groupe_asked;
+            $resultat = sql_query("UPDATE ".$NPDS_Prefix."users_status SET groupe='$groupesmodif' WHERE uid='".$user_asked."'");
+         }
+         writeDB_private_message($uname,$image,$subject,1,$message, '');
+         global $aid; Ecr_Log('security', "AddMemberToGroup($groupe_asked, $uname) by AID : $aid", '');
+         Header("Location: admin.php?op=groupes");
+      }
+      if($sub_op==adm_translate("Non")){
+         $message='🚫 '.adm_translate('Demande refusée pour votre participation au groupe').' : '.$gn.' ['.$groupe_asked.'].';
+         unlink($directory.'/ask4group_'.$user_asked.'_'.$groupe_asked.'_.txt');
+         writeDB_private_message($uname,$image,$subject,1,$message, '');
+         Header("Location: admin.php?op=groupes");
+      }
+   }
+
+   include ('header.php');
+   GraphicAdmin($hlpfile);
+   adminhead ($f_meta_nom, $f_titre, $adminimg);
+
+   $iterator = new DirectoryIterator($directory);
+   $j=0;
+   foreach ($iterator as $fileinfo) {
+      if ($fileinfo->isFile() and strpos($fileinfo->getFilename(),'ask4group') !== false) {
+         $us_gr = explode('_',$fileinfo->getFilename());
+         $myrow= get_userdata_from_id($us_gr[1]);
+         $r = sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='".$us_gr[2]."'");
+         list($gn)=sql_fetch_row($r);
+
+         echo '
+   <form id="acceptmember_'.$us_gr[1].'_'.$us_gr[2].'" class="admform" action="admin.php" method="post">
+      <div id="" class="">
+      '.adm_translate("Accepter").' '.$myrow['uname'].' '.adm_translate("dans le groupe").' '.$us_gr[2].' : '.$gn.' ?
+      </div>
+      <input type="hidden" name="op" value="groupe_member_ask" />
+      <input type="hidden" name="user_asked" value="'.$us_gr[1].'" />
+      <input type="hidden" name="groupe_asked" value="'.$us_gr[2].'" />
+      <div class="mb-3">
+         <input class="btn btn-primary btn-sm" type="submit" name="sub_op" value="'.adm_translate("Oui").'" />
+         <input class="btn btn-primary btn-sm" type="submit" name="sub_op" value="'.adm_translate("Non").'" />
+      </div>
+   </form>';
+         $j++;
+      }
+   }
+}
+
 switch ($op) {
    case 'membre_add':
       membre_add($groupe_id);
@@ -882,7 +952,11 @@ switch ($op) {
       bloc_groupe_create($groupe_id);
       Header('location: admin.php?op=groupes');
    break;
+   case 'groupe_member_ask':
+      groupe_member_ask();
+   break;
    case 'groupe_add_finish':
+      global $NPDS_Prefix;
       $ok_grp=false;
       if (($groupe_id=='') or ($groupe_id<2) or ($groupe_id>126)) {
          $row=sql_fetch_row(sql_query("SELECT MAX(groupe_id) FROM ".$NPDS_Prefix."groupes"));

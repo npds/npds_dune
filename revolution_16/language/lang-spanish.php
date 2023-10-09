@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -370,6 +370,7 @@ function translate_pass1($phrase) {
    case "Entrer votre pseudonyme et votre mot de passe.": $tmp="Entre su identificador y su contraseña."; break;
    case "Entrez à nouveau votre mot de Passe": $tmp="Reescriba la contraseña"; break;
    case "Envoi de l'article à un ami": $tmp="Enviar esta noticia a un amigo"; break;
+   case "Envoi une demande aux administrateurs pour rejoindre ce groupe. Un message privé vous informera du résultat de votre demande.": $tmp="Envíe una solicitud a los administradores para unirse a este grupo. Un mensaje privado le informará del resultado de su solicitud."; break;
    case "Envoyé à": $tmp="Enviar a"; break;
    case "Envoyé par ": $tmp="Enviado por "; break;
    case "Envoyé": $tmp="Enviado"; break;
@@ -428,6 +429,8 @@ function translate_pass1($phrase) {
    case "Gestionnaire fichiers": $tmp="gestor de archivos"; break;
    case "Gras": $tmp="Negrita"; break;
    case "Groupe": $tmp="Grupo"; break;
+   case "Groupe ouvert": $tmp="Grupo abierto"; break;
+   case "Groupes": $tmp="Grupos"; break;
    case "Hasard": $tmp="Al azar"; break;
    case "Haut de page": $tmp="Alto de página "; break;
    case "Heure de la soumission": $tmp="Hora de sumisión"; break;
@@ -721,6 +724,7 @@ function translate_pass1($phrase) {
    case "pas affiché dans l'annuaire, message à un membre, ...": $tmp="Escondido en la lista de miembros, bloques de mensaje de los miembros, ..."; break;
    case "Pas de connexion à la base forums.": $tmp="No hay conexión a la base de los foros."; break;
    case "Pas de connexion à la base topics.": $tmp="No hay conexión a la base de Asuntos."; break;
+   case "Pas de groupe ouvert.": $tmp="No hay grupo abierto."; break;
    case "Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.": $tmp="No hay problema. Simplemente escriba su Nickname, la nueva contraseña que desea y haga clic en el botón Enviar para recibir un correo electrónico con el código de confirmación."; break;
    case "Passer / Gérer une annonce": $tmp="Someter / Gestionar un anuncio"; break;
    case "Pays": $tmp="País"; break;
@@ -785,6 +789,7 @@ function translate_pass1($phrase) {
    case "Rechercher dans": $tmp="Buscar en"; break;
    case "Recommander ce site à un ami": $tmp="Recomiende esta página  web a un amigo"; break;
    case "Reçus": $tmp="Recibidos"; break;
+   case "Rejoindre ce groupe": $tmp="Unirse a este grupo"; break;
    case "Replier la liste": $tmp="esconder la lista"; break;
    case "Répondre": $tmp="Responder"; break;
    case "Réponse postée.": $tmp="Respuesta enviada."; break;

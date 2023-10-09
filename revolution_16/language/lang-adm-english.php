@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -326,6 +326,7 @@ function adm_translate($phrase) {
   case "Critiques": $tmp="Reviews"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
   case "dans": $tmp="in"; break;
+  case "dans le groupe": $tmp="in the group"; break;
   case "Date :": $tmp="Date:"; break;
   case "Date de début": $tmp="Date Started"; break;
   case "Date de démarrage du site": $tmp="Site Start Date"; break;
@@ -334,6 +335,8 @@ function adm_translate($phrase) {
   case "Date": $tmp="Date"; break;
   case "de": $tmp="of"; break;
   case "Déconnexion": $tmp="Logout / Exit"; break;
+  case "Demande acceptée.": $tmp="Request accepted."; break;
+  case "Demande refusée pour votre participation au groupe": $tmp="Request refused for your participation in the group"; break;  
   case "Déplier la liste": $tmp="Show list"; break;
   case "Dernière optimisation effectuée le": $tmp="Last optimization made the"; break;
   case "Derniers": $tmp="Last"; break;
@@ -961,6 +964,7 @@ function adm_translate($phrase) {
   case "URL pour le fichier RDF/XML": $tmp="URL for the RDF/XML file"; break;
   case "Url": $tmp="Url"; break;
   case "URL": $tmp="URL"; break;
+  case "Utilisateur en attente de groupe !": $tmp="User(s) awaiting group!"; break;
   case "Utilisateur en attente de validation !": $tmp="User(s) awaiting validation !"; break;
   case "Utilisateur enregistré uniquement": $tmp="Registered users only"; break;
   case "Utilisateur enregistré": $tmp="Registered User"; break;

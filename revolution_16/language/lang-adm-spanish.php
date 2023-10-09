@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -326,6 +326,7 @@ function adm_translate($phrase) {
   case "Critiques": $tmp="Criticas"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
   case "dans": $tmp="en"; break;
+  case "dans le groupe": $tmp="en el grupo"; break;
   case "Date :": $tmp="Fecha:"; break;
   case "Date de début": $tmp="Fécha de inicio"; break;
   case "Date de démarrage du site": $tmp="Fecha de inicio del sitio"; break;
@@ -334,6 +335,8 @@ function adm_translate($phrase) {
   case "Date": $tmp="Fecha"; break;
   case "de": $tmp="de"; break;
   case "Déconnexion": $tmp="Desconectar / Salir"; break;
+  case "Demande acceptée.": $tmp="Petición aceptada."; break;
+  case "Demande refusée pour votre participation au groupe": $tmp="Solicitud rechazada para su participación en el grupo"; break;  
   case "Déplier la liste": $tmp="Ampliar la lista"; break;
   case "Dernière optimisation effectuée le": $tmp="Ultima optimizacion efectuada el"; break;
   case "Derniers": $tmp="Ultimos"; break;
@@ -961,6 +964,7 @@ function adm_translate($phrase) {
   case "URL pour le fichier RDF/XML": $tmp="URL del flujo RDF/XML"; break;
   case "Url": $tmp="Url"; break;
   case "URL": $tmp="URL"; break;
+  case "Utilisateur en attente de groupe !": $tmp="Usuario esperando grupo!"; break;
   case "Utilisateur en attente de validation !": $tmp="Usuario (s) esperando la validación !"; break;
   case "Utilisateur enregistré uniquement": $tmp="Solo usuario registrado"; break;
   case "Utilisateur enregistré": $tmp="Usuario registrado"; break;

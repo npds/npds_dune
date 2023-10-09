@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /* Translated by :  Zhang Yingzhu                                       */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -326,6 +326,7 @@ function adm_translate($phrase) {
   case "Critiques": $tmp="评论"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
   case "dans": $tmp="在"; break;
+  case "dans le groupe": $tmp="在群里"; break;
   case "Date :": $tmp="日期：:"; break;
   case "Date de début": $tmp="起始日期"; break;
   case "Date de démarrage du site": $tmp="站点开通日期:"; break;
@@ -334,6 +335,8 @@ function adm_translate($phrase) {
   case "Date": $tmp="日期"; break;
   case "de": $tmp="的"; break;
   case "Déconnexion": $tmp="注销"; break;
+  case "Demande acceptée.": $tmp="请求已接受."; break;
+  case "Demande refusée pour votre participation au groupe": $tmp="您参加群组的请求被拒绝"; break;  
   case "Déplier la liste": $tmp="Show list"; break;
   case "Dernière optimisation effectuée le": $tmp="最近一次优化"; break;
   case "Derniers": $tmp="最近"; break;
@@ -961,6 +964,7 @@ function adm_translate($phrase) {
   case "URL pour le fichier RDF/XML : ": $tmp="RDF/XML 文件的地址"; break;
   case "Url": $tmp="Url"; break;
   case "URL": $tmp="URL"; break;
+  case "Utilisateur en attente de groupe !": $tmp="用户等待进群！"; break;
   case "Utilisateur en attente de validation !": $tmp="User(s) awaiting validation"; break;
   case "Utilisateur enregistré uniquement": $tmp="仅注册用户"; break;
   case "Utilisateur enregistré": $tmp="注册用户"; break;
