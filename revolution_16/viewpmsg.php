@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -14,10 +14,7 @@
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 include("functions.php");
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj =  $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
 include("auth.php");
    if (!$user)
       Header("Location: user.php");
@@ -44,7 +41,7 @@ include("auth.php");
                <option '.$sel.' value="'.$dossierX.'">'.$dossierX.'</option>';
          $tempo[$dossierX]=0;
       }
-      if ($dossier=='All') $sel='selected="selected"'; else $sel='';
+      $sel = (isset($dossier) and $dossier=='All') ? 'selected="selected"' : '';
       echo '
                <option '.$sel.' value="All">'.translate("Tous les sujets").'</option>
             </select>
@@ -52,8 +49,9 @@ include("auth.php");
       </form>';
 
       settype($dossier,'string');
-      if ($dossier=="All") {$ibid='';} else {$ibid="and dossier='$dossier'";}
-      if (!$dossier) {$ibid="and dossier='...'";}
+
+      $ibid = $dossier=="All" ? '' : "AND dossier='$dossier'" ;
+      if (!$dossier) $ibid="AND dossier='...'";
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
       if (!$resultID) forumerror('0005');
