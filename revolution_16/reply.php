@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -17,10 +17,7 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include('functions.php');
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj = $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
 include('auth.php');
 global $NPDS_Prefix;
 
@@ -94,11 +91,7 @@ if ($submitS) {
    // Either valid user/pass, or valid session. continue with post.
    if ($stop != 1) {
       $poster_ip =  getip();
-      if ($dns_verif)
-         $hostname=@gethostbyaddr($poster_ip);
-      else
-         $hostname='';
-
+      $hostname = $dns_verif ? @gethostbyaddr($poster_ip) : '' ;
       // anti flood
       anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);
       //anti_spambot
@@ -206,7 +199,7 @@ if ($submitS) {
    $moderator = get_moderator($mod);
    $moderator=explode(' ',$moderator);
    $Mmod=false;
-   
+
    echo '
    <p class="lead">
       <a href="forum.php">'.translate("Index du forum").'</a>&nbsp;&raquo;&raquo;&nbsp;
@@ -218,9 +211,9 @@ if ($submitS) {
    for ($i = 0; $i < count($moderator); $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
-         if (stristr($modera['user_avatar'],"users_private")) {
+         if (stristr($modera['user_avatar'],"users_private"))
             $imgtmp=$modera['user_avatar'];
-         } else {
+         else {
             if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
@@ -267,9 +260,9 @@ if ($submitS) {
      else
         $message='';
 
-   settype($image_subject,'string');
-   if ($smilies) {
-      echo '
+      settype($image_subject,'string');
+      if ($smilies) {
+         echo '
       <div class="d-none d-sm-block mb-3 row">
          <label class="form-label">'.translate("Icone du message").'</label>
          <div class="col-sm-12">
@@ -278,15 +271,15 @@ if ($submitS) {
             </div>
          </div>
       </div>';
-   }
-   echo '
+      }
+      echo '
       <div class="mb-3 row">
          <label class="form-label" for="message">'.translate("Message").'</label>
          <div class="col-sm-12">
             <div class="card">
                <div class="card-header">
                   <div class="float-start">';
-   putitems('ta_replypost');
+      putitems('ta_replypost');
       echo '
                   </div>';
    if ($allow_html == 1)
@@ -296,31 +289,27 @@ if ($submitS) {
    echo '
                </div>
                <div class="card-body">';
-
-     if ($citation && !$submitP) {
-        $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id = '$post' AND ((p.poster_id = u.uid) XOR (p.poster_id=0)) ";
-        if ($r = sql_query($sql)) {
-           $m = sql_fetch_assoc($r);
-           $text = $m['post_text'];
-           if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
-              $text = smile($text);
-              $text = str_replace('<br />', "\n", $text);
-           } else
-              $text = htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset);
-           $text = stripslashes($text);
-           if ($m['post_time']!='' && $m['uname']!='') {
-              $reply = '<blockquote class="blockquote">'.translate("Citation").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>';
-           } else {
-              $reply = $text."\n";
-           }
-           $reply = preg_replace("#\[hide\](.*?)\[\/hide\]#si",'',$reply);
-        } else {
-           $reply = translate("Erreur de connexion à la base de données")."\n";
-        }
-     }
-     if (!isset($reply)) $reply=$message;
-     if ($allow_bbcode)
-        $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
+      if ($citation && !$submitP) {
+         $sql = "SELECT p.post_text, p.post_time, u.uname FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u WHERE post_id = '$post' AND ((p.poster_id = u.uid) XOR (p.poster_id=0)) ";
+         if ($r = sql_query($sql)) {
+            $m = sql_fetch_assoc($r);
+            $text = $m['post_text'];
+            if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
+               $text = smile($text);
+               $text = str_replace('<br />', "\n", $text);
+            } else
+               $text = htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset);
+            $text = stripslashes($text);
+            $reply = ($m['post_time']!='' && $m['uname']!='') ?
+               '<blockquote class="blockquote">'.translate("Citation").' : <strong>'.$m['uname'].'</strong><br />'.$text.'</blockquote>' :
+               $text."\n" ;
+            $reply = preg_replace("#\[hide\](.*?)\[\/hide\]#si",'',$reply);
+         } else
+            $reply = translate("Erreur de connexion à la base de données")."\n";
+      }
+      if (!isset($reply)) $reply=$message;
+      if ($allow_bbcode)
+      $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
       echo '
                   <textarea id="ta_replypost" class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
                </div>
@@ -394,8 +383,7 @@ if ($submitS) {
    if ($allow_to_reply) {
       echo '
       <h4 class="my-3">'.translate("Aperçu des sujets :").'</h4>';
-      if ($Mmod) $post_aff='';
-      else $post_aff=" AND post_aff='1' ";
+      $post_aff = $Mmod ? '' : " AND post_aff='1' " ;
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id DESC limit 0,10";
       if (!$result = sql_query($sql))
          forumerror('0001');
@@ -471,6 +459,7 @@ if ($submitS) {
                      if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
                   }
                }
+
                echo '
                <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>
                <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
@@ -480,16 +469,15 @@ if ($submitS) {
                <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$anonymous.'</strong></span>';
             }
          } else {
-            if($myrow['poster_id'] !== '0')
-               echo '<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
-            else
-               echo '<span class="text-muted"><strong>'.$anonymous.'</strong></span>';
+            echo $myrow['poster_id'] !== '0' ?
+               '<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>' :
+               '<span class="text-muted"><strong>'.$anonymous.'</strong></span>' ;
          }
          echo '
                   <span class="float-end">';
          if ($myrow['image'] != '') {
             if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo '<img class="n-smil" src="'.$imgtmp.'"  alt="" />';
+            echo '<img class="n-smil" src="'.$imgtmp.'"  alt="" />';
          } 
          else {
             if ($ibid=theme_image("forum/subject/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
