@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -62,8 +62,7 @@ function fma_filter($type, $filename, $Extension) {
 
 // Gestion des autorisations sur les répertoires et les fichiers
 function fma_autorise($type, $dir) {
-   global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma;
-   global $dir_minuscptr, $fic_minuscptr;
+   global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma, $dir_minuscptr, $fic_minuscptr;
 
    $autorise_arbo=false;
 
@@ -931,10 +930,8 @@ while ($obj->NextFile()) {
          $ico_search=false;
          $files.='
          <td width="3%" align="center">';
-         if ($tab_search) {
-            reset($tab_search);
-            // notice pour le each ...
-            while ( (list($l,$fic_resp)=each($tab_search)) and (!$ico_search)) {
+         if (!$ico_search) {
+            foreach($tab_search as $l => $fic_resp) {
                if ($fic_resp[1]==$obj->FieldName) {
                   array_splice($tab_search,$l,1);
                   $files.=$att_icon_search;
