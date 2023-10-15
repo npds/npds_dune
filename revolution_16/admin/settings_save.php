@@ -160,7 +160,7 @@ function MetaTagSave($filename, $tags) {
    return false;
 }
 
-function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin) {
+function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port) {
 
    include ("config.php");
    if ($xparse==0) {
@@ -593,6 +593,40 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
    $content .= "?>";
    fwrite($file, $content);
    fclose($file);
+
+   $file = fopen("lib/PHPMailer/PHPmailer.conf.php", "w");
+   $content = "<?php\n";
+   $content .= "$line";
+   $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
+   $content .= "# ===================================================\n";
+   $content .= "#\n";
+   $content .= "# This version name NPDS Copyright (c) 2001-" . date("Y") . " by Philippe Brunier\n";
+   $content .= "#\n";
+   $content .= "# This module is to configure Footer of Email send By NPDS\n";
+   $content .= "#\n";
+   $content .= "# This program is free software. You can redistribute it and/or modify\n";
+   $content .= "# it under the terms of the GNU General Public License as published by\n";
+   $content .= "# the Free Software Foundation; either version 3 of the License.\n";
+   $content .= "$line";
+   $content .= "\n";
+   $content .= "# Configurer le serveur SMTP\n";
+   $content .= "\$smtp_host = \"$xsmtp_host\";\n";
+   $content .= "# Activer l'authentification SMTP\n";
+   $content .= "\$smtp_auth = $xsmtp_auth;\n";
+   $content .= "# Nom d'utilisateur SMTP\n";
+   $content .= "\$smtp_username = \"$xsmtp_username\";\n";
+   $content .= "# Mot de passe SMTP\n";
+   $content .= "\$smtp_password = \"$xsmtp_password\";\n";
+   $content .= "# Activer le chiffrement TLS\n";
+   $content .= "\$smtp_secure = $xsmtp_secure;\n";
+   $content .= "# Type du chiffrement TLS\n";
+   $content .= "\$smtp_crypt = \"$xsmtp_crypt\";\n";
+   $content .= "# Port TCP, utilisez 587 si vous avez activé le chiffrement TLS\n";
+   $content .= "\$smtp_port = $xsmtp_port;\n";
+   $content .= "?>";
+   fwrite($file, $content);
+   fclose($file);
+
    global $aid; Ecr_Log("security", "ConfigSave() by AID : $aid", "");
 
    SC_Clean();

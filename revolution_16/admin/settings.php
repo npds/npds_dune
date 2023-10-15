@@ -658,12 +658,10 @@ function Configure() {
    <fieldset>
    <legend><a class="tog" id="show_sys_mes" title="'.adm_translate("Replier la liste").'"><i id="i_sys_mes" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Système de Messagerie (Email)").'</legend>
       <div id="sys_mes" class="adminsidefield card card-body mb-3" style="display:none;">
-         <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xadminmail">'.adm_translate("Adresse E-mail de l'administrateur").'</label> 
-            <div class="col-sm-8">
-               <input class="form-control" type="email" name="xadminmail" id="xadminmail" value="'.$adminmail.'" maxlength="100" required="required" />
-               <span class="help-block text-end" id="countcar_xadminmail"></span>
-            </div>
+         <div class="form-floating mb-3">
+            <input class="form-control" type="email" name="xadminmail" id="xadminmail" value="'.$adminmail.'" maxlength="254" required="required" />
+            <label for="xadminmail">'.adm_translate("Adresse E-mail de l'administrateur").'</label> 
+            <span class="help-block text-end">'.adm_translate("Adresse E-mail valide, autorisée et associée au serveur d'envoi.").'<span id="countcar_xadminmail float-end"></span></span>
          </div>
          <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xmail_fonction">'.adm_translate("Fonction mail à utiliser").'</label>
@@ -674,18 +672,113 @@ function Configure() {
    echo '
                <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmail_fonction1" name="xmail_fonction" value="1" '.$cky.' />
-                  <label class="form-check-label" for="xmail_fonction1">function (fonction) => mail</label>
+                  <label class="form-check-label" for="xmail_fonction1">function() => mail()</label>
                </div>
                <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmail_fonction2" name="xmail_fonction" value="2" '.$ckn.' />
-                  <label class="form-check-label" for="xmail_fonction2">function (fonction) => email</label>';
+                  <label class="form-check-label" for="xmail_fonction2">function() => PHPMailer SMTP(S)</label>
+               </div>
+            </div>
+         </div>';
 
    // Footer of Email send by NPDS
    settype($message,'string');
-   include ("signat.php");
+   include "signat.php";
+   include "lib/PHPMailer/PHPmailer.conf.php";
    echo '
+         <div id="smtp" class="row">
+            <div class="form-label my-3">'.adm_translate("Configuration de PHPmailer SMTP(S)").'</div>
+            <div class="mb-3 row">
+               <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                     <input class="form-control" type="text" name="xsmtp_host" id="xsmtp_host" value="'.$smtp_host.'" maxlength="100" required="required" />
+                     <label for="xsmtp_host">'.adm_translate("Nom du serveur").'</label>
+                     <span class="help-block text-end" id="countcar_xsmtp_host"></span>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                     <input class="form-control" type="text" name="xsmtp_port" id="xsmtp_port" value="'.$smtp_port.'" maxlength="4" required="required" />
+                     <label for="xsmtp_port">'.adm_translate("Port TCP").'</label>
+                     <span class="help-block text-end">'.adm_translate("Utiliser 587 si vous avez activé le chiffrement TLS").'.<span class="float-end ms-1" id="countcar_xsmtp_port"></span></span>
+                  </div>
+               </div>
+            </div>';
+    $smtpaky = '';
+    $smtpakn = '';
+    if ($smtp_auth == 1) {
+        $smtpaky = 'checked="checked"';
+        $smtpakn = '';
+    } else {
+        $smtpaky = '';
+        $smtpakn = 'checked="checked"';
+    }
+
+    echo '
+            <div class="mb-3 row">
+               <label class="col-form-label col-sm-6" for="xsmtp_auth">' . adm_translate("Activer l'authentification SMTP(S)") . '</label>
+               <div class="col-sm-6 my-2">
+                  <div class="form-check form-check-inline">
+                     <input type="radio" class="form-check-input" id="xsmtp_auth_y" name="xsmtp_auth" value="1" ' . $smtpaky . ' />
+                     <label class="form-check-label" for="xsmtp_auth_y">' . adm_translate("Oui") . '</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                     <input type="radio" class="form-check-input" id="xsmtp_auth_n" name="xsmtp_auth" value="0" ' . $smtpakn . ' />
+                     <label class="form-check-label" for="xsmtp_auth_n">' . adm_translate("Non") . '</label>
+                  </div>
                </div>
             </div>
+            <div id="auth" class="row">
+               <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                     <input class="form-control" type="text" name="xsmtp_username" id="xsmtp_username" value="' . $smtp_username . '" maxlength="100" required="required" />
+                     <label for="xsmtp_username">' . adm_translate("Nom d'utilisateur") . '</label>
+                     <span class="help-block text-end" id="countcar_xsmtp_username"></span>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                     <input class="form-control" type="password" name="xsmtp_password" id="xsmtp_password" value="' . $smtp_password . '" maxlength="100" required="required" />
+                     <label for="xsmtp_password">' . adm_translate("Mot de passe") . '</label>
+                     <span class="help-block text-end" id="countcar_xsmtp_password"></span>
+                  </div>
+               </div>
+            </div>';
+   $smtpsky = '';
+   $smtpskn = '';
+   if ($smtp_secure == 1) {
+      $smtpsky = 'checked="checked"';
+      $smtpskn = '';
+   } else {
+      $smtpsky = '';
+      $smtpskn = 'checked="checked"';
+   }
+
+   echo '
+            <div class="mb-3 row">
+               <div class="col-md-6 my-auto">
+                  <label class="form-label me-4" for="xsmtp_secure">'.adm_translate("Activer le chiffrement").'</label>
+                  <div class="form-check form-check-inline">
+                     <input type="radio" class="form-check-input" id="xsmtp_secure_y" name="xsmtp_secure" value="1" ' . $smtpsky . ' />
+                     <label class="form-check-label" for="xsmtp_secure_y">'.adm_translate("Oui").'</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                     <input type="radio" class="form-check-input" id="xsmtp_secure_n" name="xsmtp_secure" value="0" ' . $smtpskn . ' />
+                     <label class="form-check-label" for="xsmtp_secure_n">'.adm_translate("Non").'</label>
+                  </div>
+               </div>
+               <div class="col-md-6" id="chifr">
+                  <div class="form-floating mb-3">
+                     <select class="form-select" id="xsmtp_crypt" name="xsmtp_crypt">
+                        <option  value="'.$smtp_crypt.'" selected="selected">'.strtoupper($smtp_crypt).'</option>
+                        <option value="tls">TLS</option>
+                        <option value="ssl">SSL</option>
+                     </select>
+                     <label for="xsmtp_crypt">'.adm_translate("Protocole de chiffrement").'</label>
+                  </div>
+               </div>
+            </div>';
+   echo '
          </div>
          <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xEmailFooter">'.adm_translate("Pied").' '.adm_translate("de").' Email</label> 
@@ -712,7 +805,7 @@ function Configure() {
          <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnotify_email">'.adm_translate("Adresse E-mail où envoyer le message").'</label>
             <div class="col-sm-8">
-               <input class="form-control" type="email" name="xnotify_email" id="xnotify_email" value="'.$notify_email.'" maxlength="100" required="required" />
+               <input class="form-control" type="email" name="xnotify_email" id="xnotify_email" value="'.$notify_email.'" maxlength="254" required="required" />
                <span class="help-block text-end" id="countcar_xnotify_email"></span>
             </div>
          </div>
@@ -726,20 +819,20 @@ function Configure() {
          <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnotify_message">'.adm_translate("Message de l'E-mail").'</label>
             <div class="col-sm-8">
-               <textarea class="form-control" id="xnotify_message" name="xnotify_message" cols="45" rows="8">'.$notify_message.'</textarea>
+               <textarea class="form-control" id="xnotify_message" name="xnotify_message" rows="8">'.$notify_message.'</textarea>
             </div>
          </div>
          <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xnotify_from">'.adm_translate("Compte E-mail (Provenance)").'</label>
             <div class="col-sm-8">
                <input class="form-control" type="email" name="xnotify_from" id="xnotify_from" value="'.$notify_from.'" maxlength="100" required="required" />
-               <span class="help-block text-end" id="countcar_xnotify_from"></span>
+               <span class="help-block text-end">'.adm_translate("Adresse E-mail valide, autorisée et associée au serveur d'envoi.").' <span id="countcar_xnotify_from"></span></span>
             </div>
          </div>
       </div>
       <script type="text/javascript">
       //<![CDATA[
-      tog(\'sys_mes\',\'show_sys_mes\',\'hide_sys_mes\');
+         tog(\'sys_mes\',\'show_sys_mes\',\'hide_sys_mes\');
       //]]>
       </script>
    </fieldset>
@@ -1256,13 +1349,13 @@ function Configure() {
       </select>
       <label class="text-primary" for="xsavemysql_size">'.adm_translate("Taille maximum des fichiers de sauvegarde SaveMysql").'</label>
    </div>';
-    if (!$savemysql_mode)
-       $savemysql_mode='1';
-    else {
-       if ($savemysql_mode=='1') $type_save1='selected="selected"'; else $type_save1='';
-       if ($savemysql_mode=='2') $type_save2='selected="selected"'; else $type_save2='';
-       if ($savemysql_mode=='3') $type_save3='selected="selected"'; else $type_save3='';
-    }
+   if (!$savemysql_mode)
+      $savemysql_mode='1';
+   else {
+      $type_save1 = $savemysql_mode=='1' ? 'selected="selected"' : '' ;
+      $type_save2 = $savemysql_mode=='2' ? 'selected="selected"' : '' ;
+      $type_save3 = $savemysql_mode=='3' ? 'selected="selected"' : '' ;
+   }
    echo '
    <div class="form-floating mb-3">
       <select class="form-select" id="xsavemysql_mode" name="xsavemysql_mode">
@@ -1302,7 +1395,7 @@ function Configure() {
    </div>
    </form>';
    $fv_parametres = '
-      xadmin_cook_duration: {
+   xadmin_cook_duration: {
       validators: {
          regexp: {
             regexp:/^\d{1,10}$/,
@@ -1403,8 +1496,79 @@ function Configure() {
          }
       }
    },
+   xadminmail: {
+      validators: {
+         emailAddress: {
+            message: "'.adm_translate("Merci de fournir une nouvelle adresse Email valide.").'",
+         }
+      }
+   },
+   xsmtp_host: {
+      validators: {
+         notEmpty: {
+            enabled: true,
+         },
+      },
+   },
+   xsmtp_username: {
+      validators: {
+         notEmpty: {
+            enabled: true,
+         },
+      },
+   },
+   xsmtp_password: {
+      validators: {
+         notEmpty: {
+            enabled: true,
+         },
+      },
+   },
+   !###!
+   xmail2.addEventListener("change", function (e) {
+     e.target.checked ? fvitem.enableValidator("xsmtp_host") : fvitem.disableValidator("xsmtp_host") ;
+     if(e.target.checked) smtp.style.display="flex";
+     fvitem.revalidateField("xsmtp_host");
+   });
+   settingspref.querySelector("#xmail_fonction1").addEventListener("change", function (e) {
+     e.target.checked ? fvitem.disableValidator("xsmtp_host") : fvitem.enableValidator("xsmtp_host") ;
+     if(e.target.checked) smtp.style.display="none" ;
+     fvitem.revalidateField("xsmtp_host");
+   });
+   auth_y.addEventListener("change", function (e) {
+     e.target.checked ? auth.style.display="flex" : auth.style.display="none" ;
+     e.target.checked ? fvitem.enableValidator("xsmtp_username") : fvitem.disableValidator("xsmtp_username") ;
+     e.target.checked ? fvitem.enableValidator("xsmtp_password") : fvitem.disableValidator("xsmtp_password") ;
+     fvitem.revalidateField("xsmtp_username");
+     fvitem.revalidateField("xsmtp_password");
+   });
+   settingspref.querySelector("#xsmtp_auth_n").addEventListener("change", function (e) {
+     e.target.checked ? auth.style.display="none" : auth.style.display="flex" ;
+     e.target.checked ? fvitem.disableValidator("xsmtp_username") : fvitem.enableValidator("xsmtp_username") ;
+     e.target.checked ? fvitem.disableValidator("xsmtp_password") : fvitem.enableValidator("xsmtp_password") ;
+     fvitem.revalidateField("xsmtp_username");
+     fvitem.revalidateField("xsmtp_password");
+   });
+   settingspref.querySelector("#xsmtp_secure_y").addEventListener("change", function (e) {
+     e.target.checked ? chifr.style.display="block" : chifr.style.display="none" ;
+   });
+   settingspref.querySelector("#xsmtp_secure_n").addEventListener("change", function (e) {
+     e.target.checked ? chifr.style.display="none" : chifr.style.display="block" ;
+   });
+
    ';
   $arg1='
+   const settingspref = document.getElementById("settingspref");
+   const smtp = document.getElementById("smtp");
+   const auth = document.getElementById("auth");
+   const chifr = document.getElementById("chifr");
+   const xmail2 = document.querySelector("#xmail_fonction2");
+   xmail2.checked ? "" : smtp.style.display="none" ;
+   const auth_y = document.querySelector("#xsmtp_auth_y");
+   auth_y.checked ? "" : auth.style.display="none" ;
+   const secu_y = document.querySelector("#xsmtp_secure_y");
+   secu_y.checked ? "" : chifr.style.display="none" ;
+
    var formulid = ["settingspref"];
    inpandfieldlen("xsitename",100);
    inpandfieldlen("xTitlesitename",100);
@@ -1421,14 +1585,15 @@ function Configure() {
    inpandfieldlen("xbackend_title",100);
    inpandfieldlen("xbackend_language",10);
    inpandfieldlen("xbackend_image",200);
-   inpandfieldlen("xadminmail",100);
-   inpandfieldlen("xnotify_email",100);
-   inpandfieldlen("xnotify_from",100);
+   inpandfieldlen("xadminmail",254);
+   inpandfieldlen("xnotify_email",254);
+   inpandfieldlen("xnotify_from",254);
    inpandfieldlen("xnotify_subject",100);
    inpandfieldlen("xtipath",100);
    inpandfieldlen("xuserimg",100);
    inpandfieldlen("xadminimg",100);
-   inpandfieldlen("xadmf_ext",3);';
+   inpandfieldlen("xadmf_ext",3);
+   ';
    adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
@@ -1438,7 +1603,7 @@ switch ($op) {
    break;
    case 'ConfigSave':
       include("admin/settings_save.php");
-      ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin);
+      ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port);
    break;
 }
 ?>

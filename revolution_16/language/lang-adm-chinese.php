@@ -75,12 +75,14 @@ function adm_translate($phrase) {
   case "Activer export-news": $tmp="激活输出文章功能?"; break;
   case "Activer Facebook": $tmp="Activate Facebook"; break;
   case "Activer gestionnaire de fichiers du groupe": $tmp="Enable File manager of the group"; break;
+  case "Activer l'authentification SMTP(S)": $tmp="启用 SMTP(S) 身份验证"; break;
   case "Activer l'éditeur Tinymce": $tmp="激活Tiny-Mce编辑者"; break;
   case "Activer l'icône [N]ouveau pour les catégories": $tmp=" 激活新的分类图标(icon [N])？"; break;
   case "Activer l'upload dans les forums ?": $tmp="激活论坛的上传功能？"; break;
   case "Activer la description simplifiée des Utilisateurs": $tmp="激活对用户的简单描述?"; break;
   case "Activer la résolution DNS pour les posts des forums, IP-Ban, ... ?": $tmp="激活论坛中DNS功能, 这将显示DNS地址?"; break;
   case "Activer le Bloc": $tmp="激活该栏目框"; break;
+  case "Activer le chiffrement": $tmp="启用加密"; break;
   case "Activer le multi-langue": $tmp=" 激活多语言功能？"; break;
   case "Activer le tri des contributions 'résolues'": $tmp="激活对最终文章的选择排列"; break;
   case "Activer les avatars": $tmp="激活表情符号吗？"; break;
@@ -284,7 +286,8 @@ function adm_translate($phrase) {
   case "Communication": $tmp="Communication"; break;
   case "Compte E-mail (Provenance)": $tmp="Email帐户（来自）：:"; break;
   case "Compteur": $tmp="计数器"; break;
-  case "Configuration de la page": $tmp="Page setting"; break;
+  case "Configuration de la page": $tmp="页面设置"; break;
+  case "Configuration de PHPmailer SMTP(S)": $tmp="配置 PHPmailer SMTP(S)"; break;
   case "Configuration des Forums": $tmp="论坛结构"; break;
   case "Configuration des infos en Backend & Réseaux Sociaux": $tmp="Configuration for Backend & Social Networks"; break;
   case "Configuration Forums": $tmp="Forums Configuration"; break;
@@ -686,6 +689,7 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="进入等级"; break;
   case "Niveau de l'Utilisateur": $tmp="会员等级"; break;
   case "Nom : ": $tmp="名字: "; break;
+  case "Nom d'utilisateur": $tmp="用户名"; break;
   case "Nom d'utilisateur anonyme": $tmp="匿名默认名:"; break;
   case "Nom de fichier": $tmp="文件名"; break;
   case "Nom de l'annonceur": $tmp="客户名"; break;
@@ -697,6 +701,7 @@ function adm_translate($phrase) {
   case "Nom du Contact": $tmp="联系姓名"; break;
   case "Nom du forum": $tmp="版面名称"; break;
   case "Nom du produit": $tmp="产品名称:"; break;
+  case "Nom du serveur": $tmp="服务器名称"; break;
   case "Nom du site : ": $tmp="站点名称:"; break;
   case "Nom du site pour la balise title": $tmp="网站的标题<b>Title</b>"; break;
   case "Nom du site": $tmp="站点名称"; break;
@@ -764,7 +769,7 @@ function adm_translate($phrase) {
   case "Pas de nouveaux Articles postés": $tmp="没有新提交"; break;
   case "Petite Lettre D'information": $tmp="信笺 NewsLetter"; break;
   case "Pied": $tmp="页面底部"; break;
-  case "Polices du site": $tmp="站点的字体:"; break;
+  case "Port TCP": $tmp="TCP 端口"; break;
   case "Position": $tmp="Position"; break;
   case "Poster un Article ": $tmp="发表文章"; break;
   case "Poster un Article Admin": $tmp=" 张贴一个管理文章"; break;
@@ -783,6 +788,7 @@ function adm_translate($phrase) {
   case "Proposition de modifications de Liens": $tmp="链接修改请求"; break;
   case "Propriétaire de la page Web : ": $tmp="该网页的主人是："; break;
   case "Propriétaire": $tmp="所有者"; break;
+  case "Protocole de chiffrement": $tmp="加密协议"; break;
   case "Public": $tmp="公开"; break;
   case "Publication Anonyme autorisée": $tmp="匿名粘贴"; break;
   case "publication(s) attachée(s)": $tmp="相关的发表文章"; break;
@@ -971,6 +977,7 @@ function adm_translate($phrase) {
   case "Utilisateur inexistant !": $tmp="用户不存在！!"; break;
   case "Utilisateur": $tmp="用户"; break;
   case "Utilisateurs": $tmp="用户"; break;
+  case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="如果启用了 TLS 加密，请使用 587"; break;  
   case "Validation de votre publication": $tmp=" 对你的发表文章进行确认生效"; break;
   case "Valider": $tmp="确定"; break;
   case "Version": $tmp="版本"; break;

@@ -16,6 +16,15 @@ include("config.php");
 include("lib/multi-langue.php");
 include("language/lang-$language.php");
 include("cache.class.php");
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+require 'lib/PHPMailer/src/Exception.php';
+require 'lib/PHPMailer/src/PHPMailer.php';
+require 'lib/PHPMailer/src/SMTP.php';
+
 if ($mysql_i==1)
    include("lib/mysqli.php");
 else 
@@ -406,7 +415,7 @@ function getmicrotime() {
 }
 #autodoc send_email($email, $subject, $message, $from, $priority, $mime) : Pour envoyer un mail en texte ou html via les fonctions mail ou email  / $mime = 'text', 'html' 'html-nobr'-(sans application de nl2br) ou 'mixed'-(piece jointe)
 function send_email($email, $subject, $message, $from="", $priority=false, $mime="text") {
-   global $mail_fonction, $adminmail;
+   global $mail_fonction, $adminmail, $sitename;
    $advance='';
    if ($priority)
       $advance="X-Priority: 2\n";
@@ -429,25 +438,53 @@ function send_email($email, $subject, $message, $from="", $priority=false, $mime
       $css="<html>\n<head>\n<style type='text/css'>\nbody {\nbackground: #FFFFFF;\nfont-family: Tahoma, Calibri, Arial;\nfont-size: 1 rem;\ncolor: #000000;\n}\na, a:visited, a:link, a:hover {\ntext-decoration: underline;\n}\n</style>\n</head>\n<body>\n";
       $message=$css.$message."\n</body>\n</html>";
    }
+   $From_email = $from!='' ? $from : $adminmail ;
+
    if (($mail_fonction==1) or ($mail_fonction=="")) {
-      if ($from!='') {
-         $From_email=$from;
-      } else {
-         $From_email=$adminmail;
-      }
-      if (preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$From_email)) {
+      if (preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$From_email))
          $result=mail($email, $subject, $message, "From: $From_email\nReturn-Path: $From_email\nX-Mailer: NPDS\n$advance");
+   } else {
+     if (preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i', $From_email)) {
+         include 'lib/PHPMailer/PHPmailer.conf.php';
+         $debug = false;
+         $mail = new PHPMailer($debug);
+         try {
+             //Server settings
+             $mail->isSMTP();
+             $mail->Host       = "$smtp_host";
+             $mail->SMTPAuth   = "$smtp_auth";
+             $mail->Username   = "$smtp_username";
+             $mail->Password   = "$smtp_password";
+             if ($smtp_secure) {
+                 if ($smtp_crypt === 'tls')
+                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                 elseif ($smtp_crypt === 'ssl')
+                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+             }
+             $mail->Port       = $smtp_port;
+             $mail->CharSet = cur_charset;
+             $mail->Encoding = 'base64';
+             //Recipients
+             $mail->setFrom($adminmail, $sitename);
+             $mail->addAddress($email, $email);
+             //Content
+             if ($mime == 'html')
+                $mail->isHTML(true);
+             $mail->Subject = $subject;
+             $mail->Body    = $message;
+             if ($debug) {
+                 // donne un journal détaillé
+                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+             }
+             $mail->send();
+             $result = true;
+         } catch (Exception $e) {
+             Ecr_Log('smtpmail', "send Smtp mail by $email", "Message could not be sent. Mailer Error: $mail->ErrorInfo");
+             $result = false;
+         }
       }
-   } else {
-      $pos = strpos($adminmail, '@');
-      $tomail=substr($adminmail,0,$pos);
-      $result=email($tomail, $email, $subject, $message, $tomail, "Return-Path:\nX-Mailer: NPDS\n$advance");
-   }   
-   if ($result) {
-      return (true);
-   } else {
-      return (false);
    }
+   return $result ? true : false ;
 }
 #autodoc copy_to_email($to_userid,$sujet,$message) : Pour copier un subject+message dans un email ($to_userid)
 function copy_to_email($to_userid,$sujet,$message) {
@@ -1698,7 +1735,7 @@ function split_string_without_space($msg, $split) {
 #autodoc wrapper_f (&$string, $key, $cols) : Fonction Wrapper pour split_string_without_space / Snipe 2004
 function wrapper_f (&$string, $key, $cols) {
 //   if (!(stristr($string,'IMG src=') or stristr($string,'A href=') or stristr($string,'HTTP:') or stristr($string,'HTTPS:') or stristr($string,'MAILTO:') or stristr($string,'[CODE]'))) {
-      $outlines = '';
+$outlines = '';
       if (strlen($string) > $cols) {
          while(strlen($string) > $cols) {
             $cur_pos = 0;

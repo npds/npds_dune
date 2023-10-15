@@ -75,12 +75,14 @@ function adm_translate($phrase) {
   case "Activer export-news": $tmp="Activar Exportación de noticias"; break;
   case "Activer Facebook": $tmp="Activate Facebook"; break;
   case "Activer gestionnaire de fichiers du groupe": $tmp="Habilitar el grupo de administrador de archivos"; break;
+  case "Activer l'authentification SMTP(S)": $tmp="Habilitar la autenticación SMTP(S)"; break;
   case "Activer l'éditeur Tinymce": $tmp="Activar Tinymce editor"; break;
   case "Activer l'icône [N]ouveau pour les catégories": $tmp="¿Activar el icono [N]uevo para las categorias ?"; break;
   case "Activer l'upload dans les forums ?": $tmp="Activar upload en los foros"; break;
   case "Activer la description simplifiée des utilisateurs": $tmp="¿Activar la descripcion simple para el usuario?"; break;
   case "Activer la résolution DNS pour les posts des forums, IP-Ban, ...": $tmp="¿Activar la Resolución DNS para los mensajes de los foros, IP-Ban... ?"; break;
   case "Activer le Bloc": $tmp="Activar el Bloque"; break;
+  case "Activer le chiffrement": $tmp="Habilitar el cifrado"; break;
   case "Activer le multi-langue": $tmp="Activar la compatibilidad del multi-idioma"; break;
   case "Activer le tri des contributions 'résolues'": $tmp="Activar la selección de las contribuciones ' resueltas ':"; break;
   case "Activer les avatars": $tmp="¿Activar caritas(Emoticones)?"; break;
@@ -285,6 +287,7 @@ function adm_translate($phrase) {
   case "Compte E-mail (Provenance)": $tmp="El mensaje proviene de"; break;
   case "Compteur": $tmp="Contador"; break;
   case "Configuration de la page": $tmp="Page setting"; break;
+  case "Configuration de PHPmailer SMTP(S)": $tmp="Configuración de PHPmailer SMTP(S)"; break;
   case "Configuration des Forums": $tmp="Configuración de los Foros"; break;
   case "Configuration des infos en Backend & Réseaux Sociaux": $tmp="Configuracion del flujo & Redes Sociales"; break;
   case "Configuration Forums": $tmp="Foros Configuración"; break;
@@ -686,6 +689,7 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="Nivel de acceso"; break;
   case "Niveau de l'Utilisateur": $tmp="Nivel del usuario"; break;
   case "Nom : ": $tmp="Nombre:"; break;
+  case "Nom d'utilisateur": $tmp="Nombre del usario"; break;
   case "Nom d'utilisateur anonyme": $tmp="Nombre por defecto del visitante anonimo:"; break;
   case "Nom de fichier": $tmp="Nombre del fichero"; break;
   case "Nom de l'annonceur": $tmp="Nombre del cliente"; break;
@@ -697,6 +701,7 @@ function adm_translate($phrase) {
   case "Nom du Contact": $tmp="Nombre del contacto"; break;
   case "Nom du forum": $tmp="Nombre del Foro"; break;
   case "Nom du produit": $tmp="Nombre del producto:"; break;
+  case "Nom du serveur": $tmp="Nombre del servidor"; break;
   case "Nom du site : ": $tmp="Nombre del sito web:"; break;
   case "Nom du site pour la balise title": $tmp="Nombre de su sitio Web para la baliza title"; break;
   case "Nom du site": $tmp="Nombre del sito web"; break;
@@ -764,7 +769,7 @@ function adm_translate($phrase) {
   case "Pas de nouveaux Articles postés": $tmp="No hay nuevos articulos o noticias"; break;
   case "Petite Lettre D'information": $tmp="LNL pequeña Newsletter"; break;
   case "Pied": $tmp="pie"; break;
-  case "Polices du site": $tmp="Tipos de fuente del sitio:"; break;
+  case "Port TCP": $tmp="Puerto TCP"; break;
   case "Position": $tmp="Position"; break;
   case "Poster un Article ": $tmp="Añadir una noticia"; break;
   case "Poster un Article Admin": $tmp="Añadir noticia del Administrador"; break;
@@ -783,6 +788,7 @@ function adm_translate($phrase) {
   case "Proposition de modifications de Liens": $tmp="Propuestas de modificación de los vínculos"; break;
   case "Propriétaire de la page Web : ": $tmp="Propietario de la página web:"; break;
   case "Propriétaire": $tmp="Propietario:"; break;
+  case "Protocole de chiffrement": $tmp="Protocolo de cifrado"; break;
   case "Public": $tmp="Publico"; break;
   case "Publication Anonyme autorisée": $tmp="Publicación anónima autorizada"; break;
   case "publication(s) attachée(s)": $tmp="publicacion(es) vinculada(s)"; break;
@@ -971,6 +977,7 @@ function adm_translate($phrase) {
   case "Utilisateur inexistant !": $tmp="Este usuario no existe!"; break;
   case "Utilisateur": $tmp="Usuario"; break;
   case "Utilisateurs": $tmp="Usuarios"; break;
+  case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="Utilice 587 si tiene habilitado el cifrado TLS"; break;  
   case "Validation de votre publication": $tmp="Validación de su publicación"; break;
   case "Valider": $tmp="Validar"; break;
   case "Version": $tmp="Versión:"; break;

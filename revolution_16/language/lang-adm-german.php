@@ -75,12 +75,14 @@ function adm_translate($phrase) {
   case "Activer export-news": $tmp="Aktivieren Sie Export-News"; break;
   case "Activer Facebook": $tmp="Aktivieren Sie Facebook"; break;
   case "Activer gestionnaire de fichiers du groupe": $tmp="Aktivieren der Datei-Manager-Gruppe"; break;
+  case "Activer l'authentification SMTP(S)": $tmp="Aktivieren Sie die SMTP(S)-Authentifizierung"; break;
   case "Activer l'éditeur Tinymce": $tmp="Den Tinymce Editor aktivieren"; break;
   case "Activer l'icône [N]ouveau pour les catégories": $tmp="Activate New Categories Icons"; break;
   case "Activer l'upload dans les forums ?": $tmp="Activate forum's upload?"; break;
   case "Activer la description simplifiée des utilisateurs": $tmp="Vereinfachte Benutzerbeschreibung aktivieren"; break;
   case "Activer la résolution DNS pour les posts des forums, IP-Ban, ...": $tmp="DNS resolution : activate for Posts in forum, IP-Ban, ..."; break;
   case "Activer le Bloc": $tmp="Den Block aktivieren"; break;
+  case "Activer le chiffrement": $tmp="Verschlüsselung aktivieren"; break;
   case "Activer le multi-langue": $tmp="Multi-language capability"; break;
   case "Activer le tri des contributions 'résolues'": $tmp="Activate the sort of the 'solved' contributions"; break;
   case "Activer les avatars": $tmp="Activate avatars"; break;
@@ -98,7 +100,7 @@ function adm_translate($phrase) {
   case "Admin-Plugins": $tmp="Admin-Plugins"; break;
   case "Administrateur ID": $tmp="AdminID"; break;
   case "Administrateur(s) de la rubrique :": $tmp="Administrator(s) of the section:"; break;
-  case "Administrateur(s) du Sujet :": $tmp="Administrator(s) of the topic:"; break;
+  case "Administrateur(s) du Sujet :": $tmp="Administrator(en) für das Thema:"; break;
   case "Administrateur(s) du sujet": $tmp="Administrator(en) für das Thema"; break;
   case "Administrateur(s)": $tmp="Administrator(en)"; break;
   case "Administrateurs": $tmp="Administratoren"; break;
@@ -285,6 +287,7 @@ function adm_translate($phrase) {
   case "Compte E-mail (Provenance)": $tmp="Email Account (From)"; break;
   case "Compteur": $tmp="Zähler"; break;
   case "Configuration de la page": $tmp="Seiteneinstellungen"; break;
+  case "Configuration de PHPmailer SMTP(S)": $tmp="PHPmailer SMTP(S) konfigurieren"; break;
   case "Configuration des Forums": $tmp="Einstellungen für die Foren"; break;
   case "Configuration des infos en Backend & Réseaux Sociaux": $tmp="Configuration for Backend & Social Networks"; break;
   case "Configuration Forums": $tmp="Einstellungen für die Foren"; break;
@@ -686,6 +689,7 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="Access Level"; break;
   case "Niveau de l'Utilisateur": $tmp="User Level"; break;
   case "Nom : ": $tmp="Name: "; break;
+  case "Nom d'utilisateur": $tmp="Nutzername"; break;
   case "Nom d'utilisateur anonyme": $tmp="Name für anonyme Benutzer"; break;
   case "Nom de fichier": $tmp="Dateiname"; break;
   case "Nom de l'annonceur": $tmp="Werber Name"; break;
@@ -697,6 +701,7 @@ function adm_translate($phrase) {
   case "Nom du Contact": $tmp="Name des Kontaktes"; break;
   case "Nom du forum": $tmp="Name des Forums"; break;
   case "Nom du produit": $tmp="Produktname"; break;
+  case "Nom du serveur": $tmp="Name des E-Mail-Servers"; break;
   case "Nom du site : ": $tmp="Name der Website:"; break;
   case "Nom du site pour la balise title": $tmp="Html Site Name"; break;
   case "Nom du site": $tmp="Name der Website"; break;
@@ -764,7 +769,7 @@ function adm_translate($phrase) {
   case "Pas de nouveaux Articles postés": $tmp="Keine neuen Artikel gepostet"; break;
   case "Petite Lettre D'information": $tmp="Kleiner Newsletter"; break;
   case "Pied": $tmp="Fußzeilen"; break;
-  case "Polices du site": $tmp="Site Font"; break;
+  case "Port TCP": $tmp="TCP-Port"; break;
   case "Position": $tmp="Position"; break;
   case "Poster un Article ": $tmp="PostStory"; break;
   case "Poster un Article Admin": $tmp="Post Admin Story"; break;
@@ -783,6 +788,7 @@ function adm_translate($phrase) {
   case "Proposition de modifications de Liens": $tmp="Link Modification Requests"; break;
   case "Propriétaire de la page Web": $tmp="Inhaber der Webseite"; break;
   case "Propriétaire": $tmp="Inhaber"; break;
+  case "Protocole de chiffrement": $tmp="Verschlüsselungsprotokoll"; break;
   case "Public": $tmp="Public"; break;
   case "Publication Anonyme autorisée": $tmp="Anonyme Veröffentlichung erlaubt"; break;
   case "publication(s) attachée(s)": $tmp="Verbundene Veröffentlichungen"; break;
@@ -971,6 +977,7 @@ function adm_translate($phrase) {
   case "Utilisateur inexistant !": $tmp="Nicht vorhandener Benutzer!"; break;
   case "Utilisateur": $tmp="Benutzer"; break;
   case "Utilisateurs": $tmp="Benutzer"; break;
+  case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="Verwenden Sie 587, wenn Sie die TLS-Verschlüsselung aktiviert haben"; break;  
   case "Validation de votre publication": $tmp="Freigabe für Ihre Veröffentlichung"; break;
   case "Valider": $tmp="Akzeptieren"; break;
   case "Version": $tmp="Version"; break;
