@@ -152,8 +152,8 @@ else {
    }
 
 //   settype($delete,'integer');
-   if ($delete) {
-      if ($type=='outbox')
+   if (isset($delete)) {
+      if (isset($type) and $type=='outbox')
          $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
       else
          $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND to_userid='".$userdata['uid']."'";
