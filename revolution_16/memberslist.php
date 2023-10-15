@@ -29,8 +29,10 @@ if (isset($gr_from_ws) and ($gr_from_ws!=0)) {
       $uid_from_ws.= $ws_uid."|";
    }
   $uid_from_ws=substr($uid_from_ws,0,-1).")\$";
-} else
+} else {
    $uid_from_ws='';
+   $gr_from_ws=0;
+}
 function alpha() {
    global $sortby, $list, $gr_from_ws, $uid_from_ws;
    $alphabet = array (translate("Tous"), 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',translate("Autres"));
