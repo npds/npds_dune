@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -16,10 +16,7 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include('functions.php');
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj = $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
 include('auth.php');
 global $NPDS_Prefix;
 
@@ -70,7 +67,7 @@ $total = get_total_posts($forum, $topic, "topic",$Mmod);
 if ($total > $posts_per_page) {
    $times = 0;
    for ($x = 0; $x < $total; $x += $posts_per_page)
-       $times++;
+      $times++;
    $pages = $times;
 }
 
@@ -86,7 +83,7 @@ $contributeurs=explode(' ',$contributeurs);
 $total_contributeurs =count($contributeurs);
 
 function maketree($rootcatid,$sql,$maxlevel){
-global $idtog,$clas;
+   global $idtog,$clas;
    $result=sql_query($sql);
    $max_post_id=0;
    while($tempo=sql_fetch_assoc($result)){
@@ -183,7 +180,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
       if($count==0 and $idtog==11) $cardcla="border-dark";
       if($level>0) $cardcla="border-0";
       if($idtog!=11 and $count!=0)
-            echo '
+         echo '
          <div class="d-flex justify-content-between pe-4 ">
             <div class="border-right" style="margin-left:4rem;height:2rem"></div>
          </div>';
@@ -318,10 +315,9 @@ function aff_pub($lock_state, $topic, $forum, $post, $bouton) {
    $ibid='';
    if ($lock_state==0) {
       if (($bouton==2) or ($bouton==9))
-           $ibid = '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("Nouveau sujet").'" data-bs-toggle="tooltip" ><i class="fa fa-plus-square "></i></a>&nbsp;';
-   } else {
+         $ibid = '<a class="" href="newtopic.php?forum='.$forum.'" title="'.translate("Nouveau sujet").'" data-bs-toggle="tooltip" ><i class="fa fa-plus-square "></i></a>&nbsp;';
+   } else
       $ibid = '<i class="fa fa-lock fa-lg text-danger" title="'.translate("Ce sujet est verrouillé : il ne peut accueillir aucune nouvelle contribution.").'" data-bs-toggle="tooltip"></i>&nbsp;';
-   }
    return $ibid;
 }
 
@@ -489,7 +485,8 @@ $r_to='';$n_to='';
                   $ok_affich=false;
                else
                   $ok_affich=true;
-                if ($ok_affich) echo '
+               if ($ok_affich)
+                  echo '
             <option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
             }
          }
@@ -504,7 +501,7 @@ $r_to='';$n_to='';
    if ($SuperCache)
       $cache_obj->endCachingBlock($cache_clef);
 
-   if ((($Mmod) and ($forum_access!=9)) or ($adminforum==1)) {
+   if ((($Mmod) and ($forum_access!=9)) or (isset($adminforum))) {
       echo '
          <ul class="nav justify-content-center border rounded">
             <li class="nav-item ">
