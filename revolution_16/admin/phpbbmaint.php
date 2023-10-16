@@ -40,9 +40,9 @@ function ForumMaintMarkTopics() {
          </tr>
       </thead>
       <tbody>';
-   if (!$r = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read")) {
+   if (!$r = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read"))
       forumerror('0001');
-   } else {
+   else {
       $resultF=sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums ORDER BY forum_id ASC");
       $time_actu=time()+((integer)$gmt*3600);
       while (list($forum_id)=sql_fetch_row($resultF)) {
@@ -57,18 +57,20 @@ function ForumMaintMarkTopics() {
                if ($uid>1)
                   $r=sql_query("INSERT INTO ".$NPDS_Prefix."forum_read (forum_id, topicid, uid, last_read, status) VALUES ('$forum_id', '$topic_id', '$uid', '$time_actu', '1')");
             }
+            sql_free_result($resultU);
          echo $topic_id.' ';
          }
+         sql_free_result($resultT);
          echo '
             </td>
             <td align="center">'.translate("Ok").'</td>
          </tr>';
       }
+      sql_free_result($resultF);
    }
    echo '
    </tbody>
    </table>';
-   sql_free_result();
    adminfoot('','','','');
 }
 
@@ -83,7 +85,7 @@ function ForumMaintTopics($before,$forum_name) {
    <h3 class="text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>';
    if ($before!='') {
       echo '&nbsp;<span class="text-danger">< '.$before.'</span>';
-      $add_sql="and topic_time<'$before'";
+      $add_sql="AND topic_time<'$before'";
       $topic_check=' checked="checked"';
    } else {
       $add_sql='';
@@ -98,31 +100,28 @@ function ForumMaintTopics($before,$forum_name) {
       echo '
        <h4>'.$forum_name.'</h4>
        <div class="mb-3 border p-4">';
-       $resultT=sql_query("SELECT topic_id, topic_title FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id' $add_sql ORDER BY topic_id ASC");
-       while (list($topic_id, $topic_title)=sql_fetch_row($resultT)) {
-          if ($parse==0)
-             $tt =  FixQuotes($topic_title);
-          else
-             $tt =  stripslashes($topic_title);
-             
-         $oo = urlencode($tt);
-          echo '
+      $resultT=sql_query("SELECT topic_id, topic_title FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id' $add_sql ORDER BY topic_id ASC");
+      while (list($topic_id, $topic_title)=sql_fetch_row($resultT)) {
+         $tt = $parse==0 ? FixQuotes($topic_title) : stripslashes($topic_title) ;
+         $oo = urlencode($tt);/////
+         echo '
          <div class="form-check form-check-inline">
             <input type="checkbox" class="form-check-input" name="topics['.$topic_id.']" id="topics'.$topic_id.'" '.$topic_check.'/>
             <label class="form-check-label" for="topics'.$topic_id.'"><a href="admin.php?op=MaintForumTopicDetail&amp;topic='.$topic_id.'&amp;topic_title='.$tt.'" data-bs-toggle="tooltip" title="'.$tt.'" >'.$topic_id.'</a></label>
          </div>';
-       }
-       echo '
+      }
+      sql_free_result($resultT);
+      echo '
        </div>';
-    }
-    echo '
+   }
+   sql_free_result($resultF);
+   echo '
        <div class="mb-3>"
           <input type="hidden" name="op" value="ForumMaintTopicMassiveSup" />
           <input class="btn btn-danger" type="submit" name="Topics_Del" value="'.adm_translate("Supprimer massivement les Topics").'" />
       </div>
    </form>';
-    sql_free_result();
-    adminfoot('','','','');
+   adminfoot('','','','');
 }
 
 function ForumMaintTopicDetail($topic, $topic_title) {
@@ -137,15 +136,14 @@ function ForumMaintTopicDetail($topic, $topic_title) {
    <h3 class="mb-3 text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>
    <div class="lead">Topic : '.$topic.' | '.stripslashes($topic_title).'</div>
    <div class="card p-4 my-3 border-danger">
-   <p class="text-end small text-muted">[ '.convertdate($post_time).' ]</p>
-   '.stripslashes($post_text).'
+      <p class="text-end small text-muted">[ '.convertdate($post_time).' ]</p>'.stripslashes($post_text).'
    </div>
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="ForumMaintTopicSup" />
       <input type="hidden" name="topic" value="'.$topic.'" />
       <input class="btn btn-danger" type="submit" name="Topics_Del" value="'.adm_translate("Effacer").'" />
-   </form>
-';
+   </form>';
+   sql_free_result($resultTT);
    adminfoot('','','','');
 }
 
@@ -166,7 +164,6 @@ function ForumMaintTopicMassiveSup($topics) {
             control_efface_post("forum_npds","",$topic_id,"");
          }
       }
-      sql_free_result();
    }
    Q_Clean();
    header("location: admin.php?op=MaintForumAdmin");
@@ -183,7 +180,6 @@ function ForumMaintTopicSup($topic) {
    $sql = "DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic'";
    if (!$r = sql_query($sql))
       forumerror('0001');
-   sql_free_result();
    control_efface_post("forum_npds","",$topic,"");
    Q_Clean();
    header("location: admin.php?op=MaintForumTopics");
@@ -197,7 +193,7 @@ function SynchroForum() {
    while (list($topi_cid, $foru_mid)=sql_fetch_row($result1)) {
      sql_query("UPDATE ".$NPDS_Prefix."posts SET forum_id='$foru_mid' WHERE topic_id='$topi_cid' and forum_id>0");
    }
-   sql_free_result();
+   sql_free_result($result1);
 
    // table forum_read et contenu des topic
    if (!$result1 = sql_query("SELECT topicid, uid, rid FROM ".$NPDS_Prefix."forum_read ORDER BY topicid ASC"))
@@ -211,8 +207,9 @@ function SynchroForum() {
          if (!$topic_id)
             $result3 = sql_query("DELETE FROM ".$NPDS_Prefix."forum_read WHERE topicid='$topicid'");
       }
+      sql_free_result($result2);
    }
-   sql_free_result();
+   sql_free_result($result1);
    header("location: admin.php?op=MaintForumAdmin");
 }
 
@@ -275,7 +272,7 @@ function MergeForum() {
          </div>
       </fieldset>
    </form>';
-   sql_free_result();
+   sql_free_result($result);
    adminfoot('','','','');
 }
 
@@ -293,7 +290,6 @@ function MergeForumAction($oriforum,$destforum) {
       forumerror('0001');
    $sql = "UPDATE $upload_table SET forum_id='$destforum' WHERE apli='forum_npds' and forum_id='$oriforum'";
    sql_query($sql);
-   sql_free_result();
    Q_Clean();
    header("location: admin.php?op=MaintForumAdmin");
 }

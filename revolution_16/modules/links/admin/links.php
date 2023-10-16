@@ -966,7 +966,7 @@ function LinksListModRequests() {
        </div>
    </div>';
    }
-   sql_free_result();
+   sql_free_result($resultX);
    include ("footer.php");
 }
 

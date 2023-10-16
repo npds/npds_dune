@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFORM extentions                           */
 /*                                                                      */
@@ -207,9 +207,6 @@ function FooterOrderBy($cid, $sid, $orderbyTrans, $linkop) {
           '.translate("Date").' <a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateA"><i class="fas fa-sort-numeric-down fa-lg align-middle"></i></a><a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateD"><i class="fas fa-sort-numeric-down-alt fa-lg align-middle"></i></a>';
    }
    echo '<br />'.translate("Sites classés par").' : <strong>'.$orderbyTrans.'</strong></span></p>';
-
-
-
 /*
 echo '
 <div class="btn-group">
@@ -226,12 +223,6 @@ echo '
 </div>';
 
 */
-
-
-
-
-
-
 }
 
 function viewlink($cid, $min, $orderby, $show) {
@@ -319,7 +310,6 @@ function viewlink($cid, $min, $orderby, $show) {
 
 function viewslink($sid, $min, $orderby, $show) {
    global $ModPath, $ModStart, $links_DB, $admin, $perpage;
-   $perpage =2;//# to test debug
    include("header.php");
    include_once('functions.php');
 
@@ -356,7 +346,6 @@ function viewslink($sid, $min, $orderby, $show) {
       echo "<br />\n";
       $link_fiche_detail='';
       include_once("modules/$ModPath/links-view.php");
-//      echo "<br />\n";
 
       $orderby = convertorderbyout($orderby);
 
@@ -504,7 +493,6 @@ function viewlinkeditorial($lid, $ttitle) {
       echo '<p class="text-center">'.translate("Aucun édito n'est disponible pour ce site").'</p><br />';
    echo '
    </div>';
-   sql_free_result();
    include("footer.php");
 }
 
