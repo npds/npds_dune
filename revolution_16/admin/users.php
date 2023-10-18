@@ -540,7 +540,7 @@ switch ($op) {
 
          // Mettre un fichier 'delete' dans sa home_directory si elle existe
          if (is_dir($user_dir)) {
-            $fp = fopen($repertoire.$user_dir.'/delete', 'w');
+            $fp = fopen($user_dir.'/delete', 'w');
             fclose($fp);
          }
 
