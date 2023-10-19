@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -36,7 +36,7 @@ function online_members () {
    return $members_online;
 }
 
-#autodoc writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) : Ins&egrave;re un MI dans la base et le cas Èch&eacute;ant envoi un mail
+#autodoc writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) : Insère un MI dans la base et le cas échéant envoi un mail
 function writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) {
    global $NPDS_Prefix;
 
@@ -64,7 +64,7 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
       }
       global $subscribe, $nuke_url, $sitename;
       if ($subscribe) {
-         $sujet=translate_ml($user_languex, "Notification message privé.").'['.$from_userid.'] / '.$sitename;
+         $sujet=html_entity_decode(translate_ml($user_languex, "Notification message privé."),ENT_COMPAT | ENT_HTML401,cur_charset).'['.$from_userid.'] / '.$sitename;
          $message = $time.'<br />'.translate_ml($user_languex, "Bonjour").'<br />'.translate_ml($user_languex, "Vous avez un nouveau message.").'<br /><br /><b>'.$subject.'</b><br /><br /><a href="'.$nuke_url.'/viewpmsg.php">'.translate_ml($user_languex, "Cliquez ici pour lire votre nouveau message.").'</a><br />';
          include("signat.php");
          copy_to_email($to_useridx,$sujet,stripslashes($message));
@@ -72,7 +72,7 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
    }
 }
 
-#autodoc write_short_private_message($to_userid) : Formulaire d'&eacute;criture d'un MI
+#autodoc write_short_private_message($to_userid) : Formulaire d'écriture d'un MI
 function write_short_private_message($to_userid) {
    echo '
    <h2>'.translate("Message à un membre").'</h2>
@@ -109,7 +109,7 @@ function write_short_private_message($to_userid) {
    </form>';
 }
 
-#autodoc if_chat() : Retourne le nombre de connect&eacute; au Chat
+#autodoc if_chat() : Retourne le nombre de connecté au Chat
 function if_chat($pour) {
    global $NPDS_Prefix;
    $auto=autorisation_block("params#".$pour);
@@ -123,7 +123,7 @@ function if_chat($pour) {
    return ($numofchatters);
 }
 
-#autodoc insertChat($username, $message, $dbname, $id) : Ins&egrave;re un record dans la table Chat / on utilise id pour filtrer les messages - id = l'id du groupe
+#autodoc insertChat($username, $message, $dbname, $id) : Insère un record dans la table Chat / on utilise id pour filtrer les messages - id = l'id du groupe
 function insertChat($username, $message, $dbname,$id) {
    global $NPDS_Prefix;
    if ($message!='') {
@@ -136,7 +136,7 @@ function insertChat($username, $message, $dbname,$id) {
    }
 }
 
-#autodoc JavaPopUp($F,$T,$W,$H) : Personnalise une ouverture de fen&egrave;tre (popup)
+#autodoc JavaPopUp($F,$T,$W,$H) : Personnalise une ouverture de fenêtre (popup)
 function JavaPopUp($F,$T,$W,$H) {
    // 01.feb.2002 by GaWax
    if ($T=="") $T="@ ".time()." ";
@@ -150,7 +150,7 @@ function JavaPopUp($F,$T,$W,$H) {
 function instant_members_message() {
    global $user, $admin, $long_chain, $NPDS_Prefix;
    settype($boxstuff,'string');
-   if (!$long_chain) {$long_chain=13;}
+   if (!$long_chain) $long_chain=13;
 
    global $block_title;
    if ($block_title=='')
@@ -251,7 +251,7 @@ function instant_members_message() {
    }
 }
 
-#autodoc makeChatBox($pour) : Bloc ChatBox <br />=> syntaxe : function#makeChatBox <br />params#chat_membres <br /> le parametre doit etre en accord avec l'autorisation donc (chat_membres, chat_tous, chat_admin, chat_anonyme)
+#autodoc makeChatBox($pour) : Bloc ChatBox <br />=> syntaxe : function#makeChatBox <br />params#chat_membres <br /> le parametre doit être en accord avec l'autorisation donc (chat_membres, chat_tous, chat_admin, chat_anonyme)
 function makeChatBox($pour) {
    global $user, $admin, $member_list, $long_chain, $NPDS_Prefix;
    include_once('functions.php');
