@@ -111,7 +111,7 @@ function unsubscribe($xemail) {
             sql_query("UPDATE ".$NPDS_Prefix."lnl_outside_users SET status='NOK' WHERE email='$xemail'");
             include("header.php");
             echo '
-            <div class="alert alert-success">'translate("Merci").'</div>
+            <div class="alert alert-success">'.translate("Merci").'</div>
             <a href="index.php">'.translate("Retour en arrière").'</a>';
             include("footer.php");
          } else {
