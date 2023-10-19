@@ -22,12 +22,10 @@ include_once("modules/$ModPath/links.conf.php");
 if ($links_DB=='') $links_DB=$NPDS_Prefix;
 
 function menu() {
-   global $ModPath, $ModStart, $links_anonaddlinklock,$op;
-   $ad_l='';$ne_l='';$in_l='';
-   if($op=='NewLinks') $ne_l='active'; else $ne_l='';
-   if($op=='AddLink') $ad_l='active'; else $ad_l='';
-   if($op=='') $in_l='active'; else $in_l='';
-
+   global $ModPath, $ModStart, $links_anonaddlinklock, $op;
+   $ne_l = $op=='NewLinks' ? 'active' : '';
+   $ad_l = $op=='AddLink' ? 'active' : '';
+   $in_l = $op=='' ? 'active' : '';
    echo '
    <ul class="nav nav-tabs mb-3">
       <li class="nav-item"><a class="nav-link '.$in_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" >'.translate("Index").'</a></li>';
@@ -81,7 +79,7 @@ function SearchForm() {
 }
 
 function mainheader() {
-   menu();//
+   menu();
 }
 
 function autorise_mod($lid,$aff) {
