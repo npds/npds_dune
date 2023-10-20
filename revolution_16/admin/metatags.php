@@ -18,24 +18,27 @@ $f_titre = adm_translate("Administration des MétaTags");
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 
-function MetaTagAdmin($saved = false) {
+function MetaTagAdmin(bool $meta_saved = false) {
    global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
    $tags = GetMetaTags("meta/meta.php");
-///   var_dump($tags);////
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $sel=' selected="selected"';
    echo '
    <hr />';
-   if ($saved) // this not work
-      echo '<div class="alert alert-success">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</div>';
+   if ($meta_saved)
+      echo '
+      <div class="alert alert-success">
+         '.adm_translate("Vos MétaTags ont été modifiés avec succès !").'
+         <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>';
    echo '
    <form id="metatagsadm" action="admin.php" method="post">
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagauthor" type="text" name="newtag[author]" value="'.$tags['author'].'" maxlength="100">
          <label for="newtagauthor">'.adm_translate("Auteur(s)").'</label>
-         <span class="help-block">'. adm_translate("(Ex. : nom du webmaster)").'<span class="float-end ms-1" id="countcar_newtagauthor"></span></span>
+         <span class="help-block">'.adm_translate("(Ex. : nom du webmaster)").'<span class="float-end ms-1" id="countcar_newtagauthor"></span></span>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagowner" type="text" name="newtag[owner]" value="'.$tags['owner'].'" maxlength="100" />
@@ -49,11 +52,11 @@ function MetaTagAdmin($saved = false) {
       </div>
       <div class="form-floating mb-3">
          <select class="form-select" id="newtaglanguage" name="newtag[language]">
-            <option value="zh"'.($tags['lang']=='zh' ? $sel : '').'>'.adm_translate("chinese").'</option>
-            <option value="en"'.($tags['lang']=='en' ? $sel : '').'>'.adm_translate("english").'</option>
-            <option value="fr"'.($tags['lang']=='fr' ? $sel : '').'>'.adm_translate("french").'</option>
-            <option value="de"'.($tags['lang']=='de' ? $sel : '').'>'.adm_translate("german").'</option>
-            <option value="es"'.($tags['lang']=='es' ? $sel : '').'>'.adm_translate("spanish").'</option>
+            <option value="zh"'.(($tags['lang'] ? $tags['lang'] : $tags['language'])=='zh' ? $sel : '').'>'.adm_translate("chinese").'</option>
+            <option value="en"'.(($tags['lang'] ? $tags['lang'] : $tags['language'])=='en' ? $sel : '').'>'.adm_translate("english").'</option>
+            <option value="fr"'.(($tags['lang'] ? $tags['lang'] : $tags['language'])=='fr' ? $sel : '').'>'.adm_translate("french").'</option>
+            <option value="de"'.(($tags['lang'] ? $tags['lang'] : $tags['language'])=='de' ? $sel : '').'>'.adm_translate("german").'</option>
+            <option value="es"'.(($tags['lang'] ? $tags['lang'] : $tags['language'])=='es' ? $sel : '').'>'.adm_translate("spanish").'</option>
          </select>
          <label for="newtaglanguage">'.adm_translate("Langue principale").'</label>
       </div>
@@ -109,15 +112,6 @@ function MetaTagAdmin($saved = false) {
       <div class="row g-3">
          <div class="col-md-6">
             <div class="form-floating mb-3">
-               <select class="form-select" id="newtagcontenttype" name="newtag[content-type]">
-                  <option value="text/html; charset=iso-8859-1"'.(!strcasecmp($tags['content-type'], 'text/html; charset=iso-8859-1') ? $sel : '').'>charset=ISO-8859-1</option>
-                  <option value="text/html; charset=utf-8"'.(!(strcasecmp($tags['charset'], 'utf-8')) ? $sel : '').'>charset=utf-8</option>
-               </select>
-               <label for="newtagcontenttype">'.adm_translate("Encodage").'</label>
-            </div>
-         </div>
-         <div class="col-md-6">
-            <div class="form-floating mb-3">
                <select class="form-select" id="newtagdoctype" name="newtag[doctype]">
                   <option value="XHTML 1.0 Transitional"'.(!strcasecmp(doctype, 'XHTML 1.0 Transitional') ? $sel : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
                   <option value="XHTML 1.0 Strict"'.(!strcasecmp(doctype, 'XHTML 1.0 Strict') ? $sel : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
@@ -148,11 +142,11 @@ include ("admin/settings_save.php");
 global $language;
 $hlpfile = "manuels/$language/metatags.html";
 
-settype($meta_saved,'string');
+settype($meta_saved,'bool');
 switch ($op) {
    case 'MetaTagSave':
       $meta_saved = MetaTagSave("meta/meta.php", $newtag);
-      header("location: admin.php?op=MetaTagAdmin");
+      header("location: admin.php?op=MetaTagAdmin&meta_saved=$meta_saved");
    break;
    case 'MetaTagAdmin':
       MetaTagAdmin($meta_saved);
