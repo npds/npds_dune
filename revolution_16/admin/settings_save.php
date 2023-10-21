@@ -91,7 +91,7 @@ function MetaTagSave($filename, $tags) {
          if ($tags['doctype'] == "XHTML 1.0 Transitional" || $tags['doctype'] == "XHTML 1.0 Strict") {
             $content .= MetaTagMakeSingleTag('content-type', 'text/html; charset=utf-8', 'http-equiv');
          } else {
-            $content .= MetaTagMakeSingleTag('utf-8', '', 'utf-8');
+            $content .= MetaTagMakeSingleTag('utf-8', '', 'charset');
          }
       }
       $content .= "\$l_meta.=\"<title>\$Titlesitename</title>\\n\";\n";
