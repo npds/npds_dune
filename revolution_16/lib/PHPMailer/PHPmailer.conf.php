@@ -26,4 +26,6 @@ $smtp_secure = 1;
 $smtp_crypt = "tls";
 # Port TCP, utilisez 587 si vous avez activé le chiffrement TLS
 $smtp_port = 587;
+# DKIM 1 pour celui du dns 2 pour une génération automatique
+$dkim_auto = 1;
 ?>
