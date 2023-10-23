@@ -204,6 +204,7 @@ function adm_translate($phrase) {
   case "Auteur(s)": $tmp="作者"; break;
   case "Auteurs actuels": $tmp="当前作者"; break;
   case "Auto-Articles": $tmp="自动文章"; break;
+  case "Automatique": $tmp="自动的"; break;
   case "Autoriser la connexion": $tmp="允许连接"; break;
   case "Autoriser la création automatique des membres": $tmp="允许自动定义新会员吗？"; break;
   case "Autoriser la création de news pour": $tmp=" 仅允许版主/管理员粘贴新帖子"; break;
@@ -359,11 +360,13 @@ function adm_translate($phrase) {
   case "Diffusion d'un Message Interne": $tmp=" 发送一个内部消息"; break;
   case "Distribution": $tmp="描述"; break;
   case "Divers": $tmp="多种"; break;
+  case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM（如果存在且有效）。"; break;
   case "DNS ou serveur de mail incorrect": $tmp="DNS或不正确的邮件服务器"; break;
   case "Droits de publication": $tmp="发表文章之权益"; break;
   case "Droits des auteurs": $tmp="作者所有权"; break;
   case "Droits modules": $tmp="Addons perms"; break;
   case "Droits": $tmp="权利"; break;
+  case "Du DNS": $tmp="来自 DNS"; break;
   case "du groupe": $tmp="from the group"; break;
   case "Durée de vie en heure du cookie Admin": $tmp=" 管理员Cookie的有效时间（小时）"; break;
   case "Durée de vie en heure du cookie User": $tmp=" 用户Cookie的有效时间（小时）"; break;
@@ -500,6 +503,7 @@ function adm_translate($phrase) {
   case "Fusionner des forums": $tmp="合并论坛"; break;
   case "Gain réalisable": $tmp="Gained"; break;
   case "Gain total réalisé": $tmp="优化后得到的新空间"; break;
+  case "génération automatique du DKIM par le portail.": $tmp="由门户自动生成 DKIM。"; break;
   case "Gérer les Liens Relatifs : ": $tmp="管理相关链接"; break;
   case "Gestion des blocs": $tmp="Blocs management"; break;
   case "Gestion des forums": $tmp="Forums management"; break;

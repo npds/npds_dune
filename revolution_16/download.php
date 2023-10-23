@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -397,8 +397,9 @@ function broken($did) {
       if ($did) {
          global $notify_email, $notify_message, $notify_from, $nuke_url;
          settype ($did, "integer");
-         $message=$nuke_url."\n\n".translate("Téléchargements")." ID : $did\n\n".translate("Auteur")." $cookie[1] / IP : ".getip();
-         send_email($notify_email, html_entity_decode(translate("Rapporter un lien rompu"),ENT_COMPAT | ENT_HTML401,cur_charset), $message, $notify_from , false, "text");
+         $message=$nuke_url."\n".translate("Téléchargements")." ID : $did\n".translate("Auteur")." $cookie[1] / IP : ".getip()."\n\n";
+         include 'signat.php';
+         send_email($notify_email, html_entity_decode(translate("Rapporter un lien rompu"),ENT_COMPAT | ENT_HTML401,cur_charset), nl2br($message), $notify_from , false, "html"; '');
          include("header.php");
          echo '
         <div class="alert alert-success">

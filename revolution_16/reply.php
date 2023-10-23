@@ -150,7 +150,7 @@ if ($submitS) {
          $message .= translate_ml($m['user_langue'], "Pour lire la réponse")." : ";
          $message .= "<a href=\"$nuke_url/viewtopic.php?topic=$topic&forum=$forum&start=9999#lastpost\">$nuke_url/viewtopic.php?topic=$topic&forum=$forum&start=9999</a>\n\n";
          include("signat.php");
-         send_email($m['email'], $subject, $message, '', true, "html");
+         send_email($m['email'], $subject, $message, '', true, "html", '');
          $sauf=$m['uid'];
       }
       global $subscribe;

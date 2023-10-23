@@ -517,7 +517,7 @@ function Test($Yheader, $Ybody, $Yfooter) {
    </div>
    <a class="btn btn-secondary my-3" href="javascript:history.go(-1)" >'.adm_translate("Retour en arrière").'</a>';
    global $adminmail;
-   send_email($adminmail,'LNL TEST',$message, '', true, $Xmime);
+   send_email($adminmail,'LNL TEST',$message, $adminmail, true, $Xmime, '');
    adminfoot('','','','');
 }
 
@@ -735,7 +735,7 @@ switch ($op) {
                            $Xmessage=$message."\n\n------------------------------------------------------------------\n";
                            $Xmessage.= adm_translate("Pour supprimer votre abonnement à notre Lettre, suivez ce lien")." : $nuke_url/lnl.php?op=unsubscribe&email=$email";
                         }
-                        send_email($email, $subject, meta_lang($Xmessage), "", true, $Xmime);
+                        send_email($email, $subject, meta_lang($Xmessage), "", true, $Xmime, '');
                         $number_send++;
                      }
                   }
@@ -771,7 +771,7 @@ switch ($op) {
                   if (($email!="Anonyme") or ($email!="Anonymous")) {
                      if ($email!='') {
                         if (($message!='') and ($subject!='')) {
-                           send_email($email, $subject, meta_lang($message), "", true, $Xmime);
+                           send_email($email, $subject, meta_lang($message), "", true, $Xmime, '');
                            $number_send++;
                         }
                      }
@@ -781,6 +781,7 @@ switch ($op) {
          }
          $deb=$debut+$limit;
          $chartmp='';
+         settype($OXtype, 'string');
          if ($deb>=$nrows) {
             if ((($OXtype=="All") and ($Xtype=="Mbr")) OR ($OXtype=="")) {
                if (($message!='') and ($subject!='')) {

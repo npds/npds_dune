@@ -146,11 +146,23 @@
          <h5>Sollen Icons für neue Kategorien angezeigt werden?</h5>
          <p>Ja oder Nein? Wenn Ja, wird ein Icon fûr die neue Kategorie, oder wenn es neue Links in einer kategorie gibt angezeigt.</p>
 
-         <h4> Mail System (Email)</h4>
-         <h5>Administrator E-mail</h5>
-         <p>Wird genutzt, wenn NPDS E-mails versendet und erlaubt es der Person, an die die E-mail gesendet wurde zu antworten (Echte oder Fake E-mail / mit dem Namen der Domain => z.B. : developpeur@npds.org).</p>
-         <h5>Welche E-mail Funktion soll genutzt werden ?</h5>
-         <p>Funktion : mail =>Standardeinstellungen für Linux Server / Funktion : email => Für andere Server Systeme.</p>
+         <h4>Nachrichtensystem (E-Mail)</h4>
+         <h5>E-Mail-Adresse des Administrators</h5>
+         <p>Wird verwendet, wenn NPDS E-Mails automatisch sendet und es dem Empf&auml;nger daher erm&ouml;glicht, Ihnen zu antworten (g&uuml;ltige, autorisierte E-Mail-Adresse, die dem sendenden Server zugeordnet ist. => Beispiel: Developer@npds.org).</p>
+         <h5>Welches E-Mail-Protokoll soll verwendet werden?</h5>
+         <p>Verwenden Sie das SMTP(S)-Protokoll oder nicht</p>
+         <h6>PHPmailer SMTP(S) konfigurieren</h6>
+         <p>
+            <ul>
+               <li>Der Name des sendenden Servers</li>
+               <li>TCP-Port, der verwendet werden soll. 587 oder 465 (seltener und veraltet), wenn Sie SMTPS-Verschl&uuml;sselung verwenden. F&uuml;r SMTP manchmal Ports 25 oder 2525</li>
+               <li>Authentifizierung: Wenn Ihr Server dies erfordert, geben Sie Folgendes an: Benutzernamen und Passwort.</li>
+               <li>Aktivieren Sie die Verschl&uuml;sselung Ihrer Nachrichten w&auml;hrend der &Uuml;bertragung oder deaktivieren Sie sie. Und w&auml;hlen Sie das Verschl&uuml;sselungsprotokoll TLS (Standard) oder SSL (veraltet). Bitte beachten Sie, dass SMTP Nachrichten nur w&auml;hrend der &Uuml;bertragung verschl&uuml;sselt.</li>
+            </ul>
+         </p>
+         <h6>DKIM</h6>
+         <p>Verwenden Sie den DNS-DKIM-Eintrag oder einen vom Portal automatisch generierten DKIM-Eintrag</p>
+
          <h5>Footer der Email</h5>
          <p>NPDS sendet E-mails (beispielsweise ein Passwort bei Neuanmeldung) und diese Option erlaubt Ihnen die Gestaltung des Footers der E-mails. Es ist möglich HTML Code zu verwenden. Sie sollten auch Ihren Namen und Ihre Webadresse mitsenden..<br />
            <font color="#FF0000"><b>Mail bei neuen Einsendungen an den Admin.</b></font> NPDS erlaubt es eine E-mail an den Admin zu senden, wenn es neue Einsendungen für die Webseite gibt (Artikel, Links, Forum, usw). </p>
@@ -198,8 +210,6 @@
          <li> <b> Kleines Administrationsmenu :</b> Ja oder Nein.</li>
          <br />
          <br />
-         <li> <b> Schriftarten für die Seite :</b> Brauchbar sind: Verdana,Arial,Helvetica. Sie k�nnen es �ndern, aber denken Sie an das Gesamtbild Ihrer Seite...</li>
-         <br />
 
          <h4>Verschiedene</h4>
          <h5> Anzahl der Artikel, die im Adminbereich angezeigt werden sollen Admin</h5>
@@ -228,6 +238,7 @@
          <h5> Benutzer Liste : Privat</h5>
          <p>NPDS verbietet anonymen Besuchern, die Benutzerliste einzusehen.</p>
          <li> <b> Download Bereich :</b> Wählen Sie die Kategorie, welche als erste im Downloadbereich angezeigt werden soll.</li>
+
          <h4>Verschiedene HTTP</h4>
          <li> <b> �berschriften : Kontrollieren Sie ob der Port 80 für das Web frei ist :</b></li>
          <li> <b> Cache Kontrolle : Aktiviert die erweiterten Cache Tags (pragma ...) :</b> NPDS erm�glicht es, die erweiterten Cachemanagement Funktionen zu nutzen. Einige Hoster unterst�tzen diese Funktion aber nicht.</li>

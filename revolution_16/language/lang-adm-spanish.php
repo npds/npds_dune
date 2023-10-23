@@ -204,6 +204,7 @@ function adm_translate($phrase) {
   case "Auteur(s)": $tmp="Autor(es)"; break;
   case "Auteurs actuels": $tmp="Autores actuales"; break;
   case "Auto-Articles": $tmp="Autoartìculos"; break;
+  case "Automatique": $tmp="Automático"; break;
   case "Autoriser la connexion": $tmp="Autorizar este usuario a conectarse al sitio web"; break;
   case "Autoriser la création automatique des membres": $tmp="¿Autorizar la creacion automatica de los miembros?"; break;
   case "Autoriser la création de news pour": $tmp="Autorizar la creacion de noticias para"; break;
@@ -359,11 +360,13 @@ function adm_translate($phrase) {
   case "Diffusion d'un Message Interne": $tmp="Enviar un mensaje interno"; break;
   case "Distribution": $tmp="Distribucion"; break;
   case "Divers": $tmp="Varios"; break;
+  case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM (si existe y es válido)."; break;
   case "DNS ou serveur de mail incorrect": $tmp="DNS o servidor de correo no válido"; break;
   case "Droits de publication": $tmp="Derechos de publicación"; break;
   case "Droits des auteurs": $tmp="Derechos de los autores"; break;
   case "Droits modules": $tmp="Derechos de los módulos"; break;
   case "Droits": $tmp="Derechos"; break;
+  case "Du DNS": $tmp="Desde DNS"; break;
   case "du groupe": $tmp="Grupo"; break;
   case "Durée de vie en heure du cookie Admin": $tmp="Admin'cookie TTL (En horas)"; break;
   case "Durée de vie en heure du cookie User": $tmp="User'cookie TTL (En horas)"; break;
@@ -500,6 +503,7 @@ function adm_translate($phrase) {
   case "Fusionner des forums": $tmp="Fusionar foros"; break;
   case "Gain réalisable": $tmp="Ganancia realizable"; break;
   case "Gain total réalisé": $tmp="Ganancia total realizada"; break;
+  case "génération automatique du DKIM par le portail.": $tmp="Generación automática del DKIM por parte del portal."; break;
   case "Gérer les Liens Relatifs : ": $tmp="Gestionar los vinculos relativos:"; break;
   case "Gestion des blocs": $tmp="Gestión de bloques"; break;
   case "Gestion des forums": $tmp="Foros gestión"; break;

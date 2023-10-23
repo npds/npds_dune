@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -152,7 +152,7 @@ if ($submitS) {
          $message .= translate_ml($m['user_langue'], "Pour lire la réponse")." : ";
          $message .= "<a href=\"$nuke_url/viewtopicH.php?topic=$topic&forum=$forum\">$nuke_url/viewtopicH.php?topic=$topic&forum=$forum</a>\n\n";
          include("signat.php");
-         send_email($m['email'], $subject, $message, '', true, 'html');
+         send_email($m['email'], $subject, $message, '', true, 'html', '');
          $sauf=$m['uid'];
       }
       global $subscribe;

@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -325,7 +325,7 @@ function EmailStats($login, $cid, $bid) {
          $message .= translate("Rapport généré le").' : '."$fecha\n\n";
          include("signat.php");
 
-         send_email($email, $subject, $message, '', true, 'html');
+         send_email($email, $subject, $message, '', true, 'html', '');
          header_page();
          echo '
          <div class="card bg-light">

@@ -1005,7 +1005,7 @@ function secartpublish($artid, $secid, $title, $content, $author, $members, $Mme
       $sujet = html_entity_decode(adm_translate("Validation de votre publication"),ENT_COMPAT | ENT_HTML401,cur_charset);
       $message = adm_translate("La publication que vous aviez en attente vient d'être validée");
       global $notify_from;
-      send_email($lemail, $sujet, $message, $notify_from, true, "html");
+      send_email($lemail, $sujet, $message, $notify_from, true, "html", '');
    }
    Header("Location: admin.php?op=sections");
 }

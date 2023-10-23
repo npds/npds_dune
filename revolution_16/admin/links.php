@@ -1024,7 +1024,7 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
             $subject = html_entity_decode(adm_translate("Votre Lien"),ENT_COMPAT | ENT_HTML401,cur_charset)." : $sitename";
             $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la page")." : $title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
             include("signat.php");
-            send_email($email, $subject, $message, '', false, 'html');
+            send_email($email, $subject, $message, '', false, 'html', '');
          }
       }
       global $aid; Ecr_Log('security', "AddLinks($title) by AID : $aid", '');

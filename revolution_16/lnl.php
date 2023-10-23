@@ -81,7 +81,7 @@ function subscribe_ok($xemail) {
             $subject = html_entity_decode(translate("La lettre"),ENT_COMPAT | ENT_HTML401,cur_charset).' / '.$sitename;
             $message = translate("Merci d'avoir consacré du temps pour vous enregistrer.").'<br /><br />'.translate("Pour supprimer votre abonnement à notre lettre, merci d'utiliser").' : <br />'.$nuke_url.'/lnl.php?op=unsubscribe&email='.$xemail.'<br /><br />';
             include("signat.php");
-            send_email($xemail, $subject, $message, '', true, 'html');
+            send_email($xemail, $subject, $message, '', true, 'html', '');
             echo '
             <div class="alert alert-success">'.translate("Merci d'avoir consacré du temps pour vous enregistrer.").'</div>
             <a href="index.php">'.translate("Retour en arrière").'</a>';

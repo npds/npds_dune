@@ -20,7 +20,7 @@ admindroits($aid,$f_meta_nom);
 //<== controle droit
 
 global $language, $ModPath, $ModStart;
-$old_language=$language;
+$hlpfile ='manuels/'.$language.'/logs.html';
 include('modules/upload/upload.conf.php');
 include('modules/geoloc/geoloc_locip.php');
 
@@ -35,7 +35,6 @@ $FileSecure = $DOCUMENTROOT.$racine.'/slogs/security.log';
 $FileUpload = $DOCUMENTROOT.$rep_log;
 $RepTempFil = $DOCUMENT_ROOT.$rep_cache;
 
-$language=$old_language;
 include ("modules/$ModPath/lang/session-log-$language.php");
 $ThisFile="admin.php?op=Extend-Admin-SubModule&amp;ModPath=".$ModPath."&amp;ModStart=".$ModStart;
 $f_titre = SessionLog_translate("Gestion des Logs");
@@ -159,8 +158,13 @@ echo '
       if ($log=='upload') 
          if (file_exists($FileUpload))
             $Mylog=$FileUpload;
+      $file = [
+         'file' => $Mylog,
+         'name' => 'security.log',
+      ];
       $subject = html_entity_decode(SessionLog_translate("Fichier de Log de"),ENT_COMPAT | ENT_HTML401,cur_charset).' '.$sitename;
-      send_email($adminmail, $subject, $Mylog, $adminmail, true, 'mixed');
+      $message = SessionLog_translate("Fichier de Log de").' '.$sitename."<br /><br />";
+      send_email($adminmail, $subject, $message, $adminmail, true, 'mixed', $file);
    }
 
    // Vider le répertoire temporaire

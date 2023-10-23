@@ -280,12 +280,12 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
             $message .= "\n\n\n".aff_langue("[french]Ce message et les pi&egrave;ces jointes sont confidentiels et &eacute;tablis &agrave; l'attention exclusive de leur destinataire (aux adresses sp&eacute;cifiques auxquelles il a &eacute;t&eacute; adress&eacute;). Si vous n'&ecirc;tes pas le destinataire de ce message, vous devez imm&eacute;diatement en avertir l'exp&eacute;diteur et supprimer ce message et les pi&egrave;ces jointes de votre syst&egrave;me.[/french][english]This message and any attachments are confidential and intended to be received only by the addressee. If you are not the intended recipient, please notify immediately the sender by reply and delete the message and any attachments from your system.[/english][chinese]&#27492;&#28040;&#24687;&#21644;&#20219;&#20309;&#38468;&#20214;&#37117;&#26159;&#20445;&#23494;&#30340;&#65292;&#24182;&#19988;&#25171;&#31639;&#30001;&#25910;&#20214;&#20154;&#25509;&#25910;&#12290; &#22914;&#26524;&#24744;&#19981;&#26159;&#39044;&#26399;&#25910;&#20214;&#20154;&#65292;&#35831;&#31435;&#21363;&#36890;&#30693;&#21457;&#20214;&#20154;&#24182;&#22238;&#22797;&#37038;&#20214;&#21644;&#31995;&#32479;&#20013;&#30340;&#25152;&#26377;&#38468;&#20214;&#12290;[/chinese][spanish]Este mensaje y cualquier adjunto son confidenciales y est&aacute;n destinados a ser recibidos por el destinatario. Si no es el destinatario deseado, notif&iacute;quelo al remitente de inmediato y responda al mensaje y cualquier archivo adjunto de su sistema.[/spanish][german]Diese Nachricht und alle Anh&auml;nge sind vertraulich und sollen vom Empf&auml;nger empfangen werden. Wenn Sie nicht der beabsichtigte Empf&auml;nger sind, benachrichtigen Sie bitte sofort den Absender und antworten Sie auf die Nachricht und alle Anlagen von Ihrem System.[/german]")."\n\n\n";
             include ("signat.php");
             $subject= translate("Inscription")." $uname";
-            send_email($email, $subject, $message, '', true, 'html');
+            send_email($email, $subject, $message, '', true, 'html', '');
           } else {
              $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")."\n".translate("-Identifiant : ")." $uname\n".translate("-Mot de passe : ")." $makepass\n\n";
              include ("signat.php");
              $subject= translate("Mot de passe utilisateur pour")." $uname";
-             send_email($email, $subject, $message, '', true, 'html');
+             send_email($email, $subject, $message, '', true, 'html', '');
 
             echo '
             <h2>'.translate("Utilisateur").'</h2>
@@ -306,7 +306,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
          send_email($adminmail,"Inscription sur $sitename","Infos :
             Nom : $name
             ID : $uname
-            Email : $email", false,"text");
+            Email : $email", false,"text", '');
          }
          include("footer.php");
    } else
@@ -775,7 +775,7 @@ function mail_password($uname, $code) {
 
        $subject=translate("Confirmation du code pour").' '.$uname;
 
-       send_email($email, $subject, $message, '', true, 'html');
+       send_email($email, $subject, $message, '', true, 'html', '');
        message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation du code pour").' '.$uname.' '.translate("envoyée par courrier.").'</div>');
        Ecr_Log('security', 'Lost_password_request : '.$uname, '');
     }

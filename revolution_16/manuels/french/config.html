@@ -21,6 +21,7 @@
          <h3 class="mb-3">Administration - Pr&eacute;f&eacute;rences</h3>
          <p>Cette fonction est la plus importante quand vous d&eacute;marrez un site avec NPDS. Vous pouvez modifier toutes les informations importantes de votre site et surtout lui donner le look et le feeling que vous souhaitez.<br />
          Vous trouverez ci-dessous une explication pour les param&egrave;tre importants de NPDS.</p>
+
          <h5>Parse algo</h5>
          <p>Pour les pr&eacute;f&eacute;rences de votre site, vous pouvez choisir l'une ou l'autre des fonctions de Parse.
             <ul>
@@ -66,7 +67,6 @@
                La fonction "Online" r&eacute;alisant la m&ecirc;me op&eacute;ration est <i>Backend</i> qui supporte le format RDF/XML ou mieux encore le module NPDS Push Infos System.</li>
             </ul>
          </p>
-
          <h5>Nom par d&eacute;faut de anonyme</h5>
          <p>Nom par d&eacute;faut des utilisateurs <b>non</b> enregistr&eacute;s. Anonyme est une bonne valeur (mais aussi invit&eacute;, visiteur...).<br />
          Ne changez pas cette valeur en cours de fonctionnement de NPDS.</p>
@@ -153,9 +153,20 @@
 
          <h4>Syst&egrave;me de messagerie (Email)</h4>
          <h5>Adresse m&eacute;l de l'administrateur</h5>
-         <p>Sert lorsque NPDS envoie des m&eacute;ls automatiquement et permet donc au destinataire de vous r&eacute;pondre (Email r&eacute;elle ou non / compl&egrave;te avec le nom de domaine => ex : developpeur@npds.org).</p>
-         <h5>Quelle fonction mail utilis&eacute;e ?</h5>
-         <p>fonction : mail =>Par d&eacute;faut pour toute machine Linux digne de ce nom / fonction : email => Pour certains h&eacute;bergeurs.</p>
+         <p>Sert lorsque NPDS envoie des m&eacute;ls automatiquement et permet donc au destinataire de vous r&eacute;pondre (Adresse E-mail valide, autoris&eacute;e et associ&eacute;e au serveur d'envoi. => ex : developpeur@npds.org).</p>
+         <h5>Quelle protocole mail utiliser ?</h5>
+         <p>Utiliser ou pas le protocole SMTP(S)</p>
+         <h6>Configuration de PHPmailer SMTP(S)</h6>
+         <p>
+            <ul>
+               <li>Le nom du serveur d'envoi</li>
+               <li>Port TCP qui doit être utilisé. 587 ou 465 (plus rare et obsolète) si vous utiliser le chiffrement SMTPS. Pour SMTP parfois les ports 25 ou 2525</li>
+               <li>Authentification : si elle est requise par votre serveur alors renseigner : le nom d'utilisateur et le mot de passe.</li>
+               <li>Activer ou non le chiffrement de vos messages durant les transfert. Et choississer le protocole de chiffrement TLS (défaut) ou SSL (obsolète). A noter Que SMTP ne crytpte les messages que lors de leurs transferts.</li>
+            </ul>
+         </p>
+         <h6>DKIM</h6>
+         <p>Utiliser l'enregistrement DKIM du DNS ou un enregistrement DKIM généré automatiquement par le portail</p>
          <h5>Pied de m&eacute;l</h5>
          <p>NPDS envoie un certain nombre de m&eacute;ls (mot de passe, ...) et cette option vous permet de param&egrave;trer le "pied" (la fin, la signature) de ces m&eacute;ls. Cette zone supporte les codes HTML. Une bonne habitude est le rappel de vos coordonn&eacute;es, votre slogan.</p>
          <p>Envoyer par m&eacute;l les nouveaux articles &agrave; l'administrateur. NPDS permet d'avertir un administrateur chaque fois qu'un utilisateur poste un nouvel article.</p>
@@ -204,8 +215,6 @@
          <p>Oui ou non. Non vous permettra de gagner du temps.</p>
          <h5> Activer les menus courts pour l'administration</h5>
          <p>Oui ou non. oui vous permettra de gagner du temps.</p>
-         <h5>Police du site</h5>
-         <p>Normalement Verdana,Arial,Helvetica. Vous pouvez changer ces polices, mais pensez &agrave; vos utilisateurs.</p>
 
          <h4>Divers</h4>
          <h5>Nombres d'articles en mode administration</h5>

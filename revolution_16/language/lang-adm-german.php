@@ -204,6 +204,7 @@ function adm_translate($phrase) {
   case "Auteur(s)": $tmp="Autor(en)"; break;
   case "Auteurs actuels": $tmp="Die aktuellen Autoren"; break;
   case "Auto-Articles": $tmp="Auto Articles"; break;
+  case "Automatique": $tmp="Automatisch"; break;
   case "Autoriser la connexion": $tmp="Verbindung zulassen"; break;
   case "Autoriser la création automatique des membres": $tmp="Allow automated new-users configuration"; break;
   case "Autoriser la création de news pour": $tmp="Allow the post of News"; break;
@@ -359,11 +360,13 @@ function adm_translate($phrase) {
   case "Diffusion d'un Message Interne": $tmp="Senden Sie eine interne Nachricht"; break;
   case "Distribution": $tmp="Distribution"; break;
   case "Divers": $tmp="Verschieden"; break;
+  case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM (falls vorhanden und gültig)."; break;
   case "DNS ou serveur de mail incorrect": $tmp="Ungültiger DNS oder Mail-Server"; break;
   case "Droits de publication": $tmp="Veröffentlichungsrechte"; break;
   case "Droits des auteurs": $tmp="Rechte der Autoren"; break;
   case "Droits modules": $tmp="Rechte an den Modulen"; break;
   case "Droits": $tmp="Rechte"; break;
+  case "Du DNS": $tmp="Vom DNS"; break;
   case "du groupe": $tmp="gruppe"; break;
   case "Durée de vie en heure du cookie Admin": $tmp="Lebensdauer des Cookie Admin in Stunden"; break;
   case "Durée de vie en heure du cookie User": $tmp="Lebensdauer des Cookie User in Stunden"; break;
@@ -500,6 +503,7 @@ function adm_translate($phrase) {
   case "Fusionner des forums": $tmp="Foren zusammenführen"; break;
   case "Gain réalisable": $tmp="Gained"; break;
   case "Gain total réalisé": $tmp="Total gain"; break;
+  case "génération automatique du DKIM par le portail.": $tmp="Automatische Generierung des DKIM durch das Portal."; break;
   case "Gérer les Liens Relatifs : ": $tmp="Weiterführende Links verwalten:"; break;
   case "Gestion des blocs": $tmp="Blockverwaltung"; break;
   case "Gestion des forums": $tmp="Foren Verwaltung"; break;

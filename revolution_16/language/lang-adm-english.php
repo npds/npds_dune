@@ -204,6 +204,7 @@ function adm_translate($phrase) {
   case "Auteur(s)": $tmp="Author(s)"; break;
   case "Auteurs actuels": $tmp="current authors"; break;
   case "Auto-Articles": $tmp="Auto Articles"; break;
+  case "Automatique": $tmp="Automatic"; break;
   case "Autoriser la connexion": $tmp="Allow connection"; break;
   case "Autoriser la création automatique des membres": $tmp="Allow automated new-users configuration"; break;
   case "Autoriser la création de news pour": $tmp="Allow the post of News"; break;
@@ -359,11 +360,13 @@ function adm_translate($phrase) {
   case "Diffusion d'un Message Interne": $tmp="Send an Internal Message"; break;
   case "Distribution": $tmp="Distribution"; break;
   case "Divers": $tmp="Miscellaneous"; break;
+  case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM (if existing and valid)."; break;
   case "DNS ou serveur de mail incorrect": $tmp="Invalid DNS or mail server"; break;
   case "Droits de publication": $tmp="Publication' rights"; break;
   case "Droits des auteurs": $tmp="Authors' rights"; break;
   case "Droits modules": $tmp="Addons perms"; break;
   case "Droits": $tmp="Perms"; break;
+  case "Du DNS": $tmp="From DNS"; break;
   case "du groupe": $tmp="from the group"; break;
   case "Durée de vie en heure du cookie Admin": $tmp="Admin'cookie TTL (in hours)"; break;
   case "Durée de vie en heure du cookie User": $tmp="User'cookie TTL (in hours)"; break;
@@ -500,6 +503,7 @@ function adm_translate($phrase) {
   case "Fusionner des forums": $tmp="Merge forums"; break;
   case "Gain réalisable": $tmp="Gained"; break;
   case "Gain total réalisé": $tmp="Total gain"; break;
+  case "génération automatique du DKIM par le portail.": $tmp="automatic generation of the DKIM by the portal."; break;
   case "Gérer les Liens Relatifs : ": $tmp="Manage Related Links:"; break;
   case "Gestion des blocs": $tmp="Blocs management"; break;
   case "Gestion des forums": $tmp="Forums management"; break;

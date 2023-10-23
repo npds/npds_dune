@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -231,7 +231,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
    if (sql_last_id()) {
       if ($notify) {
          global $notify_email, $notify_subject, $notify_message, $notify_from;
-         send_email($notify_email, $notify_subject, $notify_message, $notify_from , false, "text");
+         send_email($notify_email, $notify_subject, $notify_message, $notify_from , false, "text", '');
       }
       include ('header.php');
       echo '

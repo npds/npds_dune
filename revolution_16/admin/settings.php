@@ -664,7 +664,7 @@ function Configure() {
             <span class="help-block text-end">'.adm_translate("Adresse E-mail valide, autorisée et associée au serveur d'envoi.").'<span id="countcar_xadminmail float-end"></span></span>
          </div>
          <div class="mb-3 row">
-            <label class="col-form-label col-sm-4" for="xmail_fonction">'.adm_translate("Fonction mail à utiliser").'</label>
+            <label class="col-form-label col-sm-4" for="xmail_fonction">'.adm_translate("Utiliser SMTP(S)").'</label>
             <div class="col-sm-8 my-2">';
    $cky='';$ckn='';
    if (!$mail_fonction) $mail_fonction=1;
@@ -672,18 +672,14 @@ function Configure() {
    echo '
                <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmail_fonction1" name="xmail_fonction" value="1" '.$cky.' />
-                  <label class="form-check-label" for="xmail_fonction1">function() => mail()</label>
+                  <label class="form-check-label" for="xmail_fonction1">'.adm_translate("Non").'</label>
                </div>
                <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xmail_fonction2" name="xmail_fonction" value="2" '.$ckn.' />
-                  <label class="form-check-label" for="xmail_fonction2">function() => PHPMailer SMTP(S)</label>
+                  <label class="form-check-label" for="xmail_fonction2">'.adm_translate("Oui").'</label>
                </div>
             </div>
          </div>';
-
-   // Footer of Email send by NPDS
-   settype($message,'string');
-   include "signat.php";
    include "lib/PHPMailer/PHPmailer.conf.php";
    echo '
          <div id="smtp" class="row">
@@ -753,7 +749,6 @@ function Configure() {
       $smtpsky = '';
       $smtpskn = 'checked="checked"';
    }
-
    echo '
             <div class="mb-3 row">
                <div class="col-md-6 my-auto">
@@ -777,10 +772,33 @@ function Configure() {
                      <label for="xsmtp_crypt">'.adm_translate("Protocole de chiffrement").'</label>
                   </div>
                </div>
-            </div>';
-   echo '
+            </div>
          </div>
          <div class="mb-3 row">
+            <label class="col-form-label col-sm-4" for="xdkim_auto">DKIM</label>
+            <div class="col-sm-8 my-2">';
+   $cky='';$ckn='';
+   if (!$dkim_auto) $dkim_auto=1;
+   if ($dkim_auto==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
+
+   echo '
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="dkim1" name="xdkim_auto" value="1" '.$cky.' />
+                  <label class="form-check-label" for="dkim1">'.adm_translate("Du Dns").'</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" id="dkim2" name="xdkim_auto" value="2" '.$ckn.' />
+                  <label class="form-check-label" for="dkim2">'.adm_translate("Automatique").'</label>
+               </div>
+               <span class="help-block">'.adm_translate("Du DNS").' ==> '.adm_translate("DKIM du DNS (si existant et valide).").'<br />'.adm_translate("Automatique").' ==> '.adm_translate("génération automatique du DKIM par le portail.").'</span>
+            </div>
+         </div>';
+
+   // Footer of Email send by NPDS
+   settype($message,'string');
+   include "signat.php";
+    echo '
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="xEmailFooter">'.adm_translate("Pied").' '.adm_translate("de").' Email</label> 
             <div class="col-sm-12">
                <textarea class="form-control" id="xEmailFooter" name="xEmailFooter" cols="45" rows="8">'.$message.'</textarea>
@@ -1603,7 +1621,7 @@ switch ($op) {
    break;
    case 'ConfigSave':
       include("admin/settings_save.php");
-      ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port);
+      ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port,$xdkim_auto);
    break;
 }
 ?>
