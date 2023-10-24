@@ -399,7 +399,7 @@ function broken($did) {
          settype ($did, "integer");
          $message=$nuke_url."\n".translate("Téléchargements")." ID : $did\n".translate("Auteur")." $cookie[1] / IP : ".getip()."\n\n";
          include 'signat.php';
-         send_email($notify_email, html_entity_decode(translate("Rapporter un lien rompu"),ENT_COMPAT | ENT_HTML401,cur_charset), nl2br($message), $notify_from , false, "html"; '');
+         send_email($notify_email, html_entity_decode(translate("Rapporter un lien rompu"),ENT_COMPAT | ENT_HTML401,cur_charset), nl2br($message), $notify_from , false, "html", '');
          include("header.php");
          echo '
         <div class="alert alert-success">
