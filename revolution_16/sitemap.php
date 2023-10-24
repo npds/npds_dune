@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier   */
 /* Based on Script for NPDS by Alexandre Pirard  / www.pascalex.net     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -109,7 +109,8 @@ function sitemapothers($PAGES) {
    global $nuke_url;
    $tmp='';
    foreach($PAGES as $name => $loc) {
-      if (array_key_exists('sitemap',$PAGES[$name])) {
+      if(isset($PAGES[$name]['sitemap']))
+       {
          if (($PAGES[$name]['run']=="yes") and ($name!="article.php") and ($name!="forum.php") and ($name!="sections.php") and ($name!="download.php")) {
             $tmp .= "<url>\n";
             $tmp .= "<loc>$nuke_url/".str_replace("&","&amp;",$name)."</loc>\n";
@@ -154,8 +155,8 @@ function sitemap_create($PAGES, $filename) {
 // http://www.example.com/cache/sitemap.xml 
 $filename="cache/sitemap.xml";
 // delais = 6 heures (21600 secondes)
-$refresh=180;
-
+$refresh=21600;
+global $PAGES;
 if (file_exists($filename)) {
    if (time()-filemtime($filename)-$refresh > 0) {
       sitemap_create($PAGES, $filename);
