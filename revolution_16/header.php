@@ -164,7 +164,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    
    // LOAD pages.php and Go ...
    settype($PAGES, 'array');
-   global $pdst, $Titlesitename;
+   global $pdst, $Titlesitename, $PAGES;
    require_once("themes/pages.php");
 
    // import pages.php specif values from theme
