@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administrar - Meta-lang.</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">Sistema</a></li>
+               <li class="breadcrumb-item active">META-LANG</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administrar - Meta-lang.</h3>
+         <h4>META_LANG &iquest;para qu&eacute; sirve?</h4>
+         <p>META-LANG es un lenguaje espec&iacute;fico de NPDS. Se compone de palabras (el META-MOT) que permiten, con total seguridad, llamar al lugar donde has introducido este META-MOT (en una noticia, un art&iacute;culo, un post, un comentario o el editorial de tu sitio). o incluso una p&aacute;gina est&aacute;tica), resultado de funciones internas de NPDS.</p>
+         <p>Hay 5 tipos de META-MOT en uso para su sitio</p>
+         <p>Tipos de META-MOT
+            <ul>
+               <li><b>docu</b>
+               <br />Ser&aacute; utilizado por el CMS para procesamientos muy espec&iacute;ficos y/o documentaci&oacute;n en l&iacute;nea.<br />
+               Actualmente solo <span class="text-primary">^</span> est&aacute; presente en esta categor&iacute;a<br />No podr&aacute;s crear este tipo de metapalabra</li>
+               <li><b>meta</b>
+               <br />En uso en casi todos los NPDS, se utilizar&aacute; para llamar el resultado de una funci&oacute;n espec&iacute;fica que se mostrar&aacute; en la ubicaci&oacute;n de su entrada.<br />
+               Esta es la categor&iacute;a m&aacute;s importante de NPDS y permite la implementaci&oacute;n de funciones muy avanzadas.<br />
+               Existen dos formas de escritura (en el &aacute;rea de gui&oacute;n) dependiendo del nivel de complejidad de lo que se quiere lograr:
+                  <ul>
+                     <li><code>$cmd=... instrucci&oacute;n PHP de una sola l&iacute;nea...;</code></li>
+                     <li><code>funci&oacute;n MM_tu-meta-palabra () {<br />
+                     c&oacute;digo php<br />
+                     c&oacute;digo php<br />
+                     c&oacute;digo php<br />
+                     devoluci&oacute;n (tu-regreso);<br />
+                     }</code>
+                     </li>
+                  </ul>
+               </li>
+               <li><b>mot</b><br />Se utilizar&aacute; para mostrar una palabra (asociaci&oacute;n de letras o n&uacute;meros) que puede realizar una funci&oacute;n b&aacute;sica de tipo HTML como llamar a un enlace, correcci&oacute;n ortogr&aacute;fica, gesti&oacute;n de abreviaturas. ...<br />
+               Esta categor&iacute;a es muy &uacute;til para aumentar la productividad.</li>
+               <li><b>smil</b><br />Se utilizar&aacute; para integrar emoticones y/o accesos directos a im&aacute;genes.</li>
+               <li><b>them</b><br />Se utilizar&aacute;n para documentar las funciones internas del NPDS relacionadas con los temas.</li>
+            </ul>
+         </p>
+         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /><span class="text-muted font-italic small float-end">NPDS - Manual de administraci&oacute;n</span></p>
+      </div>
+   </body>
+</html>
