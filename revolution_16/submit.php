@@ -231,7 +231,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
    if (sql_last_id()) {
       if ($notify) {
          global $notify_email, $notify_subject, $notify_message, $notify_from;
-         send_email($notify_email, $notify_subject, $notify_message, $notify_from , false, "text", '');
+         send_email($notify_email, $notify_subject, $notify_message, $notify_from , false, "html", '');
       }
       include ('header.php');
       echo '
