@@ -480,8 +480,6 @@ function send_email($email, $subject, $message, $from = "", $priority = false, $
                   $mail->addAttachment($file); 
             } 
          } 
-         if ($mime == 'text')
-            $mail->isHTML(false); 
          if (($mime == 'html') or ($mime == 'html-nobr')) { 
             $mail->isHTML(true); 
             if ($mime != 'html-nobr') 
@@ -489,7 +487,11 @@ function send_email($email, $subject, $message, $from = "", $priority = false, $
          } 
          $mail->Subject = $subject; 
          $stub_mail = "<html>\n<head>\n<style type='text/css'>\nbody {\nbackground: #FFFFFF;\nfont-family: Tahoma, Calibri, Arial;\nfont-size: 1 rem;\ncolor: #000000;\n}\na, a:visited, a:link, a:hover {\ntext-decoration: underline;\n}\n</style>\n</head>\n<body>\n %s \n</body>\n</html>"; 
-         $mail->Body    = sprintf($stub_mail, $message); 
+         if ($mime == 'text'){
+            $mail->isHTML(false);
+            $mail->Body = $message;
+         } else
+            $mail->Body = sprintf($stub_mail, $message);
          if ($dkim_auto == 2) { 
             $mail->DKIM_domain = str_replace(['http://', 'https://'], ['', ''], $nuke_url); 
             $mail->DKIM_private = $privatekeyfile;; 
