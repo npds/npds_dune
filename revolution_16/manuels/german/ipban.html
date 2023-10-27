@@ -2,7 +2,7 @@
 <html lang="de">
    <head>
       <meta charset="utf-8" />
-      <title>Faqs</title>
+      <title>Administration – IPban</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
@@ -13,20 +13,17 @@
             <ol class="breadcrumb bg-transparent">
                <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li> 
-               <li class="breadcrumb-item"><a href="men_contenu.html">Inhalt</a></li>
-               <li class="breadcrumb-item active" aria-current="page">Faqs</li> 
+               <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >IPban</li> 
             </ol>
          </nav>
          <hr class="mt-n3" />
-         <h3 class="mb-3">Faqs - Frequently Asked Questions</h3> 
-         <p>Das FAQ Modul kann Zeit sparen! Einige Leute posten immer wieder die gleiche Fragen im Forum (z.B. : wie kann ich das installieren? Warum funktioniert das nicht unter Windows, etc ...). </p>
-         <p>Die NPDS FAQs erfordern mindestens eine Kategorie.</p>
-         <p>In der Ausgew&auml;hlten Kategorie, k&ouml;nnen Sie jedes Q&amp;A Paar(erstellen, editieren und l&ouml;schen) . Das Antwortfeld erlaubt HTML.<br />
-         Wie in NPDS 4.8 P3, es kann angezeigt werden: Php code, Perl, C... .<br />
-         Sie m&uuml;ssen den Quellcode zwischen '[]' setzten, wie in diesem Beispiel : <br />
-         <b>[code]your_source[/code]</b>.<br />
-         Diese Funktion kommt von phpBB. <br />
+         <h3 class="mb-3">Administration &ndash; IPban</h3>
+         <p>Mit diesem Kernmodul k&ouml;nnen Sie IP-Adressen anzeigen, die von npds antispam gesperrt wurden oder gerade gesperrt werden. Au&szlig;erdem k&ouml;nnen Sie IPs (v4 oder v6) oder IP-Bereiche (v4) manuell sperren.</p>
+         <p>Jede Zeile darf nur eine IP-Adresse (v4 oder v6) der Form enthalten:<br /> a.b.c.d|X (z. B. v4: 168.192.1.1|5);<br />a:b:c:d:e : f:g:h|X (z. B. v6: 2001:0db8:0000:85a3:0000:0000:ac1f:8001|5).<br />
+         <span class="text-danger">Wenn X >= 5, wird diese IP-Adresse gesperrt und der Zugriff verweigert. !</span>
          </p>
+         <p>Sie k&ouml;nnen IP-Adressbereiche (v4) auch in dieser Form sperren:<br /> x.x.%|5 oder x.x.x.%|5</p>
          <p class="border-top mt-5"><img class="me-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
       </div>
    </body>
