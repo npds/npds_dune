@@ -11,7 +11,7 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
                <li class="breadcrumb-item"><a href="men_inter.html">Interface</a></li>
                <li class="breadcrumb-item active" aria-current="page" >Blocs</li>
@@ -22,6 +22,7 @@
          <p>NPDS, permet l'affichage d'un bloc (ou de plusieurs) sur les pages.<br />
          NPDS (avec un th&egrave;me appropri&eacute;) permet d'afficher ces blocs sur quasiment toutes les pages.</p>
          <p><strong>Un Bloc peut-&ecirc;tre r&eacute;serv&eacute; aux administrateurs, aux membres, &agrave; N groupes de membres, r&eacute;serv&eacute; aux Anonymes ou &ecirc;tre visible par Tous</strong>.</p>
+
          <h4>Modifier un bloc</h4>
          <p>Changez les informations n&eacute;cessaires dans le bloc et s&eacute;lectionnez l'action souhait&eacute;e, pour finir cliquez sur le bouton <i>OK</i>.<br />
          Vous ne pouvez modifier qu'un seul bloc &agrave; la fois.</p>
@@ -87,7 +88,6 @@
                </li>
             </ul>
 
-
             <h4>Bloc CSS</h4>
             <p><strong>class-title#nom</strong> d'une classe dans votre fichier CSS.<br />
             <strong>class-content#nom</strong> d'une classe dans votre fichier CSS.<br />
@@ -98,58 +98,57 @@
             </ul>
          </p>
 
-      <h4>Bloc CSS sp&eacute;cifique</h4>
-      <p>Pour avoir la css specifique, il faut :
-         <ul>
-            <li>cocher la case dans l'administration</li>
-            <li>noter l'id du bloc</li>
-            <li>declarer les id et class dans le fichier style.css ou bien ajouter une css via le gestionnaire (pages.php de votre theme)</li>
-         </ul>
-      <br />
-      <p>Exemple css sur un bloc en particulier, ici le bloc gauche ID 2 :
-      <code><p>
-      #LB_2 .LB_title {<br />
-         color: #FF0000;<br />
-         font-family: Georgia, "Times New Roman", serif;<br />
-         font-size: 1.25em;<br />
-         font-weight: bold;<br />
-         height: 21px;<br />
-         text-align: center;<br />
-         line-height: 21px;<br />
-      }<br />
-      #LB_2 .LB_contain ul {<br />
-         list-style: none;<br />
-         width: 150px;<br />
-         margin:0px;<br />
-         padding:0px;<br />
-      }<br />
-      #LB_2 .LB_contain li {<br />
-         margin:0;<br />
-         padding:0;<br />
-      }<br />
-      #LB_2 .LB_contain li a {<br />
-         min-height: 1.5em;<br />
-         height: auto !important;<br />
-         height: 1.5em;<br />
-         line-height: 1.5em;<br />
-         margin: 1px 0px 1px 0px;<br />
-         padding: 0px 5px 0px 5px;<br />
-         border-bottom: solid 1px #C8C8C8;<br />
-         border-left: solid 10px #427FBC;<br />
-         color: #646464;<br />
-         text-decoration: none;<br />
-         font-weight: normal;<br />
-         font-size: 1em;<br />
-      }<br />
-      #LB_2 .LB_contain li a:hover {<br />
-         border-left: solid 10px #cccccc;<br />
-         background: #f0f0f0;<br />
-         font-weight: bold;<br />
-         color: #000000;<br />
-         text-decoration: none;<br />
-      }</p></code>
-
-      </p>
+         <h4>Bloc CSS sp&eacute;cifique</h4>
+         <p>Pour avoir la css specifique, il faut :
+            <ul>
+               <li>cocher la case dans l'administration</li>
+               <li>noter l'id du bloc</li>
+               <li>declarer les id et class dans le fichier style.css ou bien ajouter une css via le gestionnaire (pages.php de votre theme)</li>
+            </ul>
+         <br />
+         <p>Exemple css sur un bloc en particulier, ici le bloc gauche ID 2 :
+         <code><p>
+         #LB_2 .LB_title {<br />
+            color: #FF0000;<br />
+            font-family: Georgia, "Times New Roman", serif;<br />
+            font-size: 1.25em;<br />
+            font-weight: bold;<br />
+            height: 21px;<br />
+            text-align: center;<br />
+            line-height: 21px;<br />
+         }<br />
+         #LB_2 .LB_contain ul {<br />
+            list-style: none;<br />
+            width: 150px;<br />
+            margin:0px;<br />
+            padding:0px;<br />
+         }<br />
+         #LB_2 .LB_contain li {<br />
+            margin:0;<br />
+            padding:0;<br />
+         }<br />
+         #LB_2 .LB_contain li a {<br />
+            min-height: 1.5em;<br />
+            height: auto !important;<br />
+            height: 1.5em;<br />
+            line-height: 1.5em;<br />
+            margin: 1px 0px 1px 0px;<br />
+            padding: 0px 5px 0px 5px;<br />
+            border-bottom: solid 1px #C8C8C8;<br />
+            border-left: solid 10px #427FBC;<br />
+            color: #646464;<br />
+            text-decoration: none;<br />
+            font-weight: normal;<br />
+            font-size: 1em;<br />
+         }<br />
+         #LB_2 .LB_contain li a:hover {<br />
+            border-left: solid 10px #cccccc;<br />
+            background: #f0f0f0;<br />
+            font-weight: bold;<br />
+            color: #000000;<br />
+            text-decoration: none;<br />
+         }</p></code>
+         </p>
 
          <h4>Bloc URI</h4>
          <p><strong>uri#uris_s&eacute;par&eacute;es_par_un_espace</strong> pour n'afficher le bloc que sur les URI cit&eacute;es.<br />
@@ -165,7 +164,7 @@
          Cela permet d'utiliser le syst&egrave;me de bloc pour 'charger' des javascripts, des fichiers PHP, des fichiers CSS...<br />
          <span class="text-warning">Cette syntaxe est la seule support&eacute;e !</span>
          </p>
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Manuel administration</span></p>
+         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /><span class="text-muted font-italic small float-end">NPDS - Manuel administration</span></p>
       </div>
    </body>
 </html>
