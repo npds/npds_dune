@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration – Datei Manager</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li> 
+               <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Datei Manager</li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administration &ndash; Datei Manager</h3>
+         <p>F-Manager ist eines der wichtigen Elemente von NPDS. Es ist sowohl ein Dateimanager, Download-Tools als auch Multimedia-Anzeigel&ouml;sungen.</p>
+         <p>F-Manager ist ein standardm&auml;&szlig;ig installiertes CORE-Modul und kann daher nicht deinstalliert werden. Grundlage seiner Konfiguration ist eine Konfigurationsdatei in modules/f-manager/users.</p>
+         <p>In Bezug auf die Nutzung erm&ouml;glicht Ihnen f-manager die Navigation in einer Baumstruktur, das Herunterladen von Dateien und allgemeiner die Verwaltung Ihrer Verzeichnisse und Dateien.</p>
+         <p>Eine besonders n&uuml;tzliche Funktion ist die M&ouml;glichkeit, nach einer Datei anhand ihres Namens, eines Teils ihres Namens (Anfang, Mitte, Ende) im aktuellen Verzeichnis und in der ersten Ebene des Unterverzeichnisses zu suchen.</p >
+         <p>F-Manager kann aufgrund der Konfigurationsdatei, die eine in PHP geschriebene Datei ist, viele Anwendungen und in vielen Situationen unterst&uuml;tzen.</p>
+
+         <h4>Wie wird F-Manager in NPDS verwendet?</h4>
+         <p><strong>In der NPDS-Administration verf&uuml;gt jeder Administrator, der &uuml;ber die Schnittstelle erstellt wird, automatisch &uuml;ber F-Manager.</strong><br />
+         Eine xxxx.conf.php-Datei, deren Spitzname xxxx ist, befindet sich in /modules/f-manager/users. Das verwendete Modell hei&szlig;t admin.modele.conf.php<br />
+         Standardm&auml;&szlig;ig ist das Modell recht offen, Sie k&ouml;nnen dies jedoch einschr&auml;nken, indem Sie die Admin-Datei konfigurieren, deren Rechte Sie reduzieren m&ouml;chten.</p>
+         <p class="text-danger"><strong>Wenn f-manager f&uuml;r einen Administrator nicht funktioniert, erhalten Sie die Meldung &bdquo;Zugriff verweigert&ldquo;. Die Datei xxxx.conf.php existiert sicherlich nicht.</strong></p>
+         <p>Der Download-Manager verwendet auch F-Manager, um die Liste der auf Ihrer Site verf&uuml;gbaren Dateien anzuzeigen.<br />
+         Es gibt zwei Dateien: download.conf.php und download.mod.php (mit dieser Datei k&ouml;nnen Sie die Klickaktion f&uuml;r eine ausgew&auml;hlte Datei &auml;ndern)?</p>
+         <p>Beim Schreiben von Artikeln, Abschnitten und PAD &uuml;ber TinyMce wird der F-Manager verwendet:
+               <ul>
+                  <li>Die freigegebene Bilddatenbank</li>
+                  <li>Die Datenbank Ihrer Bilder und Dokumente</li>
+                  <li>Wenn Sie an Dokumenten einer Gruppe arbeiten, ist die Datenbank Ihrer Bilder und Dokumente die der Gruppe und nicht Ihre.</li>
+                  <li>Die Datenbank mit Bildern und Dokumenten, die auf Ihrer Minisite verf&uuml;gbar sind.</li>
+                  <li>Zur Verwaltung Ihrer Minisite oder der einer Gruppe.</li>
+               </ul>
+         </p>
+         <p>F-Manager ist die vollst&auml;ndige Schnittstelle zum Verwalten und Bearbeiten von Dateien und Dokumenten in Ihrem pers&ouml;nlichen Bereich oder dem Ihrer Arbeitsgruppe.</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
+      </div>
+   </body>
+</html>
