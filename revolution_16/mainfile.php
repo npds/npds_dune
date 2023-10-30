@@ -2717,7 +2717,6 @@ function headlines($hid='', $block=true) {
          return ($boxstuff);
    }
 }
-////////après correction pour php8 (prob with argument) pas sûr que cela fonctionne en 5 ...
 #autodoc PollNewest() : Bloc Sondage <br />=> syntaxe : <br />function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
 function PollNewest(int $id=null) : void {
    global $NPDS_Prefix;
@@ -2734,9 +2733,11 @@ function PollNewest(int $id=null) : void {
 }
 #autodoc bloc_langue() : Bloc langue <br />=> syntaxe : function#bloc_langue
 function bloc_langue() {
-   global $block_title;
-   $title = $block_title=='' ? translate("Choisir une langue") : $block_title;
-   themesidebox($title,aff_local_langue("index.php", "choice_user_language", ''));
+   global $block_title, $multi_langue ;
+   if($multi_langue) {
+      $title = $block_title=='' ? translate("Choisir une langue") : $block_title;
+      themesidebox($title,aff_local_langue("index.php", "choice_user_language", ''));
+   }
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
 function bloc_rubrique() {
