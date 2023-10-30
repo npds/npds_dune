@@ -45,7 +45,7 @@ function vidip(){
 function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata) {
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg, $dbname, $NPDS_Prefix, $subop;
    include ('modules/'.$ModPath.'/geoloc.conf');
-   $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo.html';
+   $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo_'.$language.'.html';
 
    $result=sql_query("SELECT CONCAT(ROUND(((DATA_LENGTH + INDEX_LENGTH - DATA_FREE) / 1024 / 1024), 2), ' Mo') AS TailleMo FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$dbname' AND TABLE_NAME = ".$NPDS_Prefix."'ip_loc'");
    $row = sql_fetch_array($result);

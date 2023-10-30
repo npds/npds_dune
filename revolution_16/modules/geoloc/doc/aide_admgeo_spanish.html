@@ -1,0 +1,160 @@
+<html lang="es">
+   <head>
+      <meta charset="utf-8">
+      <title>Administración - Geoloc</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="/manuels/spanish/admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"> <a href="/manuels/spanish/men_gen.html">Menú</a></li>
+               <li class="breadcrumb-item"><a href="/manuels/spanish/men_modules.html">Menú del módulo</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Geoloc</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>Administración - Geoloc</h3>
+
+         <h4>Configuración del sistema</h4>
+         <h5>Campo de tabla para latitud y longitud</h5>
+         <p>Introduzca los campos disponibles en la base de datos para almacenar las latitudes y longitudes de los miembros del sitio. </p>
+         <h5>Geolocalización de IP</h5>
+         <p>
+         Esta opción le permite habilitar o deshabilitar:<br />
+          - almacenamiento en la base de datos de las IP de los visitantes anónimos, su geolocalización, el número de visitas y su posición de visita en el sitio<br />
+          - visualización de estos datos en la interfaz<br />
+          NB: esta opción puede ralentizar considerablemente la visualización del mapa (si ha iniciado sesión como administrador y su base de datos contiene muchas líneas (> 10.000 IP)) y almacenar muchos datos en la base de datos con el tiempo. Puede vaciar la base de datos en cualquier momento.<br />
+         </p>
+         <p>
+         <b>Cómo funciona:</b><br />
+         La georreferenciación de IP es proporcionada por diferentes proveedores y complementa la base de datos del sitio. <br />
+         Utilizamos 4 proveedores de geolocalización IP:<br />
+         <a href="https://ipapi.co" target="_blank">https://ipapi.co</a> ==> máximo 1000 solicitudes por día, 30 000 por mes<br />
+         <a href="https://api.ipdata.co" target="_blank">https://api.ipdata.co</a> => requiere clave API ==> máximo 1500 solicitudes por día<br / >
+         <a href="https://extreme-ip-lookup.com" target="_blank">https://extreme-ip-lookup.com</a> ==> máximo 20 solicitudes por minuto, 50 000 por mes <br />
+         <a href="http://ip-api.com" target="_blank">http://ip-api.com</a> ==> máximo 150 solicitudes por minuto (prohibición)<br />
+         Todos estos proveedores tienen un límite de uso gratuito o su número para poder garantizar un funcionamiento continuo siendo gratuitos...<br />
+         </p>
+         
+         <h5>Clave API de IPdata</h5>
+         <p>
+         Esta clave es opcional y le permite utilizar datos de ipdata.co, puede obtenerla aquí:<br />
+         <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
+         </p>
+          
+         <h4>Interfaz de tarjeta</h4>
+         <h5>Clave API de mapas de Bing</h5>
+         <p>Esta clave le permite utilizar datos de mapas de Bing. Si desea utilizar estos datos, vaya a https://www.bingmapsportal.com y siga el proceso (crear una cuenta y luego obtener una clave)... y complete el campo.</p>
+         <h5>Clave API de Mapbox</h5>
+         <p>Esta clave (opcional) le permite utilizar datos de Mapbox. Si desea utilizar estos datos, vaya a https://www.mapbox.com y siga el proceso (crear una cuenta y luego obtener una clave)... y complete el campo.</p>
+         <h5>Tipo de tarjeta</h5>
+         <p>Puedes definir el mapa base predeterminado aquí, dependiendo de los proveedores disponibles y las claves API que hayas obtenido</p>
+         <ul>
+            <li>OpenStreetMap
+               <ul>
+                  <li>Mapa (OpenStreetMap)</li>
+               </ul>
+            </li>
+            <li>Stamen
+               <ul>
+                  <li>Blanco y negro (Stamen)</li>
+                  <li>Dibujo (Stamen)</li>
+                  <li>Relieve (Stamen)</li>
+               </ul>
+            </li>
+            <li>Mapbox <span class="text-danger"><== Se requiere clave API</span>
+               <ul>
+                  <li>Relieve (Mapbox)</li>
+                  <li>Mapa (Mapbox)</li>
+               </ul>
+            </li>
+            <li>Mapas de Bing <span class="text-danger"><== Se requiere clave API</span>
+               <ul>
+                  <li>Mapa (mapas de Bing)</li>
+                  <li>Satélite (mapas de Bing)</li>
+                  <li>Satélite y etiqueta (mapas de Bing)</li>
+               </ul>
+            </li>
+            <li>Mapas de Google
+               <ul>
+                  <li>Satélite (Google Maps)</li>
+               </ul>
+            </li>
+         </ul>
+
+         <h5>Unidad de coordenadas</h5>
+         <p>Le permite definir la visualización predeterminada de coordenadas</p>
+            <ul>
+               <li>dms: grados minutos segundos (ej: 52°28' 58" S | 9°29' 32" E)</li>
+               <li>dd: grados decimales (ej: 63.391522 | 146.953125) </li>
+            </ul>
+         <h5>Tipo de marcador</h5>
+         <p>
+         Podrás elegir entre dos tipos de iconos que representarán:
+         <ul>
+            <li>los miembros del sitio no han iniciado sesión</li>
+            <li>miembros conectados del sitio</li>
+            <li>personas anónimas conectadas</li>
+         </ul>
+         NB: los iconos de las IP no se pueden configurar.<br />
+         </p>
+         <p>
+         <b>1. Imágenes en formato png, gif (no se admiten gif animados), formato jpeg.</b><br />
+         Estos se almacenan en la dirección definida en los parámetros de ruta de la imagen (arriba). Puedes elegir las imágenes que
+         </p>
+         <p class="bg-light p-3">Predeterminado:
+            <img class="me-2" src="/modules/geoloc/images/mbg.png" alt="icono de miembro en línea" loading="lazzy" />
+            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="icono de miembro" loading="lazzy" />
+            <img class="me-2" src="/modules/geoloc/images/acg.png" alt="icono anónimo" loading="lazzy" />
+         </p>
+         <p>
+            <b>2. Fuentes web (fontawesome).</b><br />
+            Por lo tanto, puede elegir entre la lista propuesta...
+            <ul class="text-muted">
+               <li><span class="fa fa-lg align-center fa-fw">&#xf007;</span> <span>Usuario</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf2bd;</span> <span>Usuario en círculo</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf0c0;</span> <span>Usuarios</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf004;</span> <span>Corazón</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf08d;</span> <span>Pinchpin</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf111;</span> <span>Círculo</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf030;</span> <span>Cámara</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf13d;</span> <span>Ancla</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf041;</span> <span>Marcador de mapa</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf072;</span> <span>Avión</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf005;</span> <span>Estrella</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf015;</span> <span>Inicio</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf024;</span> <span>Bandera</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf05b;</span> <span>Cruz</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf069;</span> <span>Asterisco</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf06d;</span> <span>Llama</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf075;</span> <span>Comentario</span></li>
+            </ul>
+            ... y ajuste el color, la opacidad del fondo y las líneas, y la dimensión de visualización final en el mapa en los campos de ancho y alto.
+         </p>
+         <p class="bg-light p-3">
+            Por defecto :
+            <span style="color:rgba(225, 29, 75, 0.87);" class="fa fa-lg align-center fa-fw me-2">&#xf007;</span>
+            <span style="color:rgba(237, 68, 151, 0.89);" class="fa fa-lg align-center fa-fw me-2">&#xf007;</span>
+            <span style="color:rgba(32, 32, 26, 0.89);" class="fa fa-lg align-center fa-fw">&#xf007;</span>
+         </p>
+
+         <h4>Interfaz de bloque</h4>
+         <p>Puedes definir aquí para el bloque:
+            <ul>
+               <li>el mapa base (ver arriba en la interfaz del mapa)</li>
+               <li>el ícono (dirección definida en la ruta de la imagen (ver arriba en Parámetros)) y sus dimensiones</li>
+               <li>la altura del bloque</li>
+               <li>el factor de zoom</li>
+            </ul>
+         </p>
+         <p class="bg-light p-3">Predeterminado:
+            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="icono de miembro" loading="lazzy" />
+         </p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - manual de administración Geoloc</span></p>
+      </div>
+   </body>
+</html>
