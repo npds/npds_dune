@@ -1,15 +1,58 @@
-<html>
-<title>对用户的管理 - NPDS V</title>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>对用户的管理</b></center>
-<br/><br/>
-本功能允许您添加，修改和删除您的网站的会员。 <br/><br/> <b>添加一个新用户：</b><br/> 填写表单。必填项目以星号*标注 (昵称，Email，密码等)。<br/> 其它区域为自愿填写。标注的Email地址为NPDS介绍给网站用户所用。<b>请不要使用用户的真实Email地址。</b><br/> 点击 添加一个新用户 按钮即可结束操作。系统将发送给该用户一个包含其密码的Email。 <br/><br/> <b>用户的身份设定：</b><br/> 您可以给某个会员分配一个特别的身份(例如站点管理员等)。论坛上将显示该身份信息。对该身份列表的管理在 论坛设置 中。 <br/><br/> <b>组：</b><br/>  一个用户可从属于0个或n个组。组的参数应在2(最少) 与 126(最多)之间。所从属的组之间以逗号分隔，显示在表格中。<br/> - 例如 : 2,25 (该用户为 第2组 和 第25组 的会员) <br/><br/> 可应用的组显示在列表中，可以为多选。<br/> 第一个选择将允许删除某个会员对组的从属。 <br/><br/> 一个组只是一种简单的关联。该关联使得某些管理功能变得更简易 (请参见功能框介绍)。  <br/><br/> <b>准许连接：</b><br/> 系统默认为：当某个参数设置为“是”的情况下，某个会员，从他收到MDP开始就可以连接到服务器。<br/> 您可以删除这个设定 (即禁止某个会员对您的网站的连接)。 <br/><br/> <b>编辑一个用户：</b><br/> 在 用户标识 中输入昵称，然后选择 更改一个用户，并点击 ok 按钮。<br/> 该用户的帐户上的全部注册信息都是可更改的 (包括对密码的修改)。 <br/><br/> <b>删除一个用户：</b><br/> 在 用户标识 中输入昵称，然后选择 删除一个用户，并点击 ok 按钮。 <br/><br/> <b>取消一个用户的订阅：</b><br/> 在 用户标识 中输入昵称，然后选择 取消一个用户的订阅，并点击 ok 按钮。
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+         <title>管理 - 用户版</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1" />
+         <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+         <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+               <ol class="breadcrumb bg-transparent">
+                  <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+                  <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">菜单</a></li>
+                  <li class="breadcrumb-item"><a href="men_utilisateurs.html">用户</a></li>
+                  <li class="breadcrumb-item active" aria-current="page" >用户版</li>
+               </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">管理 - 用户版</h3>
+         <p>使用此功能，您可以添加、修改和删除站点中的成员。</p>
 
-         </div>
+         <h4>添加新用户</h4>
+         <p>填写表格。 必填字段标有 <span class="text-danger">*</span>（例如昵称、电子邮件、密码）。<br />
+         其他字段是可选的。 隐藏的电子邮件地址是 NPDS 将呈现给门户用户的地址。<br />
+         <span class="text-danger">不要使用用户的真实电子邮件地址。</span><br />
+         单击<i>添加用户</i>按钮完成。 系统将向创建的用户发送一封包含密码的电子邮件。</p>
+
+         <h4>用户的角色</h4>
+         <p>您可以向成员分配特定角色，例如站点管理员。 论坛将显示此信息。 该列表在论坛配置中管理。</p>
+
+         <h4>群组</h4>
+         <p>一个用户可以是 0 到 n 个组的成员，组值在 2 到 126 之间。<br />
+         数据库表中的成员资格组以逗号分隔。<br />
+         示例：2.25 对应组 2 和 25 的成员<br />
+         将显示可用组的列表，并允许进行多项选择。<br />第一个选择允许您删除成员对组的分配。<br />
+         组只是一种依附级别，可以更轻松地管理某些功能。</p>
+
+         <h4>允许连接</h4>
+         <p>默认情况下，如果正确的首选项设置为“是”，会员在收到密码后即可登录。<br />
+         您可以通过禁止成员连接来消除这种可能性。</p>
+
+         <h4>编辑用户</h4>
+         <p>在<i>用户ID</i>字段中输入昵称，选择<i>修改用户</i>选项，然后单击<i>确定</i>按钮。<br />
+         所有帐户信息都可以修改，甚至包括密码。</p>
+
+         <h4>删除用户</h4>
+         <p>在<i>用户 ID</i> 字段中输入昵称，选择<i>删除用户</i>选项并单击<i>确定</i>按钮。</p>
+
+         <h4>取消订阅用户</h4>
+         <p>在<i>用户标识符</i>字段中输入昵称，选择<i>取消订阅用户</i>选项，然后单击<i>确定</i>按钮。</p>
+
+         <h4>目录提取</h4>
+         <p>通过单击“确定”，您将获得包含所有用户信息的文件 zip。 该 zip 包含一个 csv 格式的文件。</p>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
       </div>
    </body>
