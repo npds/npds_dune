@@ -1,27 +1,52 @@
-<html>
-<title>编辑- NPDS V</title>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>编辑</b></center>
-<br/><br/>
-该模块可以轻松地实时编辑您的网站。<br/><br/>
-用HTML编辑器，您可以轻松地拷贝/粘贴一个Word文件的内容（例如）。<br/><br/>
-NPDS 4.8 P3的全新的 编辑功能 如下：<br/>
--&nbsp;	对匿名者和注册会员都可进行编辑，<br/>
--&nbsp;	可以规定文章发表的天数（从修改的日期/钟点开始计算）<br/>
--&nbsp;	可以规定某文章仅发布于某个时间段，如仅在白天(08h00至20h00)或仅在夜晚(20h01至07H59)，<br/><br/>
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>管理 - 社论</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"> <a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">内容</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >社论</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>管理 - 社论</h3>
+         <p>社论是访问者到达您的网站时首先看到的内容，除非他们修改了首选项中的索引页链接。</p>
+         <p>您可以对其进行个性化设置，日夜发布不同的社论，并选择是否显示它。</p>
 
-及以下默认功能：<br/>
--&nbsp;	如果没有会员编辑功能，匿名编辑会出现在匿名者和注册会员上，<br/>
--&nbsp;	如果仅勾选了“白天”选项，文章将仅发布在白天，<br/>
--&nbsp;	如果同时勾选了“白天”和“夜晚”，但是没有为夜晚单独准备的文章，那么，该仅有的文章将在白天和夜晚都发布。<br/>
--&nbsp;	夜晚的文章将总是仅在夜晚时间段显示，<br/>
--&nbsp;	如果文章为空，本编辑功能将不显示在页面上。<br/><br/>
-
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+         <h4>操作</h4>
+         <p>该社论具有高级功能：
+            <div class="card card-body">
+               <ul class="ps-3">
+                  <li class="card-text">匿名和/或会员社论，</li>
+                  <li>显示的天数（从修改日期算起）</li>
+                  <li>显示当天上午 8:00 至晚上 8:00 的文本</li>
+                  <li>晚上 8:01 至早上 7:59 显示文本</li>
+               </ul>
+            请注意，这些时间可以在<a href="config.html">首选项</a>中修改。
+            </div>
+         </p>
+         <p>默认：
+            <div class="card card-body">
+               <ul class="ps-3">
+                  <li>如果没有会员社论，将为匿名者和会员显示匿名社论</li>
+                  <li>仅当仅选中该日期复选框时，该日期的文本才会在该日期显示</li>
+                  <li>如果两个复选框都被选中并且没有夜间文本，那么今天的文本将显示白天和夜晚</li>
+                  <li>夜间文本仅在夜间显示</li>
+                  <li>如果没有文本，则不会显示社论。</li>
+               </ul>
+             </div>
+          </p>
+          <p><b>注意：</b>借助 <a href="meta_lang.html">meta-mot</a>：!edito! ，社论可以显示在您想要的任何位置</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

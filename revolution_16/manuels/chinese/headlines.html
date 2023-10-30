@@ -1,19 +1,50 @@
-<html>
-<title>信息来源（对大标题） - NPDS V</title>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>信息来源（对大标题）</b></center>
-<br /><br />
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>管理 - 信息来源（对大标题）</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"> <a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">内容</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >信息来源（对大标题）</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>管理 - 信息来源（对大标题)</h3>
+         <p>通过此功能，您可以激活或停用来自其他站点的信息通道。<br />
+         通道是 RDF/XML 文件，而不是文本文件。<br />
+         但要小心，启用信息通道可能会减慢服务器的速度。<br />
+         所有通道每小时刷新一次，不希望更改该值，因为它会消耗带宽。</p>
 
-您可以使用本功能来激活或关闭一些来自别的站点的信息来源。<br /> 这些来源是RDF/XML文件而不是文本文件。<br /> 但是请注意，激活信息来源可能会使整个服务器的工作时间变得缓慢。<br />
-所有的信息来源都是每1小时自动更新一次。建议不要修改这个参数，因为这将占用大量的网络交换数据。 <br /><br /> <b>添加一个信息来源：</b> <br /> 填写必要的表单（标题，URL地址，URL RDF/XML，状态）。如果您令其为有效状态，一个新的信息来源将出现。
-非有效状态的信息状态并不显示。 <br /><br /> <b>更改一个信息来源的状态： </b> <br /> 只需点击 编辑 链接，并在随后出现的页面上选择您期望的状态。  <br /><br /> 要删除一个信息来源，您必须点击 删除 链接。 <br /><br /> 您的站点可能连接在一个Proxy Serveur服务器上. 在这种情况下，请改变文件proxy.conf.php (在您的站点的根目录下)的参数，就可以允许开通一个或多个信息来源。  <br /><br /> <b>设置功能框，加入信息来源：</b><br/>  在功能框的管理中（页左或页右），您可以加入：<br /> - function#headlines <br /> => 在这种情况下，所有已定义的来源（有效状态的）将依次显示 <br /> 或者<br /> - function#headlines<br /> - params#$ID_du_canal<br /> => 在这种情况下，只有ID定义为 "ID_du_canal" 的信息来源将被显示。您可以根据需要定义如数的功能框... 
+         <h4>添加信息渠道</h4>
+         <p>填写必要的字段（标题、URL、RDF/XML URL、状态）。<br />
+         如果您声明一个活动频道，则会出现一个包含所选信息的新频道。 不显示非活动频道。</p>
 
-<br /><br />
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+         <h4>更改频道状态</h4>
+         <p>您只需点击<i>编辑</i>链接并选择下一页上的状态
+         想要的。</p>
+         <p>要删除频道，您只需点击<i>删除</i>链接即可。</p>
+         <p>您的站点可能位于<b>代理服务器</b>后面。 在这种情况下，请配置 proxy.conf.php 文件（位于站点的根目录中）以允许访问一个（或多个）信息通道。</p>
+
+         <h4>BLOCKS集成通道的配置</h4>
+         <p>在块管理器（左或右）中，您可以集成：
+            <ul>
+               <li>function#headlines<br />
+                => 在这种情况下，定义为活动的所有通道将依次显示</li>
+               <li>函数#headlines<br />
+                  params#$ID_du_canal<br />
+               => 在这种情况下，仅显示频道 ID“ID_du_canal”。 您可以根据需要定义任意数量的块...</li>
+            </ul>
+          </p>
+          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

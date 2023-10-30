@@ -1,24 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+         <title>管理 - 管理员/作者</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1" />
+         <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+         <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+               <ol class="breadcrumb bg-transparent">
+                  <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+                  <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">菜单</a></li>
+                  <li class="breadcrumb-item"><a href="men_utilisateur.html">用户</a></li>
+                  <li class="breadcrumb-item active" aria-current="page" >管理员/作者</li>
+               </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">管理 - 管理员/作者</h3>
+         <p>使用此功能，您可以在站点中添加、修改和删除管理员。</p>
 
-<html>
-<title>编辑管理员（或作者） - NPDS V</title>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>编辑管理员（或作者）</b></center>
-<br/><br/>
-您可以使用本功能来添加，修改或删除您的网站的管理员。<br/><br/>
-<b>添加一个新的管理员：</b><br/>
-填写该表格。所有必填的区域都以*标注（名，姓，电子邮件，密码）。<br/>
-其它区域为自愿填写。<br/>
-您可以设定该管理员能具有的权限。<br/>
-最后，点击 添加一个作者 按钮，即可完成该操作。<br/><br/>
-<b>编辑一个管理员：</b><br/> 对于您期望进行修改的作者，点击 编辑信息 链接。然后，修改必要的信息，最后点击 更新作者 按钮。<br/><br/>
-<b>删除一个管理员：</b><br/>
-点击 删除作者 链接，并对系统确认信息进行确定。<br/><br/>  <b>附注：</b>NPDS系统规定至少有一名管理员。
-<br/><br/>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+          <h4>添加新管理员</h4>
+          <p>填写表格。 必填字段标有 *（昵称、姓氏、电子邮件、密码）。<br />
+          选择您希望委托给该管理员的职能。<br />
+          单击<i>添加管理员</i>按钮完成。</p>
+
+         <h4>编辑管理员</h4>
+         <p>点击您要修改的管理员的<i>编辑信息</i>链接。 更改必要的信息，然后单击<i>更新管理员。</i></p>
+
+         <h4>删除管理员</h4>
+         <p>点击<i>删除管理员</i>链接并验证确认消息。</p>
+         <p><b>注意：</b> NPDS 需要至少一名管理员才能运行。</p>
+
+         <div class="alert alert-info">
+            <h5>了解</h5>
+            <p>如果您不小心删除了所有管理员，或者您丢失了唯一管理员帐户的密码，请通过您的 mysql 管理器（通常是 PhpMyAdmin）将自己定位在authors表上：
+               <ul>
+                  <li>如果存在“aid”字段设置为 Root 的条目，请将其删除</li>
+                  <li>执行以下查询：<br />
+                  INSERT INTO `authors`（`aid`, `name`, `url`, `email`, `pwd`, `hashkey`, `counter`, `radminsuper`）VALUES
+                  ('Root', 'Root', '', '', 'd.8V.L9nSMMvE', 0, 0, 1);<br />
+                  这将创建一个管理员帐户，其用户名是 Root，密码是 Password。</li>
+               </ul>
+            </p>
+         </div>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

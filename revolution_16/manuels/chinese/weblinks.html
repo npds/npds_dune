@@ -1,16 +1,72 @@
-<html>
-<head>
-<title>链接库- NPDS V</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>链接库</b></center>
-<br /><br />
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>管理 - 链接库</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"> <a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">内容</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >链接库</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>管理 - 链接库</h3>
+         <h3 class="mb-3">管理 - 链接</h3>
+         <p>网络链接数据库是NPDS的一个重要功能。 它的维护简单，但需要一定的严谨性。<br />
+         它允许使用独立于网站其余部分的搜索引擎创建雅虎类型索引。
+         </p>
 
-网页的链接是NPDS的重要功能之一。对该功能的维护是简易的，但是应遵守严格统一的标准。<br /> 该功能允许创建类似Yahoo的链接索引，及一个站点内的自动搜索引擎。 <br /><br /> <b>有待生效的链接 :</b><br /> 如果有一个等待生效的链接(sic等)，您将看到本选项。<br /> 您可以编辑它的题目，链接和相关推荐评论，及推荐者的名字和email地址，及链接类别。<br /> 最后，您可以选择发表该链接 (点击 添加 按钮) 或将其直接删除 (点击 删除)。  <br /><br /> <b>清空链接库 :</b><br /> 本功能可以将所有数据库中的链接清空。 <br /><br /> <b>提交断链接：</b><br /> 列表中可应用的选项为：<br /> - 忽略 旨在删除所有对某个链接的申请。<br /> - 删除 旨在删除已经断（已无效）的链接本身，及相关的信息。<br /> <br /><br /> <b>提交对链接的修改：</b><br /> 对于每个链接，您可以看到其初始状态（当前储存在数据库中）及对其修改的提议。可应用的选项为：<br /> - 忽略 旨在删除所有对某个链接的申请。<br /> - 删除 旨在删除已经断（已无效）的链接本身，及相关的信息。<br /> - 点击 作者（或所有者）链接，向其发送一个Email。<br /> <br /> <b>添加一个主要类别：</b><br /> 相对索引的结构化，请输入一个标题和描述（以abc等26个字母顺序分级排列）。  <br /><br /> <b>添加一个次类别：</b><br /> 相对索引的结构化，请输入一个对应某主类别下的次类别 (仅一个层次 / 以abc等26个字母顺序分级排列)。 <br /><br /> <b>添加一个新链接：</b><br /> 请输入标题 (可附带html标记，如br, img src (图片来源位置)等等)，URL地址，所属类别(及次类别)，描述，所有者名称和email。然后点击 添加 按钮。 <br /><br /> <b>修改类别：</b><br /> 本功能允许您修改某个类别和/或次类别的名称。<br /> 同样，您可以删除某个类别和/或次类别，及与之相关联的所有内容 (系统生成要求确认的信息)。  <br /><br /> <b>修改链接：</b><br /> NPDS可以显示当前数据库中有效的所有链接。点击某个链接，即可直接对其进行编辑。<br /> 您可以修改所有相关信息，包括点击数 (目的在于优先突出某个链接...)。 您同样可以删除某个链接。
-<br /><br />
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+         <h4>等待验证的链接</h4>
+         <p>只有当链接待处理时（原文如此......），您才会有此选项。<br />
+         您可以修改标题、链接及其评论、保存人的姓名和电子邮件、类别。<br />
+         您最终可以选择通过单击“添加”按钮或删除链接来发布链接。</p>
+
+         <h4>清理链接数据库</h4>
+         <p>此选项允许您重置数据库中所有链接的投票。</p>
+         <h4>提交损坏的链接</h4>
+         <p>适用于该列表的选项有：
+            <ul>
+               <li><em>忽略</em>清除给定链接的所有请求。</li>
+               <li><em>清除</em>允许您清除损坏的链接和给定链接的评论。</li>
+            </ul>
+         </p>
+
+         <h4>链接修改提交</h4>
+         <p>对于每个链接，您将获得来源（当前存储在数据库中）和建议的修改。</p>
+         <p>适用的选项有：
+            <ul>
+               <li><em>忽略</em>清除给定链接的所有请求。</li>
+               <li><i>清除</i>允许您清除损坏的链接和给定链接的评论。</li>
+               <li>点击作者或所有者链接发送电子邮件。</li>
+            </ul>
+         </p>
+
+         <h4>添加主类别</h4>
+         <p>要构建索引，请输入标题和说明（按字母顺序排序）。</p>
+
+         <h4>添加子类别</h4>
+         <p>对于索引结构，输入分配给主类别的子类别（单级/字母顺序）。</p>
+
+         <h4>添加新链接</h4>
+         <p>输入标题<strong>（后跟 html 标签（br、img src（本地或远程），...），如果您愿意的话）</strong>、URL、类别（和子类别）、描述、所有者姓名和电子邮件。 单击<em>添加</em>按钮。</p>
+
+         <h4>编辑类别</h4>
+         <p>此功能允许您修改类别和/或子类别的名称。<br />
+         它还允许您删除类别和/或子类别以及所有附加元素（带有确认消息）。</p>
+
+         <h4>编辑链接</h4>
+         <p>NPDS 显示数据库中当前可用的链接列表。 单击链接进行编辑。<br />
+         您可以修改所有信息，包括点击次数（以更有利地定位链接......）。<br />
+         您还可以删除选定的链接。</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

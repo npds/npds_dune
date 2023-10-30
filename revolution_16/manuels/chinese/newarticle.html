@@ -1,21 +1,78 @@
-<html>
-<head>
-<title>新文章- NPDS V</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>新文章</b></center>
-<br /><br /> <center>这是最主要的功能！</center>
-<br /><br />
-所有您写的内容都可以在您的网站上发表，所以请注意拼写，文法和URL地址的正确性。  <br /><br /> <b>标题 :</b><br /> 建议使用描述性的标题，简短明晰。  <br /><br /> <b>主题 :</b><br /> 选择与本文章相连的主题范围。如果没有输入任何主题，系统将自动使用数据库排列中的第一个主题。  <br /><br /> <b>文章 :</b><br /> 您可以使用HTML, 或 javascript, 以及NPDS的预设定语言 (例如 : !date!). <br /> 文章中也允许使用张贴以下编码：PHP, C, Perl ... .<br /> 要实现以上功能，应将您的“源代码”包围在固定的语言环境下，即：[code]您的编码[/code].  <br /><br /> <b>文字扩展 :</b><br /> 如果您的文章较长，最重要的部分应填写在这个 文字扩展 区域。<br />
-在某个发表的文章上，如果她包涵有“文字扩展”，您将可以看到一个链接 更多 ….<br />
-这个区域的功能和 文章区域 是完全一样的。  <br /><br /> <b>预览 :</b><br /> 使用本选项可以预览您的文章。<br />
-建议采用这个功能并保持这个良好的习惯，因为它可以帮助您避免一些文法错误。<br />
-在采用这个功能后，会出现一个新页面，在其中您可以直接纠正文章中的错误。<br />
-<b>发表一篇管理文章 :</b><br /> 如果您对您的文法，编程代码HTML和URL地址的正确性有充分的把握…. 
-<br /><br />
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>管理 - 新文章</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"> <a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">内容</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >新文章</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>管理 - 新文章</h3>
+         <p>这是CMS的主要功能。</p>
+         <p>您在此处编写的所有内容都可以在您的网站上发布，请注意拼写、语法和 URL。</p>
+
+         <h4>标题</h4>
+         <p>标题要简洁。</p>
+
+         <h4>主题</h4>
+         <p>选择本文的主题。 如果未输入主题，将显示数据库中的第一个主题。</p>
+
+         <h4>类别</h4>
+         <p>选择或创建您希望您的文章出现在的类别。 （默认：文章，但您可以通过单击“添加”来创建其他文章。<br />
+         类别是一种标签，允许从站点地图、类别块（如果激活它）进行搜索，并且将出现在某些主题的索引新闻页面上的文章标题之前。</p>
+
+         <h4>在根目录中发布</h4>
+         <p>此功能可以让您选择文章发布时是否显示在首页。</p>
+
+         <h4>仅限会员</h4>
+         <p>
+            <ul>
+               <li>是：您还可以选择在群组管理中定义的群组</li>
+               <li>否：所有人都可以看到您的文章，包括匿名人士。</li>
+            </ul>
+         </p>
+
+         <h4>介绍性文字</h4>
+         <p>您可以使用 HTML、CSS、NPDS 元词（例如：!date！）。<br />
+         这些文章还允许您显示 PHP、C、Perl 代码，您必须使用 [code]source[/code] 伪标签包围源代码。<br />
+         NPDS 使用内置的 Tiny mce 编辑器生成有效的 xhtml 代码。</p>
+         <p>如果文章不是很长，您将不会使用以下扩展文本窗口。</p>
+
+         <h4>扩展文本</h4>
+         <p>如果你的文章很长，最重要的部分应该在这个区域。<br />
+         当已发表的文章包含扩展文本时，<em>阅读更多...</em>链接将自动出现在文章末尾。<br />
+         该区域与文章区域具有相同的功能。</p>
+
+         <h4>发布日期</h4>
+         <p>选择您希望文章在您的网站上显示的日期和时间。 根据您的选择，文章将立即发布或存储在自动文章中。</p>
+
+         <h4>发布结束日期</h4>
+         <p>选择您希望文章不再出现的日期。<br />
+         然后，它将被记录在管理部分下的列表中。<br />
+         您将能够再次显示它，而无需重新输入文本。<br />
+         提示：如果您不希望结束发布或存档，请默认选择遥远的日期 2110。</p>
+
+         <h4>文章在有效期结束时的净化</h4>
+         <p>如果您选择“是”，该文章将在发布结束日期中定义的日期永久删除。</p>
+
+         <h4>预览</h4>
+         <p>要访问发布文章的可能性，您必须单击预览按钮，管理员将可以看到该文章，并且您始终可以进行更正或修改。</p>
+
+         <h4>以管理员身份发布文章</h4>
+         <p>如果您确定自己的拼写、HTML 代码、URL...您可以通过将状态从“预览”更改为“发布文章管理”来进行发布，然后单击“确定”按钮：您的文章将根据您定义的内容在线发布发布日期设置。</p>
+         <p><strong>提示：</strong>输入较远的发布日期可以让您准备一篇文章并保存它，然后可以通过第一行专用于警报消息的预定文章链接访问该文章。</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

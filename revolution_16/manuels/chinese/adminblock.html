@@ -1,15 +1,30 @@
-<html>
-<title>Bloc d'Administration - NPDS V</title>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>管理功能框</b></center><br/><br/>
-如果您是管理员，您会有一个专门的框架区（在页面左侧或右侧，具体位置取决于页面主题）。您不能删除此框架，同时，您也只能有一个管理功能框。<br/><br/>
-您可以自由地在其中添加一些有用链接，例如：新文章，banner条幅，等等。<br/>
-您也可以加入HTML代码（但请不要加入PHP编码）。<br/><br/>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>管理 - 管理块</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+               <ol class="breadcrumb bg-transparent">
+                  <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+                  <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">菜单</a></li>
+                  <li class="breadcrumb-item"><a href="men_inter.html">菜单 - 界面</a></li>
+                  <li class="breadcrumb-item active" aria-current="page" >管理栏</li>
+               </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">管理 - 管理块</h3>
+         <p>如果您是管理员，您有一个特定的块（根据主题排列）。</p>
+         <p>此块将以图标的形式自动显示由超级管理员或有权发布这些通知的功能的管理员执行的各种操作通知。 （例如：用户、评论、等待验证的链接...等...）。<br /> 它还会显示直接来自 npds.org 的通知（两种类型：注释和安全），并在版本更新时发出警报使用的不是最新发布的。</p>
+         <p>您无法删除此块，并且只能拥有一个。</p>
+         <p>发挥创意，在此块中插入有用的链接，例如：新文章、横幅等...</p>
+         <p>您还可以插入 HTML 代码（但不能插入 PHP...）。</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

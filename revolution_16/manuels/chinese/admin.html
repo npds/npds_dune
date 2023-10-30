@@ -1,29 +1,56 @@
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<title>Administration - NPDS V</title>
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>欢迎来到NPDS的管理页面。</b><br/><br/> 
-NPDS是一个PHP网站的专业创建工具，为法国软件。
-她执行GNU-GPL (免费) 许可证的开放源代码，并采用PHP 和MySql技术。<br/>
-NPDS功能强大。她使用的开发“母语”是法语，但是她同时可以使用多种其它语言（比如英语为基础）。<br/>
-Administration管理部分是NPDS的“指挥”中心。<br/><br/><hr></center>
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+   <meta charset="utf-8" />
+      <title>行政管理 - 主页</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item active">行政管理</li> 
+               <li class="breadcrumb-item"><a href="men_gen.html">菜单</a></li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">行政管理</h3>
 
+         <h4>简介</h4>
+         <p>NPDS 是一个开源法语门户生成器，采用免费的 GNU-GPL 许可证，使用 PHP 和 MySql 技术，具有可以在首选项中配置的多语言功能。 默认情况下，门户使用法语。</p>
+         <p>该页面的内容和界面显然取决于您作为管理员所拥有的权限（因此超级管理员将有权访问所有界面功能）。 总体界面分为3个主要块</p>
 
-从她的最初版本，即Narval版本以来，NPDS系统就具备了多语言功能。
-"ML"显示该功能是否处于激活状态 （红色）。<br/><hr>
+         <h4>警报和通知</h4>
+         <p>第一个块汇集了警报/通知，允许您处理待处理的管理员任务。 （提议的文章、预定的文章、等待验证的用户、新链接、损坏的链接等）</p>
 
+         <h4>函数</h4>
+         <p>要管理 NPDS，您可以访问许多按钮，这些按钮根据类型分类按行分组。 它们以图标或文本的形式出现，具体取决于首选项中定义的图形界面设置。</p>
+         <div class="card card-body mb-2">
+            <ul class="pl-3">
+               <li>第一行的按钮允许您管理网站的<b>内容</b>，单击按钮后，您必须单击在线手册按钮才能获取与打开相关的文档功能。</li>
+               <li>第二行允许您管理门户的<b>用户</b></li>
+               <li>第三行可让您管理与<b>通信</b>相关的所有内容</li>
+               <li>第四行允许您管理<b>块的界面</b></li>
+               <li>第五行允许您对<b>系统进行操作</b>，首选项链接是最重要的链接之一。 请注意允许您安装模块并了解哪些模块已安装或未安装的链接。</li>
+               <li>最后一行允许您通过管理来管理<b>模块</b>。</li>
+            </ul>
+         </div>
 
-<b>Administration管理部分的模块组成：</b> <br/> 本命令中心的所有管理功能的具体表现形式取决于所连接的管理员的身份级别 (参见 编辑管理员 功能)
-<br/><br/>
-最新XX文章：<br/>
-显示在您的网站上发布的最新的XX篇文章。您看到的第一个记录应该是最新发布的文章。<br/>
-某些文章被注释为“档案”，在这种情况下，是因为这些文章已经超过了她们发布的最后日期。<br/>
-为了重新激活这些“档案”文章，只需要将其编辑：点击选项中的“改变日期”以修改该文章发布的最后日期。<br/>
-点击文章本身可以进行操作（编辑或删除），或者直接使用 编辑 链接和 删除 链接。如果您希望编辑/删除一篇已有的文章，只需输入该文章的ID就可以进行期望的操作。
-<br/><br/><center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+         <h4 class="my-3">最后 x 篇文章</h4>
+         <div class="card card-body mb-2">
+            <ul class="pl-3">
+               <li class="card-text">显示您网站上最近发布的 x 篇文章的列表</li>
+               <li>第一条记录是最后发表的文章</li>
+               <li>某些文章可以在<em>存档</em>中显示，这些文章已超过发布结束日期。</li>
+               <li>要将这些文章放回 Feed，只需对其进行编辑，点击“更改日期”选项并修改其发布结束日期即可。</li>
+               <li>点击文章进行编辑或使用<em>编辑</em>、<em>删除</em>链接。</li>
+               <li>如果您想编辑/删除旧文章，请输入其 ID 并选择适当的操作。</li>
+            </ul>
+         </div>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>
