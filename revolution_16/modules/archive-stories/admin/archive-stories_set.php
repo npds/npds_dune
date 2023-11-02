@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -26,7 +26,7 @@ $f_titre = adm_translate("Module").' : '.$ModPath;
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-$hlpfile='';
+$hlpfile='/manuels/'.$language.'/mod-archive-stories.html';
 
 function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    global $hlpfile;
@@ -45,10 +45,12 @@ function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg)
       <span class="help-block text-end"><span id="countcar_arch_titre"></span></span>
       <div class="form-floating mb-3">
          <select class="form-select" name="arch">';
-   if ($arch == 1)
-      $sel_a = 'selected="selected"';
-   else
-      $sel_i = 'selected="selected"';
+   if (isset($arch) and $arch == 1) {
+         $sel_a = 'selected="selected"'; $sel_i='';
+   }
+   else {
+      $sel_i = 'selected="selected"'; $sel_a='';
+   }
    echo '
             <option name="status" value="1" '.$sel_a.'>'.adm_translate("Les articles en archive").'</option>
             <option name="status" value="0" '.$sel_i.'>'.adm_translate("Les articles en ligne").'</option>

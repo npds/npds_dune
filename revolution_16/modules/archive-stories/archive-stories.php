@@ -28,7 +28,7 @@ if ($SuperCache) {
    $cache_obj = new SuperCacheEmpty();
 if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
    if ($arch_titre) 
-      echo $arch_titre;
+      echo aff_langue($arch_titre);
    echo '
    <hr />
    <table id ="lst_art_arch" data-toggle="table"  data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-buttons-class="outline-secondary" data-icons="icons">
