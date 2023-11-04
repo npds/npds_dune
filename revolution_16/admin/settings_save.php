@@ -11,161 +11,6 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-function GetMetaTags($filename) {
-   if (file_exists($filename)) {
-      $temp = file($filename);
-      foreach($temp as $line) {
-         $aline = trim(stripslashes($line));
-         if (preg_match("#<meta (name|http-equiv|property)=\"([^\"]*)\" content=\"([^\"]*)\"#i",$aline,$regs)) {
-            $regs[2] = strtolower($regs[2]);
-            $tags[$regs[2]] = $regs[3];
-         } elseif(preg_match("#<meta (charset)=\"([^\"]*)\"#i", $aline, $regs)) {
-            $regs[1] = strtolower($regs[1]);
-            $tags[$regs[1]] = $regs[2];
-         } elseif(preg_match("#<meta (content-type)=\"([^\"]*)\" content=\"([^\"]*)\"#i", $aline, $regs)) {
-            $regs[2] = strtolower($regs[2]);
-            $tags[$regs[2]] = $regs[3];
-         }
-      }
-   }
-   return $tags;
-}
-
-function MetaTagMakeSingleTag($name, $content, $type='name') {
-   if ($content!="humans.txt") {
-      if ($content!="")
-         return "\$l_meta.=\"<meta $type=\\\"".$name."\\\" content=\\\"".$content."\\\" />\\n\";\n";
-      else
-         return "\$l_meta.=\"<meta $type=\\\"".$name."\\\" />\\n\";\n";
-   } else
-      return "\$l_meta.=\"<link type=\"text/plain\" rel=\"author\" href=\"http://humanstxt.org/humans.txt\" />\";\n";
-
-}
-
-function MetaTagSave($filename, $tags) {
-   if (!is_array($tags)) return false;
-   global $adminmail, $Version_Id, $Version_Num, $Version_Sub;
-   $fh = fopen($filename, "w");
-   if ($fh) {
-      $content = "<?php\n/* Do not change anything in this file manually. Use the administration interface*/\n";
-      $content .= "global \$nuke_url;\n";
-      $content .= "settype(\$meta_doctype,'string');\n";
-      $content .= "settype(\$nuke_url,'string');\n";
-      $content .= "settype(\$meta_op,'string');\n";
-      $content .= "settype(\$m_description,'string');\n";
-      $content .= "settype(\$m_keywords,'string');\n";
-      $content .= "\$taglang=\"<meta name=\\\"lang\\\" content=\\\"".$tags['language']."\\\" />\";\n";
-      $content .= "if (\$meta_doctype==\"\")\n";
-      if (!empty($tags['doctype'])) {
-         if ($tags['doctype'] == "XHTML 1.0 Transitional")
-            $content .= "   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\n<html lang=\\\"".$tags['language']."\\\" xml:lang=\\\"".$tags['language']."\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n\";\n";
-         if ($tags['doctype'] == "XHTML 1.0 Strict")
-            $content .= "   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Strict//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\\\">\\n<html lang=\\\"".$tags['language']."\\\" xml:lang=\\\"".$tags['language']."\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n\";\n";
-         if ($tags['doctype'] == "HTML 5.1")
-            $content .= "   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"".$tags['language']."\\\">\\n<head>\\n\";\n";
-      } else {
-         $tags['doctype'] = "HTML 5.1";
-         $content .= "   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"".$tags['language']."\\\">\\n<head>\\n\";\n";
-      }
-      $content .= "else\n";
-      $content .= "   \$l_meta=\$meta_doctype.\"\\n<html lang=\\\"".$tags['language']."\\\">\\n<head>\\n\";\n";
-      if (!empty($tags['content-type'])) {
-         $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $fp = fopen("meta/cur_charset.php", "w");
-         if ($fp) {
-            fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"".substr($tags['content-type'],strpos($tags['content-type'],"charset=")+8)."\");\n");
-            fwrite($fp, "if (!defined(\"doctype\"))\n   define ('doctype', \"".$tags['doctype']."\");\n?>");
-         }
-         fclose($fp);
-         if ($tags['doctype'] == "HTML 5.1") 
-            $content .= MetaTagMakeSingleTag('utf-8', '', 'charset');
-         else
-            $content .= MetaTagMakeSingleTag('content-type', $tags['content-type'], 'http-equiv');
-      } else {
-         $fp = fopen("meta/cur_charset.php", "w");
-         if ($fp) {
-            fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"utf-8\");\n");
-            fwrite($fp, "if (!defined(\"doctype\"))\n   define ('doctype', \"".$tags['doctype']."\");\n?>");
-         }
-         fclose($fp);
-         if ($tags['doctype'] == "XHTML 1.0 Transitional" || $tags['doctype'] == "XHTML 1.0 Strict") {
-            $content .= MetaTagMakeSingleTag('content-type', 'text/html; charset=utf-8', 'http-equiv');
-         } else {
-            $content .= MetaTagMakeSingleTag('utf-8', '', 'charset');
-         }
-      }
-      $content .= "\$l_meta.=\"<title>\$Titlesitename</title>\\n\";\n";
-      $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no');
-      $content .= MetaTagMakeSingleTag('X-UA-Compatible', 'IE=edge', 'http-equiv');//to remove ?
-      $content .= MetaTagMakeSingleTag('content-script-type', 'text/javascript', 'http-equiv');
-      $content .= MetaTagMakeSingleTag('content-style-type', 'text/css', 'http-equiv');
-      $content .= MetaTagMakeSingleTag('expires', '0', 'http-equiv');
-      $content .= MetaTagMakeSingleTag('pragma', 'no-cache', 'http-equiv');
-      $content .= MetaTagMakeSingleTag('cache-control', 'no-cache', 'http-equiv');
-      $content .= MetaTagMakeSingleTag('identifier-url', '$nuke_url', 'http-equiv');
-      if (!empty($tags['author'])) {
-         $tags['author'] = htmlspecialchars(stripslashes($tags['author']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= MetaTagMakeSingleTag('author', $tags['author']);
-      }
-      if (!empty($tags['owner'])) {
-         $tags['owner'] = htmlspecialchars(stripslashes($tags['owner']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= MetaTagMakeSingleTag('owner', $tags['owner']);
-      }
-      if (!empty($tags['reply-to'])) {
-         $tags['reply-to'] = htmlspecialchars(stripslashes($tags['reply-to']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= MetaTagMakeSingleTag('reply-to', $tags['reply-to']);
-      } else
-         $content .= MetaTagMakeSingleTag('reply-to', $adminmail);
-      if (!empty($tags['description'])) {
-         $tags['description'] = htmlspecialchars(stripslashes($tags['description']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= "if (\$m_description!=\"\")\n";
-         $content .= "   \$l_meta.=\"<meta name=\\\"description\\\" content=\\\"\$m_description\\\" />\\n\";\n";
-         $content .= "else\n";
-         $content .= "   ".MetaTagMakeSingleTag('description', $tags['description']);
-      }
-      if (!empty($tags['keywords'])) {
-         $tags['keywords'] = htmlspecialchars(stripslashes($tags['keywords']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= "if (\$m_keywords!=\"\")\n";
-         $content .= "   \$l_meta.=\"<meta name=\\\"keywords\\\" content=\\\"\$m_keywords\\\" />\\n\";\n";
-         $content .= "else\n";
-         $content .= "   ".MetaTagMakeSingleTag('keywords', $tags['keywords']);
-      }
-      if (!empty($tags['rating'])) {
-         $tags['rating'] = htmlspecialchars(stripslashes($tags['rating']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= MetaTagMakeSingleTag('rating', $tags['rating']);
-      }
-      if (!empty($tags['distribution'])) {
-         $tags['distribution'] = htmlspecialchars(stripslashes($tags['distribution']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= MetaTagMakeSingleTag('distribution', $tags['distribution']);
-      }
-      if (!empty($tags['copyright'])) {
-         $tags['copyright'] = htmlspecialchars(stripslashes($tags['copyright']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= MetaTagMakeSingleTag('copyright', $tags['copyright']);
-      }
-      if (!empty($tags['revisit-after'])) {
-         $tags['revisit-after'] = htmlspecialchars(stripslashes($tags['revisit-after']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $content .= MetaTagMakeSingleTag('revisit-after', $tags['revisit-after']);
-      } else
-         $content .= MetaTagMakeSingleTag('revisit-after', "14 days");
-      $content .= MetaTagMakeSingleTag('resource-type', "document");
-      $content .= MetaTagMakeSingleTag('robots', $tags['robots']);
-      $content .= MetaTagMakeSingleTag('generator', "$Version_Id $Version_Num $Version_Sub");
-      //==> OpenGraph Meta Tags
-      $content .= MetaTagMakeSingleTag('og:type', 'website', 'property');
-      $content .= MetaTagMakeSingleTag('og:url', '$nuke_url', 'property');
-      $content .= MetaTagMakeSingleTag('og:title', '$Titlesitename', 'property');
-      $content .= MetaTagMakeSingleTag('og:description', $tags['description'], 'property');
-      $content .= MetaTagMakeSingleTag('og:image', '$nuke_url/images/ogimg.jpg', 'property');
-      $content .= MetaTagMakeSingleTag('twitter:card', 'summary', 'property');
-      //<== OpenGraph Meta Tags
-      $content .= "if (\$meta_op==\"\") echo \$l_meta; else \$l_meta=str_replace(\"\\n\",\"\",str_replace(\"\\\"\",\"'\",\$l_meta));\n?>";
-      fwrite($fh, $content);
-      fclose($fh);
-      global $aid; Ecr_Log('security', "MetaTagsave() by AID : $aid", '');
-      return true;
-   }
-   return false;
-}
 function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port,$xdkim_auto) {
 
    include ("config.php");
@@ -608,7 +453,7 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
    $content .= "#\n";
    $content .= "# This version name NPDS Copyright (c) 2001-" . date("Y") . " by Philippe Brunier\n";
    $content .= "#\n";
-   $content .= "# This module is to configure Footer of Email send By NPDS\n";
+   $content .= "# This file is to configure PHPMailer to send email from NPDS portal\n";
    $content .= "#\n";
    $content .= "# This program is free software. You can redistribute it and/or modify\n";
    $content .= "# it under the terms of the GNU General Public License as published by\n";
@@ -617,6 +462,8 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
    $content .= "\n";
    $content .= "# Configurer le serveur SMTP\n";
    $content .= "\$smtp_host = \"$xsmtp_host\";\n";
+   $content .= "# Port TCP, utilisez 587 si vous avez activé le chiffrement TLS\n";
+   $content .= "\$smtp_port = \"$xsmtp_port\";\n";
    $content .= "# Activer l'authentification SMTP\n";
    $content .= "\$smtp_auth = $xsmtp_auth;\n";
    $content .= "# Nom d'utilisateur SMTP\n";
@@ -627,8 +474,6 @@ function ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartda
    $content .= "\$smtp_secure = $xsmtp_secure;\n";
    $content .= "# Type du chiffrement TLS\n";
    $content .= "\$smtp_crypt = \"$xsmtp_crypt\";\n";
-   $content .= "# Port TCP, utilisez 587 si vous avez activé le chiffrement TLS\n";
-   $content .= "\$smtp_port = $xsmtp_port;\n";
    $content .= "# DKIM 1 pour celui du dns 2 pour une génération automatique\n";
    $content .= "\$dkim_auto = $xdkim_auto;\n";
    $content .= "?>";

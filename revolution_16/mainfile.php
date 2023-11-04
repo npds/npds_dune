@@ -3224,23 +3224,24 @@ function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $r
 }
 #autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2 $l=> 0 ou 1(requis), $s (séparateur - | _) , $c=> 0 ou 1 (requis)
 function language_iso($l,$s,$c) {
-    global $language;
-    $iso_lang='';$iso_country='';$ietf='';
-    switch ($language) {
-        case "french": $iso_lang ='fr';$iso_country='FR'; break;
-        case "english": $iso_lang ='en';$iso_country='US'; break;
-        case "spanish": $iso_lang ='es';$iso_country='ES'; break;
-        case "german": $iso_lang ='de';$iso_country='DE'; break;
-        case "chinese": $iso_lang ='zh';$iso_country='CN'; break;
-        default:
-        break;
-    }
-    if ($c!==1) $ietf= $iso_lang;
-    if (($l==1) and ($c==1)) $ietf=$iso_lang.$s.$iso_country;
-    if (($l!==1) and ($c==1)) $ietf=$iso_country;
-    if (($l!==1) and ($c!==1)) $ietf='';
-    if (($l==1) and ($c!==1)) $ietf=$iso_lang;
-    return ($ietf);
+   global $language, $user_language;
+   $iso_lang='';$iso_country='';$ietf=''; $select_lang='';
+   $select_lang = !empty($user_language) ? $user_language : $language ;
+   switch ($select_lang) {
+      case "french": $iso_lang ='fr';$iso_country='FR'; break;
+      case "english": $iso_lang ='en';$iso_country='US'; break;
+      case "spanish": $iso_lang ='es';$iso_country='ES'; break;
+      case "german": $iso_lang ='de';$iso_country='DE'; break;
+      case "chinese": $iso_lang ='zh';$iso_country='CN'; break;
+      default:
+      break;
+   }
+   if ($c!==1) $ietf= $iso_lang;
+   if (($l==1) and ($c==1)) $ietf=$iso_lang.$s.$iso_country;
+   if (($l!==1) and ($c==1)) $ietf=$iso_country;
+   if (($l!==1) and ($c!==1)) $ietf='';
+   if (($l==1) and ($c!==1)) $ietf=$iso_lang;
+   return ($ietf);
 }
 #autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres (js), fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> éléments de l'objet fields differents input (objet js ex :   xxx: {},...) si !###! est trouvé dans la variable la partie du code suivant sera inclu à la fin de la fonction d'initialisation, $arg1=>js pur au début du script js, $foo =='' ==> </div> et inclusion footer.php $foo =='foo' ==> inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
