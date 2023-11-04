@@ -1528,6 +1528,13 @@ function Configure() {
          },
       },
    },
+   xsmtp_port: {
+      validators: {
+         notEmpty: {
+            enabled: true,
+         },
+      },
+   },
    xsmtp_username: {
       validators: {
          notEmpty: {
@@ -1543,48 +1550,74 @@ function Configure() {
       },
    },
    !###!
-   xmail2.addEventListener("change", function (e) {
-     e.target.checked ? fvitem.enableValidator("xsmtp_host") : fvitem.disableValidator("xsmtp_host") ;
-     if(e.target.checked) smtp.style.display="flex";
-     fvitem.revalidateField("xsmtp_host");
+   xmail1.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         fvitem.disableValidator("xsmtp_host");
+         fvitem.disableValidator("xsmtp_port");
+         fvitem.disableValidator("xsmtp_username");
+         fvitem.disableValidator("xsmtp_password");
+         smtp.style.display="none";
+      }
    });
-   settingspref.querySelector("#xmail_fonction1").addEventListener("change", function (e) {
-     e.target.checked ? fvitem.disableValidator("xsmtp_host") : fvitem.enableValidator("xsmtp_host") ;
-     if(e.target.checked) smtp.style.display="none" ;
-     fvitem.revalidateField("xsmtp_host");
+   xmail2.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         fvitem.enableValidator("xsmtp_host");
+         fvitem.enableValidator("xsmtp_port");
+         smtp.style.display="flex";
+      }
+      fvitem.revalidateField("xsmtp_host");
+      fvitem.revalidateField("xsmtp_port");
    });
    auth_y.addEventListener("change", function (e) {
-     e.target.checked ? auth.style.display="flex" : auth.style.display="none" ;
-     e.target.checked ? fvitem.enableValidator("xsmtp_username") : fvitem.disableValidator("xsmtp_username") ;
-     e.target.checked ? fvitem.enableValidator("xsmtp_password") : fvitem.disableValidator("xsmtp_password") ;
+      if(e.target.checked) {
+         fvitem.enableValidator("xsmtp_username");
+         fvitem.enableValidator("xsmtp_password");
+         auth.style.display="flex";
+      }
      fvitem.revalidateField("xsmtp_username");
      fvitem.revalidateField("xsmtp_password");
    });
-   settingspref.querySelector("#xsmtp_auth_n").addEventListener("change", function (e) {
-     e.target.checked ? auth.style.display="none" : auth.style.display="flex" ;
-     e.target.checked ? fvitem.disableValidator("xsmtp_username") : fvitem.enableValidator("xsmtp_username") ;
-     e.target.checked ? fvitem.disableValidator("xsmtp_password") : fvitem.enableValidator("xsmtp_password") ;
-     fvitem.revalidateField("xsmtp_username");
-     fvitem.revalidateField("xsmtp_password");
+   auth_n.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         fvitem.disableValidator("xsmtp_username");
+         fvitem.disableValidator("xsmtp_password");
+         auth.style.display="none"
+      }
    });
-   settingspref.querySelector("#xsmtp_secure_y").addEventListener("change", function (e) {
+
+   secu_y.addEventListener("change", function (e) {
      e.target.checked ? chifr.style.display="block" : chifr.style.display="none" ;
    });
-   settingspref.querySelector("#xsmtp_secure_n").addEventListener("change", function (e) {
+   secu_n.addEventListener("change", function (e) {
      e.target.checked ? chifr.style.display="none" : chifr.style.display="block" ;
    });
 
+   if(xmail1.checked) {
+      fvitem.disableValidator("xsmtp_host");
+      fvitem.disableValidator("xsmtp_port");
+      fvitem.disableValidator("xsmtp_username");
+      fvitem.disableValidator("xsmtp_password");
+      smtp.style.display="none";
+   }
+   if(auth_n.checked) {
+      fvitem.disableValidator("xsmtp_username");
+      fvitem.disableValidator("xsmtp_password");
+      auth.style.display="none";
+   }
    ';
-  $arg1='
+   $arg1='
    const settingspref = document.getElementById("settingspref");
    const smtp = document.getElementById("smtp");
    const auth = document.getElementById("auth");
    const chifr = document.getElementById("chifr");
+   const xmail1 = document.querySelector("#xmail_fonction1");
    const xmail2 = document.querySelector("#xmail_fonction2");
-   xmail2.checked ? "" : smtp.style.display="none" ;
+   const auth_n = document.querySelector("#xsmtp_auth_n");
    const auth_y = document.querySelector("#xsmtp_auth_y");
-   auth_y.checked ? "" : auth.style.display="none" ;
+   const secu_n = document.querySelector("#xsmtp_secure_n");
    const secu_y = document.querySelector("#xsmtp_secure_y");
+
+   xmail2.checked ? "" : smtp.style.display="none" ;// no need ?...
    secu_y.checked ? "" : chifr.style.display="none" ;
 
    var formulid = ["settingspref"];
