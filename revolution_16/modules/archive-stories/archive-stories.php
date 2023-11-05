@@ -88,7 +88,7 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
            <td>'.$title.'</td>
            <td>'.$counter.'</td>
            <td><small>'.$datetime.'</small></td>
-           <td>'.userpopover($informant,40).' '.$informant.'</td>
+           <td>'.userpopover($informant,40,2).' '.$informant.'</td>
            <td>'.$printP.$sendF.'</td>
         </tr>';
    }

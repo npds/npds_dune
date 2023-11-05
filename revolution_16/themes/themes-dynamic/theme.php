@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* DYNAMIC THEME engine for NPDS                                        */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -60,7 +60,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
 
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
-   "'!N_emetteur!'i"=>userpopover($informant,40).'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
+   "'!N_emetteur!'i"=>userpopover($informant,40,2).'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
 
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
@@ -122,7 +122,7 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
 
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
-   "'!N_emetteur!'i"=>userpopover($informant,40).'<a href="user.php?op=userinfo&amp;uname='.$informant.'"><span class="">'.$informant.'</span></a>',
+   "'!N_emetteur!'i"=>userpopover($informant,40,2).'<a href="user.php?op=userinfo&amp;uname='.$informant.'"><span class="">'.$informant.'</span></a>',
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
    "'!N_date_m!'i"=>strftime("%B", mktime(0,0,0, substr($time,5,2),1,2000)),
@@ -203,8 +203,8 @@ function themedito($content) {
    }
    return ($inclusion);
 }
-
-function userpopover($who,$dim) {
+#autodoc userpopover($who, $dim, $avpop) : à partir du nom de l'utilisateur ($who) $avpop à 1 : affiche son avatar (ou avatar defaut) au dimension ($dim qui défini la class n-ava-$dim)<br /> $avpop à 2 : l'avatar affiché commande un popover contenant diverses info de cet utilisateur et liens associés
+function userpopover($who,$dim,$avpop) {
    global $short_user, $user, $NPDS_Prefix;
    $result=sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname ='$who'");
    include_once('functions.php');
@@ -263,9 +263,10 @@ function userpopover($who,$dim) {
       $imgtmp=$temp_user['user_avatar'];
    else
       if ($ibid=theme_image('forum/avatar/'.$temp_user['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp='images/forum/avatar/'.$temp_user['user_avatar'];}
-      $userpop ='<a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>';
 
-
+      $userpop = $avpop==1 ?
+         '<img class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" />' :
+         '<a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>' ;
 /*
  $userpop ='<div class="dropdown d-inline-block me-4 dropend">
       <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">

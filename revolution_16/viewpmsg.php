@@ -115,17 +115,13 @@ include("auth.php");
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) $imgtmp=$ibid; else $imgtmp="images/forum/subject/".$myrow['msg_image'];
                echo '
                   <td><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
-            } else {
+            } else
                echo '
                   <td></td>';
-            }
          }
          echo '
-                  <td>'.userpopover($posterdata['uname'],40);
-         if ($posterdata['uid']<>1)
-            echo $posterdata['uname'];
-         else
-            echo $sitename;
+                  <td>'.userpopover($posterdata['uname'],40,2);
+         echo ($posterdata['uid']<>1) ? $posterdata['uname'] : $sitename ;
          echo '</td>
                   <td>'.aff_langue($myrow['subject']).'</td>
                   <td class="small">'.$myrow['msg_time'].'</td>

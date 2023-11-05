@@ -63,7 +63,7 @@ function submissions() {
          }
          echo '
          <tr>
-            <td>'.userpopover($uname,'40').' '.$uname.'</td>
+            <td>'.userpopover($uname,'40',2).' '.$uname.'</td>
             <td>';
          if ($subject=='') $subject=adm_translate("Aucun Sujet");
          $subject= aff_langue($subject);

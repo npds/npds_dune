@@ -331,7 +331,7 @@ if (isset($submitS)) {
             echo '
             <div class="card my-3">
                <div class="card-header">';
-               if ($smilies) echo userpopover($posterdata['uname'],'48');
+               if ($smilies) echo userpopover($posterdata['uname'],'48',2);
                echo $posterdata['uname'];
             echo '<span class="float-end text-muted small">'.translate("Posté : ").convertdate($myrow['post_time']).'
                </span>

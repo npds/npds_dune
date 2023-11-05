@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Collab WS-Pad 1.5 by Developpeur and Jpb                             */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -202,7 +202,7 @@ function Liste_Page() {
             $aff.='
                <tr>
                   <td>'.$ibid.$ranq.'</td>
-                  <td><div class="me-1" style="float: left; margin-top: 0.5rem; width: 1.5rem; height: 1.5rem; border-radius:50%; background-color: '.$couleur[hexfromchr($editedby)].';"></div>'.userpopover($editedby,'40').'&nbsp;'.$editedby.'</td>
+                  <td><div class="me-1" style="float: left; margin-top: 0.5rem; width: 1.5rem; height: 1.5rem; border-radius:50%; background-color: '.$couleur[hexfromchr($editedby)].';"></div>'.userpopover($editedby,'40',2).'&nbsp;'.$editedby.'</td>
                   <td class="small">'.date(translate("dateinternal"),$modtime+((integer)$gmt*3600)).'</td>';
             // voir la révision du ranq x
             $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=preview&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",500,400);
@@ -225,7 +225,7 @@ function Liste_Page() {
                      <a class="ms-2 fs-5" href="'.$ThisFile.'&amp;op=conv_new&amp;page='.urlencode($page).'&amp;member='.$groupe.'&amp;ranq='.$ranq.'" title="'.wspad_trans("Transformer en New").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="bi bi-newspaper"></i></a>
                   </td>';
             } else
-               $aff.= '<i class="text-danger fs-5 me-2 bi bi-lock-fill"></i>'.wspad_trans("Verrouillé par : ").userpopover($verrou,'40').'</td>';
+               $aff.= '<i class="text-danger fs-5 me-2 bi bi-lock-fill"></i>'.wspad_trans("Verrouillé par : ").userpopover($verrou,'40',2).'</td>';
             $aff.='
                </tr>';
          }

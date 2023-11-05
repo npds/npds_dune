@@ -85,7 +85,7 @@ function get_last_post($id, $type, $cmd, $Mmod) {
       else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
          $val = convertdate($myrow[0]);
-         $val .= $rowQ1 ? ' '.userpopover($rowQ1[0]['uname'],40) : '';
+         $val .= $rowQ1 ? ' '.userpopover($rowQ1[0]['uname'],40,2) : '';
       }
    }
    sql_free_result($result);

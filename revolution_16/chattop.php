@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -11,6 +11,7 @@
 /************************************************************************/
    $Titlesitename='NPDS';
    $nuke_url=''; $meta_op='';
+   include("mainfile.php");
    include('meta/meta.php');
    echo '
    </head>

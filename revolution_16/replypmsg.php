@@ -246,7 +246,7 @@ else {
             <label class="col-form-label col-sm-3" for="to_user">'.translate("Destinataire").'</label>
             <div class="col-sm-9">';
          if ($reply)
-            echo userpopover($fromuserdata['uname'],48).'
+            echo userpopover($fromuserdata['uname'],48,2).'
                <input class="form-control-plaintext d-inline-block w-75" type="text" id="to_user" name="to_user" value="'.$fromuserdata['uname'].'" readonly="readonly" />';
          else {
             settype($Xto_user,'string');

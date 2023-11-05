@@ -47,13 +47,14 @@ settype($connectes,'integer');
    $result = sql_query("SELECT username, message, dbname, date FROM ".$NPDS_Prefix."chatbox WHERE id='$id' AND date>'$repere' ORDER BY date ASC");
    $thing='';
    if ($result){
+      include("themes/themes-dynamic/theme.php");
       while(list($username, $message, $dbname, $date_message) = sql_fetch_row($result)) {
          $thing.="<div class='chatmessage'><div class='chatheure'>".date(translate("Chatdate"),$date_message+((integer)$gmt*3600))."</div>";
          if ($dbname==1) {
             if ((!$user) and ($member_list==1) and (!$admin))
                $thing.="<div class='chatnom'>$username</div>";
             else
-               $thing.="<div class='chatnom'><a href='user.php?op=userinfo&amp;uname=$username' target='_blank'>$username</a></div>";
+               $thing.="<div class='chatnom'><div class='float-start'> ".str_replace('"','\"', userpopover($username,36,1))."</div> <a href='user.php?op=userinfo&amp;uname=$username' target='_blank'>$username</a></div>";
          } else
             $thing.="<div class='chatnom'>$username</div>";
 

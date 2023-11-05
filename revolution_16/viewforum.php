@@ -14,8 +14,12 @@
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
+
 include('functions.php');
-$cache_obj = $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
+if ($SuperCache)
+   $cache_obj = new cacheManager();
+else 
+   $cache_obj = new SuperCacheEmpty();
 include('auth.php');
 global $NPDS_Prefix,$admin;
 
@@ -264,8 +268,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
             echo '
                <td>'.$image.'</td>';
             if ($image_subject != '') {
-               $imgtmp = $ibid=theme_image("forum/subject/$image_subject") ?
-                  $ibid : "images/forum/subject/$image_subject";
+               if ($ibid=theme_image("forum/subject/$image_subject")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/$image_subject";}
                echo '
                <td><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
             } else 
@@ -303,7 +306,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
                else {
                   $rowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid='".$myrow['topic_poster']."'", 3600);
                   if($rowQ1) {
-                     echo '<td>'.userpopover($rowQ1[0]['uname'],40).$rowQ1[0]['uname'].'</td>';
+                     echo '<td>'.userpopover($rowQ1[0]['uname'],40,2).$rowQ1[0]['uname'].'</td>';
                   } else
                   echo '<td>'.$anonymous.'</td>';
                }
@@ -382,7 +385,11 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
        if ($res = sql_query($sub_sql)) {
           while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
              if (($forum_type != '9') or ($userdata)) {
-                $ok_affich = (($forum_type != '9') or ($userdata)) ? false : true ;
+                if (($forum_type == '7') or ($forum_type == '5')) {
+                   $ok_affich=false;
+                } else {
+                   $ok_affich=true;
+                }
                 if ($ok_affich) echo '<option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
              }
           }
