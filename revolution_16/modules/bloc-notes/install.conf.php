@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -41,8 +41,10 @@ $list_fich = array(array(''), array(''));
 #autodoc $sql = array(""): Si votre module doit exécuter une ou plusieurs requêtes SQL, tapez vos requêtes ici.
 #autodoc Attention! UNE requête par élément de tableau! 
 #autodoc Synopsis: $sql = array("requête_sql_1","requête_sql_2");
+#autodoc Syntaxe création de table : 'CREATE TABLE "' ou 'CREATE TABLE IF NOT EXISTS "' <br /> tout les noms de table(s) utilisés doivent être concatené à gauche avec la variable $NPDS_Prefix
+
 global $NPDS_Prefix;
-$sql = array("CREATE TABLE ".$NPDS_Prefix."blocnotes (
+$sql = array("CREATE TABLE IF NOT EXISTS ".$NPDS_Prefix."blocnotes (
 bnid text COLLATE utf8mb4_unicode_ci NOT NULL,
 texte text COLLATE utf8mb4_unicode_ci,
 PRIMARY KEY  (bnid(32))) 
@@ -52,7 +54,7 @@ ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
 '-',
 NULL,
 '[french]Fabrique un blocnote contextuel en lieu et place du meta-mot / syntaxe : !blocnote!ID - ID = Id du bloc de droite dans le gestionnaire de bloc de NPDS[/french]',
-'0')");
+'0') ON DUPLICATE KEY UPDATE type_meta='meta'");
 
 #autodoc $blocs = array(array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""), array(""))
 #autodoc                titre      contenu    membre     groupe     index      rétention  actif      aide       description
