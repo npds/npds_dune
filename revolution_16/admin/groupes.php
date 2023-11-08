@@ -611,20 +611,11 @@ function pad_remove($groupe_id) {
 // BLOC-NOTE
 function note_create($groupe_id) {
    global $NPDS_Prefix;
-   $type_engine='';
-   // => Creation table blocnotes
-   if (version_compare(PHP_VERSION, '7.0.0') >= 0) {$type_engine=6;}// a affiner
-   else {$type_engine=(int)substr(mysql_get_server_info(), 0, 1);}// a affiner
-
    $sql="CREATE TABLE IF NOT EXISTS ".$NPDS_Prefix."blocnotes (
    bnid text COLLATE utf8mb4_unicode_ci NOT NULL,
    texte text COLLATE utf8mb4_unicode_ci,
    PRIMARY KEY (bnid(32))
-   )";
-   if ($type_engine>=5)
-      $sql.=" ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
-   else
-      $sql.=" TYPE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+   ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
    sql_query($sql);
 
    sql_query("UPDATE ".$NPDS_Prefix."groupes SET groupe_blocnote = '1' WHERE groupe_id = '$groupe_id';");
