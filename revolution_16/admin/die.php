@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2023 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -10,8 +10,9 @@
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
    $Titlesitename='NPDS';
+   include "mainfile.php";
    if (file_exists("meta/meta.php"))
-   include ("meta/meta.php");
+      include ("meta/meta.php");
    echo '
    <link id="bsth" rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
    </head>
