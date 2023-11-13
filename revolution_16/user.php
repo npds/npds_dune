@@ -316,7 +316,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
 function userinfo($uname) {
    global $NPDS_Prefix;
    global $user, $sitename, $smilies, $short_user;
-   global $name, $email, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal;
+   global $name, $email, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal, $C7, $C8;
 
    $uname=removeHack($uname);
    $result = sql_query("SELECT uid, name, femail, url, bio, user_avatar, user_from, user_occ, user_intrest, user_sig, user_journal, mns FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
@@ -415,9 +415,11 @@ function userinfo($uname) {
    <div class="card card-body">
       <div class="row">';
    if(array_key_exists($ch_lat, $posterdata_extend) and array_key_exists($ch_lon, $posterdata_extend))
-      if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') 
+      if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
+         $C7=$posterdata_extend[$ch_lat]; $C8=$posterdata_extend[$ch_lon]; 
          echo '
          <div class="col-md-6">';
+      }
       else
          echo '
          <div class="col-md-12">';
