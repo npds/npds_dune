@@ -9,17 +9,38 @@
    </head>
    <body>
       <div class="container">
-            <nav class="my-3">
-               <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
-                  <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
-                  <li class="breadcrumb-item"><a href="men_syst.html">Syst&egrave;me</a></li>
-                  <li class="breadcrumb-item active" aria-current="page" >Modules</li>
-               </ol>
-            </nav>
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+            <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">Syst&egrave;me</a></li>
+               <li class="breadcrumb-item active">Modules</li>
+            </ol>
+         </nav>
          <hr class="mt-n3" />
          <h3 class="mb-3">Administration - Modules</h3>
-         <p>Permet d'installer et de d&eacute;sinstaller les modules.</p>
+         <p>Permet d'installer et de d&eacute;sinstaller les modules. L'interface pr&eacute;sente un tableau simple avec l'ic&ocirc;ne, le nom du module et les fonctions.</p>
+
+         <h4>Les fonctions</h4>
+         <h5>Pour les modules avec installation-automatique</h5>
+            <ul>
+               <li class="mb-3 text-success"><i class="fa fa-compress fa-lg"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90"></i> : installer le module.<br /></li>
+               <li class="text-danger"><i class="fa fa-expand fa-lg text-danger"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate-90"></i> : d&eacute;sinstaller le module.<br /> <b>Attention  cette commande d&eacute;truit ce qui a &eacute;t&eacute; cr&eacute;&eacute; par l'installation automatique du module :</b>
+                  <ul>
+                     <li>les &eacute;ventuelles tables de la base ainsi que les donn&eacute;es s'y trouvant.</li>
+                     <li>les &eacute;ventuelles fonctions d'administration et les droits attach&eacute;s</li>
+                     <li>les &eacute;ventuels blocs relatifs au module.</li>
+                     <li>les &eacute;ventuels meta-mots</li>
+                  </ul>
+               </li>
+               <li>Ces deux commandes sont disponibles alternativement que si <u>le module dispose d'une installation automatique</u> d&eacute;finie dans le fichier <code>/modules/mon_module/install.conf.php</code>. Elles conduisent donc &agrave; l'interface d&eacute;taill&eacute;e et progressive d'installation ou de d&eacute;sinstallation de votre module.</li>
+            </ul>
+         <h5>Pour les modules sans installation-automatique</h5>
+         <ul>
+            <li class="mb-3 text-success"><i class="fa fa-check fa-lg"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90"></i> : marquer le module comme install&eacute;.<br /></li>
+            <li class="text-danger"><i class="fa fa-ban fa-lg"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate-90"></i> : marquer le module comme d&eacute;sinstall&eacute;. </li>
+            <li>Ces deux commandes sont disponibles alternativement que si <u>le module ne dispose pas d'une installation automatique</u>. Elles ne servent donc qu'&agrave; modifier l'&eacute;tat du module install&eacute;/d&eacute;sinstall&eacute; dans la base de donn&eacute;es et sa notification dans l'interface. Vous devez donc installer/d&eacute;sinstaller le module en vous r&eacute;f&eacute;rant au fichier <code>install.txt</code> de l'archive du module.</li>
+         </ul>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Manuel administration</span></p>
       </div>
    </body>

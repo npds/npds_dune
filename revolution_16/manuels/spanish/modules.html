@@ -11,7 +11,7 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
                <li class="breadcrumb-item"><a href="men_syst.html">Sistema</a></li>
                <li class="breadcrumb-item active">M&#xF3;dulos</li>
@@ -19,8 +19,29 @@
          </nav>
          <hr class="mt-n3" />
          <h3 class="mb-3">Administrar m&#xF3;dulos.</h3>
-         <p>Le permite instalar y m&#xF3;dulos de desinstalaci&#xF3;n.</p>
-         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - Manual de administraci&oacute;n</span></p>
+         <p>Le permite instalar y desinstalar m&oacute;dulos. La interfaz presenta una tabla sencilla con el icono, el nombre del m&oacute;dulo y las funciones.</p>
+
+         <h4>Funciones</h4>
+         <h5>Para m&oacute;dulos con instalaci&oacute;n autom&aacute;tica</h5>
+         <ul>
+            <li class="mb-3 text-success"><i class="fa fa-compress fa-lg"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90 "></i>: instalar el m&oacute;dulo.<br /></li>
+            <li class="text-danger"><i class="fa fa-expand fa-lg text-danger"></i><i class="fa fa fa-pieza-rompecabezas fa-2x fa-rotate- 90"></i>: desinstalar el m&oacute;dulo.<br /> <b>Atenci&oacute;n, este comando destruye lo creado por la instalaci&oacute;n autom&aacute;tica del m&oacute;dulo:</b>
+               <ul>
+                  <li>cualquier tabla en la base de datos, as&iacute; como los datos que se encuentran all&iacute;.</li>
+                  <li>cualquier funci&oacute;n administrativa y derechos asociados</li>
+                  <li>cualquier bloque relacionado con el m&oacute;dulo.</li>
+                  <li>cualquier metapalabra</li>
+               </ul>
+            </li>
+            <li>Estos dos comandos est&aacute;n disponibles alternativamente s&oacute;lo si <u>el m&oacute;dulo tiene instalaci&oacute;n autom&aacute;tica</u> definida en el archivo <code>/modules/mon_module/install.conf.php</code>. Por lo tanto, conducen a la interfaz detallada y progresiva para instalar o desinstalar su m&oacute;dulo.</li>
+         </ul>
+         <h5>Para m&oacute;dulos sin instalaci&oacute;n autom&aacute;tica</h5>
+         <ul>
+            <li class="mb-3 text-success"><i class="fa fa-check fa-lg"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90 "></i>: marca el m&oacute;dulo como instalado.<br /></li>
+            <li class="text-danger"><i class="fa fa-ban fa-lg"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate-90"> </i>: marca el m&oacute;dulo como desinstalado. </li>
+            <li>Estos dos comandos est&aacute;n disponibles alternativamente s&oacute;lo si <u>el m&oacute;dulo no tiene instalaci&oacute;n autom&aacute;tica</u>. Por tanto, s&oacute;lo se utilizan para modificar el estado del m&oacute;dulo instalado/desinstalado en la base de datos y su notificaci&oacute;n en la interfaz. Por lo tanto, debe instalar/desinstalar el m&oacute;dulo consultando el archivo <code>install.txt</code> del archivo del m&oacute;dulo.</li>
+         </ul>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Manual de administraci&oacute;n</span></p>
       </div>
    </body>
 </html>

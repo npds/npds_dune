@@ -1,14 +1,46 @@
-<html>
-   <title>&#x7BA1;&#x7406;&#x6A21;&#x5757; - NPDS V</title>
+<!DOCTYPE html>
+<html lang="zh">
    <head>
+      <meta charset="utf-8" />
+         <title>管理 - 模块</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1" />
+         <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+         <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
    </head>
-   <body bgcolor=FFFFFF text=000000>
-      <font face=Verdana,Arial,Helvetica size=2>
-         <center><strong>&#x7BA1;&#x7406;&#x6A21;&#x5757;&#x3002;</strong></center>
-         <br /><br />
-         &#x5141;&#x8BB8;&#x60A8;&#x5B89;&#x88C5;&#x548C;&#x5378;&#x8F7D;&#x6A21;&#x5757;&#x3002;
-         <br /><br />
+   <body>
+      <div class="container">
+         <nav class="my-3">
+               <ol class="breadcrumb bg-transparent">
+                  <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+                  <li class="breadcrumb-item"><a href="men_gen.html">菜单</a></li>
+                  <li class="breadcrumb-item"><a href="men_syst.html">系统</a></li>
+                  <li class="breadcrumb-item active">模块</li>
+               </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">管理 - 首选项</h3>
+         <p>允许您安装和卸载模块。 该界面呈现一个简单的表格，其中包含图标、模块名称和功能。</p>
 
+         <h4>函数</h4>
+         <h5>对于自动安装的模块</h5>
+         <ul>
+            <li class="mb-3 text-success"><i class="fa fa-compress fa-lg"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90"></i>：安装模块。<br /></li>
+            <li class="text-danger"><i class="fa fa-expand fa-lg text-danger"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate-90"></i>：卸载模块。<br /> <b>注意，此命令会破坏自动安装模块所创建的内容：</b>
+               <ul>
+                  <li>数据库中的任何表格以及其中找到的数据。</li>
+                  <li>任何管理职能和相关权利</li>
+                  <li>与模块相关的任何块。</li>
+                  <li>任何元词</li>
+               </ul>
+            </li>
+            <li>仅当 模块在 <code>/modules/mon_module/install.conf.php</code> 文件中定义了自动安装</u>时，这两个命令才可以交替使用。 因此，它们会产生用于安装或卸载模块的详细且渐进的界面。</li>
+         </ul>
+         <h5>对于没有自动安装的模块</h5>
+         <ul>
+            <li class="mb-3 text-success"><i class="fa fa-check fa-lg"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90 "></i>：将模块标记为已安装。<br /></li>
+            <li class="text-danger"><i class="fa fa-ban fa-lg"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate-90"> </i>：将模块标记为已卸载。 </li>
+            <li>仅当<u>模块没有自动安装</u>时，这两个命令才可以交替使用。 因此，它们仅用于修改数据库中已安装/卸载模块的状态及其在界面中的通知。 因此，您必须通过引用模块存档中的 <code>install.txt</code> 文件来安装/卸载模块。</li>
+         </ul>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
       </div>
    </body>
