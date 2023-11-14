@@ -1138,8 +1138,8 @@ function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$check'");
    list($vuid) = sql_fetch_row($result);
    if (($check == $uname) AND ($uid == $vuid)) {
-      if ($ublockon) $ublockon=1; else $ublockon=0;
-      $ublock = FixQuotes($ublock);
+      $ublockon = $ublockon ? 1 : 0 ;
+      $ublock = removeHack(FixQuotes($ublock));
       sql_query("UPDATE ".$NPDS_Prefix."users SET storynum='$storynum', ublockon='$ublockon', ublock='$ublock' WHERE uid='$uid'");
       $userinfo=getusrinfo($user);
       docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], '');
