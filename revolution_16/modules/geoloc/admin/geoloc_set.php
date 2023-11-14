@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
-/* geoloc_set.php file 2007-2022 by Jean Pierre Barbary (jpb)           */
+/* geoloc_set.php file 2007-2023 by Jean Pierre Barbary (jpb)           */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
@@ -45,7 +45,7 @@ function vidip(){
 function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata) {
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg, $dbname, $NPDS_Prefix, $subop;
    include ('modules/'.$ModPath.'/geoloc.conf');
-   $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo_'.$language.'.html';
+   $hlpfile='modules/'.$ModPath.'/doc/aide_admgeo_'.$language.'.html';
 
    $result=sql_query("SELECT CONCAT(ROUND(((DATA_LENGTH + INDEX_LENGTH - DATA_FREE) / 1024 / 1024), 2), ' Mo') AS TailleMo FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$dbname' AND TABLE_NAME = ".$NPDS_Prefix."'ip_loc'");
    $row = sql_fetch_array($result);
@@ -80,9 +80,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    );
    $fond_provider=array(
       ['OSM', geoloc_translate("Plan").' (OpenStreetMap)'],
-      ['toner', geoloc_translate("Noir et blanc").' (Stamen)'],
-      ['watercolor', geoloc_translate("Dessin").' (Stamen)'],
-      ['terrain', geoloc_translate("Relief").' (Stamen)'],
       ['natural-earth-hypso-bathy', geoloc_translate("Relief").' (mapbox)'],
       ['geography-class', geoloc_translate("Carte").' (mapbox)'],
       ['Road', geoloc_translate("Plan").' (Bing maps)'],
@@ -95,12 +92,11 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)']
    );
    if($api_key_bing=='' and $api_key_mapbox=='')
-      unset($fond_provider[4],$fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8]);
+      unset($fond_provider[1],$fond_provider[2],$fond_provider[3],$fond_provider[4],$fond_provider[5]);
    elseif($api_key_bing=='')
-      unset($fond_provider[6],$fond_provider[7],$fond_provider[8]);
+      unset($fond_provider[3],$fond_provider[4],$fond_provider[5]);
    elseif($api_key_mapbox=='')
-      unset($fond_provider[4],$fond_provider[5]);
-
+      unset($fond_provider[1],$fond_provider[2]);
 
    echo '
    <hr />
@@ -170,6 +166,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       </fieldset>
       <hr />
       <h4 class="my-3" >'.geoloc_translate('Interface carte').'</h4>
+
       <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="api_key_bing">'.geoloc_translate("Clef d'API").' Bing maps</label>
          <div class="col-sm-8">
@@ -184,6 +181,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             <span class="help-block small muted">'.$api_key_mapbox.'</span>
          </div>
       </div>
+
       <div class="row">
          <div class="col-sm-8">
             <fieldset id="para_car" class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
@@ -195,17 +193,16 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       $sel = $v[0]==$cartyp ? 'selected="selected"': '';
       switch($k){
          case '0': echo '<optgroup label="OpenStreetMap">';break;
-         case '1': echo '<optgroup label="Stamen">';break;
-         case '4': echo '<optgroup label="Mapbox">';break;
-         case '6': echo '<optgroup label="Bing maps">';break;
-         case '9': echo '<optgroup label="Google">';break;
-         case '10': echo '<optgroup label="ESRI">';break;
-         }
+         case '1': echo '<optgroup label="Mapbox">';break;
+         case '4': echo '<optgroup label="Bing maps">';break;
+         case '6': echo '<optgroup label="Google">';break;
+         case '7': echo '<optgroup label="ESRI">';break;
+      }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
-      switch($k){
-         case '0': case '3': case '5': case '8': case '9': case '13': echo '</optgroup>'; break;
-         }
+      switch($k) {
+         case '0': case '2': case '5': case '6': case '10': echo '</optgroup>'; break;
+      }
    }
    echo '
                      </select>
@@ -306,128 +303,130 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             </div>
             <div class="mb-3 row">
                <div class="col-4">
-                  <div><span id="f_choice_mbg" class="fa fa-2x align-center" style="color:'.$mbg_f_co.';" >'.$fafont.'</span>&nbsp;<span>'.geoloc_translate('Membre').'</span></div>
+                  <div><span id="f_choice_mbg" class="fa fa-2x align-middle" style="color:'.$mbg_f_co.';" >'.$fafont.'</span>&nbsp;<span>'.geoloc_translate('Membre').'</span></div>
                </div>
                <div class="col-4">
-                  <div><i id="f_choice_mbgc" class="fa fa-2x align-center" style="color:'.$mbgc_f_co.';" >'.$fafont.'</i>&nbsp;<span>'.geoloc_translate('Membre en ligne').'</span></div>
+                  <div><i id="f_choice_mbgc" class="fa fa-2x align-middle" style="color:'.$mbgc_f_co.';" >'.$fafont.'</i>&nbsp;<span>'.geoloc_translate('Membre en ligne').'</span></div>
                </div>
                <div class="col-4">
-                  <div><i id="f_choice_acg" class="fa fa-2x align-center" style="color:'.$acg_f_co.';" >'.$fafont.'</i>&nbsp;<span>'.geoloc_translate('Anonyme en ligne').'</span></div>
+                  <div><i id="f_choice_acg" class="fa fa-2x align-middle" style="color:'.$acg_f_co.';" >'.$fafont.'</i>&nbsp;<span>'.geoloc_translate('Anonyme en ligne').'</span></div>
                </div>
             </div>
-            <div class="row">
+            <div class="row g-2">
                <div class="col-4 bkmbg">
                   <label class="col-form-label" for="mbg_f_co">'.geoloc_translate('Couleur fond').'</label>
-                  <div class="input-group pickcol_fmb pickol">
-                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                     <input type="text" class="form-control" name="mbg_f_co" id="mbg_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$mbg_f_co.'" />
-                  </div>
+                  <input data-jscolor="{}" type="text" class="form-control form-control-sm" name="mbg_f_co" id="mbg_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$mbg_f_co.'" />
                </div>
                <div class="col-4">
                   <label class="col-form-label" for="mbgc_f_co">'.geoloc_translate('Couleur fond').'</label>
-                     <div class="input-group pickcol_fmbc pickol">
-                        <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                        <input type="text" class="form-control" name="mbgc_f_co" id="mbgc_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$mbgc_f_co.'" />
-                     </div>
-                  </div>
+                  <input data-jscolor="{}" type="text" class="form-control form-control-sm" name="mbgc_f_co" id="mbgc_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$mbgc_f_co.'" />
+               </div>
                <div class="col-4">
                   <label class="col-form-label" for="acg_f_co">'.geoloc_translate('Couleur fond').'</label>
-                  <div class="input-group pickcol_fac pickol">
-                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                     <input type="text" class="form-control" name="acg_f_co" id="acg_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$acg_f_co.'" />
-                    </div>
+                  <input data-jscolor="{}" type="text" class="form-control form-control-sm" name="acg_f_co" id="acg_f_co" placeholder="'.geoloc_translate('Couleur du fond').'" value="'.$acg_f_co.'" />
                 </div>
             </div>
-            <div class="row">
+            <div class="row g-2">
                <div class="col-4 bkmbg">
                   <label class="col-form-label" for="mbg_t_co">'.geoloc_translate('Couleur du trait').'</label>
-                  <div class="input-group pickcol_tmb pickol">
-                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                     <input type="text" class="form-control" name="mbg_t_co" id="mbg_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$mbg_t_co.'" />
-                  </div>
+                  <input data-jscolor="{}" type="text" class="form-control form-control-sm" name="mbg_t_co" id="mbg_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$mbg_t_co.'" />
                </div>
                <div class="col-4">
                   <label class="col-form-label" for="mbgc_t_co">'.geoloc_translate('Couleur du trait').'</label>
-                  <div class="input-group pickcol_tmbc pickol">
-                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                     <input type="text" class="form-control" name="mbgc_t_co" id="mbgc_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$mbgc_t_co.'" />
-                  </div>
+                  <input data-jscolor="{}" type="text" class="form-control form-control-sm" name="mbgc_t_co" id="mbgc_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$mbgc_t_co.'" />
                </div>
                <div class="col-4" >
                   <label class="col-form-label" for="acg_t_co">'.geoloc_translate('Couleur du trait').'</label>
-                  <div class="input-group pickcol_tac pickol">
-                     <span class="input-group-text colorpicker-input-addon bg-transparent"><i></i></span>
-                     <input type="text" class="form-control" name="acg_t_co" id="acg_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$acg_t_co.'" />
+                  <input data-jscolor="{}" type="text" class="form-control form-control-sm" name="acg_t_co" id="acg_t_co" placeholder="'.geoloc_translate('Couleur du trait').'" value="'.$acg_t_co.'" />
+               </div>
+            </div>
+            <div class="row g-2 mt-3">
+               <div class="col-4 bkmbg">
+                  <div class="form-floating mb-1">
+                     <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_f_op" id="mbg_f_op" value="'.$mbg_f_op.'" required="required" />
+                     <label for="mbg_f_op">'.geoloc_translate('Opacité du fond').'</label>
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="form-floating mb-1">
+                     <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_f_op" id="mbgc_f_op" value="'.$mbgc_f_op.'" required="required" />
+                     <label for="mbgc_f_op">'.geoloc_translate('Opacité du fond').'</label>
+                  </div>
+               </div>
+               <div class="col-4" >
+                  <div class="form-floating mb-1">
+                     <input type="number" step="any" min="0" max="1" class="form-control" name="acg_f_op" id="acg_f_op" value="'.$acg_f_op.'" required="required" />
+                     <label for="acg_f_op">'.geoloc_translate('Opacité du fond').'</label>
+                  </div>
+               </div>
+            </div>
+            <div class="row g-2 mt-3">
+               <div class="col-4 bkmbg">
+                  <div class="form-floating">
+                     <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_t_op" id="mbg_t_op" value="'.$mbg_t_op.'" required="required" />
+                     <label for="mbg_t_op">'.geoloc_translate('Opacité du trait').'</label>
+                  </div>
+               </div>
+                  <div class="col-4">
+                  <div class="form-floating">
+                     <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_t_op" id="mbgc_t_op" value="'.$mbgc_t_op.'" required="required" />
+                     <label for="mbgc_t_op">'.geoloc_translate('Opacité du trait').'</label>
+                  </div>
+               </div>
+               <div class="col-4" >
+                  <div class="form-floating">
+                     <input type="number" step="any" min="0" max="1" class="form-control" name="acg_t_op" id="acg_t_op" value="'.$acg_t_op.'" required="required" />
+                     <label  for="acg_t_op">'.geoloc_translate('Opacité du trait').'</label>
+                  </div>
+               </div>
+            </div>
+            <div class="row g-2 mt-3">
+               <div class="col-4 bkmbg">
+                  <div class="form-floating">
+                     <input type="number" step="any" min="0" class="form-control" name="mbg_t_ep" id="mbg_t_ep" value="'.$mbg_t_ep.'" required="required" />
+                     <label for="mbg_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
+                  </div>
+               </div>
+               <div class="col-4" >
+                  <div class="form-floating">
+                     <input type="number" step="any" min="0" class="form-control" name="mbgc_t_ep" id="mbgc_t_ep" value="'.$mbgc_t_ep.'" required="required" />
+                     <label for="mbgc_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
+                  </div>
+               </div>
+               <div class="col-4" >
+                  <div class="form-floating">
+                     <input type="number" step="any" min="0" class="form-control" name="acg_t_ep" id="acg_t_ep" value="'.$acg_t_ep.'" required="required" />
+                     <label for="acg_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
+                  </div>
+               </div>
+            </div>
+            <div class="row g-2 mt-2">
+               <div class="col-4 bkmbg">
+                  <div class="form-floating">
+                     <select class="form-select" name="mbg_sc" id="mbg_sc">
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>14</option>
+                        <option>16</option>
+                        <option>18</option>
+                        <option>20</option>
+                        <option>22</option>
+                        <option>24</option>
+                        <option>26</option>
+                        <option>28</option>
+                        <option>30</option>
+                        <option>32</option>
+                        <option>36</option>
+                        <option>38</option>
+                        <option>40</option>
+                        <option selected="selected">'.$mbg_sc.'</option>
+                     </select>
+                     <label for="mbg_sc">'.geoloc_translate('Echelle').'</label>
                   </div>
                 </div>
-            </div>
-            <div class="row">
-               <div class="col-4 bkmbg">
-                  <label class="col-form-label" for="mbg_f_op">'.geoloc_translate('Opacité du fond').'</label>
-                  <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_f_op" id="mbg_f_op" value="'.$mbg_f_op.'" required="required" />
-               </div>
-               <div class="col-4">
-                  <label class="col-form-label" for="mbgc_f_op">'.geoloc_translate('Opacité du fond').'</label>
-                  <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_f_op" id="mbgc_f_op" value="'.$mbgc_f_op.'" required="required" />
-               </div>
-               <div class="col-4" >
-                  <label class="col-form-label" for="acg_f_op">'.geoloc_translate('Opacité du fond').'</label>
-                  <input type="number" step="any" min="0" max="1" class="form-control" name="acg_f_op" id="acg_f_op" value="'.$acg_f_op.'" required="required" />
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-4 bkmbg">
-                  <label class="col-form-label" for="mbg_t_op">'.geoloc_translate('Opacité du trait').'</label>
-                  <input type="number" step="any" min="0" max="1" class="form-control" name="mbg_t_op" id="mbg_t_op" value="'.$mbg_t_op.'" required="required" />
-               </div>
-               <div class="col-4">
-                  <label class="col-form-label" for="mbgc_t_op">'.geoloc_translate('Opacité du trait').'</label>
-                  <input type="number" step="any" min="0" max="1" class="form-control" name="mbgc_t_op" id="mbgc_t_op" value="'.$mbgc_t_op.'" required="required" />
-               </div>
-               <div class="col-4" >
-                  <label class="col-form-label" for="acg_t_op">'.geoloc_translate('Opacité du trait').'</label>
-                  <input type="number" step="any" min="0" max="1" class="form-control" name="acg_t_op" id="acg_t_op" value="'.$acg_t_op.'" required="required" />
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-4 bkmbg">
-                  <label class="col-form-label" for="mbg_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
-                  <input type="number" step="any" min="0" class="form-control" name="mbg_t_ep" id="mbg_t_ep" value="'.$mbg_t_ep.'" required="required" />
-               </div>
-               <div class="col-4">
-                  <label class="col-form-label" for="mbgc_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
-                  <input type="number" step="any" min="0" class="form-control" name="mbgc_t_ep" id="mbgc_t_ep" value="'.$mbgc_t_ep.'" required="required" />
-               </div>
-               <div class="col-4">
-                  <label class="col-form-label" for="acg_t_ep">'.geoloc_translate('Epaisseur du trait').'</label>
-                  <input type="number" step="any" min="0" class="form-control" name="acg_t_ep" id="acg_t_ep" value="'.$acg_t_ep.'" required="required" />
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-4 bkmbg">
-                  <label class="col-form-label" for="mbg_sc">'.geoloc_translate('Echelle').'</label>
-                  <select class="form-select" name="mbg_sc" id="mbg_sc">
-                     <option>10</option>
-                     <option>11</option>
-                     <option>12</option>
-                     <option>14</option>
-                     <option>16</option>
-                     <option>18</option>
-                     <option>20</option>
-                     <option>22</option>
-                     <option>24</option>
-                     <option>26</option>
-                     <option>28</option>
-                     <option>30</option>
-                     <option>32</option>
-                     <option>36</option>
-                     <option>38</option>
-                     <option>40</option>
-                     <option selected="selected">'.$mbg_sc.'</option>
-                  </select>
-                </div>
                 <div class="col-4">
-                    <label class="col-form-label" for="mbgc_sc">'.geoloc_translate('Echelle').'</label>
+                  <div class="form-floating">
                      <select class="form-select" name="mbgc_sc" id="mbgc_sc">
                         <option>10</option>
                         <option>11</option>
@@ -447,9 +446,11 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                         <option>40</option>
                         <option selected="selected">'.$mbgc_sc.'</option>
                      </select>
-                </div>
-                <div class="col-4" >
-                  <label class="col-form-label" for="acg_sc">'.geoloc_translate('Echelle').'</label>
+                     <label for="mbgc_sc">'.geoloc_translate('Echelle').'</label>
+                   </div>
+               </div>
+               <div class="col-4" >
+                  <div class="form-floating">
                      <select class="form-select" name="acg_sc" id="acg_sc">
                         <option>10</option>
                         <option>11</option>
@@ -469,9 +470,11 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                         <option>40</option>
                         <option selected="selected">'.$acg_sc.'</option>
                      </select>
+                     <label for="acg_sc">'.geoloc_translate('Echelle').'</label>
                   </div>
                </div>
-            </fieldset>
+            </div>
+         </fieldset>
    <hr />
    <h4 class="my-3">'.geoloc_translate('Interface bloc').'</h4>
    <fieldset class="" style="padding-top: 16px; padding-right: 3px; padding-bottom: 6px;padding-left: 3px;">
@@ -479,23 +482,20 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          <label class="col-form-label col-sm-6" for="cartyp_b">'.geoloc_translate('Type de carte').'<span class="text-danger ms-1">*</span></label>
          <div class="col-sm-6">
             <select class="form-select" name="cartyp_b" id="cartyp_b">';
-   $j=0;
-   foreach ($fond_provider as $v) {
-      if($v[0]==$cartyp_b) $sel='selected="selected"'; else $sel='';
-      switch($j){
+   foreach ($fond_provider as $k => $v) {
+      $sel = $v[0]==$cartyp_b ? 'selected="selected"': '';
+      switch($k){
          case '0': echo '<optgroup label="OpenStreetMap">';break;
-         case '1': echo '<optgroup label="Stamen">';break;
-         case '4': echo '<optgroup label="Mapbox">';break;
-         case '6': if($api_key_bing==!'') echo '<optgroup label="Bing maps">'; else {if($api_key=!'' and $api_key_bing=='') echo '<optgroup label="Google maps">';} break;
-         case '9': echo '<optgroup label="Google maps">';break;
-         case '10': echo '<optgroup label="ESRI">';break;
-         }
+         case '1': echo '<optgroup label="Mapbox">';break;
+         case '4': echo '<optgroup label="Bing maps">';break;
+         case '6': echo '<optgroup label="Google">';break;
+         case '7': echo '<optgroup label="ESRI">';break;
+      }
       echo '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
-      switch($j){
-         case '0': case '3': case '5': case '9': case '13': echo '</optgroup>'; break;
-         }
-      $j++;
+      switch($k){
+         case '0': case '2': case '5': case '6': case '10': echo '</optgroup>'; break;
+      }
    }
    echo '
             </select>
@@ -605,16 +605,14 @@ switch ($cartyp) {
       $layer_id= $cartyp;
    break;
 
-   
-   
    default:
    $source_fond='new ol.source.OSM()';
 }
    echo '
+<script type="text/javascript" src="lib/js/jscolor.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
    $(document).ready(function() {
-      $("head").append($("<script />").attr("src","lib/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"));
       if (typeof ol=="undefined")
          $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
       $("head").append($("<script />").attr({"type":"text/javascript","src":"modules/geoloc/include/fontawesome.js"}));
@@ -622,51 +620,56 @@ switch ($cartyp) {
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_admin.css\' type=\'text/css\' media=\'screen\'>");
    });
 
-function geoloc_conf() {
+   jscolor.presets.default = {
+      format:"rgba",
+      backgroundColor:"rgba(0,0,0,1)",
+      position: "bottom",
+      previewSize:18,
+      //width: 140,
+      //height: 140,
+      //paletteCols: 8,
+      hideOnPaletteClick: true,
+      palette: [
+         "#000000", "#7d7d7d", "#870014", "#ec1c23", "#ff7e26",
+         "#fef100", "#22b14b", "#00a1e7", "#3f47cc", "#a349a4",
+         "#ffffff", "#c3c3c3", "#b87957", "#feaec9", "#ffc80d",
+         "#eee3af", "#b5e61d", "#99d9ea", "#7092be", "#c8bfe7",
+      ],
+   };
 
+function geoloc_conf() {
    var
    w_ico_size = $("#w_ico").val(),
    h_ico_size = $("#h_ico").val();
 
 $(document).ready(function() {
+   var para_svg = document.getElementById("para_svg");
+   var para_ima = document.getElementById("para_ima");
+   var img_img = document.getElementById("img_img");
+   var img_svg = document.getElementById("img_svg");
 
-/*
-   $( "#api_key_bing").change(function() {
-      if($("#api_key_bing").val()!="") {console.log($("#api_key_bing").val())}; 
-   });
-*/
+   if(img_svg.checked) para_ima.classList.add("collapse");
+   if(img_img.checked) para_svg.classList.add("collapse");
 
-   if(img_svg.checked) {$("#para_ima input").prop("readonly", true), $("#para_svg input").prop("readonly", false), $("#f_mbg").prop("disabled", false)}
-   if(img_img.checked) {$("#para_svg input").prop("readonly", true), $("#f_mbg").prop("disabled", true)}
-
-   $("#geolocset").on("submit", function() {
-      $(".pickol").colorpicker("enable");
-      $("#f_mbg").prop("disabled", false);
+   img_img.addEventListener("click", function() {
+      para_svg.classList.add("collapse");
+      para_ima.classList.remove("collapse");
    });
-   $("#img_img").on("click", function(){
-      $("#para_svg input").prop("readonly", true);
-      $("#f_mbg").prop("disabled", true);
-      $(".pickol").colorpicker("disable");
-      $("#para_ima input").prop("readonly", false);
-   });
-   $("#img_svg").on("click", function(){
-      $("#para_svg input").prop("readonly", false);
-      $("#f_mbg").prop("disabled", false);
-      $(".pickol").colorpicker("enable");
-      $("#para_ima input").prop("readonly", true);
+   img_svg.addEventListener("click", function() {
+      para_ima.classList.add("collapse");
+      para_svg.classList.remove("collapse");
    });
 
 
-$( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).change(function() {
-   w_ico_size = $("#w_ico").val();
-   h_ico_size = $("#h_ico").val();
-   i_path_mbg = $("#ch_img").val()+$("#nm_img_mbg").val();
-   i_path_mbcg = $("#ch_img").val()+$("#nm_img_mbcg").val();
-   i_path_acg = $("#ch_img").val()+$("#nm_img_acg").val();
-   f_pa = $("#f_mbg option:selected").val();
-}).trigger("change");
+   $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).change(function() {
+      w_ico_size = $("#w_ico").val();
+      h_ico_size = $("#h_ico").val();
+      i_path_mbg = $("#ch_img").val()+$("#nm_img_mbg").val();
+      i_path_mbcg = $("#ch_img").val()+$("#nm_img_mbcg").val();
+      i_path_acg = $("#ch_img").val()+$("#nm_img_acg").val();
+      f_pa = $("#f_mbg option:selected").val();
+   }).trigger("change");
  
-   $(".pickcol_fmb, .pickcol_fmbc, .pickcol_fac, .pickcol_tmb, .pickcol_tmbc, .pickcol_tac").colorpicker({format:"rgb"});
    var 
       map_c,
       w_ico_size,
@@ -833,7 +836,6 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
       $("#vis_ic").html(\'<span id="fontchoice" class="fa fa-lg">\'+fa(f_fa)+\'</span>\');
    })
 
-
    $("#ch_img, #img_mbgb").change(function() {
       $("#v_img_mbgb").html("<img width=\"22\" height=\"22\" alt=\"'.geoloc_translate('Image membre géoréférencé').'\" src=\""+$("#ch_img").val()+$("#img_mbgb").val()+"\" />");
    })
@@ -888,8 +890,6 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
    });
 //<== aux changements de couleurs fond
  /*
-
-
     $("#mbg_f_op").change(function() {
         icon_mbg_svg.fillOpacity = Number($("#mbg_f_op").val());
         mark_cmbg_svg.setIcon(icon_mbg_svg);
@@ -930,6 +930,7 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
     });
 */
 
+/*
     $(".pickcol_tmb").colorpicker().on("changeColor.colorpicker", function(event){
         var coul = event.color.toHex()
         icon_mbg_svg.strokeColor=coul;
@@ -945,9 +946,10 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
         icon_cacg_svg.strokeColor=coul;
         mark_acg_svg.setIcon(icon_cacg_svg);
     });
+*/
 
    $("#cartyp").on("change", function() {
-         cartyp = $( "#cartyp option:selected" ).val();
+      cartyp = $( "#cartyp option:selected" ).val();
       switch (cartyp) {
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
