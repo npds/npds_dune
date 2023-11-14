@@ -6,7 +6,7 @@
 /* Manage other configuration and customisation files                   */
 /* by Hotfirenet 2004                                                   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -213,6 +213,7 @@ function delete_configfile($fileX) {
    </div>';
    adminfoot('','','','');
 }
+
 function ConfigFiles_delete($modele) {
    if ($modele=='header_before')
       @unlink("modules/include/header_before.inc");
@@ -247,6 +248,7 @@ function copy_sample($fileX) {
    </div>';
    adminfoot('','','','');
 }
+
 function ConfigFiles_create($modele) {
    @umask("0000");
    if ($modele=="header_before") {
@@ -286,6 +288,7 @@ switch ($op) {
             $fp=fopen("modules/include/header_before.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/header_before.inc"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          } else
             copy_sample($files);
       }
@@ -294,6 +297,7 @@ switch ($op) {
             $fp=fopen("modules/include/header_head.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/header_head.inc"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          } else
             copy_sample($files);
       }
@@ -302,6 +306,7 @@ switch ($op) {
             $fp=fopen("modules/include/body_onload.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/body_onload.inc"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          } else
             copy_sample($files);
       }
@@ -310,6 +315,7 @@ switch ($op) {
             $fp=fopen("modules/include/header_after.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/header_after.inc"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          } else
             copy_sample($files);
       }
@@ -318,6 +324,7 @@ switch ($op) {
             $fp=fopen("modules/include/footer_before.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/footer_before.inc"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          } else
             copy_sample($files);
       }
@@ -326,6 +333,7 @@ switch ($op) {
             $fp=fopen("modules/include/footer_after.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/footer_after.inc"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          } else
             copy_sample($files);
       }
@@ -334,6 +342,7 @@ switch ($op) {
             $fp=fopen("modules/include/new_user.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/new_user.inc"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          } else
             copy_sample($files);
       }
@@ -342,6 +351,7 @@ switch ($op) {
             $fp=fopen("modules/include/user.inc","r");
             $Xcontents=fread($fp,filesize("modules/include/user.inc"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          } else
             copy_sample($files);
       }
@@ -350,6 +360,7 @@ switch ($op) {
             $fp=fopen("cache.config.php","r");
             $Xcontents=fread($fp,filesize("cache.config.php"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          }
       }
       elseif ($files == 'robots') {
@@ -357,6 +368,7 @@ switch ($op) {
             $fp=fopen("robots.txt","r");
             $Xcontents=fread($fp,filesize("robots.txt"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          }
       }
       elseif ($files == 'humans') {
@@ -364,9 +376,9 @@ switch ($op) {
             $fp=fopen("humans.txt","r");
             $Xcontents=fread($fp,filesize("humans.txt"));
             fclose($fp);
+            ConfigFiles($Xcontents, $files);
          }
       }
-      ConfigFiles($Xcontents, $files);
    break;
    case 'ConfigFiles_save':
       ConfigFiles_save($Xtxt, $Xfiles);
