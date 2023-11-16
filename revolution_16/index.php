@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -17,7 +17,7 @@ if (file_exists("IZ-Xinstall.ok")) {
       echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
-         <title>NPDS IZ-Xinstall - Installation &amp; Configuration</title>
+         <title>NPDS IZ-Xinstall - Installation Configuration</title>
       </head>
       <body>
          <div style="text-align: center; font-size: 20px; font-family: Arial; font-weight: bold; color: #000000"><br />
@@ -32,9 +32,8 @@ if (file_exists("IZ-Xinstall.ok")) {
       die();
    }
 } else {
-   if (file_exists("install.php") AND is_dir("install")) {
+   if (file_exists("install.php") AND is_dir("install"))
       header("location: install.php");
-   }
 }
 
 if (!function_exists("Mysql_Connexion"))
@@ -42,14 +41,14 @@ if (!function_exists("Mysql_Connexion"))
 
 // Redirect for default Start Page of the portal - look at Admin Preferences for choice
 function select_start_page($op) {
-    global $Start_Page, $index;
-    if (!AutoReg()) { global $user; unset($user); }
-    if (($Start_Page=='') or ($op=="index.php") or ($op=="edito") or ($op=="edito-nonews")) {
-       $index = 1;
-       theindex($op, '', '');
-       die('');
-    } else
-       Header("Location: $Start_Page");
+   global $Start_Page, $index;
+   if (!AutoReg()) { global $user; unset($user); }
+   if (($Start_Page=='') or ($op=="index.php") or ($op=="edito") or ($op=="edito-nonews")) {
+      $index = 1;
+      theindex($op, '', '');
+      die('');
+   } else
+      Header("Location: $Start_Page");
 }
 
 function automatednews() {
@@ -111,30 +110,30 @@ function automatednews() {
 }
 
 function aff_edito() {
-    list($affich,$Xcontents)=fab_edito();
-    if (($affich) and ($Xcontents!='')) {
-       $notitle=false;
-       if (strstr($Xcontents,'!edito-notitle!')) {
-          $notitle='notitle';
-          $Xcontents=str_replace('!edito-notitle!','',$Xcontents);
-       }
-       $ret=false;
-       if (function_exists("themedito")) {
-          $ret=themedito($Xcontents);
-       } else {
-          if (function_exists("theme_centre_box")) {
-             if (!$notitle) {$title=translate("EDITO");} else {$title='';}
-             theme_centre_box($title, $Xcontents);
-             $ret=true;
-          }
-       }
-       if ($ret==false) {
+   list($affich,$Xcontents)=fab_edito();
+   if (($affich) and ($Xcontents!='')) {
+      $notitle=false;
+      if (strstr($Xcontents,'!edito-notitle!')) {
+         $notitle='notitle';
+         $Xcontents=str_replace('!edito-notitle!','',$Xcontents);
+      }
+      $ret=false;
+      if (function_exists("themedito"))
+         $ret=themedito($Xcontents);
+      else {
+         if (function_exists("theme_centre_box")) {
+            $title = (!$notitle) ? translate("EDITO") : '';
+            theme_centre_box($title, $Xcontents);
+            $ret=true;
+         }
+      }
+      if ($ret==false) {
           if (!$notitle)
              echo '<span class="edito">'.translate("EDITO").'</span>';
           echo $Xcontents;
           echo '<br />';
-       }
-    }
+      }
+   }
 }
 
 function aff_news($op,$catid,$marqeur) {
@@ -143,12 +142,8 @@ function aff_news($op,$catid,$marqeur) {
       if ($marqeur==0) aff_edito();
       $op='news';
    }
-   if ($op=="newindex") {
-      if ($catid=='')
-         $op='news';
-       else 
-         $op='categories';
-   }
+   if ($op=="newindex")
+      $op = $catid=='' ? 'news' : 'categories' ;
    if ($op=='newtopic')
       $op='topics';
    if ($op=='newcategory')
@@ -181,11 +176,7 @@ function aff_news($op,$catid,$marqeur) {
    $transl1=translate("Page suivante");
    $transl2=translate("Home");
    global $storyhome, $cookie;
-   if (isset($cookie[3]))
-      $storynum = $cookie[3];
-   else
-      $storynum = $storyhome;
-
+   $storyhome = isset($cookie[3]) ? $cookie[3] : $storyhome ;
    if ($op=='categories') {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
@@ -238,11 +229,11 @@ function theindex($op, $catid, $marqeur) {
        if (($op=='newcategory') or ($op=='newtopic') or ($op=='newindex') or ($op=='edito-newindex')) {
           aff_news($op, $catid, $marqeur);
        } else {
-          if (file_exists("themes/$theme/central.php")) {
+          if (file_exists("themes/$theme/central.php"))
              include("themes/$theme/central.php");
-          } else {
-             if (($op=='edito') or ($op=='edito-nonews')) {aff_edito();}
-             if ($op!='edito-nonews') {aff_news($op, $catid, $marqeur);}
+          else {
+             if (($op=='edito') or ($op=='edito-nonews')) aff_edito();
+             if ($op!='edito-nonews') aff_news($op, $catid, $marqeur);
           }
        }
     }
