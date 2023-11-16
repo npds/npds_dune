@@ -27,13 +27,13 @@ admindroits($aid,$f_meta_nom);
 include ('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
 $f_titre= geoloc_translate("Configuration du module Geoloc");
 
-   settype($subop,'string');
-   settype($geo_ip,'integer');
-   settype($cartyp,'string');
-   settype($ch_lat,'string');
-   settype($ch_lon,'string');
-   settype($api_key_ipdata,'string');
-
+   $subop          = isset($subop) ? $subop : '' ;
+   $geo_ip         = isset($geo_ip) ? $geo_ip : '' ;
+   $cartyp         = isset($cartyp) ? $cartyp : '' ;
+   $ch_lat         = isset($ch_lat) ? $ch_lat : '' ;
+   $ch_lon         = isset($ch_lon) ? $ch_lon : '' ;
+   $api_key_ipdata = isset($api_key_ipdata) ? $api_key_ipdata : '';
+   $key_lookup = isset($key_lookup) ? $key_lookup : '';
 
 function vidip(){
    global $NPDS_Prefix;
@@ -42,7 +42,7 @@ function vidip(){
       sql_query( "ALTER TABLE ".$NPDS_Prefix."ip_loc AUTO_INCREMENT = 0;");
 }
 
-function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata) {
+function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup) {
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg, $dbname, $NPDS_Prefix, $subop;
    include ('modules/'.$ModPath.'/geoloc.conf');
    $hlpfile='modules/'.$ModPath.'/doc/aide_admgeo_'.$language.'.html';
@@ -158,6 +158,14 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
             <div class="col-sm-8">
                <input type="text" class="form-control" name="api_key_ipdata" id="api_key_ipdata" placeholder="" value="'.$api_key_ipdata.'" />
                <span class="help-block small muted">'.$api_key_ipdata.'</span>
+            </div>
+         </div>
+         <div class="mb-3 row">
+            <label class="col-form-label col-sm-4" for="key_lookup">'.geoloc_translate("Clef d'API").' extreme-ip-lookup</label>
+            <div class="col-sm-8">
+               <input type="text" class="form-control" name="key_lookup" id="key_lookup" placeholder="" value="'.$key_lookup.'" />
+               <span class="help-block small muted">'.$key_lookup.'</span>
+               <span class="help-block small muted"><a href="https://extreme-ip-lookup.com">https://extreme-ip-lookup.com</a></span>
             </div>
          </div>
          <div class="mb-3 border border-light alert-secondary">
@@ -988,7 +996,7 @@ adminfoot('','','','');
 
 }
 
-function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
+function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
 
 //==> modifie le fichier de configuration
    $file_conf = fopen("modules/geoloc/geoloc.conf", "w+");
@@ -1018,7 +1026,8 @@ function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp
    $content .= "\$co_unit = \"$co_unit\"; // Coordinates Units\n";
    $content .= "\$ch_img = \"$ch_img\"; // Chemin des images \n";
    $content .= "\$geo_ip = $geo_ip; // Autorisation de géolocalisation des IP \n";
-   $content .= "\$api_key_ipdata = \"$api_key_ipdata\"; // Clef API pour provider IP \n";
+   $content .= "\$api_key_ipdata = \"$api_key_ipdata\"; // Clef API pour provider IP ipdata \n";
+   $content .= "\$key_lookup = \"$key_lookup\"; // Clef API pour provider IP extreme-ip-lookup \n";
    $content .= "\$nm_img_acg = \"$nm_img_acg\"; // Nom fichier image anonyme géoréférencé en ligne \n";
    $content .= "\$nm_img_mbcg = \"$nm_img_mbcg\"; // Nom fichier image membre géoréférencé en ligne \n";
    $content .= "\$nm_img_mbg = \"$nm_img_mbg\"; // Nom fichier image membre géoréférencé \n";
@@ -1062,14 +1071,14 @@ if ($admin) {
    switch ($subop) {
       case 'vidip':
           vidip();
-          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata);
+          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup);
       break;
       case 'SaveSetgeoloc':
-         SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);
-         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata);
+         SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);
+         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup);
       break;
       default:
-         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata);
+         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup);
       break;
    }
 }
