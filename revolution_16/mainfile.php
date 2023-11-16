@@ -17,7 +17,6 @@ include("lib/multi-langue.php");
 include("language/lang-$language.php");
 include("cache.class.php");
 
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -76,99 +75,119 @@ function session_manage() {
    $username = isset($cookie[1]) ? $cookie[1] : $ip;// pas bon ...
    if($username==$ip)
       $guest=1;
-      //==> mod_geoloc
-      include("modules/geoloc/geoloc.conf");
-      $file_path = array(
-      'https://ipapi.co/'.urldecode($ip).'/json/',
-      'https://api.ipdata.co/'.urldecode($ip).'?api-key='.$api_key_ipdata,
-      'https://extreme-ip-lookup.com/json/'.urldecode($ip),
-      'http://ip-api.com/json/'.urldecode($ip)
-      );
-      $file = file("modules/geoloc/geoloc.conf");
-      if(strstr($file[25],'geo_ip = 1')) {
-         $ousursit='';
-         global $ousursit;
-         $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"$ip\"");
-         $controle=sql_num_rows($resultat);
-         while ($row = sql_fetch_array($resultat)) {
-            $ousursit= preg_replace("#/.*?/#",'',$_SERVER['PHP_SELF']);
-         }
-         if($controle != 0)
-            sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1 , ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-         else {
-            $ibid=false;
-            if(strstr($nuke_url,'https')) {
-               if(file_contents_exist($file_path[0])) {
-                  $loc = file_get_contents($file_path[0]);
+   //==> mod_geoloc
+   include("modules/geoloc/geoloc.conf");
+   $file_path = array(
+   'https://ipapi.co/'.urldecode($ip).'/json/',
+   'https://api.ipdata.co/'.urldecode($ip).'?api-key='.$api_key_ipdata,
+   'https://extreme-ip-lookup.com/json/'.urldecode($ip).'?key='.$key_lookup,
+   'http://ip-api.com/json/'.urldecode($ip),
+   'http://extreme-ip-lookup.com/json/'.urldecode($ip).'?key='.$key_lookup
+   );
+   $file = file("modules/geoloc/geoloc.conf");
+   if(strstr($file[25],'geo_ip = 1')) {
+      $ousursit='';
+      global $ousursit;
+      $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"$ip\"");
+      $controle=sql_num_rows($resultat);
+      while ($row = sql_fetch_array($resultat)) {
+         $ousursit= preg_replace("#/.*?/#",'',$_SERVER['PHP_SELF']);
+      }
+      if($controle != 0)
+         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1 , ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+      else {
+         $ibid=false;
+         if(strstr($nuke_url,'https')) {
+            if(file_contents_exist($file_path[0])) {
+               $loc = file_get_contents($file_path[0]);
+               $loc_obj = json_decode($loc);
+               if($loc_obj) {
+                  $error = property_exists($loc_obj, "error");
+                  if($error == false) {
+                     $ibid=true;
+                     $pay= !empty($loc_obj->country_name)? removeHack($loc_obj->country_name): '';
+                     $codepay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
+                     $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
+                     $lat= !empty($loc_obj->latitude)? (float)$loc_obj->latitude: ''; 
+                     $long= !empty($loc_obj->longitude)? (float)$loc_obj->longitude: '';
+                     sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
+                     sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+                  }
+               }
+            }
+            if($ibid==false and $api_key_ipdata !='') {
+               if(file_contents_exist($file_path[1])) {
+                  $loc = file_get_contents($file_path[1]);
                   $loc_obj = json_decode($loc);
                   if($loc_obj) {
-                     if(!property_exists($loc_obj, "error")) {
+                     $error = property_exists($loc_obj, "message");
+                     if($error == false) {
                         $ibid=true;
                         $pay= !empty($loc_obj->country_name)? removeHack($loc_obj->country_name): '';
-                        $codepay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
+                        $codepay= !empty($loc_obj->country_code)? removeHack($loc_obj->country_code): '';
                         $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
-                        $lat= !empty($loc_obj->latitude)? (float)$loc_obj->latitude: ''; 
+                        $lat= !empty($loc_obj->latitude)? (float)$loc_obj->latitude: '';
                         $long= !empty($loc_obj->longitude)? (float)$loc_obj->longitude: '';
                         sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
                         sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
                      }
                   }
                }
-               if($ibid==false) {
-                  if(file_contents_exist($file_path[1])) {
-                     $loc = file_get_contents($file_path[1]);
-                     $loc_obj = json_decode($loc);
-                     if($loc_obj) {
-                        if(!property_exists($loc_obj, "message")) {
-                           $ibid=true;
-                           $pay= !empty($loc_obj->country_name)? removeHack($loc_obj->country_name): '';
-                           $codepay= !empty($loc_obj->country_code)? removeHack($loc_obj->country_code): '';
-                           $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
-                           $lat= !empty($loc_obj->latitude)? (float)$loc_obj->latitude: '';
-                           $long= !empty($loc_obj->longitude)? (float)$loc_obj->longitude: '';
-                           sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                           sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-                        }
-                     }
-                  }
-                  if($ibid==false) {
-                     if(file_contents_exist($file_path[2])) {
-                        $loc = file_get_contents($file_path[2]);
-                        $loc_obj = json_decode($loc);
-                        if ($loc_obj->status=='success') {
-                           $ibid=true;
-                           $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
-                           $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
-                           $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
-                           $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
-                           $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
-                           sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                           sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-                        }
-                     }
+            }
+            if($ibid==false and $key_lookup !='') {
+               if(file_contents_exist($file_path[2])) {
+                  $loc = file_get_contents($file_path[2]);
+                  $loc_obj = json_decode($loc);
+                  if ($loc_obj->status=='success') {
+                     $ibid=true;
+                     $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
+                     $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
+                     $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
+                     $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
+                     $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
+                     sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
+                     sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
                   }
                }
             }
-            else if(strstr($nuke_url,'http')) {
-               if(file_contents_exist($file_path[3])) {
-                  $loc = file_get_contents($file_path[3]);
+         }
+         else if(strstr($nuke_url,'http')) {
+            if(file_contents_exist($file_path[3])) {
+               $loc = file_get_contents($file_path[3]);
+               $loc_obj = json_decode($loc);
+               if($loc_obj) {
+                  if ($loc_obj->status=='success') {
+                     $ibid=true;
+                     $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
+                     $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
+                     $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
+                     $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
+                     $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
+                     sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
+                     sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
+                  }
+               }
+            }
+            if($ibid==false and $key_lookup !='') {
+               if(file_contents_exist($file_path[4])) {
+                  $loc = file_get_contents($file_path[4]);
                   $loc_obj = json_decode($loc);
-                  if($loc_obj) {
-                     if ($loc_obj->status=='success') {
-                        $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
-                        $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
-                        $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
-                        $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
-                        $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
-                        sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                        sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-                     }
+                  if ($loc_obj->status=='success') {
+                     $ibid=true;
+                     $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
+                     $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
+                     $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
+                     $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
+                     $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
+                     sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
+                     sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
                   }
                }
             }
          }
       }
-      //<== mod_geoloc
+   }
+   //<== mod_geoloc
 
    $past = time()-300;
    sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE time < '$past'");
@@ -407,13 +426,6 @@ function removeHack($Xstring) {
   }
   return($Xstring);
 }
-#autodoc getmicrotime() : Retourne le temps en micro-seconde
-// a supprimer (aussi dans metamots !) remplacer par fonction native php5 microtime(true)
-function getmicrotime() {
-   list($usec, $sec) = explode(' ',microtime());
-   return ((float)$usec + (float)$sec);
-}
-
 #autodoc send_email($email, $subject, $message, $from, $priority, $mime, $file) : Pour envoyer un mail en texte ou html avec ou sans pieces jointes  / $mime = 'text', 'html' 'html-nobr'-(sans application de nl2br) ou 'mixed'-(avec piece(s) jointe(s) : génération ou non d'un DKIM suivant option choisie) 
 function send_email($email, $subject, $message, $from = "", $priority = false, $mime = "text", $file = null) { 
    global $mail_fonction, $adminmail, $sitename, $NPDS_Key, $nuke_url; 
@@ -519,7 +531,6 @@ function send_email($email, $subject, $message, $from = "", $priority = false, $
 
    return $result ? true : false; 
 } 
-
 #autodoc copy_to_email($to_userid,$sujet,$message) : Pour copier un subject+message dans un email ($to_userid)
 function copy_to_email($to_userid,$sujet,$message) {
    global $NPDS_Prefix;
@@ -576,7 +587,7 @@ function req_stat() {
    global $NPDS_Prefix;
    // Les membres
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users");
-   $xtab[0] = $result ? sql_num_rows($result) : '0' ;
+   $xtab[0] = $result ? (sql_num_rows($result)-1) : '0' ;
    // Les Nouvelles (News)
    $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
    $xtab[1] = $result ? sql_num_rows($result) : '0' ;
@@ -816,14 +827,6 @@ function FixQuotes($what = '') {
       $what=preg_replace("#\\\\'#", "'", $what);
    }
    return $what;
-}
-#autodoc check_html ($str, $strip) : Fonction obsolète / maintenue pour des raisons de compatibilité
-function check_html ($str, $strip='nohtml') {
-   return strip_tags($str);
-}
-#autodoc unhtmlentities($string) : Fonction obsolète / maintenue pour des raisons de compatibilité
-function unhtmlentities($string) {
-   return html_entity_decode($string);
 }
 #autodoc formatTimestamp($time) : Formate un timestamp en fonction de la valeur de $locale (config.php) / si "nogmt" est concaténé devant la valeur de $time, le décalage gmt n'est pas appliqué
 function formatTimestamp($time) {
@@ -2116,30 +2119,27 @@ function hexfromchr($txt) {
 function Site_Activ() {
    global $startdate, $top;
    list($membres,$totala,$totalb,$totalc,$totald,$totalz)=req_stat();
-   $who_online='
+   $aff ='
    <p class="text-center">'.translate("Pages vues depuis").' '.$startdate.' : '.wrh($totalz).'</p>
    <ul class="list-group mb-3" id="site_active">
-     <li class="my-1">'.translate("Nb. de membres").' <span class="badge rounded-pill bg-secondary float-end">'.wrh(($membres-1)).'</span></li>
+     <li class="my-1">'.translate("Nb. de membres").' <span class="badge rounded-pill bg-secondary float-end">'.wrh(($membres)).'</span></li>
      <li class="my-1">'.translate("Nb. d'articles").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totala).'</span></li>
      <li class="my-1">'.translate("Nb. de forums").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totalc).'</span></li>
      <li class="my-1">'.translate("Nb. de sujets").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totald).'</span></li>
      <li class="my-1">'.translate("Nb. de critiques").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totalb).'</span></li>
    </ul>';
-   if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
+   if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}// no need
    if ($imgtmp) {
-      $who_online .= '
+      $aff .= '
    <p class="text-center"><a href="top.php"><img src="'.$imgtmp.'" alt="'.translate("Top").' '.$top.'" /></a>&nbsp;&nbsp;';
-      if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
-      $who_online .= '<a href="stats.php"><img src="'.$imgtmp.'" alt="'.translate("Statistiques").'" /></a></p>';
+      if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;} // no need
+      $aff .= '<a href="stats.php"><img src="'.$imgtmp.'" alt="'.translate("Statistiques").'" /></a></p>';
    } else
-      $who_online .= '
+      $aff .= '
    <p class="text-center"><a href="top.php">'.translate("Top").' '.$top.'</a>&nbsp;&nbsp;<a href="stats.php" >'.translate("Statistiques").'</a></p>';
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Activité du site");
-   else
-      $title=$block_title;
-   themesidebox($title, $who_online);
+   $title = $block_title =='' ? translate("Activité du site") : $block_title ;
+   themesidebox($title, $aff);
 }
 #autodoc online() : Bloc Online (Who_Online) <br />=> syntaxe : function#online
 function online() {
@@ -2177,10 +2177,7 @@ function online() {
    } else
       $content .= '<br />'.translate("Devenez membre privilégié en cliquant").' <a href="user.php?op=only_newuser">'.translate("ici").'</a></p>';
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Qui est en ligne ?");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Qui est en ligne ?") : $block_title;
    themesidebox($title, $content);
 }
 #autodoc lnlbox() : Bloc Little News-Letter <br />=> syntaxe : function#lnlbox
@@ -2210,10 +2207,7 @@ function lnlbox() {
 #autodoc searchbox() : Bloc Search-engine <br />=> syntaxe : function#searchbox
 function searchbox() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Recherche");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Recherche") : $block_title ;
    $content ='
    <form id="searchblock" action="search.php" method="get">
       <input class="form-control" type="text" name="query" />
@@ -2238,10 +2232,9 @@ function adminblock() {
    global $NPDS_Prefix, $admin, $aid, $admingraphic, $adminimg, $admf_ext, $Version_Sub, $Version_Num, $nuke_url;
    if ($admin) {
       $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
-      if ($Q['radminsuper']==1)
-         $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie");
-      else
-         $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
+      $R = $Q['radminsuper']==1 ?
+         sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie") :
+         sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN ".$NPDS_Prefix."droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN ".$NPDS_Prefix."authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
       while($SAQ=sql_fetch_assoc($R)) {
          $arraylecture = explode('|', $SAQ['fdroits1_descr']);
          $cat[]=$SAQ['fcategorie'];
@@ -2264,15 +2257,11 @@ function adminblock() {
                    </a>';
             } 
          } else {
-            if(preg_match('#versusModal#', $SAQ['furlscript']))
-               $furlscript = 'data-bs-toggle="modal" data-bs-target="#bl_versusModal"';
-            else 
-               $furlscript = $SAQ['furlscript'];
-
-            if(preg_match('#NPDS#', $SAQ['fretour_h'])) {
+            $furlscript = preg_match('#versusModal#', $SAQ['furlscript']) ?
+               'data-bs-toggle="modal" data-bs-target="#bl_versusModal"' :
+               $SAQ['furlscript'] ;
+            if(preg_match('#NPDS#', $SAQ['fretour_h']))
                $SAQ['fretour_h'] = str_replace('NPDS', 'NPDS^', $SAQ['fretour_h']);
-             }
-
              $bloc_foncts_A .='
                <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$furlscript.' >
                  <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" loading="lazy" />
@@ -2285,8 +2274,7 @@ function adminblock() {
       $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2");
       list($title, $content) = sql_fetch_row($result);
       global $block_title;
-      if ($title=='') $title=$block_title;
-      else $title=aff_langue($title);
+      $title = $title=='' ? $block_title : aff_langue($title) ;
       $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
 
       //==> recuperation
@@ -2466,9 +2454,8 @@ function topdownload_data($form, $ordre) {
    while(list($did, $dcounter, $dfilename, $dcategory, $ddate, $dperm) = sql_fetch_row($result)) {
       if ($dcounter>0) {
          $okfile=autorisation($dperm);
-         if ($ordre=='dcounter') {
+         if ($ordre=='dcounter')
             $dd= wrh($dcounter);
-         }
          if ($ordre=='ddate') {
             $dd=translate("dateinternal");
             $day=substr($ddate,8,2);
@@ -2480,9 +2467,8 @@ function topdownload_data($form, $ordre) {
             $dd=str_replace("H:i","",$dd);
          }
          $ori_dfilename=$dfilename;
-         if (strlen($dfilename)>$long_chain) {
+         if (strlen($dfilename)>$long_chain)
             $dfilename = (substr($dfilename, 0, $long_chain))." ...";
-         }
          if ($form=='short') {
             if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2 flex-wrap">'.$lugar.' <a class="ms-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="badge bg-secondary ms-auto align-self-center">'.$dd.'</span></li>';}
          } else {
@@ -2497,8 +2483,7 @@ function topdownload_data($form, $ordre) {
 }
 #autodoc oldNews($storynum) : Bloc Anciennes News <br />=> syntaxe <br />function#oldNews<br />params#$storynum,lecture (affiche le NB de lecture) - facultatif
 function oldNews($storynum, $typ_aff='') {
-   global $locale, $oldnum, $storyhome, $categories, $cat;
-   global $user,$cookie;
+   global $locale, $oldnum, $storyhome, $categories, $cat, $user, $cookie;
    $boxstuff = '<ul class="list-group">';
    if (isset($cookie[3])) {
       $storynum=$cookie[3];
@@ -2542,11 +2527,7 @@ function oldNews($storynum, $typ_aff='') {
       }
       $vari++;
       if ($vari==$oldnum) {
-         if (isset($cookie[3])) {
-            $storynum = $cookie[3];
-         } else {
-            $storynum = $storyhome;
-         }
+         $storynum = isset($cookie[3]) ? $cookie[3] : $storyhome ;
          $min = $oldnum + $storynum;
          $boxstuff .= "<li class=\"text-center mt-3\" ><a href=\"search.php?min=$min&amp;type=stories&amp;category=$cat\"><strong>".translate("Articles plus anciens")."</strong></a></li>\n";
       }
@@ -2562,11 +2543,9 @@ function bigstory() {
    global $cookie;
    $today = getdate();
    $day = $today['mday'];
-   if ($day < 10)
-      $day = "0$day";
+   if ($day < 10) $day = "0$day";
    $month = $today['mon'];
-   if ($month < 10)
-      $month = "0$month";
+   if ($month < 10) $month = "0$month";
    $year = $today['year'];
    $tdate = "$year-$month-$day";
    $xtab=news_aff("big_story","WHERE (time LIKE '%$tdate%')",0,1);
@@ -2575,12 +2554,9 @@ function bigstory() {
    } else {
       $fsid=''; $ftitle='';
    }
-   if ((!$fsid) AND (!$ftitle)) {
-      $content = translate("Il n'y a pas encore d'article du jour.");
-   } else {
-      $content = translate("L'article le plus consulté aujourd'hui est :")."<br /><br />";
-      $content .= "<a href=\"article.php?sid=$fsid\">".aff_langue($ftitle)."</a>";
-   }
+   $content = (!$fsid) AND (!$ftitle) ?
+      translate("Il n'y a pas encore d'article du jour.") :
+      translate("L'article le plus consulté aujourd'hui est :").'<br /><br /><a href="article.php?sid='.$fsid.'">'.aff_langue($ftitle).'</a>' ;
    global $block_title;
    $boxtitle = $block_title=='' ? translate("Article du Jour") : $block_title;
    themesidebox($boxtitle, $content);
@@ -2590,9 +2566,9 @@ function category() {
    global $NPDS_Prefix, $cat, $language;
    $result = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
    $numrows = sql_num_rows($result);
-   if ($numrows == 0) {
+   if ($numrows == 0)
       return;
-   } else {
+   else {
       $boxstuff = '<ul>';
       while (list($catid, $title) = sql_fetch_row($result)) {
          $result2 = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories WHERE catid='$catid' LIMIT 0,1");
@@ -2600,10 +2576,9 @@ function category() {
          if ($numrows > 0) {
             $res = sql_query("SELECT time FROM ".$NPDS_Prefix."stories WHERE catid='$catid' ORDER BY sid DESC LIMIT 0,1");
             list($time) = sql_fetch_row($res);
-            if ($cat == $catid)
-               $boxstuff .= '<li><strong>'.aff_langue($title).'</strong></li>';
-            else 
-               $boxstuff .= '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernière contribution").' <br />'.formatTimestamp($time).' ">'.aff_langue($title).'</a></li>';
+            $boxstuff .= $cat == $catid ?
+               '<li><strong>'.aff_langue($title).'</strong></li>' :
+               '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernière contribution").' <br />'.formatTimestamp($time).' ">'.aff_langue($title).'</a></li>' ;
          }
       }
       $boxstuff .= '</ul>';
@@ -3057,9 +3032,8 @@ function theme_image($theme_img) {
     global $theme;
     if (@file_exists("themes/$theme/images/$theme_img")) {
        return ("themes/$theme/images/$theme_img");
-    } else {
-       return (false);
-    }
+    } else
+       return false;
 }
 #autodoc import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref, $css) : recherche et affiche la CSS (site, langue courante ou par défaut) / Charge la CSS complémentaire / le HTML ne contient que de simple quote pour être compatible avec javascript
 function import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref='', $css='') {
@@ -3125,11 +3099,11 @@ function import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref=''
    return($tmp);
 }
 #autodoc import_css($tmp_theme, $language, $fw_css, $css_pages_ref, $css) : Fonctionnement identique à import_css_javascript sauf que le code HTML en retour ne contient que de double quote
-function import_css ($tmp_theme, $language, $fw_css, $css_pages_ref, $css) {
+function import_css($tmp_theme, $language, $fw_css, $css_pages_ref, $css) {
    return (str_replace("'","\"",import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref, $css)));
 }
 #autodoc auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) : fabrique un array js à partir de la requete sql et implente un auto complete pour l'input (dependence : jquery.min.js ,jquery-ui.js) $nom_array_js=> nom du tableau javascript; $nom_champ=>nom de champ bd; $nom_tabl=>nom de table bd,$id_inpu=> id de l'input,$temps_cache=>temps de cache de la requête. Si $id_inpu n'est pas défini retourne un array js.
-function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) {
+function auto_complete($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) {
    global $NPDS_Prefix;
 
    $list_json='';
@@ -3167,7 +3141,7 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    return ($scri_js);
 }
 #autodoc auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) : fabrique un pseudo array json à partir de la requete sql et implente un auto complete pour le champ input (dependence : jquery-2.1.3.min.js ,jquery-ui.js)
-function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) {
+function auto_complete_multi($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) {
    global $NPDS_Prefix;
 
    $list_json='';
