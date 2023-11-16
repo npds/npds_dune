@@ -34,14 +34,13 @@ echo '
       </script>';
 // <== core
 
-//If you want to show the Time used to generate each page uncomment those lines
+// ==> page-time pseudo-module : If you want to show the time used to generate each page uncomment those lines
    /*
-   $time_end = microtime(true);
-   $time = round($time_end - TIMESTART,3);
+   $time = round(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"],5); // php => 5.4 
    echo '
-   <span class="small" id="build_time">'.aff_langue('[french]Temps :[/french][english]Time:[/english][german]Zeit in Sekunden[/german][spanish]Tiempo en segundos :[/spanish][chinese]&#x5728;&#x51E0;&#x79D2;&#x949F;&#x7684;&#x65F6;&#x95F4; :[/chinese] '.$time.' [french]seconde(s)[/french][english]second(s)[/english]').'</span>';
+   <span class="small" id="build_time"><i class="bi bi-clock-history me-1"></i>'.aff_langue('[french]Temps :[/french][english]Time:[/english][german]Zeit in Sekunden[/german][spanish]Tiempo en segundos :[/spanish][chinese]&#x5728;&#x51E0;&#x79D2;&#x949F;&#x7684;&#x65F6;&#x95F4; :[/chinese] '.$time.' [french]seconde(s)[/french][english]second(s)[/english]').'</span>';
    */
-//
+// <== page-time pseudo-module
 
 echo '
    </footer>
