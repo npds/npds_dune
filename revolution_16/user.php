@@ -279,36 +279,37 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
             $message .= "\n\n\n".aff_langue("[french]Conform&eacute;ment aux articles 38 et suivants de la loi fran&ccedil;aise n&deg; 78-17 du 6 janvier 1978 relative &agrave; l'informatique, aux fichiers et aux libert&eacute;s, tout membre dispose d&rsquo; un droit d&rsquo;acc&egrave;s, peut obtenir communication, rectification et/ou suppression des informations le concernant.[/french][english]In accordance with Articles 38 et seq. Of the French law n &deg; 78-17 of January 6, 1978 relating to data processing, files and freedoms, any member has a right of access, can obtain communication, rectification and / or deletion of information about him.[/english][chinese]&#26681;&#25454;1978&#24180;1&#26376;6&#26085;&#20851;&#20110;&#25968;&#25454;&#22788;&#29702;&#65292;&#26723;&#26696;&#21644;&#33258;&#30001;&#30340;&#27861;&#22269;78-17&#21495;&#27861;&#24459;&#65292;&#20219;&#20309;&#25104;&#21592;&#37117;&#26377;&#26435;&#36827;&#20837;&#65292;&#21487;&#20197;&#33719;&#24471;&#36890;&#20449;&#65292;&#32416;&#27491;&#21644;/&#25110; &#21024;&#38500;&#26377;&#20851;&#20182;&#30340;&#20449;&#24687;&#12290;[/chinese][spanish]De conformidad con los art&iacute;culos 38 y siguientes de la ley francesa n &deg; 78-17 del 6 de enero de 1978, relativa al procesamiento de datos, archivos y libertades, cualquier miembro tiene derecho de acceso, puede obtener comunicaci&oacute;n, rectificaci&oacute;n y / o supresi&oacute;n de informaci&oacute;n sobre &eacute;l.[/spanish][german]Gem&auml;&szlig; den Artikeln 38 ff. Des franz&ouml;sischen Gesetzes Nr. 78-17 vom 6. Januar 1978 in Bezug auf Datenverarbeitung, Akten und Freiheiten hat jedes Mitglied ein Recht auf Zugang, kann Kommunikation, Berichtigung und / oder L&ouml;schung von Informationen &uuml;ber ihn.[/german]");
             $message .= "\n\n\n".aff_langue("[french]Ce message et les pi&egrave;ces jointes sont confidentiels et &eacute;tablis &agrave; l'attention exclusive de leur destinataire (aux adresses sp&eacute;cifiques auxquelles il a &eacute;t&eacute; adress&eacute;). Si vous n'&ecirc;tes pas le destinataire de ce message, vous devez imm&eacute;diatement en avertir l'exp&eacute;diteur et supprimer ce message et les pi&egrave;ces jointes de votre syst&egrave;me.[/french][english]This message and any attachments are confidential and intended to be received only by the addressee. If you are not the intended recipient, please notify immediately the sender by reply and delete the message and any attachments from your system.[/english][chinese]&#27492;&#28040;&#24687;&#21644;&#20219;&#20309;&#38468;&#20214;&#37117;&#26159;&#20445;&#23494;&#30340;&#65292;&#24182;&#19988;&#25171;&#31639;&#30001;&#25910;&#20214;&#20154;&#25509;&#25910;&#12290; &#22914;&#26524;&#24744;&#19981;&#26159;&#39044;&#26399;&#25910;&#20214;&#20154;&#65292;&#35831;&#31435;&#21363;&#36890;&#30693;&#21457;&#20214;&#20154;&#24182;&#22238;&#22797;&#37038;&#20214;&#21644;&#31995;&#32479;&#20013;&#30340;&#25152;&#26377;&#38468;&#20214;&#12290;[/chinese][spanish]Este mensaje y cualquier adjunto son confidenciales y est&aacute;n destinados a ser recibidos por el destinatario. Si no es el destinatario deseado, notif&iacute;quelo al remitente de inmediato y responda al mensaje y cualquier archivo adjunto de su sistema.[/spanish][german]Diese Nachricht und alle Anh&auml;nge sind vertraulich und sollen vom Empf&auml;nger empfangen werden. Wenn Sie nicht der beabsichtigte Empf&auml;nger sind, benachrichtigen Sie bitte sofort den Absender und antworten Sie auf die Nachricht und alle Anlagen von Ihrem System.[/german]")."\n\n\n";
             include ("signat.php");
-            $subject= translate("Inscription")." $uname";
+            $subject= html_entity_decode(translate("Inscription"),ENT_COMPAT | ENT_HTML401,cur_charset).' '.$uname;
             send_email($email, $subject, $message, '', true, 'html', '');
-          } else {
-             $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")."\n".translate("-Identifiant : ")." $uname\n".translate("-Mot de passe : ")." $makepass\n\n";
-             include ("signat.php");
-             $subject= translate("Mot de passe utilisateur pour")." $uname";
-             send_email($email, $subject, $message, '', true, 'html', '');
+         } else {
+            $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")."\n".translate("-Identifiant : ")." $uname\n".translate("-Mot de passe : ")." $makepass\n\n";
+            include ("signat.php");
+            $subject= html_entity_decode(translate("Mot de passe utilisateur pour"),ENT_COMPAT | ENT_HTML401,cur_charset).' '.$uname;
+            send_email($email, $subject, $message, '', true, 'html', '');
 
             echo '
             <h2>'.translate("Utilisateur").'</h2>
             <h2><i class="fa fa-user me-2"></i>Inscription</h2>
             <div class="alert alert-success lead"><i class="fa fa-exclamation me-2"></i>'.translate("Vous êtes maintenant enregistré. Vous allez recevoir un code de confirmation dans votre boîte à lettres électronique.").'</div>';
-          }
-          //------------------------------------------------
-          if (file_exists("modules/include/new_user.inc")) {
-             include ("modules/include/new_user.inc");
-             global $gmt;
-             $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
-             $message = meta_lang(AddSlashes(str_replace("\n","<br />", $message)));
-             $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
-             $sql .= "VALUES ('', '$sujet', '$emetteur_id', '$usr_id', '$time', '$message')";
-             sql_query($sql);
-          }
-          //------------------------------------------------
-         send_email($adminmail,"Inscription sur $sitename","Infos :
-            Nom : $name
-            ID : $uname
-            Email : $email", false,"text", '');
          }
-         include("footer.php");
+         //------------------------------------------------
+         if (file_exists("modules/include/new_user.inc")) {
+            include ("modules/include/new_user.inc");
+            global $gmt;
+            $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
+            $message = meta_lang(AddSlashes(str_replace("\n","<br />", $message)));
+            $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
+            $sql .= "VALUES ('', '$sujet', '$emetteur_id', '$usr_id', '$time', '$message')";
+            sql_query($sql);
+         }
+         //------------------------------------------------
+         $subject = html_entity_decode(translate("Inscription"),ENT_COMPAT | ENT_HTML401,cur_charset).' : '.$sitename;
+         send_email($adminmail, $subject,"Infos :
+         Nom : $name
+         ID : $uname
+         Email : $email", '', false, "text", '');
+      }
+      include("footer.php");
    } else
       message_error($stop, 'finish');
 }
