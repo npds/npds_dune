@@ -27,7 +27,7 @@ settype($submitS,'string');
 settype($reply,'string');
 settype($Xreply,'string');
 settype($to_user,'string');
-settype($send,'string');
+//settype($send,'string');
 settype($sig,'string');
 settype($copie,'string');
 
@@ -39,9 +39,7 @@ if ($cancel) {
    die();
 }
 
-if (!$user)
-   Header("Location: user.php");
-else {
+if (isset($user)) {
    $userX = base64_decode($user);
    $userdataX = explode(':', $userX);
    $userdata = get_userdata($userdataX[1]);
@@ -417,4 +415,6 @@ else {
          adminfoot('','',$arg1,'foo');
       }
    }
+else
+   Header("Location: user.php");
 ?>
