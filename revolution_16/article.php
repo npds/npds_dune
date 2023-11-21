@@ -21,10 +21,9 @@ if (!isset($sid) && !isset($tid))
 if (!isset($archive))
    $archive=0;
 
-if (!$archive)
-   $xtab=news_aff("libre","WHERE sid='$sid'",1,1);
-else
-   $xtab=news_aff("archive","WHERE sid='$sid'",1,1);
+$xtab = (!$archive) ?
+   news_aff("libre","WHERE sid='$sid'",1,1) :
+   news_aff("archive","WHERE sid='$sid'",1,1) ;
 
 list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[0];
 if (!$aid)
@@ -47,10 +46,9 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
    $notes = aff_code(aff_langue(stripslashes($notes)));
 
    if ($notes!= '') $notes='<div class="note blockquote">'.translate("Note").' : '.$notes.'</div>';
-   if ($bodytext == '')
-      $bodytext = meta_lang($hometext.'<br />'.$notes);
-   else
-      $bodytext = meta_lang($hometext.'<br />'.$bodytext.'<br />'.$notes);
+   $bodytext = $bodytext == '' ?
+      meta_lang($hometext.'<br />'.$notes) :
+      meta_lang($hometext.'<br />'.$bodytext.'<br />'.$notes) ;
    if ($informant == '') $informant = $anonymous;
 
    getTopics($sid);
@@ -75,20 +73,18 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
          <li><a href="search.php?topic='.$topic.'" >'.translate("En savoir plus à propos de").' '.aff_langue($topictext).'</a></li>
          <li><a href="search.php?member='.$informant.'" >'.translate("Article de").' '.$informant.'</a></li>
       </ul>
-      <div class="">'.translate("L'article le plus lu à propos de").'&nbsp;&nbsp;'.aff_langue($topictext).' :</div>';
+      <div><span class="fw-semibold">'.translate("L'article le plus lu à propos de").' : </span>'.aff_langue($topictext).'</div>';
 
-   $xtab=news_aff("big_story","WHERE topic=$topic",0,1);
+   $xtab=news_aff("big_story","WHERE topic=$topic",1,1);
    list($topstory, $ttitle) = $xtab[0];
    $boxstuff .= '
       <ul>
          <li><a href="article.php?sid='.$topstory.'" >'.aff_langue($ttitle).'</a></li>
       </ul>
-      <div class="">'.translate("Les dernières nouvelles à propos de").' '.aff_langue($topictext).' :</div>';
-
-   if (!$archive)
-      $xtab=news_aff("libre","WHERE topic=$topic AND archive='0' ORDER BY sid DESC LIMIT 0,5",0,5);
-   else
-      $xtab=news_aff("archive","WHERE topic=$topic AND archive='1' ORDER BY sid DESC LIMIT 0,5",0,5);
+      <div><span class="fw-semibold">'.translate("Les dernières nouvelles à propos de").' : </span>'.aff_langue($topictext).'</div>';
+   $xtab = (!$archive) ?
+      news_aff("libre","WHERE topic=$topic AND archive='0' ORDER BY sid DESC LIMIT 0,5",0,5) :
+      news_aff("archive","WHERE topic=$topic AND archive='1' ORDER BY sid DESC LIMIT 0,5",0,5) ;
 
    $story_limit=0;
    $boxstuff .='
