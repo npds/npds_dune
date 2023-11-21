@@ -237,8 +237,8 @@ function ConfigFiles_delete($modele) {
 }
 
 function copy_sample($fileX) {
-   global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
-   include("header.php");
+   global $hlpfile, $f_meta_nom, $f_titre, $adminimg, $header;
+   if($header!=1) include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
