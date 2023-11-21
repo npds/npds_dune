@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -26,7 +26,7 @@ switch ($op) {
    case 'write_instant_message':
       settype($copie,'string');
       settype($messages,'string');
-         if ($user) {
+         if (isset($user)) {
             $rowQ1=Q_Select("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'", 3600);
             $uid = $rowQ1[0];
             $from_userid=$uid['uid'];
