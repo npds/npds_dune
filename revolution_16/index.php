@@ -81,8 +81,8 @@ function automatednews() {
                if ($subscribe)
                   subscribe_mail('topic',$topic,'',$subject,'');
                // Réseaux sociaux
-               if (file_exists('modules/npds_twi/npds_to_twi.php')) {include ('modules/npds_twi/npds_to_twi.php');}
-               if (file_exists('modules/npds_fbk/npds_to_fbk.php')) {include ('modules/npds_twi/npds_to_fbk.php');}
+               if (file_exists('modules/npds_twi/npds_to_twi.php')) include ('modules/npds_twi/npds_to_twi.php');
+               if (file_exists('modules/npds_fbk/npds_to_fbk.php')) include ('modules/npds_twi/npds_to_fbk.php');
                // Réseaux sociaux
             }
          }
@@ -97,13 +97,13 @@ function automatednews() {
             if ($epur==1) {
                sql_query("DELETE FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
                if (file_exists("modules/comments/article.conf.php")) {
-               include ("modules/comments/article.conf.php");
-               sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
+                  include ("modules/comments/article.conf.php");
+                  sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
+               }
+               Ecr_Log('security', "removeStory ($sid, epur) by automated epur : system", '');
             }
-            Ecr_Log('security', "removeStory ($sid, epur) by automated epur : system", '');
-         }
-         else
-         sql_query("UPDATE ".$NPDS_Prefix."stories SET archive='1' WHERE sid='$sid'");
+            else
+               sql_query("UPDATE ".$NPDS_Prefix."stories SET archive='1' WHERE sid='$sid'");
          }
       }
    }
@@ -237,9 +237,8 @@ function theindex($op, $catid, $marqeur) {
           }
        }
     }
-    if ($SuperCache) {
+    if ($SuperCache)
        $cache_obj->endCachingPage();
-    }
     include("footer.php");
 }
 
