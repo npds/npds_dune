@@ -362,6 +362,8 @@ function adm_translate($phrase) {
   case "Divers": $tmp="Varios"; break;
   case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM (si existe y es válido)."; break;
   case "DNS ou serveur de mail incorrect": $tmp="DNS o servidor de correo no válido"; break;
+  case "Doit être un mot sans espace.": $tmp="Debe ser una palabra sin espacios."; break;
+  case "Doit être un nom de fichier valide avec une de ces extensions : jpg, jpeg, png, gif.": $tmp="Debe ser un nombre de archivo válido con una de esas extensiones: jpg, jpeg, png, gif."; break;
   case "Droits de publication": $tmp="Derechos de publicación"; break;
   case "Droits des auteurs": $tmp="Derechos de los autores"; break;
   case "Droits modules": $tmp="Derechos de los módulos"; break;
