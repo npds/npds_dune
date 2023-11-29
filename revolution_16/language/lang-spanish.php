@@ -681,6 +681,7 @@ function translate_pass1($phrase) {
    case "Nous avons approuvé votre contribution à notre moteur de recherche.": $tmp="Su contribución fue aceptada en nuestro útil de búsqueda."; break;
    case "Nous avons bien reçu votre demande de lien, merci": $tmp="Hemos recibido su contribución para los vínculos !"; break;
    case "Nous ne vendons ni ne communiquons vos informations personnelles à autrui.": $tmp="Sus informaciones personales, no son ni vendidas ni cedidas a tercias personas."; break;
+   case "Nouveau commentaire": $tmp="Nuevo comentario"; break;
    case "Nouveau dossier/sujet": $tmp="Nuevo carpeta/sujeto"; break;
    case "Nouveau lien ajouté dans la base de données": $tmp="Nuevo vinculo añadido en la base de datos"; break;
    case "Nouveau membre": $tmp="Nuevo usuario"; break;

@@ -681,6 +681,7 @@ function translate_pass1($phrase) {
    case "Nous avons approuvé votre contribution à notre moteur de recherche.": $tmp="We approved your link submission for our search engine."; break;
    case "Nous avons bien reçu votre demande de lien, merci": $tmp="We received your Link submission. Thanks!"; break;
    case "Nous ne vendons ni ne communiquons vos informations personnelles à autrui.": $tmp="We don't sell/give to others your personal info."; break;
+   case "Nouveau commentaire": $tmp="New comment"; break;
    case "Nouveau dossier/sujet": $tmp="New folder/topic"; break;
    case "Nouveau lien ajouté dans la base de données": $tmp="New Link added to the Database"; break;
    case "Nouveau membre": $tmp="New User"; break;
