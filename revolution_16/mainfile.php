@@ -428,7 +428,7 @@ function copy_to_email($to_userid,$sujet,$message) {
    $result = sql_query("SELECT email,send_email FROM ".$NPDS_Prefix."users WHERE uid='$to_userid'");
    list($mail,$avertir_mail) = sql_fetch_row($result);
    if (($mail) and ($avertir_mail==1)) {
-      send_email($mail,$sujet,$message, '', true, 'html');
+      send_email($mail,$sujet,$message, '', true, 'html', '');
    }
 }
 #autodoc Ecr_Log($fic_log, $req_log, $mot_log) : Pour &eacute;crire dans un log (security.log par exemple)
@@ -751,17 +751,13 @@ function formatAidHeader($aid) {
 function ctrl_aff($ihome, $catid=0) {
    global $user;
    $affich=false;
-   if ($ihome==-1 and (!$user)) {
+   if ($ihome==-1 and (!$user))
       $affich=true;
-   } elseif ($ihome==0) {
+   elseif ($ihome==0)
       $affich=true;
-   } elseif ($ihome==1) {
-      if ($catid>0) {
-         $affich=false;
-      } else {
-         $affich=true;
-      }
-   } elseif (($ihome>1) and ($ihome<=127)) {
+   elseif ($ihome==1)
+      $affich = $catid>0 ? false : true ;
+   elseif (($ihome>1) and ($ihome<=127)) {
       $tab_groupe=valid_group($user);
       if ($tab_groupe) {
          foreach($tab_groupe as $groupevalue) {
@@ -771,18 +767,16 @@ function ctrl_aff($ihome, $catid=0) {
             }
          }
       }
-   } else {
+   } else
       if ($user) $affich=true;
-   }
    return ($affich);
 }
 #autodoc news_aff($type_req, $sel, $storynum, $oldnum) : Une des fonctions fondamentales de NPDS / assure la gestion de la selection des News en fonctions des critères de publication
-function news_aff($type_req, $sel, $storynum, $oldnum) {
+function news_aff($type_req, $sel, $storynum, $oldnum) { // pas stabilisé ...!
    global $NPDS_Prefix;
    // Astuce pour afficher le nb de News correct même si certaines News ne sont pas visibles (membres, groupe de membres)
    // En fait on * le Nb de News par le Nb de groupes
    $row_Q2 = Q_select("SELECT COUNT(groupe_id) AS total FROM ".$NPDS_Prefix."groupes",86400);
-//   list(,$NumG)=each($row_Q2);
    $NumG=$row_Q2[0];
 
    if ($NumG['total']<2) $coef=2; else $coef=$NumG['total'];
@@ -793,22 +787,22 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
       $Znum=$storynum;
    }
    if ($type_req=='old_news') {
-      $Xstorynum=$oldnum*$coef;
-      $result = Q_select("SELECT sid, catid, ihome, time FROM ".$NPDS_Prefix."stories $sel ORDER BY time DESC LIMIT $storynum,$Xstorynum",3600);
+//      $Xstorynum=$oldnum*$coef;
+      $result = Q_select("SELECT sid, catid, ihome, time FROM ".$NPDS_Prefix."stories $sel ORDER BY time DESC LIMIT $storynum",3600);
       $Znum=$oldnum;
    }
    if (($type_req=='big_story') or ($type_req=='big_topic')) {
-      $Xstorynum=$oldnum*$coef;
-      $result = Q_select("SELECT sid, catid, ihome, counter FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum,$Xstorynum",3600);
+//      $Xstorynum=$oldnum*$coef;
+      $result = Q_select("SELECT sid, catid, ihome, counter FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum",0);
       $Znum=$oldnum;
    }
    if ($type_req=='libre') {
-      $Xstorynum=$oldnum*$coef;
+      $Xstorynum=$oldnum*$coef; //need for what ?
       $result=Q_select("SELECT sid, catid, ihome, time FROM ".$NPDS_Prefix."stories $sel",3600);
       $Znum=$oldnum;
    }
    if ($type_req=='archive') {
-      $Xstorynum=$oldnum*$coef;
+      $Xstorynum=$oldnum*$coef; //need for what ?
       $result=Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel",3600);
       $Znum=$oldnum;
    }
@@ -821,7 +815,7 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
       if(array_key_exists('time', $myrow))
          $time=$myrow['time'];
       
-if ($ibid==$Znum) {break;}
+      if ($ibid==$Znum) {break;}
       if ($type_req=="libre") $catid=0;
       if ($type_req=="archive") $ihome=0;
       if (ctrl_aff($ihome, $catid)) {
@@ -835,17 +829,17 @@ if ($ibid==$Znum) {break;}
             $result2 = sql_query("SELECT sid, title FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
 
          $tab[$ibid]=sql_fetch_row($result2);
-         if (is_array($tab[$ibid])) {
+         if (is_array($tab[$ibid]))
             $ibid++;
-        }
+         sql_free_result($result2);
       }
    }
-      @sql_free_result($result);
+   @sql_free_result($result);
    return ($tab);
 }
 #autodoc themepreview($title, $hometext, $bodytext, $notes) : Permet de prévisualiser la présentation d'un NEW
 function themepreview($title, $hometext, $bodytext='', $notes='') {
-   echo "<span class=\"titrea\">$title</span><br />".meta_lang($hometext)."<br />".meta_lang($bodytext)."<br />".meta_lang($notes);
+   echo "$title<br />".meta_lang($hometext)."<br />".meta_lang($bodytext)."<br />".meta_lang($notes);
 }
 #autodoc prepa_aff_news($op,$catid) : Prépare, serialize et stock dans un tableau les news répondant aux critères<br />$op="" ET $catid="" : les news // $op="categories" ET $catid="catid" : les news de la catégorie catid //  $op="article" ET $catid=ID_X : l'article d'ID X // Les news des sujets : $op="topics" ET $catid="topic"
 function prepa_aff_news($op,$catid,$marqeur) {
@@ -2011,7 +2005,7 @@ function Site_Activ() {
    global $startdate, $top;
    list($membres,$totala,$totalb,$totalc,$totald,$totalz)=req_stat();
    $aff ='
-   <p class="text-center">'.translate("Pages vues depuis").' '.$startdate.' : '.wrh($totalz).'</p>
+   <p class="text-center">'.translate("Pages vues depuis").' '.$startdate.' : <span class="fw-semibold">'.wrh($totalz).'</span></p>
    <ul class="list-group mb-3" id="site_active">
      <li class="my-1">'.translate("Nb. de membres").' <span class="badge rounded-pill bg-secondary float-end">'.wrh(($membres)).'</span></li>
      <li class="my-1">'.translate("Nb. d'articles").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totala).'</span></li>
@@ -2374,45 +2368,42 @@ function topdownload_data($form, $ordre) {
 }
 #autodoc oldNews($storynum) : Bloc Anciennes News <br />=> syntaxe <br />function#oldNews<br />params#$storynum,lecture (affiche le NB de lecture) - facultatif
 function oldNews($storynum, $typ_aff='') {
-   global $locale, $oldnum, $storyhome, $categories, $cat, $user, $cookie;
+   global $locale, $oldnum, $storyhome, $categories, $cat, $user, $cookie, $language;
    $boxstuff = '<ul class="list-group">';
-   if (isset($cookie[3])) {
-      $storynum=$cookie[3];
-   } else {
-      $storynum=$storyhome;
-   }
-   if (($categories==1) and ($cat!='')) {
-      if ($user) { $sel="WHERE catid='$cat'"; }
-      else { $sel="WHERE catid='$cat' AND ihome=0"; }
-   } else {
-      if ($user) { $sel=''; }
-      else { $sel="WHERE ihome=0"; }
-   }
+   $storynum = isset($cookie[3]) ? $cookie[3] : $storyhome ;
+
+   if (($categories==1) and ($cat!=''))
+      $sel = $user ? "WHERE catid='$cat'" : "WHERE catid='$cat' AND ihome=0" ;
+   else
+      $sel = $user ? '' : "WHERE ihome=0" ;
+
+$sel =  "WHERE ihome=0";// en dur pour test
    $vari=0;
    $xtab=news_aff('old_news', $sel, $storynum, $oldnum);
-   $story_limit=0; $time2=0; $a=0;
+   $story_limit=0; 
+   $time2=0; $a=0;
    while (($story_limit<$oldnum) and ($story_limit<sizeof($xtab))) {
       list($sid, $title, $time, $comments, $counter) = $xtab[$story_limit];
       $story_limit++;
       setlocale (LC_TIME, aff_langue($locale));
       preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime2);
       $datetime2 = strftime("".translate("datestring2")."", @mktime($datetime2[4],$datetime2[5],$datetime2[6],$datetime2[2],$datetime2[3],$datetime2[1]));
-      if (cur_charset!="utf-8") {
+
+      if ($language != 'chinese')
          $datetime2 = ucfirst($datetime2);
-      }
+      $comments = $typ_aff=='lecture' ?
+         '<span class="badge rounded-pill bg-secondary ms-1" title="'.translate("Lu").'" data-bs-toggle="tooltip">'.$counter.'</span>' : '' ;
 
-      if ($typ_aff=='lecture') $comments='<span class="badge rounded-pill bg-secondary" title="'.translate("Lu").'" data-bs-toggle="tooltip">'.$counter.'</span>'; else $comments='';
-
-      if ($time2==$datetime2) {
+      if ($time2==$datetime2)
          $boxstuff .= '
          <li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a class="n-ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
-      } else {
+      else {
          if ($a==0) {
-            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> $comments</li>\n";
+            $boxstuff .= '<li class="list-group-item fs-6">'.$datetime2.'</li><li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> $comments </li>\n";
+            $boxstuff .= '<li class="list-group-item fs-6">'.$datetime2.'</li><li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
             $time2 = $datetime2;
          }
       }
@@ -2431,7 +2422,8 @@ function oldNews($storynum, $typ_aff='') {
 }
 #autodoc bigstory() : Bloc BigStory <br />=> syntaxe : function#bigstory
 function bigstory() {
-   global $cookie;
+   global $cookie;//no need ?
+   $content ='';
    $today = getdate();
    $day = $today['mday'];
    if ($day < 10) $day = "0$day";
@@ -2439,15 +2431,15 @@ function bigstory() {
    if ($month < 10) $month = "0$month";
    $year = $today['year'];
    $tdate = "$year-$month-$day";
-   $xtab=news_aff("big_story","WHERE (time LIKE '%$tdate%')",0,1);
-   if (sizeof($xtab)) {
-      list($fsid, $ftitle) = $xtab[0];
-   } else {
+   $xtab=news_aff("big_story","WHERE (time LIKE '%$tdate%')",1,1);
+   if (sizeof($xtab))
+    list($fsid, $ftitle) = $xtab[0];
+   else {
       $fsid=''; $ftitle='';
    }
-   $content = (!$fsid) AND (!$ftitle) ?
-      translate("Il n'y a pas encore d'article du jour.") :
-      translate("L'article le plus consulté aujourd'hui est :").'<br /><br /><a href="article.php?sid='.$fsid.'">'.aff_langue($ftitle).'</a>' ;
+   $content .= ($fsid =='' and $ftitle =='') ?
+      '<span class="fw-semibold">'.translate("Il n'y a pas encore d'article du jour.").'</span>' :
+      '<span class="fw-semibold">'.translate("L'article le plus consulté aujourd'hui est :").'</span><br /><br /><a href="article.php?sid='.$fsid.'">'.aff_langue($ftitle).'</a>' ;
    global $block_title;
    $boxtitle = $block_title=='' ? translate("Article du Jour") : $block_title;
    themesidebox($boxtitle, $content);
