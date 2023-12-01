@@ -1,5 +1,5 @@
 ################################################################################
-changelog-rev16.8 [ révision : 1 - jpb /9-10-2023 ]
+changelog-rev16.8 [ révision : 2 - jpb /28-11-2023 ]
 (non exhaustif...)
 pour des informations complètes et détaillées visitez la page de comparaison entre cette version et la précédente : https://github.com/npds/npds_dune/compare/v.16.4...v.16.8
 Cette version est la première compatible avec php8 et mysql8.
@@ -10,7 +10,7 @@ Cette version est la première compatible avec php8 et mysql8.
    champs trop courts dans la base table session champ `uri` et `agent` : suite utf8
    modification de l'ordre des arguments requis/optionnel dans les fonctions
    typage argument dans mktime()
-   optymysql.php : correction de l'envoi d'une valeur (vide) pour un type decimal dans la table
+   optymysql.php : correction de l'envoi d'une valeur (vide) pour un type decimal non null dans la table
    remplacement de nombreux settype() incorrects ...
 - update dépendances :
    version (licence du core) GNU 2 ==> 3
@@ -18,6 +18,14 @@ Cette version est la première compatible avec php8 et mysql8.
    pour les groupes : création d'un bloc des groupes actifs (avec membres) et possibilité aux utilisateur de faire une demande d'adhésion. Et de la gestion de ces demandes par les admins (avec une nouvelle fonction d'alerte).
    envoi d'email : intégrations de la librairie PHPmailer pour la gestion d'envoi des mails ce qui permet entre autres d'utiliser le protocole SMTP(S), envois avec authentification ... et côté code beaucoup de possibilité d'améliorations et de simplification
    suppression de l'option d'envoi des mails avec la fonction email() devenue obsolète
+   envoi d'email au superadmin lors de la soumission d'un nouveau commentaire (dépendant du choix dans les préférences "Notifier les nouvelles contributions par E-mail" ($notify))
+   ajout avatar dans le chat ...
+   metatags : suppression du support charset iso-8859-1 dans les metatags, mise à jour automatique de l'attribut lang en fonction de la langue choisie...
+   metamots : suppression MM_np_twi_Us()
+   modification de la fonction userpopover() qui permet dorénavant d'avoir un avatar seul ou un avatar et son popover ...
+   geoloc : transfert du georeferencement des ip dans un fichier dédié (geoloc_refip.php) en lieu et place du code qui se trouvait dans le mainfile
+     ajout d'une clef pour le provider extreme-ip-lookup
+     suppression du provider de fond de carte stamen 
 - bug track :
    nombreuses corrections : var $NPDS-PREFIX manquante, non globalisée ou globalisée inutilement. Ces erreurs impactaient surtout les sites à tables préfixée (requêtes sql défaillantes) 
    missing globalisation var $NPDS-PREFIX dans réseau sociaux.
@@ -25,9 +33,19 @@ Cette version est la première compatible avec php8 et mysql8.
    création du répertoire utilisateur (si n'existe pas) à partir de l'édition du journal utilisateur ...
    tarteaucitron NO gtag @ start (minisite et core)
    deux each oubliés dans filemanager.php et class.navigator.php
+   suppression du fichier kernel dans le dossier _module_template
+   terme de recherche requis dans le bloc de recherche
+   amélioration de l'implementation de la construction de link rel canonical ...
+   admin download : interface et contrôle formulaire
+   bloc de choix langue dispo que si multilangue est activé
+   correction metamot login (pas d'affichage du formulaire quand on est déjà connecté en user)
+   correction bug à l'installation du bloc note quand la table a déjà été créé par un blocnote groupe ... 
+- Documentation : manuels administration : mise à jour et restabilisation (suite à l'implémentation de navigation transversale entre les manuels), interface, traduction. (encore en travaux ...)
+   intégration de doc admin de module core dans la navigation tansversale des manuels (geoloc)
 - inside code :
    suppression/nettoyage (global, paramètre, config) de la variable $site_font
    condition simple en écriture ternaire
+   corrections, suppressions ou ajouts de sql_free_result() quand nécessaire ...
 - inside archive
    suppression de fichiers images non utilisés
 
