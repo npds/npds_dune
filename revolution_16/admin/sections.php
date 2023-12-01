@@ -31,10 +31,9 @@ function groupe($groupe) {
             if (($groupe_id==$groupevalue) and ($groupe_id!=0)) $selectionne=1;
          }
       }
-      if ($selectionne==1)
-         $str.='<option value="'.$groupe_id.'" selected="selected">'.$groupe_name.'</option>';
-      else
-         $str.='<option value="'.$groupe_id.'">'.$groupe_name.'</option>';
+      $str.= $selectionne==1 ?
+         '<option value="'.$groupe_id.'" selected="selected">'.$groupe_name.'</option>' :
+         '<option value="'.$groupe_id.'">'.$groupe_name.'</option>' ;
       $nbg++;
    }
    if ($nbg>5) $nbg=5;
@@ -149,10 +148,9 @@ function sections() {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
-   if ($radminsuper==1)
-      $result = sql_query("SELECT rubid, rubname, enligne, ordre FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
-   else
-      $result = sql_query("SELECT DISTINCT r.rubid, r.rubname, r.enligne, r.ordre FROM ".$NPDS_Prefix."rubriques r, ".$NPDS_Prefix."sections s, ".$NPDS_Prefix."publisujet p WHERE (r.rubid=s.rubid AND s.secid=p.secid2 AND p.aid='$aid') ORDER BY ordre");
+   $result = $radminsuper==1 ?
+      sql_query("SELECT rubid, rubname, enligne, ordre FROM ".$NPDS_Prefix."rubriques ORDER BY ordre") :
+      sql_query("SELECT DISTINCT r.rubid, r.rubname, r.enligne, r.ordre FROM ".$NPDS_Prefix."rubriques r, ".$NPDS_Prefix."sections s, ".$NPDS_Prefix."publisujet p WHERE (r.rubid=s.rubid AND s.secid=p.secid2 AND p.aid='$aid') ORDER BY ordre") ;
    $nb_rub=sql_num_rows($result);
 
    echo '
@@ -175,7 +173,7 @@ function sections() {
    </ul>';
 
    if ($nb_rub > 0) {
-   $i=-1;
+      $i=-1;
       echo '
       <hr />
       <h3 class="my-3">'.adm_translate("Liste des rubriques").'</h3>';
@@ -189,9 +187,12 @@ function sections() {
          }
          $rubname = aff_langue($rubname);
          if ($rubname=='') $rubname=adm_translate("Sans nom");
-         if ($enligne==0) { $online='<span class="badge bg-danger ms-1 p-2">'.adm_translate("Hors Ligne").'</span>'; } else if ($enligne==1) { $online = '<span class="badge bg-success ms-1 p-2">'.adm_translate("En Ligne").'</span>'; }
+         if ($enligne==0)
+            $online = '<span class="badge bg-danger ms-1 p-2">'.adm_translate("Hors Ligne").'</span>'; 
+         else if ($enligne==1)
+            $online = '<span class="badge bg-success ms-1 p-2">'.adm_translate("En Ligne").'</span>'; 
          echo '
-      <div class="list-group-item bg-light lead">
+      <div class="list-group-item bg-light py-2 lead">
          <a href="" class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#srub'.$i.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>&nbsp;'.$rubname.' '.$online.' <span class="float-end">'.$href1.$href2.$href3.'</span>
       </div>';
 
@@ -203,9 +204,9 @@ function sections() {
          if (sql_num_rows($result2) > 0) {
             echo '
             <div id="srub'.$i.'" class=" mb-3 collapse ">
-               <div class="list-group-item d-flex"><span class="badge bg-secondary me-2 p-2">'.sql_num_rows($result2).'</span><strong class="">'.adm_translate("Sous-rubriques").'</strong>';
+               <div class="list-group-item d-flex py-2"><span class="badge bg-secondary me-2 p-2">'.sql_num_rows($result2).'</span><strong class="">'.adm_translate("Sous-rubriques").'</strong>';
                if ($radminsuper==1)
-                  echo '<span class="ms-auto"><a class="" href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre des sous-rubriques").'" data-bs-toggle="tooltip" data-bs-placement="left" ><i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
+                  echo '<span class="ms-auto"><a href="admin.php?op=ordrechapitre&amp;rubid='.$rubid.'&amp;rubname='.$rubname.'" title="'.adm_translate("Changer l'ordre des sous-rubriques").'" data-bs-toggle="tooltip" data-bs-placement="left" ><i class="fa fa-sort-amount-up fa-lg"></i></a></span>';
                echo '</div>';
 
            while (list($secid, $secname) = sql_fetch_row($result2)) {
@@ -214,23 +215,20 @@ function sections() {
               $result3 = sql_query("SELECT artid, title FROM ".$NPDS_Prefix."seccont WHERE secid='$secid' ORDER BY ordre");
 
                echo '
-               <div class="list-group-item d-flex">';
-               if (sql_num_rows($result3) > 0) 
-                  echo'
-                  <a href="" class="arrow-toggle text-primary " data-bs-toggle="collapse" data-bs-target="#lst_sect_'.$secid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>';
-               else 
-                  echo'<span class=""> - </span>';
+               <div class="list-group-item d-flex py-2">';
+               echo (sql_num_rows($result3) > 0) ?
+                  '<a href="" class="arrow-toggle text-primary " data-bs-toggle="collapse" data-bs-target="#lst_sect_'.$secid.'" ><i class="toggle-icon fa fa-caret-down fa-lg"></i></a>' :
+                  '<span class=""> - </span>' ;
                echo' 
                   &nbsp;
-               '.$secname.'&nbsp;
-               <span class=" ms-auto">
-               <a class="" href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg me-2 py-2"></i></a>';
+               '.$secname.'
+               <span class="ms-auto"><a href="sections.php?op=listarticles&amp;secid='.$secid.'&amp;prev=1" ><i class="fa fa-eye fa-lg me-2 py-2"></i></a>';
                if ($droit_pub>0 and $droit_pub!=4) // à revoir pas suffisant
-                  echo '<a class="" href="admin.php?op=sectionedit&amp;secid='.$secid.'" title="'.adm_translate("Editer la sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fa fa-edit fa-lg py-2 me-2"></i></a>';
-              if (($droit_pub==7) or ($droit_pub==4))
-                 echo '<a class="" href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fas fa-trash fa-lg text-danger me-2 py-2"></i></a>';
-              echo '</span>
-              </div>';
+                  echo '<a href="admin.php?op=sectionedit&amp;secid='.$secid.'" title="'.adm_translate("Editer la sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fa fa-edit fa-lg py-2 me-2"></i></a>';
+               if (($droit_pub==7) or ($droit_pub==4))
+                  echo '<a href="admin.php?op=sectiondelete&amp;secid='.$secid.'" title="'.adm_translate("Supprimer la sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fas fa-trash fa-lg text-danger py-2"></i></a>';
+               echo '</span>
+               </div>';
                if (sql_num_rows($result3) > 0) {
                   $ibid=true;
                   echo '
