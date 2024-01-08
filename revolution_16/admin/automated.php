@@ -34,12 +34,12 @@ function puthome($ihome) {
       $sel2 = 'checked="checked"';
    }
    echo '
-         <div class="col-sm-8">
-            <div class="form-check">
+         <div class="col-sm-8 my-2">
+            <div class="form-check form-check-inline">
                <input class="form-check-input" type="radio" id="ihome" name="ihome" value="0" '.$sel1.' />
                <label class="form-check-label" for="ihome">'.adm_translate("Oui").'</label>
             </div>
-            <div class="form-check">
+            <div class="form-check form-check-inline">
                <input class="form-check-input" type="radio" id="ihome1" name="ihome" value="1" '.$sel2.' />
                <label class="form-check-label" for="ihome1">'.adm_translate("Non").'</label>
             </div>
@@ -50,9 +50,9 @@ function puthome($ihome) {
    $sel2 = 'checked="checked"';
    echo '
       <div class="mb-3 row">
-         <label class="col-sm-4 col-form-label text-danger" for="members">'.adm_translate("Seulement aux membres").'</label>
-         <div class="col-sm-8">
-            <div class="form-check">';
+         <label class="col-sm-4 col-form-label" for="members">'.adm_translate("Seulement aux membres").', '.adm_translate("Groupe").'.</label>
+         <div class="col-sm-8 my-2">
+            <div class="form-check form-check-inline">';
    if ($ihome<0) {
       $sel1 = 'checked="checked"';
       $sel2 = '';
@@ -66,7 +66,7 @@ function puthome($ihome) {
                <input class="form-check-input" type="radio" id="members" name="members" value="1" '.$sel1.' />
                <label class="form-check-label" for="members">'.adm_translate("Oui").'</label>
             </div>
-            <div class="form-check">
+            <div class="form-check form-check-inline">
                <input class="form-check-input" type="radio" id="members1" name="members" value="0" '.$sel2.' />
                <label class="form-check-label" for="members1">'.adm_translate("Non").'</label>
             </div>
@@ -75,16 +75,16 @@ function puthome($ihome) {
     // ---- Groupes
    $mX=liste_group();
    $tmp_groupe='';
-   $Mmembers='';
+   isset($Mmember) ? $Mmembers : $Mmembers='';
    foreach($mX as $groupe_id => $groupe_name){
       if ($groupe_id=='0') $groupe_id='';
-      if ($Mmembers==$groupe_id) $sel3='selected="selected"'; else $sel3='';
+      $sel3 = $Mmembers==$groupe_id ? 'selected="selected"' : '' ;
       $tmp_groupe.='
       <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
    }
    echo '
-      <div class="mb-3 row">
-         <label class="col-sm-4 col-form-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
+      <div class="mb-3 row" id="choixgroupe">
+         <label class="col-sm-4 col-form-label" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="Mmembers" name="Mmembers">'.$tmp_groupe.'</select>
          </div>
@@ -127,9 +127,9 @@ function autoStory() {
    <table id="tab_adm" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th data-sortable="true" data-halign="center">'.adm_translate('Titre').'</th>
-            <th data-sortable="true" data-align="center" data-align="right">'.adm_translate('Date prévue de publication').'</th>
-            <th data-align="right">'.adm_translate('Fonctions').'</th>
+            <th class="n-t-col-xs-6" data-sortable="true" data-halign="center">'.adm_translate('Titre').'</th>
+            <th class="n-t-col-xs-4 small" data-sortable="true" data-align="center" data-align="right">'.adm_translate('Date prévue de publication').'</th>
+            <th class="n-t-col-xs-2" data-align="center">'.adm_translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>';
@@ -154,7 +154,7 @@ function autoStory() {
          <tr>
             <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'">'.aff_langue($title).'</a></td>
             <td>'.formatTimestamp("nogmt".$time).'</td>
-            <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Afficher l'article").'" data-bs-toggle="tooltip"></i></a><a href="admin.php?op=autoDelete&amp;anid='.$anid.'">&nbsp;<i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer l'Article").'" data-bs-toggle="tooltip" ></i></a></td>
+            <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'"><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Afficher l'article").'" data-bs-toggle="tooltip"></i></a><a href="admin.php?op=autoDelete&amp;anid='.$anid.'">&nbsp;<i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer l'Article").'" data-bs-toggle="tooltip" ></i></a></td>
          </tr>';
          } else {
             echo '
@@ -177,6 +177,7 @@ function autoDelete($anid) {
    sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
    Header("Location: admin.php?op=autoStory");
 }
+
 function autoEdit($anid) {
    global $aid, $hlpfile, $tipath, $radminsuper, $NPDS_Prefix, $adminimg;
    $f_meta_nom ='autoStory';
@@ -193,95 +194,80 @@ function autoEdit($anid) {
    $bodytext = stripslashes($bodytext);
    $notes = stripslashes($notes);
 
-    if ($topic<1) {$topic = 1;}
-    $affiche=false;
-    $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
-    list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
-    if ($radminsuper) {
-       $affiche=true;
-    } else {
-       $topicadminX=explode(',',$topicadmin);
-       for ($i = 0; $i < count($topicadminX); $i++) {
-          if (trim($topicadminX[$i])==$aid) $affiche=true;
-       }
-    }
-    if (!$affiche) { header("location: admin.php?op=autoStory");}
-   $topiclogo = '<span class="badge bg-secondary float-end"><strong>'.aff_langue($topictext).'</strong></span>';
+   if ($topic<1) {$topic = 1;}
+   $affiche=false;
+   $result2=sql_query("SELECT topicname, topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+   list ($topicname, $topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
+   if ($radminsuper)
+      $affiche=true;
+   else {
+      $topicadminX=explode(',',$topicadmin);
+      for ($i = 0; $i < count($topicadminX); $i++) {
+         if (trim($topicadminX[$i])==$aid) $affiche=true;
+      }
+   }
+   if (!$affiche) 
+      header("location: admin.php?op=autoStory");
+
+   $topiclogo = '<span class="badge bg-secondary" title="'.$topictext.'" data-bs-toggle="tooltip" data-bs-placement="left"><strong>'.aff_langue($topicname).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
 
-    echo '
-    <hr />
-    <h3>'.adm_translate("Editer l'Article Automatique").'</h3>
-    '. aff_local_langue('','local_user_language',adm_translate("Langue de Prévisualisation")).'
-    <div class="card card-body mb-3">';
+   echo '
+   <hr />
+   <h3>'.adm_translate("Editer l'Article Automatique").'</h3>
+   '. aff_local_langue('','local_user_language',adm_translate("Langue de Prévisualisation")).'
+   <div class="card card-body mb-3">';
    if ($topicimage!=='') { 
-      if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
+      if (!$imgtmp=theme_image('topics/'.$topicimage)) $imgtmp=$tipath.$topicimage;
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
-      $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="" />';
+         $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="topic_logo" loading="lazy" title="'.$topictext.'" data-bs-toggle="tooltip" data-bs-placement="left" />';
    }
 
+   code_aff('<div class="d-flex"><div class="w-100 p-2 ps-0"><h3>'.$titre.'</h3></div><div class="align-self-center p-2 flex-shrink-1 h3">'.$topiclogo.'</div></div>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
 
-/*
-    $no_img=false;
-    if ((file_exists("$tipath$topicimage")) and ($topicimage!="")) {
-      echo "<img src=\"$tipath$topicimage\" border=\"0\" align=\"right\" alt=\"\" />";
-    } else {
-      $no_img=true;
-    }
-*/
-
-    code_aff('<h3>'.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
-/*
-    if ($no_img) {
-       echo "<b>".aff_langue($topictext)."</b>";
-    }
-*/
-
-    echo '<b>'.adm_translate("Utilisateur").'</b>'.$informant.'<br /><br />';
-
-    echo '
+   echo '<hr /><b>'.adm_translate("Utilisateur").'</b>'.$informant.'<br />';
+   echo '
    </div>
-   <form action="admin.php" method="post" name="adminForm">
+   <form action="admin.php" method="post" name="adminForm" id="autoedit">
       <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="title">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="title" name="title" size="50" value="'.$titre.'" />
+            <input class="form-control" type="text" id="title" name="title" size="50" value="'.$titre.'" required="required" />
          </div>
       </div>
       <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="topic">'.adm_translate("Sujet").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="topic" name="topic">';
-    $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
-    if ($radminsuper) echo '
+   $toplist = sql_query("SELECT topicid, topictext, topicadmin FROM ".$NPDS_Prefix."topics ORDER BY topictext");
+   if ($radminsuper) echo '
                <option value="">'.adm_translate("Tous les Sujets").'</option>';
-    while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
-       $affiche=false;
-       if ($radminsuper) {
-          $affiche=true;
-       } else {
-          $topicadminX=explode(',',$topicadmin);
-          for ($i = 0; $i < count($topicadminX); $i++) {
-             if (trim($topicadminX[$i])==$aid) $affiche=true;
-          }
-       }
-       if ($affiche) {
-          if ($topicid==$topic) { $sel = 'selected="selected" '; }
-          echo '
+   while(list($topicid, $topics, $topicadmin) = sql_fetch_row($toplist)) {
+      $affiche=false;
+      if ($radminsuper) {
+         $affiche=true;
+      } else {
+         $topicadminX=explode(',',$topicadmin);
+         for ($i = 0; $i < count($topicadminX); $i++) {
+            if (trim($topicadminX[$i])==$aid) $affiche=true;
+         }
+      }
+      if ($affiche) {
+         $sel = $topicid==$topic ? 'selected="selected" ' : '' ;
+         echo '
                <option '.$sel.' value="'.$topicid.'">'.aff_langue($topics).'</option>';
-          $sel = '';
-       }
-    }
-    echo ' 
+      }
+   }
+   echo ' 
             </select>
          </div>
       </div>';
-    SelectCategory($catid);
-    puthome($ihome);
+   SelectCategory($catid);
+   puthome($ihome);
    echo '
       <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="hometext">'.adm_translate("Texte d'introduction").'</label>
@@ -306,7 +292,7 @@ function autoEdit($anid) {
          </div>
       </div>
       '.aff_editeur('notes', '');
-    }
+   }
    $dd_pub=substr($date_debval,0,10);
    $fd_pub=substr($date_finval,0,10);
    $dh_pub=substr($date_debval,11,5);
@@ -316,12 +302,35 @@ function autoEdit($anid) {
       <div class="mb-3 row">
          <div class="col-sm-12">
             <input type="hidden" name="anid" value="'.$anid.'" />
+            <input type="hidden" name="informant" value="'.$informant.'" />
             <input type="hidden" name="op" value="autoSaveEdit" />
             <input class="btn btn-primary" type="submit" value="'.adm_translate("Sauver les modifications").'" />
          </div>
       </div>
    </form>';
-   adminfoot('fv','','','');
+   $fv_parametres ='
+
+   !###!
+   mem_y.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         choixgroupe.style.display="flex";
+      }
+   });
+   mem_n.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         choixgroupe.style.display="none";
+      }
+   });
+   ';
+
+   $arg1 ='
+      var formulid = ["autoedit"];
+      const choixgroupe = document.getElementById("choixgroupe");
+      const mem_y = document.querySelector("#members");
+      const mem_n = document.querySelector("#members1");
+      mem_y.checked ? "" : choixgroupe.style.display="none" ;
+   ';
+   adminfoot('fv',$fv_parametres, $arg1,'');
 }
 
 function autoSaveEdit($anid, $title, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $informant, $members, $Mmembers, $date_debval,$date_finval,$epur) {
@@ -351,13 +360,11 @@ switch ($op) {
       autoEdit($anid);
    break;
    case 'autoSaveEdit':
-      if (!$date_debval)
-         $date_debval = $dd_pub.' '.$dh_pub.':01';
-      if (!$date_finval)
-         $date_finval = $fd_pub.' '.$fh_pub.':01';
+      $date_debval = !isset($date_debval) ? $dd_pub.' '.$dh_pub.':01' : $date_debval ;
+      $date_finval = !isset($date_finval) ? $fd_pub.' '.$fh_pub.':01' : $date_finval ;
       if ($date_finval<$date_debval)
          $date_finval = $date_debval;
-         autoSaveEdit($anid, $title, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $informant, $members, $Mmembers, $date_debval,$date_finval,$epur);
+      autoSaveEdit($anid, $title, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $informant, $members, $Mmembers, $date_debval,$date_finval,$epur);
    break;
 }
 ?>

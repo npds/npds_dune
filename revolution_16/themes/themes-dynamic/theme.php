@@ -55,8 +55,12 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    if ($morelink[6]) $categorie=' : '.$morelink[6];
    $morel=$lire_la_suite.$commentaire.$morelink[4].' '.$morelink[5].$categorie;
 
-   if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
-   $timage=$imgtmp;
+   $Xsujet ='';
+   if($topicimage != '') {
+      if (!$imgtmp=theme_image('topics/'.$topicimage)) $imgtmp=$tipath.$topicimage;
+      $Xsujet = '<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$imgtmp.'" alt="'.translate("Rechercher dans").' : '.$topicname.'" title="'.translate("Rechercher dans").' : '.$topicname.'<hr />'.$topictext.'" data-bs-toggle="tooltip" data-bs-html="true" /></a>' ;
+   } else
+      $Xsujet = '<a href="search.php?query=&amp;topic='.$topic.'"><span class="badge bg-secondary h1" title="'.translate("Rechercher dans").' : '.$topicname.'<hr />'.$topictext.'" data-bs-toggle="tooltip" data-bs-html="true">'.$topicname.'</span></a>';
 
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
@@ -69,17 +73,15 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    "'!N_date_h!'i"=>substr($time,11),
    "'!N_print!'i"=>$morelink[4],
    "'!N_friend!'i"=>$morelink[5],
-
    "'!N_nb_carac!'i"=>$morelink[0],
    "'!N_read_more!'i"=>$morelink[1],
    "'!N_nb_comment!'i"=>$morelink[2],
    "'!N_link_comment!'i"=>$morelink[3],
    "'!N_categorie!'i"=>$morelink[6],
-
    "'!N_titre!'i"=>$title,
    "'!N_texte!'i"=>$thetext,
    "'!N_id!'i"=>$id,
-   "'!N_sujet!'i"=>'<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$timage.'" alt="'.translate("Rechercher dans").'&nbsp;'.$topictext.'" /></a>',
+   "'!N_sujet!'i"=>$Xsujet,
    "'!N_note!'i"=>$notes,
    "'!N_nb_lecture!'i"=>$counter,
    "'!N_suite!'i"=>$morel
@@ -244,20 +246,20 @@ function userpopover($who,$dim,$avpop) {
    $useroutils = '';
    if($user or autorisation(-127)) {
       if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-         $useroutils .= '<a class="dropdown-item text-center text-md-start" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profil").'" ><i class="fa fa-lg fa-user align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Profil").'</span></a>';
+         $useroutils .= '<li><a class="dropdown-item text-center text-md-start" href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" target="_blank" title="'.translate("Profil").'" ><i class="fa fa-lg fa-user align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Profil").'</span></a></li>';
       if ($temp_user['uid']!= 1 and $temp_user['uid']!='')
-         $useroutils .= '<a class="dropdown-item text-center text-md-start" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Envoyer un message interne").'" ><i class="far fa-lg fa-envelope align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Message").'</span></a>';
+         $useroutils .= '<li><a class="dropdown-item text-center text-md-start" href="powerpack.php?op=instant_message&amp;to_userid='.urlencode($temp_user['uname']).'" title="'.translate("Envoyer un message interne").'" ><i class="far fa-lg fa-envelope align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Message").'</span></a></li>';
       if ($temp_user['femail']!='')
-         $useroutils .= '<a class="dropdown-item  text-center text-md-start" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-lg align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Email").'</span></a>';
+         $useroutils .= '<li><a class="dropdown-item  text-center text-md-start" href="mailto:'.anti_spam($temp_user['femail'],1).'" target="_blank" title="'.translate("Email").'" ><i class="fa fa-at fa-lg align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Email").'</span></a></li>';
       if ($temp_user['uid']!= 1 and array_key_exists($ch_lat, $posterdata_extend)) {
          if ($posterdata_extend[$ch_lat] !='')
-            $useroutils .= '<a class="dropdown-item text-center text-md-start" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-lg align-middle fa-fw">&nbsp;</i><span class="ms-2 d-none d-md-inline">'.translate("Localisation").'</span></a>';
+            $useroutils .= '<li><a class="dropdown-item text-center text-md-start" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$temp_user['uid'].'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-lg align-middle fa-fw">&nbsp;</i><span class="ms-2 d-none d-md-inline">'.translate("Localisation").'</span></a></li>';
       }
    }
    if ($temp_user['url']!='')
-      $useroutils .= '<a class="dropdown-item text-center text-md-start" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visiter ce site web").'"><i class="fas fa-external-link-alt fa-lg align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a>';
+      $useroutils .= '<li><a class="dropdown-item text-center text-md-start" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visiter ce site web").'"><i class="fas fa-external-link-alt fa-lg align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a></li>';
    if ($temp_user['mns'])
-       $useroutils .= '<a class="dropdown-item text-center text-md-start" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" ><i class="fa fa-lg fa-desktop align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
+       $useroutils .= '<li><a class="dropdown-item text-center text-md-start" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" ><i class="fa fa-lg fa-desktop align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a></li>';
 
    if (stristr($temp_user['user_avatar'],'users_private')) 
       $imgtmp=$temp_user['user_avatar'];
@@ -266,17 +268,22 @@ function userpopover($who,$dim,$avpop) {
 
       $userpop = $avpop==1 ?
          '<img class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" />' :
-         '<a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>' ;
-/*
- $userpop ='<div class="dropdown d-inline-block me-4 dropend">
+//         '<a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>' ;
+
+'
+   <div class="dropdown d-inline-block me-4 dropend">
       <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
          <img class=" btn-outline-primary img-fluid n-ava-'.$dim.' me-0" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" />
       </a>
-      <div class="dropdown-menu ">
-         <div class=" mb-3 text-center">'.$useroutils.'</div>
-     </div>
-   </div>';
-*/
+      <ul class="dropdown-menu bg-light">
+         <li><span class="dropdown-item-text text-center py-0 my-0">'.userpopover($who,64,1).'</span></li>
+         <li><h6 class="dropdown-header text-center py-0 my-0">'.$who.'</h6></li>
+         <li><hr class="dropdown-divider"></li>
+         '.$useroutils.'
+         <li><hr class="dropdown-divider"></li>
+         <li><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>
+      </ul>
+   </div>' ;
 
    return $userpop;
    }
