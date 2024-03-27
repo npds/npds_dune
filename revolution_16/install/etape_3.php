@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2017                                      */
+/*         : v.1.2 phr, jpb - 2017-24                                   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -39,7 +39,7 @@ function etape_3() {
       if ($stopphp != 0) {
          echo '
                <div>'.ins_translate("Version actuelle de PHP").' : '.$phpver.'</div>
-               <div class="alert alert-danger">'.ins_translate("NPDS nécessite une version 5.3.0 ou supérieure !").'</div>
+               <div class="alert alert-danger">'.ins_translate("NPDS nécessite une version 5.6.0 ou supérieure !").'</div>
                <form name="reload" method="post">
                   <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>';
@@ -66,7 +66,7 @@ function etape_3() {
                </ul>
                <div class="mb-3 mt-3">
                   <input type="hidden" name="langue" value="'.$langue.'" />
-                  <input type="hidden" name="stage" value="4" />
+                  <input type="hidden" name="stage" value="6" />
                   <button type="submit" class="btn btn-success">'.ins_translate('Etape suivante').'</button>
                </div>
             </form>

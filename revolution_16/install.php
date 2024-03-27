@@ -3,14 +3,14 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2017                                      */
+/*         : v.1.2 phr, jpb - 2017-24                                   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -245,7 +245,7 @@ if($stage == 5){
 
 /*
 # install/etape_6.php
-# Création/Mise à jour de la base de données
+# Mise à jour de la base de données
 */
 if($stage == 6) {
    require('install/etape_6.php');
@@ -259,13 +259,16 @@ if($stage == 6) {
       case 'write_database':
          global $stage, $langue, $stage6_ok, $NPDS_Prefix, $pre_tab, $sql_com, $qi;
          settype($out,'string');
-         require('install/sql/build_sql-create.php');
-         build_sql_create($NPDS_Prefix);
+         require('install/sql/build_sql-maj.php');
+         // modification de structure et suppression de données
+         maj_db_163to164();
+         // réécriture de données
+         build_sql_maj($NPDS_Prefix);
          sql_connect();
-         require('install/sql/sql-create.php');
+         require('install/sql/sql-maj.php');
          write_database();
          if($stage6_ok == 1) {
-            $Xinst_log = date('d/m/y  H:j:s').' : Création tables et/ou base de donnée pour '.$cms_name."\n";
+            $Xinst_log = date('d/m/y  H:j:s').' : Modification base de donnée pour '.$cms_name."\n";
             $file = fopen("slogs/install.log", "a");
             fwrite($file, $Xinst_log);
             fclose($file);
