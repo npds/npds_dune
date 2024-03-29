@@ -14,28 +14,34 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
+
+if (file_exists('IZ-Xinstall.ok'))
+   unlink('IZ-Xinstall.ok');
+define("OLD_VERSION","v.16.3");
+define("NEW_VERSION","v.16.4");
 
 if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
    $file = file("config.php");
    $file[33] ="\$mysql_p = 1;\n";
    $file[34] ="\$mysql_i = 1;\n";
+   $file[321] ="\$Version_Num = \"".NEW_VERSION."\";\n";
+
    $fic = fopen("config.php", "w");
    foreach($file as $n => $ligne) {
       fwrite($fic, $ligne);
    }
    fclose($fic);
-   include_once('lib/mysqli.php');
+   include_once($_SERVER['DOCUMENT_ROOT'].'/lab1634/lib/mysqli.php');
 } else
    include_once('lib/mysql.php');
 
 settype($langue,'string');
 if($langue) {
    $lang_symb = substr($langue, 0, 3);
-   if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php')) {
+   if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php'))
       include_once $fichier_lang;
-   }
    else
       include_once('install/languages/french/install-fre.php');
 }
@@ -60,6 +66,15 @@ function verif_php() {
    else
       $phpver = phpversion();
    return ($phpver);
+}
+
+function verif_sql() {
+   global $sqlver;
+   $sqlgetver = (mysqli_get_server_version(sql_connect()))/10000;
+   $mainversion = intval($sqlgetver);
+   $subversion = ($sqlgetver-$mainversion)*10000/100;
+   $sqlver = "$mainversion.$subversion";
+   return ($sqlver);
 }
 
 function verif_chmod() {

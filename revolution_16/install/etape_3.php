@@ -14,12 +14,12 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_3() {
-   global $menu, $stage, $langue, $qi, $stopngo, $table_rep, $stopphp, $phpver, $listfich, $colorst1, $colorst2, $colorst3, $colorst4;
+   global $menu, $stage, $langue, $qi, $stopngo, $stopphp, $phpver, $listfich, $colorst1, $colorst2, $colorst3, $colorst4;
    $stage = 3;
    verif_php();
    verif_chmod();
@@ -29,7 +29,7 @@ function etape_3() {
    $colorst4 = ' active';
    if ($stopphp == 1) $colorst4 = '-danger';
    if ($stopngo == 1) $colorst4 = '-danger';
-   if ($stopngo != 1 and $stopphp != 1 and $qi==1) $stage = 4; 
+   if ($stopngo != 1 and $stopphp != 1 and $qi==1) $stage = 6; 
    else {
       entete();
       menu();

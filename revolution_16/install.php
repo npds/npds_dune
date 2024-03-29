@@ -14,27 +14,25 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
-
-// Bloque le lancement de l'install si IZ-Xinstall.ok existe
-if (file_exists('IZ-Xinstall.ok')) include('admin/die.php');
 
 /*
 # Contrôle des fichiers de base de IZ-Xinstall
 */
-if(file_exists('grab_globals.php')) include ('grab_globals.php');
-if(file_exists('install/libraries/graphIZm.php')) include ('install/libraries/graphIZm.php');
-if(file_exists('install/libraries/lib-inc.php')) include ('install/libraries/lib-inc.php');
+include ('grab_globals.php');
+include ('install/libraries/graphIZm.php');
+include ('install/libraries/lib-inc.php');
 include('config.php');
-   verif_php();
+verif_php();
+verif_sql();
 
 /*
 # Paramètres install
 */
 $cms_logo = 'install/images/header.png';
 $cms_name = 'NPDS REvolution 16';
-global $cms_logo, $cms_name, $Version_Num, $Version_Id, $Version_Sub, $phpver;
+global $cms_logo, $cms_name, $Version_Num, $Version_Id, $Version_Sub, $phpver, $nuke_url;
 
 if(!isset($stage)) $stage = 0;
 
@@ -63,7 +61,7 @@ if($stage == 1) {
    $fic = fopen("config.php", "w");
       foreach($file as $n => $ligne) {
          fwrite($fic, $ligne);
-   }
+      }
    fclose($fic);
 
    $colorst1 = '-success';
@@ -126,124 +124,6 @@ if(($stage == 3) or ($stage == 2 and $qi==1)){
 }
 
 /*
-# install/etape_4.php
-# Définition des paramètres de connexion à la base de données (config.php)
-#   => install/libraries/lib-inc.php
-#      fonction : write_config()
-*/
-if($stage == 4) {
-   $out='';
-   for($i=1;$i<=4;$i++) {
-      ${"colorst".$i} ='-success';
-   }
-   $colorst5 = ' active';
-   require('install/etape_4.php');
-   if(!isset($op)) $op = 'etape_4';
-   switch($op) {
-      case 'write_parameters':
-         global $stage, $langue, $stage4_ok, $qi;
-         write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $new_NPDS_Prefix, $new_mysql_p, $new_adminmail);
-         if($stage4_ok == 1) {
-            $msg = '
-            <div class="alert alert-success">'.ins_translate("Le fichier de configuration a été écrit avec succès !").'</div>';
-            $Xinst_log = date('d/m/y  H:j:s').' : Ecriture paramètres de config pour '.$cms_name."\n";
-            $file = fopen('slogs/install.log', 'a');
-            fwrite($file, $Xinst_log);
-            fclose($file);
-            if($qi == 1) {Header('Location: install.php?stage=5&qi=1&langue='.$langue);exit;};
-         }
-         elseif($stage4_ok == 0) {
-            $msg = '
-            <div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
-         }
-         entete();
-         menu();
-         echo $menu;
-         $out .= '
-                  <h3 class="mb-3">'.ins_translate('Paramètres de connexion').'</h3>'.$msg;
-         if($stage4_ok == 1 and $qi !=1) {
-            $out.= '
-                  <form name="submit" method="post" action="install.php">
-                     <input type="hidden" name="langue" value="'.$langue.'" />
-                     <input type="hidden" name="stage" value="5" />
-                     <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
-                  </form>';
-         }
-         $out.= '
-               </div>';
-         echo $out;
-         unset($stage4_ok);
-      break;
-      case 'etape_4':
-      default:
-         entete();
-         menu();
-         echo $menu;
-         etape_4();
-      break;
-   }
-   pied_depage();
-}
-
-/*
-# install/etape_5.php
-# Définition d'autres paramètres (config.php)
-#   => install/libraries/lib-inc.php
-#      fonction : write_others()
-*/
-if($stage == 5){
-   $out='';
-   for($i=1;$i<=5;$i++) {
-      ${"colorst".$i} ='-success';
-   }
-   $colorst6 = ' active';
-   require('install/etape_5.php');
-   if(!isset($op)) $op = 'etape_5';
-   switch($op) {
-      case 'write_others':
-         global $stage, $langue, $stage5_ok, $qi;
-         write_others($new_nuke_url, $new_sitename, $new_Titlesitename, $new_slogan, $new_Default_Theme, $new_startdate);
-         if($stage5_ok == 1) {
-            $msg = '
-               <div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
-            if($qi == 1) {Header('Location: install.php?stage=6&qi=1&langue='.$langue);exit;};
-         }
-         elseif($stage5_ok == 0) {
-            $msg = '
-               <div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
-         }
-         entete();
-         menu();
-         echo $menu;
-         $out .= '
-               <h3 class="mb-3">'.ins_translate("Fichier de configuration").'</h3>'.$msg;
-         if($stage5_ok == 1 and $qi !=1) {
-            $out.= '
-               <form name="next" method="post" action="install.php">
-                  <div class="mb-3 ">
-                     <input type="hidden" name="langue" value="'.$langue.'" />
-                     <input type="hidden" name="stage" value="6" />
-                     <button type="submit" class="btn btn-success">'.ins_translate('Etape suivante').'</button>
-                  </div>
-               </form>';
-         }
-      $out.= '
-            </div>';
-      echo $out;
-      unset($stage5_ok);
-      break;
-      case 'etape_5':
-      default:
-         entete();
-         menu();
-         echo $menu;
-         etape_5();
-      break;
-   }
-   pied_depage();
-}
-
-/*
 # install/etape_6.php
 # Mise à jour de la base de données
 */
@@ -254,19 +134,23 @@ if($stage == 6) {
       ${"colorst".$i} ='-success';
    }
    $colorst7 = ' active';
-
    switch($op) {
       case 'write_database':
          global $stage, $langue, $stage6_ok, $NPDS_Prefix, $pre_tab, $sql_com, $qi;
          settype($out,'string');
-         require('install/sql/build_sql-maj.php');
+         include($_SERVER['DOCUMENT_ROOT'].'/lab1634/install/sql/build_sql-maj.php');
          // modification de structure et suppression de données
-         maj_db_163to164();
-         // réécriture de données
-         build_sql_maj($NPDS_Prefix);
+         echo 'nous sommes ici !!';//////////
          sql_connect();
+//         maj_db_163to164();
+         // réécriture de données
+         echo 'nous sommes là !!';
+         die();
+         build_sql_maj($NPDS_Prefix);
          require('install/sql/sql-maj.php');
          write_database();
+                  die();
+
          if($stage6_ok == 1) {
             $Xinst_log = date('d/m/y  H:j:s').' : Modification base de donnée pour '.$cms_name."\n";
             $file = fopen("slogs/install.log", "a");
@@ -311,134 +195,6 @@ if($stage == 6) {
    pied_depage();
 }
 
-/*
-# install/etape_7.php
-# Définition du mot de passe administrateur et premier utilisateur
-*/
-if($stage == 7) {
-   for($i=1;$i<=7;$i++) {
-      ${"colorst".$i} ='-success';
-   }
-   $colorst8 = ' active';
-
-   require('install/etape_7.php');
-   if(!isset($op)) $op = 'etape_7';
-   switch($op) {
-      case 'write_users':
-      global $stage, $langue, $stage7_ok, $NPDS_Prefix;
-      if(($adminpass1 != '') AND ($adminpass2 != '')) {
-         settype($out,'string');
-         include('config.php');
-         write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix);
-         if($stage7_ok == 2) {
-            echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'install.php?op=etape_7&stage=7&classe=0&langue='.$langue.'\';'."\n".'//]]>'."\n".'</script>';
-         }
-         else {
-            if($stage7_ok == 1) {
-               @unlink("modules/f-manager/users/root.conf.php");
-               @copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
-
-               if($qi == 1) {Header('Location: install.php?stage=8&qi=1&langue='.$langue);exit;};
-
-              $msg = '
-               <div class="alert alert-success">'.ins_translate("Le compte Admin a été modifié avec succès !").'</div>';
-            }
-            elseif($stage7_ok == 0) {
-               $msg = '
-               <div class="alert alert-danger">'.ins_translate("Le compte Admin n'a pas pu être modifié. Vérifiez les paramètres ainsi que vos fichiers, puis réessayez à nouveau.").'</div>';
-            }
-            entete();
-            menu();
-            echo $menu;
-            $out.= '
-               <h3 class="mb-3">'.ins_translate('Compte Admin').'</h3>'.$msg;
-            if($stage7_ok == 1 and $qi !=1) {
-                   $out.= '
-                <form name="next" method="post" action="install.php">
-                   <input type="hidden" name="langue" value="'.$langue.'" />
-                   <input type="hidden" name="stage" value="8" />
-                   <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
-               </form>';
-                }
-                $out.= '
-                </div>';
-            echo $out;
-             unset($stage7_ok);
-          }
-       }
-      else {
-         echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'install.php?op=etape_7&stage=7&classe=0&langue='.$langue.'\';'."\n".'//]]>'."\n".'</script>';
-      }
-      break;
-      case 'etape_7':
-      default:
-         include('config.php');
-         entete();
-         menu();
-         echo $menu;
-         etape_7();
-      break;
-   }
-   pied_depage();
-}
-
-/*
-# install/etape_8.php
-# Configuration du module Upload
-*/
-if($stage == 8) {
-   for($i=1;$i<=8;$i++) {
-      ${"colorst".$i} ='-success';
-   }
-   $colorst9 = ' active';
-
-   require('install/etape_8.php');
-   if(!isset($op)) $op = 'etape_8';
-   switch($op) {
-      case 'write_upload':
-         global $stage, $langue, $stage8_ok, $qi;
-         settype($out,'string');
-         include('config.php');
-         write_upload($new_max_size,$new_DOCUMENTROOT,$new_autorise_upload_p,$new_racine,$new_rep_upload,$new_rep_cache,$new_rep_log,$new_url_upload);
-         if($stage8_ok == 1) {
-             $msg = '
-               <div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
-               if($qi == 1) {Header('Location: install.php?stage=9&qi=1&op=write_ok&langue='.$langue);exit;};
-         }
-         elseif($stage8_ok == 0) {
-            $msg = '
-               <div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
-         }
-         entete();
-         menu();
-         echo $menu;
-
-         $out.=  '
-               <h3 class="mb-3">'.ins_translate("Configuration du module UPload").'</h3>'.$msg;
-         if($stage8_ok == 1 and $qi !=1) {
-            $out.= '
-         <form name="next" method="post" action="install.php">
-            <input type="hidden" name="langue" value="'.$langue.'" />
-            <input type="hidden" name="stage" value="9" />
-            <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
-         </form>';
-         }
-          $out.= '
-          </div>';
-      echo $out;
-
-       unset($stage8_ok);
-       break;
-       case 'etape_8':
-       default:
-         entete();
-         menu();
-         echo $menu;
-         etape_8();
-       break;
-   }
-   pied_depage();
-}
 
 /*
 # install/etape_9.php

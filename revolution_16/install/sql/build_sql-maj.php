@@ -14,17 +14,18 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 // ATTENTION ce script ne fonctionne parfaitement qu'avec une archive SQL avec des instructions SQL répétitives individualisées  !!
-
+// basé sur la comparaison et l'extraction des différences entre les archives sql d'une 16.3 et d'une 16.4
 function maj_db_163to164() {
-   global $NPDS_Prefix, $dbname;
+   global $NPDS_Prefix;
+   $aff ='';
    $table164 = array("authors","bannerclient","groupes","metalang");
    // # mise à jour structure
    $t='authors'; $c='radminfilem';
-   $sql="ALTER TABLE ".$NPDS_Prefix.$t" DROP COLUMN radminfilem";
+   $sql="ALTER TABLE ".$NPDS_Prefix.$t." DROP COLUMN radminfilem";
    $result = sql_query($sql);
    $aff.= '<small class="text-success"><strong>'.$NPDS_Prefix.$t.'</strong> : suppression colonne '.$c.' </small><i class="fa fa-check text-success ml-2" title="ALTER TABLE '.$NPDS_Prefix.$t.' DROP COLUMN radminfilem;" data-toggle="tooltip"></i><br />';
 
@@ -48,13 +49,13 @@ function maj_db_163to164() {
    $metatomodif = array("!anti_spam!","!search_topics!","!leftblocs!","!rightblocs!","!list_mns!","!mailadmin!","!login!","admin_infos","top_stories","top_commented_stories","top_categories","top_sections","top_reviews","top_authors","top_polls","top_storie_authors","topic_all","topic_subscribeOFF","topic_subscribe","yt_video","vm_video","dm_video");
 
    foreach($metatodelete as $v){
-      $sql="DELETE FROM ".$NPDS_Prefix.$t" WHERE def=".$v."";
+      $sql='DELETE FROM '.$NPDS_Prefix.$t.' WHERE def="'.$v.'"';
       $result = sql_query($sql);
       $aff.= '<br /><small class="text-success"><strong>'.$NPDS_Prefix.$t.' : '.$c.'</strong> : suppression '.$v.'</small><i class="fa fa-check text-success ml-2"></i><br />';
    }
 
    foreach($metatomodif as $v){
-      $sql="DELETE FROM ".$NPDS_Prefix."metalang WHERE def=".$v."";
+      $sql='DELETE FROM '.$NPDS_Prefix.'metalang WHERE def="'.$v.'"';
       $result = sql_query($sql);
       $aff.= '<br /><small class="text-success"><strong>'.$NPDS_Prefix.$t.' : '.$c.'</strong> : suppression '.$v.'</small><i class="fa fa-check text-success ml-2"></i><br />';
    }

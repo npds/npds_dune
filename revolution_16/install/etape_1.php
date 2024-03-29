@@ -14,18 +14,18 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_1() {
-   global $stage,$cms_name, $langue;
+   global $stage,$cms_name, $langue, $Version_Sub;
    $stage = 0;
    $accueil = 'install/languages/'.$langue.'/bienvenue.txt';
    echo '
                <div class="row">
                   <div class="col-sm-12">
-                     <h3 class="mb-2">'.ins_translate('Mise à jour').'&nbsp;'.$cms_name.'</h3>
+                     <h3 class="mb-2">'.ins_translate('Mise à jour').'&nbsp;'.$Version_Sub.' '.OLD_VERSION.' '.ins_translate('vers').' '.NEW_VERSION.'</h3>
     '.ins_translate('Bienvenue').',<br />';
       $id_fr = fopen($accueil, 'r');
       fpassthru($id_fr);

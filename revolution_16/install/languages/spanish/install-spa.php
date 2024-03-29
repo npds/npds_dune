@@ -3,24 +3,22 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.2                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2017                                      */
+/*         : v.1.2 phr, jpb - 2017-24                                   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function ins_translate($phrase) {
  switch($phrase) {
-  case " Mettre à jour ": $tmp = "Actualizar"; break;
-  case " Tables préfixées avec : ": $tmp = "Tablas con el prefijo:"; break;
   case "Actualiser": $tmp = "Actualizar"; break;
   case "Administrateur": $tmp = "Administrador"; break;
   case "Adresse (URL) de votre site": $tmp = "Dirección (URL) de su sitio web"; break;
@@ -84,6 +82,8 @@ function ins_translate($phrase) {
   case "Le mot de passe doit contenir": $tmp = "La contraseña debe contener"; break;
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "Las dos contraseñas no son idénticas."; break;
   case "Licence": $tmp = "Licencia"; break;
+  case "Mettre à jour": $tmp = "Actualizar"; break;
+  case "Mise à jour": $tmp = "Actualizado"; break;
   case "Modifier": $tmp = "Cambiar"; break;
   case "Module UPload": $tmp = "Módulo UPload"; break;
   case "Mot de passe": $tmp = "Contraseña"; break;
@@ -118,6 +118,7 @@ function ins_translate($phrase) {
   case "Slogan de votre site": $tmp = "Lema su sitio"; break;
   case "souvent identique à l'identifiant": $tmp = "menudo idéntico al identificador"; break;
   case "sur le serveur d'hébergement": $tmp = "en el servidor de alojamiento"; break;
+  case "Tables préfixées avec : ": $tmp = "Tablas con el prefijo:"; break;
   case "Taille maxi des fichiers en octets": $tmp = "Tamaño máximo de archivos en bytes."; break;
   case "Thème graphique": $tmp = "Tema gráfico de su sitio web"; break;
   case "Type de connexion au serveur mySQL": $tmp = "Tipo de conexión al servidor MySQL"; break;
@@ -125,6 +126,7 @@ function ins_translate($phrase) {
   case "URL HTTP de votre site": $tmp = "HTTP URL de su sitio web"; break;
   case "Valider": $tmp = "Aceptar"; break;
   case "Vérification des fichiers": $tmp = "Comprobación de archivos"; break;
+  case "vers": $tmp = "a"; break;
   case "Version actuelle de PHP": $tmp = "La versión actual de PHP"; break;
   case "Vos paramètres personnels": $tmp = "Su configuración personal"; break;
   case "Votre version de NPDS est incorrecte, version requise": $tmp = "Su versión de NDPS es incorrecta, la versión requerida"; break;

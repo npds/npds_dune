@@ -14,14 +14,14 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 include ('config.php');
    $pre_tab='';
    if($NPDS_Prefix!='') 
-      $pre_tab = ins_translate(' Tables préfixées avec : ').'<code class="code">'.$NPDS_Prefix.' </code>.';
+      $pre_tab = ins_translate('Tables préfixées avec : ').'<code class="code">'.$NPDS_Prefix.' </code>.';
 
 function etape_6() {
    global $list_tab, $langue, $stage, $qi, $dbhost, $dbname, $dbuname, $dbpass, $NPDS_Prefix, $pre_tab;
@@ -34,7 +34,7 @@ function etape_6() {
                      <input type="hidden" name="stage" value="'.$stage.'" />
                      <input type="hidden" name="op" value="write_database" />
                      <input type="hidden" name="qi" value="'.$qi.'" />
-                     <button type="submit" class="btn btn-success">'.ins_translate('Créer').'</button>
+                     <button type="submit" class="btn btn-success">'.ins_translate('Mettre à jour').'</button>
                   </form>
                </div>';
 }
