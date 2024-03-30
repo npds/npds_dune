@@ -32,7 +32,7 @@ verif_sql();
 */
 $cms_logo = 'install/images/header.png';
 $cms_name = 'NPDS REvolution 16';
-global $cms_logo, $cms_name, $Version_Num, $Version_Id, $Version_Sub, $phpver, $nuke_url;
+global $cms_logo, $cms_name, $Version_Num, $Version_Sub, $phpver;
 
 if(!isset($stage)) $stage = 0;
 
@@ -136,29 +136,26 @@ if($stage == 6) {
    $colorst7 = ' active';
    switch($op) {
       case 'write_database':
-         global $stage, $langue, $stage6_ok, $NPDS_Prefix, $pre_tab, $sql_com, $qi;
+         global $stage, $langue, $stage6_ok, $NPDS_Prefix, $pre_tab, $sql_com, $qi, $aff_log;
          settype($out,'string');
          include($_SERVER['DOCUMENT_ROOT'].'/lab1634/install/sql/build_sql-maj.php');
          // modification de structure et suppression de données
-         echo 'nous sommes ici !!';//////////
          sql_connect();
-//         maj_db_163to164();
+         maj_db_163to164();
          // réécriture de données
-         echo 'nous sommes là !!';
-         die();
          build_sql_maj($NPDS_Prefix);
+//         die();///////////////////////////////////
          require('install/sql/sql-maj.php');
          write_database();
-                  die();
 
          if($stage6_ok == 1) {
-            $Xinst_log = date('d/m/y  H:j:s').' : Modification base de donnée pour '.$cms_name."\n";
+            $Xinst_log = date('d/m/y  H:j:s').' : Modification base de donnée mise à jour '.OLD_VERSION.' to '.NEW_VERSION."\n";
             $file = fopen("slogs/install.log", "a");
             fwrite($file, $Xinst_log);
             fclose($file);
             $colorst7 = ' active';
             $msg = '
-                  <div class="alert alert-success">'.ins_translate('La base de données a été mise à jour avec succès !').'</div>';
+                  <div class="alert alert-success">'.ins_translate('La base de données a été mise à jour avec succès !').'</div>'.$aff_log;
             if($qi == 1) {Header('Location: install.php?stage=7&qi=1&langue='.$langue);exit;};
          }
          elseif($stage6_ok == 0) {
@@ -175,8 +172,8 @@ if($stage == 6) {
             $out.= '
                <form name="next" method="post" action="install.php">
                   <input type="hidden" name="langue" value="'.$langue.'" />
-                  <input type="hidden" name="stage" value="7" />
-                  <button type="submit" class="btn btn-success">'.ins_translate('Etape suivante').'</button>
+                  <input type="hidden" name="stage" value="9" />
+                  <button type="submit" class="mt-3 btn btn-success">'.ins_translate('Etape suivante').'</button>
                </form>';
          }
          $out.= '
@@ -218,22 +215,24 @@ if($stage == 9) {
 
          // La suppression de l'installation
          function icare_delete_Dir($rep) {
-         $dir = opendir($rep);
-         chdir($rep);
-         while($nom = readdir($dir)) {
-            if ($nom != '.' && $nom != '..' && $nom != '') {
-               if (is_dir($nom)) {
-                  $archive[$nom] = icare_delete_Dir($nom);
-                  rmdir($nom);
-               } elseif(is_file($nom)) {
-                  @unlink($nom);
-              }
+            $dir = opendir($rep);
+            chdir($rep);
+            while($nom = readdir($dir)) {
+               if ($nom != '.' && $nom != '..' && $nom != '') {
+                  if (is_dir($nom)) {
+                     $archive[$nom] = icare_delete_Dir($nom);
+                     rmdir($nom);
+                  } elseif(is_file($nom)) {
+                     @unlink($nom);
+                 }
+               }
             }
+            chdir('..');
+            closedir($dir);
+            return $archive;
          }
-         chdir('..');
-         closedir($dir);
-         return $archive;
-         }
+         
+/*
          if (file_exists('IZ-Xinstall.ok')) {
             if (file_exists('install.php') OR is_dir('install')) {
                icare_delete_Dir('install');
@@ -241,6 +240,8 @@ if($stage == 9) {
                @unlink('install.php');
             }
          }
+*/
+         
          echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'index.php\';'."\n".'//]]>'."\n".'</script>';
          break;
 

@@ -84,6 +84,7 @@ function ins_translate($phrase) {
   case "Licence": $tmp = "Lizenz"; break;
   case "Mettre à jour": $tmp = " Updaten "; break;
   case "Mise à jour": $tmp = "Aktualisierte"; break;
+  case "Mise à jour terminée": $tmp = "Update abgeschlossen"; break;
   case "Modifier": $tmp = "Ändern"; break;
   case "Module UPload": $tmp = "Upload Modul"; break;
   case "Mot de passe": $tmp = "Passwort"; break;

@@ -19,7 +19,7 @@
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_1() {
-   global $stage,$cms_name, $langue, $Version_Sub;
+   global $stage, $cms_name, $langue, $Version_Sub;
    $stage = 0;
    $accueil = 'install/languages/'.$langue.'/bienvenue.txt';
    echo '

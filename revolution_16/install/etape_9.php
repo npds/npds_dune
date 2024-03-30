@@ -23,7 +23,7 @@ function etape_9() {
    $stage = 9;
    echo '
       <h3 class="mb-3">'.ins_translate('Fin').'</h3>
-         <div class="alert alert-success">'.ins_translate('Félicitations, vous avez à présent votre portail NPDS.').'</div>
+         <div class="alert alert-success">'.ins_translate('Mise à jour terminée').'.<br />'.ins_translate("Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.").'</div>
          <form name="ended" method="post" action="install.php">
             <input type="hidden" name="langue" value="'.$langue.'" />
             <input type="hidden" name="stage" value="'.$stage.'" />
