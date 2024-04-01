@@ -25,20 +25,24 @@ function maj_db_163to164() {
    // # modification de structure
    $table164 = array("authors","bannerclient","groupes","metalang");
    $t=$NPDS_Prefix.'authors'; $c='radminfilem';
-   sql_query("ALTER TABLE ".$t." DROP COLUMN radminfilem");
-   $aff_log.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : suppression </small><i class="fa fa-check text-success ms-2" title="ALTER TABLE '.$t.' DROP COLUMN radminfilem;" data-bs-toggle="tooltip"></i>';
+   $sql = 'ALTER TABLE '.$t.' DROP COLUMN '.$c;
+   sql_query($sql);
+   $aff_log.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Suppression").' </small><span title="'.$sql.'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right"><i class="fa fa-check text-success ms-2"></i></span>';
 
    $t=$NPDS_Prefix.'bannerclient'; $c='passwd';
-   sql_query("ALTER TABLE ".$t." MODIFY ".$c." varchar(60)");
-   $aff_log.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : modification taille (varchar(60))</small><i class="fa fa-check text-success ms-2"></i>';
+   $sql = 'ALTER TABLE '.$t.' MODIFY '.$c.' varchar(60)'; 
+   sql_query($sql);
+   $aff_log.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").'</small><span title="'.$sql.'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right"><i class="fa fa-check text-success ms-2"></i></span>';
 
    $t=$NPDS_Prefix.'groupes'; $c='groupe_name';
    $aff_log .= '<br />'.$t;
-   sql_query("ALTER TABLE ".$t." MODIFY ".$c." varchar(1000)");
-   $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").' taille (varchar(1000))</small><i class="fa fa-check text-success ms-2"></i>';
+   $sql = 'ALTER TABLE '.$t.' MODIFY '.$c.' varchar(1000)';
+   sql_query($sql);
+   $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").'</small><span title="'.$sql.'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right"><i class="fa fa-check text-success ms-2"></i></span>';
    $t=$NPDS_Prefix.'groupes'; $c='groupe_description';
-   sql_query("ALTER TABLE ".$t." MODIFY ".$c." text");
-   $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").' type text</small><i class="fa fa-check text-success ms-2"></i>';
+   $sql = 'ALTER TABLE '.$t.' MODIFY '.$c.' text';
+   sql_query($sql);
+   $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").' </small><span title="'.$sql.'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right"><i class="fa fa-check text-success ms-2" title="'.$sql.'" data-bs-toggle="tooltip"></i></span>';
 
    $t=$NPDS_Prefix.'metalang'; $c='def';
    $metatodelete = array("!bargif!","!bgcolor1!","!bgcolor2!","!bgcolor3!","!bgcolor4!","!bgcolor5!","!bgcolor6!","!textcolor1!","!textcolor2!","!opentable!","!closetable!");
@@ -48,7 +52,7 @@ function maj_db_163to164() {
    foreach($metatodelete as $v){
       $sql='DELETE FROM '.$t.' WHERE def="'.$v.'"';
       $result = sql_query($sql);
-      $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.$v.' : '.ins_translate("Suppression").' </small><i class="fa fa-check text-success ms-2"></i>';
+      $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.$v.' : '.ins_translate("Suppression").' </small><span title="'.htmlentities($sql, ENT_QUOTES).'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right"><i class="fa fa-check text-success ms-2"></i></span>';
    }
    // suppression de données pour réinsertion avec modification
    foreach($metatomodif as $v){
