@@ -137,7 +137,7 @@ if($stage == 6) {
       case 'write_database':
          global $stage, $langue, $stage6_ok, $NPDS_Prefix, $pre_tab, $sql_com, $qi, $aff_log;
          settype($out,'string');
-         include($_SERVER['DOCUMENT_ROOT'].'/lab1634/install/sql/build_sql-maj.php');
+         include('install/sql/build_sql-maj.php');
          // modification de structure et suppression de données
          sql_connect();
          maj_db_163to164();
@@ -154,7 +154,6 @@ if($stage == 6) {
             $colorst7 = ' active';
             $msg = '
                   <div class="alert alert-success">'.ins_translate('La base de données a été mise à jour avec succès !').'</div>'.$aff_log;
-            if($qi == 1) {Header('Location: install.php?stage=7&qi=1&langue='.$langue);exit;};
          }
          elseif($stage6_ok == 0) {
             $colorst7 = '-danger';
@@ -166,7 +165,7 @@ if($stage == 6) {
          echo $menu;
          $out.= '
                <h3 class="mb-3">'.ins_translate('Base de données').'</h3>'.$msg;
-         if($stage6_ok == 1 and $qi !=1) {
+         if($stage6_ok == 1) {
             $out.= '
                <form name="next" method="post" action="install.php">
                   <input type="hidden" name="langue" value="'.$langue.'" />

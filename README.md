@@ -18,7 +18,7 @@ un serveur (local ou distant : Lamp, Wamp ...) avec
 - mysql >= 5.5.3
 - une base de donnée existante 
 
-## Installation
+## Mise à jour 16.3 vers 16.4
 
 Télécharger [la dernière archive](https://github.com/npds/npds_dune/releases/latest)   
 Uploader sur votre serveur (local ou distant)  
