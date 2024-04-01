@@ -20,45 +20,43 @@
 // ATTENTION ce script ne fonctionne parfaitement qu'avec une archive SQL avec des instructions SQL répétitives individualisées  !!
 // basé sur la comparaison et l'extraction des différences entre les archives sql d'une 16.3 et d'une 16.4
 function maj_db_163to164() {
-   global $NPDS_Prefix;
-   $aff ='';
+   global $NPDS_Prefix, $aff_log;
+   $aff_log ='';
+   // # modification de structure
    $table164 = array("authors","bannerclient","groupes","metalang");
-   // # mise à jour structure
-   $t='authors'; $c='radminfilem';
-   $sql="ALTER TABLE ".$NPDS_Prefix.$t." DROP COLUMN radminfilem";
-   $result = sql_query($sql);
-   $aff.= '<small class="text-success"><strong>'.$NPDS_Prefix.$t.'</strong> : suppression colonne '.$c.' </small><i class="fa fa-check text-success ml-2" title="ALTER TABLE '.$NPDS_Prefix.$t.' DROP COLUMN radminfilem;" data-toggle="tooltip"></i><br />';
+   $t=$NPDS_Prefix.'authors'; $c='radminfilem';
+   sql_query("ALTER TABLE ".$t." DROP COLUMN radminfilem");
+   $aff_log.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : suppression </small><i class="fa fa-check text-success ms-2" title="ALTER TABLE '.$t.' DROP COLUMN radminfilem;" data-bs-toggle="tooltip"></i>';
 
-   $t='bannerclient'; $c='passwd';
-   $sql="ALTER TABLE ".$NPDS_Prefix.$t." MODIFY ".$c." varchar(60)";
-   $result = sql_query($sql);
-   $aff.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$NPDS_Prefix.$t.' : '.$c.'</strong> : modification taille (varchar(60))</small><i class="fa fa-check text-success ml-2"></i><br />';
+   $t=$NPDS_Prefix.'bannerclient'; $c='passwd';
+   sql_query("ALTER TABLE ".$t." MODIFY ".$c." varchar(60)");
+   $aff_log.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : modification taille (varchar(60))</small><i class="fa fa-check text-success ms-2"></i>';
 
-   $t='groupes'; $c='groupe_name';
-   $sql="ALTER TABLE ".$NPDS_Prefix.$t." MODIFY ".$c." varchar(1000)";
-   $result = sql_query($sql);
-   $aff.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$NPDS_Prefix.$t.' : '.$c.'</strong> : modification taille (varchar(1000))</small><i class="fa fa-check text-success ml-2"></i><br />';
+   $t=$NPDS_Prefix.'groupes'; $c='groupe_name';
+   $aff_log .= '<br />'.$t;
+   sql_query("ALTER TABLE ".$t." MODIFY ".$c." varchar(1000)");
+   $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").' taille (varchar(1000))</small><i class="fa fa-check text-success ms-2"></i>';
+   $t=$NPDS_Prefix.'groupes'; $c='groupe_description';
+   sql_query("ALTER TABLE ".$t." MODIFY ".$c." text");
+   $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").' type text</small><i class="fa fa-check text-success ms-2"></i>';
 
-   $t='groupes'; $c='groupe_description';
-   $sql="ALTER TABLE ".$NPDS_Prefix.$t." MODIFY ".$c." text";
-   $result = sql_query($sql);
-   $aff.= '<br />'.$t.'<br /><small class="text-success"><strong>'.$NPDS_Prefix.$t.' : '.$c.'</strong> : modification type text</small><i class="fa fa-check text-success ml-2"></i><br />';
-
-   $t='metalang'; $c='def';
+   $t=$NPDS_Prefix.'metalang'; $c='def';
    $metatodelete = array("!bargif!","!bgcolor1!","!bgcolor2!","!bgcolor3!","!bgcolor4!","!bgcolor5!","!bgcolor6!","!textcolor1!","!textcolor2!","!opentable!","!closetable!");
    $metatomodif = array("!anti_spam!","!search_topics!","!leftblocs!","!rightblocs!","!list_mns!","!mailadmin!","!login!","admin_infos","top_stories","top_commented_stories","top_categories","top_sections","top_reviews","top_authors","top_polls","top_storie_authors","topic_all","topic_subscribeOFF","topic_subscribe","yt_video","vm_video","dm_video");
-
+   $aff_log .= '<br />'.$t;
+   // suppression définitive de données
    foreach($metatodelete as $v){
-      $sql='DELETE FROM '.$NPDS_Prefix.$t.' WHERE def="'.$v.'"';
+      $sql='DELETE FROM '.$t.' WHERE def="'.$v.'"';
       $result = sql_query($sql);
-      $aff.= '<br /><small class="text-success"><strong>'.$NPDS_Prefix.$t.' : '.$c.'</strong> : suppression '.$v.'</small><i class="fa fa-check text-success ml-2"></i><br />';
+      $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.$v.' : '.ins_translate("Suppression").' </small><i class="fa fa-check text-success ms-2"></i>';
    }
-
+   // suppression de données pour réinsertion avec modification
    foreach($metatomodif as $v){
-      $sql='DELETE FROM '.$NPDS_Prefix.'metalang WHERE def="'.$v.'"';
+      $sql='DELETE FROM '.$t.' WHERE def="'.$v.'"';
       $result = sql_query($sql);
-      $aff.= '<br /><small class="text-success"><strong>'.$NPDS_Prefix.$t.' : '.$c.'</strong> : suppression '.$v.'</small><i class="fa fa-check text-success ml-2"></i><br />';
+      $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> :  '.$v.' : '.ins_translate("Suppression").'/'.ins_translate("Modification").'</small><i class="fa fa-check text-success ms-2"></i>';
    }
+   return $aff_log;
 }
 
 function build_sql_maj($NPDS_Prefix) {
@@ -69,7 +67,7 @@ function build_sql_maj($NPDS_Prefix) {
    $sql_com='';
    $list_tab='';
    $content='';
-   $sql_com.='sql_query("SET character_set_results = \'utf8\', character_set_client = \'utf8\', character_set_connection = \'utf8\', character_set_database = \'utf8\', character_set_server = \'utf8\'");';
+//   $sql_com.='sql_query("SET character_set_results = \'utf8\', character_set_client = \'utf8\', character_set_connection = \'utf8\', character_set_database = \'utf8\', character_set_server = \'utf8\'");'."\n";
 
    preg_match_all("#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)\s[^;]*[^\r|\n]*(;)#m", $sql_contents, $reg);
    /*ou
@@ -86,52 +84,50 @@ function build_sql_maj($NPDS_Prefix) {
    */
    $reg[2]=array_unique($reg[2]);
    //==> construction de commande php pour sql avec prefixe des tables
-   foreach ( $reg[2] as $key=>$value )
-   {$sql_com.='$sql = \'DROP TABLE IF EXISTS '.$NPDS_Prefix.$value.';\';'."\n".'$result = @sql_query($sql);
-   '."\n";
+/*
+   foreach ( $reg[2] as $key=>$value ) {
+      $sql_com.='$sql = \'DROP TABLE IF EXISTS '.$NPDS_Prefix.$value.';\';'."\n".'$result = @sql_query($sql);'."\n";
    $list_tab.= $value.' ';
    }
+*/
    //==> implementation commande sql avec prefixe des tables
    $cont= preg_replace ( '#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)(\s[^;]*[^\r]*;)#m', '\1'.$NPDS_Prefix.'\2\3', $reg[0] );
 
 //==> construction de commande php pour sql avec protect des '\" seuls
    foreach ( $cont as $key=>$value ) {
-      $sql_com.= '$sql=\''.addslashes ( $value) ."';\n".'$result = @sql_query($sql);'."\n";
+      $sql_com.= '   $sql=\''.addslashes ( $value) ."';\n".'   $result = @sql_query($sql);'."\n";
    }
 
    //==> construction contenu fichier
    $contents = "<?php \n";
-   $content .= "/************************************************************************/\n";
-   $content .= "/* DUNE by NPDS                                                         */\n";
-   $content .= "/* ===========================                                          */\n";
-   $content .= "/*                                                                      */\n";
-   $content .= "/* NPDS Copyright (c) 2002-".date("Y")." by Philippe Brunier                     */\n";
-   $content .= "/* IZ-Xinstall version : 1.2.0                                          */\n";
-   $content .= "/*                                                                      */\n";
-   $content .= "/* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */\n";
-   $content .= "/*         : v.1.1.1 jpb, phr                                           */\n";
-   $content .= "/*         : v.1.1.2 jpb, phr, dev, boris                               */\n";
-   $content .= "/*         : v.1.1.3 dev - 2013                                         */\n";
-   $content .= "/*         : v.1.2.0 phr, jpb - 2017-2024                               */\n";
-   $content .= "/*                                                                      */\n";
-   $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
-   $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-   $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
-   $content .= "/************************************************************************/\n";
+   $contents .= "/************************************************************************/\n";
+   $contents .= "/* DUNE by NPDS                                                         */\n";
+   $contents .= "/* ===========================                                          */\n";
+   $contents .= "/*                                                                      */\n";
+   $contents .= "/* NPDS Copyright (c) 2002-".date("Y")." by Philippe Brunier                     */\n";
+   $contents .= "/* IZ-Xinstall version : 1.2.0                                          */\n";
+   $contents .= "/*                                                                      */\n";
+   $contents .= "/* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */\n";
+   $contents .= "/*         : v.1.1.1 jpb, phr                                           */\n";
+   $contents .= "/*         : v.1.1.2 jpb, phr, dev, boris                               */\n";
+   $contents .= "/*         : v.1.1.3 dev - 2013                                         */\n";
+   $contents .= "/*         : v.1.2.0 phr, jpb - 2017-2024                               */\n";
+   $contents .= "/*                                                                      */\n";
+   $contents .= "/* This program is free software. You can redistribute it and/or modify */\n";
+   $contents .= "/* it under the terms of the GNU General Public License as published by */\n";
+   $contents .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+   $contents .= "/************************************************************************/\n";
    
-   $contents.='if (stristr($_SERVER[\'PHP_SELF\'],"sql-maj.php")) { die(); }'."\n";
-   $contents.='function write_database()'."\n";
-   $contents.=' {'."\n";
+   $contents.='if (stristr($_SERVER[\'PHP_SELF\'],"sql-maj.php")) die();'."\n";
+   $contents.='function write_database() {'."\n";
    $contents.= $sql_com;
    $contents.= "\n";
    $contents.='   global $stage6_ok;'."\n";
    $contents.='   $stage6_ok = 1;'."\n";
    $contents.='   if(!$result)'."\n";
-   $contents.='    {'."\n";
-   $contents.='    $stage6_ok = 0;'."\n";
-   $contents.='    }'."\n";
-   $contents.='    return($stage6_ok);'."\n";
-   $contents.=' }'."\n";
+   $contents.='      $stage6_ok = 0;'."\n";
+   $contents.='   return($stage6_ok);'."\n";
+   $contents.='}'."\n";
    $contents.='?>';
    
    //==> écriture contenu fichier

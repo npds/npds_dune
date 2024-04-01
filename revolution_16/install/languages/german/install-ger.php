@@ -86,6 +86,7 @@ function ins_translate($phrase) {
   case "Mise à jour": $tmp = "Aktualisierte"; break;
   case "Mise à jour terminée": $tmp = "Update abgeschlossen"; break;
   case "Modifier": $tmp = "Ändern"; break;
+  case "Modification": $tmp = "Änderung"; break;
   case "Module UPload": $tmp = "Upload Modul"; break;
   case "Mot de passe": $tmp = "Passwort"; break;
   case "n'existait pas ce script tentera de la créer pour vous.": $tmp = "existiert nicht und wird für Sie angelegt."; break;
@@ -98,6 +99,7 @@ function ins_translate($phrase) {
   case "Non": $tmp = "Nein"; break;
   case "Nous allons maintenant procéder à la création des tables de la base de données ": $tmp = "Jetzt werden die Datenbanktabellen angelegt "; break;
   case "Nous allons maintenant procéder à la mise à jour de la base de données. Il est recommandé de faire une sauvegarde de celle-ci avant de poursuivre !": $tmp = "Nun wird ein Datenbank Update gemacht. Tipp : Sichern Sie vorher die vorhandene Datenbank !"; break;
+  case "Nous allons maintenant procéder à la modification des tables de la base de données " : $tmp = "Wir werden nun mit der Änderung der Datenbanktabellen fortfahren "; break;
   case "Nouvelle installation": $tmp = "Neue Anlag"; break;
   case "NPDS nécessite une version 5.6.0 ou supérieure !": $tmp = "PHP Version 5.6.0 oder höher ist notwendig für NPDS !"; break;
   case "Oui": $tmp = "Ja"; break;
@@ -108,7 +110,7 @@ function ins_translate($phrase) {
   case "Premier utilisateur": $tmp = "Erster Benutzer"; break;
   case "Quitter": $tmp = "Beenden"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "Der Vorgang kann länger dauern. Bitte haben Sie Geduld."; break;
-  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Notiz : Sie müssen die Administrationseinstellungen verifizieren um sie zu speichern.";
+  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Notiz : Sie müssen die Administrationseinstellungen verifizieren um sie zu speichern.";  break;
   case "Remarque": $tmp = "Notiz"; break;
   case "Répertoire de téléchargement": $tmp = "Upload Pfad"; break;
   case "Répertoire de votre site": $tmp = "Pfad Ihrer Webseite"; break;
@@ -118,6 +120,7 @@ function ins_translate($phrase) {
   case "Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !": $tmp = "Wenn Ihre Datenbank nicht leer ist, machen Sie ein Backup, bevor Sie fortfahren !"; break;
   case "Slogan de votre site": $tmp = "Slogan Ihrer Website"; break;
   case "souvent identique à l'identifiant": $tmp = "Oft gleich der Identifikation"; break;
+  case "Suppression": $tmp = "Streichung"; break;
   case "sur le serveur d'hébergement": $tmp = "auf dem Hostserver"; break;
   case "Tables préfixées avec : ": $tmp = "Tabellen mit dem Prefix: "; break;
   case "Taille maxi des fichiers en octets": $tmp = "Max. Dateigrösse in bytes"; break;

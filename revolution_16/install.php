@@ -41,7 +41,6 @@ if(!isset($stage)) $stage = 0;
 # Accueil :
 #   => install/languages/english/welcome.txt
 #   => install/languages/french/bienvenue.txt
-#   0 : nouvelle installation (par defaut à supprimer)
 */
 if($stage == 0) {
    entete();
@@ -144,7 +143,6 @@ if($stage == 6) {
          maj_db_163to164();
          // réécriture de données
          build_sql_maj($NPDS_Prefix);
-//         die();///////////////////////////////////
          require('install/sql/sql-maj.php');
          write_database();
 
@@ -231,7 +229,7 @@ if($stage == 9) {
             closedir($dir);
             return $archive;
          }
-         
+
 /*
          if (file_exists('IZ-Xinstall.ok')) {
             if (file_exists('install.php') OR is_dir('install')) {

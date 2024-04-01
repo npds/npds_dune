@@ -85,6 +85,7 @@ function ins_translate($phrase) {
   case "Mettre à jour": $tmp = "Actualizar"; break;
   case "Mise à jour": $tmp = "Actualizado"; break;
   case "Mise à jour terminée": $tmp = "Actualización completada"; break;
+  case "Modification": $tmp = "modificación"; break;
   case "Modifier": $tmp = "Cambiar"; break;
   case "Module UPload": $tmp = "Módulo UPload"; break;
   case "Mot de passe": $tmp = "Contraseña"; break;
@@ -98,6 +99,7 @@ function ins_translate($phrase) {
   case "Non": $tmp = "No"; break;
   case "Nous allons maintenant procéder à la création des tables de la base de données ": $tmp = "Ahora vamos a proceder a la creación de tablas en la base de datos "; break;
   case "Nous allons maintenant procéder à la mise à jour de la base de données. Il est recommandé de faire une sauvegarde de celle-ci avant de poursuivre !": $tmp = "Ahora procederemos a actualizar la base de datos. Se recomienda hacer una copia de seguridad antes de continuar!"; break;
+  case "Nous allons maintenant procéder à la modification des tables de la base de données " : $tmp = "Ahora procederemos a modificar las tablas de la base de datos "; break;
   case "Nouvelle installation": $tmp = "Nueva instalación"; break;
   case "NPDS nécessite une version 5.6.0 ou supérieure !": $tmp = "NDPS requiere 5.6.0 o posterior"; break;
   case "Oui": $tmp = "Si"; break;
@@ -108,7 +110,7 @@ function ins_translate($phrase) {
   case "Premier utilisateur": $tmp = "Primer usuario"; break;
   case "Quitter": $tmp = "Salida"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "Nota: Esto puede ser más corto o más largo Por favor espere .."; break;
-  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Nota: Por favor confirme las preferencias en la interfaz de administración para completar la actualización.";
+  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Nota: Por favor confirme las preferencias en la interfaz de administración para completar la actualización."; break;
   case "Remarque": $tmp = "Observación"; break;
   case "Répertoire de téléchargement": $tmp = "Directorio de descarga"; break;
   case "Répertoire de votre site": $tmp = "Directorio de su sitio web"; break;
@@ -118,8 +120,9 @@ function ins_translate($phrase) {
   case "Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !": $tmp = "Si su base de datos ya contiene tablas, por favor haga una copia de seguridad antes de proceder!"; break;
   case "Slogan de votre site": $tmp = "Lema su sitio"; break;
   case "souvent identique à l'identifiant": $tmp = "menudo idéntico al identificador"; break;
+  case "Suppression": $tmp = "Supresión"; break;
   case "sur le serveur d'hébergement": $tmp = "en el servidor de alojamiento"; break;
-  case "Tables préfixées avec : ": $tmp = "Tablas con el prefijo:"; break;
+  case "Tables préfixées avec : ": $tmp = "Tablas con el prefijo: "; break;
   case "Taille maxi des fichiers en octets": $tmp = "Tamaño máximo de archivos en bytes."; break;
   case "Thème graphique": $tmp = "Tema gráfico de su sitio web"; break;
   case "Type de connexion au serveur mySQL": $tmp = "Tipo de conexión al servidor MySQL"; break;

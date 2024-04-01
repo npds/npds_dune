@@ -85,6 +85,7 @@ function ins_translate($phrase) {
   case "Mettre à jour": $tmp = "Make update"; break;
   case "Mise à jour": $tmp = "Update"; break;
   case "Mise à jour terminée": $tmp = "Update completed"; break;
+  case "Modification": $tmp = "Modification"; break;
   case "Modifier": $tmp = "Change"; break;
   case "Module UPload": $tmp = "Upload module"; break;
   case "Mot de passe": $tmp = "Password"; break;
@@ -98,6 +99,7 @@ function ins_translate($phrase) {
   case "Non": $tmp = "No"; break;
   case "Nous allons maintenant procéder à la création des tables de la base de données ": $tmp = "Now, we proceed to the tables database creation "; break;
   case "Nous allons maintenant procéder à la mise à jour de la base de données. Il est recommandé de faire une sauvegarde de celle-ci avant de poursuivre !": $tmp = "Now, we will proceed to the database update. Tips : save your database before continuing !"; break;
+  case "Nous allons maintenant procéder à la modification des tables de la base de données " : $tmp = "We will now proceed to modify the database tables "; break;
   case "Nouvelle installation": $tmp = "New installation"; break;
   case "NPDS nécessite une version 5.6.0 ou supérieure !": $tmp = "PHP version 5.6.0 or greater is recommended for NPDS !"; break;
   case "Oui": $tmp = "Yes"; break;
@@ -108,7 +110,7 @@ function ins_translate($phrase) {
   case "Premier utilisateur": $tmp = "First user"; break;
   case "Quitter": $tmp = "Exit"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "This operation can be more or less long. Thanks to have patience."; break;
-  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Notice : you must validate the preferences in administration interface to terminate the update process.";
+  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Notice : you must validate the preferences in administration interface to terminate the update process."; break;
   case "Remarque": $tmp = "Notice"; break;
   case "Répertoire de téléchargement": $tmp = "Upload directory"; break;
   case "Répertoire de votre site": $tmp = "Directory of your website"; break;
@@ -118,6 +120,7 @@ function ins_translate($phrase) {
   case "Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !": $tmp = "If your database is not empty, make a backup before continue !"; break;
   case "Slogan de votre site": $tmp = "Slogan of your website"; break;
   case "souvent identique à l'identifiant": $tmp = "ofen same as login"; break;
+  case "Suppression": $tmp = "Deletion"; break;
   case "sur le serveur d'hébergement": $tmp = "on the host server"; break;
   case "Tables préfixées avec : ": $tmp = "Tables with this prefix: "; break;
   case "Taille maxi des fichiers en octets": $tmp = "Max. files size in bytes"; break;
