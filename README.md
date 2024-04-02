@@ -19,11 +19,12 @@ un serveur (local ou distant : Lamp, Wamp ...) avec
 - une base de donnée existante 
 
 ## Mise à jour 16.3 vers 16.4
-
-Télécharger [la dernière archive](https://github.com/npds/npds_dune/releases/latest)   
-Uploader sur votre serveur (local ou distant)  
-Aller /index.php   
-Suivre l'installation automatique ...
+- Sauvegarder la base de donnée de votre site !!
+- Télécharger [l'archive](https://github.com/npds/npds_dune/releases/latest)
+- Uploader sur votre serveur (local ou distant)  
+- Aller /index.php
+- Suivre l'installation automatique ...
+- Pour finir revalider vos préférences et vos metatags.
 
 ## Communauté
 

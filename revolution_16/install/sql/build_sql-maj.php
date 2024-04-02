@@ -4,14 +4,14 @@
 /* ===========================                                          */
 /*                                                                      */
 /* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* IZ-Xinstall-MAJ v.1.3                                                */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 0 phr, jpb - 2016-2024                               */
-/*                                                                      */
+/*         : v.1.2 0 phr, jpb - 2016                                    */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
@@ -69,9 +69,6 @@ function build_sql_maj($NPDS_Prefix) {
    $sql_contents=fread($handle, filesize ($filename));
    fclose ($handle);
    $sql_com='';
-   $list_tab='';
-   $content='';
-//   $sql_com.='sql_query("SET character_set_results = \'utf8\', character_set_client = \'utf8\', character_set_connection = \'utf8\', character_set_database = \'utf8\', character_set_server = \'utf8\'");'."\n";
 
    preg_match_all("#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)\s[^;]*[^\r|\n]*(;)#m", $sql_contents, $reg);
    /*ou
@@ -88,12 +85,6 @@ function build_sql_maj($NPDS_Prefix) {
    */
    $reg[2]=array_unique($reg[2]);
    //==> construction de commande php pour sql avec prefixe des tables
-/*
-   foreach ( $reg[2] as $key=>$value ) {
-      $sql_com.='$sql = \'DROP TABLE IF EXISTS '.$NPDS_Prefix.$value.';\';'."\n".'$result = @sql_query($sql);'."\n";
-   $list_tab.= $value.' ';
-   }
-*/
    //==> implementation commande sql avec prefixe des tables
    $cont= preg_replace ( '#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)(\s[^;]*[^\r]*;)#m', '\1'.$NPDS_Prefix.'\2\3', $reg[0] );
 
@@ -109,14 +100,14 @@ function build_sql_maj($NPDS_Prefix) {
    $contents .= "/* ===========================                                          */\n";
    $contents .= "/*                                                                      */\n";
    $contents .= "/* NPDS Copyright (c) 2002-".date("Y")." by Philippe Brunier                     */\n";
-   $contents .= "/* IZ-Xinstall version : 1.2.0                                          */\n";
+   $contents .= "/* IZ-Xinstall-MAJ v1.3                                                 */\n";
    $contents .= "/*                                                                      */\n";
    $contents .= "/* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */\n";
    $contents .= "/*         : v.1.1.1 jpb, phr                                           */\n";
    $contents .= "/*         : v.1.1.2 jpb, phr, dev, boris                               */\n";
    $contents .= "/*         : v.1.1.3 dev - 2013                                         */\n";
-   $contents .= "/*         : v.1.2.0 phr, jpb - 2017-2024                               */\n";
-   $contents .= "/*                                                                      */\n";
+   $contents .= "/*         : v.1.2.0 phr, jpb - 2017                                    */\n";
+   $contents .= "/*         : v.1.3 jpb - 2024                                           */\n";
    $contents .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $contents .= "/* it under the terms of the GNU General Public License as published by */\n";
    $contents .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
