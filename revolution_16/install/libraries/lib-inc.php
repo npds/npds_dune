@@ -57,16 +57,6 @@ function verif_npds() {
    unset($langue);
 }
 
-#autodoc FixQuotes($what) : Quote une chaîne contenant des '
-function FixQuotes($what = '') {
-   $what = str_replace("&#39;","'",$what);
-   $what = str_replace("'","''",$what);
-   while (preg_match("#\\\\'#", $what)) {
-      $what = str_replace("\\\\'","'",$what);
-   }
-   return $what;
-}
-
 function verif_php() {
    global $stopphp, $phpver;
    $stopphp = 0;
@@ -90,7 +80,7 @@ function verif_sql() {
 
 function verif_chmod() {
    global $stopngo, $listfich;
-   $file_to_check = array('abla.log.php','cache.config.php','config.php','filemanager.conf','slogs/security.log','meta/meta.php','static/edito.txt','modules/upload/upload.conf.php');
+   $file_to_check = array('config.php','slogs/security.log','meta/meta.php');
    $i=0; $listfich='';
    foreach ($file_to_check as $v) {
       if(file_exists($v)) {
@@ -141,163 +131,6 @@ function language_iso($l,$s,$c) {
     if (($l!==1) and ($c!==1)) $ietf='';
     if (($l==1) and ($c!==1)) $ietf=$iso_lang;
     return ($ietf);
-}
-
-function formval($fv,$fv_parametres,$arg1,$foo) {
-   global $minpass;
-   if ($fv=='fv') {
-      if($fv_parametres!='') $fv_parametres = explode('!###!',$fv_parametres);
-      echo '
-   <script type="text/javascript" src="lib/js/es6-shim.min.js"></script>
-   <script type="text/javascript" src="lib/formvalidation/dist/js/FormValidation.full.min.js"></script>
-   <script type="text/javascript" src="lib/formvalidation/dist/js/locales/'.language_iso(1,"_",1).'.min.js"></script>
-   <script type="text/javascript" src="lib/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
-   <script type="text/javascript" src="lib/formvalidation/dist/js/plugins/L10n.min.js"></script>
-   <script type="text/javascript" src="lib/js/checkfieldinp.js"></script>
-   <script type="text/javascript">
-   //<![CDATA[
-   '.$arg1.'
-   var diff;
-   document.addEventListener("DOMContentLoaded", function(e) {
-      const strongPassword = function() {
-         let score=0;
-         return {
-            validate: function(input) {
-               const value = input.value;
-               if (value === "") {
-                  return {
-                     valid: true,
-                     meta:{score:null},
-                  };
-               }
-               if (value === value.toLowerCase()) {
-                  return {
-                     valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir au moins un caractère en majuscule.").'",
-                     meta:{score: score-1},
-                  };
-               }
-               if (value === value.toUpperCase()) {
-                  return {
-                     valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir au moins un caractère en minuscule.").'",
-                     meta:{score: score-2},
-                  };
-               }
-               if (value.search(/[0-9]/) < 0) {
-                  return {
-                     valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir au moins un chiffre.").'",
-                     meta:{score: score-3},
-                  };
-               }
-               if (value.search(/[@\+\-!#$%&^~*_]/) < 0) {
-                  return {
-                     valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir au moins un caractère non alphanumérique.").'",
-                     meta:{score: score-4},
-                  };
-               }
-               if (value.length < 8) {
-                  return {
-                     valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir").' '.$minpass.' '.ins_translate("caractères au minimum").'",
-                     meta:{score: score-5},
-                  };
-               }
-               score += ((value.length >= 8) ? 1 : -1);
-               if (/[A-Z]/.test(value)) score += 1;
-               if (/[a-z]/.test(value)) score += 1; 
-               if (/[0-9]/.test(value)) score += 1;
-               if (/[@\+\-!#$%&^~*_]/.test(value)) score += 1;
-               return {
-                  valid: true,
-                  meta:{score: score},
-               };
-            },
-         };
-      };
-      FormValidation.validators.checkPassword = strongPassword;
-      formulid.forEach(function(item, index, array) {
-         const fvitem = FormValidation.formValidation(
-            document.getElementById(item),{
-               locale: "'.language_iso(1,"_",1).'",
-               localization: FormValidation.locales.'.language_iso(1,"_",1).',
-            fields: {
-            ';
-   if($fv_parametres!='')
-      echo '
-            '.$fv_parametres[0];
-   echo '
-            },
-            plugins: {
-               declarative: new FormValidation.plugins.Declarative({
-                  html5Input: true,
-               }),
-               trigger: new FormValidation.plugins.Trigger(),
-               submitButton: new FormValidation.plugins.SubmitButton(),
-               defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-               bootstrap5: new FormValidation.plugins.Bootstrap5({rowSelector: ".mb-3"}),
-               icon: new FormValidation.plugins.Icon({
-                  valid: "fa fa-check",
-                  invalid: "fa fa-times",
-                  validating: "fas fa-sync",
-                  onPlaced: function(e) {
-                     e.iconElement.addEventListener("click", function() {
-                        fvitem.resetField(e.field);
-                     });
-                  },
-               }),
-            },
-         })
-         .on("core.validator.validated", function(e) {
-            if ((e.field === "adminpass1") && e.validator === "checkPassword") {
-               var score = e.result.meta.score;
-               const barre = document.querySelector("#passwordMeter_cont");
-               const width = (score < 0) ? score * -18 + "%" : "100%";
-               barre.style.width = width;
-               barre.classList.add("progress-bar","progress-bar-striped","progress-bar-animated","bg-success");
-               barre.setAttribute("aria-valuenow", width);
-               if (score === null) {
-                  barre.style.width = "100%";
-                  barre.setAttribute("aria-valuenow", "100%");
-                  barre.classList.replace("bg-success","bg-danger");
-               } else 
-                  barre.classList.replace("bg-danger","bg-success");
-            }
-         })';
-      if($fv_parametres!='')
-         if(array_key_exists(1, $fv_parametres))
-            echo '
-               '.$fv_parametres[1];
-   echo '
-      })
-   });
-   //]]>
-   </script>';
-   }
-   switch($foo) {
-      case '' :
-         echo '
-      </div>';
-         include ('footer.php');
-      break;
-      case 'foo' :
-         include ('footer.php');
-      break;
-   }
-}
-
-#autodoc getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) : permet de calculer le cout algorythmique optimum pour la procédure de hashage
-function getOptimalBcryptCostParameter($pass, $AlgoCrypt, $min_ms=100) {
-   for ($i = 4; $i < 13; $i++) {
-      $calculCost = [ 'cost' => $i ];
-      $time_start = microtime(true);
-      password_hash($pass, $AlgoCrypt, $calculCost);
-      $time_end = microtime(true);
-      if (($time_end - $time_start) * 1000 > $min_ms)
-         return $i;
-   }
 }
 
 ?>

@@ -227,8 +227,6 @@ if($stage == 9) {
             closedir($dir);
             return $archive;
          }
-
-/*
          if (file_exists('IZ-Xinstall.ok')) {
             if (file_exists('install.php') OR is_dir('install')) {
                icare_delete_Dir('install');
@@ -236,15 +234,13 @@ if($stage == 9) {
                @unlink('install.php');
             }
          }
-*/
-         
          echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'index.php\';'."\n".'//]]>'."\n".'</script>';
-         break;
+      break;
 
       case 'etape_9':
       default;
          etape_9();
-         break;
+      break;
    }
    pied_depage('success');
 }
