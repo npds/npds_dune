@@ -43,7 +43,7 @@ function etape_3() {
                <form name="reload" method="post">
                   <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>';
-         pied_depage();
+         pied_depage('danger');
       }
       echo '
                <form name="path" method="post" action="install.php">
@@ -58,7 +58,7 @@ function etape_3() {
                   <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>
             </div>';
-         pied_depage();
+         pied_depage('danger');
          exit;
       }
       else {
@@ -72,7 +72,7 @@ function etape_3() {
             </form>
          </div>';
       }
-      pied_depage();
+      pied_depage('success');
    }
 }
 ?>

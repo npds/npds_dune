@@ -28,7 +28,9 @@ function ins_translate($phrase) {
   case "Base de données": $tmp = "Database"; break;
   case "Bienvenue": $tmp = "Welcome"; break;
   case "caractères au minimum": $tmp = "characters minimum"; break;
+  case "Cette mise à jour est uniquement compatible avec ces versions": $tmp = "This update is only compatible with these versions"; break;
   case "Cette option valide l'acceptation de la licence GNU/GPL V3 et supprime l'affichage des résultats de certaines opérations d'installation." : $tmp = "This option validates the acceptance of the GNU / GPL V3 license and removes the display of the results of some installation operations."; break;
+  case "Cette version de npds définie dans votre fichier config.php est incompatible": $tmp = "This version of npds defined in your config.php file is incompatible"; break;
   case "Chemin physique absolu d'accès depuis la racine de votre site": $tmp = "Physical path of your website"; break;
   case "Compte Admin": $tmp = "Users access"; break;
   case "Configuration du module UPload": $tmp = "UPload module configuration"; break;
@@ -80,10 +82,12 @@ function ins_translate($phrase) {
   case "Le mot de passe doit contenir au moins un caractère non alphanumérique.": $tmp = "The password must contain at least one non-alphanumeric character."; break;
   case "Le mot de passe doit contenir au moins un chiffre.": $tmp = "The password must contain at least one digit."; break;
   case "Le mot de passe doit contenir": $tmp = "The password must contain"; break;
+  case "les changements de nom de classes et attributs du framework bs 5.2 ne sont corrigées que dans les fichiers ou tables de la base de données affectés par cette mise à jour. Ce qui signifie que quelques classes et attributs resteront à corriger." : $tmp = "Class and attribute name changes in the bs 5.2 framework are only corrected in the database files or tables affected by this update. Which means that a few classes and attributes will still need to be corrected."; break;
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "The two passwords are not identical."; break;
   case "Licence": $tmp = "License"; break;
   case "Mettre à jour": $tmp = "Make update"; break;
   case "Mise à jour": $tmp = "Update"; break;
+  case "Mise à jour interrompue": $tmp = "Update aborted"; break;
   case "Mise à jour terminée": $tmp = "Update completed"; break;
   case "Modification": $tmp = "Modification"; break;
   case "Modifier": $tmp = "Change"; break;
@@ -110,7 +114,6 @@ function ins_translate($phrase) {
   case "Premier utilisateur": $tmp = "First user"; break;
   case "Quitter": $tmp = "Exit"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "This operation can be more or less long. Thanks to have patience."; break;
-  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Notice : you must validate the preferences in administration interface to terminate the update process."; break;
   case "Remarque": $tmp = "Notice"; break;
   case "Répertoire de téléchargement": $tmp = "Upload directory"; break;
   case "Répertoire de votre site": $tmp = "Directory of your website"; break;
@@ -132,6 +135,7 @@ function ins_translate($phrase) {
   case "Vérification des fichiers": $tmp = "Checking of the files"; break;
   case "vers": $tmp = "to"; break;
   case "Version actuelle de PHP": $tmp = "Actual PHP version"; break;
+  case "veuillez valider les préférences et les metatags dans l'interface d'administration pour parfaire la mise à jour.": $tmp = "you must validate the preferences and metatags in administration interface to terminate the update process."; break;
   case "Vos paramètres personnels": $tmp = "Your personals parameters"; break;
   case "Votre version de NPDS est incorrecte, version requise": $tmp = "Bad NPDS version, you must have version"; break;
   case "Vous devez modifier les droits d'accès (lecture/écriture) du fichier ": $tmp = "You must modify the rights of access (read/write) on the file "; break;

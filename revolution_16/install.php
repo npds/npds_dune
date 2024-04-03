@@ -18,11 +18,15 @@
 /************************************************************************/
 
 /*
-# Contrôle des fichiers de base de IZ-Xinstall
+# Inclusions des lib et contrôle versions
 */
 include ('grab_globals.php');
 include ('install/libraries/graphIZm.php');
 include ('install/libraries/lib-inc.php');
+if(!isset($stage)) {
+   verif_npds();
+   $stage = 1;
+}
 include('config.php');
 verif_php();
 verif_sql();
@@ -34,27 +38,13 @@ $cms_logo = 'install/images/header.png';
 $cms_name = 'NPDS REvolution 16';
 global $cms_logo, $cms_name, $Version_Num, $Version_Sub, $phpver;
 
-if(!isset($stage)) $stage = 0;
-
-/*
-# install/etape_0.php
-# Accueil :
-#   => install/languages/english/welcome.txt
-#   => install/languages/french/bienvenue.txt
-*/
-if($stage == 0) {
-   entete();
-   require('install/etape_0.php');
-   etape_0();
-   pied_depage();
-}
-
 /*
 # install/etape_1.php
-# Choix de la langue :
-#   => install/languages
+# Bienvenue :
+#
 */
 if($stage == 1) {
+/*
    $file = file("config.php");
    $file[173] ="\$language = \"$langue\";\n";
    $fic = fopen("config.php", "w");
@@ -62,6 +52,7 @@ if($stage == 1) {
          fwrite($fic, $ligne);
       }
    fclose($fic);
+*/
 
    $colorst1 = '-success';
    $colorst2 = ' active';
@@ -76,7 +67,7 @@ if($stage == 1) {
       etape_1();
       break;
    }
- pied_depage();
+ pied_depage('success');
 }
 
 /*
@@ -101,7 +92,7 @@ if($stage == 2 and $qi!=1) {
       etape_2();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 };
 
 /*
@@ -186,7 +177,7 @@ if($stage == 6) {
       etape_6();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 
@@ -207,9 +198,17 @@ if($stage == 9) {
    if(!isset($op)) $op = 'etape_9';
    switch($op) {
       case 'write_ok':
+         // mise à jour version
+         $file = file("config.php");
+         $file[321] ="\$Version_Num = \"".NEW_VERSION."\";\n";
+         $fic = fopen("config.php", "w");
+         foreach($file as $n => $ligne) {
+            fwrite($fic, $ligne);
+         }
+         fclose($fic);
+         // creation fichier témoin
          $fp = fopen('IZ-Xinstall.ok', 'w');
          fclose($fp);
-
          // La suppression de l'installation
          function icare_delete_Dir($rep) {
             $dir = opendir($rep);
@@ -247,6 +246,6 @@ if($stage == 9) {
          etape_9();
          break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 ?>

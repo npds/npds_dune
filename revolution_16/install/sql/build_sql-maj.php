@@ -64,7 +64,7 @@ function maj_db_163to164() {
 }
 
 function build_sql_maj($NPDS_Prefix) {
-   $filename='sql/maj_163_164.sql';
+   $filename='install/sql/maj_163_164.sql';
    $handle=fopen($filename,'r');
    $sql_contents=fread($handle, filesize ($filename));
    fclose ($handle);

@@ -4,46 +4,57 @@
 /* ===========================                                          */
 /*                                                                      */
 /* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* IZ-Xinstall-MAJ v.1.3                                                */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2016-24                                   */
-/*                                                                      */
+/*         : v.1.2 phr, jpb - 2017                                      */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
+// ==> suppression du fichier d'install et définition des versions requises pour la MAJ
 if (file_exists('IZ-Xinstall.ok'))
    unlink('IZ-Xinstall.ok');
 define("OLD_VERSION","v.16.3");
 define("NEW_VERSION","v.16.4");
+include_once('lib/mysqli.php');
 
-if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
-   $file = file("config.php");
-   $file[33] ="\$mysql_p = 1;\n";
-   $file[34] ="\$mysql_i = 1;\n";
-   $file[321] ="\$Version_Num = \"".NEW_VERSION."\";\n";
-
-   $fic = fopen("config.php", "w");
-   foreach($file as $n => $ligne) {
-      fwrite($fic, $ligne);
-   }
-   fclose($fic);
-   include_once($_SERVER['DOCUMENT_ROOT'].'/lab1634/lib/mysqli.php');
-} else
-   include_once('lib/mysql.php');
-
+// ==> infos provenant du fichier config.php en service pour langue
+$file = file("config.php");
+preg_match('#=\s\"(.*)\"#', $file[173], $r);
 settype($langue,'string');
+$langue = $r[1];
 if($langue) {
    $lang_symb = substr($langue, 0, 3);
    if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php'))
       include_once $fichier_lang;
    else
       include_once('install/languages/french/install-fre.php');
+}
+
+// ==> contrôle de la version en service et forçage interface php pour mysql
+function verif_npds() {
+   $file = file("config.php");
+   preg_match('#=\s\"(.*)\"#', $file[321], $r);
+   $checkvers = $r[1] == OLD_VERSION ? 1 : 0;
+   if ($checkvers == 0) {
+      $message = '<strong class="fs-2">🚫 '.ins_translate("Mise à jour interrompue").' !</strong><br /><strong>'.$r[1].'</strong> : '.ins_translate("Cette version de npds définie dans votre fichier config.php est incompatible").' !<br />' .ins_translate("Cette mise à jour est uniquement compatible avec ces versions").' : <strong>'.OLD_VERSION.'</strong> '.ins_translate("vers").' <strong>'.NEW_VERSION.'</strong> !';
+      msg_erreur($message);
+      exit();
+   }
+   $file[33] ="\$mysql_p = 1;\n";
+   $file[34] ="\$mysql_i = 1;\n";
+   $fic = fopen("config.php", "w");
+   foreach($file as $n => $ligne) {
+      fwrite($fic, $ligne);
+   }
+   fclose($fic);
+   unset($langue);
 }
 
 #autodoc FixQuotes($what) : Quote une chaîne contenant des '
@@ -101,121 +112,14 @@ function verif_chmod() {
    return $listfich;
 }
 
-function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $new_NPDS_Prefix, $new_mysql_p, $new_adminmail) {
-   global $stage4_ok;
-   $stage4_ok = 0;
-
-   $file = file("config.php");
-   $file[29] ="\$dbhost = \"$new_dbhost\";\n";
-   $file[30] ="\$dbuname = \"$new_dbuname\";\n";
-   $file[31] ="\$dbpass = \"$new_dbpass\";\n";
-   $file[32] ="\$dbname = \"$new_dbname\";\n";
-   $file[33] ="\$mysql_p = \"$new_mysql_p\";\n";
-   $file[214]="\$adminmail = \"$new_adminmail\";\n";
-   $file[319]="\$NPDS_Prefix = \"$new_NPDS_Prefix\";\n";
-   $NPDS_Key=uniqid("");
-   $file[320]="\$NPDS_Key = \"$NPDS_Key\";\n";
-
-   $fic = fopen("config.php", "w");
-   foreach($file as $n => $ligne) {
-      fwrite($fic, $ligne);
-   }
-   fclose($fic);
-
-   $stage4_ok = 1;
-   return($stage4_ok);
-}
-
-function write_others($new_nuke_url, $new_sitename, $new_Titlesitename, $new_slogan, $new_Default_Theme, $new_startdate) {
-   global $stage5_ok;
-   $stage5_ok = 0;
-
-   // Par défaut $parse=1 dans le config.php
-   $new_sitename =  htmlentities(stripslashes($new_sitename));
-   $new_Titlesitename = htmlentities(stripslashes($new_Titlesitename));
-   $new_slogan = htmlentities(stripslashes($new_slogan));
-   $new_startdate = stripslashes($new_startdate);
-   $new_nuke_url = FixQuotes($new_nuke_url);
-
-   $file = file("config.php");
-   $file[90] ="\$sitename = \"$new_sitename\";\n";
-   $file[91] ="\$Titlesitename = \"$new_Titlesitename\";\n";
-   $file[92] ="\$nuke_url = \"$new_nuke_url\";\n";
-   $file[94] ="\$slogan = \"$new_slogan\";\n";
-   $file[95] ="\$startdate = \"$new_startdate\";\n";
-   $file[101] ="\$Default_Theme = \"$new_Default_Theme\";\n";
-
-   $fic = fopen("config.php", "w");
-   foreach($file as $n => $ligne) {
-      fwrite($fic, $ligne);
-   }
-   fclose($fic);
-
-   $stage5_ok = 1;
-   return($stage5_ok);
-}
-
 function msg_erreur($message) {
-   echo '<html>
-   <body bgcolor="white"><br />
-      <div style="text-align: center; font-weight: bold">
-         <div style="font-face: arial; font-size: 22px; color: #ff0000">'.ins_translate($message).'</div>
-      </div>
-      </body>
-</html>';
+   entete();
+   echo '
+      <div class="alert alert-danger lead">
+         <div>'.$message.'</div>
+      </div>';
+   pied_depage('danger');
    die();
-}
-
-function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
-   include_once('config.php');
-   global $minpass, $stage7_ok, $NPDS_Prefix;
-   if ($adminlogin != '') {
-      if($adminpass1 != $adminpass2)
-         $stage7_ok = 2;
-      else {
-         if(strlen($adminpass1) < $minpass)
-            $stage7_ok = 2;
-         else {
-            $stage7_ok = 1;
-               $AlgoCrypt = PASSWORD_BCRYPT;
-               $min_ms = 100;
-               $options = ['cost' => getOptimalBcryptCostParameter($adminpass1, $AlgoCrypt, $min_ms)];
-               $hashpass = password_hash($adminpass1, $AlgoCrypt, $options);
-               $adminpwd=crypt($adminpass1, $hashpass);
-            sql_connect();
-            $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd', hashkey='1' WHERE radminsuper='1'");
-            copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
-            if(!$result1)
-               $stage7_ok = 0;
-         }
-      }
-   }
-   else
-      $stage7_ok = 2;
-   return($stage7_ok);
-}
-
-function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, $new_racine, $new_rep_upload, $new_rep_cache, $new_rep_log, $new_url_upload) {
-   global $langue, $nuke_url, $stage8_ok;
-   $stage8_ok = 0;
-
-   $file = file("modules/upload/upload.conf.php");
-   $file[16] = "\$max_size = $new_max_size;\n";
-   $file[21] = "\$DOCUMENTROOT = \"$new_DOCUMENTROOT\";\n";
-   $file[24] = "\$autorise_upload_p = \"$new_autorise_upload_p\";\n";
-   $file[28] = "\$racine = \"$new_racine\";\n";
-   $file[31] = "\$rep_upload = \$racine.\"$new_rep_upload\";\n";
-   $file[34] = "\$rep_cache = \$racine.\"$new_rep_cache\";\n";
-   $file[37] = "\$rep_log = \$racine.\"$new_rep_log\";\n";
-   $file[40] = "\$url_upload = \"$new_url_upload\";\n";
-
-   $fic = fopen("modules/upload/upload.conf.php", "w");
-   foreach($file as $n => $ligne) {
-      fwrite($fic, $ligne);
-   }
-   fclose($fic);
-   $stage8_ok = 1;
-   return($stage8_ok);
 }
 
 #autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2  $l=> 0 ou 1(requis), $s, $c=> 0 ou 1 (requis)

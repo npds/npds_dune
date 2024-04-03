@@ -28,7 +28,9 @@ function ins_translate($phrase) {
   case "Base de données": $tmp = "Base de datos"; break;
   case "Bienvenue": $tmp = "Bienvenida"; break;
   case "caractères au minimum": $tmp = "caracteres como mínimo"; break;
+  case "Cette mise à jour est uniquement compatible avec ces versions": $tmp = "Esta actualización sólo es compatible con estas versiones."; break;
   case "Cette option valide l'acceptation de la licence GNU/GPL V3 et supprime l'affichage des résultats de certaines opérations d'installation." : $tmp = "Esta opción valida la aceptación de la licencia GNU / GPL V3 y elimina la visualización de los resultados de algunas operaciones de instalación."; break;
+  case "Cette version de npds définie dans votre fichier config.php est incompatible": $tmp = "Esta versión de npds definida en su archivo config.php es incompatible"; break;
   case "Chemin physique absolu d'accès depuis la racine de votre site": $tmp = "Absoluta ruta física de la raíz de su sitio web"; break;
   case "Compte Admin": $tmp = "Cuenta de administrador"; break;
   case "Configuration du module UPload": $tmp = "La configuración del módulo UPload"; break;
@@ -80,10 +82,12 @@ function ins_translate($phrase) {
   case "Le mot de passe doit contenir au moins un caractère non alphanumérique.": $tmp = "La contraseña debe contener al menos un carácter no alfanumérico."; break;
   case "Le mot de passe doit contenir au moins un chiffre.": $tmp = "La contraseña debe contener al menos un número."; break;
   case "Le mot de passe doit contenir": $tmp = "La contraseña debe contener"; break;
+  case "les changements de nom de classes et attributs du framework bs 5.2 ne sont corrigées que dans les fichiers ou tables de la base de données affectés par cette mise à jour. Ce qui signifie que quelques classes et attributs resteront à corriger." : $tmp = "Los cambios de nombres de clases y atributos en bs 5.2 framework solo se corrigen en los archivos o tablas de bases de datos afectados por esta actualización. Lo que significa que aún será necesario corregir algunas clases y atributos."; break;
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "Las dos contraseñas no son idénticas."; break;
   case "Licence": $tmp = "Licencia"; break;
   case "Mettre à jour": $tmp = "Actualizar"; break;
   case "Mise à jour": $tmp = "Actualizado"; break;
+  case "Mise à jour interrompue": $tmp = "Actualización interrumpida"; break;
   case "Mise à jour terminée": $tmp = "Actualización completada"; break;
   case "Modification": $tmp = "modificación"; break;
   case "Modifier": $tmp = "Cambiar"; break;
@@ -110,7 +114,6 @@ function ins_translate($phrase) {
   case "Premier utilisateur": $tmp = "Primer usuario"; break;
   case "Quitter": $tmp = "Salida"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "Nota: Esto puede ser más corto o más largo Por favor espere .."; break;
-  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Nota: Por favor confirme las preferencias en la interfaz de administración para completar la actualización."; break;
   case "Remarque": $tmp = "Observación"; break;
   case "Répertoire de téléchargement": $tmp = "Directorio de descarga"; break;
   case "Répertoire de votre site": $tmp = "Directorio de su sitio web"; break;
@@ -132,6 +135,7 @@ function ins_translate($phrase) {
   case "Vérification des fichiers": $tmp = "Comprobación de archivos"; break;
   case "vers": $tmp = "a"; break;
   case "Version actuelle de PHP": $tmp = "La versión actual de PHP"; break;
+  case "veuillez valider les préférences et les metatags dans l'interface d'administration pour parfaire la mise à jour.": $tmp = "valide las preferencias y metaetiquetas en la interfaz de administración para completar la actualización."; break;
   case "Vos paramètres personnels": $tmp = "Su configuración personal"; break;
   case "Votre version de NPDS est incorrecte, version requise": $tmp = "Su versión de NDPS es incorrecta, la versión requerida"; break;
   case "Vous devez modifier les droits d'accès (lecture/écriture) du fichier ": $tmp = "Debe cambiar los derechos de acceso (lectura / escritura) el archivo "; break;

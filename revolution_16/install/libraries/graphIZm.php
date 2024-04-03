@@ -4,14 +4,14 @@
 /* ===========================                                          */
 /*                                                                      */
 /* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* IZ-Xinstall-MAJ v.1.3                                                */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
-/*         : v.1.2 phr, jpb - 2017-24                                   */
-/*                                                                      */
+/*         : v.1.2 phr, jpb - 2017                                      */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
@@ -45,33 +45,35 @@ function entete() {
       <meta name="generator" content="NPDS IZ-Xinstall" />
       <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
       <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css">
+      <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css" />
       <link rel="stylesheet" href="themes/npds-boost_sk/style/style.css">
+      <link rel="shortcut icon" href="install/images/favicon.ico" type="image/x-icon" />
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
    </head>
    <body>
-      <div class="container-fluid">
-         <div class="my-2">
+      <div class="container-fluid p-0">
+         <div class="p-3 mb-4 bg-light">
             <div class="row">
                <div class="col-sm-2 d-none d-sm-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
                <div id="logo_header" class="col-sm-10">
-                  <h1 class="display-4">NPDS<br /><small class="text-muted"><em>'.OLD_VERSION.' > '.NEW_VERSION.'</em></small></h1>
+                  <h1 class="display-4">NPDS<br /><small class="text-muted">'.ins_translate("Mise à jour").' <em>'.OLD_VERSION.' > '.NEW_VERSION.'</em></small></h1>
                </div>
             </div>
             <div class="row">
                <div class="col-sm-6"></div>
                <div class="col-sm-6 text-sm-end">'.$Version_Sub.' '.NEW_VERSION.'</div>
             </div>
-         </div>
-         <hr class="lead" />';
+         </div>';
 }
 
-function pied_depage() {
+function pied_depage($etat) {
    global $stage;
    echo '
-         <div class="col text-center">
-            <hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="visually-hidden">On work...</span>
+         <div class="d-flex align-items-center bg-light py-3">
+           <div class="fw-semibold"><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall-MAJ v.1.3</div>
+           <div class="spinner-border ms-auto text-'.$etat.'" role="status" aria-hidden="true"></div>
          </div>
       </div>
    </body>
@@ -90,10 +92,9 @@ function menu() {
    global $menu, $langue, $colorst1, $colorst2, $colorst3, $colorst4, $colorst6, $colorst7, $colorst10, $phpver, $sqlver;
    $menu='';
    $menu.= '
-         <div class="row">
+         <div class="row px-3">
             <div class="col-md-3">
                <ul class="list-group mb-3">
-                  <li class="list-group-item list-group-item'.$colorst1.'">'.ins_translate('Langue').'</li>
                   <li class="list-group-item list-group-item'.$colorst2.'">'.ins_translate('Bienvenue').'</li>
                   <li class="list-group-item list-group-item'.$colorst3.'">'.ins_translate('Licence').'</li>
                   <li class="list-group-item list-group-item'.$colorst4.'">'.ins_translate('Vérification des fichiers').'</li>

@@ -23,7 +23,7 @@ function etape_9() {
    $stage = 9;
    echo '
       <h3 class="mb-3">'.ins_translate('Fin').'</h3>
-         <div class="alert alert-success">'.ins_translate('Mise à jour terminée').'.<br />'.ins_translate("Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.").'</div>
+         <div class="alert alert-success"><strong>'.ins_translate('Mise à jour terminée').'.</strong><br />'.ins_translate("Remarque").' : <br />-  '.ins_translate("veuillez valider les préférences et les metatags dans l'interface d'administration pour parfaire la mise à jour.").'<br />- '.ins_translate("les changements de nom de classes et attributs du framework bs 5.2 ne sont corrigées que dans les fichiers ou tables de la base de données affectés par cette mise à jour. Ce qui signifie que quelques classes et attributs resteront à corriger.").'</div>
          <form name="ended" method="post" action="install.php">
             <input type="hidden" name="langue" value="'.$langue.'" />
             <input type="hidden" name="stage" value="'.$stage.'" />

@@ -28,7 +28,9 @@ function ins_translate($phrase) {
   case "Base de données": $tmp = "Datenbank"; break;
   case "Bienvenue": $tmp = "Willkommen"; break;
   case "caractères au minimum": $tmp = "Buchstaben minimal"; break;
+  case "Cette mise à jour est uniquement compatible avec ces versions": $tmp = "Dieses Update ist nur mit diesen Versionen kompatibel"; break;
   case "Cette option valide l'acceptation de la licence GNU/GPL V3 et supprime l'affichage des résultats de certaines opérations d'installation." : $tmp = "Diese Option validiert die Akzeptanz der GNU / GPL V3-Lizenz und entfernt die Anzeige der Ergebnisse einiger Installationsvorgänge."; break;
+  case "Cette version de npds définie dans votre fichier config.php est incompatible": $tmp = "Diese in Ihrer config.php-Datei definierte Version von npds ist nicht kompatibel"; break;
   case "Chemin physique absolu d'accès depuis la racine de votre site": $tmp = "Physikalische Adresse von / Zu Ihrer Webseite"; break;
   case "Compte Admin": $tmp = "Benutzer Zugang"; break;
   case "Configuration du module UPload": $tmp = "Upload Modul Konfiguration"; break;
@@ -80,10 +82,12 @@ function ins_translate($phrase) {
   case "Le mot de passe doit contenir au moins un caractère non alphanumérique.": $tmp = "Das Kennwort muss mindestens ein nicht alphanumerisches Zeichen enthalten."; break;
   case "Le mot de passe doit contenir au moins un chiffre.": $tmp = "Das Passwort muss mindestens eine Zahl enthalten."; break;
   case "Le mot de passe doit contenir": $tmp = "Das Passwort muss enthalten sein"; break;
+  case "les changements de nom de classes et attributs du framework bs 5.2 ne sont corrigées que dans les fichiers ou tables de la base de données affectés par cette mise à jour. Ce qui signifie que quelques classes et attributs resteront à corriger." : $tmp = "Änderungen an Klassen- und Attributnamen im BS 5.2-Framework werden nur in den von diesem Update betroffenen Datenbankdateien oder -tabellen korrigiert. Das bedeutet, dass noch einige Klassen und Attribute korrigiert werden müssen."; break;
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "Die beiden Passwörter sind nicht identisch."; break;
   case "Licence": $tmp = "Lizenz"; break;
   case "Mettre à jour": $tmp = " Updaten "; break;
   case "Mise à jour": $tmp = "Aktualisierte"; break;
+  case "Mise à jour interrompue": $tmp = "Update unterbrochen"; break;
   case "Mise à jour terminée": $tmp = "Update abgeschlossen"; break;
   case "Modifier": $tmp = "Ändern"; break;
   case "Modification": $tmp = "Änderung"; break;
@@ -110,7 +114,6 @@ function ins_translate($phrase) {
   case "Premier utilisateur": $tmp = "Erster Benutzer"; break;
   case "Quitter": $tmp = "Beenden"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "Der Vorgang kann länger dauern. Bitte haben Sie Geduld."; break;
-  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Notiz : Sie müssen die Administrationseinstellungen verifizieren um sie zu speichern.";  break;
   case "Remarque": $tmp = "Notiz"; break;
   case "Répertoire de téléchargement": $tmp = "Upload Pfad"; break;
   case "Répertoire de votre site": $tmp = "Pfad Ihrer Webseite"; break;
@@ -132,6 +135,7 @@ function ins_translate($phrase) {
   case "Vérification des fichiers": $tmp = "Dateien überprüfen"; break;
   case "vers": $tmp = "nach"; break;
   case "Version actuelle de PHP": $tmp = "Aktuelle PHP Version"; break;
+  case "veuillez valider les préférences et les metatags dans l'interface d'administration pour parfaire la mise à jour.": $tmp = "Bitte validieren Sie die Einstellungen und Metatags in der Administrationsoberfläche, um das Update abzuschließen."; break;
   case "Vos paramètres personnels": $tmp = "Ihre persönlichen Parameter"; break;
   case "Votre version de NPDS est incorrecte, version requise": $tmp = "Falsche NPDS Version, Sie benötigen"; break;
   case "Vous devez modifier les droits d'accès (lecture/écriture) du fichier ": $tmp = "Sie müssen die Zugriffsrechte (lesen/schreiben) der Datei ändern "; break;
