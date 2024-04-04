@@ -44,16 +44,6 @@ global $cms_logo, $cms_name, $Version_Num, $Version_Sub, $phpver;
 #
 */
 if($stage == 1) {
-/*
-   $file = file("config.php");
-   $file[173] ="\$language = \"$langue\";\n";
-   $fic = fopen("config.php", "w");
-      foreach($file as $n => $ligne) {
-         fwrite($fic, $ligne);
-      }
-   fclose($fic);
-*/
-
    $colorst1 = '-success';
    $colorst2 = ' active';
    entete();
@@ -207,7 +197,8 @@ if($stage == 9) {
          }
          fclose($fic);
          // creation fichier témoin
-         $fp = fopen('IZ-Xinstall.ok', 'w');
+         $filename = 'IZ-Xmaj_'.str_replace('.', '',NEW_VERSION).'.ok';
+         $fp = fopen($filename, 'w');
          fclose($fp);
          // La suppression de l'installation
          function icare_delete_Dir($rep) {
@@ -227,7 +218,7 @@ if($stage == 9) {
             closedir($dir);
             return $archive;
          }
-         if (file_exists('IZ-Xinstall.ok')) {
+         if (file_exists($filename)) {
             if (file_exists('install.php') OR is_dir('install')) {
                icare_delete_Dir('install');
                @rmdir ('install');

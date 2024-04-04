@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-// Modification pour IZ-Xinstall - EBH - JPB & PHR
-if (file_exists("IZ-Xinstall.ok")) {
+// Modification pour IZ-Xmaj - EBH - JPB & PHR
+if (file_exists("IZ-Xmaj_v164.ok")) {
    if (file_exists("install.php") OR is_dir("install")) {
       echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,7 +25,9 @@ if (file_exists("IZ-Xinstall.ok")) {
          </div>
          <div style="text-align: center; font-size: 20px; font-family: Arial; font-weight: bold; color: #ff0000"><br />
             Vous devez supprimer le r&eacute;pertoire "install" ET le fichier "install.php" avant de poursuivre !<br />
-            You must remove the directory "install" as well as the file "install.php" before continuing!
+            You must remove the directory "install" as well as the file "install.php" before continuing!<br />
+            &iexcl;Debes eliminar el directorio "install" as&iacute; como el archivo "install.php" antes de continuar!<br />
+            Sie m&uuml;ssen das Verzeichnis "install" sowie die Datei "install.php" entfernen, bevor Sie fortfahren!<br />
          </div>
       </body>
    </html>';

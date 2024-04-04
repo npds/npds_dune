@@ -17,9 +17,8 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
-// ==> suppression du fichier d'install et définition des versions requises pour la MAJ
-if (file_exists('IZ-Xinstall.ok'))
-   unlink('IZ-Xinstall.ok');
+// ==> définition des versions requises pour la MAJ
+
 define("OLD_VERSION","v.16.3");
 define("NEW_VERSION","v.16.4");
 include_once('lib/mysqli.php');
@@ -55,6 +54,16 @@ function verif_npds() {
    }
    fclose($fic);
    unset($langue);
+}
+
+#autodoc FixQuotes($what) : Quote une chaîne contenant des '
+function FixQuotes($what = '') {
+   $what = str_replace("&#39;","'",$what);
+   $what = str_replace("'","''",$what);
+   while (preg_match("#\\\\'#", $what)) {
+      $what = str_replace("\\\\'","'",$what);
+   }
+   return $what;
 }
 
 function verif_php() {
@@ -105,7 +114,7 @@ function verif_chmod() {
 function msg_erreur($message) {
    entete();
    echo '
-      <div class="alert alert-danger lead">
+      <div class="alert alert-danger lead mx-3">
          <div>'.$message.'</div>
       </div>';
    pied_depage('danger');

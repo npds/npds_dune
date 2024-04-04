@@ -45,9 +45,8 @@ function entete() {
       <meta name="generator" content="NPDS IZ-Xinstall" />
       <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
       <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css" />
+      <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css">
       <link rel="stylesheet" href="themes/npds-boost_sk/style/style.css">
-      <link rel="shortcut icon" href="install/images/favicon.ico" type="image/x-icon" />
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
       <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
@@ -71,7 +70,7 @@ function entete() {
 function pied_depage($etat) {
    global $stage;
    echo '
-         <div class="d-flex align-items-center bg-light py-3">
+         <div class="d-flex align-items-center bg-light p-3">
            <div class="fw-semibold"><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall-MAJ v.1.3</div>
            <div class="spinner-border ms-auto text-'.$etat.'" role="status" aria-hidden="true"></div>
          </div>
@@ -85,7 +84,7 @@ function page_message($chaine) {
    entete();
    echo '
    <h2>'.$chaine.'</h2>';
-   pied_depage();
+   pied_depage('success');
 }
 
 function menu() {
