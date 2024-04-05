@@ -85,6 +85,8 @@ function ins_translate($phrase) {
   case "les changements de nom de classes et attributs du framework bs 5.2 ne sont corrigées que dans les fichiers ou tables de la base de données affectés par cette mise à jour. Ce qui signifie que quelques classes et attributs resteront à corriger." : $tmp = "Class and attribute name changes in the bs 5.2 framework are only corrected in the database files or tables affected by this update. Which means that a few classes and attributes will still need to be corrected."; break;
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "The two passwords are not identical."; break;
   case "Licence": $tmp = "License"; break;
+  case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes une mise à jour de votre site.": $tmp = "Now that you have just transferred the NPDS files to your Internet hosting server, this script will guide you through several steps to obtain an update to your site in just a few minutes."; break; 
+  case "Merci encore d'avoir choisi": $tmp = "Thanks again for choosing"; break;
   case "Mettre à jour": $tmp = "Make update"; break;
   case "Mise à jour": $tmp = "Update"; break;
   case "Mise à jour interrompue": $tmp = "Update aborted"; break;

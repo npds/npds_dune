@@ -19,10 +19,12 @@
 
 function entete() {
    global $langue, $cms_logo, $cms_name, $stage, $Version_Sub;
-   echo '<html>
+   echo '
+   <!DOCTYPE html>
+   <html lang="'.language_iso(1,0,0).'">
    <head>
       <meta charset="utf-8">
-      <title>NPDS IZ-Xinstall - Installation &amp; Configuration</title>
+      <title>NPDS IZ-Xmaj - Installation &amp; Configuration</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta http-equiv="content-script-type" content="text/javascript" />
       <meta http-equiv="content-style-type" content="text/css" />
@@ -32,9 +34,7 @@ function entete() {
       <meta name="author" content="Developpeur, EBH, jpb, phr" />
       <meta name="owner" content="npds.org" />
       <meta name="reply-to" content="developpeur@npds.org" />
-      <meta name="language" content="fr" />
-      <meta http-equiv="content-language" content="fr, fr-be, fr-ca, fr-lu, fr-ch" />
-      <meta name="description" content="NPDS IZ-Xinstall" />
+      <meta name="description" content="NPDS IZ-Xmaj" />
       <meta name="keywords" content="NPDS, Installateur automatique" />
       <meta name="rating" content="general" />
       <meta name="distribution" content="global" />
@@ -42,18 +42,19 @@ function entete() {
       <meta name="revisit-after" content="15 days" />
       <meta name="resource-type" content="document" />
       <meta name="robots" content="none" />
-      <meta name="generator" content="NPDS IZ-Xinstall" />
+      <meta name="generator" content="NPDS IZ-Xmaj" />
       <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
       <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css">
       <link rel="stylesheet" href="themes/npds-boost_sk/style/style.css">
+      <link rel="shortcut icon" href="install/images/favicon.ico" type="image/x-icon">
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
       <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
    </head>
    <body>
       <div class="container-fluid p-0">
-         <div class="p-3 mb-4 bg-light">
+         <div class="p-2 mb-4 bg-light">
             <div class="row">
                <div class="col-sm-2 d-none d-sm-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
                <div id="logo_header" class="col-sm-10">
@@ -70,7 +71,7 @@ function entete() {
 function pied_depage($etat) {
    global $stage;
    echo '
-         <div class="d-flex align-items-center bg-light p-3">
+         <div class="d-flex align-items-center bg-light p-3 mt-4">
            <div class="fw-semibold"><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall-MAJ v.1.3</div>
            <div class="spinner-border ms-auto text-'.$etat.'" role="status" aria-hidden="true"></div>
          </div>

@@ -1,1 +1,0 @@
-Ahora que acabas de transferir los archivos de NPDS a tu servidor de alojamiento web, este script te guiar&aacute; a trav&eacute;s de varios pasos para actualizar tu sitio en unos minutos. <br /> <br /> Gracias de nuevo por la elecci&oacute;n de <a href ="http://www.npds.org" target="_blank"> NPDS </a> ... <br /> <br />Dev <br />developpeur@npds.org  <br /><br />

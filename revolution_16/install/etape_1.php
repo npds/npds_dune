@@ -21,15 +21,11 @@ if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 function etape_1() {
    global $stage, $cms_name, $langue, $Version_Sub;
    $stage = 0;
-   $accueil = 'install/languages/'.$langue.'/bienvenue.txt';
    echo '
                <div class="row">
                   <div class="col-sm-12">
                      <h3 class="mb-2">'.ins_translate('Mise à jour').'&nbsp;'.$Version_Sub.' '.OLD_VERSION.' '.ins_translate('vers').' '.NEW_VERSION.'</h3>
-    '.ins_translate('Bienvenue').',<br />';
-      $id_fr = fopen($accueil, 'r');
-      fpassthru($id_fr);
-   echo '
+                     '.ins_translate('Bienvenue').',<br />'.ins_translate("Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes une mise à jour de votre site.").'<br /><br />'.ins_translate("Merci encore d'avoir choisi").' <a href="http://www.npds.org" target="_blank">NPDS</a><br /><br />
                   </div>
                </div>
                <form name="welcome" method="post" action="install.php">

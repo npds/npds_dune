@@ -21,9 +21,8 @@ if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 function etape_2() {
    global $stage, $langue, $qi;
    $stage = 2;
-   $lang_symb = substr($langue, 0, 3);
-   if(file_exists('install/languages/'.$langue.'/licence-'.$lang_symb.'.txt')) {
-      $licence_file = 'install/languages/'.$langue.'/licence-'.$lang_symb.'.txt';
+   if(file_exists('install/languages/licence-'.language_iso(1,0,0).'.txt')) {
+      $licence_file = 'install/languages/licence-'.language_iso(1,0,0).'.txt';
       $myfile = @fopen($licence_file,"r");
       $licence_text = fread($myfile, filesize($licence_file));
       fclose($myfile);

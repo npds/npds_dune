@@ -18,7 +18,6 @@
 /************************************************************************/
 
 // ==> définition des versions requises pour la MAJ
-
 define("OLD_VERSION","v.16.3");
 define("NEW_VERSION","v.16.4");
 include_once('lib/mysqli.php');
@@ -26,14 +25,12 @@ include_once('lib/mysqli.php');
 // ==> infos provenant du fichier config.php en service pour langue
 $file = file("config.php");
 preg_match('#=\s\"(.*)\"#', $file[173], $r);
-settype($langue,'string');
 $langue = $r[1];
 if($langue) {
-   $lang_symb = substr($langue, 0, 3);
-   if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php'))
+   if(file_exists($fichier_lang = 'install/languages/install-'.language_iso(1,0,0).'.php'))
       include_once $fichier_lang;
    else
-      include_once('install/languages/french/install-fre.php');
+      include_once('install/languages/install-fr.php');
 }
 
 // ==> contrôle de la version en service et forçage interface php pour mysql
@@ -53,19 +50,9 @@ function verif_npds() {
       fwrite($fic, $ligne);
    }
    fclose($fic);
-   unset($langue);
 }
 
-#autodoc FixQuotes($what) : Quote une chaîne contenant des '
-function FixQuotes($what = '') {
-   $what = str_replace("&#39;","'",$what);
-   $what = str_replace("'","''",$what);
-   while (preg_match("#\\\\'#", $what)) {
-      $what = str_replace("\\\\'","'",$what);
-   }
-   return $what;
-}
-
+// ==> renvoi la version Php et une variable de blocage si elle est inférieure à celle désirée : 5.6 
 function verif_php() {
    global $stopphp, $phpver;
    $stopphp = 0;
@@ -78,6 +65,7 @@ function verif_php() {
    return ($phpver);
 }
 
+// ==> renvoi la version sql
 function verif_sql() {
    global $sqlver;
    $sqlgetver = (mysqli_get_server_version(sql_connect()))/10000;
@@ -87,6 +75,7 @@ function verif_sql() {
    return ($sqlver);
 }
 
+// ==> controle le droit des fichiers et une variable de blocage si non writable ...
 function verif_chmod() {
    global $stopngo, $listfich;
    $file_to_check = array('config.php','slogs/security.log','meta/meta.php');

@@ -19,7 +19,7 @@
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_9() {
-   global $langue, $stage, $izx, $qi;
+   global $langue, $stage;
    $stage = 9;
    echo '
       <h3 class="mb-3">'.ins_translate('Fin').'</h3>
