@@ -42,7 +42,7 @@ function maj_db_163to164() {
    $t=$NPDS_Prefix.'groupes'; $c='groupe_description';
    $sql = 'ALTER TABLE '.$t.' MODIFY '.$c.' text';
    sql_query($sql);
-   $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").' </small><span title="'.$sql.'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right"><i class="fa fa-check text-success ms-2" title="'.$sql.'" data-bs-toggle="tooltip"></i></span>';
+   $aff_log.= '<br /><small class="text-success"><strong>'.$t.' : '.$c.'</strong> : '.ins_translate("Modification").' </small><span title="'.$sql.'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right"><i class="fa fa-check text-success ms-2"></i></span>';
 
    $t=$NPDS_Prefix.'metalang'; $c='def';
    $metatodelete = array("!bargif!","!bgcolor1!","!bgcolor2!","!bgcolor3!","!bgcolor4!","!bgcolor5!","!bgcolor6!","!textcolor1!","!textcolor2!","!opentable!","!closetable!");

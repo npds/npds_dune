@@ -18,7 +18,7 @@
 /************************************************************************/
 
 function entete() {
-   global $langue, $cms_logo, $cms_name, $stage, $Version_Sub;
+   global $langue, $cms_logo, $cms_name, $stage, $Version_Sub, $phpver, $sqlver;
    echo '
    <!DOCTYPE html>
    <html lang="'.language_iso(1,0,0).'">
@@ -56,15 +56,23 @@ function entete() {
       <div class="container-fluid p-0">
          <div class="p-2 mb-4 bg-light">
             <div class="row">
-               <div class="col-sm-2 d-none d-sm-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
-               <div id="logo_header" class="col-sm-10">
+               <div class="col-sm-2 d-none d-md-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
+               <div id="logo_header" class="col my-auto ps-3 ps-md-0">
                   <h1 class="display-4">NPDS<br /><small class="text-muted">'.ins_translate("Mise à jour").' <em>'.OLD_VERSION.' > '.NEW_VERSION.'</em></small></h1>
                </div>
+               <div class="col-sm-3 text-end small my-auto">
+                  <ul class="list-group list-group-flush">
+                     <li class="bg-transparent border-0 p-0 list-group-item">'.$Version_Sub.' '.NEW_VERSION.'</li>
+                     <li class="bg-transparent border-0 p-0 list-group-item">Php '.$phpver.'</li>
+                     <li class="bg-transparent border-0 p-0 list-group-item">Sql '.$sqlver.'</li>
+                  </ul>
+               </div>
             </div>
-            <div class="row">
+<!--            <div class="row">
                <div class="col-sm-6"></div>
-               <div class="col-sm-6 text-sm-end">'.$Version_Sub.' '.NEW_VERSION.'</div>
+               <div class="col-sm-6 text-sm-end">'.$Version_Sub.' '.NEW_VERSION.'<br />Php '.$phpver.'<br />Sql '.$sqlver.'</div>
             </div>
+-->
          </div>';
 }
 
@@ -100,7 +108,6 @@ function menu() {
                   <li class="list-group-item list-group-item'.$colorst4.'">'.ins_translate('Vérification des fichiers').'</li>
                   <li class="list-group-item list-group-item'.$colorst7.'">'.ins_translate('Base de données').'</li>
                   <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
-                  <li class="list-group-item list-group-item-light"><code class="small">Version Php '.$phpver.'<br />Version Sql '.$sqlver.'</code></li>
                </ul>
             </div>
             <div class="col-md-9">';
