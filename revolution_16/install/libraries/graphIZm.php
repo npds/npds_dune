@@ -14,12 +14,14 @@
 /*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function entete() {
    global $langue, $cms_logo, $cms_name, $stage, $Version_Num, $Version_Id, $Version_Sub;
-   echo '<html>
+   echo '
+   <!DOCTYPE html>
+   <html lang="'.language_iso(1,0,0).'">
    <head>
       <meta charset="utf-8">
       <title>NPDS IZ-Xinstall - Installation &amp; Configuration</title>
@@ -32,13 +34,11 @@ function entete() {
       <meta name="author" content="Developpeur, EBH, jpb, phr" />
       <meta name="owner" content="npds.org" />
       <meta name="reply-to" content="developpeur@npds.org" />
-      <meta name="language" content="fr" />
-      <meta http-equiv="content-language" content="fr, fr-be, fr-ca, fr-lu, fr-ch" />
       <meta name="description" content="NPDS IZ-Xinstall" />
       <meta name="keywords" content="NPDS, Installateur automatique" />
       <meta name="rating" content="general" />
       <meta name="distribution" content="global" />
-      <meta name="copyright" content="npds.org 2001-2016" />
+      <meta name="copyright" content="npds.org 2001-2024" />
       <meta name="revisit-after" content="15 days" />
       <meta name="resource-type" content="document" />
       <meta name="robots" content="none" />
@@ -47,12 +47,13 @@ function entete() {
       <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="lib/formvalidation/dist/css/formValidation.min.css">
       <link rel="stylesheet" href="themes/npds-boost_sk/style/style.css">
+      <link rel="shortcut icon" href="install/images/favicon.ico" type="image/x-icon">
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
    </head>
    <body>
-      <div class="container-fluid">
-         <div class="my-2">
+      <div class="container-fluid p-0">
+         <div class="p-2 mb-4 bg-light">
             <div class="row">
                <div class="col-sm-2 d-none d-sm-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
                <div id="logo_header" class="col-sm-10">
@@ -66,28 +67,31 @@ function entete() {
          </div>
          <hr class="lead" />';
 }
-function pied_depage() {
+
+function pied_depage($etat) {
    global $stage;
    echo '
          <div class="col text-center">
-            <hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.2 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="visually-hidden">On work...</span>
+            <hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.3 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="visually-hidden">On work...</span>
          </div>
       </div>
    </body>
 </html>';
    exit();
 }
+
 function page_message($chaine) {
    entete();
    echo '
    <h2>'.$chaine.'</h2>';
-   pied_depage();
+   pied_depage('success');
 }
+
 function menu() {
    global $menu, $langue, $colorst1, $colorst2, $colorst3, $colorst4, $colorst5, $colorst6, $colorst7, $colorst8, $colorst9, $colorst10,$phpver;
    $menu='';
    $menu.= '
-         <div class="row">
+         <div class="row px-3">
             <div class="col-md-3">
                <ul class="list-group mb-3">
                   <li class="list-group-item list-group-item'.$colorst1.'">'.ins_translate('Langue').'</li>

@@ -14,7 +14,7 @@
 /*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
@@ -27,17 +27,15 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
    }
    fclose($fic);
    include_once('lib/mysqli.php');
-} else
-   include_once('lib/mysql.php');
+}
 
 settype($langue,'string');
 if($langue) {
-   $lang_symb = substr($langue, 0, 3);
-   if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php')) {
+   if(file_exists($fichier_lang = 'install/languages/install-'.language_iso(1,0,0).'.php')) {
       include_once $fichier_lang;
    }
    else
-      include_once('install/languages/french/install-fre.php');
+      include_once('install/languages/install-fre.php');
 }
 
 #autodoc FixQuotes($what) : Quote une chaîne contenant des '
@@ -50,6 +48,7 @@ function FixQuotes($what = '') {
    return $what;
 }
 
+// ==> renvoi la version Php et une variable de blocage si elle est inférieure à celle désirée : 5.6
 function verif_php() {
    global $stopphp, $phpver;
    $stopphp = 0;
@@ -62,6 +61,17 @@ function verif_php() {
    return ($phpver);
 }
 
+// ==> renvoi la version sql
+function verif_sql() {
+   global $sqlver;
+   $sqlgetver = (mysqli_get_server_version(sql_connect()))/10000;
+   $mainversion = intval($sqlgetver);
+   $subversion = ($sqlgetver-$mainversion)*10000/100;
+   $sqlver = "$mainversion.$subversion";
+   return ($sqlver);
+}
+
+// ==> controle le droit des fichiers et une variable de blocage si non writable ...
 function verif_chmod() {
    global $stopngo, $listfich;
    $file_to_check = array('abla.log.php','cache.config.php','config.php','filemanager.conf','slogs/security.log','meta/meta.php','static/edito.txt','modules/upload/upload.conf.php');
