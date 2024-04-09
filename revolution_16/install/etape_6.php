@@ -21,14 +21,14 @@ if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 include ('config.php');
    $pre_tab='';
    if($NPDS_Prefix!='') 
-      $pre_tab = ins_translate(' Tables préfixées avec : ').'<code class="code">'.$NPDS_Prefix.' </code>.';
+      $pre_tab = ins_translate('Tables préfixées avec : ').'(<code class="code mx-1">'.$NPDS_Prefix.'</code>).';
 
 function etape_6() {
    global $list_tab, $langue, $stage, $qi, $dbhost, $dbname, $dbuname, $dbpass, $NPDS_Prefix, $pre_tab;
    $stage = 6;
    echo '
                <h3 class="mb-3">'.ins_translate('Base de données').'</h3>
-                  <p id="mess_bd">'.ins_translate('Nous allons maintenant procéder à la création des tables de la base de données ').' (&nbsp;<code class="code">'.$dbname.'</code>&nbsp;) '.ins_translate('sur le serveur d\'hébergement').' (&nbsp;<code class="code">'.$dbhost.'</code>&nbsp;). '.$pre_tab.'<br />'. ins_translate('Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !').'<br /></p>
+                  <p id="mess_bd">'.ins_translate('Nous allons maintenant procéder à la création des tables de la base de données ').' (<code class="code mx-1">'.$dbname.'</code>) '.ins_translate('sur le serveur d\'hébergement').' (<code class="code mx-1">'.$dbhost.'</code>). '. ins_translate("Pour cet utilisateur SQL").' : (<code class="code mx-1">'.$dbuname.'</code>). '.$pre_tab.'<br />'. ins_translate('Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !').'<br /></p>
                   <form name="database" method="post" action="install.php">
                      <input type="hidden" name="langue" value="'.$langue.'" />
                      <input type="hidden" name="stage" value="'.$stage.'" />

@@ -18,7 +18,7 @@
 /************************************************************************/
 
 function entete() {
-   global $langue, $cms_logo, $cms_name, $stage, $Version_Num, $Version_Id, $Version_Sub;
+   global $langue, $cms_logo, $cms_name, $stage, $Version_Sub, $phpver, $sqlver;
    echo '
    <!DOCTYPE html>
    <html lang="'.language_iso(1,0,0).'">
@@ -50,30 +50,34 @@ function entete() {
       <link rel="shortcut icon" href="install/images/favicon.ico" type="image/x-icon">
       <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
    </head>
    <body>
       <div class="container-fluid p-0">
          <div class="p-2 mb-4 bg-light">
             <div class="row">
-               <div class="col-sm-2 d-none d-sm-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
-               <div id="logo_header" class="col-sm-10">
-                  <h1 class="display-4">NPDS<br /><small class="text-muted"><em>installation automatique</em></small></h1>
+               <div class="col-sm-2 d-none d-md-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
+               <div id="logo_header" class="col my-auto ps-3 ps-md-0">
+                  <h1 class="display-4">NPDS<br /><small class="text-muted">'.ins_translate("Installation automatique").' <em> '.NEW_VERSION.'</em></small></h1>
+               </div>
+               <div class="col-sm-3 text-end small my-auto">
+                  <ul class="list-group list-group-flush">
+                     <li class="bg-transparent border-0 p-0 list-group-item">'.$Version_Sub.' '.NEW_VERSION.'</li>
+                     <li class="bg-transparent border-0 p-0 list-group-item">Php '.$phpver.'</li>
+                     <li class="bg-transparent border-0 p-0 list-group-item">Sql '.$sqlver.'</li>
+                  </ul>
                </div>
             </div>
-            <div class="row">
-               <div class="col-sm-6"></div>
-               <div class="col-sm-6 text-sm-end">'.$Version_Sub.' '.$Version_Num.'</div>
-            </div>
-         </div>
-         <hr class="lead" />';
+         </div>';
 }
 
 function pied_depage($etat) {
    global $stage;
    echo '
-         <div class="col text-center">
-            <hr class="lead" /><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall version : 1.3 <i class="fa fa-spinner fa-spin fa-lg fa-fw text-success"></i><span class="visually-hidden">On work...</span>
-         </div>
+         <footer class="d-flex align-items-center bg-light p-4 mt-4">
+            <div class="fw-semibold"><a href="http://www.npds.org" target="_blank">NPDS</a> IZ-Xinstall v.1.3</div>
+            <div class="spinner-border ms-auto text-'.$etat.'" role="status" aria-hidden="true"></div>
+         </footer>
       </div>
    </body>
 </html>';
@@ -88,7 +92,7 @@ function page_message($chaine) {
 }
 
 function menu() {
-   global $menu, $langue, $colorst1, $colorst2, $colorst3, $colorst4, $colorst5, $colorst6, $colorst7, $colorst8, $colorst9, $colorst10,$phpver;
+   global $menu, $langue, $colorst1, $colorst2, $colorst3, $colorst4, $colorst5, $colorst6, $colorst7, $colorst8, $colorst9, $colorst10;
    $menu='';
    $menu.= '
          <div class="row px-3">
@@ -104,7 +108,6 @@ function menu() {
                   <li class="list-group-item list-group-item'.$colorst8.'">'.ins_translate('Compte Admin').'</li>
                   <li class="list-group-item list-group-item'.$colorst9.'">'.ins_translate('Module UPload').'</li>
                   <li class="list-group-item list-group-item'.$colorst10.'">'.ins_translate('Fin').'</li>
-                  <li class="list-group-item list-group-item-light"><code class="small">Version Php '.$phpver.'</code></li>
                </ul>
             </div>
             <div class="col-md-9">';

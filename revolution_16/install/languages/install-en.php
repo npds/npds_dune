@@ -54,6 +54,7 @@ function ins_translate($phrase) {
   case "Fin": $tmp = "End"; break;
   case "Identifiant": $tmp = "Login"; break;
   case "incorrects": $tmp = "bad"; break;
+  case "Installation automatique": $tmp = "Automatic installation"; break;
   case "Installation rapide": $tmp = "Quick setup"; break;
   case "Intitulé de votre site": $tmp = "Title of your website"; break;
   case "J'accepte": $tmp = "I agree"; break;
@@ -86,6 +87,7 @@ function ins_translate($phrase) {
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "The two passwords are not identical."; break;
   case "Licence": $tmp = "License"; break;
   case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes une mise à jour de votre site.": $tmp = "Now that you have just transferred the NPDS files to your Internet hosting server, this script will guide you through several steps to obtain an update to your site in just a few minutes."; break; 
+  case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes votre nouveau portail NPDS.": $tmp = "Now that you have just transferred the NPDS files to your Internet hosting server, this script will guide you through several steps to obtain your new NPDS site in just a few minutes."; break; 
   case "Merci encore d'avoir choisi": $tmp = "Thanks again for choosing"; break;
   case "Mettre à jour": $tmp = "Make update"; break;
   case "Mise à jour": $tmp = "Update"; break;
@@ -111,6 +113,7 @@ function ins_translate($phrase) {
   case "Oui": $tmp = "Yes"; break;
   case "Paramètres de connexion": $tmp = "Connection parameters"; break;
   case "Permanente": $tmp = "Persistante"; break;
+  case "Pour cet utilisateur SQL": $tmp = "For this SQL user"; break;
   case "Pour éviter les conflits de nom de table sql...": $tmp = "To avoid the sql table names conflicts..."; break;
   case "Préfixe des tables sql": $tmp = "Sql table prefixes"; break;
   case "Premier utilisateur": $tmp = "First user"; break;

@@ -21,9 +21,8 @@ if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 function etape_2() {
    global $stage, $langue, $qi;
    $stage = 2;
-   $lang_symb = substr($langue, 0, 3);
-   if(file_exists('install/languages/'.$langue.'/licence-'.$lang_symb.'.txt')) {
-      $licence_file = 'install/languages/'.$langue.'/licence-'.$lang_symb.'.txt';
+   if(file_exists('install/languages/licence-'.language_iso(1,0,0).'.txt')) {
+      $licence_file = 'install/languages/licence-'.language_iso(1,0,0).'.txt';
       $myfile = @fopen($licence_file,"r");
       $licence_text = fread($myfile, filesize($licence_file));
       fclose($myfile);
@@ -33,10 +32,10 @@ function etape_2() {
       $nohalt = false;
    }
    echo '
-               <h3 class="mb-2">'.ins_translate('Licence').'</h3>
+               <h3 class="mb-2">'.ins_translate('Licence').'<span><img src="install/images/gplv3-with-text-136x68.png" alt="logo GNUGPL 3" loading="lazy"/></span></h3>
                <form name="gpl" method="post" action="install.php">
                   <fieldset class="mb-3">
-                     <label for="licence">'.ins_translate("L'utilisation de NPDS est soumise à l'acceptation des termes de la licence GNU GPL ").' :</label>
+                     <label class="mb-3" for="licence">'.ins_translate("L'utilisation de NPDS est soumise à l'acceptation des termes de la licence GNU GPL ").' :</label>
                      <textarea name="licence" class="form-control" id="licence" rows="15" readonly="readonly">'.$licence_text.'</textarea>
                   </fieldset>
                   <input type="hidden" name="langue" value="'.$langue.'" />

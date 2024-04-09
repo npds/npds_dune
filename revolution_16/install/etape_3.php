@@ -29,7 +29,8 @@ function etape_3() {
    $colorst4 = ' active';
    if ($stopphp == 1) $colorst4 = '-danger';
    if ($stopngo == 1) $colorst4 = '-danger';
-   if ($stopngo != 1 and $stopphp != 1 and $qi==1) $stage = 4; 
+   if ($stopngo != 1 and $stopphp != 1 and $qi==1) 
+      $stage = 4; 
    else {
       entete();
       menu();
@@ -43,7 +44,7 @@ function etape_3() {
                <form name="reload" method="post">
                   <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>';
-         pied_depage();
+         pied_depage('danger');
       }
       echo '
                <form name="path" method="post" action="install.php">
@@ -58,7 +59,7 @@ function etape_3() {
                   <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>
             </div>';
-         pied_depage();
+         pied_depage('danger');
          exit;
       }
       else {
@@ -72,7 +73,7 @@ function etape_3() {
             </form>
          </div>';
       }
-      pied_depage();
+      pied_depage('success');
    }
 }
 ?>

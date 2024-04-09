@@ -17,25 +17,17 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
-if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
-   $file = file("config.php");
-   $file[33] ="\$mysql_p = 1;\n";
-   $file[34] ="\$mysql_i = 1;\n";
-   $fic = fopen("config.php", "w");
-   foreach($file as $n => $ligne) {
-      fwrite($fic, $ligne);
-   }
-   fclose($fic);
-   include_once('lib/mysqli.php');
-}
+// ==> définition des versions requises pour la MAJ
+define("NEW_VERSION","v.16.4");
+include_once('lib/mysqli.php');
 
-settype($langue,'string');
+$langue = isset($langue) ? $langue : 'fr';
 if($langue) {
    if(file_exists($fichier_lang = 'install/languages/install-'.language_iso(1,0,0).'.php')) {
       include_once $fichier_lang;
    }
    else
-      include_once('install/languages/install-fre.php');
+      include_once('install/languages/install-'.$langue.'.php');
 }
 
 #autodoc FixQuotes($what) : Quote une chaîne contenant des '

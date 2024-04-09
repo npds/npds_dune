@@ -54,6 +54,7 @@ function ins_translate($phrase) {
   case "Fin": $tmp = "Ende"; break;
   case "Identifiant": $tmp = "Login"; break;
   case "incorrects": $tmp = "schlecht"; break;
+  case "Installation automatique": $tmp = "Automatische Installation"; break;
   case "Installation rapide": $tmp = "Schnelle Einrichtung"; break;
   case "Intitulé de votre site": $tmp = "Titel Ihrer Website"; break;
   case "J'accepte": $tmp = "Ich stimme zu"; break;
@@ -85,7 +86,8 @@ function ins_translate($phrase) {
   case "les changements de nom de classes et attributs du framework bs 5.2 ne sont corrigées que dans les fichiers ou tables de la base de données affectés par cette mise à jour. Ce qui signifie que quelques classes et attributs resteront à corriger." : $tmp = "Änderungen an Klassen- und Attributnamen im BS 5.2-Framework werden nur in den von diesem Update betroffenen Datenbankdateien oder -tabellen korrigiert. Das bedeutet, dass noch einige Klassen und Attribute korrigiert werden müssen."; break;
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "Die beiden Passwörter sind nicht identisch."; break;
   case "Licence": $tmp = "Lizenz"; break;
-  case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes une mise à jour de votre site.": $tmp = "Nachdem Sie nun gerade die NPDS-Dateien auf Ihren Internet-Hosting-Server übertragen haben, führt Sie dieses Skript durch mehrere Schritte, um in nur wenigen Minuten ein Update für Ihre Site zu erhalten."; break; 
+  case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes une mise à jour de votre site.": $tmp = "Nachdem Sie nun gerade die NPDS-Dateien auf Ihren Internet-Hosting-Server übertragen haben, führt Sie dieses Skript durch mehrere Schritte, um in nur wenigen Minuten ein Update für Ihre Site zu erhalten."; break;
+  case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes votre nouveau portail NPDS.": $tmp = "Nachdem Sie nun gerade die NPDS-Dateien auf Ihren Internet-Hosting-Server übertragen haben, führt Sie dieses Skript durch mehrere Schritte, um in wenigen Minuten Ihr neues NPDS-Portal zu erhalten."; break;
   case "Merci encore d'avoir choisi": $tmp = "Nochmals vielen Dank, dass Sie sich entschieden haben"; break;
   case "Mettre à jour": $tmp = " Updaten "; break;
   case "Mise à jour": $tmp = "Aktualisierte"; break;
@@ -111,6 +113,7 @@ function ins_translate($phrase) {
   case "Oui": $tmp = "Ja"; break;
   case "Paramètres de connexion": $tmp = "Verbindungsparameter"; break;
   case "Permanente": $tmp = "Permanent"; break;
+  case "Pour cet utilisateur SQL": $tmp = "Für diesen SQL-Benutzer"; break;
   case "Pour éviter les conflits de nom de table sql...": $tmp = "Um SQL Datenbanknamenskonflikte zu vermeiden..."; break;
   case "Préfixe des tables sql": $tmp = "Sql Tabellen Prefix"; break;
   case "Premier utilisateur": $tmp = "Erster Benutzer"; break;

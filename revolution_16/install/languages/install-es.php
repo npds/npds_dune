@@ -54,6 +54,7 @@ function ins_translate($phrase) {
   case "Fin": $tmp = "Fin"; break;
   case "Identifiant": $tmp = "Login"; break;
   case "incorrects": $tmp = "erróneo"; break;
+  case "Installation automatique": $tmp = "Instalación automática"; break;
   case "Installation rapide": $tmp = "Instalación rápida"; break;
   case "Intitulé de votre site": $tmp = "Título de su sitio web"; break;
   case "J'accepte": $tmp = "Acepto"; break;
@@ -86,6 +87,7 @@ function ins_translate($phrase) {
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "Las dos contraseñas no son idénticas."; break;
   case "Licence": $tmp = "Licencia"; break;
   case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes une mise à jour de votre site.": $tmp = "Ahora que acaba de transferir los archivos NPDS a su servidor de alojamiento de Internet, este script lo guiará a través de varios pasos para obtener una actualización de su sitio en solo unos minutos."; break; 
+  case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes votre nouveau portail NPDS.": $tmp = "Ahora que acaba de transferir los archivos NPDS a su servidor de alojamiento de Internet, este script lo guiará a través de varios pasos para obtener su nuevo portal NPDS en unos minutos."; break; 
   case "Merci encore d'avoir choisi": $tmp = "Gracias de nuevo por elegir"; break;
   case "Mettre à jour": $tmp = "Actualizar"; break;
   case "Mise à jour": $tmp = "Actualizado"; break;
@@ -111,6 +113,7 @@ function ins_translate($phrase) {
   case "Oui": $tmp = "Si"; break;
   case "Paramètres de connexion": $tmp = "Configuración de conexión"; break;
   case "Permanente": $tmp = "Permanente"; break;
+  case "Pour cet utilisateur SQL": $tmp = "Para este usuario de SQL"; break;
   case "Pour éviter les conflits de nom de table sql...": $tmp = "Para evitar los conflictos de nombres de tabla sql..."; break;
   case "Préfixe des tables sql": $tmp = "Prefijo de tablas de SQL"; break;
   case "Premier utilisateur": $tmp = "Primer usuario"; break;

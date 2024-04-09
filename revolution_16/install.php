@@ -3,38 +3,39 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
 /*         : v.1.2 phr, jpb - 2017                                      */
-/*                                                                      */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 // Bloque le lancement de l'install si IZ-Xinstall.ok existe
 if (file_exists('IZ-Xinstall.ok')) include('admin/die.php');
 
 /*
-# Contrôle des fichiers de base de IZ-Xinstall
+# Inclusions des lib et contrôle versions
 */
-if(file_exists('grab_globals.php')) include ('grab_globals.php');
-if(file_exists('install/libraries/graphIZm.php')) include ('install/libraries/graphIZm.php');
-if(file_exists('install/libraries/lib-inc.php')) include ('install/libraries/lib-inc.php');
+include ('grab_globals.php');
+include ('install/libraries/graphIZm.php');
+include ('install/libraries/lib-inc.php');
 include('config.php');
-   verif_php();
+verif_php();
+verif_sql();
 
 /*
 # Paramètres install
 */
 $cms_logo = 'install/images/header.png';
 $cms_name = 'NPDS REvolution 16';
-global $cms_logo, $cms_name, $Version_Num, $Version_Id, $Version_Sub, $phpver;
+global $cms_logo, $cms_name, $Version_Num, $Version_Sub, $phpver;
 
 if(!isset($stage)) $stage = 0;
 
@@ -49,7 +50,7 @@ if($stage == 0) {
    entete();
    require('install/etape_0.php');
    etape_0();
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
@@ -79,7 +80,7 @@ if($stage == 1) {
       etape_1();
       break;
    }
- pied_depage();
+ pied_depage('success');
 }
 
 /*
@@ -104,7 +105,7 @@ if($stage == 2 and $qi!=1) {
       etape_2();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 };
 
 /*
@@ -182,7 +183,7 @@ if($stage == 4) {
          etape_4();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
@@ -240,12 +241,12 @@ if($stage == 5){
          etape_5();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
 # install/etape_6.php
-# Création/Mise à jour de la base de données
+# Mise à jour de la base de données
 */
 if($stage == 6) {
    require('install/etape_6.php');
@@ -265,7 +266,7 @@ if($stage == 6) {
          require('install/sql/sql-create.php');
          write_database();
          if($stage6_ok == 1) {
-            $Xinst_log = date('d/m/y  H:j:s').' : Création tables et/ou base de donnée pour '.$cms_name."\n";
+            $Xinst_log = date('d/m/y  H:j:s').' : Création tables de la base de donnée pour '.$cms_name."\n";
             $file = fopen("slogs/install.log", "a");
             fwrite($file, $Xinst_log);
             fclose($file);
@@ -305,7 +306,7 @@ if($stage == 6) {
       etape_6();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
@@ -376,7 +377,7 @@ if($stage == 7) {
          etape_7();
       break;
    }
-   pied_depage();
+   pied_depage('');
 }
 
 /*
@@ -434,7 +435,7 @@ if($stage == 8) {
          etape_8();
        break;
    }
-   pied_depage();
+   pied_depage('');
 }
 
 /*
