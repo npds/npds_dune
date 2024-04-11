@@ -3,7 +3,7 @@
 /* NPDS DUNE : Net Portal Dynamic System .                              */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,6 +19,6 @@ if (($obj->FieldView=="jpg") or ($obj->FieldView=="gif") or ($obj->FieldView=="p
       "\"#\"" ;
 else
    $url_modifier = $tiny_mce ?
-      "\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<a href=".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)." target=_blank>".$obj->FieldName."</a>'); top.tinymce.activeEditor.windowManager.close();\"" ;
+      "\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<a href=".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)." target=_blank>".$obj->FieldName."</a>'); top.tinymce.activeEditor.windowManager.close();\"" :
       "\"".str_replace(" ","%20","users_private".str_replace(dirname($basedir_fma),"",$cur_nav_back)."/".basename($cur_nav)."/".$obj->FieldName)."\"";
 ?>

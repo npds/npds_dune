@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -29,16 +29,20 @@ global $language;
 include("modules/upload/lang/upload.lang-$language.php");
 
 function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
-   global $hlpfile, $filemanager,$f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $filemanager,$f_meta_nom, $f_titre, $adminimg, $subop;
    include ("modules/upload/upload.conf.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
+ echo (isset($subop) and $subop=='uploadSave') ? 
+ '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>'.upload_translate("Modifications enregistrées dans").'</strong> <code class="code">/modules/upload/upload.conf.php</code>.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>' : '';
    echo '
    <hr />
-   <div class="alert alert-danger lead"><strong>!!! EN TRAVAUX NE PAS UTILISER !!!</strong></div>
    <form id="settingsupload" action="admin.php" method="post">
    <fieldset>
-      <legend>'.adm_translate("Parametres").'</legend>
+      <legend>'.adm_translate("Paramètres").'</legend>
       <div id="info_gene" class="adminsidefield card card-body mb-3">
          <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xmax_size">'.adm_translate("Taille maxi des fichiers").'</label>
@@ -302,9 +306,9 @@ function uploadSave($xmax_size, $xdocumentroot, $xautorise_upload_p, $xracine, $
    $file[21] = "\$DOCUMENTROOT = '$xdocumentroot';\n";
    $file[24] = "\$autorise_upload_p = '$xautorise_upload_p';\n";
    $file[28] = "\$racine = '$xracine';\n";
-   $file[31] = "\$rep_upload = \$racine.'$xrep_upload';\n";
-   $file[34] = "\$rep_cache = \$racine.'$xrep_cache';\n";
-   $file[37] = "\$rep_log = \$racine.'$xrep_log';\n";
+   $file[31] = "\$rep_upload = '".$xrep_upload."';\n";
+   $file[34] = "\$rep_cache = '".$xrep_cache."';\n";
+   $file[37] = "\$rep_log = '".$xrep_log."';\n";
    $file[40] = "\$url_upload = '$xurl_upload';\n";
    $file[57] = "\$url_upload_css = '$xurl_upload_css';\n";
    $profil=array('0','0','0','0');
