@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This module don't use anyone of the config.php variable for security */
 /* reasons                                                              */
@@ -29,13 +29,13 @@ $autorise_upload_p = "true";
 $racine = '';
 
 // Répertoire de téléchargement (avec le / terminal)
-$rep_upload = $racine.'/modules/upload/upload/';
+$rep_upload = '/modules/upload/upload/';
 
 // Répertoire de stockage des fichiers temporaires (avec le / terminal)
-$rep_cache = $racine.'/modules/upload/tmp/';
+$rep_cache = '/modules/upload/tmp/';
 
 // Répertoire/fichier de stockage de la log de téléchargement (par défaut /slogs/security.log)
-$rep_log = $racine.'/slogs/security.log';
+$rep_log = '/slogs/security.log';
 
 // URL HTTP de votre site (exemple : http://www.monsite.org)  !
 $url_upload = 'http://localhost';
