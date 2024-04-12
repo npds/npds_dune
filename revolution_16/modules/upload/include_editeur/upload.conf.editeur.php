@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -60,7 +60,7 @@
 /* $bn_allowed_extensions : Autoriser les utilisateurs à uploader des   */
 /* fichier dans la rédaction des messages. Dans les champs suivants,    */
 /* vous pouvez alors préciser quelles extentions sont autorisées        */
-/* (si rien n'est spÈcifiÈ, toute les extentions sont autorisées) ou    */
+/* (si rien n'est spécifié, toute les extentions sont autorisées) ou    */
 /* $bn_banned_extensions quelles extentions sont interdites (si rien    */
 /* n'est spécifié, aucune extention n'est interdite)                    */
 /************************************************************************/

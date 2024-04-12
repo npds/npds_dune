@@ -181,7 +181,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
             <div class="col-sm-8">
                <div class="input-group mb-2">
                   <div id="humread_quota" class="input-group-text">'.$quota.'</div>
-                  <input  onkeyup="convertoct(\'xquota\',\'humread_quota\')" class="form-control " id="xquota" type="text" name="xquota" min="1" maxlength="8" value="'.$quota.'" />
+                  <input  onkeyup="convertoct(\'xquota\',\'humread_quota\')" class="form-control " id="xquota" type="text" name="xquota" min="1" maxlength="9" value="'.$quota.'" />
                </div>
                <span class="help-block">Limite de l\'espace disque alloué pour l\'upload (en octects)<span class="float-end ms-1" id="countcar_xquota"></span></span>
             </div>
@@ -295,7 +295,7 @@ echo '
    inpandfieldlen("xed_nb_images",3);
    inpandfieldlen("xwidth_max",3);
    inpandfieldlen("xheight_max",3);
-   inpandfieldlen("xquota",8);
+   inpandfieldlen("xquota",9);
 ';
    adminfoot('fv',$fv_parametres,$arg1,'');
 }
