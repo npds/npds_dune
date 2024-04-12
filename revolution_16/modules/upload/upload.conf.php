@@ -14,7 +14,7 @@
 /************************************************************************/
 
 // Taille maxi des fichiers en octets
-$max_size = 100000000;// for debug pagetec smartphone
+$max_size = 15680000;
 
 // Si votre variable $DOCUMENT_ROOT n'est pas bonne (notamment en cas de redirection)
 // vous pouvez en spécifier une ici (c'est le chemin physique d'accès à la racine de votre site en partant de / ou C:\)
@@ -78,5 +78,5 @@ $width_max=50;
 $height_max=50;
 
 // Limite de l'espace disque alloué pour l'upload (en octects)
-$quota=300000000;// for debug pagetec smartphone
+$quota=733999999;
 ?>

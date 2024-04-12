@@ -232,13 +232,13 @@ echo '
    xquota: {
       validators: {
          regexp: {
-            regexp:/^\d{1,8}$/,
+            regexp:/^\d{1,9}$/,
             message: "0 ... 9"
          },
          between: {
             min: 1,
-            max: 99999999,
-            message: "1 ... 99999999"
+            max: 999999999,
+            message: "1 ... 999999999"
          }
       }
    },
