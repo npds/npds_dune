@@ -62,8 +62,8 @@ if($stage == 1) {
    $file = file("config.php");
    $file[173] ="\$language = \"$langue\";\n";
    $fic = fopen("config.php", "w");
-      foreach($file as $n => $ligne) {
-         fwrite($fic, $ligne);
+   foreach($file as $n => $ligne) {
+      fwrite($fic, $ligne);
    }
    fclose($fic);
 
@@ -153,23 +153,21 @@ if($stage == 4) {
             fclose($file);
             if($qi == 1) {Header('Location: install.php?stage=5&qi=1&langue='.$langue);exit;};
          }
-         elseif($stage4_ok == 0) {
+         elseif($stage4_ok == 0)
             $msg = '
             <div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
-         }
          entete();
          menu();
          echo $menu;
          $out .= '
                   <h3 class="mb-3">'.ins_translate('Paramètres de connexion').'</h3>'.$msg;
-         if($stage4_ok == 1 and $qi !=1) {
+         if($stage4_ok == 1 and $qi !=1)
             $out.= '
                   <form name="submit" method="post" action="install.php">
                      <input type="hidden" name="langue" value="'.$langue.'" />
                      <input type="hidden" name="stage" value="5" />
                      <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
                   </form>';
-         }
          $out.= '
                </div>';
          echo $out;
@@ -209,16 +207,15 @@ if($stage == 5){
                <div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
             if($qi == 1) {Header('Location: install.php?stage=6&qi=1&langue='.$langue);exit;};
          }
-         elseif($stage5_ok == 0) {
+         elseif($stage5_ok == 0)
             $msg = '
                <div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
-         }
          entete();
          menu();
          echo $menu;
          $out .= '
                <h3 class="mb-3">'.ins_translate("Fichier de configuration").'</h3>'.$msg;
-         if($stage5_ok == 1 and $qi !=1) {
+         if($stage5_ok == 1 and $qi !=1)
             $out.= '
                <form name="next" method="post" action="install.php">
                   <div class="mb-3 ">
@@ -227,11 +224,10 @@ if($stage == 5){
                      <button type="submit" class="btn btn-success">'.ins_translate('Etape suivante').'</button>
                   </div>
                </form>';
-         }
-      $out.= '
+         $out.= '
             </div>';
-      echo $out;
-      unset($stage5_ok);
+         echo $out;
+         unset($stage5_ok);
       break;
       case 'etape_5':
       default:
@@ -358,8 +354,9 @@ if($stage == 7) {
                    <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
                </form>';
                 }
-                $out.= '
-                </div>';
+            $out.= '
+          </div>';
+
             echo $out;
              unset($stage7_ok);
           }
@@ -377,7 +374,7 @@ if($stage == 7) {
          etape_7();
       break;
    }
-   pied_depage('');
+   pied_depage('success');
 }
 
 /*
@@ -399,9 +396,9 @@ if($stage == 8) {
          include('config.php');
          write_upload($new_max_size,$new_DOCUMENTROOT,$new_autorise_upload_p,$new_racine,$new_rep_upload,$new_rep_cache,$new_rep_log,$new_url_upload);
          if($stage8_ok == 1) {
-             $msg = '
+            $msg = '
                <div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
-               if($qi == 1) {Header('Location: install.php?stage=9&qi=1&op=write_ok&langue='.$langue);exit;};
+            if($qi == 1) {Header('Location: install.php?stage=9&qi=1&op=write_ok&langue='.$langue);exit;};
          }
          elseif($stage8_ok == 0) {
             $msg = '
@@ -413,19 +410,18 @@ if($stage == 8) {
 
          $out.=  '
                <h3 class="mb-3">'.ins_translate("Configuration du module UPload").'</h3>'.$msg;
-         if($stage8_ok == 1 and $qi !=1) {
+         if($stage8_ok == 1 and $qi !=1)
             $out.= '
-         <form name="next" method="post" action="install.php">
-            <input type="hidden" name="langue" value="'.$langue.'" />
-            <input type="hidden" name="stage" value="9" />
-            <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
-         </form>';
-         }
-          $out.= '
-          </div>';
-      echo $out;
+               <form name="next" method="post" action="install.php">
+                  <input type="hidden" name="langue" value="'.$langue.'" />
+                  <input type="hidden" name="stage" value="9" />
+                  <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
+               </form>';
+         $out.= '
+         </div>';
+         echo $out;
 
-       unset($stage8_ok);
+         unset($stage8_ok);
        break;
        case 'etape_8':
        default:
@@ -435,7 +431,7 @@ if($stage == 8) {
          etape_8();
        break;
    }
-   pied_depage('');
+   pied_depage('success');
 }
 
 /*
@@ -476,21 +472,20 @@ if($stage == 9) {
          closedir($dir);
          return $archive;
          }
-         if (file_exists('IZ-Xinstall.ok')) {
+         if (file_exists('IZ-Xinstall.ok'))
             if (file_exists('install.php') OR is_dir('install')) {
                icare_delete_Dir('install');
                @rmdir ('install');
                @unlink('install.php');
             }
-         }
          echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'index.php\';'."\n".'//]]>'."\n".'</script>';
-         break;
+      break;
 
       case 'etape_9':
       default;
          etape_9();
          break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 ?>

@@ -50,7 +50,8 @@ function etape_7() {
                      <input type="hidden" name="qi" value="'.$qi.'" />
                      <button type="submit" class="btn btn-success my-3">'.ins_translate('Créer').'</button>
                   </form>
-            </div>';
+            </div>
+         </div>';
    $parametres='
          adminpass1: {
             validators: { checkPassword: {},}

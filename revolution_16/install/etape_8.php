@@ -21,16 +21,7 @@ if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 function etape_8() {
    global $langue, $stage, $qi;
    $stage = 8;
-   if(file_exists('modules/upload/upload.conf.php')) include_once('modules/upload/upload.conf.php');
-   if($racine != '') {
-      $begin = strlen($racine);
-      $end1 = strlen($rep_upload);
-      $end2 = strlen($rep_cache);
-      $end3 = strlen($rep_log);
-      $rep_upload = substr($rep_upload, $begin, $end1);
-      $rep_cache = substr($rep_cache, $begin, $end2);
-      $rep_log = substr($rep_log, $begin, $end3);
-   }
+   include_once('modules/upload/upload.conf.php');
    echo '
                <h3 class="mb-3">'.ins_translate('Configuration du module UPload').'</h3>
                <div class="col-sm-12">
@@ -76,7 +67,7 @@ function etape_8() {
                      </div>
                      <div class="form-floating mb-3">
                         <input class="form-control" type="url" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" data-fv-uri___allow-local="true" />
-                        <label for="new_url_upload">'.ins_translate("URL HTTP de votre site").'</label>
+                        <label for="new_url_upload">'.ins_translate("URL HTTP(S) de votre site").'</label>
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_url_upload"></div>
                         <span class="d-block text-help small w-100">'.ins_translate("SI installation locale").' ==> http://127.0.0.1/</span>
                      </div>

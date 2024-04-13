@@ -135,7 +135,7 @@ function ins_translate($phrase) {
   case "Thème graphique": $tmp = "Tema gráfico de su sitio web"; break;
   case "Type de connexion au serveur mySQL": $tmp = "Tipo de conexión al servidor MySQL"; break;
   case "Une seconde fois": $tmp = "Una segunda vez"; break;
-  case "URL HTTP de votre site": $tmp = "HTTP URL de su sitio web"; break;
+  case "URL HTTP(S) de votre site": $tmp = "HTTP(S) URL de su sitio web"; break;
   case "Valider": $tmp = "Aceptar"; break;
   case "Vérification des fichiers": $tmp = "Comprobación de archivos"; break;
   case "vers": $tmp = "a"; break;

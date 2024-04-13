@@ -182,9 +182,7 @@ function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
    return($stage7_ok);
 }
 
-
-function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, $new_racine, $new_rep_upload, $new_rep_cache, $new_rep_log, $new_url_upload)
-{
+function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, $new_racine, $new_rep_upload, $new_rep_cache, $new_rep_log, $new_url_upload) {
    global $langue, $nuke_url, $stage8_ok;
    $stage8_ok = 0;
 
@@ -193,9 +191,9 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
    $file[21] = "\$DOCUMENTROOT = \"$new_DOCUMENTROOT\";\n";
    $file[24] = "\$autorise_upload_p = \"$new_autorise_upload_p\";\n";
    $file[28] = "\$racine = \"$new_racine\";\n";
-   $file[31] = "\$rep_upload = \$racine.\"$new_rep_upload\";\n";
-   $file[34] = "\$rep_cache = \$racine.\"$new_rep_cache\";\n";
-   $file[37] = "\$rep_log = \$racine.\"$new_rep_log\";\n";
+   $file[31] = "\$rep_upload = \"$new_rep_upload\";\n";
+   $file[34] = "\$rep_cache = \"$new_rep_cache\";\n";
+   $file[37] = "\$rep_log = \"$new_rep_log\";\n";
    $file[40] = "\$url_upload = \"$new_url_upload\";\n";
 
    $fic = fopen("modules/upload/upload.conf.php", "w");
