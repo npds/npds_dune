@@ -3,24 +3,22 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* IZ-Xinstall-MAJ v.1.3                                                */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
 /*         : v.1.2 phr, jpb - 2017                                      */
-/*                                                                      */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function ins_translate($phrase) {
  switch($phrase) {
-  case " Mettre à jour ": $tmp = "Actualizar"; break;
-  case " Tables préfixées avec : ": $tmp = "Tablas con el prefijo:"; break;
   case "Actualiser": $tmp = "Actualizar"; break;
   case "Administrateur": $tmp = "Administrador"; break;
   case "Adresse (URL) de votre site": $tmp = "Dirección (URL) de su sitio web"; break;
@@ -30,7 +28,9 @@ function ins_translate($phrase) {
   case "Base de données": $tmp = "Base de datos"; break;
   case "Bienvenue": $tmp = "Bienvenida"; break;
   case "caractères au minimum": $tmp = "caracteres como mínimo"; break;
+  case "Cette mise à jour est uniquement compatible avec ces versions": $tmp = "Esta actualización sólo es compatible con estas versiones."; break;
   case "Cette option valide l'acceptation de la licence GNU/GPL V3 et supprime l'affichage des résultats de certaines opérations d'installation." : $tmp = "Esta opción valida la aceptación de la licencia GNU / GPL V3 y elimina la visualización de los resultados de algunas operaciones de instalación."; break;
+  case "Cette version de npds définie dans votre fichier config.php est incompatible": $tmp = "Esta versión de npds definida en su archivo config.php es incompatible"; break;
   case "Chemin physique absolu d'accès depuis la racine de votre site": $tmp = "Absoluta ruta física de la raíz de su sitio web"; break;
   case "Compte Admin": $tmp = "Cuenta de administrador"; break;
   case "Configuration du module UPload": $tmp = "La configuración del módulo UPload"; break;
@@ -54,6 +54,7 @@ function ins_translate($phrase) {
   case "Fin": $tmp = "Fin"; break;
   case "Identifiant": $tmp = "Login"; break;
   case "incorrects": $tmp = "erróneo"; break;
+  case "Installation automatique": $tmp = "Instalación automática"; break;
   case "Installation rapide": $tmp = "Instalación rápida"; break;
   case "Intitulé de votre site": $tmp = "Título de su sitio web"; break;
   case "J'accepte": $tmp = "Acepto"; break;
@@ -82,8 +83,17 @@ function ins_translate($phrase) {
   case "Le mot de passe doit contenir au moins un caractère non alphanumérique.": $tmp = "La contraseña debe contener al menos un carácter no alfanumérico."; break;
   case "Le mot de passe doit contenir au moins un chiffre.": $tmp = "La contraseña debe contener al menos un número."; break;
   case "Le mot de passe doit contenir": $tmp = "La contraseña debe contener"; break;
+  case "les changements de nom de classes et attributs du framework bs 5.2 ne sont corrigées que dans les fichiers ou tables de la base de données affectés par cette mise à jour. Ce qui signifie que quelques classes et attributs resteront à corriger." : $tmp = "Los cambios de nombres de clases y atributos en bs 5.2 framework solo se corrigen en los archivos o tablas de bases de datos afectados por esta actualización. Lo que significa que aún será necesario corregir algunas clases y atributos."; break;
   case "Les deux mots de passe ne sont pas identiques.": $tmp = "Las dos contraseñas no son idénticas."; break;
   case "Licence": $tmp = "Licencia"; break;
+  case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes une mise à jour de votre site.": $tmp = "Ahora que acaba de transferir los archivos NPDS a su servidor de alojamiento de Internet, este script lo guiará a través de varios pasos para obtener una actualización de su sitio en solo unos minutos."; break; 
+  case "Maintenant que vous venez de transférer les fichiers de NPDS vers votre serveur d'hébergement Internet, ce script va vous guider en plusieurs étapes afin d'obtenir en quelques minutes votre nouveau portail NPDS.": $tmp = "Ahora que acaba de transferir los archivos NPDS a su servidor de alojamiento de Internet, este script lo guiará a través de varios pasos para obtener su nuevo portal NPDS en unos minutos."; break; 
+  case "Merci encore d'avoir choisi": $tmp = "Gracias de nuevo por elegir"; break;
+  case "Mettre à jour": $tmp = "Actualizar"; break;
+  case "Mise à jour": $tmp = "Actualizado"; break;
+  case "Mise à jour interrompue": $tmp = "Actualización interrumpida"; break;
+  case "Mise à jour terminée": $tmp = "Actualización completada"; break;
+  case "Modification": $tmp = "modificación"; break;
   case "Modifier": $tmp = "Cambiar"; break;
   case "Module UPload": $tmp = "Módulo UPload"; break;
   case "Mot de passe": $tmp = "Contraseña"; break;
@@ -97,17 +107,18 @@ function ins_translate($phrase) {
   case "Non": $tmp = "No"; break;
   case "Nous allons maintenant procéder à la création des tables de la base de données ": $tmp = "Ahora vamos a proceder a la creación de tablas en la base de datos "; break;
   case "Nous allons maintenant procéder à la mise à jour de la base de données. Il est recommandé de faire une sauvegarde de celle-ci avant de poursuivre !": $tmp = "Ahora procederemos a actualizar la base de datos. Se recomienda hacer una copia de seguridad antes de continuar!"; break;
+  case "Nous allons maintenant procéder à la modification des tables de la base de données " : $tmp = "Ahora procederemos a modificar las tablas de la base de datos "; break;
   case "Nouvelle installation": $tmp = "Nueva instalación"; break;
   case "NPDS nécessite une version 5.6.0 ou supérieure !": $tmp = "NDPS requiere 5.6.0 o posterior"; break;
   case "Oui": $tmp = "Si"; break;
   case "Paramètres de connexion": $tmp = "Configuración de conexión"; break;
   case "Permanente": $tmp = "Permanente"; break;
+  case "Pour cet utilisateur SQL": $tmp = "Para este usuario de SQL"; break;
   case "Pour éviter les conflits de nom de table sql...": $tmp = "Para evitar los conflictos de nombres de tabla sql..."; break;
   case "Préfixe des tables sql": $tmp = "Prefijo de tablas de SQL"; break;
   case "Premier utilisateur": $tmp = "Primer usuario"; break;
   case "Quitter": $tmp = "Salida"; break;
   case "Remarque : cette opération peut être plus ou moins longue. Merci de patienter.": $tmp = "Nota: Esto puede ser más corto o más largo Por favor espere .."; break;
-  case "Remarque : veuillez valider les préférences dans l'interface d'administration pour achever la mise à jour.": $tmp = "Nota: Por favor confirme las preferencias en la interfaz de administración para completar la actualización.";
   case "Remarque": $tmp = "Observación"; break;
   case "Répertoire de téléchargement": $tmp = "Directorio de descarga"; break;
   case "Répertoire de votre site": $tmp = "Directorio de su sitio web"; break;
@@ -117,15 +128,19 @@ function ins_translate($phrase) {
   case "Si votre base de données comporte déjà des tables, veuillez en faire une sauvegarde avant de poursuivre !": $tmp = "Si su base de datos ya contiene tablas, por favor haga una copia de seguridad antes de proceder!"; break;
   case "Slogan de votre site": $tmp = "Lema su sitio"; break;
   case "souvent identique à l'identifiant": $tmp = "menudo idéntico al identificador"; break;
+  case "Suppression": $tmp = "Supresión"; break;
   case "sur le serveur d'hébergement": $tmp = "en el servidor de alojamiento"; break;
+  case "Tables préfixées avec : ": $tmp = "Tablas con el prefijo: "; break;
   case "Taille maxi des fichiers en octets": $tmp = "Tamaño máximo de archivos en bytes."; break;
   case "Thème graphique": $tmp = "Tema gráfico de su sitio web"; break;
   case "Type de connexion au serveur mySQL": $tmp = "Tipo de conexión al servidor MySQL"; break;
   case "Une seconde fois": $tmp = "Una segunda vez"; break;
-  case "URL HTTP de votre site": $tmp = "HTTP URL de su sitio web"; break;
+  case "URL HTTP(S) de votre site": $tmp = "HTTP(S) URL de su sitio web"; break;
   case "Valider": $tmp = "Aceptar"; break;
   case "Vérification des fichiers": $tmp = "Comprobación de archivos"; break;
+  case "vers": $tmp = "a"; break;
   case "Version actuelle de PHP": $tmp = "La versión actual de PHP"; break;
+  case "veuillez valider les préférences et les metatags dans l'interface d'administration pour parfaire la mise à jour.": $tmp = "valide las preferencias y metaetiquetas en la interfaz de administración para completar la actualización."; break;
   case "Vos paramètres personnels": $tmp = "Su configuración personal"; break;
   case "Votre version de NPDS est incorrecte, version requise": $tmp = "Su versión de NDPS es incorrecta, la versión requerida"; break;
   case "Vous devez modifier les droits d'accès (lecture/écriture) du fichier ": $tmp = "Debe cambiar los derechos de acceso (lectura / escritura) el archivo "; break;

@@ -3,18 +3,18 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
 /*         : v.1.2 phr, jpb - 2017                                      */
-/*                                                                      */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
@@ -29,7 +29,8 @@ function etape_3() {
    $colorst4 = ' active';
    if ($stopphp == 1) $colorst4 = '-danger';
    if ($stopngo == 1) $colorst4 = '-danger';
-   if ($stopngo != 1 and $stopphp != 1 and $qi==1) $stage = 4; 
+   if ($stopngo != 1 and $stopphp != 1 and $qi==1) 
+      $stage = 4; 
    else {
       entete();
       menu();
@@ -43,7 +44,7 @@ function etape_3() {
                <form name="reload" method="post">
                   <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>';
-         pied_depage();
+         pied_depage('danger');
       }
       echo '
                <form name="path" method="post" action="install.php">
@@ -58,7 +59,7 @@ function etape_3() {
                   <button onclick="window.location.reload()" class="btn btn-danger">'.ins_translate('Actualiser').'</button>
                </form>
             </div>';
-         pied_depage();
+         pied_depage('danger');
          exit;
       }
       else {
@@ -72,7 +73,7 @@ function etape_3() {
             </form>
          </div>';
       }
-      pied_depage();
+      pied_depage('success');
    }
 }
 ?>

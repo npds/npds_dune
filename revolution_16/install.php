@@ -3,38 +3,39 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
 /*         : v.1.2 phr, jpb - 2017                                      */
-/*                                                                      */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 // Bloque le lancement de l'install si IZ-Xinstall.ok existe
 if (file_exists('IZ-Xinstall.ok')) include('admin/die.php');
 
 /*
-# Contrôle des fichiers de base de IZ-Xinstall
+# Inclusions des lib et contrôle versions
 */
-if(file_exists('grab_globals.php')) include ('grab_globals.php');
-if(file_exists('install/libraries/graphIZm.php')) include ('install/libraries/graphIZm.php');
-if(file_exists('install/libraries/lib-inc.php')) include ('install/libraries/lib-inc.php');
+include ('grab_globals.php');
+include ('install/libraries/graphIZm.php');
+include ('install/libraries/lib-inc.php');
 include('config.php');
-   verif_php();
+verif_php();
+verif_sql();
 
 /*
 # Paramètres install
 */
 $cms_logo = 'install/images/header.png';
 $cms_name = 'NPDS REvolution 16';
-global $cms_logo, $cms_name, $Version_Num, $Version_Id, $Version_Sub, $phpver;
+global $cms_logo, $cms_name, $Version_Num, $Version_Sub, $phpver;
 
 if(!isset($stage)) $stage = 0;
 
@@ -49,7 +50,7 @@ if($stage == 0) {
    entete();
    require('install/etape_0.php');
    etape_0();
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
@@ -61,8 +62,8 @@ if($stage == 1) {
    $file = file("config.php");
    $file[173] ="\$language = \"$langue\";\n";
    $fic = fopen("config.php", "w");
-      foreach($file as $n => $ligne) {
-         fwrite($fic, $ligne);
+   foreach($file as $n => $ligne) {
+      fwrite($fic, $ligne);
    }
    fclose($fic);
 
@@ -79,7 +80,7 @@ if($stage == 1) {
       etape_1();
       break;
    }
- pied_depage();
+ pied_depage('success');
 }
 
 /*
@@ -104,7 +105,7 @@ if($stage == 2 and $qi!=1) {
       etape_2();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 };
 
 /*
@@ -152,23 +153,21 @@ if($stage == 4) {
             fclose($file);
             if($qi == 1) {Header('Location: install.php?stage=5&qi=1&langue='.$langue);exit;};
          }
-         elseif($stage4_ok == 0) {
+         elseif($stage4_ok == 0)
             $msg = '
             <div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
-         }
          entete();
          menu();
          echo $menu;
          $out .= '
                   <h3 class="mb-3">'.ins_translate('Paramètres de connexion').'</h3>'.$msg;
-         if($stage4_ok == 1 and $qi !=1) {
+         if($stage4_ok == 1 and $qi !=1)
             $out.= '
                   <form name="submit" method="post" action="install.php">
                      <input type="hidden" name="langue" value="'.$langue.'" />
                      <input type="hidden" name="stage" value="5" />
                      <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
                   </form>';
-         }
          $out.= '
                </div>';
          echo $out;
@@ -182,7 +181,7 @@ if($stage == 4) {
          etape_4();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
@@ -208,16 +207,15 @@ if($stage == 5){
                <div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
             if($qi == 1) {Header('Location: install.php?stage=6&qi=1&langue='.$langue);exit;};
          }
-         elseif($stage5_ok == 0) {
+         elseif($stage5_ok == 0)
             $msg = '
                <div class="alert alert-danger">'.ins_translate("Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.").'</div>';
-         }
          entete();
          menu();
          echo $menu;
          $out .= '
                <h3 class="mb-3">'.ins_translate("Fichier de configuration").'</h3>'.$msg;
-         if($stage5_ok == 1 and $qi !=1) {
+         if($stage5_ok == 1 and $qi !=1)
             $out.= '
                <form name="next" method="post" action="install.php">
                   <div class="mb-3 ">
@@ -226,11 +224,10 @@ if($stage == 5){
                      <button type="submit" class="btn btn-success">'.ins_translate('Etape suivante').'</button>
                   </div>
                </form>';
-         }
-      $out.= '
+         $out.= '
             </div>';
-      echo $out;
-      unset($stage5_ok);
+         echo $out;
+         unset($stage5_ok);
       break;
       case 'etape_5':
       default:
@@ -240,12 +237,12 @@ if($stage == 5){
          etape_5();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
 # install/etape_6.php
-# Création/Mise à jour de la base de données
+# Mise à jour de la base de données
 */
 if($stage == 6) {
    require('install/etape_6.php');
@@ -265,7 +262,7 @@ if($stage == 6) {
          require('install/sql/sql-create.php');
          write_database();
          if($stage6_ok == 1) {
-            $Xinst_log = date('d/m/y  H:j:s').' : Création tables et/ou base de donnée pour '.$cms_name."\n";
+            $Xinst_log = date('d/m/y  H:j:s').' : Création tables de la base de donnée pour '.$cms_name."\n";
             $file = fopen("slogs/install.log", "a");
             fwrite($file, $Xinst_log);
             fclose($file);
@@ -305,7 +302,7 @@ if($stage == 6) {
       etape_6();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
@@ -357,8 +354,9 @@ if($stage == 7) {
                    <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
                </form>';
                 }
-                $out.= '
-                </div>';
+            $out.= '
+          </div>';
+
             echo $out;
              unset($stage7_ok);
           }
@@ -376,7 +374,7 @@ if($stage == 7) {
          etape_7();
       break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
@@ -398,9 +396,9 @@ if($stage == 8) {
          include('config.php');
          write_upload($new_max_size,$new_DOCUMENTROOT,$new_autorise_upload_p,$new_racine,$new_rep_upload,$new_rep_cache,$new_rep_log,$new_url_upload);
          if($stage8_ok == 1) {
-             $msg = '
+            $msg = '
                <div class="alert alert-success">'.ins_translate('Le fichier de configuration a été écrit avec succès !').'</div>';
-               if($qi == 1) {Header('Location: install.php?stage=9&qi=1&op=write_ok&langue='.$langue);exit;};
+            if($qi == 1) {Header('Location: install.php?stage=9&qi=1&op=write_ok&langue='.$langue);exit;};
          }
          elseif($stage8_ok == 0) {
             $msg = '
@@ -412,19 +410,18 @@ if($stage == 8) {
 
          $out.=  '
                <h3 class="mb-3">'.ins_translate("Configuration du module UPload").'</h3>'.$msg;
-         if($stage8_ok == 1 and $qi !=1) {
+         if($stage8_ok == 1 and $qi !=1)
             $out.= '
-         <form name="next" method="post" action="install.php">
-            <input type="hidden" name="langue" value="'.$langue.'" />
-            <input type="hidden" name="stage" value="9" />
-            <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
-         </form>';
-         }
-          $out.= '
-          </div>';
-      echo $out;
+               <form name="next" method="post" action="install.php">
+                  <input type="hidden" name="langue" value="'.$langue.'" />
+                  <input type="hidden" name="stage" value="9" />
+                  <button type="submit" class="btn btn-success">'.ins_translate("Etape suivante").'</button>
+               </form>';
+         $out.= '
+         </div>';
+         echo $out;
 
-       unset($stage8_ok);
+         unset($stage8_ok);
        break;
        case 'etape_8':
        default:
@@ -434,7 +431,7 @@ if($stage == 8) {
          etape_8();
        break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 
 /*
@@ -475,21 +472,20 @@ if($stage == 9) {
          closedir($dir);
          return $archive;
          }
-         if (file_exists('IZ-Xinstall.ok')) {
+         if (file_exists('IZ-Xinstall.ok'))
             if (file_exists('install.php') OR is_dir('install')) {
                icare_delete_Dir('install');
                @rmdir ('install');
                @unlink('install.php');
             }
-         }
          echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'index.php\';'."\n".'//]]>'."\n".'</script>';
-         break;
+      break;
 
       case 'etape_9':
       default;
          etape_9();
          break;
    }
-   pied_depage();
+   pied_depage('success');
 }
 ?>

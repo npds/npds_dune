@@ -3,41 +3,31 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
 /*         : v.1.2 phr, jpb - 2016                                      */
-/*                                                                      */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
-if (version_compare(PHP_VERSION, '5.3.0') >= 0 and extension_loaded('mysqli')) {
-   $file = file("config.php");
-   $file[33] ="\$mysql_p = 1;\n";
-   $file[34] ="\$mysql_i = 1;\n";
-   $fic = fopen("config.php", "w");
-   foreach($file as $n => $ligne) {
-      fwrite($fic, $ligne);
-   }
-   fclose($fic);
-   include_once('lib/mysqli.php');
-} else
-   include_once('lib/mysql.php');
+// ==> définition des versions requises pour la MAJ
+define("NEW_VERSION","v.16.8");
+include_once('lib/mysqli.php');
 
-settype($langue,'string');
+$langue = isset($langue) ? $langue : 'fr';
 if($langue) {
-   $lang_symb = substr($langue, 0, 3);
-   if(file_exists($fichier_lang = 'install/languages/'.$langue.'/install-'.$lang_symb.'.php')) {
+   if(file_exists($fichier_lang = 'install/languages/install-'.language_iso(1,0,0).'.php')) {
       include_once $fichier_lang;
    }
    else
-      include_once('install/languages/french/install-fre.php');
+      include_once('install/languages/install-'.$langue.'.php');
 }
 
 #autodoc FixQuotes($what) : Quote une chaîne contenant des '
@@ -50,6 +40,7 @@ function FixQuotes($what = '') {
    return $what;
 }
 
+// ==> renvoi la version Php et une variable de blocage si elle est inférieure à celle désirée : 5.6
 function verif_php() {
    global $stopphp, $phpver;
    $stopphp = 0;
@@ -62,6 +53,17 @@ function verif_php() {
    return ($phpver);
 }
 
+// ==> renvoi la version sql
+function verif_sql() {
+   global $sqlver;
+   $sqlgetver = (mysqli_get_server_version(sql_connect()))/10000;
+   $mainversion = intval($sqlgetver);
+   $subversion = ($sqlgetver-$mainversion)*10000/100;
+   $sqlver = "$mainversion.$subversion";
+   return ($sqlver);
+}
+
+// ==> controle le droit des fichiers et une variable de blocage si non writable ...
 function verif_chmod() {
    global $stopngo, $listfich;
    $file_to_check = array('abla.log.php','cache.config.php','config.php','filemanager.conf','slogs/security.log','meta/meta.php','static/edito.txt','modules/upload/upload.conf.php');
@@ -180,9 +182,7 @@ function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
    return($stage7_ok);
 }
 
-
-function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, $new_racine, $new_rep_upload, $new_rep_cache, $new_rep_log, $new_url_upload)
-{
+function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, $new_racine, $new_rep_upload, $new_rep_cache, $new_rep_log, $new_url_upload) {
    global $langue, $nuke_url, $stage8_ok;
    $stage8_ok = 0;
 
@@ -191,9 +191,9 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
    $file[21] = "\$DOCUMENTROOT = \"$new_DOCUMENTROOT\";\n";
    $file[24] = "\$autorise_upload_p = \"$new_autorise_upload_p\";\n";
    $file[28] = "\$racine = \"$new_racine\";\n";
-   $file[31] = "\$rep_upload = \$racine.\"$new_rep_upload\";\n";
-   $file[34] = "\$rep_cache = \$racine.\"$new_rep_cache\";\n";
-   $file[37] = "\$rep_log = \$racine.\"$new_rep_log\";\n";
+   $file[31] = "\$rep_upload = \"$new_rep_upload\";\n";
+   $file[34] = "\$rep_cache = \"$new_rep_cache\";\n";
+   $file[37] = "\$rep_log = \"$new_rep_log\";\n";
    $file[40] = "\$url_upload = \"$new_url_upload\";\n";
 
    $fic = fopen("modules/upload/upload.conf.php", "w");

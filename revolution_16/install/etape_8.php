@@ -3,34 +3,25 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
-/* IZ-Xinstall version : 1.2                                            */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
 /*         : v.1.1.1 jpb, phr                                           */
 /*         : v.1.1.2 jpb, phr, dev, boris                               */
 /*         : v.1.1.3 dev - 2013                                         */
 /*         : v.1.2 phr, jpb - 2017                                      */
-/*                                                                      */
+/*         : v.1.3 jpb - 2024                                           */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_8() {
    global $langue, $stage, $qi;
    $stage = 8;
-   if(file_exists('modules/upload/upload.conf.php')) include_once('modules/upload/upload.conf.php');
-   if($racine != '') {
-      $begin = strlen($racine);
-      $end1 = strlen($rep_upload);
-      $end2 = strlen($rep_cache);
-      $end3 = strlen($rep_log);
-      $rep_upload = substr($rep_upload, $begin, $end1);
-      $rep_cache = substr($rep_cache, $begin, $end2);
-      $rep_log = substr($rep_log, $begin, $end3);
-   }
+   include_once('modules/upload/upload.conf.php');
    echo '
                <h3 class="mb-3">'.ins_translate('Configuration du module UPload').'</h3>
                <div class="col-sm-12">
@@ -76,7 +67,7 @@ function etape_8() {
                      </div>
                      <div class="form-floating mb-3">
                         <input class="form-control" type="url" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" data-fv-uri___allow-local="true" />
-                        <label for="new_url_upload">'.ins_translate("URL HTTP de votre site").'</label>
+                        <label for="new_url_upload">'.ins_translate("URL HTTP(S) de votre site").'</label>
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_url_upload"></div>
                         <span class="d-block text-help small w-100">'.ins_translate("SI installation locale").' ==> http://127.0.0.1/</span>
                      </div>
