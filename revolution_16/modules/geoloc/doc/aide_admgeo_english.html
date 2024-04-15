@@ -1,0 +1,157 @@
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Administration - Geoloc</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="/manuels/english/admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"> <a href="/manuels/english/men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="/manuels/english/men_modules.html">Menu modules</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Geoloc</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>Administration - Geoloc</h3>
+
+         <h4>System settings</h4>
+         <h5>Table field for latitude and longitude</h5>
+         <p>Introduce the fields available in the database for storing the latitudes and longitudes of site members. </p>
+         <h5>IP geolocation</h5>
+         <p>
+         This option allows you to enable or disable:<br />
+          - storage in the database of anonymous visitor IPs, their geolocation, the number of visits and their visiting position on the site<br />
+          - display of this data in the interface<br />
+          NB: this option can considerably slow down the display of the map (if you are logged in as an administrator and your database contains a lot of lines (> 10,000 IPs)) and store a lot of data in the database over time. You can empty the database at any time.<br />
+         </p>
+         <p>
+         <b>How it works:</b><br />
+         IP georeferencing is provided by different providers and complements the site's database. <br />
+         We use 4 IP geolocation providers:<br />
+         <a href="https://ipapi.co" target="_blank">https://ipapi.co</a> ==> max 1000 requests per day, 30,000 per month<br />
+         <a href="https://api.ipdata.co" target="_blank">https://api.ipdata.co</a> => requires API key ==> max 1,500 requests per day<br />
+         <a href="https://extreme-ip-lookup.com" target="_blank">https://extreme-ip-lookup.com</a> ==> max 20 requests per minute, 50,000 per month<br />
+         <a href="http://ip-api.com" target="_blank">http://ip-api.com</a> ==> max 150 requests per minute (ban)<br />
+         All these providers have a free usage limit or their number to be able to ensure continuous operation remaining free...<br />
+         </p>
+         <h5>Ipdata API key</h5>
+         <p>
+         This key is optional it allows you to use data from ipdata.co you can obtain it here:<br />
+         <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
+         </p>
+         
+         <h4>Card interface</h4>
+         <h5>Bing maps API key</h5>
+         <p>This key allows you to use data from Bing maps. If you wish to use this data go to https://www.bingmapsportal.com and follow the process (creating an account then obtaining a key)... and fill in the field.</p>
+         <h5>Mapbox API key</h5>
+         <p>This key (optional) allows you to use Mapbox data. If you wish to use this data go to https://www.mapbox.com and follow the process (creating an account then obtaining a key)... and fill in the field.</p>
+         <h5>Card type</h5>
+         <p>You can define the default basemap here, depending on the providers available to you and the API keys you have obtained</p>
+         <ul>
+            <li>OpenStreetMap
+               <ul>
+                  <li>Map (OpenStreetMap)</li>
+               </ul>
+            </li>
+            <li>Stamen
+               <ul>
+                  <li>Black and white (Stamen)</li>
+                  <li>Drawing (Stamen)</li>
+                  <li>Relief (Stamen)</li>
+               </ul>
+            </li>
+            <li>Mapbox <span class="text-danger"><== API key required</span>
+               <ul>
+                  <li>Relief (Mapbox)</li>
+                  <li>Map (Mapbox)</li>
+               </ul>
+            </li>
+            <li>Bing maps <span class="text-danger"><== API key required</span>
+               <ul>
+                  <li>Map (Bing maps)</li>
+                  <li>Satellite (Bing maps)</li>
+                  <li>Satellite and label (Bing maps)</li>
+               </ul>
+            </li>
+            <li>Google maps
+               <ul>
+                  <li>Satellite (Google maps)</li>
+               </ul>
+            </li>
+         </ul>
+         <h5>Coordinate unit</h5>
+         <p>Allows you to define the default display of coordinates</p>
+            <ul>
+               <li>dms: degrees minutes seconds (ex: 52°28' 58" S | 9°29' 32" E)</li>
+               <li>dd: decimal degrees (ex: 63.391522 | 146.953125) </li>
+            </ul>
+         <h5>Marker type</h5>
+         <p>You can choose between two types of icons which will represent:
+            <ul>
+               <li>site members not logged in</li>
+               <li>connected site members</li>
+               <li>anonymous people connected</li>
+            </ul>
+            NB: the icons for IPs cannot be configured.<br />
+         </p>
+         <p>
+            <b>1. Images in png, gif (animated gif not supported), jpeg format.</b><br />
+            These are stored at the address defined in the image path parameters (supra). You can choose the images you want and adjust their final display dimension on the card in the width and height fields.<br />
+         </p>
+         <p class="bg-light p-3">Default:
+            <img class="me-2" src="/modules/geoloc/images/mbg.png" alt="online member icon" loading="lazzy" />
+            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="member icon" loading="lazzy" />
+            <img class="me-2" src="/modules/geoloc/images/acg.png" alt="anonymous icon" loading="lazzy" />
+         </p>
+         <p>
+            <b>2. Webfonts (fontawesome).</b><br />
+            You can therefore choose from the proposed list...
+            <ul class="text-muted">
+               <li><span class="fa fa-lg align-center fa-fw">&#xf007;</span> <span>User</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf2bd;</span> <span>User in circle</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf0c0;</span> <span>Users</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf004;</span> <span>Heart</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf08d;</span> <span>Pinchpin</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf111;</span> <span>Circle</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf030;</span> <span>Camera</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf13d;</span> <span>Anchor</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf041;</span> <span>Map marker</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf072;</span> <span>Airplane</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf005;</span> <span>Star</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf015;</span> <span>Home</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf024;</span> <span>Flag</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf05b;</span> <span>Cross</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf069;</span> <span>Asterisk</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf06d;</span> <span>Flame</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf075;</span> <span>Comment</span></li>
+            </ul>
+            ... and adjust the color, the opacity of the background and the lines, and the final display dimension on the map in the width and height fields.
+         </p>
+         <p class="bg-light p-3">
+            By default :
+            <span style="color:rgba(225, 29, 75, 0.87);" class="fa fa-lg align-center fa-fw me-2">&#xf007;</span>
+            <span style="color:rgba(237, 68, 151, 0.89);" class="fa fa-lg align-center fa-fw me-2">&#xf007;</span>
+            <span style="color:rgba(32, 32, 26, 0.89);" class="fa fa-lg align-center fa-fw">&#xf007;</span>
+         </p>
+
+         <h4>Block interface</h4>
+         <p>You can define here for the block:
+            <ul>
+               <li>the base map (see above in Map interface)</li>
+               <li>the icon, (address defined in the image path (see above in Parameters)), and its dimensions</li>
+               <li>the height of the block</li>
+               <li>the zoom factor</li>
+            </ul>
+         </p>
+         <p class="bg-light p-3">Default:
+            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="icon membre" loading="lazzy" />
+         </p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - Geoloc Manuel administration</span></p>
+      </div>
+   </body>
+</html>

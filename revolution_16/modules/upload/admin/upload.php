@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -29,16 +29,20 @@ global $language;
 include("modules/upload/lang/upload.lang-$language.php");
 
 function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
-   global $hlpfile, $filemanager,$f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $filemanager,$f_meta_nom, $f_titre, $adminimg, $subop;
    include ("modules/upload/upload.conf.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
+ echo (isset($subop) and $subop=='uploadSave') ? 
+ '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>'.upload_translate("Modifications enregistrées dans").'</strong> <code class="code">/modules/upload/upload.conf.php</code>.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>' : '';
    echo '
    <hr />
-   <div class="alert alert-danger lead"><strong>!!! EN TRAVAUX NE PAS UTILISER !!!</strong></div>
    <form id="settingsupload" action="admin.php" method="post">
    <fieldset>
-      <legend>'.adm_translate("Parametres").'</legend>
+      <legend>'.adm_translate("Paramètres").'</legend>
       <div id="info_gene" class="adminsidefield card card-body mb-3">
          <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="xmax_size">'.adm_translate("Taille maxi des fichiers").'</label>
@@ -177,7 +181,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
             <div class="col-sm-8">
                <div class="input-group mb-2">
                   <div id="humread_quota" class="input-group-text">'.$quota.'</div>
-                  <input  onkeyup="convertoct(\'xquota\',\'humread_quota\')" class="form-control " id="xquota" type="text" name="xquota" min="1" maxlength="8" value="'.$quota.'" />
+                  <input  onkeyup="convertoct(\'xquota\',\'humread_quota\')" class="form-control " id="xquota" type="text" name="xquota" min="1" maxlength="9" value="'.$quota.'" />
                </div>
                <span class="help-block">Limite de l\'espace disque alloué pour l\'upload (en octects)<span class="float-end ms-1" id="countcar_xquota"></span></span>
             </div>
@@ -228,13 +232,13 @@ echo '
    xquota: {
       validators: {
          regexp: {
-            regexp:/^\d{1,8}$/,
+            regexp:/^\d{1,9}$/,
             message: "0 ... 9"
          },
          between: {
             min: 1,
-            max: 99999999,
-            message: "1 ... 99999999"
+            max: 999999999,
+            message: "1 ... 999999999"
          }
       }
    },
@@ -291,7 +295,7 @@ echo '
    inpandfieldlen("xed_nb_images",3);
    inpandfieldlen("xwidth_max",3);
    inpandfieldlen("xheight_max",3);
-   inpandfieldlen("xquota",8);
+   inpandfieldlen("xquota",9);
 ';
    adminfoot('fv',$fv_parametres,$arg1,'');
 }
@@ -302,9 +306,9 @@ function uploadSave($xmax_size, $xdocumentroot, $xautorise_upload_p, $xracine, $
    $file[21] = "\$DOCUMENTROOT = '$xdocumentroot';\n";
    $file[24] = "\$autorise_upload_p = '$xautorise_upload_p';\n";
    $file[28] = "\$racine = '$xracine';\n";
-   $file[31] = "\$rep_upload = \$racine.'$xrep_upload';\n";
-   $file[34] = "\$rep_cache = \$racine.'$xrep_cache';\n";
-   $file[37] = "\$rep_log = \$racine.'$xrep_log';\n";
+   $file[31] = "\$rep_upload = '".$xrep_upload."';\n";
+   $file[34] = "\$rep_cache = '".$xrep_cache."';\n";
+   $file[37] = "\$rep_log = '".$xrep_log."';\n";
    $file[40] = "\$url_upload = '$xurl_upload';\n";
    $file[57] = "\$url_upload_css = '$xurl_upload_css';\n";
    $profil=array('0','0','0','0');

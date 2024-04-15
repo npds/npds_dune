@@ -1,0 +1,160 @@
+<html lang="fr">
+   <head>
+      <meta charset="utf-8">
+      <title>Administration - Geoloc</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="/manuels/french/admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"> <a href="/manuels/french/men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="/manuels/french/men_modules.html">Menu modules</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Geoloc</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>Administration - Geoloc</h3>
+
+         <h4>Param&egrave;tres syst&egrave;me</h4>
+         <h5>Champ de table pour latitude et longitude</h5>
+         <p>Pr&eacute;sentent les champs disponibles dans la base de donn&eacute;es pour le stockage des latitudes et longitudes des membres du site. </p>
+         <h5>G&eacute;olocalisation des IP</h5>
+         <p>
+         Cette option permet d'activer ou de d&eacute;sactiver :<br />
+          - le stockage dans la base de donn&eacute;e des IP des visiteurs anonymes,leur g&eacute;olocalisation le nombre de visites et leur position de visite sur le site<br />
+          - l'affichage de ces donn&eacute;es dans l'interface<br />
+          NB : cette option peut ralentir consid&eacute;rablement l'affichage de la carte (si vous &ecirc;tes connect&eacute; administrateur et que votre base contient beaucoup de ligne (> &agrave; 10 000 IP)) et stocker au fil du temps beaucoup de donn&eacute;es dans la base. Vous pouvez &agrave; tout moment vider la base.<br />
+         </p>
+         <p>
+         <b>Comment &ccedil;a marche :</b><br />
+         Le g&eacute;or&eacute;f&eacute;rencement de l'ip est fourni par diff&eacute;rents fournisseurs et vient compl&eacute;ter la base de donn&eacute;es du site. <br />
+         On utilise 4 fournisseurs de geolocalisation d'ip :<br />
+         <a href="https://ipapi.co" target="_blank">https://ipapi.co</a> ==> max 1000 requ&ecirc;tes par jour, 30 000 par mois<br />
+         <a href="https://api.ipdata.co" target="_blank">https://api.ipdata.co</a> => necessite une clef d'api  ==> max 1 500 requ&ecirc;tes par jour<br />
+         <a href="https://extreme-ip-lookup.com" target="_blank">https://extreme-ip-lookup.com</a> ==> max 20 requ&ecirc;tes par minute, 50 000 par mois<br />
+         <a href="http://ip-api.com" target="_blank">http://ip-api.com</a> ==> max 150 requ&ecirc;tes par minute (banissement)<br />
+         Tous ces fournisseurs ont une limite d'utilisation gratuite d'ou leur nombre pour pouvoir assurer un fonctionnement continu restant dans la gratuit&eacute;...<br />
+         </p>
+          
+         <h5>Clef d'API Ipdata</h5>
+         <p>
+         Cette clef est facultative elle permet d'utiliser les donn&eacute;es de ipdata.co vous pouvez l'obtenir ici :<br />
+         <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
+         </p>
+          
+         <h4>Interface carte</h4>
+         <h5>Clef d'API Bing maps</h5>
+         <p>Cette clef permet d'utiliser les donn&eacute;es de Bing maps. Si vous souhaiter utiliser ces donn&eacute;es aller &agrave; https://www.bingmapsportal.com et suivre le proc&eacute;d&eacute; (cr&eacute;ation d'un compte puis obtention d'une clef)... et remplissez le champ.</p>
+         <h5>Clef d'API Mapbox</h5>
+         <p>Cette clef (facultative) permet d'utiliser les donn&eacute;es de Mapbox. Si vous souhaiter utiliser ces donn&eacute;es aller &agrave; https://www.mapbox.com et suivre le proc&eacute;d&eacute; (cr&eacute;ation d'un compte puis obtention d'une clef) ... et remplissez le champ.</p>
+         <h5>Type de carte</h5>
+         <p>Vous pouvez d&eacute;finir ici le fond de carte par d&eacute;faut, en fonction des fournisseurs &agrave; votre disposition et des clef d'API que vous aurez obtenu</p>
+         <ul>
+            <li>OpenStreetMap
+               <ul>
+                  <li>Plan (OpenStreetMap)</li>
+               </ul>
+            </li>
+            <li>Stamen
+               <ul>
+                  <li>Noir et blanc (Stamen)</li>
+                  <li>Dessin (Stamen)</li>
+                  <li>Relief (Stamen)</li>
+               </ul>
+            </li>
+            <li>Mapbox  <span class="text-danger"><== clef d'API requise</span>
+               <ul>
+                  <li>Relief (Mapbox)</li>
+                  <li>Carte (Mapbox)</li>
+               </ul>
+            </li>
+            <li>Bing maps  <span class="text-danger"><== clef d'API requise</span>
+               <ul>
+                  <li>Plan (Bing maps)</li>
+                  <li>Satellite (Bing maps)</li>
+                  <li>Satellite et label (Bing maps)</li>
+               </ul>
+            </li>
+            <li>Google maps
+               <ul>
+                  <li>Satellite(Google maps)</li>
+               </ul>
+            </li>
+         </ul>
+
+         <h5>Unit&eacute; des coordonn&eacute;es</h5>
+         <p>Permet de d&eacute;finir l'affichage par d&eacute;faut des coordonn&eacute;es</p>
+            <ul>
+               <li>dms : degr&eacute;s minutes secondes (ex : 52&deg;28' 58" S | 9&deg;29' 32" E)</li>
+               <li>dd : degr&eacute;s d&eacute;cimaux (ex : 63.391522 | 146.953125) </li>
+            </ul>
+         <h5>Type de marqueur</h5>
+         <p>
+         Vous pouvez choisir entre deux types d'ic&ocirc;nes qui repr&eacute;senteront :
+         <ul> 
+            <li>les membres du site non connect&eacute;</li>
+            <li>les membres du site connect&eacute;</li>
+            <li>les anonymes connect&eacute;</li> 
+         </ul>
+         NB : les ic&ocirc;nes pour les IP ne sont pas param&eacute;trables.<br />
+         </p>
+         <p>
+            <b>1. Des images au format png, gif (gif anim&eacute; non support&eacute;), jpeg.</b><br />
+            Celles ci sont stock&eacute;es &agrave; l'adresse d&eacute;fini dans le chemin des images les param&egrave;tres (supra). Vous pouvez choisir les images que vous souhaitez et ajuster leur dimension finale d'affichage sur la carte dans les champs largeur et hauteur.<br />
+         </p>
+         <p class="bg-light p-3">Par d&eacute;faut : 
+            <img class="me-2" src="/modules/geoloc/images/mbg.png" alt="icon membre en ligne" loading="lazzy" />
+            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="icon membre" loading="lazzy" />
+            <img class="me-2" src="/modules/geoloc/images/acg.png" alt="icon anonyme" loading="lazzy" />
+         </p>
+         <p>
+            <b>2. Des webfont (fontawesome).</b><br />
+            Vous pouvez donc choisir dans la liste propos&eacute;e...
+            <ul class="text-muted">
+               <li><span class="fa fa-lg align-center fa-fw">&#xf007;</span> <span>Utilisateur</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf2bd;</span> <span>Utilisateur en cercle</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf0c0;</span> <span>Utilisateurs</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf004;</span> <span>Coeur</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf08d;</span> <span>Punaise</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf111;</span> <span>Cercle</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf030;</span> <span>Appareil photo</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf13d;</span> <span>Ancre</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf041;</span> <span>Marqueur carte</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf072;</span> <span>Avion</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf005;</span> <span>Etoile</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf015;</span> <span>Maison</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf024;</span> <span>Drapeau</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf05b;</span> <span>Croix</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf069;</span> <span>Ast&eacute;risque</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf06d;</span> <span>Flamme</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf075;</span> <span>Commentaire</span></li>
+            </ul>
+            ... et ajuster la couleur, l'opacit&eacute; du fond et des traits, et la dimension finale d'affichage sur la carte dans les champs largeur et hauteur.
+         </p>
+         <p class="bg-light p-3">
+            Par d&eacute;faut : 
+            <span style="color:rgba(225, 29, 75, 0.87);" class="fa fa-lg align-center fa-fw me-2">&#xf007;</span>
+            <span style="color:rgba(237, 68, 151, 0.89);" class="fa fa-lg align-center fa-fw me-2">&#xf007;</span>
+            <span style="color:rgba(32, 32, 26, 0.89);" class="fa fa-lg align-center fa-fw">&#xf007;</span>
+         </p>
+
+         <h4>Interface bloc</h4>
+         <p>Vous pouvez d&eacute;finir ici pour le bloc :
+            <ul> 
+               <li>le fond de carte (cf supra dans Interface carte)</li> 
+               <li>l'icone , (adresse d&eacute;finie dans le chemin des images (cf supra dans Param&egrave;tres)), et ses dimensions</li>
+               <li>la hauteur du bloc</li>
+               <li>le facteur de zoom</li>
+            </ul>
+         </p>
+         <p class="bg-light p-3">Par d&eacute;faut : 
+            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="icon membre" loading="lazzy" />
+         </p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - Geoloc Manuel administration</span></p>
+      </div>
+   </body>
+</html>
