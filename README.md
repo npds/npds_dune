@@ -24,7 +24,7 @@ un serveur (local ou distant : Lamp, Wamp ...) avec
 - Uploader sur votre serveur (local ou distant)  
 - Aller /index.php
 - Suivre l'installation automatique ...
-- Pour finir revalider vos préférences et vos metatags.
+- Pour finir dans l'administration revalider vos préférences, vos metatags et votre configuration d'upload.
 
 ## Communauté
 
