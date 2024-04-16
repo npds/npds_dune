@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
-/* geoloc_set.php file 2007-2023 by Jean Pierre Barbary (jpb)           */
+/* geoloc_set.php file 2007-2024 by Jean Pierre Barbary (jpb)           */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
@@ -174,7 +174,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       </fieldset>
       <hr />
       <h4 class="my-3" >'.geoloc_translate('Interface carte').'</h4>
-
       <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="api_key_bing">'.geoloc_translate("Clef d'API").' Bing maps</label>
          <div class="col-sm-8">
