@@ -7,7 +7,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 // Pour le lancement du Chat : chat.php?id=gp_id&auto=token_de_securite
 // gp_id=ID du groupe au sens NPDS du terme => 0 : tous / -127 : Admin / -1 : Anonyme / 1 : membre / 2 ... 126 : groupe de membre

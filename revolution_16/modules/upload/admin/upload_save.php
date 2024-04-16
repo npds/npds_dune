@@ -9,7 +9,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function uploadSave($xmax_size, $xdocumentroot, $xautorise_upload_p, $xracine, $xrep_upload, $xrep_cache, $xrep_log, $xurl_upload, $xurl_upload_css, $xed_profil, $xed_nb_images, $xextension_autorise, $xwidth_max, $xheight_max, $xquota) {

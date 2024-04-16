@@ -74,7 +74,7 @@ $content .= "/*         : v.1.2.0 phr, jpb - 2017                               
 $content .= "/*                                                                      */\n";
 $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
 $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-$content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+$content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
 $content .= "/************************************************************************/\n";
 
 $contents.='if (stristr($_SERVER[\'PHP_SELF\'],"sql-create.php")) { die(); }'."\n";

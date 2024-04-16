@@ -7,7 +7,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /* Module core archive-stories                                          */
 /* archive-stories_set file 2015 by jpb                                 */
@@ -122,7 +122,7 @@ function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPa
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-   $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+   $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* archives-stories                                                     */\n";
@@ -155,7 +155,7 @@ function SaveSetArchive_stories($maxcount, $arch, $arch_titre, $retcache, $ModPa
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-   $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+   $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
    $content .= "/************************************************************************/\n";
    $content .= "\n";
    $content .= "// Temps de rétention cache en secondes \n";

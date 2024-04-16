@@ -7,7 +7,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*********************************************************************************************************************************/
 /* AutoDoc permet de de lire le contenu d'un fichier php et d'extraire la documentation intégrée (sous forme de commentaire php) */
 /* Le format d'une ligne AutoDoc de documentation doit-être :                                                                    */
