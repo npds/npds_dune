@@ -53,7 +53,7 @@ function verif_php() {
    return ($phpver);
 }
 
-// ==> renvoi la version sql
+// ==> renvoi la version sql // à revoir dispo que quand on a établi une connection !
 function verif_sql() {
    global $sqlver;
    $sqlgetver = (mysqli_get_server_version(sql_connect()))/10000;
