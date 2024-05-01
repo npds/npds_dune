@@ -1235,14 +1235,14 @@ function Pre_fab_block($Xid, $Xblock, $moreclass) {
 #autodoc niv_block($Xcontent) : Retourne le niveau d'autorisation d'un block (et donc de certaines fonctions) / le paramètre (une expression régulière) est le contenu du bloc (function#....)
 function niv_block($Xcontent) {
    global $NPDS_Prefix;
-   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."rblocks WHERE content REGEXP '$Xcontent'");
+   $result = sql_query("SELECT member, actif FROM ".$NPDS_Prefix."rblocks WHERE content REGEXP '$Xcontent'");
    if (sql_num_rows($result)) {
-      list($content, $member, $actif) = sql_fetch_row($result);
+      list($member, $actif) = sql_fetch_row($result);
       return ($member.','.$actif);
    }
-   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."lblocks WHERE content REGEXP '$Xcontent'");
+   $result = sql_query("SELECT member, actif FROM ".$NPDS_Prefix."lblocks WHERE content REGEXP '$Xcontent'");
    if (sql_num_rows($result)) {
-      list($content, $member, $actif) = sql_fetch_row($result);
+      list($member, $actif) = sql_fetch_row($result);
       return ($member.','.$actif);
    }
    sql_free_result($result);
