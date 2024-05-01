@@ -345,19 +345,18 @@ function EmailStats($login, $cid, $bid) {
 }
 
 function change_banner_url_by_client($login, $pass, $cid, $bid, $url) {
-    global $NPDS_Prefix;
-    header_page();
-    $result = sql_query("SELECT passwd FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
-    list($passwd) = sql_fetch_row($result);
-    if (!empty($pass) AND $pass==$passwd) {
-        sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
-        sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
-        echo '
-        <div class="alert alert-success">'.translate("Vous avez changé l'url de la bannière").'<br /><a href="javascript:history.go(-1)" class="alert-link">'.translate("Retour en arrière").'</a></div>';
-    } else
-        echo '
-        <div class="alert alert-danger">'.translate("Identifiant incorrect !").'<br />'.translate("Merci de").' <a href="banners.php?op=login" class="alert-link">'.translate("vous reconnecter.").'</a></div>';
-    footer_page();
+   global $NPDS_Prefix;
+   header_page();
+   $result = sql_query("SELECT passwd FROM ".$NPDS_Prefix."bannerclient WHERE cid='$cid'");
+   list($passwd) = sql_fetch_row($result);
+   if (!empty($pass) AND $pass==$passwd) {
+      sql_query("UPDATE ".$NPDS_Prefix."banner SET clickurl='$url' WHERE bid='$bid'");
+      echo '
+       <div class="alert alert-success">'.translate("Vous avez changé l'url de la bannière").'<br /><a href="javascript:history.go(-1)" class="alert-link">'.translate("Retour en arrière").'</a></div>';
+   } else
+      echo '
+       <div class="alert alert-danger">'.translate("Identifiant incorrect !").'<br />'.translate("Merci de").' <a href="banners.php?op=login" class="alert-link">'.translate("vous reconnecter.").'</a></div>';
+   footer_page();
 }
 settype($op,'string');
 switch ($op) {
