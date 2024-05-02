@@ -89,7 +89,7 @@ echo '
          </tr>
       </thead>
       <tbody>';
-$imgtmp = $ibid=theme_image('stats/explorer.gif') ? $ibid : 'images/stats/explorer.gif'; 
+$imgtmp = theme_image('stats/explorer.gif') ?  theme_image('stats/explorer.gif') : 'images/stats/explorer.gif'; 
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="MSIE_ico" loading="lazy"/> MSIE </td>
@@ -101,7 +101,7 @@ echo '
             </td>
             <td>'.$msie[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/firefox.gif') ? $ibid : 'images/stats/firefox.gif'; 
+$imgtmp = theme_image('stats/firefox.gif') ? theme_image('stats/firefox.gif') : 'images/stats/firefox.gif'; 
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Mozilla_ico" loading="lazy"/> Mozilla </td>
@@ -113,7 +113,7 @@ echo '
             </td>
             <td> '.$netscape[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/opera.gif') ? $ibid : 'images/stats/opera.gif'; 
+$imgtmp = theme_image('stats/opera.gif') ?  theme_image('stats/opera.gif') : 'images/stats/opera.gif'; 
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Opera_ico" loading="lazy"/> Opera </td>
@@ -125,7 +125,7 @@ echo '
             </td>
             <td>'.$opera[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/chrome.gif') ? $ibid : 'images/stats/chrome.gif'; 
+$imgtmp = theme_image('stats/chrome.gif') ? theme_image('stats/chrome.gif') : 'images/stats/chrome.gif'; 
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Chrome_ico" loading="lazy"/> Chrome </td>
@@ -137,7 +137,7 @@ echo '
             </td>
             <td>'.$chrome[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/safari.gif') ? $ibid : 'images/stats/safari.gif';
+$imgtmp = theme_image('stats/safari.gif') ? theme_image('stats/safari.gif') : 'images/stats/safari.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Safari_ico" loading="lazy"/> Safari </td>
@@ -149,7 +149,7 @@ echo '
             </td>
             <td>'.$safari[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/webtv.gif') ? $ibid : 'images/stats/webtv.gif';
+$imgtmp = theme_image('stats/webtv.gif') ? theme_image('stats/webtv.gif') : 'images/stats/webtv.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="WebTV_ico" loading="lazy"/> WebTV </td>
@@ -161,7 +161,7 @@ echo '
             </td>
             <td>'.$webtv[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/konqueror.gif') ? $ibid : 'images/stats/konqueror.gif';
+$imgtmp = theme_image('stats/konqueror.gif') ? theme_image('stats/konqueror.gif') : 'images/stats/konqueror.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Konqueror_ico" loading="lazy"/> Konqueror </td>
@@ -173,7 +173,7 @@ echo '
             </td>
             <td>'.$konqueror[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/lynx.gif') ? $ibid : 'images/stats/lynx.gif';
+$imgtmp = theme_image('stats/lynx.gif') ? theme_image('stats/lynx.gif') : 'images/stats/lynx.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Lynx_ico" loading="lazy"/> Lynx </td>
@@ -185,7 +185,7 @@ echo '
             </td>
             <td>'.$lynx[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/altavista.gif') ? $ibid : 'images/stats/altavista.gif';
+$imgtmp = theme_image('stats/altavista.gif') ? theme_image('stats/altavista.gif') : 'images/stats/altavista.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="'.translate("Moteurs de recherche").'_ico" /> '.translate("Moteurs de recherche").' </td>
@@ -220,7 +220,7 @@ echo '
          </tr>
       </thead>
       <tbody>';
-$imgtmp = $ibid=theme_image('stats/windows.gif') ? $ibid : 'images/stats/windows.gif';
+$imgtmp = theme_image('stats/windows.gif') ? theme_image('stats/windows.gif') : 'images/stats/windows.gif';
 echo '
          <tr>
             <td ><img src="'.$imgtmp.'"  alt="Windows" loading="lazy"/>&nbsp;Windows</td>
@@ -232,7 +232,7 @@ echo '
             </td>
             <td>'.$windows[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/linux.gif') ? $ibid : 'images/stats/linux.gif';
+$imgtmp = theme_image('stats/linux.gif') ? theme_image('stats/linux.gif') : 'images/stats/linux.gif';
 echo '
          <tr>
             <td ><img src="'.$imgtmp.'"  alt="Linux" loading="lazy"/>&nbsp;Linux</td>
@@ -244,7 +244,7 @@ echo '
             </td>
             <td>'.$linux[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/mac.gif') ? $ibid : 'images/stats/mac.gif';
+$imgtmp = theme_image('stats/mac.gif') ? theme_image('stats/mac.gif') : 'images/stats/mac.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="Mac/PPC" loading="lazy"/>&nbsp;Mac/PPC</td>
@@ -256,7 +256,7 @@ echo '
             </td>
             <td>'.$mac[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/bsd.gif') ? $ibid : 'images/stats/bsd.gif';
+$imgtmp = theme_image('stats/bsd.gif') ?  theme_image('stats/bsd.gif') : 'images/stats/bsd.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="FreeBSD" loading="lazy"/>&nbsp;FreeBSD</td>
@@ -268,7 +268,7 @@ echo '
             </td>
             <td>'.$freebsd[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/sun.gif') ? $ibid : 'images/stats/sun.gif';
+$imgtmp = theme_image('stats/sun.gif') ? theme_image('stats/sun.gif') : 'images/stats/sun.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="SunOS" loading="lazy"/>&nbsp;SunOS</td>
@@ -280,7 +280,7 @@ echo '
             </td>
             <td>'.$sunos[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/irix.gif') ? $ibid : 'images/stats/irix.gif';
+$imgtmp = theme_image('stats/irix.gif') ? theme_image('stats/irix.gif') : 'images/stats/irix.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'"  alt="IRIX" loading="lazy"/>&nbsp;IRIX</td>
@@ -292,7 +292,7 @@ echo '
             </td>
             <td>'.$irix[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/be.gif') ? $ibid : 'images/stats/be.gif';
+$imgtmp = theme_image('stats/be.gif') ? theme_image('stats/be.gif') : 'images/stats/be.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="BeOS" loading="lazy"/>&nbsp;BeOS</td>
@@ -304,7 +304,7 @@ echo '
             </td>
             <td>'.$beos[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/os2.gif') ? $ibid : 'images/stats/os2.gif';
+$imgtmp = theme_image('stats/os2.gif') ? theme_image('stats/os2.gif') : 'images/stats/os2.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="OS/2" loading="lazy"/>&nbsp;OS/2</td>
@@ -316,7 +316,7 @@ echo '
             </td>
             <td>'.$os2[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/aix.gif') ? $ibid : 'images/stats/aix.gif';
+$imgtmp = theme_image('stats/aix.gif') ? theme_image('stats/aix.gif') : 'images/stats/aix.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="AIX" loading="lazy"/>&nbsp;AIX</td>
@@ -328,7 +328,7 @@ echo '
             </td>
             <td>'.$aix[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/android.gif') ? $ibid : 'images/stats/android.gif';
+$imgtmp = theme_image('stats/android.gif') ? theme_image('stats/android.gif') : 'images/stats/android.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Android" loading="lazy"/>&nbsp;Android</td>
@@ -340,7 +340,7 @@ echo '
             </td>
             <td>'.$andro[0].'</td>
          </tr>';
-$imgtmp = $ibid=theme_image('stats/ios.gif') ? $ibid : 'images/stats/ios.gif';
+$imgtmp = theme_image('stats/ios.gif') ? theme_image('stats/ios.gif') : 'images/stats/ios.gif';
 echo '
          <tr>
             <td><img src="'.$imgtmp.'" alt="Ios" loading="lazy"/> Ios</td>
@@ -443,23 +443,23 @@ echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted me-1"></i>'.translate("Utilisateurs enregistrés").' <span class="badge bg-secondary ms-auto">'.wrh($unum).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-muted me-1"></i>'.translate("Groupe").' <span class="badge bg-secondary ms-auto">'.wrh($gnum).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user-edit fa-2x text-muted me-1"></i>'.translate("Auteurs actifs").' <span class="badge bg-secondary ms-auto">'.wrh($anum).' </span></li>';
-$imgtmp = $ibid=theme_image('stats/postnew.png') ? $ibid : 'images/admin/postnew.png';
+$imgtmp = theme_image('stats/postnew.png') ? theme_image('stats/postnew.png') : 'images/admin/postnew.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Articles publiés").' <span class="badge bg-secondary ms-auto">'.wrh($snum).' </span></li>';
-$imgtmp = $ibid=theme_image('stats/topicsman.png') ? $ibid : 'images/admin/topicsman.png';
+$imgtmp = theme_image('stats/topicsman.png') ? theme_image('stats/topicsman.png') : 'images/admin/topicsman.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Sujets actifs").' <span class="badge bg-secondary ms-auto">'.wrh($tnum).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-muted me-1"></i>'.translate("Commentaires").' <span class="badge bg-secondary ms-auto">'.wrh($cnum).' </span></li>';
-$imgtmp = $ibid=theme_image('stats/sections.png') ? $ibid : 'images/admin/sections.png';
+$imgtmp = theme_image('stats/sections.png') ? theme_image('stats/sections.png') : 'images/admin/sections.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Rubriques spéciales").' <span class="badge bg-secondary ms-auto">'.wrh($secnum).' </span></li>';
-$imgtmp = $ibid=theme_image('stats/sections.png') ? $ibid : 'images/admin/sections.png';
+$imgtmp = theme_image('stats/sections.png') ?  theme_image('stats/sections.png') : 'images/admin/sections.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Articles présents dans les rubriques").' <span class="badge bg-secondary ms-auto">'.wrh($secanum).' </span></li>';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted me-1"></i>'.translate("Liens présents dans la rubrique des liens web").' <span class="badge bg-secondary ms-auto">'.wrh($links).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted me-1"></i>'.translate("Catégories dans la rubrique des liens web").' <span class="badge bg-secondary ms-auto">'.wrh($cat).' </span></li>';
-$imgtmp = $ibid=theme_image('stats/submissions.png') ? $ibid : 'images/admin/submissions.png';
+$imgtmp = theme_image('stats/submissions.png') ?  theme_image('stats/submissions.png') : 'images/admin/submissions.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'"  alt="" />'.translate("Article en attente d'édition").' <span class="badge bg-secondary ms-auto">'.wrh($subnum).' </span></li>
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted me-1"></i>Version Num <span class="badge bg-danger ms-auto">'.$Version_Num.'</span></li>
