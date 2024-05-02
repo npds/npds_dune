@@ -272,7 +272,7 @@ function BannersAdmin() {
    },';
    adminfoot('fv',$fv_parametres,$arg1,'');
 }
-function BannersAdd($name, $cid, $imptotal, $imageurl, $clickurl, $userlevel) {
+function BannersAdd($cid, $imptotal, $imageurl, $clickurl, $userlevel) {
     global $NPDS_Prefix;
     sql_query("INSERT INTO ".$NPDS_Prefix."banner VALUES (NULL, '$cid', '$imptotal', '1', '0', '$imageurl', '$clickurl', '$userlevel', now())");
     Header("Location: admin.php?op=BannersAdmin");
