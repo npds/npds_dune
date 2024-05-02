@@ -1133,7 +1133,7 @@ function secartdelete2($artid, $ok=0) {
    global $NPDS_Prefix;
    if ($ok==1) {
       sql_query("DELETE FROM ".$NPDS_Prefix."seccont_tempo WHERE artid='$artid'");
-      global $aid; Ecr_Log('security', "DeleteArticlesSectionsTempo($rubid) by AID : $aid", '');
+      global $aid; Ecr_Log('security', "DeleteArticlesSectionsTempo($artid) by AID : $aid", '');
       Header("Location: admin.php?op=sections");
    } else {
       global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
