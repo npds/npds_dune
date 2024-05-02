@@ -104,7 +104,6 @@ function unsubscribe($xemail) {
       if (strrpos($xemail,' ') > 0) header("location: index.php");
       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$xemail'")) > 0) {
          $host_name=getip();
-         $timeX=date("Y-m-d H:m:s",time());
          // Troll Control
          list($troll) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."lnl_outside_users WHERE (host_name='$host_name') AND (to_days(now()) - to_days(date) < 3)"));
          if ($troll < 6) {
