@@ -3,20 +3,23 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 // Pour le lancement du Chat : chat.php?id=gp_id&auto=token_de_securite
 // gp_id=ID du groupe au sens NPDS du terme => 0 : tous / -127 : Admin / -1 : Anonyme / 1 : membre / 2 ... 126 : groupe de membre
 // token_de_securite = encrypt(serialize(gp_id)) => Permet d'éviter le lancement du Chat sans autorisation
 
-   if (!defined('NPDS_GRAB_GLOBALS_INCLUDED'))
-      include("grab_globals.php");
+   //if (!defined('NPDS_GRAB_GLOBALS_INCLUDED'))
+   //   include("grab_globals.php");
+
+if (!function_exists("Mysql_Connexion"))
+   include ("mainfile.php");
+
    $Titlesitename='NPDS';
-   $nuke_url='';
    $meta_op='';
    $meta_doctype='<!DOCTYPE html>';
    include("meta/meta.php");

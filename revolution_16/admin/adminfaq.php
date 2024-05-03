@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -19,7 +19,7 @@ $f_titre = adm_translate("Faq");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-global $language, $adminimg, $admf_ext;
+global $language;
 $hlpfile = "manuels/$language/faqs.html";
 
 function FaqAdmin() {
@@ -205,7 +205,7 @@ function FaqCatGoEdit($id) {
    <h4>'.adm_translate("Prévisualiser").'</h4>';
    echo'
    <label class="col-form-label" for="">'
-      .aff_local_langue(adm_translate("Langue de Prévisualisation"),'','local_user_language').'
+      .aff_local_langue('','local_user_language',adm_translate("Langue de Prévisualisation")).'
    </label>
    <div class="card card-body mb-3">
    <p>'.preview_local_langue($local_user_language, $question).'</p>';

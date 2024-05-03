@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function adm_translate($phrase) {
@@ -75,12 +75,14 @@ function adm_translate($phrase) {
   case "Activer export-news": $tmp="Activar Exportación de noticias"; break;
   case "Activer Facebook": $tmp="Activate Facebook"; break;
   case "Activer gestionnaire de fichiers du groupe": $tmp="Habilitar el grupo de administrador de archivos"; break;
+  case "Activer l'authentification SMTP(S)": $tmp="Habilitar la autenticación SMTP(S)"; break;
   case "Activer l'éditeur Tinymce": $tmp="Activar Tinymce editor"; break;
   case "Activer l'icône [N]ouveau pour les catégories": $tmp="¿Activar el icono [N]uevo para las categorias ?"; break;
   case "Activer l'upload dans les forums ?": $tmp="Activar upload en los foros"; break;
   case "Activer la description simplifiée des utilisateurs": $tmp="¿Activar la descripcion simple para el usuario?"; break;
   case "Activer la résolution DNS pour les posts des forums, IP-Ban, ...": $tmp="¿Activar la Resolución DNS para los mensajes de los foros, IP-Ban... ?"; break;
   case "Activer le Bloc": $tmp="Activar el Bloque"; break;
+  case "Activer le chiffrement": $tmp="Habilitar el cifrado"; break;
   case "Activer le multi-langue": $tmp="Activar la compatibilidad del multi-idioma"; break;
   case "Activer le tri des contributions 'résolues'": $tmp="Activar la selección de las contribuciones ' resueltas ':"; break;
   case "Activer les avatars": $tmp="¿Activar caritas(Emoticones)?"; break;
@@ -202,6 +204,7 @@ function adm_translate($phrase) {
   case "Auteur(s)": $tmp="Autor(es)"; break;
   case "Auteurs actuels": $tmp="Autores actuales"; break;
   case "Auto-Articles": $tmp="Autoartìculos"; break;
+  case "Automatique": $tmp="Automático"; break;
   case "Autoriser la connexion": $tmp="Autorizar este usuario a conectarse al sitio web"; break;
   case "Autoriser la création automatique des membres": $tmp="¿Autorizar la creacion automatica de los miembros?"; break;
   case "Autoriser la création de news pour": $tmp="Autorizar la creacion de noticias para"; break;
@@ -285,6 +288,7 @@ function adm_translate($phrase) {
   case "Compte E-mail (Provenance)": $tmp="El mensaje proviene de"; break;
   case "Compteur": $tmp="Contador"; break;
   case "Configuration de la page": $tmp="Page setting"; break;
+  case "Configuration de PHPmailer SMTP(S)": $tmp="Configuración de PHPmailer SMTP(S)"; break;
   case "Configuration des Forums": $tmp="Configuración de los Foros"; break;
   case "Configuration des infos en Backend & Réseaux Sociaux": $tmp="Configuracion del flujo & Redes Sociales"; break;
   case "Configuration Forums": $tmp="Foros Configuración"; break;
@@ -326,6 +330,7 @@ function adm_translate($phrase) {
   case "Critiques": $tmp="Criticas"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
   case "dans": $tmp="en"; break;
+  case "dans le groupe": $tmp="en el grupo"; break;
   case "Date :": $tmp="Fecha:"; break;
   case "Date de début": $tmp="Fécha de inicio"; break;
   case "Date de démarrage du site": $tmp="Fecha de inicio del sitio"; break;
@@ -334,6 +339,8 @@ function adm_translate($phrase) {
   case "Date": $tmp="Fecha"; break;
   case "de": $tmp="de"; break;
   case "Déconnexion": $tmp="Desconectar / Salir"; break;
+  case "Demande acceptée.": $tmp="Petición aceptada."; break;
+  case "Demande refusée pour votre participation au groupe": $tmp="Solicitud rechazada para su participación en el grupo"; break;  
   case "Déplier la liste": $tmp="Ampliar la lista"; break;
   case "Dernière optimisation effectuée le": $tmp="Ultima optimizacion efectuada el"; break;
   case "Derniers": $tmp="Ultimos"; break;
@@ -353,11 +360,15 @@ function adm_translate($phrase) {
   case "Diffusion d'un Message Interne": $tmp="Enviar un mensaje interno"; break;
   case "Distribution": $tmp="Distribucion"; break;
   case "Divers": $tmp="Varios"; break;
+  case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM (si existe y es válido)."; break;
   case "DNS ou serveur de mail incorrect": $tmp="DNS o servidor de correo no válido"; break;
+  case "Doit être un mot sans espace.": $tmp="Debe ser una palabra sin espacios."; break;
+  case "Doit être un nom de fichier valide avec une de ces extensions : jpg, jpeg, png, gif.": $tmp="Debe ser un nombre de archivo válido con una de esas extensiones: jpg, jpeg, png, gif."; break;
   case "Droits de publication": $tmp="Derechos de publicación"; break;
   case "Droits des auteurs": $tmp="Derechos de los autores"; break;
   case "Droits modules": $tmp="Derechos de los módulos"; break;
   case "Droits": $tmp="Derechos"; break;
+  case "Du DNS": $tmp="Desde DNS"; break;
   case "du groupe": $tmp="Grupo"; break;
   case "Durée de vie en heure du cookie Admin": $tmp="Admin'cookie TTL (En horas)"; break;
   case "Durée de vie en heure du cookie User": $tmp="User'cookie TTL (En horas)"; break;
@@ -494,6 +505,7 @@ function adm_translate($phrase) {
   case "Fusionner des forums": $tmp="Fusionar foros"; break;
   case "Gain réalisable": $tmp="Ganancia realizable"; break;
   case "Gain total réalisé": $tmp="Ganancia total realizada"; break;
+  case "génération automatique du DKIM par le portail.": $tmp="Generación automática del DKIM por parte del portal."; break;
   case "Gérer les Liens Relatifs : ": $tmp="Gestionar los vinculos relativos:"; break;
   case "Gestion des blocs": $tmp="Gestión de bloques"; break;
   case "Gestion des forums": $tmp="Foros gestión"; break;
@@ -683,6 +695,7 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="Nivel de acceso"; break;
   case "Niveau de l'Utilisateur": $tmp="Nivel del usuario"; break;
   case "Nom : ": $tmp="Nombre:"; break;
+  case "Nom d'utilisateur": $tmp="Nombre del usario"; break;
   case "Nom d'utilisateur anonyme": $tmp="Nombre por defecto del visitante anonimo:"; break;
   case "Nom de fichier": $tmp="Nombre del fichero"; break;
   case "Nom de l'annonceur": $tmp="Nombre del cliente"; break;
@@ -694,6 +707,7 @@ function adm_translate($phrase) {
   case "Nom du Contact": $tmp="Nombre del contacto"; break;
   case "Nom du forum": $tmp="Nombre del Foro"; break;
   case "Nom du produit": $tmp="Nombre del producto:"; break;
+  case "Nom du serveur": $tmp="Nombre del servidor"; break;
   case "Nom du site : ": $tmp="Nombre del sito web:"; break;
   case "Nom du site pour la balise title": $tmp="Nombre de su sitio Web para la baliza title"; break;
   case "Nom du site": $tmp="Nombre del sito web"; break;
@@ -761,7 +775,7 @@ function adm_translate($phrase) {
   case "Pas de nouveaux Articles postés": $tmp="No hay nuevos articulos o noticias"; break;
   case "Petite Lettre D'information": $tmp="LNL pequeña Newsletter"; break;
   case "Pied": $tmp="pie"; break;
-  case "Polices du site": $tmp="Tipos de fuente del sitio:"; break;
+  case "Port TCP": $tmp="Puerto TCP"; break;
   case "Position": $tmp="Position"; break;
   case "Poster un Article ": $tmp="Añadir una noticia"; break;
   case "Poster un Article Admin": $tmp="Añadir noticia del Administrador"; break;
@@ -780,6 +794,7 @@ function adm_translate($phrase) {
   case "Proposition de modifications de Liens": $tmp="Propuestas de modificación de los vínculos"; break;
   case "Propriétaire de la page Web : ": $tmp="Propietario de la página web:"; break;
   case "Propriétaire": $tmp="Propietario:"; break;
+  case "Protocole de chiffrement": $tmp="Protocolo de cifrado"; break;
   case "Public": $tmp="Publico"; break;
   case "Publication Anonyme autorisée": $tmp="Publicación anónima autorizada"; break;
   case "publication(s) attachée(s)": $tmp="publicacion(es) vinculada(s)"; break;
@@ -961,12 +976,14 @@ function adm_translate($phrase) {
   case "URL pour le fichier RDF/XML": $tmp="URL del flujo RDF/XML"; break;
   case "Url": $tmp="Url"; break;
   case "URL": $tmp="URL"; break;
+  case "Utilisateur en attente de groupe !": $tmp="Usuario esperando grupo!"; break;
   case "Utilisateur en attente de validation !": $tmp="Usuario (s) esperando la validación !"; break;
   case "Utilisateur enregistré uniquement": $tmp="Solo usuario registrado"; break;
   case "Utilisateur enregistré": $tmp="Usuario registrado"; break;
   case "Utilisateur inexistant !": $tmp="Este usuario no existe!"; break;
   case "Utilisateur": $tmp="Usuario"; break;
   case "Utilisateurs": $tmp="Usuarios"; break;
+  case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="Utilice 587 si tiene habilitado el cifrado TLS"; break;  
   case "Validation de votre publication": $tmp="Validación de su publicación"; break;
   case "Valider": $tmp="Validar"; break;
   case "Version": $tmp="Versión:"; break;

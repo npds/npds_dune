@@ -4,11 +4,11 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011 and cast MySql engine type        */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 /************************************************************************/
 /* Module-Install Version 1.1 - Mai 2005                                */
@@ -31,6 +31,7 @@ $f_titre = adm_translate("Gestion, Installation Modules");
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
+$hlpfile =''; $display='';
 
 function nmig_copyright() {
    global $ModInstall, $ModDesinstall;
@@ -38,9 +39,11 @@ function nmig_copyright() {
    if ($ModInstall == '' && $ModDesinstall != '')
       $clspin =' text-danger';
    $display = '
-   <div class="text-center mt-4">
-      <i class="fa fa-spinner fa-pulse '.$clspin.' "></i> NPDS Module Installer v2.0
-   </div>';
+      <hr class="mt-4" />
+      <div class="d-flex align-items-center">
+        <div role="status" class="small">Installation by NPDS Module Installer v2.0</div>
+        <div class="spinner-border ms-auto '.$clspin.'" aria-hidden="true"  style="width: 1.5rem; height: 1.5rem;"></div>
+      </div>';
    return $display;
 }
 // e1
@@ -92,15 +95,12 @@ function nmig_AlertSql($sql, $name_module) {
    global $ModInstall, $display, $NPDS_Prefix;
    $reqsql='';
    foreach ($sql as $v) {
-      preg_match('#^CREATE TABLE (\w+)#',$v,$tables);
+      preg_match('#^(CREATE TABLE |CREATE TABLE IF NOT EXISTS) (\w+)#',$v,$tables);
    }
-   $type_engine=5;
    for ($i = 0; $i < count($sql); $i++) {
       for ($j = 0; $j < count($tables); $j++) {
          $sql[$i] = preg_replace("#$tables[$j]#i", $NPDS_Prefix.$tables[$j],$sql[$i]);
       }
-      if ($type_engine>=5)
-         $sql[$i] = preg_replace('#TYPE=MyISAM#i', 'ENGINE=MyISAM', $sql[$i]);
       $reqsql.='<pre class="language-sql"><code class="language-sql">'.$sql[$i].'</code></pre><br />';
    }
    $display = '
@@ -125,21 +125,12 @@ function nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix, $path_adm_module,$name_module, $affich, $icon;
    $reqsql='';
-   foreach ($sql as $v) {
-      preg_match('#^CREATE TABLE (\w+)#',$v,$tables);
-   }
-   $type_engine= 5;// à revoir
    $display = '
    <hr />
    <div class="lead">'.$name_module.'</div>
    <hr />
    <div class="">';
    for ($i = 0; $i < count($sql) && !isset($erreur); $i++) {
-      for ($j = 0; $j < count($tables); $j++) {
-         $sql[$i] = preg_replace("#$tables[$j]#i", $NPDS_Prefix.$tables[$j],$sql[$i]);
-      }
-      if ($type_engine>=5)
-         $sql[$i] = preg_replace('#TYPE=MyISAM#i', 'ENGINE=MyISAM', $sql[$i]);
       sql_query($sql[$i]) or $erreur = sql_error();
    }
    if (isset($erreur)) {
@@ -190,7 +181,7 @@ function nmig_AlertConfig($list_fich) {
    $display = '
    <hr />
    <div class="mb-3">
-   <p class="lead">'.adm_translate("Le programme d'installation va maintenant modifier le(s) fichier(s) suivant(s) :").'</p>';
+      <p class="lead">'.adm_translate("Le programme d'installation va maintenant modifier le(s) fichier(s) suivant(s) :").'</p>';
    for ($i = 0; $i < count($list_fich[0]); $i++) {
       $display .= '
       <code>'.$list_fich[0][$i].'</code><br />';
@@ -278,16 +269,11 @@ function nmig_WriteConfig($list_fich,$try_Chmod) {
    $display .= '
    </div>
    <div class="text-center mb-3">';
-   if (!$writeAllFiles)
-      $display .= "<a href=\"admin.php?op=Module-Install&amp;ModInstall=".$ModInstall."&amp;nmig=e6&amp;try_Chmod=1\" class=\"rouge\">".adm_translate("Réessayer avec chmod automatique")."</a>";
-   $display .= '<a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e7"';
-   if (!$writeAllFiles)
-      $display .= 'class="btn btn-primary">';
-   else
-      $display .= 'class="btn btn-primary">';
-   $display .= adm_translate("Etape suivante").'</a><br />
-   </div><br />';
-   $display .= nmig_copyright();
+   $display .= !$writeAllFiles ?
+      '<a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e6&amp;try_Chmod=1" class="text-danger">'.adm_translate("Réessayer avec chmod automatique").'</a>' :
+      '<a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e7" class="btn btn-primary">'.adm_translate("Etape suivante").'</a>' ;
+   $display .=  '
+   </div>'.nmig_copyright();
 }
 // e7
 function nmig_AlertBloc($blocs, $name_module) {
@@ -303,20 +289,22 @@ function nmig_AlertBloc($blocs, $name_module) {
       <p>'.adm_translate("Voici la description du(des) bloc(s) qui sera(seront) créé(s) :").'</p>
    </div>';
    ob_start();
-   echo '<ul>';
+   echo '
+   <ul>';
    for ($i = 0; $i < count($blocs[0]); $i++) {
-      echo "<li>Bloc n&#xB0; ".$i." : ".$blocs[8][$i]."</li>";
+      echo '
+      <li>Bloc n&#xB0; '.$i.' : '.$blocs[8][$i].'</li>';
    }
-   echo '</ul>';
+   echo '
+   </ul>';
    $display .= ob_get_contents();
    ob_end_clean();
    $display .= '
-   <div class="">
-      <br />
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=l" class="btn btn-primary col-12 col-md-4">'.adm_translate("Créer le(s) bloc(s) à gauche").'</a>
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=r" class="btn btn-primary col-12 col-md-4">'.adm_translate("Créer le(s) bloc(s) à droite").'</a>
-      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=0" class="btn btn-danger col-12 col-md-4">'.adm_translate("Sauter cette étape").'</a>
-   </div><br /><br />';
+   <div class="text-center mb-3">
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=l" class="btn btn-primary mt-2">'.adm_translate("Créer le(s) bloc(s) à gauche").'</a>
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=r" class="btn btn-primary mt-2">'.adm_translate("Créer le(s) bloc(s) à droite").'</a>
+      <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e8&amp;posbloc=0" class="btn btn-danger mt-2">'.adm_translate("Sauter cette étape").'</a>
+   </div>';
    $display .= nmig_copyright();
 }
 // e8
@@ -370,12 +358,11 @@ function nmig_WriteBloc($blocs, $posbloc, $name_module) {
    }
    $display .= '
    </div>
-   <div style="text-align: center;">
+   <div class="text-center mt-3 mb-3">
       <a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e9" class="btn btn-primary">'.adm_translate("Etape suivante").'</a><br />
-   </div><br />
-   '.nmig_copyright();
+   </div>'.nmig_copyright();
 }
-// e9
+// e9 étape à fusionner avec la 10 ....
 function nmig_txt($txtfin) {
    include("header.php");
    global $ModInstall, $display;
@@ -386,7 +373,7 @@ function nmig_txt($txtfin) {
       <a class="btn btn-primary" href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e10" >'.adm_translate("Etape suivante").'</a><br />
    </div>'.nmig_copyright();
 }
-// e10
+// e10 étape à fusionner avec la 9 ....
 function nmig_End($name_module, $end_link) {
    include("header.php");
    global $ModInstall, $display, $NPDS_Prefix;
@@ -400,8 +387,7 @@ function nmig_End($name_module, $end_link) {
    '.nmig_copyright();
 }
 
-
-function nmig_clean($name_module) {
+function nmig_clean($ModDesinstall) {
 //==> a compléter
 }
 
@@ -420,30 +406,19 @@ function nmig_clean($name_module) {
       if (file_exists("modules/".$ModInstall."/install.conf.php"))
          include("modules/".$ModInstall."/install.conf.php");
       else {
-         include("header.php");
-         GraphicAdmin($hlpfile);
-         adminhead ($f_meta_nom, $f_titre, $adminimg);
-         echo '
-         <hr />
-         <div class="lead mb-3">'.adm_translate("Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.").'</div>
-         <div class="mb-3">
-            <a href="JavaScript:history.go(-1)" class="btn btn-secondary me-2 mb-2">'.adm_translate("Retour en arrière").'</a>
-         </div>'.nmig_copyright();
-         adminfoot('','','','');
+         redirect_url("admin.php?op=modules");
          die();
       }
-      if (file_exists("modules/".$ModInstall."/licence-".$language.".txt"))
-         $licence_file = "modules/".$ModInstall."/licence-".$language.".txt";
-      else 
-         $licence_file = "modules/".$ModInstall."/licence-english.txt";
-
+      $licence_file = file_exists("modules/".$ModInstall."/licence-".$language.".txt") ?
+         'modules/'.$ModInstall.'/licence-'.$language.'.txt' :
+         'modules/'.$ModInstall.'/licence-english.txt';
       settype($nmig,'string');
       settype($icon,'string');
       settype($affich,'string');
 
       switch($nmig) {
          case 'e2':
-            nmig_License($licence_file,$name_module);
+            nmig_License($licence_file, $name_module);
          break;
          case 'e3':
             if (isset($sql[0]) && $sql[0] != '') nmig_AlertSql($sql, $name_module);
@@ -484,16 +459,14 @@ function nmig_clean($name_module) {
    } elseif ($ModInstall == '' && $ModDesinstall != '') {
       if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
          include("modules/".$ModDesinstall."/install.conf.php");
-
          // we get the name of the tables !! a tester avec table prefixé
          settype($tabcreated,'array');
          settype($tabinsert,'array');
          settype($othertabinsert,'array');
          settype($modulemetamot,'array');
-
          foreach ($sql as $v) {
-            if(preg_match('#^CREATE TABLE (\w+)#',$v,$rt))
-               $tabcreated[]=$rt[1];
+            if(preg_match('#CREATE TABLE( IF NOT EXISTS |\s)(\w+)#',$v,$rt))
+               $tabcreated[]=$rt[2];
             if(preg_match('#^INSERT INTO (\w+)#',$v,$ri)) {
                $tabinsert[]=$ri[1];
                if($ri[1]=='metalang') { 
@@ -507,7 +480,6 @@ function nmig_clean($name_module) {
             if(!in_array($v,$tabcreated))
                $othertabinsert[]=$v;
          }
-
          //traitement des blocs avec fonctions de modules
          if($blocs[1][0]!='') {
             preg_match('#^(include\#.[^\\|\s]+)#',$blocs[1][0],$rb);
@@ -517,34 +489,38 @@ function nmig_clean($name_module) {
             $tabsblocs='include#modules/'.$ModDesinstall.'/';
          $lbmod = sql_num_rows(sql_query("SELECT id FROM ".$NPDS_Prefix."lblocks WHERE content LIKE '$tabsblocs%'"));
          $rbmod = sql_num_rows(sql_query("SELECT id FROM ".$NPDS_Prefix."rblocks WHERE content LIKE '$tabsblocs%'"));
+
+         $fonct = sql_num_rows(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
+         if($fonct>0) array_push($othertabinsert,'fonctions','droits');
       }
       //nettoyage
       if ($subop == "desinst") {
-         include("header.php");
-
-         list($fid)=sql_fetch_row(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
-         sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_fon_fid=".$fid."");
-         sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'");
-         // nettoyage table(s) créé(s)
-         if(count($tabcreated)>0){
-            foreach ($tabcreated as $v) {
-               sql_query("DROP TABLE IF EXISTS `$NPDS_Prefix$v`;");
+         if (file_exists("modules/".$ModDesinstall."/install.conf.php")) {
+            list($fid)=sql_fetch_row(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
+            if(isset($fid) and $fid!= '') {
+               sql_query("DELETE FROM ".$NPDS_Prefix."droits WHERE d_fon_fid=".$fid."");
+               sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'");
             }
-         }
-         // nettoyage metamot
-         if(count($modulemetamot)>0) {
-            foreach ($modulemetamot as $v) {
-               sql_query("DELETE FROM ".$NPDS_Prefix."metalang WHERE metalang.def='".$v."'");
+            // nettoyage table(s) créé(s)
+            if(count($tabcreated)>0){
+               foreach ($tabcreated as $v) {
+                  sql_query("DROP TABLE IF EXISTS `$v`;");
+               }
             }
-         }
-         // nettoyage blocs
-         if($tabsblocs!='') {
-            sql_query("DELETE FROM ".$NPDS_Prefix."lblocks WHERE content LIKE '".$tabsblocs."%'");
-            sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE content LIKE '".$tabsblocs."%'");
-         }
+            // nettoyage metamot
+            if(count($modulemetamot)>0) {
+               foreach ($modulemetamot as $v) {
+                  sql_query("DELETE FROM ".$NPDS_Prefix."metalang WHERE metalang.def='".$v."'");
+               }
+            }
+            // nettoyage blocs
+            if($tabsblocs!='') {
+               sql_query("DELETE FROM ".$NPDS_Prefix."lblocks WHERE content LIKE '".$tabsblocs."%'");
+               sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE content LIKE '".$tabsblocs."%'");
+            }
+        }
          // maj etat d'installation
          sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='0' WHERE mnom= '".$ModDesinstall."'");
-
          redirect_url("admin.php?op=modules");
       }
       include("header.php");
@@ -558,7 +534,7 @@ function nmig_clean($name_module) {
             $v='';
             $display.='<strong>'.adm_translate("Suppression de table(s)").'</strong><ul>';
             foreach ($tabcreated as $v){
-               $display.='<li>'.$NPDS_Prefix.$v.'</li>';
+               $display.='<li>'.$v.'</li>';
             }
             $display .='</ul>';
          }
@@ -566,10 +542,10 @@ function nmig_clean($name_module) {
             $v='';
             $display.='<strong>'.adm_translate("Modification de données dans table(s)").'</strong><ul>';
             foreach ($othertabinsert as $v){
-               $display.='<li>'.$NPDS_Prefix.$v.'</li>';
+               $display.='<li>'.$v.'</li>';
             }
-            $display.= $lbmod>0?'<li>lblocs</li>':'';
-            $display.=$rbmod>0?'<li>rblocs</li>':'';
+            $display.= $lbmod>0 ? '<li>lblocs</li>' : '' ;
+            $display.= $rbmod>0 ?' <li>rblocs</li>' : '' ;
             $display .='</ul>';
          }
 
@@ -580,24 +556,24 @@ function nmig_clean($name_module) {
          </div>';
       }
       else {
-      $display .= '
+         $display .= '
          <p><strong>'.adm_translate("La désinstallation automatique des modules n'est pas prise en charge à l'heure actuelle.").'</strong>
          <p>'.adm_translate("Vous devez désinstaller le module manuellement. Pour cela, référez vous au fichier install.txt de l'archive du module, et faites les opérations inverses de celles décrites dans la section \"Installation manuelle\", et en partant de la fin.").'
          <p>'.adm_translate("Enfin, pour pouvoir réinstaller le module par la suite avec Module-Install, cliquez sur le bouton \"Marquer le module comme désinstallé\".").'</p>
-      <div class="text-center mb-3">
-         <a href="JavaScript:history.go(-1)" class="btn btn-secondary me-2 mb-2">'.adm_translate("Retour en arrière").'</a><a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Marquer le module comme désinstallé").'</a>
-      </div>
-      ';}
+         <div class="text-center mb-3">
+            <a href="JavaScript:history.go(-1)" class="btn btn-secondary me-2 mb-2">'.adm_translate("Retour en arrière").'</a>
+            <a href="admin.php?op=Module-Install&amp;ModDesinstall='.$ModDesinstall.'&amp;subop=desinst" class="btn btn-danger mb-2">'.adm_translate("Marquer le module comme désinstallé").'</a>
+         </div>';
+      }
       $display .= nmig_copyright();
    }
 
-      GraphicAdmin($hlpfile);
-      adminhead ($f_meta_nom, $f_titre, $adminimg);
-      $clspin =' text-success';
-      if ($ModInstall == '' && $ModDesinstall != '')
-         $clspin =' text-danger';
+GraphicAdmin($hlpfile);
+adminhead ($f_meta_nom, $f_titre, $adminimg);
+$clspin =' text-success';
+if ($ModInstall == '' && $ModDesinstall != '')
+   $clspin =' text-danger';
 
-//      echo '<h3><i class="fa fa-spinner fa-pulse '.$clspin.' "></i> '.$name_module.'</h3>';
-      echo $display;
-      adminfoot('','','','');
+echo $display;
+adminfoot('','','','');
 ?>

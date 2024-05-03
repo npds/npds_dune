@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 /* 2003 by snipe / vote unique, implémentation de la table appli_log    */
 /************************************************************************/
@@ -21,53 +21,45 @@ $al_id = 1;
 $al_nom = 'Poll';
 // ----------------------------------------------------------------------------
 function pollCollector($pollID, $voteID, $forwarder) {
-     global $NPDS_Prefix;
-
-     if ($voteID) {
-        global $setCookies, $al_id, $al_nom, $dns_verif;
-
-        $voteValid="1";
-        $result = sql_query("SELECT timeStamp FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
-        list($timeStamp) = sql_fetch_row($result);
-        $cookieName = 'poll'.$NPDS_Prefix.$timeStamp;
-        global $$cookieName;
-        if ($$cookieName=="1") {
-           $voteValid="0";
-        } else {
-           setcookie("$cookieName","1",time()+86400);
-        }
-
-        global $user;
-        if ($user) {
-           global $cookie;
-           $user_req="OR al_uid='$cookie[0]'";
-        } else {
-           $cookie[0]="1";
-           $user_req='';
-        }
-        if ($setCookies=="1") {
-           $ip=getip();
-           if ($dns_verif)
-              $hostname="OR al_hostname='".@gethostbyaddr($ip)."' ";
-           else
-              $hostname="";
-           $sql="SELECT al_id FROM ".$NPDS_Prefix."appli_log WHERE al_id='$al_id' AND al_subid='$pollID' AND (al_ip='$ip' ".$hostname.$user_req.")";
-           if ($result = sql_fetch_row(sql_query($sql))) {
-              $voteValid="0";
-           }
-        }
-        if ($voteValid=="1") {
-           $ip=getip();
-           if ($dns_verif)
-              $hostname=@gethostbyaddr($ip);
-           else
-              $hostname='';
-           sql_query("INSERT INTO ".$NPDS_Prefix."appli_log (al_id, al_name, al_subid, al_date, al_uid, al_data, al_ip, al_hostname) VALUES ('$al_id', '$al_nom', '$pollID', now(), '$cookie[0]', '$voteID', '$ip', '$hostname')");
-           sql_query("UPDATE ".$NPDS_Prefix."poll_data SET optionCount=optionCount+1 WHERE (pollID='$pollID') AND (voteID='$voteID')");
-           sql_query("UPDATE ".$NPDS_Prefix."poll_desc SET voters=voters+1 WHERE pollID='$pollID'");
-        }
-     }
-     Header("Location: $forwarder");
+   global $NPDS_Prefix;
+   if ($voteID) {
+      global $setCookies, $al_id, $al_nom, $dns_verif;
+      $voteValid="1";
+      $result = sql_query("SELECT timeStamp FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
+      list($timeStamp) = sql_fetch_row($result);
+      $cookieName = 'poll'.$NPDS_Prefix.$timeStamp;
+      global $$cookieName;
+      if ($$cookieName=="1")
+         $voteValid="0";
+      else
+         setcookie("$cookieName","1",time()+86400);
+      global $user;
+      if ($user) {
+         global $cookie;
+         $user_req="OR al_uid='$cookie[0]'";
+      } else {
+         $cookie[0]="1";
+         $user_req='';
+      }
+      if ($setCookies=="1") {
+         $ip=getip();
+         if ($dns_verif)
+            $hostname="OR al_hostname='".@gethostbyaddr($ip)."' ";
+         else
+            $hostname="";
+         $sql="SELECT al_id FROM ".$NPDS_Prefix."appli_log WHERE al_id='$al_id' AND al_subid='$pollID' AND (al_ip='$ip' ".$hostname.$user_req.")";
+         if ($result = sql_fetch_row(sql_query($sql)))
+            $voteValid="0";
+      }
+      if ($voteValid=="1") {
+         $ip=getip();
+         $hostname = $dns_verif ? @gethostbyaddr($ip) : '';
+         sql_query("INSERT INTO ".$NPDS_Prefix."appli_log (al_id, al_name, al_subid, al_date, al_uid, al_data, al_ip, al_hostname) VALUES ('$al_id', '$al_nom', '$pollID', now(), '$cookie[0]', '$voteID', '$ip', '$hostname')");
+         sql_query("UPDATE ".$NPDS_Prefix."poll_data SET optionCount=optionCount+1 WHERE (pollID='$pollID') AND (voteID='$voteID')");
+         sql_query("UPDATE ".$NPDS_Prefix."poll_desc SET voters=voters+1 WHERE pollID='$pollID'");
+      }
+   }
+   Header("Location: $forwarder");
 }
 
 function pollList() {
@@ -91,7 +83,7 @@ function pollList() {
    </div>';
 }
 
-function pollResults($pollID) {
+function pollResults(int $pollID): void {
    global $NPDS_Prefix, $maxOptions, $setCookies;
 
    if (!isset($pollID) OR empty($pollID)) $pollID = 1;
@@ -107,15 +99,19 @@ function pollResults($pollID) {
      for ($i = 1; $i <= $maxOptions; $i++) {
         $result = sql_query("SELECT optionText, optionCount, voteID FROM ".$NPDS_Prefix."poll_data WHERE (pollID='$pollID') AND (voteID='$i')");
         $object = sql_fetch_assoc($result);
-        $optionText = $object['optionText'];
-        $optionCount = $object['optionCount'];
+         if (!is_null($object)) {
+           $optionText = $object['optionText'];
+           $optionCount = $object['optionCount'];
+        } else {
+           $optionText = '';
+           $optionCount = 0;
+        }
         if ($optionText!= "") {
            if ($sum) {
               $percent = 100*$optionCount/$sum;
               $percentInt = (int)$percent;
-           } else {
+           } else
               $percentInt = 0;
-           }
            echo '
    <div class="row">
       <div class="col-sm-5 mt-3">'.aff_langue($optionText).'</div>
@@ -147,10 +143,7 @@ function pollboxbooth($pollID,$pollClose) {
    $result = sql_query("SELECT pollTitle, voters FROM ".$NPDS_Prefix."poll_desc WHERE pollID='$pollID'");
    list($pollTitle, $voters) = sql_fetch_row($result);
    global $block_title;
-   if ($block_title=='')
-      $boxTitle=translate("Sondage");
-   else
-      $boxTitle=$block_title;
+   $boxTitle = $block_title=='' ? translate("Sondage") : $block_title;
    $boxContent .= '
          <h4>'.aff_langue($pollTitle).'</h4>';
 
@@ -201,12 +194,14 @@ function PollMain_aff($pollID) {
    echo $boxContent;
 }
 
+global $header;
+$header = 0;
+
 if (!isset($pollID)) {
    include ('header.php');
    pollList();
-   include ('footer.php');
 }
-settype($pollID,'integer');
+
 settype($op,'string');
 
 if (isset($forwarder)) {
@@ -217,7 +212,8 @@ if (isset($forwarder)) {
 } elseif ($op=='results') {
    list($ibid,$pollClose)=pollSecur($pollID);
    if ($pollID==$ibid) {
-      include ("header.php");
+      if ($header != 1)
+         include ("header.php");
       echo '<h2>'.translate("Sondage").'</h2><hr />';
       pollResults($pollID);
       if (!$pollClose) {
@@ -225,7 +221,7 @@ if (isset($forwarder)) {
          echo $block_title;
         pollboxbooth($pollID,$pollClose);
       } else
-         PollMain_aff($pollID);
+         PollMain_aff();
       if ($pollcomm) {
          if (file_exists("modules/comments/pollBoth.conf.php")) {
             include ("modules/comments/pollBoth.conf.php");
@@ -234,9 +230,8 @@ if (isset($forwarder)) {
             include ("modules/comments/comments.php");
          }
       }
-      include ("footer.php");
-   } else {
+   } else
       Header("Location: $forwarder");
-   }
-}
+} 
+include ('footer.php');
 ?>

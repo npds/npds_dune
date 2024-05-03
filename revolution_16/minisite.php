@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -266,12 +266,7 @@ function convert_ressources ($Xcontent) {
    if (($op!='') and ($op)) {
       if (preg_match('#^[a-z0-9_\.-]#i',$op) and !stristr($op,".*://") and !stristr($op,"..") and !stristr($op,"../") and !stristr($op, "script") and !stristr($op, "cookie") and !stristr($op, "iframe") and  !stristr($op, "applet") and !stristr($op, "object") and !stristr($op, "meta"))  {
          global $user, $super_admintest;
-
-         if ($super_admintest)
-            $adminblog=true;
-         else
-            $adminblog=false;
-
+         $adminblog = ($super_admintest) ? true : false;
          $dir="users_private/$op/mns/";
 
          if (dirname($op)!='groupe') {
@@ -331,7 +326,6 @@ function convert_ressources ($Xcontent) {
          echo '<style type="text/css">';
             readfile($dir."style.css");
          echo '</style>';
-         
          if(defined('CITRON')){
             echo '
             <script type="text/javascript"> var tarteaucitronForceLanguage = "'.language_iso(1,'','').'"; </script>
@@ -357,7 +351,6 @@ function convert_ressources ($Xcontent) {
                //]]
             </script>';
          }
-         
          $Xcontent= '
          </head>
          <body>';
@@ -382,11 +375,9 @@ function convert_ressources ($Xcontent) {
          }
 
          // Analyse et convertion des liens et images, blog, header, footer ...
-         if (strstr($Xcontent,'!blog_page!')) {
-            $perpage=substr($Xcontent,strpos($Xcontent,"!blog_page!",0)+11,2);
-         } else {
-            $perpage=4;
-         }
+
+         $perpage = strstr($Xcontent,'!blog_page!') ?
+            substr($Xcontent,strpos($Xcontent,"!blog_page!",0)+11,2) : 4 ;
          if (strstr($Xcontent,'!blog!')) {
             include ("modules/blog/readnews.php");
             settype($startpage,'integer');
@@ -418,10 +409,7 @@ function convert_ressources ($Xcontent) {
                fclose($fp);
             }
          }
-         if (($adminblog) and (strstr($Xcontent,'!l_blog_ajouter!')))
-            $blog_ajouter='!l_blog_ajouterOK!';
-         else
-            $blog_ajouter='';
+         $blog_ajouter = (($adminblog) and (strstr($Xcontent,'!l_blog_ajouter!'))) ? '!l_blog_ajouterOK!' : '' ;
          $Xcontent=convert_ressources($Xcontent);
          // Meta-lang et removehack local
          $MNS_METALANG_words=array(
@@ -441,9 +429,8 @@ function convert_ressources ($Xcontent) {
          $Xcontent=meta_lang(MNSremoveHack($Xcontent));
          //applique aff_video que sur la partie affichage
          $rupt=strpos($Xcontent, '#v_yt#');
-        echo substr($Xcontent, 0, $rupt);
-        echo aff_video_yt(substr($Xcontent,$rupt+6));
-
+         echo substr($Xcontent, 0, $rupt);
+         echo aff_video_yt(substr($Xcontent,$rupt+6));
          if($adminblog)
             echo '
                <script type="text/javascript">
@@ -461,9 +448,9 @@ function convert_ressources ($Xcontent) {
                      (tarteaucitron.job = tarteaucitron.job || []).push("vimeo");
                      (tarteaucitron.job = tarteaucitron.job || []).push("youtube");
                      (tarteaucitron.job = tarteaucitron.job || []).push("dailymotion");
-                     tarteaucitron.user.gtagUa = "UA-6423983-2";
-                     tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
-                     (tarteaucitron.job = tarteaucitron.job || []).push("gtag");
+                     //tarteaucitron.user.gtagUa = ""; /*uncomment the line and add your gtag*/
+                     //tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
+                     //(tarteaucitron.job = tarteaucitron.job || []).push("gtag");/*uncomment the line*/
                   //]]
                </script>';
          echo '

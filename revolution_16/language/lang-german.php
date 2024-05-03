@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /*                                                                      */
 /* Translated by :                                                      */
@@ -370,6 +370,7 @@ function translate_pass1($phrase) {
    case "Entrer votre pseudonyme et votre mot de passe.": $tmp="Geben Sie bitte ihren Nicknamen und Ihr Passwort ein."; break;
    case "Entrez à nouveau votre mot de Passe": $tmp="Passwort wiederholen"; break;
    case "Envoi de l'article à un ami": $tmp="Diesen Artikel an einen Freund senden"; break;
+   case "Envoi une demande aux administrateurs pour rejoindre ce groupe. Un message privé vous informera du résultat de votre demande.": $tmp="Senden Sie eine Anfrage an Administratoren, dieser Gruppe beizutreten. Eine private Nachricht informiert Sie über das Ergebnis Ihrer Anfrage."; break;
    case "Envoyé à": $tmp="Gesendet an"; break;
    case "Envoyé par ": $tmp="Eingesendet von "; break;
    case "Envoyé": $tmp="Gesendet"; break;
@@ -428,6 +429,8 @@ function translate_pass1($phrase) {
    case "Gestionnaire fichiers": $tmp="Datei-Manager"; break;
    case "Gras": $tmp="Fetter"; break;
    case "Groupe": $tmp="Gruppe"; break;
+   case "Groupe ouvert": $tmp="Offene Gruppe"; break;
+   case "Groupes": $tmp="Gruppen"; break;
    case "Hasard": $tmp="Zufall"; break;
    case "Haut de page": $tmp="Nach oben"; break;
    case "Heure de la soumission": $tmp="Gemeldet von "; break;
@@ -678,6 +681,7 @@ function translate_pass1($phrase) {
    case "Nous avons approuvé votre contribution à notre moteur de recherche.": $tmp="Ihr Link wurde in die Suchfunktion aufgenommen."; break;
    case "Nous avons bien reçu votre demande de lien, merci": $tmp="Wir haben Ihren Link erhalten. Danke !"; break;
    case "Nous ne vendons ni ne communiquons vos informations personnelles à autrui.": $tmp="Ihre Daten werden weder verkauft, noch anderweitig weiter gegeben."; break;
+   case "Nouveau commentaire": $tmp="Neue Kommentar"; break;
    case "Nouveau dossier/sujet": $tmp="Neue Ordner/Thema"; break;
    case "Nouveau lien ajouté dans la base de données": $tmp="Der neue Link wurde in der Datenbank gespeichert"; break;
    case "Nouveau membre": $tmp="Neuer User"; break;
@@ -721,6 +725,7 @@ function translate_pass1($phrase) {
    case "pas affiché dans l'annuaire, message à un membre, ...": $tmp="Nicht anzeigen in der Benutzerliste, Benutzer Mitteilungen, ..."; break;
    case "Pas de connexion à la base forums.": $tmp="Keine Verbindung zur Forendatenbank."; break;
    case "Pas de connexion à la base topics.": $tmp="Keine Verbindung zur Datenbank."; break;
+   case "Pas de groupe ouvert.": $tmp="Keine offene Gruppe."; break;
    case "Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.": $tmp="Kein Problem. Schreiben Sie ihren Nicknamen und das neue Passwort das Sie wiollen und klicken Sie auf den Senden Button, damit Sie eine E-mail mit den neuen Daten erhalten."; break;
    case "Passer / Gérer une annonce": $tmp="Senden Sie / Managen Sie einen BEitrag"; break;
    case "Pays": $tmp="Land"; break;
@@ -785,6 +790,7 @@ function translate_pass1($phrase) {
    case "Rechercher dans": $tmp="Suche in"; break;
    case "Recommander ce site à un ami": $tmp="Diese Seite einem Freund empfehlen"; break;
    case "Reçus": $tmp="Eingegangen"; break;
+   case "Rejoindre ce groupe": $tmp="Trete dieser Gruppe bei"; break;
    case "Replier la liste": $tmp="Liste ausblenden"; break;
    case "Répondre": $tmp="Antworten"; break;
    case "Réponse postée.": $tmp="Antwort gesendet."; break;

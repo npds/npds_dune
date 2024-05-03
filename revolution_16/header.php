@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion")) {
    include ("mainfile.php");
@@ -21,7 +21,7 @@ settype($m_description, 'string');
 $skin='';
 
 function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords) {
-   global $slogan, $site_font, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
+   global $slogan, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
    global $topic, $hlpfile, $user, $hr, $long_chain;
 
    settype($m_keywords, 'string');
@@ -44,19 +44,14 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
 <link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />';
 
    // Syndication RSS & autres
-   global $sitename, $nuke_url, $REQUEST_URI;
+   global $sitename, $nuke_url;
 
    // Canonical
-   $uri = $REQUEST_URI;
-   $drname=dirname($uri);
-   if ($drname=='.')
-      $uri=$nuke_url.'/'.$uri;
-   elseif($drname=='/')
-      $uri=$nuke_url.$uri;
-   else
-      $uri='http://'.$_SERVER['SERVER_NAME'].$uri;
+   $scheme = strtolower($_SERVER['REQUEST_SCHEME'] ?? 'http');
+   $host = $_SERVER['HTTP_HOST'];
+   $uri = $_SERVER['REQUEST_URI'];
    echo '
-<link rel="canonical" href="'.str_replace('&','&amp;',str_replace('&amp;','&',$uri)).'" />';
+<link rel="canonical" href="'.($scheme.'://'.$host.$uri).'" />';
 
    // humans.txt
    if (file_exists("humans.txt"))
@@ -169,25 +164,25 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    
    // LOAD pages.php and Go ...
    settype($PAGES, 'array');
-   global $pdst, $Titlesitename, $REQUEST_URI;
+   global $pdst, $Titlesitename, $PAGES;
    require_once("themes/pages.php");
 
    // import pages.php specif values from theme
    if (file_exists("themes/".$tmp_theme."/pages.php"))
       include ("themes/".$tmp_theme."/pages.php");
 
-   $page_uri=preg_split("#(&|\?)#",$REQUEST_URI);//var_dump($page_uri);
+   $page_uri=preg_split("#(&|\?)#",$_SERVER['REQUEST_URI']);//var_dump($page_uri);
    $Npage_uri=count($page_uri);
    $pages_ref=basename($page_uri[0]);//var_dump($pages_ref);
 
    // Static page and Module can have Bloc, Title ....
    if ($pages_ref=="static.php")
-      $pages_ref=substr($REQUEST_URI,strpos($REQUEST_URI,"static.php"));
+      $pages_ref=substr($_SERVER['REQUEST_URI'],strpos($_SERVER['REQUEST_URI'],"static.php"));
    if ($pages_ref=="modules.php") {
       if (isset($PAGES["modules.php?ModPath=$ModPath&ModStart=$ModStart*"]['title']))
          $pages_ref="modules.php?ModPath=$ModPath&ModStart=$ModStart*";
       else
-         $pages_ref=substr($REQUEST_URI,strpos($REQUEST_URI,"modules.php"));
+         $pages_ref=substr($_SERVER['REQUEST_URI'],strpos($_SERVER['REQUEST_URI'],"modules.php"));
    }
 
    // Admin function can have all the PAGES attributs except Title

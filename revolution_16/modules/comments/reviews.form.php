@@ -3,11 +3,11 @@
 /* SFORM Extender for Dune comments - Review                            */
 /* ===========================                                          */
 /*                                                                      */
-/* P. Brunier 2002 - 2019                                               */
+/* P. Brunier 2002 - 2024                                               */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 // Champ Combo : hauteur = 5 

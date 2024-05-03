@@ -11,7 +11,7 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
                <li class="breadcrumb-item"><a href="men_syst.html">Syst&egrave;me</a></li>
                <li class="breadcrumb-item active" aria-current="page" >META-LANG</li>
@@ -19,6 +19,7 @@
          </nav>
          <hr class="mt-n3" />
          <h3 class="mb-3">Administration - Meta-lang</h3>
+
          <h4>META_LANG &agrave; quoi &#xE7;a sert ?</h4>
          <p>META-LANG est un langage particulier &#xE0; NPDS. Il est compos&#xE9; de mots (les META-MOT) permettant, en toute s&#xE9;curit&#xE9;, d'appeler &#xE0; l'emplacement o&#xF9; vous avez inscrit ce META-MOT (dans une new, un article, un billet, un commentaire ou l'&#xE9;dito de votre site voir m&#xEA;me une page static), le r&#xE9;sultat de fonction internes de NPDS.</p>
          <p>Il existe 5 types de META-MOT en usage pour votre site</p>
@@ -31,24 +32,24 @@
                <br />En usage dans presque tous NPDS, sera utilis&#xE9; pour appeler le r&#xE9;sultat d'une fonction pr&#xE9;cise qui sera affich&#xE9;e &#xE0; l'emplacement de sa saisie.<br />
                C'est la cat&#xE9;gorie la plus importante de NPDS et permet la mise en oeuvre de fonctions tr&#xE8;s &#xE9;volu&#xE9;es.<br />
                Il existe deux formes d'&#xE9;criture (dans la zone script) en fonction du niveau de complexit&#xE9; de ce que vous voulez r&#xE9;aliser :
-               <ul>
-                  <li><code>$cmd=... instruction PHP tenant sur une seule ligne ...;</code></li>
-                  <li><code>function MM_votre-meta-mot () {<br />
-                      code php<br />
-                      code php<br />
-                      code php<br />
-                      return (votre-retour);<br />
-                      }</code>
-                  </li>
-               </ul>
-            </li>
-            <li><b>mot</b><br />Sera utilis&#xE9; pour afficher un mot (association de lettres ou chiffres) pouvant ex&#xE9;cuter une fonction de base type HTML comme l'appel &#xE0; un lien, de la correction orthographique, la gestion des abr&#xE9;viations...<br>
-            Cette cat&#xE9;gorie est tr&#xE8;s utile pour gagner en productivit&#xE9;.</li>
-            <li><b>smil</b><br />Sera utilis&#xE9; pour int&#xE9;grer des smilies et/ou des raccourcis vers des images.</li>
-            <li><b>them</b><br />Sera utilis&#xE9; pour documenter les fonctions internes de NPDS relatives aux th&#xE8;mes.</li>
-         </ul>
+                  <ul>
+                     <li><code>$cmd=... instruction PHP tenant sur une seule ligne ...;</code></li>
+                     <li><code>function MM_votre-meta-mot () {<br />
+                         code php<br />
+                         code php<br />
+                         code php<br />
+                         return (votre-retour);<br />
+                         }</code>
+                     </li>
+                  </ul>
+               </li>
+               <li><b>mot</b><br />Sera utilis&#xE9; pour afficher un mot (association de lettres ou chiffres) pouvant ex&#xE9;cuter une fonction de base type HTML comme l'appel &#xE0; un lien, de la correction orthographique, la gestion des abr&#xE9;viations...<br />
+               Cette cat&#xE9;gorie est tr&#xE8;s utile pour gagner en productivit&#xE9;.</li>
+               <li><b>smil</b><br />Sera utilis&#xE9; pour int&#xE9;grer des smilies et/ou des raccourcis vers des images.</li>
+               <li><b>them</b><br />Sera utilis&#xE9; pour documenter les fonctions internes de NPDS relatives aux th&#xE8;mes.</li>
+            </ul>
          </p>
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Manuel administration</span></p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Manuel administration</span></p>
       </div>
    </body>
 </html>

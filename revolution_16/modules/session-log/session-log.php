@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Session and log Viewer Copyright (c) 2009 - Tribal-Dolphin           */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -20,7 +20,7 @@ admindroits($aid,$f_meta_nom);
 //<== controle droit
 
 global $language, $ModPath, $ModStart;
-$old_language=$language;
+$hlpfile ='manuels/'.$language.'/logs.html';
 include('modules/upload/upload.conf.php');
 include('modules/geoloc/geoloc_locip.php');
 
@@ -35,7 +35,6 @@ $FileSecure = $DOCUMENTROOT.$racine.'/slogs/security.log';
 $FileUpload = $DOCUMENTROOT.$rep_log;
 $RepTempFil = $DOCUMENT_ROOT.$rep_cache;
 
-$language=$old_language;
 include ("modules/$ModPath/lang/session-log-$language.php");
 $ThisFile="admin.php?op=Extend-Admin-SubModule&amp;ModPath=".$ModPath."&amp;ModStart=".$ModStart;
 $f_titre = SessionLog_translate("Gestion des Logs");
@@ -43,7 +42,7 @@ settype($subop,'string');
 
 function action_log($ThisFile,$logtype) {
    global $FileSecure, $FileUpload, $RepTempFil, $rep_cache;
-   $whatlog='security';$whatfile='';
+   $whatlog='security';
    if($FileUpload!=$FileSecure) $whatlog='upload';
    $task= '
       <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$whatlog.'"><i class="fa fa-at me-1 fa-lg"></i>'.SessionLog_translate("Recevoir le fichier par mail").'</a>
@@ -55,9 +54,8 @@ function action_log($ThisFile,$logtype) {
 
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $cl_a_ses=''; if ($subop=="session") $cl_a_ses='active';
-   $cl_a_sec=''; if ($subop=="security") $cl_a_sec='active';
-   
+   $cl_a_ses = $subop=="session" ? 'active' : '' ;
+   $cl_a_sec = $subop=="security" ? 'active' : '' ;
 echo '
 <hr />
 <ul class="nav nav-tabs">
@@ -140,14 +138,14 @@ echo '
    if ($subop=='vidlog') {
       if ($log=='security') {
          if (file_exists($FileSecure)) {
-            @fopen($FileSecure, "w");
-            @fclose($FileSecure);
+            $File_Secure = fopen($FileSecure, "w");
+            fclose($File_Secure);
          }
       }
       if ($log=='upload') {
          if (file_exists($FileUpload)) {
-            @fopen($FileUpload, "w");
-            @fclose($FileUpload);
+            $File_Upload = fopen($FileUpload, "w");
+            fclose($File_Upload);
          }
       }
    }
@@ -160,8 +158,13 @@ echo '
       if ($log=='upload') 
          if (file_exists($FileUpload))
             $Mylog=$FileUpload;
+      $file = [
+         'file' => $Mylog,
+         'name' => 'security.log',
+      ];
       $subject = html_entity_decode(SessionLog_translate("Fichier de Log de"),ENT_COMPAT | ENT_HTML401,cur_charset).' '.$sitename;
-      send_email($adminmail, $subject, $Mylog, '', true, 'mixed');
+      $message = SessionLog_translate("Fichier de Log de").' '.$sitename."<br /><br />";
+      send_email($adminmail, $subject, $message, $adminmail, true, 'mixed', $file);
    }
 
    // Vider le répertoire temporaire
@@ -188,16 +191,16 @@ echo '
                if (strlen($buffer)>10) {
                   if (stristr($buffer,'Upload'))
                      $UpLog.='
-                  <tr>
+               <tr>
                   <td style="font-size:10px;">'.$buffer.'</td>
-                  </tr>';
+               </tr>';
                   else {
                     $ip=substr(strrchr($buffer,"=>"),2);
                     $SecLog.='
-                    <tr>
-                       <td class="small">'.$buffer.'</td>
-                       <td><a href="'.$ThisFile.'&amp;subop=info&amp;theip='.$ip.'" >'.SessionLog_translate("Infos").'</a></td>
-                    </tr>';
+               <tr>
+                  <td class="small">'.$buffer.'</td>
+                  <td><a href="'.$ThisFile.'&amp;subop=info&amp;theip='.$ip.'" >'.SessionLog_translate("Infos").'</a></td>
+               </tr>';
                   }
                }
             }
@@ -214,9 +217,8 @@ echo '
                   <th data-align="center" class="n-t-col-xs-2">Fonctions</th>
                </tr>
             </thead>
-            <tbody>';
-      echo $SecLog;
-      echo '
+            <tbody>
+            '.$SecLog.'
             </tbody>
          </table>
       </div>
@@ -228,9 +230,8 @@ echo '
                   <th>Logs</th>
                </tr>
             </thead>
-            <tbody>';
-      echo $UpLog;
-      echo '
+            <tbody>
+            '.$UpLog.'
             </tbody>
          </table>
       </div>';

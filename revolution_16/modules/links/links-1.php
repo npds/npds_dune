@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],"modules.php")) die();
 function error_head($class) {
@@ -110,11 +110,12 @@ function AddLink() {
          </div>';
         echo aff_editeur('xtext','');
         global $cookie;
+        $nom = isset($cookie) ? $cookie[1] : '' ;
         echo '
          <div class="mb-3 row">
             <label class="col-form-label col-sm-3" for="name">'.translate("Votre nom").'</label>
             <div class="col-sm-9">
-               <input type="text" class="form-control" id="name" name="name" maxlength="60" value="'.$cookie[1].'" required="required" />
+               <input type="text" class="form-control" id="name" name="name" maxlength="60" value="'.$nom.'" required="required" />
             </div>
          </div>
          <div class="mb-3 row">

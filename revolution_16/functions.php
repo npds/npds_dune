@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2024 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
@@ -11,7 +11,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function get_total_topics($forum_id) {
@@ -85,7 +85,7 @@ function get_last_post($id, $type, $cmd, $Mmod) {
       else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
          $val = convertdate($myrow[0]);
-         $val .= $rowQ1 ? ' '.userpopover($rowQ1[0]['uname'],40) : '';
+         $val .= $rowQ1 ? ' '.userpopover($rowQ1[0]['uname'],40,2) : '';
       }
    }
    sql_free_result($result);
@@ -105,7 +105,7 @@ function convertdateTOtimestamp($myrow) {
    $hour=substr($myrow,11,2);
    $mns=substr($myrow,14,2);
    $sec=substr($myrow,17,2);
-   $tmst=mktime($hour,$mns,$sec,$month,$day,$year);
+   $tmst=mktime((int) $hour,(int) $mns,(int) $sec,(int) $month,(int) $day,(int) $year);
    return ($tmst);
 }
 
@@ -473,7 +473,7 @@ function searchblock() {
             <input type="hidden" name="sortby" value="0" />
             <div class="col">
                <div class="form-floating">
-                  <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'" />
+                  <input type="text" class="form-control" name="term" id="term" placeholder="'.translate('Recherche').'" required="required" />
                   <label for="term"><i class="fa fa-search fa-lg me-2"></i>'.translate('Recherche').'</label>
                </div>
             </div>

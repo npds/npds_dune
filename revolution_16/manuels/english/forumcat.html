@@ -11,7 +11,7 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
                <li class="breadcrumb-item"><a href="men_com.html">Communication</a></li>
                <li class="breadcrumb-item active">Forums edition</li>
@@ -19,66 +19,72 @@
          </nav>
          <hr class="mt-n3" />
          <h3 class="mb-3">Forums edition</h3>
+         <p>This function will allow you to manage your Forums.<br />
+          The first list displayed is actually a representation of the active categories and forums on your site.</p>
 
-<p>Cette fonction vous permettra d'assurer la gestion de vos Forums.<br />
-La premi&egrave;re liste affich&eacute;e est en fait la repr&eacute;sentation des cat&eacute;gories et forums actifs sur votre site.</p>
+         <h4>Forum Editing:</h4>
+         <p>A second page is displayed with the list of forums present in the category.<br />
+         You can add a forum:
+            <ul>
+               <li>Index: in the same way as for blocks, it is the possibility of classifying your different forums.</li>
+               <li>Forum name</li>
+               <li>Forum description (don't be too long)</li>
+               <li>identification of the moderator(s) (required): if there are several moderators for the same forum, separate the names with , (commas).</li>
+               <li><b>Access level for PUBLICATION</b>:
+                  <ul>
+                     <li>Anonymous publication authorized</li>
+                     <li>Registered user publication only</li>
+                     <li>Moderator publication only</li>
+                     <li>Closed (the forum is closed to any new publications or modifications)</li>
+                  </ul>
+               <li><b>Forum type</b>: Public, Private, PHP Script, Extended Text, Group or Hidden
+                  <ul>
+                     <li>Public = access to all</li>
+                     <li>Private = password access</li>
+                     <li>PHP Script=Forum for storing and displaying code (php, perl, c, ...).<br />
+                      Be careful, some things don't work with this forum (Smilley, ...)</li>
+                     <li>Extended text = Allows you to associate a SFORM form with a forum</li>
+                     <li>Group = Allows you to associate a forum with N member groups</li>
+                     <li>Hidden Text = visible only to members</li>
+                     <li>The following Field takes different values:
+                        <ul>
+                           <li>Password (if Private Forum)</li>
+                           <li>The name of the form file (if Extended Text Forum)<br />
+                           in modules/sform/forum (for example: form.php)</li>
+                           <li>The identifier of the member Groups (if Forum Group) separate the names with , (commas) // example: 5,12,56</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li><b>Forum mode</b>: Standard or Tree
+                  <ul>
+                     <li>Tree mode allows specific management (tree structure) of posts but may require a certain amount of computing power</li>
+                  </ul>
+               </li>
+               <li><b>Attachment</b>: If in Administration / Forum Configuration, the option "Enable uploading in forums" is Yes, you can specify whether you authorize attachments for this forum .</li>
+            </ul>
+         </p>
+         <p><b>To redirect to an external forum</b> (a kind of link), simply enter a URL in the Forum Name!</p>
 
-<h4>Edition des Forums :</h4>
-<p>Une deuxi&egrave;me page s'affiche avec la liste des forums pr&eacute;sents dans la cat&eacute;gorie.<br />
-Vous pouvez ajouter un forum :
-<ul>
-<li>Index : de la m&ecirc;me mani&egrave;re que pour les blocs, c'est la possibilit&eacute; de classer vos diff&eacute;rents forums.</li>
-<li>Nom du forum</li>
-<li>Description du forum (ne soyez pas trop long)</li>
-<li>indentifiant du ou des mod&eacute;rateur(s) (obligatoire) : s'il y a plusieurs mod&eacute;rateurs pour un m&ecirc;me forum, s&eacute;parer les noms par des , (virgules).</li>
-<li><b>Niveau d'acc&egrave;s pour la PUBLICATION</b> :
-<ul>
-   <li>Publication Anonyme autoris&eacute;e</li>
-   <li>Publication Utilisateur enregistr&eacute; uniquement</li>
-   <li>Publication Mod&eacute;rateur uniquement</li>
-   <li>Ferm&eacute; (le forum est ferm&eacute; &agrave; toute nouvelle publication ou modification)</li></ul>
-<li><b>Type de forum</b> : Public, Priv&eacute;, PHP Script, Texte &eacute;tendu, Groupe ou Cach&eacute;
-<ul>
-   <li>Public = acc&egrave;s &agrave; tous</li>
-   <li>Priv&eacute; = acc&egrave;s par mot de passe</li>
-   <li>PHP Script=Forum permettant de stocker et d'afficher du code (php, perl, c, ...).<br />
- Attention certaines choses ne fonctionnent pas avec ce forum (Smilley, ...)</li>
-   <li>Texte &eacute;tendu = Permet d'associer &agrave; un forum, un formulaire SFORM</li>
-   <li>Groupe = Permet d'associer un forum &agrave; N groupes de membre</li>
-   <li>Texte Cach&eacute; = visible que pour les membres</li>
-   <li>Le Champ suivant prend diff&eacute;rentes valeurs :
-   <ul>
-      <li>Mot de Passe (si Forum Priv&eacute;)</li>
-      <li>Le nom du fichier de formulaire (si Forum Texte &eacute;tendu)<br />
-      dans modules/sform/forum (par exemple : formulaire.php)</li>
-      <li>L'identifiant des Groupes de membre (si Forum Groupe) s&eacute;parer les noms par des , (virgules) // exemple : 5,12,56</li>
-   </ul></li></ul>
-<li><b>Mode du forum</b> : Standard ou Arbre
-   <ul>
-   <li>Le mode arbre permet une gestion particuli&egrave;re (arborescente) des posts mais peut n&eacute;cessiter une certaine puissance de calcul</li>
-   </ul>
-<li><b>Attachement</b> : Si dans Administration / Configuration des Forums, l'option "Activer l'upload dans les forums" est sur Oui, vous pourrez sp&eacute;cifier si vous autorisez, pour ce forum, les pi&egrave;ces jointes.</li>
-</ul>
-</p>
-<p><b>Pour faire une redirection vers un forum externe</b> (une sorte de lien), saisissez simplement une url dans le Nom du Forum !</p>
+         <p><b>Sub-Forum:</b><br />A forum whose name begins with &lt;!&gt; will not appear in the list. A meta-word allows you to obtain the reading status of a forum: forum_subfolder(forum_number).<br />
+         Examples:
+            <ul>
+               <li>imagine a forum whose number is 3 and whose name is: "&lt;!&gt;Just for NPDS"</li>
+               <li>Imagine in the comment area of forum 1 a text like this: forum_subfolder(3) &lt;a href="viewforum.php?forum=3"&gt;Just for NPDS&lt;/a&gt;</li>
+            </ul>
+         </p>
+         <p>You can edit a forum to modify it.</p>
+         <p>You can delete a forum (confirmation message).</p>
 
-<p><b>Sous-Forum :</b><br />Un forum dont le nom commence par &lt;!&gt; n'apparaitra pas dans la liste. Un meta-mot permet d'obtenir le status de lecture d'un forum : forum_subfolder(numero_du_forum).<br />
-Exemples :
-<ul><li>imaginez un forum dont le num&eacute;ro est 3 et dont le nom est : "&lt;!&gt;Rien que pour NPDS"</li>
-<li>Imaginez dans la zone commentaire du forum 1 un texte comme celui-ci : forum_subfolder(3) &lt;a href="viewforum.php?forum=3"&gt;Rien que pour NPDS&lt;/a&gt;</li></ul>
-</p>
-<p>Vous pouvez &eacute;diter un forum pour le modifier.</p>
-<p>Vous pouvez supprimer un forum (message de confirmation).</p>
-<h4>Ajouter une cat&eacute;gorie :</h4>
-<p>Vous permet d'ajouter une cat&eacute;gorie dans laquelle vous pourrez ins&eacute;rer des forums. Cliquez sur Ajouter pour finir.</p>
+         <h4>Add a category:</h4>
+         <p>Allows you to add a category in which you can insert forums. Click Add to finish.</p>
 
-<h4>Editer la cat&eacute;gorie :</h4>
-<p>Vous permet de modifier la cat&eacute;gorie : son titre ET son ID (ce qui permet de classer les cat&eacute;gories). Cliquez sur Ok pour finir.</p>
+         <h4>Edit category:</h4>
+         <p>Allows you to modify the category: its title AND its ID (which allows you to classify the categories). Click Ok to finish.</p>
 
-<h4>Effacer la cat&eacute;gorie :</h4>
-<p>Cette fonction vous permet de supprimer une cat&eacute;gorie, tous les forums rattach&eacute;s ainsi que toutes les contributions.<br />
-Un message de confirmation est quand m&ecirc;me affich&eacute; ...</p>
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Administration manual</span></p>
-      </div>
+         <h4>Clear category:</h4>
+         <p>This function allows you to delete a category, all attached forums as well as all contributions.<br />
+         A confirmation message is still displayed...</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Administration manual</span></p>      </div>
    </body>
 </html>

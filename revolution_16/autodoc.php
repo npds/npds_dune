@@ -2,12 +2,12 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2024 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*********************************************************************************************************************************/
 /* AutoDoc permet de de lire le contenu d'un fichier php et d'extraire la documentation intégrée (sous forme de commentaire php) */
 /* Le format d'une ligne AutoDoc de documentation doit-être :                                                                    */
@@ -20,7 +20,7 @@
 /* Le mainfile.php est un bon exemple (extraction des fonctions de type BLOCS)                                                   */
 /*                                                                                                                               */
 /*********************************************************************************************************************************/
-if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) include ("grab_globals.php");
+if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) include ("mainfile.php");
 
 function Access_Error () {
   include("admin/die.php");
@@ -40,7 +40,7 @@ function dochead($a,$b) {
 }
 
 function docfoot() {
-echo '
+   echo '
       <p class="text-end small my-3 text-muted">Autodoc by NPDS</p>
    </body>
 </html>';

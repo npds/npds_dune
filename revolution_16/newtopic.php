@@ -5,12 +5,12 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2021 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 settype($cancel, 'string');
 if ($cancel)

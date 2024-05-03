@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -18,24 +18,27 @@ $f_titre = adm_translate("Administration des MétaTags");
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 
-function MetaTagAdmin($saved = false) {
+function MetaTagAdmin(bool $meta_saved = false) {
    global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
    $tags = GetMetaTags("meta/meta.php");
-///   var_dump($tags);////
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $sel=' selected="selected"';
    echo '
    <hr />';
-   if ($saved) // this not work
-      echo '<div class="alert alert-success">'.adm_translate("Vos MétaTags ont été modifiés avec succès !").'</div>';
+   if ($meta_saved)
+      echo '
+      <div class="alert alert-success">
+         '.adm_translate("Vos MétaTags ont été modifiés avec succès !").'
+         <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>';
    echo '
    <form id="metatagsadm" action="admin.php" method="post">
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagauthor" type="text" name="newtag[author]" value="'.$tags['author'].'" maxlength="100">
          <label for="newtagauthor">'.adm_translate("Auteur(s)").'</label>
-         <span class="help-block">'. adm_translate("(Ex. : nom du webmaster)").'<span class="float-end ms-1" id="countcar_newtagauthor"></span></span>
+         <span class="help-block">'.adm_translate("(Ex. : nom du webmaster)").'<span class="float-end ms-1" id="countcar_newtagauthor"></span></span>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagowner" type="text" name="newtag[owner]" value="'.$tags['owner'].'" maxlength="100" />
@@ -46,16 +49,6 @@ function MetaTagAdmin($saved = false) {
          <input class="form-control" id="newtagreplyto" type="email" name="newtag[reply-to]" value="'.$tags['reply-to'].'" maxlength="100" />
          <label for="newtagreplyto">'.adm_translate("Adresse e-mail principale").'</label>
          <span class="help-block">'.adm_translate("(Ex. : l'adresse e-mail du webmaster)").'<span class="float-end ms-1" id="countcar_newtagreplyto"></span></span>
-      </div>
-      <div class="form-floating mb-3">
-         <select class="form-select" id="newtaglanguage" name="newtag[language]">
-            <option value="zh"'.($tags['lang']=='zh' ? $sel : '').'>'.adm_translate("chinese").'</option>
-            <option value="en"'.($tags['lang']=='en' ? $sel : '').'>'.adm_translate("english").'</option>
-            <option value="fr"'.($tags['lang']=='fr' ? $sel : '').'>'.adm_translate("french").'</option>
-            <option value="de"'.($tags['lang']=='de' ? $sel : '').'>'.adm_translate("german").'</option>
-            <option value="es"'.($tags['lang']=='es' ? $sel : '').'>'.adm_translate("spanish").'</option>
-         </select>
-         <label for="newtaglanguage">'.adm_translate("Langue principale").'</label>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagdescription" type="text" name="newtag[description]" value="'.$tags['description'].'" maxlength="200" />
@@ -109,15 +102,6 @@ function MetaTagAdmin($saved = false) {
       <div class="row g-3">
          <div class="col-md-6">
             <div class="form-floating mb-3">
-               <select class="form-select" id="newtagcontenttype" name="newtag[content-type]">
-                  <option value="text/html; charset=iso-8859-1"'.(!strcasecmp($tags['content-type'], 'text/html; charset=iso-8859-1') ? $sel : '').'>charset=ISO-8859-1</option>
-                  <option value="text/html; charset=utf-8"'.(!(strcasecmp($tags['charset'], 'utf-8')) ? $sel : '').'>charset=utf-8</option>
-               </select>
-               <label for="newtagcontenttype">'.adm_translate("Encodage").'</label>
-            </div>
-         </div>
-         <div class="col-md-6">
-            <div class="form-floating mb-3">
                <select class="form-select" id="newtagdoctype" name="newtag[doctype]">
                   <option value="XHTML 1.0 Transitional"'.(!strcasecmp(doctype, 'XHTML 1.0 Transitional') ? $sel : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
                   <option value="XHTML 1.0 Strict"'.(!strcasecmp(doctype, 'XHTML 1.0 Strict') ? $sel : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
@@ -142,20 +126,183 @@ function MetaTagAdmin($saved = false) {
    adminfoot('fv','',$arg1,'');
 }
 
+function GetMetaTags($filename) {
+   if (file_exists($filename)) {
+      $temp = file($filename);
+      foreach($temp as $line) {
+         $aline = trim(stripslashes($line));
+         if (preg_match("#<meta (name|http-equiv|property)=\"([^\"]*)\" content=\"([^\"]*)\"#i",$aline,$regs)) {
+            $regs[2] = strtolower($regs[2]);
+            $tags[$regs[2]] = $regs[3];
+         } elseif(preg_match("#<meta (charset)=\"([^\"]*)\"#i", $aline, $regs)) {
+            $regs[1] = strtolower($regs[1]);
+            $tags[$regs[1]] = $regs[2];
+         } elseif(preg_match("#<meta (content-type)=\"([^\"]*)\" content=\"([^\"]*)\"#i", $aline, $regs)) {
+            $regs[2] = strtolower($regs[2]);
+            $tags[$regs[2]] = $regs[3];
+         } elseif (preg_match("#<html (lang)=\"([^\"]*)\"#i", $aline, $regs)) {
+            $regs[1] = strtolower($regs[1]);
+            $tags[$regs[1]] = $regs[2];
+         } elseif (preg_match("#<doctype (lang)=\"([^\"]*)\"#i", $aline, $regs)) {
+            $regs[1] = strtolower($regs[1]);
+            $tags[$regs[1]] = $regs[2];
+         }
+      }
+   }
+   return $tags;
+}
+
+function MetaTagMakeSingleTag($name, $content, $type='name') {
+   if ($content!="humans.txt") {
+      if ($content!="")
+         return "\$l_meta.=\"<meta $type=\\\"".$name."\\\" content=\\\"".$content."\\\" />\\n\";\n";
+      else
+         return "\$l_meta.=\"<meta $type=\\\"".$name."\\\" />\\n\";\n";
+   } else
+      return "\$l_meta.=\"<link type=\"text/plain\" rel=\"author\" href=\"http://humanstxt.org/humans.txt\" />\";\n";
+
+}
+
+function MetaTagSave($filename, $tags) {
+   if (!is_array($tags)) return false;
+   global $adminmail, $Version_Id, $Version_Num, $Version_Sub;
+   $fh = fopen($filename, "w");
+   if ($fh) {
+      $content = "<?php\n/* Do not change anything in this file manually. Use the administration interface. */\n";
+      $content .= "/* généré le : ".date("d-m-Y H:i:s")." */\n";
+      $content .= "global \$nuke_url;\n";
+      $content .= "\$meta_doctype = isset(\$meta_doctype) ? \$meta_doctype : '' ;\n";
+      $content .= "\$nuke_url = isset(\$nuke_url) ? \$nuke_url : '' ;\n";
+      $content .= "\$meta_doctype = isset(\$meta_doctype) ? \$meta_doctype : '' ;\n";
+      $content .= "\$meta_op = isset(\$meta_op) ? \$meta_op : '' ;\n";
+      $content .= "\$m_description = isset(\$m_description) ? \$m_description : '' ;\n";
+      $content .= "\$m_keywords = isset(\$m_keywords) ? \$m_keywords : '' ;\n";
+      $content .= "\$lang = language_iso(1, '', 0);\n";
+      $content .= "if (\$meta_doctype==\"\")\n";
+      if (!empty($tags['doctype'])) {
+         if ($tags['doctype'] == "XHTML 1.0 Transitional")
+            $content .= "   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\n<html lang=\\\"\$lang\\\" xml:lang=\\\"\$lang\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n\";\n";
+         if ($tags['doctype'] == "XHTML 1.0 Strict")
+            $content .= "   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Strict//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\\\">\\n<html lang=\\\"\$lang\\\" xml:lang=\\\"\$lang\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n\";\n";
+         if ($tags['doctype'] == "HTML 5.1")
+            $content .= "   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"\$lang\\\">\\n<head>\\n\";\n";
+      } else {
+         $tags['doctype'] = "HTML 5.1";
+         $content .= "   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"\$lang\\\">\\n<head>\\n\";\n";
+      }
+      $content .= "else\n";
+      $content .= "   \$l_meta=\$meta_doctype.\"\\n<html lang=\\\"\$lang\\\">\\n<head>\\n\";\n";
+      if (!empty($tags['content-type'])) {
+         $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $fp = fopen("meta/cur_charset.php", "w");
+         if ($fp) {
+            fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"".substr($tags['content-type'],strpos($tags['content-type'],"charset=")+8)."\");\n");
+            fwrite($fp, "if (!defined(\"doctype\"))\n   define ('doctype', \"".$tags['doctype']."\");\n?>");
+         }
+         fclose($fp);
+         if ($tags['doctype'] == "HTML 5.1") 
+            $content .= MetaTagMakeSingleTag('utf-8', '', 'charset');
+         else
+            $content .= MetaTagMakeSingleTag('content-type', $tags['content-type'], 'http-equiv');
+      } else {
+         $fp = fopen("meta/cur_charset.php", "w");
+         if ($fp) {
+            fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"utf-8\");\n");
+            fwrite($fp, "if (!defined(\"doctype\"))\n   define ('doctype', \"".$tags['doctype']."\");\n?>");
+         }
+         fclose($fp);
+         if ($tags['doctype'] == "XHTML 1.0 Transitional" || $tags['doctype'] == "XHTML 1.0 Strict") {
+            $content .= MetaTagMakeSingleTag('content-type', 'text/html; charset=utf-8', 'http-equiv');
+         } else {
+            $content .= MetaTagMakeSingleTag('utf-8', '', 'charset');
+         }
+      }
+      $content .= "\$l_meta.=\"<title>\$Titlesitename</title>\\n\";\n";
+      $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no');
+      $content .= MetaTagMakeSingleTag('content-script-type', 'text/javascript', 'http-equiv');
+      $content .= MetaTagMakeSingleTag('content-style-type', 'text/css', 'http-equiv');
+      $content .= MetaTagMakeSingleTag('expires', '0', 'http-equiv');
+      $content .= MetaTagMakeSingleTag('pragma', 'no-cache', 'http-equiv');
+      $content .= MetaTagMakeSingleTag('cache-control', 'no-cache', 'http-equiv');
+      $content .= MetaTagMakeSingleTag('identifier-url', '$nuke_url', 'http-equiv');
+      if (!empty($tags['author'])) {
+         $tags['author'] = htmlspecialchars(stripslashes($tags['author']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= MetaTagMakeSingleTag('author', $tags['author']);
+      }
+      if (!empty($tags['owner'])) {
+         $tags['owner'] = htmlspecialchars(stripslashes($tags['owner']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= MetaTagMakeSingleTag('owner', $tags['owner']);
+      }
+      if (!empty($tags['reply-to'])) {
+         $tags['reply-to'] = htmlspecialchars(stripslashes($tags['reply-to']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= MetaTagMakeSingleTag('reply-to', $tags['reply-to']);
+      } else
+         $content .= MetaTagMakeSingleTag('reply-to', $adminmail);
+      if (!empty($tags['description'])) {
+         $tags['description'] = htmlspecialchars(stripslashes($tags['description']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= "if (\$m_description!=\"\")\n";
+         $content .= "   \$l_meta.=\"<meta name=\\\"description\\\" content=\\\"\$m_description\\\" />\\n\";\n";
+         $content .= "else\n";
+         $content .= "   ".MetaTagMakeSingleTag('description', $tags['description']);
+      }
+      if (!empty($tags['keywords'])) {
+         $tags['keywords'] = htmlspecialchars(stripslashes($tags['keywords']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= "if (\$m_keywords!=\"\")\n";
+         $content .= "   \$l_meta.=\"<meta name=\\\"keywords\\\" content=\\\"\$m_keywords\\\" />\\n\";\n";
+         $content .= "else\n";
+         $content .= "   ".MetaTagMakeSingleTag('keywords', $tags['keywords']);
+      }
+      if (!empty($tags['rating'])) {
+         $tags['rating'] = htmlspecialchars(stripslashes($tags['rating']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= MetaTagMakeSingleTag('rating', $tags['rating']);
+      }
+      if (!empty($tags['distribution'])) {
+         $tags['distribution'] = htmlspecialchars(stripslashes($tags['distribution']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= MetaTagMakeSingleTag('distribution', $tags['distribution']);
+      }
+      if (!empty($tags['copyright'])) {
+         $tags['copyright'] = htmlspecialchars(stripslashes($tags['copyright']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= MetaTagMakeSingleTag('copyright', $tags['copyright']);
+      }
+      if (!empty($tags['revisit-after'])) {
+         $tags['revisit-after'] = htmlspecialchars(stripslashes($tags['revisit-after']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $content .= MetaTagMakeSingleTag('revisit-after', $tags['revisit-after']);
+      } else
+         $content .= MetaTagMakeSingleTag('revisit-after', "14 days");
+      $content .= MetaTagMakeSingleTag('resource-type', "document");
+      $content .= MetaTagMakeSingleTag('robots', $tags['robots']);
+      $content .= MetaTagMakeSingleTag('generator', "$Version_Id $Version_Num $Version_Sub");
+      //==> OpenGraph Meta Tags
+      $content .= MetaTagMakeSingleTag('og:type', 'website', 'property');
+      $content .= MetaTagMakeSingleTag('og:url', '$nuke_url', 'property');
+      $content .= MetaTagMakeSingleTag('og:title', '$Titlesitename', 'property');
+      $content .= MetaTagMakeSingleTag('og:description', $tags['description'], 'property');
+      $content .= MetaTagMakeSingleTag('og:image', '$nuke_url/images/ogimg.jpg', 'property');
+      $content .= MetaTagMakeSingleTag('twitter:card', 'summary', 'property');
+      //<== OpenGraph Meta Tags
+      $content .= "if (\$meta_op==\"\") echo \$l_meta; else \$l_meta=str_replace(\"\\n\",\"\",str_replace(\"\\\"\",\"'\",\$l_meta));\n?>";
+      fwrite($fh, $content);
+      fclose($fh);
+      global $aid; Ecr_Log('security', "MetaTagsave() by AID : $aid", '');
+      return true;
+   }
+   return false;
+}
+
 if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 include ("admin/settings_save.php");
 
 global $language;
 $hlpfile = "manuels/$language/metatags.html";
 
-   settype($meta_saved,'string');
-   switch ($op) {
+settype($meta_saved,'bool');
+switch ($op) {
    case 'MetaTagSave':
       $meta_saved = MetaTagSave("meta/meta.php", $newtag);
-      header("location: admin.php?op=MetaTagAdmin");
+      header("location: admin.php?op=MetaTagAdmin&meta_saved=$meta_saved");
    break;
    case 'MetaTagAdmin':
       MetaTagAdmin($meta_saved);
    break;
-   }
+}
 ?>

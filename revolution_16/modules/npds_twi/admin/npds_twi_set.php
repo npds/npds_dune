@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /* module npds_twi version v.1.0                                        */
 /* npds-twi_set.php file 2015 by Jean Pierre Barbary (jpb)              */
@@ -185,7 +185,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-   $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+   $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* module npds_twi version v.1.0                                        */\n";
    $content .= "/* twi_conf.php file 2015 by Jean Pierre Barbary (jpb)                  */\n";
@@ -228,7 +228,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-     $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+     $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* module npds_twi version v.1.0                                        */\n";
      $content .= "/* a.php file 2015 by Jean Pierre Barbary (jpb)                         */\n";
@@ -252,7 +252,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      $content .= "/*                                                                      */\n";
      $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
      $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-     $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+     $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
      $content .= "/*                                                                      */\n";
      $content .= "/* module npds_twi version v.1.0                                        */\n";
      $content .= "/* a file 2015 by Jean Pierre Barbary (jpb)                             */\n";

@@ -11,237 +11,263 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
-               <li class="breadcrumb-item"><a href="men_gen.html">Menü</a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li>
                <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
                <li class="breadcrumb-item active" aria-current="page" >Einstellungen</li> 
             </ol>
          </nav>
          <hr class="mt-n3" />
          <h3 class="mb-3">Einstellungen</h3>
-         <p>Wenn Sie damit beginnen NPDS zu nutzen, ist das die wichtigste Funktion. Sie können die wichtigen Informationen einstellen und das Aussehen Ihrer Seite beeinflussen.<br />
-         Folgend die Schlüsselfunktionen von NPDS</p>
+         <p>Wenn Sie damit beginnen NPDS zu nutzen, ist das die wichtigste Funktion. Sie k&ouml;nnen die wichtigen Informationen einstellen und das Aussehen Ihrer Seite beeinflussen.<br />
+         Folgend die Schl&uuml;sselfunktionen von NPDS</p>
+
          <h4>Generelle Seiteninformationen</h4> 
-         <h5>Parse algo</h5>
-         <p>Sie können eine der zwei Parse Optionen aussuchen.<br />
-           - FixQuotes ist die 'Standardeinstellung' Option, welche die  ['] doppelt (z.B. : l'art 
-           wird l''art)<br />
-           - StripSlashes erlauben dieses Problem zu verhindern (i.e. : l'art bleibt l'art) es funktioniert aber nicht immer.</li>
-         </p>
-         <h5>OB_Gzhandler</h5>
-         <p>Erlaubt die Verwendung von 'compressed data' in geeigneten Browsern.<br />
-           Bevor Sie komprimierte Daten verwenden, �berpr�fen Sie welche Kompression von den Browsern unterst�tzt wird ("gzip", "deflate" oder keine) dann wird es zum Bufferinhalt zurück gesendet je nach Haederinformation. <br />
-           <br />
-           Arbeitet nur unter Php 4.05 (oder >) + Aktivem Zlib (perform a phpinfo();) und aktiviertem 
-           mod_gzip für Apache.</li>
-         <br />
-         <br />
-         <h5>DateiManager</h5>
-         <p>Erlaubt, oder verbietet den FileManager Zugriff. Warnung! Nutzen Sie es nur, wenn Sie es wirklich brauchen</p>
-         <h5> Cookies TTL (Admin und User)</h5>
-         <p>Kein Kommentar (1 jahr = 8760 stunden)</p>
-         <h5>Seitenname</h5>
-         <p>Ihre Seite hat einen Namen, hier wird er eingegeben!</p>
-         <h5>HTML Seitenname</h5>
-         <p>HTML Seitentitel (hilfreich für Suchmaschinen)</p>
-         <h5>Seiten URL</h5>
-         <p>http://www.xxx.com or http://www.xxx.com/homepage/...</p>
-         <h5>Seiten Logo</h5>
-         <p>.gif oder .jpg Datei, gespeichert im <b>images</b> Ordner auf dem Server (Standard) oder in einem Ihrer Templates (voller Pfad: themes/my_theme/..../logo.jpg zum Beispiel). Diese Datei wird ben�tigt für die NPDS Druckfunktion. Wir empfehlen ein Schwarzweiss Bild.</p>
-         <h5>Seiten Slogan</h5>
-         <p>Wenn Ihre Seite einen Slogan hat, kommt er hier hinein!</p>
-         <h5>Seiten Start Datum</h5>
-         <p>Ein Datum (20/10/1429 oder 31ter Dezember 2012) wird nur in Statistiken angezeigt.</p>
-         <h5>Anzahl der Artikel in TopPage</h5>
-         <p>Erlaubt die Einstellung der Top x (5, 10, 15, ...).</p>
-         <h5>Anzahl der Artikel auf der Seite</h5>
-         <p>Wieviel Artikel sollen auf der Seite angezeigt werden? 
-           10 ist ein guter Wert, es h�ngt aber vom Inhalt Ihrer Seite ab. Es ist nur ein Vorschlag, es liegt bei Ihnen.<br />
-         <h5>Artikel in der Old Articles Box</h5>
-         <p>In den rechten Boxen/Blöcken, finden Sie die Old Articles. Diese Option erlaubt es Ihnen, die Anzahl der angezeigten alten Artikel einzustellen.</p>
-         <h5>Export-News aktivieren? :</h5>
-         <p>Export-News sind zwei Textdateien, die sich im Seitencache befinden. Standardeinstellung ist = Nein.<br />
-           In diesen beiden Dateien (ultramode.txt and net2zone.txt) sind die letzten 10 Artikel der Seite gespeichert.<br />
-           Diese Dateien können Inforamationen von anderen Seiten enthalten, unter Verwendung einfacher Strukturen. :<br />
-           -ultramode.txt ist eine Textdatei in der Artikel getrennt werden durch %%<br />
-           -net2zone.txt ist eine XML Text Datei für net2zone.<br />
-           <br />
-           Die "Online" Funktion die genau so arbeitet ist <i>Backend</i> welches das RDF/XML  Dateiformat oder besser unterst�tzt, das NPDS Push Infos System Module.</li>
-         </p>
-         <h5> Anonymous Default Name</h5>
-         <p>Nicht registrierte Besucher werden Anonymous genannt. Anonymous können Gäste, Besucher, ... sein. Ändern Sie diese Einstellung nicht.</p>
-         <h5>Allow the post of News</h5>
-         <p>Erlaubt das Erstellen von Artikeln (oder nicht) für Moderatoren / Administratoren oder Mitglieder.<br />
-          Das ist wichtig, wenn Sie eine Informationsseite unterhalten.</p>
-         <h5>Admin Klicks nicht in die Satistik speichern</h5>
-         <p>Das braucht keine Erklärung.</p>
-         <h5>Default Template Ihrer Seite</h5>
-         <p>Wählen Sie das Default Template. Behalten Sie im Hinterkopf, das Benutzer ein eigenes Template für Ihr Benutzerpanel verwenden können (wenn mehr als ein Template vorhanden ist...).</p>
-         <h5>Start Seite</h5>
-         <p>Diese Funktion erlaubt die Einstellung der Startseite (Home). 
-           Standard ist index.php Sie können aber auch eine andere Seite einstellen zum Beispiel : <br />
-           - links.php<br />
-           - faqs.php<br />
-           - static.php?op=npds.txt&<b>npds</b>=1 ... (npds kann sein -1 : keine Boxes/Blöcke, 
-           0 : left box/block, 1 : linke und rechte Boxen/Blöcke)<br />
-           <br />
-           - EDITO :
+         <h5>Parse-Algorithmus</h5>
+         <p>F&uuml;r Ihre Site-Einstellungen k&ouml;nnen Sie eine der Parse-Funktionen ausw&auml;hlen.
             <ul>
-               <li>index.php?op=<b>edito</b> : zeigt Edito <b>UND</b> die News an (ohne "Nächste Seite" Link)</li>
-               <li>index.php?op=<b>edito-nonews</b> : zeigt Edito <b>OHNE</b> die News an (mit "Nächste Seite" Link)</li>
-               <li>index.php?op=<b>newindex</b> : zeigt News <b>OHNE</b> Edito (mit "Nächste Seite" Link)</li>
-               <li>index.php?op=<b>edito-newindex</b> : zeigt Edito <b>UND</b> die News an (mit "Nächste Seite" Link)</li>
-               <li>index.php?op=<b>newtopic&topic=X</b> : zeigt News im Zusammenhang mit Thema'id X <b>OHNE</b> Edito (mit "Nächste Seite" Link)</li>
+               <li>FixQuotes ist die urspr&uuml;ngliche Funktion, die das ['] verdoppelt (z. B. l'art wird zu l''art)</li>
+               <li>StripSlashes erm&ouml;glicht es Ihnen, den Text nicht zu ber&uuml;hren (z. B.: Kunst bleibt Kunst), kann aber andere Probleme verursachen.</li>
             </ul>
          </p>
-         <h5>Wählen Sie die Sprache für Ihre Site</h5>
-         <p>Kein Kommentar.</p>
-         <h5>Mehrsprachenfähigkeit</h5>
-         <p>Erlaubt NPDS die Multi-Language Funktionen mit Tags [language]...[/language].<br />
-          Vergessen Sie nicht das lokale Format einzustellen (wie : [french]fr_FR[/french][english]en_EN[/english]).</p>
-         <h5>Lokales Zeit Format</h5>
-         <p>Hängt von Ihrer lokalen Zeitzone und Unix von den Funktionen in /usr/share/locale ab</p>
-         <li> <b>Tag ist ab UND Nacht wird es ab :</b> Genutzt von EDITO (oder anderen Funktionen) zum �ndern der eingestellten Zeit</li>
+         <h5>OB_Gzhandler</h5>
+         <p>Erm&ouml;glicht das Senden komprimierter Daten an Browser, die komprimierte Seiten unterst&uuml;tzen.<br />
+         Bevor ob_gzhandler() die komprimierten Daten sendet, ermittelt es, welche Kodierungstypen vom Browser unterst&uuml;tzt werden (&bdquo;gzip&ldquo;, &bdquo;deflate&ldquo; oder keine) und gibt den Inhalt der Puffer entsprechend zur&uuml;ck. Alle Browser werden verarbeitet, da es Sache der Browser ist, einen Header zu senden, der die unterst&uuml;tzten Seitentypen angibt.<br />
+         <span class="text-danger"><strong>Funktioniert nur mit aktivem Zlib (f&uuml;hren Sie ein phpinfo(); aus) und f&uuml;r Apache, aktiviertes mod_gzip.</strong></span></p>
+         <h5>DateiManager</h5>
+         <p>Aktiviert oder entfernt den Zugriff auf den FileManager. Bitte beachten Sie, dass Sie den FileManager nur dann aktivieren, wenn Sie ihn ben&ouml;tigen.</p>
+         <h5>Lebensdauer von Administrator- und Benutzercookies</h5>
+         <p>Keine Kommentare (1 Jahr = 8760 Stunden)</p>
+         <h5>Site-Name</h5>
+         <p>Ihre Website hat einen Namen, also geben Sie ihn hier ein.</p>
+         <h5>Site-Name f&uuml;r Titel-Tag</h5>
+         <p>Titel der HTML-Seiten auf Ihrer Website (insbesondere f&uuml;r Suchmaschinen)</p>
+         <h5>Site-URL</h5>
+         <p>http://www.xxx.com oder http://www.xxx.xom/~homepage/...</p>
+         <h5>Site-Logo</h5>
+         <p>.gif- oder .jpg-Datei im Verzeichnis <b>images</b> Ihres Servers (standardm&auml;&szlig;ig) oder in einem Ihrer Themes (vollst&auml;ndiger Pfad: themes/mon_theme/..../logo.jpg). zum Beispiel).<br />
+         Diese Datei wird nur in NPDS-Druckfunktionen verwendet. Eine gute Sache ist es, ein Bild in Schwarzwei&szlig; zu erstellen.</p>
+         <h5>Slogan der Website</h5>
+         <p>Wenn Ihre Website einen Slogan hat, k&ouml;nnen Sie ihn hier eingeben.</p>
+         <h5>Startdatum der Website</h5>
+         <p>Ein Datum (20.01.2016 oder 31. Januar 2016), das nur in der Statistik sichtbar ist.</p>
+         <h5>Anzahl der Elemente im Seitenanfang x</h5>
+         <p>Erm&ouml;glicht die Konfiguration des oberen x (5, 10, 15, ...).</p>
+         <h5>Anzahl der Artikel auf der Hauptseite</h5>
+         <p>Wie viele Artikel auf einer Seite?<br />
+         Eine korrekte Zahl ist 10, h&auml;ngt jedoch von der Aktivit&auml;t Ihrer Website ab. Denken Sie daran, dass registrierte Mitglieder in NPDS diesen Wert &auml;ndern k&ouml;nnen, daher ist diese Einstellung nur eine Standardeinstellung.</p>
+         <h5>Anzahl der Artikel im Feld &bdquo;Alte Artikel&ldquo;</h5>
+         <p>In den Bl&ouml;cken auf der rechten Seite befindet sich der Block, der eine Liste alter Artikel anzeigt. Dies ist die Zahl, die Sie hier festlegen.</p>
+         <h5>Export-News aktivieren</h5>
+         <p>Export-News sind zwei Textdateien, die sich im Cache-Verzeichnis Ihrer Website befinden. Standardm&auml;&szlig;ig ist dieser Parameter = no.<br />
+         Diese beiden Dateien (ultramode.txt und net2zone.txt) enthalten die 10 neuesten Nachrichten von Ihrer Website.<br />
+         Diese Datei erm&ouml;glicht es anderen Websites tats&auml;chlich, Informationskan&auml;le basierend auf einfachen Strukturen zu bilden:
+            <ul>
+               <li>ultramode.txt ist eine Textdatei, in der die Nachrichten durch %% getrennt sind</li>
+               <li>net2zone.txt ist eine Textdatei im XML-Format von net2zone.<br />
+               Die &bdquo;Online&ldquo;-Funktion, die den gleichen Vorgang ausf&uuml;hrt, ist <i>Backend</i>, das das RDF/XML-Format oder besser noch das NPDS Push Infos System-Modul unterst&uuml;tzt.</li>
+            </ul>
+         </p>
+         <h5>Standardname von Anonym</h5>
+         <p>Standardname f&uuml;r <b>nicht</b> registrierte Benutzer. Anonym ist ein guter Wert (aber auch Gast, Besucher...).<br />
+         &Auml;ndern Sie diesen Wert nicht, w&auml;hrend NPDS ausgef&uuml;hrt wird.</p>
+         <h5>Genehmigen Sie die Erstellung von &bdquo;News&ldquo;</h5>
+         <p>Erm&ouml;glicht Ihnen, die &Uuml;bermittlung von Nachrichten an Moderatoren/Administratoren oder Mitglieder einzuschr&auml;nken (oder nicht).<br />
+         Diese Funktion ist f&uuml;r eine Informationsseite interessant.</p>
+         <h5>Erfassen Sie keine Autoren-'Treffer' in der Statistik</h5>
+         <p>Erm&ouml;glicht es Ihnen, die Wartung Ihrer Website nicht als echte Besucher zu z&auml;hlen.</p>
+         <h5>Standard-Website-Anzeigethema</h5>
+         <p>W&auml;hlen Sie das Standardthema f&uuml;r Ihre Website aus. Denken Sie daran, dass registrierte Benutzer diese Option &auml;ndern k&ouml;nnen, sofern sie mehrere Themes zur Verf&uuml;gung stellen.</p>
+         <h5>Startseite</h5>
+         <p>Mit dieser Funktion k&ouml;nnen Sie die Startseite (Startseite) Ihrer Website konfigurieren. Standardm&auml;&szlig;ig ist die Seite index.php (das Artikelanzeigesystem), aber Sie k&ouml;nnen eine andere Funktion ausw&auml;hlen
+            <ul>
+               <li>links.php</li>
+               <li>faqs.php</li>
+               <li>static.php?op=npds.txt&amp;<b>npds</b>=1 ... (der Wert von npds k&ouml;nnte -1: keine Bl&ouml;cke, 0: linker Block, 1: linker und rechter Block)</li>
+               <li>Redaktion:
+                  <ul>
+                     <li>index.php?op=<b>edito</b><br />
+                     Anzeige der Redaktion <b>und</b> des Nachrichtensystems (ohne den Link zur n&auml;chsten Seite am Ende der Nachricht)</li>
+                     <li>index.php?op=<b>edito-nonews</b><br />
+                     Anzeige der Redaktion <b>ohne</b> des News-Systems</li>
+                     <li>index.php?op=<b>newindex</b><br />
+                     <li>Anzeige des Nachrichtensystems <b>ohne</b> des Leitartikels (mit dem Link zur n&auml;chsten Seite am Ende der Nachricht)</li>
+                     <li>index.php?op=<b>edito-newindex</b><br />
+                     Anzeige des Leitartikels <b>mit</b> dem Nachrichtensystem (mit dem Link zur n&auml;chsten Seite am Ende der Nachricht)</li>
+                     <li>index.php?op=<b>newtopic&amp;topic=X</b>: Anzeige des News-Systems zum Thema id (bottom of news)</li>
+                  </ul>
+               </li>
+            </ul>
+         </p>
+         <h5>Site-Sprache ausw&auml;hlen</h5>
+         <p>Keine Kommentare.</p>
+         <h5>Mehrsprachigkeit aktivieren</h5>
+         <p>Erm&ouml;glicht NPDS die Verwaltung mehrerer Sprachen &uuml;ber die Tags [Sprache]...[/Langue].<br />Denken Sie daran, auch die Ortszeit zu konfigurieren (zum Beispiel: [french]fr_FR[/french][english] en_DE [/english]).</p>
+         <h5>Ortszeit</h5>
+         <p>F&uuml;r eine Site unter Windows muss der Wert = French / sein. Andernfalls h&auml;ngt dieses Feld von den &bdquo;locale&ldquo;-Funktionen ab, die normalerweise unter /usr/share/locale (f&uuml;r Unix) installiert sind.</p>
+         <h5>Der Tag beginnt um und die Nacht beginnt um</h5>
+         <p>Erm&ouml;glicht Ihnen, beispielsweise den Redaktionswechsel ab einem bestimmten Zeitpunkt anzupassen.</p>
          <h5>UTC</h5>
-         <p>Abhängig (+ oder -) von der Einstellung auf Ihrem Server.</p>
+         <p>Erm&ouml;glicht Ihnen die Angabe (in + oder -) eines Zeitunterschieds im Vergleich zu dem des Hosting-Computers.</p>
 
-         <h4>Banner Optionen</h4> 
-         <h5>Activieren Sie Banner auf der Seite</h5>
-         <p>Wollen Sie Banner erlauben? Ja oder Nein. Wenn Sie Ja wählen müssen Sie zun�chst die Bannereinstellungen konfigurieren...</p>
-         <h5>Ihre IP für unregistrierte Klicks</h5>
-         <p>Ihre IP muss hier eingestellt werden, damit Sie eine ehrliche Statistik erhalten.</p>
+         <h4>Banneroptionen</h4>
+         <h5>Banner auf der Website aktivieren</h5>
+         <p>Ja oder Nein, m&ouml;chten Sie Werbebanner aktivieren? Dies erfordert immer noch, dass Sie haben
+         Richten Sie eine Kampagne ein...</p>
+         <h5>Ihre IP-Adresse, um von dieser ausgehende Zugriffe nicht zu z&auml;hlen</h5>
+         <p>Seien Sie ehrlich, denn wenn Sie Administrator dieser Site sind, muss Ihr Arbeitsplatz (und damit seine IP-Adresse) ausgeschlossen werden, um nicht an den Z&auml;hlern herumzubasteln.</p>
 
-         <h4>Footer Informationen</h4>
-         <h5>Footer Zeile 1,2,3,4</h5>
-         <p>Footer Zeilen sind HTML-freundlich. Wenn Sie nur 1 or 2 Zeilen brauchen, lassen Sie einige Felder leer (beginnend vom Ende).<br />
-           Hier können Sie Infarmationen zu Ihrer Webseite und das Copyright einfügen, ...</p>
+         <h4>Fu&szlig;zeilennachrichten</h4>
+         <h5>Zeile 1,2,3,4</h5>
+         <p>Fu&szlig;zeile Ihrer Website. Diese Bereiche unterst&uuml;tzen HTML-Codes. Wenn Sie nur 1 oder 2 Zeilen ben&ouml;tigen, lassen Sie die Bereiche leer (beginnend am Ende).<br />
+         Im Allgemeinen finden wir Copyright-Informationen, Credits, den Namen des Gastgebers...</p>
 
-         <h4>Backend Konfiguration (RDF/XML News Kanäle)</h4> 
-         <h5>Backend Titel</h5>
-         <p>Sie können Ihren Slogan direkt hinter dem Titel eingeben</p>
-         <h5>Backend Language</h5>
-         <p>Siehe Sprache Ihrer Seite.</p>
-         <h5>Backend Image URL</h5>
-         <p>Voller Pfad (http(s)://...) passend zu Ihrem Webseiten Slogan.</p>
-         <h5>Backend Image Breite</h5>
-         <p>Kein Kommentar.</p>
-         <h5>Backend Image Höhe</h5>
-         <p>Kein Kommentar.</p>
+         <h4>Backend-Informationskonfiguration</h4>
+         <p class="text-muted">Informationskan&auml;le im RDF/XML-Format</p>
+         <h5>Backend-Titel</h5>
+         <p>Keine Kommentare. Sie k&ouml;nnen Ihren Slogan nach dem Titel einf&uuml;gen.</p>
+         <h5>Backend-Sprache</h5>
+         <p>dasselbe Format wie f&uuml;r die Sprache der Website.</p>
+         <h5>Backend-Bild-URL</h5>
+         <p>Der vollst&auml;ndige Pfad (http://...), der den Zugriff auf ein Bild/Logo Ihrer Website erm&ouml;glicht.</p>
+         <h5>Backend-Bildbreite</h5>
+         <p>Keine Kommentare.</p>
+         <h5>Backend-Bildh&ouml;he</h5>
+         <p>Keine Kommentare.</p>
 
-         <h4>Web Link Standardeinstellung</h4>
-         <h5>Links pro Seite</h5>
-         <p>Maximale Anzahl der Links pro Seite (Weblink Optionen).</p>
-         <h5>Hits um populär zu werden</h5>
-         <p>Kein Kommentar. Wenn aktiviert, wird ein kleiner Text zu einem neuen Link angezeigt.</p>
-         <h5>Anzahl der Links die als neu angezeigt werden</h5>
-         <p>Maximale Anzahl der Links im "Neu" Bereich.</p>
-         <h5>Anzahl der meistbesuchten Links</h5>
-         <p>Maximale Anzahl der Links im  meistbesuchte Links Bereich (Beispiel: die 10 meistbesuchten Links).</p>
-         <h5>Anzahl der Links die in der Suche angezeigt werden sollen</h5>
-         <p>Kein Kommentar.</p>
-         <h5>Sollen anonyme Besucher Links einsenden können</h5>
-         <p>Ja oder Nein</p>
-         <h5>Logos für die Hauptweblinks aktivieren</h5>
-         <p>Ja oder Nein.</p>
-         <h5>Sollen Icons für neue Kategorien angezeigt werden?</h5>
-         <p>Ja oder Nein? Wenn Ja, wird ein Icon fûr die neue Kategorie, oder wenn es neue Links in einer kategorie gibt angezeigt.</p>
+         <h4>Standard-Weblink-Konfiguration</h4>
+         <h5>Anzahl der Links pro Seite</h5>
+         <p>Die maximale Anzahl von Links pro Seite (in der Weblinks-Funktion).</p>
+         <h5>Legt die Anzahl der Zugriffe auf den Link fest, damit er beliebt ist</h5>
+         <p>Keine Kommentare. Wenn dieses Kriterium erf&uuml;llt ist, wird rechts neben dem Link ein kleiner Stern angezeigt.</p>
+         <h5>Anzahl der &bdquo;Neuen&ldquo; Links</h5>
+         <p>Definiert die maximale Anzahl von Links auf der Seite &bdquo;Neu&ldquo;.</p>
+         <h5>Anzahl der &bdquo;besten&ldquo; Links</h5>
+         <p>Definiert die maximale Anzahl von Links auf der Seite &bdquo;Beliebt&ldquo; (die am h&auml;ufigsten &bdquo;geklickten&ldquo; Links).</p>
+         <h5>Anzahl der Links in Suchergebnissen</h5>
+         <p>Keine Kommentare.</p>
+         <h5>Erlauben Sie anonymen Benutzern, neue Links zu posten</h5>
+         <p>Ja oder nein</p>
+         <h5>Zeigen Sie das Logo auf der Seite mit den Weblinks an</h5>
+         <p>Ja oder nein. Das Logo nimmt Platz ein...</p>
+         <h5>Aktivieren Sie [Neues] Symbol f&uuml;r Kategorien</h5>
+         <p>Zeigt ein kleines Symbol an, wenn eine Kategorie neu ist oder neue Links vorhanden sind.</p>
 
-         <h4> Mail System (Email)</h4>
-         <h5>Administrator E-mail</h5>
-         <p>Wird genutzt, wenn NPDS E-mails versendet und erlaubt es der Person, an die die E-mail gesendet wurde zu antworten (Echte oder Fake E-mail / mit dem Namen der Domain => z.B. : developpeur@npds.org).</p>
-         <h5>Welche E-mail Funktion soll genutzt werden ?</h5>
-         <p>Funktion : mail =>Standardeinstellungen für Linux Server / Funktion : email => Für andere Server Systeme.</p>
-         <h5>Footer der Email</h5>
-         <p>NPDS sendet E-mails (beispielsweise ein Passwort bei Neuanmeldung) und diese Option erlaubt Ihnen die Gestaltung des Footers der E-mails. Es ist möglich HTML Code zu verwenden. Sie sollten auch Ihren Namen und Ihre Webadresse mitsenden..<br />
-           <font color="#FF0000"><b>Mail bei neuen Einsendungen an den Admin.</b></font> NPDS erlaubt es eine E-mail an den Admin zu senden, wenn es neue Einsendungen für die Webseite gibt (Artikel, Links, Forum, usw). </p>
-         <h5>Informieren bei neuen Einsendungen</h5>
-         <p>Ja oder Nein.</p>
-         <h5>E-mail Adresse für die Information</h5>
-         <p>Kein Kommentar.</p>
-         <h5>E-mail Betreff</h5>
-         <p>Kein Kommentar.</p>
-         <h5>E-mail Inhalt (Mitteilung)</h5>
-         <p>Kein Kommentar.</p>
-         <h5>E-mail Adresse (von)</h5>
-         <p>Kein Kommentar.</p>
+         <h4>Nachrichtensystem (E-Mail)</h4>
+         <h5>E-Mail-Adresse des Administrators</h5>
+         <p>Wird verwendet, wenn NPDS E-Mails automatisch sendet und es dem Empf&auml;nger daher erm&ouml;glicht, Ihnen zu antworten (g&uuml;ltige, autorisierte E-Mail-Adresse, die dem sendenden Server zugeordnet ist. => Beispiel: Developer@npds.org).</p>
+         <h5>Welches E-Mail-Protokoll soll verwendet werden?</h5>
+         <p>Verwenden Sie das SMTP(S)-Protokoll oder nicht</p>
+         <h6>PHPmailer SMTP(S) konfigurieren</h6>
+         <p>
+            <ul>
+               <li>Der Name des sendenden Servers</li>
+               <li>TCP-Port, der verwendet werden soll. 587 oder 465 (seltener und veraltet), wenn Sie SMTPS-Verschl&uuml;sselung verwenden. F&uuml;r SMTP manchmal Ports 25 oder 2525</li>
+               <li>Authentifizierung: Wenn Ihr Server dies erfordert, geben Sie Folgendes an: Benutzernamen und Passwort.</li>
+               <li>Aktivieren Sie die Verschl&uuml;sselung Ihrer Nachrichten w&auml;hrend der &Uuml;bertragung oder deaktivieren Sie sie. Und w&auml;hlen Sie das Verschl&uuml;sselungsprotokoll TLS (Standard) oder SSL (veraltet). Bitte beachten Sie, dass SMTP Nachrichten nur w&auml;hrend der &Uuml;bertragung verschl&uuml;sselt.</li>
+            </ul>
+         </p>
+         <h6>DKIM</h6>
+         <p>Verwenden Sie den DNS-DKIM-Eintrag oder einen vom Portal automatisch generierten DKIM-Eintrag</p>
+         <h5>Mel Fu&szlig;</h5>
+         <p>NPDS sendet eine bestimmte Anzahl von E-Mails (Passwort usw.) und mit dieser Option k&ouml;nnen Sie den &bdquo;Fu&szlig;&ldquo; (Ende, Signatur) dieser E-Mails konfigurieren. Dieser Bereich unterst&uuml;tzt HTML-Codes. Eine gute Angewohnheit ist es, sich Ihre Kontaktdaten und Ihren Slogan zu merken.</p>
+         <p>Neue Artikel per E-Mail an den Administrator senden. Mit NPDS k&ouml;nnen Sie einen Administrator jedes Mal benachrichtigen, wenn ein Benutzer einen neuen Artikel ver&ouml;ffentlicht.</p>
+         <h5>Neue Beitr&auml;ge per E-Mail benachrichtigen</h5>
+         <p>Ja oder nein.</p>
+         <h5>E-Mail-Adresse zum Senden der Nachricht</h5>
+         <p>Keine Kommentare.</p>
+         <h5>Mail-Betreff</h5>
+         <p>Keine Kommentare.</p>
+         <h5>Nachricht per E-Mail</h5>
+         <p>Keine Kommentare.</p>
+         <h5>E-Mail-Adresse (Von)</h5>
+         <p>Keine Kommentare.</p>
 
-         <h4> Kommentar Optionen</h4>
-         <li> <b> Art der Moderation :</b> Das funktioniert, aber vertauen Sie nicht zu sehr darauf...</li>
-         <br />
-         - Moderation durch Admin<br />
-         - Moderation durch Benutzer<br />
-         - Keine Moderation<br />
-         <br />
-         <li> <b>Erlaubt Anonymous Kommentare zu schreiben :</b> Ja oder Nein.<br />
-           <br />
-         </li>
-         <li> <b>Anzahl der Kommentare pro Benutzer und pro Tag (24 Stunden) :</b> Liomitiert die Anzahl der Kommentare pro Benutzer und Tag. 6 ist Standard, 99999 ist das Maximum.</li>
-         <br />
+         <h4>Kommentarmoderation</h4>
+         <h5>Art der Moderation</h5>
+         <p>Das Moderationssystem funktioniert, aber vertrauen Sie ihm nicht blind.
+            <ul>
+               <li>Moderation durch Administrator</li>
+               <li>Moderation durch Benutzer</li>
+               <li>Keine Moderation</li>
+            </ul>
+         </p>
+         <h5>Anonyme Kommentare zulassen</h5>
+         <p>Wenn Sie m&ouml;chten, dass anonyme (d. h. nicht registrierte) Benutzer Kommentare posten k&ouml;nnen, w&auml;hlen Sie &bdquo;Ja&ldquo;.</p>
+         <h5>Maximale Anzahl von Kommentaren pro Benutzer in 24 Stunden</h5>
+         <p>Begrenzt f&uuml;r Anonyme und Mitglieder die Anzahl der Kommentare zu Artikeln und Umfragen. Standardm&auml;&szlig;ig 6, maximal 99999.</p>
 
-         <h4> Umfrage Optionen</h4> 
-         <h5> Maximale Anzahl der Umfragen</h5>
-         <li> <b> Erlaubt es Benutzern mehrfach abzustimmen : </b> Ja oder Nein, es liegt bei Ihnen.
-           Wenn Sie 'Ja' angeben, Können Benutzer einmal am Tag abstimmen und einen Kommentar schreiben. 
-           Wenn Sie 'Nein' angeben, bleibt es bei einer Stimme, solange die Umfrage aktiv ist.</p>
-         <h5>Kommentare in Umfragen Zulassen</h5>
-         <p>Ja oder Nein.</p>
-         
-         <h4>Einiges zu Icons und Grafiken</h4>
-         <p>Beispiele für das anlegen von Ordnern für Bilder ... . </p>
-         <br />
-         <li> <b> Pfad zu Themen Bildern :</b> Brauchbar wäre /images/themen.</li>
-         <li> <b> Ein anderer Bildpfad (Umfrage, ...) : </b> Brauchbar wäre /images/umfrage/.</li>
-         <h5> Grafiken im Administrationsmenu</h5>
-         <p>Brauchbar wäre images/admin/.</p>
-         <h5>Grafiken im Adminmenu:</h5>
-         <p>Ja oder Nein.</p>
-         <li> <b> Kleines Administrationsmenu :</b> Ja oder Nein.</li>
-         <br />
-         <br />
-         <li> <b> Schriftarten für die Seite :</b> Brauchbar sind: Verdana,Arial,Helvetica. Sie k�nnen es �ndern, aber denken Sie an das Gesamtbild Ihrer Seite...</li>
-         <br />
+         <h4>Umfrageoptionen</h4>
+         <h5>Maximale Anzahl an Auswahlm&ouml;glichkeiten f&uuml;r Umfragen</h5>
+         <p>Keine Kommentare.</p>
+         <h5>Benutzern erlauben, mehrmals abzustimmen</h5>
+         <p>Ja oder nein, es h&auml;ngt von Ihnen ab. Wenn Sie &bdquo;Ja&ldquo; verwenden, wird NPDS angewiesen, einem Benutzer alle 24 Stunden die Abstimmung zu erm&ouml;glichen und in Umfragen eine kleine Nachricht anzuzeigen. Ansonsten ist die Abstimmung f&uuml;r die gesamte Dauer der Umfrage einmalig.</p>
+         <h5>Umfragekommentare aktivieren</h5>
+         <p>Keine Kommentare.</p>
+     
+         <h4>Einige Grafikeinstellungen</h4>
+         <p>&Auml;ndern Sie diese Option nur, wenn...</p>
+         <h5>Themenbildpfad</h5>
+         <p>Normalerweise /images/topics.</p>
+         <h5>Pfad bestimmter Bilder (Abstimmung...)</h5>
+         <p>Normalerweise /images/menu/.</p>
+         <h5>Bildpfad des Admin-Men&uuml;s</h5>
+         <p>Normalerweise images/admin/.</p>
+         <h5>Bilder im Administrationsmen&uuml; aktivieren</h5>
+         <p>Ja oder nein. Nein spart Ihnen Zeit.</p>
+         <h5>Kurzmen&uuml;s f&uuml;r die Verwaltung aktivieren</h5>
+         <p>Ja oder nein. Ja, es wird Ihnen Zeit sparen.</p>
 
-         <h4>Verschiedene</h4>
-         <h5> Anzahl der Artikel, die im Adminbereich angezeigt werden sollen Admin</h5>
-         <p>Die Anzahl gilt auch für die Anzeige der Abschnitte.</p>
-         <h5> Minimale Länge für Passworte</h5>
-          <p>8 Buchstaben ist ein guter Wert.</p>
-         <li> <b> Anzahl der Benutzer, die auf einer Seite in der Liste angezeigt werden sollen:</b></li>
-         <h5> Avatare verwenden</h5>
-         <p>Sollen Avatare für in Benutzerprofilen, im Forum, verwendet werden, oder nicht?</p>
-         <li> <b> Maximale Grösse der Avatare in Pixeln (Breite * Höhe / 60*80) :</b> 
-           Sie können die maximalle Grösse für den Upload von Avataren einstellen.</li>
-         <li> <b> Kurze Benutzerregistrierung :</b> Dabei wird es dem neuen Benutzer nicht erlaubt, seine ICQ, 
-           MSN, AIM Nicknamen einzutragen.</li>
-         <li> <b> Erlaube automatische Konfiguration für neue Benutzer : </b> NPDS allows a new member 
-           to wait until an admin validates his profile (value : allow the connexion). 
-           Usefull for "closed" portals.</li>
-         <h5> Erlaube dem Benutzer, sein Passwort auszusuchen : </b> Sie k�nnen den Benutzern erlauben ein eigenes Passwort auszusuchen. Sie können es aber auch verbieten und so die Benutzerrechte einschr�nken</li>
-         <h5> Anmeldung erlauben</h5>
-         <p>Erlaubt es Benutzern sich anzumelden oder nicht. Das entscheiden Sie</p>
-         <h5> Unsichtbare Benutzer erlauben</h5>
-         <p>Erlaubt es Benutzern für andere Benutzer 'unsichtbar' zu bleiben (nur Administratoren können sie dann sehen). Kann interessant sein für Moderatoren im Forum.</p>
-         <h5> Anmeldung schliessen</h5>
-         <p>NPDS erlaubt es die Anmeldung für eine bestimmte Zeit zu schliessen. (die static/closed.txt Seite wird angezeigt.</p>
-         <h5> HTTP Referers aktivieren</h5>
-         <p> Wie viele Referer sollen erlaubt sein : Erlauben Sie nicht zu viele, das f�llt nur die Datenbank!</p>
-         <h5> Benutzer Liste : Privat</h5>
-         <p>NPDS verbietet anonymen Besuchern, die Benutzerliste einzusehen.</p>
-         <li> <b> Download Bereich :</b> Wählen Sie die Kategorie, welche als erste im Downloadbereich angezeigt werden soll.</li>
-         <h4>Verschiedene HTTP</h4>
-         <li> <b> �berschriften : Kontrollieren Sie ob der Port 80 für das Web frei ist :</b></li>
-         <li> <b> Cache Kontrolle : Aktiviert die erweiterten Cache Tags (pragma ...) :</b> NPDS erm�glicht es, die erweiterten Cachemanagement Funktionen zu nutzen. Einige Hoster unterst�tzen diese Funktion aber nicht.</li>
-         <li> <b> DNS Aufl�sung; aktiviert für Einsendungen (Forum, ...) :</b> NPDS ist es möglich, die IP Adresse und die DNS in Echtzeit aufzul�sen. Das kostet allerdings Recourcen und einige Hoster verbieten es auch</li>
-         <br />
+         <h4>Verschiedenes</h4>
+         <h5>Anzahl der Artikel im Verwaltungsmodus</h5>
+         <p>Ohne Kommentare (dieser Wert wird aber auch f&uuml;r Abschnitte verwendet...).</p>
+         <h5>Mindestl&auml;nge von Benutzerkennw&ouml;rtern</h5>
+         <p>8 ist ein guter Wert.</p>
+         <h5>Anzahl der &bdquo;gelisteten&ldquo; Benutzer</h5>
+         <p>Im Verzeichnis, bevor Sie zur n&auml;chsten Seite wechseln.</p>
+         <h5>Avatare aktivieren</h5>
+         <p>NPDS erm&ouml;glicht es Ihnen, keine Avatare (kleines Bild) f&uuml;r die Erstellung von Mitgliedern, Foren usw. zu verwenden.</p>
+         <h5>Maximale Gr&ouml;&szlig;e pers&ouml;nlicher Avatare (Breite * H&ouml;he / 60*80) in Pixel</h5>
+         <p>Mit NPDS k&ouml;nnen Sie die maximale Gr&ouml;&szlig;e herunterladbarer Avatare festlegen.</p>
+         <h5>Kurze Benutzerbeschreibung aktivieren</h5>
+         <p>NPDS erm&ouml;glicht es Ihnen, einen neuen Benutzer nicht zur Eingabe seiner ICQ-, MSN- usw. Adressen aufzufordern</p>
+         <h5>Automatische Erstellung von Mitgliedern zulassen</h5>
+         <p>NPDS erm&ouml;glicht es Ihnen, einem neuen Mitglied keine Autorisierung zur Verbindung ohne Administratoreingriff zu gew&auml;hren (Wert: Verbindung der Benutzerdatei autorisieren). Praktisch f&uuml;r &bdquo;geschlossene&ldquo; Tore.</p>
+         <h5>Erlauben Sie Benutzern, ihr Passwort zu w&auml;hlen</h5>
+         <p>Sie k&ouml;nnen einem neuen Benutzer erlauben, das Passwort auszuw&auml;hlen, das er verwenden m&ouml;chte. Sie k&ouml;nnen diese Option auch mit der vorherigen kombinieren, um zu vermeiden, dass Ihre neuen Mitglieder dies tun.</p>
+         <h5>Abonnements zulassen</h5>
+         <p>Erm&ouml;glichen Sie Ihren Mitgliedern, die verschiedenen NPDS-Informationsquellen (Themen, Foren, interne Nachrichten usw.) zu abonnieren und somit eine Informations-E-Mail zu erhalten (Vorsicht, dies kann zu einer erheblichen Belastung f&uuml;hren).</ p>
+         <h5>Unsichtbare Mitglieder zulassen</h5>
+         <p>Erm&ouml;glichen Sie Ihren Mitgliedern, &bdquo;unsichtbar&ldquo; zu werden. Sie werden in den verschiedenen NPDS-Modulen nicht angezeigt (au&szlig;er f&uuml;r Administratoren).</p>
+         <h5>Neue Registrierungen schlie&szlig;en</h5>
+         <p>Mit NPDS k&ouml;nnen Sie die Registrierung neuer Mitglieder vor&uuml;bergehend schlie&szlig;en (die Seite &bdquo;static/closed.txt&ldquo; wird angezeigt).</p>
+         <h5>HTTP-Referrer aktivieren</h5>
+         <p>Keine Kommentare.</p>
+         <h5>Wie viele Referrer maximal</h5>
+         <p>&Uuml;berlasten Sie Ihre Datenbank nicht.</p>
+         <h5>Mitgliederliste: privat</h5>
+         <p>Mit NPDS k&ouml;nnen Sie das Verzeichnis nur Mitgliedern anzeigen.</p>
+         <h5>Download-Bereich</h5>
+         <p>W&auml;hlen Sie aus, welcher Abschnitt (Kategorie) der Downloads zuerst oder nicht angezeigt werden soll.</p>
+         <h5>Kurze Rezensionen</h5>
+         <p>Verwandeln Sie Bewertungen in ein G&auml;stebuch.</p>
 
-         <h4>Verschiedene SYSTEM</h4>
-         <h5> Maximale Dateigrösse für SaveMysql</h5>
-         <p>Maximale Dateigrösse des ASCII SaveMysql Dump vor der Kompression.</p>
-         <h5>SaveMysql Datei</h5>
-         <p>Art der Datei für den SaveMysql Dump (beispielsweise gZip).</p>
-         <h5> Tiny-Mce Editor aktivieren</h5>
-         <p>NPDS kann den Tiny-Mce Editor (alle Browser).</p>
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
+         <h4>Verschiedenes http</h4>
+         <h5>F&uuml;r wichtige Schlagzeilen von Nachrichtenseiten aktivieren und pr&uuml;fen, ob auf Port 80 ein Web vorhanden ist</h5>
+         <p>Mit NPDS k&ouml;nnen Sie keine &Uuml;berpr&uuml;fung der Existenz eines Webs auf Port 80 anfordern. Praktisch f&uuml;r Multimania und andere ISPs.</p>
+         <h5>Erweiterte Cache-Verwaltungs-Tags f&uuml;r generierte HTML-Seiten aktivieren</h5>
+         <p>NPDS erm&ouml;glicht Ihnen die Verwendung erweiterter HTML-Seiten-Cache-Verwaltungsfunktionen, einige ISPs erlauben dies nicht (wie Multimania).</p>
+         <h5>DNS-Aufl&ouml;sung f&uuml;r Beitr&auml;ge (Foren...) aktivieren</h5>
+         <p>Mit NPDS k&ouml;nnen Sie den DNS-Namen gleichzeitig mit der IP-Adresse &bdquo;erfassen&ldquo;. Seien Sie vorsichtig, diese Option kann CPU auf dem Server verbrauchen (oder sogar verboten sein).</p>
+
+         <h4>Verschiedenes System</h4>
+         <h5>Maximale Gr&ouml;&szlig;e der SaveMysql-Sicherungsdateien</h5>
+         <p>Gr&ouml;&szlig;e der ASCII-Dump-Dateien vor der Komprimierung.</p>
+         <h5>SaveMysql-Sicherungstyp</h5>
+         <p>Art des gew&uuml;nschten Ergebnisses beim Speichern.</p>
+         <h5>Tiny-Mce-Editor aktivieren</h5>
+         <p>NPDS kann Tiny-Mce verwenden (IE, Firefox, ... kompatibel).</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
       </div>
    </body>
 </html>

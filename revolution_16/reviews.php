@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -432,14 +432,14 @@ function f_date($xdate) {
    $year = substr($xdate,0,4);
    $month = substr($xdate,5,2);
    $day = substr($xdate,8,2);
-   $fdate=date(str_replace("%",'',translate("linksdatestring")),mktime (0,0,0,$month,$day,$year));
+   $fdate=date(str_replace("%",'',translate("linksdatestring")),mktime (0,0,0,(int)$month,(int)$day,(int)$year));
    return $fdate;
 }
 
 function showcontent($id) {
    global $admin, $NPDS_Prefix;
    include ('header.php');
-   settype($id,'integer');
+   //settype($id,'integer');
    sql_query("UPDATE ".$NPDS_Prefix."reviews SET hits=hits+1 WHERE id='$id'");
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews WHERE id='$id'");
    $myrow = sql_fetch_assoc($result);
@@ -665,7 +665,7 @@ function del_review($id_del) {
 
 settype($op,'string');
 settype($hits,'integer');
-settype($id,'integer');
+//settype($id,'integer');
 settype($cover,'string');
 settype($asb_question,'string');
 settype($asb_reponse,'string');

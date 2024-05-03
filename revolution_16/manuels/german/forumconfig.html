@@ -11,7 +11,7 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li>
                <li class="breadcrumb-item"><a href="men_com.html">Kommunication</a></li>
                <li class="breadcrumb-item active" aria-current="page">Foren Konfiguration</li> 
@@ -19,39 +19,47 @@
          </nav>
          <hr class="mt-n3" />
          <h3 class="mb-3">Foren Konfiguration</h3>
-<b>HTML erlauben :</b><br />
-Erlaubt, oder verbietet die Verwendung von HTML tags. <br />
-<br />
-<b>Smilies :</b><br />
-Erlaubt, oder verbietet die Verwendung von Smilies<br />
-<br />
-<b>Signaturen :</b><br />
-Erlaubt, oder verbietet die Verwendung von Signaturen. <br />
-<br />
-<b>Wert für heisse Themen :</b><br />
-Erlaube die Anzeige heisser Themen mit verschiedenen GIF Grafiken. <br />
-<br />
-<b>Anzahl der Mitteilungen pro Seite :</b><br />
-Das ist die Anzahl der Postings/Themen pro Seite. <br />
-<br />
-<b>Themen pro Forum :</b><br />
-Anzahl der Themen in einem Forum (für ein Forum)<br />
-<br />
-<b>Anzeige der als gel�st eingestuften Themen :</b><br />
-Aktivieren Sie die Art der Anzeige für gel�ste Themen : [ (Ohne oderr Nur) erledigt ] Beitr�ge<br />
-<br />
-<b>Maximale Anzahl Beitr�ge pro ID innerhalb einer 30 Minuten Periode (0=system off) :</b><br />
-Hier können Sie festlegen, wieviele Beitr�ge eine IP, oder ein Benutzer einsenden kann :<br />
- - erstens : letzte 30 Minuten<br />
- - zweitens : letzte 90 Minuten (in diesem Fall wird die Anzahl verdoppelt)<br />
-0 oder leer : system off<br />
-<br />
-<b>Upload erlauben :</b><br />
-Um den Upload von Dateien in das Forum zu erlauben. Als nächstes müssen Sie es für alle Foren erlauben (Administration / Foren bearbeiten).<br />
-<br />
-<b>Text für die Rolle X :</b><br />
-Das Forum ist in der Lage, spezellen Text für Mitglieder mit einer speziellen Funktionn anzuzeigen (Beispiel : Administrator, hot-line ...). NPDS' multi-language Tags werden unterstützt.
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
+
+         <h4>HTML erlauben :</h4>
+         <p>Erlaubt, oder verbietet die Verwendung von HTML tags.</p>
+         
+         <h4>Smilies :</h4>
+         <p>Erlaubt, oder verbietet die Verwendung von Smilies</p>
+
+         <h4>Signaturen :</h4>
+         <p>Erlaubt, oder verbietet die Verwendung von Signaturen. </p>
+
+         <h4>Wert f&uuml;r heisse Themen :</h4>
+         <p>Erlaube die Anzeige heisser Themen mit verschiedenen GIF Grafiken. </p>
+
+         <h4>Anzahl der Mitteilungen pro Seite :</h4>
+         <p>Das ist die Anzahl der Postings/Themen pro Seite. </p>
+
+         <h4>Themen pro Forum :</h4>
+         <p>Anzahl der Themen in einem Forum (f&uuml;r ein Forum)</p>
+
+         <h4>Aktivieren Sie die Sortierung der &bdquo;gel&ouml;sten&ldquo; Beitr&auml;ge</h4>
+         <p>Aktiviert die Sortierung und Anzeige des Links [(Nur / Ohne) Gel&ouml;st].</p>
+
+         <h4>Maximale Anzahl von Beitr&auml;gen pro IP pro 30-Minuten-Zeitraum</h4>
+         <p>(0=System inaktiv)<br />
+         Mit dieser Option k&ouml;nnen Sie die maximale Anzahl von Beitr&auml;gen angeben, die dieselbe IP-Adresse ODER dasselbe Mitglied posten kann w&auml;hrend:
+            <ul>
+               <li>eine anf&auml;ngliche Dauer von 30 Minuten</li>
+               <li>ein zweiter Zeitraum von 90 Minuten (in diesem Fall wird der doppelte Wert verwendet)</li>
+               <li>0 oder leer kehrt zur&uuml;ck zu; Deaktivieren Sie das System</li>
+            </ul>
+         </p>
+
+         <h4>Aktivieren Sie das Hochladen in Foren</h4>
+         <p>Erm&ouml;glicht Ihnen, die M&ouml;glichkeit zu aktivieren um Dateien direkt in den Foren zu speichern. Dann k&ouml;nnen Sie diese Funktion nur in bestimmten Ihrer Foren autorisieren (siehe Verwaltung / Bearbeitung von Foren).</p>
+
+         <h4>Versteckte Texte in Foren aktivieren</h4>
+         <p>Erm&ouml;glicht Ihnen, die M&ouml;glichkeit zu aktivieren um einen Teil des Texts eines Beitrags in den Foren auszublenden, indem Sie die Tags [hide] Versteckte Texte [/hide] verwenden.</p>
+
+         <h4>Text f&uuml;r Rolle X</h4>
+         <p>Das Forum ist in der Lage, abh&auml;ngig von der Rolle eines Mitglieds spezifischen Text anzuzeigen. In diesen Bereichen werden mehrsprachige Tags unterst&uuml;tzt.</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
       </div>
    </body>
 </html>

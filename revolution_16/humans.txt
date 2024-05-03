@@ -7,6 +7,11 @@
   Contact:jpb [at] npds.org
   From:Lyon, Rhone, France
 
+  Core Dev:Nicolas2
+  Contact:nicolas.l.devoy [at] gmail.com
+  From:Amiens, Somme, France
+
+
   Html:Jireck
 
   Themes:B-Mag 

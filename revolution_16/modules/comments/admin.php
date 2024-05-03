@@ -6,11 +6,11 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    die();
@@ -37,6 +37,7 @@ if ($anonpost)
 else
    $forum_access=1;
 
+global $NPDS_Prefix;
 if (($moderate==1) and $admin)
    $Mmod=true;
 elseif ($moderate==2) {
@@ -63,7 +64,7 @@ elseif ($moderate==2) {
                break;
             case 'viewip':
                include("header.php");
-               $sql = "SELECT u.uname, p.poster_ip, p.poster_dns FROM ".$NPDS_Prefix."users u, posts p WHERE p.post_id = '$post' AND u.uid = p.poster_id";
+               $sql = "SELECT u.uname, p.poster_ip, p.poster_dns FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."posts p WHERE p.post_id = '$post' AND u.uid = p.poster_id";
                if (!$r = sql_query($sql))
                   forumerror('0013');
                if (!$m = sql_fetch_assoc($r))

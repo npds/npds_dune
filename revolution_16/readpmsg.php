@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -115,21 +115,20 @@ include('auth.php');
              $useroutils .= '<a class="list-group-item text-primary" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"><i class="fa fa-2x fa-desktop align-middle"></i><span class="ms-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
       }
 
-
 //         if ($smilies) {
       if ($posterdata['user_avatar'] != '') {
-         if (stristr($posterdata['user_avatar'],"users_private")) {
+         if (stristr($posterdata['user_avatar'],"users_private"))
             $imgtmp=$posterdata['user_avatar'];
-      } else {
-         if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$posterdata['user_avatar'];
-      }
+         else
+            if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$posterdata['user_avatar'];
 
-      if ($posterdata['uid']<>1) 
-         echo '
-          <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$my_rsos[0].'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
-      else 
-         echo '
-         <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title=\'<i class="fa fa-cogs fa-lg"></i>\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+         if ($posterdata['uid']<>1) {
+            $aff_reso = isset($my_rsos[0]) ? $my_rsos[0] : '';
+            echo '
+             <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\''.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'<br /><div class="list-group">'.$useroutils.'</div><hr />'.$aff_reso.'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
+         } else 
+            echo '
+            <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title=\'<i class="fa fa-cogs fa-lg"></i>\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>';
       }
 //      }
    if ($posterdata['uid']<>1) 

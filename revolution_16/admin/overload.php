@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -30,7 +30,7 @@ function save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt
     $content .= "/*                                                                      */\n";
     $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
     $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-    $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+    $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
     $content .= "$line";
     $content .= "#\$CACHE_TIMINGS['index.php'] = 300;  // 5 minutes\n";
     $content .= "#\$CACHE_QUERYS['index.php']  = \"^\";  // Query_String for this page : \"\" = All\n";

@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2024 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Multi DataBase Support - MysqlI                                      */
@@ -10,7 +10,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 $sql_nbREQ=0;
@@ -130,8 +130,9 @@ $sql_nbREQ=0;
          return (true);
    }
 // Libère toute la mémoire et les ressources utilisées par la requête $query_id
-   function sql_free_result($q_id='') {
-      return @mysqli_free_result($q_id);
+   function sql_free_result($q_id) {
+      if ($q_id instanceof mysqli_result) 
+         return @mysqli_free_result($q_id);
    }
 // Ferme la connexion avec la Base de données
    function sql_close($dblink) {

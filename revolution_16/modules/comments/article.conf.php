@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 // Don't remove this line !
 global $C_start;
@@ -19,12 +19,10 @@ $file_name='article';
 $forum=-1;
 
 // $topic : permet d'allouer un numéro UNIQUE pour chaque publication sur laquelle un commentaire peut être réalisé (article numéro X, sondage numéro Y, ...)
-settype($sid,'integer');
-if ($sid!='') $topic=$sid;
+if (isset($sid)) $topic=$sid;
 
-// $url_ret : URL de retour lorsque la soumission du commentaire est OK
+ // $url_ret : URL de retour lorsque la soumission du commentaire est OK
 global $archive;
-settype($archive,'integer');
 $url_ret="article.php?sid=$topic&archive=$archive";
 
 // $formulaire : Formulaire SFORM si vous souhaitez avoir une grille de saisie en lieu et place de l'interface standard de saisie - sinon ""

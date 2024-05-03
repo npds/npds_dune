@@ -11,34 +11,44 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li> 
                <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
                <li class="breadcrumb-item active" aria-current="page" >Meta_lang</li> 
             </ol>
          </nav>
          <hr class="mt-n3" />
-         <h3>META_LANG</h3>
-            <p>META_LANG ?</p>
-            <p>Wozu nutzt es?<br />
-            Der META_LANG ist nutzbar für die Sprachanzeige.<br />
-            Das erlaubt die Anwendung von META_LANG (in News, einem Artikel, einer Notiz), einem Kommentar oder im Edito oder gar in einer statischen Seite. Das ist das Resultat der Entwicklung von NPDS Language.</p>
+         <h3>Administration - META_LANG</h3>
 
-                        <p><b><U>In Wissen</U></b> <br>Es gibt 5 Typen 
-                        um META_LANG für Ihre Seite zu nutzen <br /></p>
-        <p>
-            <b><>Die Typen von META_LANG</font>
-
-                        <ol type="1">
-                            <li><b>docu<br></B>Wird verwendet um ein Wort von META_LANG auszuschliessen.<br></li>
-                        </ol>
-                        <ol type="1">
-                            <li><b>meta</B><br>Verwendet in review, news, Edito, wird genutzt, um die Resultate eines Funktionsaufrufs anzuzeigen<br></li>
-                            <li><b>mot</B><br>Wird genutzt, um einem Wort (Buchstaben und Zahlen) eine Funktion zuzuordnen. Beispielsweise der Aufruf eines Links.</li>
-                            <li><b>smil</B><br>Nutzt die integrierten Smilies.<br></li>
-                            <li><b>them</B><br>Wird genutzt, um Funktionen aufzurufen.<br></li>
-                        </ol>
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
+         <h4>META_LANG ? Wozu nutzt es?</h4>
+         <p>Der META_LANG ist nutzbar f&uuml;r die Sprachanzeige.<br /> Das erlaubt die Anwendung von META_LANG (in News, einem Artikel, einer Notiz), einem Kommentar oder im Edito oder gar in einer statischen Seite. Das ist das Resultat der Entwicklung von NPDS Language.</p>
+         <p>In Wissen es gibt 5 Typen um META_LANG f&uuml;r Ihre Seite zu nutzen</p>
+         <p>Die Typen von META_LANG
+         <ul>
+            <li><b>docu</b>
+            <br />Wird verwendet um ein Wort von META_LANG auszuschliessen.<br />
+            Derzeit ist in dieser Kategorie nur <span class="text-primary">^</span> vorhanden<br />Sie k&ouml;nnen diese Art von Metawort nicht erstellen</li>
+            <li><b>meta</b>
+            <br />Wird in fast allen NPDS verwendet und dient dazu, das Ergebnis einer bestimmten Funktion aufzurufen, das an der Stelle seines Eintrags angezeigt wird.<br />
+                Dies ist die wichtigste Kategorie von NPDS, sie erm&ouml;glicht die Implementierung sehr erweiterter Funktionen.<br />
+                Abh&auml;ngig vom Grad der Komplexit&auml;t dessen, was Sie erreichen m&ouml;chten, gibt es zwei Formen des Schreibens (im Skriptbereich):
+               <ul>
+                  <li><code>$cmd=... PHP-Anweisung in einer einzigen Zeile ...;</code></li>
+                  <li><code>function MM_dein-meta-mot () {<br />
+                      code php<br />
+                      code php<br />
+                      code php<br />
+                      return (ihre-return);<br />
+                      }</code>
+                  </li>
+               </ul>
+            </li>
+            <li><b>mot</b>
+            <br />Wird genutzt, um einem Wort (Buchstaben und Zahlen) eine Funktion zuzuordnen. Beispielsweise der Aufruf eines Links.</li>
+            <li><b>smil</b><br />Wird verwendet, um Smilies und/oder Verkn&uuml;pfungen zu Bildern zu integrieren.</li>
+            <li><b>them</b><br />Wird verwendet, um interne NPDS-Funktionen im Zusammenhang mit Themen zu dokumentieren.</li>
+         </ul>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
       </div>
    </body>
 </html>

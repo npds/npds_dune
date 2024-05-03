@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -22,14 +22,17 @@ if ( ($member_list==1) and !isset($user) and !isset($admin) )
 if (isset($gr_from_ws) and ($gr_from_ws!=0)) {
    settype($gr_from_ws, 'integer');
    $uid_from_ws="^(";
-   $re = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe regexp '[[:<:]]".$gr_from_ws."[[:>:]]'");
+   $re = mysqli_get_client_info() <= '8.0' ?
+      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr_from_ws."[[:>:]]' ORDER BY uid ASC") :
+      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE `groupe` REGEXP \"\\\\b$gr_from_ws\\\\b\" ORDER BY uid ASC;") ;
    while (list($ws_uid) = sql_fetch_row($re)) {
       $uid_from_ws.= $ws_uid."|";
    }
-   $uid_from_ws=substr($uid_from_ws,0,-1).")\$";
-} else
+  $uid_from_ws=substr($uid_from_ws,0,-1).")\$";
+} else {
    $uid_from_ws='';
-
+   $gr_from_ws=0;
+}
 function alpha() {
    global $sortby, $list, $gr_from_ws, $uid_from_ws;
    $alphabet = array (translate("Tous"), 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',translate("Autres"));
@@ -203,12 +206,8 @@ global $member_invisible;
 if ($member_invisible) {
    if ($admin)
       $and='';
-   else {
-      if ($where)
-         $and=' AND is_visible=1 ';
-      else
-         $and=' WHERE is_visible=1 ';
-   }
+   else
+      $and = $where ? ' AND is_visible=1 ' : ' WHERE is_visible=1 ';
 } else
    $and='';
 

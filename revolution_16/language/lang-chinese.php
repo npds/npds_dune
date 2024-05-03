@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /*                                                                      */
 /* Translated by :                                                      */
@@ -370,6 +370,7 @@ function translate_pass1($phrase) {
    case "Entrer votre pseudonyme et votre mot de passe.": $tmp="请输入呢称和密码"; break;
    case "Entrez à nouveau votre mot de Passe": $tmp="重新输入密码"; break;
    case "Envoi de l'article à un ami": $tmp="发送一篇文章给朋友"; break;
+   case "Envoi une demande aux administrateurs pour rejoindre ce groupe. Un message privé vous informera du résultat de votre demande.": $tmp="向管理员发送加入该群组的请求。 私人消息将告知您请求的结果。"; break;
    case "Envoyé à": $tmp="至"; break;
    case "Envoyé par ": $tmp="提交者 "; break;
    case "Envoyé": $tmp="已经发送"; break;
@@ -428,6 +429,8 @@ function translate_pass1($phrase) {
    case "Gestionnaire fichiers": $tmp="文件管理器"; break;
    case "Gras": $tmp="Gras"; break;
    case "Groupe": $tmp="组"; break;
+   case "Groupes": $tmp="组"; break;
+   case "Groupe ouvert": $tmp="公开组"; break;
    case "Hasard": $tmp="其他网站"; break;
    case "Haut de page": $tmp="返回页面顶端"; break;
    case "Heure de la soumission": $tmp="发表时间"; break;
@@ -678,6 +681,7 @@ function translate_pass1($phrase) {
    case "Nous avons approuvé votre contribution à notre moteur de recherche.": $tmp="我们已经将您提交的链接加入我们的搜索引擎."; break;
    case "Nous avons bien reçu votre demande de lien, merci": $tmp="我们已经收到您提交的链接。谢谢！ !"; break;
    case "Nous ne vendons ni ne communiquons vos informations personnelles à autrui.": $tmp="我们不会把您的个人信息销售或提供给其他人。"; break;
+   case "Nouveau commentaire": $tmp="新评论"; break;
    case "Nouveau dossier/sujet": $tmp="新文件夾/主題"; break;
    case "Nouveau lien ajouté dans la base de données": $tmp="新链接已添加到数据库"; break;
    case "Nouveau membre": $tmp="新用户"; break;
@@ -721,6 +725,7 @@ function translate_pass1($phrase) {
    case "pas affiché dans l'annuaire, message à un membre, ...": $tmp="not showed in memberlist, members' message bloc ..."; break;
    case "Pas de connexion à la base forums.": $tmp="不能连接到论坛的数据库"; break;
    case "Pas de connexion à la base topics.": $tmp="不能连接到主题的数据库"; break;
+   case "Pas de groupe ouvert.": $tmp="没有开放组"; break;
    case "Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.": $tmp="没问题。 只需输入您的昵称，您想要的新密码，然后点击发送按钮即可接收带有确认码的电子邮件。"; break;
    case "Passer / Gérer une annonce": $tmp="提交/管理一个留言"; break;
    case "Pays": $tmp="国家"; break;
@@ -784,6 +789,7 @@ function translate_pass1($phrase) {
    case "Rechercher dans": $tmp="在此间搜索"; break;
    case "Recommander ce site à un ami": $tmp="推薦本站給朋友"; break;
    case "Reçus": $tmp="收到"; break;
+   case "Rejoindre ce groupe": $tmp="加入这个群组"; break;
    case "Replier la liste": $tmp="Hide list"; break;
    case "Répondre": $tmp="回复"; break;
    case "Réponse postée.": $tmp="贴的回复"; break;

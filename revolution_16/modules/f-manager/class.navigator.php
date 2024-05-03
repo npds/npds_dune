@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 // Constantes
@@ -16,13 +16,11 @@ define ('DateFormat',translate("dateinternal"));
 class Navigator {
    // Vars
    var $GetDirSz;
-
    var $Curdir;
    var $DirsList  =  array("Name" =>array(),"DateM"=>array(),"Size" =>array(),
                            "Perms"=>array() );
    var $FilesList =  array("Name" =>array(),"DateM"=>array(),"Size" =>array(),
                            "Perms"=>array(),"View" =>array() );
-
    var $Handle;
    var $Errors;
    var $Path;
@@ -30,8 +28,6 @@ class Navigator {
    var $OrderArrF =array();
    var $PointerPosD;
    var $PointerPosF;
-
-
    var $Extension =array();
    var $FieldName;
    var $FieldDate;
@@ -55,9 +51,8 @@ function File_Navigator($parm,$sort_filed="N",$dir="ASC", $DirSize=false) {
       $this->PointerPosF=0;
       $this->PointerPosD=0;
       return (true);
-   } else {
+   } else
       return (false);
-   }
 }
 
 // load directories list and files list
@@ -108,11 +103,10 @@ function GetPerms($file) {
    $Fdroits = "";
    for ($i = 0;$i<3;$i++) {
       $droits = $perms & $mask;
-      if ($i == 0) {
+      if ($i == 0)
          $droits = $droits >> 6;
-      } else if ($i == 1) {
+      else if ($i == 1)
          $droits = $droits >> 3;
-      }
       $Fdroits.=$droits;
       $mask = $mask >> 3;
    }
@@ -194,7 +188,7 @@ function SortListF($what,$direction="ASC") {
          $i++;
       }
       if ($direction=="ASC"  and isset($this->OrderArrF)) ksort($this->OrderArrF) ;
-      elseif(  isset($this->OrderArrF)) krsort($this->OrderArrF) ;
+      elseif (isset($this->OrderArrF)) krsort($this->OrderArrF) ;
       break;
       //----------------------------------
 
@@ -207,7 +201,7 @@ function SortListF($what,$direction="ASC") {
          $i++;
       }
       if ($direction=="ASC"  and isset($this->OrderArrF)) ksort($this->OrderArrF) ;
-      elseif(  isset($this->OrderArrF)) krsort($this->OrderArrF) ;
+      elseif (isset($this->OrderArrF)) krsort($this->OrderArrF) ;
       break;
       //----------------------------------
    }
@@ -218,48 +212,47 @@ function SortListD($what,$direction="ASC") {
 
    unset($this->OrderArrD);
    switch($what) {
-     case "D" ; //Date
-     $i = 0;
-     reset($this->DirsList["DateM"]);
-     while (list($key, $val) = each($this->DirsList["DateM"])) {
-        $tmp=explode(' ',$this->DirsList["DateM"][$i]);
-        $key1= explode( '-', $tmp[0]);
-        $key2= explode( ':', $tmp[1]);
+      case "D" ; //Date
+      $i = 0;
+      reset($this->DirsList["DateM"]);
+      foreach ($this->DirsList["DateM"] as $key => $val) {
+         $tmp=explode(' ',$this->DirsList["DateM"][$i]);
+         $key1= (int) explode( '-', $tmp[0]);
+         $key2= (int) explode( ':', $tmp[1]);
+         $key=mktime ($key2[0],$key2[1],$key2[2],$key1[1],$key1[0],$key1[2]) ;
+         $this->OrderArrD[$key.'.'.$i] = $i;
+         $i++;
+      }
+      if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
+      elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
+      break;
+      //----------------------------------
 
-        $key=mktime ($key2[0],$key2[1],$key2[2],$key1[1],$key1[0],$key1[2]) ;
-        $this->OrderArrD[$key.'.'.$i] = $i;
-        $i++;
-     }
-     if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
-     elseif( isset($this->OrderArrD)) krsort($this->OrderArrD) ;
-     break;
-     //----------------------------------
+      case "S"; //Size
+      $i = 0;
+      reset($this->DirsList["Size"]);
+      while($i<count($this->DirsList["Size"])){
+         $this->OrderArrD[$this->DirsList["Size"][$i].'.'.$i] = $i;
+         $i++;
+      }
 
-     case "S"; //Size
-     $i = 0;
-     reset($this->DirsList["Size"]);
-     while($i<count($this->DirsList["Size"])){
-        $this->OrderArrD[$this->DirsList["Size"][$i].'.'.$i] = $i;
-        $i++;
-     }
+      if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
+      elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
+      break;
+      //----------------------------------
 
-     if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
-     elseif( isset($this->OrderArrD)) krsort($this->OrderArrD) ;
-     break;
-     //----------------------------------
+      default:
+      $i = 0;
+      reset($this->DirsList["Name"]);
+      while($i<count($this->DirsList["Name"])) {
+         $this->OrderArrD[strtolower($this->DirsList["Name"][$i])] = $i;
+         $i++;
+      }
 
-     default:
-     $i = 0;
-     reset($this->DirsList["Name"]);
-     while($i<count($this->DirsList["Name"])) {
-        $this->OrderArrD[strtolower($this->DirsList["Name"][$i])] = $i;
-        $i++;
-     }
-
-     if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
-     elseif( isset($this->OrderArrD)) krsort($this->OrderArrD) ;
-     break;
-    //----------------------------------
+      if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
+      elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
+      break;
+      //----------------------------------
    }
 }
 

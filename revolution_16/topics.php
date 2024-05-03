@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -35,9 +35,9 @@ if (!function_exists("Mysql_Connexion"))
    } else {
       if ($subscribe) {
          if ($user) {
-            $result = sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$cookie[0]' AND topicid!='NULL'");
-            $result = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics ORDER BY topicid");
-            while(list($topicid) = sql_fetch_row($result)) {
+            $result = sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$cookie[0]' AND topicid!=NULL");
+            $selection = sql_query("SELECT topicid FROM ".$NPDS_Prefix."topics ORDER BY topicid");
+            while(list($topicid) = sql_fetch_row($selection)) {
                if (isset($Subtopicid)) {
                   if (array_key_exists($topicid,$Subtopicid)) {
                      if ($Subtopicid[$topicid]=="on") {

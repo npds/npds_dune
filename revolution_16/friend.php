@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -45,7 +45,7 @@ function FriendSend($sid, $archive) {
          <span class="help-block text-end"><span class="muted" id="countcar_fname"></span></span>
       </div>
       <div class="form-floating mb-3">
-         <input type="email" class="form-control" id="fmail" name="fmail" maxlength="100" required="required" />
+         <input type="email" class="form-control" id="fmail" name="fmail" maxlength="254" required="required" />
          <label for="fmail">'.translate("Email du destinataire").'</label>
          <span class="help-block text-end"><span class="muted" id="countcar_fmail"></span></span>
       </div>
@@ -55,7 +55,7 @@ function FriendSend($sid, $archive) {
          <span class="help-block text-end"><span class="muted" id="countcar_yname"></span></span>
       </div>
       <div class="form-floating mb-3">
-         <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" maxlength="100" required="required" />
+         <input type="email" class="form-control" id="ymail" name="ymail" value="'.$ye.'" maxlength="254" required="required" />
          <label for="ymail">'.translate("Votre Email").'</label>
          <span class="help-block text-end"><span class="muted" id="countcar_ymail"></span></span>
       </div>';
@@ -68,9 +68,9 @@ function FriendSend($sid, $archive) {
   $arg1='
    var formulid = ["friendsendstory"];
    inpandfieldlen("yname",100);
-   inpandfieldlen("ymail",100);
+   inpandfieldlen("ymail",254);
    inpandfieldlen("fname",100);
-   inpandfieldlen("fmail",100);';
+   inpandfieldlen("fmail",254);';
    adminfoot('fv','',$arg1,'');
 }
 
@@ -104,9 +104,9 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    $stop=false;
    if ((!$fmail) || ($fmail=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$fmail))) $stop = true;
    if ((!$ymail) || ($ymail=="") || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$ymail))) $stop = true;
-   if (!$stop) {
-      send_email($fmail, $subject, $message, $ymail, false,'html');
-   } else {
+   if (!$stop)
+      send_email($fmail, $subject, $message, $ymail, false, 'html', '');
+   else {
      $title='';
      $fname='';
    }
@@ -203,10 +203,10 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    if ((!$fmail) || ($fmail=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$fmail))) $stop = true;
    if ((!$ymail) || ($ymail=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$ymail))) $stop = true;
    if (!$stop)
-      send_email($fmail, $subject, $message, $ymail, false,'html');
+      send_email($fmail, $subject, $message, $ymail, false, 'html', '');
    else
      $fname='';
-   Header("Location: friend.php?op=SiteSent&fname=$fname");
+  Header("Location: friend.php?op=SiteSent&fname=$fname");
 }
 
 function SiteSent($fname) {

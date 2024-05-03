@@ -9,7 +9,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
 /* geoloc_set.php file 2007-2024 by Jean Pierre Barbary (jpb)           */
@@ -1010,7 +1010,7 @@ function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-   $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+   $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* module geoloc version 4.1                                            */\n";
    $content .= "/* geoloc.conf file 2008-".date('Y')." by Jean Pierre Barbary (jpb)              */\n";

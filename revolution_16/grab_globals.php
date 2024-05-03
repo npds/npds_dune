@@ -2,14 +2,14 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2024 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on phpmyadmin.net  grabber library                             */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 /* This library grabs the names and values of the variables sent or     */
 /* posted to a script in superglobals arrays and sets simple globals    */

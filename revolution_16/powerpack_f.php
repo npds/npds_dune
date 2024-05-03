@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    header("location: index.php");
@@ -36,7 +36,7 @@ function online_members () {
    return $members_online;
 }
 
-#autodoc writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) : Ins&egrave;re un MI dans la base et le cas Èch&eacute;ant envoi un mail
+#autodoc writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) : Insère un MI dans la base et le cas échéant envoi un mail
 function writeDB_private_message($to_userid,$image,$subject,$from_userid,$message, $copie) {
    global $NPDS_Prefix;
 
@@ -64,7 +64,7 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
       }
       global $subscribe, $nuke_url, $sitename;
       if ($subscribe) {
-         $sujet=translate_ml($user_languex, "Notification message privé.").'['.$from_userid.'] / '.$sitename;
+         $sujet=html_entity_decode(translate_ml($user_languex, "Notification message privé."),ENT_COMPAT | ENT_HTML401,cur_charset).'['.$from_userid.'] / '.$sitename;
          $message = $time.'<br />'.translate_ml($user_languex, "Bonjour").'<br />'.translate_ml($user_languex, "Vous avez un nouveau message.").'<br /><br /><b>'.$subject.'</b><br /><br /><a href="'.$nuke_url.'/viewpmsg.php">'.translate_ml($user_languex, "Cliquez ici pour lire votre nouveau message.").'</a><br />';
          include("signat.php");
          copy_to_email($to_useridx,$sujet,stripslashes($message));
@@ -72,7 +72,7 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
    }
 }
 
-#autodoc write_short_private_message($to_userid) : Formulaire d'&eacute;criture d'un MI
+#autodoc write_short_private_message($to_userid) : Formulaire d'écriture d'un MI
 function write_short_private_message($to_userid) {
    echo '
    <h2>'.translate("Message à un membre").'</h2>
@@ -109,7 +109,7 @@ function write_short_private_message($to_userid) {
    </form>';
 }
 
-#autodoc if_chat() : Retourne le nombre de connect&eacute; au Chat
+#autodoc if_chat() : Retourne le nombre de connecté au Chat
 function if_chat($pour) {
    global $NPDS_Prefix;
    $auto=autorisation_block("params#".$pour);
@@ -123,7 +123,7 @@ function if_chat($pour) {
    return ($numofchatters);
 }
 
-#autodoc insertChat($username, $message, $dbname, $id) : Ins&egrave;re un record dans la table Chat / on utilise id pour filtrer les messages - id = l'id du groupe
+#autodoc insertChat($username, $message, $dbname, $id) : Insère un record dans la table Chat / on utilise id pour filtrer les messages - id = l'id du groupe
 function insertChat($username, $message, $dbname,$id) {
    global $NPDS_Prefix;
    if ($message!='') {
@@ -136,7 +136,7 @@ function insertChat($username, $message, $dbname,$id) {
    }
 }
 
-#autodoc JavaPopUp($F,$T,$W,$H) : Personnalise une ouverture de fen&egrave;tre (popup)
+#autodoc JavaPopUp($F,$T,$W,$H) : Personnalise une ouverture de fenêtre (popup)
 function JavaPopUp($F,$T,$W,$H) {
    // 01.feb.2002 by GaWax
    if ($T=="") $T="@ ".time()." ";
@@ -150,7 +150,7 @@ function JavaPopUp($F,$T,$W,$H) {
 function instant_members_message() {
    global $user, $admin, $long_chain, $NPDS_Prefix;
    settype($boxstuff,'string');
-   if (!$long_chain) {$long_chain=13;}
+   if (!$long_chain) $long_chain=13;
 
    global $block_title;
    if ($block_title=='')
@@ -238,11 +238,8 @@ function instant_members_message() {
          $ibid=online_members();
          if ($ibid[0]) {
             for ($i = 1; $i <= $ibid[0]; $i++) {
-               $N=$ibid[$i]['username'];
-               if (strlen($N)>$long_chain)
-                  $M=substr($N,0,$long_chain).'.';
-               else
-                  $M=$N;
+               $N = $ibid[$i]['username'];
+               $M = strlen($N)>$long_chain ? substr($N,0,$long_chain).'.' : $N ;
                $boxstuff .= $M.'<br />';
             }
             themesidebox('<i>'.$block_title.'</i>', $boxstuff);
@@ -251,7 +248,7 @@ function instant_members_message() {
    }
 }
 
-#autodoc makeChatBox($pour) : Bloc ChatBox <br />=> syntaxe : function#makeChatBox <br />params#chat_membres <br /> le parametre doit etre en accord avec l'autorisation donc (chat_membres, chat_tous, chat_admin, chat_anonyme)
+#autodoc makeChatBox($pour) : Bloc ChatBox <br />=> syntaxe : function#makeChatBox <br />params#chat_membres <br /> le parametre doit être en accord avec l'autorisation donc (chat_membres, chat_tous, chat_admin, chat_anonyme)
 function makeChatBox($pour) {
    global $user, $admin, $member_list, $long_chain, $NPDS_Prefix;
    include_once('functions.php');
@@ -269,31 +266,25 @@ function makeChatBox($pour) {
          while (list($username, $message, $dbname) = sql_fetch_row($result)) {
             if (isset($username)) {
                if ($dbname==1) {
-                  if ((!$user) and ($member_list==1) and (!$admin)) {
-                     $thing.='<span class="">'.substr($username,0,8).'.</span>';
-                  } else {
-                     $thing.="<a href=\"user.php?op=userinfo&amp;uname=$username\">".substr($username,0,8).".</a>";
-                  }
-               } else {
-                 $thing.='<span class="">'.substr($username,0,8).'.</span>';
-               }
+                  $thing.= ((!$user) and ($member_list==1) and (!$admin)) ?
+                     '<span class="">'.substr($username,0,8).'.</span>' :
+                     "<a href=\"user.php?op=userinfo&amp;uname=$username\">".substr($username,0,8).".</a>" ;
+               } else
+                  $thing.='<span class="">'.substr($username,0,8).'.</span>';
             }
             $une_ligne=true;
-            if (strlen($message)>$long_chain) {
-               $thing.="&gt;&nbsp;<span>".smilie(stripslashes(substr($message,0,$long_chain)))." </span><br />\n";
-            } else {
-              $thing.="&gt;&nbsp;<span>".smilie(stripslashes($message))." </span><br />\n";
-            }
+            $thing.= (strlen($message)>$long_chain)  ?
+               "&gt;&nbsp;<span>".smilie(stripslashes(substr($message,0,$long_chain)))." </span><br />\n" :
+               "&gt;&nbsp;<span>".smilie(stripslashes($message))." </span><br />\n" ;
          }
       }
       $PopUp = JavaPopUp("chat.php?id=".$auto[0]."&amp;auto=".encrypt(serialize($auto[0])),"chat".$auto[0],380,480);
       if ($une_ligne) $thing.='<hr />';
       $result=sql_query("SELECT DISTINCT ip FROM ".$NPDS_Prefix."chatbox WHERE id='".$auto[0]."' AND date >= ".(time()-(60*2))."");
       $numofchatters = sql_num_rows($result);
-      if ($numofchatters > 0)
-         $thing.='<div class="d-flex"><a id="'.$pour.'_encours" class=" " href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Cliquez ici pour entrer").' '.$pour.'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fa fa-comments fa-2x nav-link faa-pulse animated faa-slow"></i></a><span class="badge rounded-pill bg-primary ms-auto align-self-center" title="'.translate("personne connectée.").'" data-bs-toggle="tooltip">'.$numofchatters.'</span></div>';
-      else
-         $thing.='<div><a id="'.$pour.'" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Cliquez ici pour entrer").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fa fa-comments fa-2x "></i></a></div>';
+      $thing.= $numofchatters > 0 ?
+         '<div class="d-flex"><a id="'.$pour.'_encours" class="fs-4" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Cliquez ici pour entrer").' '.$pour.'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fa fa-comments fa-2x nav-link faa-pulse animated faa-slow"></i></a><span class="badge rounded-pill bg-primary ms-auto align-self-center" title="'.translate("personne connectée.").'" data-bs-toggle="tooltip">'.$numofchatters.'</span></div>' :
+         '<div><a id="'.$pour.'" href="javascript:void(0);" onclick="window.open('.$PopUp.');" title="'.translate("Cliquez ici pour entrer").'" data-bs-toggle="tooltip" data-bs-placement="right"><i class="fa fa-comments fa-2x "></i></a></div>' ;
    } else {
       if (count($auto)>1) {
          $numofchatters=0;
@@ -323,95 +314,92 @@ function makeChatBox($pour) {
 function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, $topicmaxchars=15,$hr=false, $decoration) {
    $boxstuff=RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr,$decoration);
    global $block_title;
-   if ($title=='') {
-      if ($block_title=='')
-         $title=translate("Forums infos");
-      else
-         $title=$block_title;
-   }
+   if ($title=='')
+      $title = $block_title=='' ? translate("Forums infos") : $block_title ;
    themesidebox($title, $boxstuff);
 }
+
 function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr,$decoration) {
-    global $parse, $user, $NPDS_Prefix;
+   global $parse, $user, $NPDS_Prefix;
 
-    $topics = 0;
-    settype($maxforums,"integer");
-    settype($maxtopics,"integer");
+   $topics = 0;
+   settype($maxforums,"integer");
+   settype($maxtopics,"integer");
 
-    $lim = $maxforums==0 ? '' : " LIMIT $maxforums";
-    $query = $user ?
-      "SELECT * FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id".$lim :
-      "SELECT * FROM ".$NPDS_Prefix."forums WHERE forum_type!='9' AND forum_type!='7' AND forum_type!='5' ORDER BY cat_id,forum_index,forum_id".$lim;
-    $result = sql_query($query);
+   $lim = $maxforums==0 ? '' : " LIMIT $maxforums";
+   $query = $user ?
+     "SELECT * FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id".$lim :
+     "SELECT * FROM ".$NPDS_Prefix."forums WHERE forum_type!='9' AND forum_type!='7' AND forum_type!='5' ORDER BY cat_id,forum_index,forum_id".$lim;
+   $result = sql_query($query);
 
-    if (!$result) exit();
-    $boxstuff = '<ul>';
+   if (!$result) exit();
+   $boxstuff = '<ul>';
 
-    while ($row = sql_fetch_row($result)) {
-       if (($row[6] == "5") or ($row[6] == "7")) {
-          $ok_affich=false;
-          $tab_groupe=valid_group($user);
-          $ok_affich=groupe_forum($row[7], $tab_groupe);
-       } else
-          $ok_affich=true;
-       if ($ok_affich) {
-          $forumid = $row[0];
-          $forumname = $row[1];
-          $forum_desc =$row[2];
-          if ($hr)
-             $boxstuff .= '<li><hr /></li>';
-          if ($parse==0) {
-             $forumname = FixQuotes($forumname);
-             $forum_desc = FixQuotes($forum_desc);
-          } else {
-             $forumname = stripslashes($forumname);
-             $forum_desc = stripslashes($forum_desc);
-          }
+   while ($row = sql_fetch_row($result)) {
+      if (($row[6] == "5") or ($row[6] == "7")) {
+         $ok_affich=false;
+         $tab_groupe=valid_group($user);
+         $ok_affich=groupe_forum($row[7], $tab_groupe);
+      } else
+         $ok_affich=true;
+      if ($ok_affich) {
+         $forumid = $row[0];
+         $forumname = $row[1];
+         $forum_desc =$row[2];
+         if ($hr)
+            $boxstuff .= '<li><hr /></li>';
+         if ($parse==0) {
+            $forumname = FixQuotes($forumname);
+            $forum_desc = FixQuotes($forum_desc);
+         } else {
+            $forumname = stripslashes($forumname);
+            $forum_desc = stripslashes($forum_desc);
+         }
 
-          $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
-          $ibidx = sql_num_rows($res);
-          $boxstuff .= '
+         $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
+         $ibidx = sql_num_rows($res);
+         $boxstuff .= '
           <li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-bs-toggle="tooltip">'.$forumname.'</a><span class="float-end badge bg-secondary" title="'.translate("Sujets").'" data-bs-toggle="tooltip">'.$ibidx.'</span></h6></li>';
 
-          $topics = 0;
-          while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {
-              $topicid = $topicrow[0];
-              $tt = $topictitle = $topicrow[1];
-              $date = $topicrow[3];
-              $replies = 0;
-              $postquery = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topicid'";
-              if ($pres = sql_query($postquery)) {
-                 if ($myrow = sql_fetch_assoc($pres))
-                    $replies = $myrow['total'];
-              }
-              if (strlen($topictitle) > $topicmaxchars) {
-                 $topictitle = substr($topictitle,0,$topicmaxchars);
-                 $topictitle .= '..';
-              }
+         $topics = 0;
+         while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {
+            $topicid = $topicrow[0];
+            $tt = $topictitle = $topicrow[1];
+            $date = $topicrow[3];
+            $replies = 0;
+            $postquery = "SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE topic_id = '$topicid'";
+            if ($pres = sql_query($postquery)) {
+               if ($myrow = sql_fetch_assoc($pres))
+                  $replies = $myrow['total'];
+            }
+            if (strlen($topictitle) > $topicmaxchars) {
+               $topictitle = substr($topictitle,0,$topicmaxchars);
+               $topictitle .= '..';
+            }
 
-              if ($displayposter) {
-                 $posterid = $topicrow[2];
-                 $RowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid = '$posterid'",3600);
-                 $myrow=$RowQ1[0];
-                 $postername = $myrow['uname'];
-              }
-              if ($parse==0) {
-                 $tt =  strip_tags(FixQuotes($tt));
-                 $topictitle= FixQuotes($topictitle);
-              } else {
-                 $tt =  strip_tags(stripslashes($tt));
-                 $topictitle= stripslashes($topictitle);
-              }
-              $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge bg-secondary mx-2" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
-              if ($displayposter) $boxstuff .= $decoration.'<span class="ms-1">'.$postername.'</span>';
-              $boxstuff .= '</li>';
-              $topics++;
-          }
-       }
+            if ($displayposter) {
+               $posterid = $topicrow[2];
+               $RowQ1=Q_Select ("SELECT uname FROM ".$NPDS_Prefix."users WHERE uid = '$posterid'",3600);
+               $myrow=$RowQ1[0];
+               $postername = $myrow['uname'];
+            }
+            if ($parse==0) {
+              $tt =  strip_tags(FixQuotes($tt));
+              $topictitle= FixQuotes($topictitle);
+            } else {
+               $tt =  strip_tags(stripslashes($tt));
+               $topictitle= stripslashes($topictitle);
+            }
+            $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge bg-secondary mx-2" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
+            if ($displayposter) $boxstuff .= $decoration.'<span class="ms-1">'.$postername.'</span>';
+            $boxstuff .= '</li>';
+            $topics++;
+         }
+      }
     }
-    $boxstuff .= '
+   $boxstuff .= '
     </ul>';
-    return ($boxstuff);
+   return ($boxstuff);
 }
 #autodoc:</Powerpack_f.php>
 ?>

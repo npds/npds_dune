@@ -1,0 +1,17 @@
+<html>
+<titleAdmin Plugins – 对插件的管理 - NPDS V</title>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+<body bgcolor=FFFFFF text=000000>
+<font face=STFangsong,Verdana,Arial,Helvetica size=3>
+<center><b>Admin Plugins – 对插件的管理</b></center>
+<br/><br/>
+本模块允许您管理NPDS的某些补充功能。 <br/><br/> 模块的开发者 (例如IPBAN) 必须从技术上保证其管理功能可以顺利植入到NPDS系统中。 <br/><br/> 一个有管理插件（Plugin）的补充模块在被安装后，即会出现在列表中。
+<br/><br/> 对管理插件的描述如下 (文件 : admin/extend-modules.txt):<br/> 对于每个插件plugin :<br/> [module]<br/>     &nbsp;&nbsp;&nbsp;&nbsp;[nom]该插件(plugin)名称[/nom]<br/>     &nbsp;&nbsp;&nbsp;&nbsp;[ModPath]该模块（module）的路径(例如: modules/ipban)[/ModPath]<br/>    &nbsp;&nbsp;&nbsp;&nbsp;[ModStart]该模块的启动文件(例如: ipban)[/ModStart]<br/>     &nbsp;&nbsp;&nbsp;&nbsp;[niveau][/niveau]<br/> [/module]<br/> .<br/> .<br/><br/> 标记[niveau][/niveau] 是可定义数值的 (或为空) : 在这种情况下，插件仅限于超级管理员使用。 <br/><br/> 标记[niveau][/niveau] 定义了以下任一个数值 (但仅限一个) 的情况下，则插件限于超级管理员和该功能模块的管理员使用。<br/>  &nbsp;-&nbsp;以下数值 :<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminarticle</b> (文章和广告),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radmintopic</b> (主题),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminleft</b> (左功能框),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminmain</b> (主功能框),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminright</b> (右功能框),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminsurvey</b> (网上调查),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminsection</b> (栏目),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminlink</b> (友好链接),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminephem</b> (历史事件年历),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminhead</b> (新闻站点的大标题),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminfaq</b> (FAQ),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radmindownload</b> (下载),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminforum</b> (论坛),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminreviews</b> (评论),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminlnl</b> (新闻组),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminsdv</b> (组的管理),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminuser</b> (编辑用户),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminfilem</b> (文件管理),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>radminsuper</b> (超级管理员),<br/>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <b>no-right</b> (所有人，包括管理员，及没有任何管理权利的人)<br/><br/>  因此，可以举例如下：<br/> - 一个定义为[niveau]<b>radminlnl</b>[/niveau]的插件只能被超级管理员和新闻组的管理员所看到并使用。<br/><br/> - 一个定义为[niveau]<b>no-right</b>[/niveau]的插件则可以被所有管理员看到和使用，并同样适用于没有任何管理权限的人。
+
+         </div>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
+</html>

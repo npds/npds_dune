@@ -2,11 +2,11 @@
 /************************************************************************/
 /* DUNE by NPDS / META-LANG engine                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 // Cette fonction doit être utilisée pour filtrer les arguments des requêtes SQL et est
@@ -235,13 +235,14 @@ function meta_lang($Xcontent) {
                $Cword=$cmd;
          }
          // Cword commence par function ?
-         if (substr($Cword,0,9)=="function ") {
-            $Rword="MM_".str_replace("!","",$Rword);
-            if (!function_exists($Rword))
-               @eval($Cword);
-            $Cword=charg($Rword,$arguments);
-            $Rword=$word;
-         }
+         if ($Cword != '')
+            if (substr($Cword,0,9)=="function ") {
+               $Rword="MM_".str_replace("!","",$Rword);
+               if (!function_exists($Rword))
+                  @eval($Cword);
+               $Cword=charg($Rword,$arguments);
+               $Rword=$word;
+            }
 
          // si le mot se termine par ^ : on supprime ^ | cela permet d'assurer la protection d'un mot (intouchable)
          if ($car_fin=="^")

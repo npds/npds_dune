@@ -8,43 +8,49 @@
       <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
    </head>
    <body>
-   <div class="container">
-      <nav class="my-3">
-         <ol class="breadcrumb">
-            <li class="breadcrumb-item active">Administration</li> 
-            <li class="breadcrumb-item active"><a href="men_gen.html">Menu</a></li> 
-         </ol>
-      </nav>
-      <h3 class="mb-3">Admin</h3>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item active">Administration</li> 
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li> 
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Admin</h3>
 
-   <h4>Introduction</h4>
-   <p>NPDS est un g&eacute;n&eacute;rateur de portail Fran&ccedil;ais en Open-Source sous licence gratuite GNU-GPL utilisant les technologies PHP et MySql qui poss&egrave;de un dispositif multi-langues param&eacute;trable dans les pr&eacute;f&eacute;rences. Par d&eacute;faut, le portail est en fran&ccedil;ais.</p>
-   <h4>Les fonctions</h4>
-   <p>Pour g&eacute;rer NPDS, vous avez acc&egrave;s &agrave; de nombreux boutons qui sont rassembl&eacute;s par rang&eacute;e.</p>
-   <div class="card card-body">
-      <ul class="p-l-1">
-         <li class="card-text">La premi&egrave;re rang&eacute;e est constitu&eacute;e de divers boutons correspondant &agrave; des dispositifs d'alerte de l'administrateur. Les articles propos&eacute;s et les articles programm&eacute;s sont accessibles ici.</li>
-         <li>Les boutons de la deuxième rang&eacute;e vous permettent de g&eacute;rer le contenu de votre site, une fois que vous avez cliqu&eacute; sur un bouton il vous faut cliquer sur le bouton manuel en ligne pour obtenir la documentation en rapport avec la fonction ouverte.</li>
-         <li>La troisième rang&eacute;e vous permet de g&eacute;rer les utilisateurs du portail</li>
-         <li>La quatrième rang&eacute;e vous permet de g&eacute;rer tout ce qui concerne la communication</li>
-         <li>La cinquième rang&eacute;e vous permet de g&eacute;rer l'interface des blocs</li>
-         <li>La sixième rang&eacute;e vous permet d'agir sur le système, le lien pr&eacute;f&eacute;rences est un des liens les plus importants. A noter le lien qui vous permet d'installer un module et de savoir les modules qui sont d&eacute;jà install&eacute;s ou non.</li>
-         <li>Enfin la dernière rang&eacute;e qui vous permet de g&eacute;rer les modules dot&eacute;s d'une administration.</li>
-      </ul>
-   </div>
-   <h4 class="card-title">Les x derniers articles</h4>
-      <div class="card card-body">
-         <ul class="p-l-1">
-            <li class="card-text">Affiche la liste des x derniers articles publi&eacute;s sur votre site</li>
-            <li>Le premier enregistrement est le dernier article publi&eacute;</li>
-            <li>Certains articles peuvent &ecirc;tre indiqu&eacute;s en <em>archive</em>, ce sont les articles ayant d&eacute;pass&eacute;s leur date de fin de publication.</li>
-            <li>Pour remettre ces articles dans le flux, il suffit de les &eacute;diter, de cliquer sur l'option 'changer la date' et de modifier leur date de fin de publication.</li>
-            <li>Cliquez sur l'article pour l'&eacute;diter ou utilisez les liens <em>Editer</em>, <em>Effacer</em>.</li>
-            <li>Si vous voulez Editer/Effacer un ancien article, saisissez son ID et s&eacute;lectionnez l'action appropri&eacute;e.</li>
-         </ul>
+         <h4>Introduction</h4>
+         <p>NPDS is an Open-Source French portal generator under the free GNU-GPL license using PHP and MySql technologies which has a multi-language feature that can be configured in the preferences. By default, the portal is in French.</p>
+         <p>The content and interface of this page obviously depends on the rights you have as an administrator (the super administrator will therefore have access to all interfaced functions). The general interface is divided into 3 main blocks</p>
+
+         <h4>Alerts and notifications</h4>
+         <p>The first block brings together alerts/notifications allowing you to process pending administrator tasks. (proposed articles, scheduled articles, users awaiting validation, new links, broken links, etc.)</p>
+
+         <h4>Functions</h4>
+         <p>To manage NPDS, you have access to numerous buttons which are grouped by row according to a classification by type. They appear in the form of icons or text depending on the graphical interface settings defined in the preferences.</p>
+         <div class="card card-body mb-2">
+            <ul class="pl-3">
+               <li>The buttons in the first row allow you to manage the <b>content</b> of your site, once you have clicked on a button you must click on the online manual button to obtain the documentation in relation to the open function.</li>
+               <li>The second row allows you to manage the portal's <b>users</b></li>
+               <li>The third row allows you to manage everything related to <b>communication</b></li>
+               <li>The fourth row allows you to manage the interface of the <b>blocks</b></li>
+               <li>The fifth row allows you to act on the <b>system</b>, the preferences link is one of the most important links. Note the link which allows you to install a module and to know which modules are already installed or not.</li>
+               <li>Finally the last row which allows you to manage <b>modules</b> with administration.</li>
+            </ul>
+         </div>
+
+         <h4 class="my-3">Last x articles</h4>
+         <div class="card card-body mb-2">
+            <ul class="pl-3">
+               <li class="card-text">Displays the list of the last x articles published on your site</li>
+               <li>The first record is the last published article</li>
+               <li>Certain articles can be indicated in <em>archive</em>, these are the articles having passed their end of publication date.</li>
+               <li>To put these articles back in the feed, simply edit them, click on the 'change date' option and modify their publication end date.</li>
+               <li>Click on the article to view it or use the <em>Edit</em><i class="fas fa-edit fa-lg ms-2 text-primary"></i>, <em>Delete</em><i class="fas fa-trash fa-lg ms-2 text-danger"></i> links.</li>
+               <li>If you want to Edit/Delete an old article, enter its ID and select the appropriate action.</li>
+            </ul>
+         </div>
+         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /><span class="text-muted font-italic small float-end">NPDS - Administration manual</span></p>
       </div>
-
-   <center><img class="img-fluid" src="../../images/admin/manuels.gif" border="0" /></center>
-   </div>
    </body>
 </html>

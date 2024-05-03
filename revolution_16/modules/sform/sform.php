@@ -2,11 +2,11 @@
 ################################################################################################
 // Simple Form generator  SFORM / version 1.6 for DUNE
 // Class to manage several Form in a single database(MySql) in XML Format
-// P.Brunier 2001 - 2022
+// P.Brunier 2001 - 2024
 //
 // This program is free software. You can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License.
+// the Free Software Foundation; either version 3 of the License.
 //
 // Based on Form_Handler 19-4-01 Copyright Drs. Jelte 'YeeHaW' Werkhoven
 //

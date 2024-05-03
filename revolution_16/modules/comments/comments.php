@@ -6,11 +6,11 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    die();
@@ -44,7 +44,7 @@ elseif ($moderate==2) {
 
 function Caff_pub($topic, $file_name, $archive) {
    global $language;
-   $tmp='<a href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
+      $tmp='<a href="modules.php?ModPath=comments&ModStart=reply&topic='.$topic.'&file_name='.$file_name.'&archive='.$archive.'" class="btn btn-primary btn-sm" role="button">'.translate("Commentaire").'</a>';
    return ($tmp);
 }
    if ($forum_access==0)
@@ -54,12 +54,14 @@ function Caff_pub($topic, $file_name, $archive) {
          $allow_to_post=true;
 
    global $anonymous;
-   settype($archive,'integer');
+   if(!isset($archive))
+      $archive=0;
    if ($allow_to_post)
       echo '<nav class="text-end my-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
 
    // Pagination
-   settype($C_start,'integer');
+   if(!isset($C_start))
+      $C_start=0;
    settype($comments_per_page,'integer');
    $result=sql_query ("SELECT COUNT(*) AS total FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic' AND post_aff='1'");
    list($total)=sql_fetch_row($result);
@@ -231,9 +233,9 @@ if ($mycount) {
       </div>';
       $count++;
     } while($myrow = sql_fetch_assoc($result));
-    unset ($tmp_imp); // not sure we need ?
+   unset ($tmp_imp); // not sure we need ?
 
-      echo '
+   echo '
       <div class="d-flex my-2 justify-content-between flex-wrap">
          <nav id="co-pagibasse">
             <ul class="pagination pagination-sm d-flex flex-wrap justify-content-end">
@@ -254,20 +256,21 @@ if ($mycount) {
       </div>';
    if ($allow_to_post)
       echo '
-      <nav class="text-end mb-2">'.Caff_pub($topic,$file_name, $archive).'</nav>';
+      <nav class="text-end mb-2">'.Caff_pub($topic, $file_name, $archive).'</nav>';
    echo '
       <blockquote class="blockquote my-3">'.translate("Les commentaires sont la propriété de leurs auteurs. Nous ne sommes pas responsables de leur contenu.").'</blockquote>';
-   if ($Mmod)
-       echo '
+   if ($Mmod) {
+      echo '
       <nav class="text-center">
          <ul class="pagination pagination-sm">
             <li class="page-item disabled">
                <a class="page-link" href="#"><i class="fa fa-cogs fa-lg"></i>&nbsp;'.translate("Outils administrateur").'</a>
             </li>
             <li class="page-item">
-               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.' " title="'.translate("Effacer les commentaires.").'" data-bs-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>
+               <a class="page-link text-danger" href="modules.php?ModPath=comments&amp;ModStart=admin&amp;mode=del&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Effacer les commentaires.").'" data-bs-toggle="tooltip"><i class="fa fa-times fa-lg" ></i></a>
             </li>
          </ul>
       </nav>';
+   }
 }
 ?>

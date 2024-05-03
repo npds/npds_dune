@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -71,7 +71,7 @@ include("functions.php");
    echo translate("Vous êtes connecté en tant que :").' <strong>'.$pseudo.'</strong>&nbsp;';
    echo '
          <input type="hidden" name="name" value="'.$pseudo.'" />
-         <textarea id="chatarea" class="form-control my-3" type="text" rows="2" '.$xJava.' placeholder=""></textarea>
+         <textarea id="chatarea" class="form-control my-3" type="text" rows="2" '.$xJava.' placeholder="🖋"></textarea>
          <div class="float-end">';
          putitems("chatarea");
    echo '

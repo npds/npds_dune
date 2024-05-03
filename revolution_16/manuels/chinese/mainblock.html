@@ -1,33 +1,45 @@
-<html>
-<title>主功能框 - NPDS V</title>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>主功能框</b></center>
-<br/><br/>
-所有的站点都有一个主菜单！您不能删除此功能框，且您仅有一个主菜单。<br/><br/>
-该功能框是您站点上所有功能的出发基础。<br/>
-您可以在该主功能框中使用HTML代码，但是不能使用PHP代码。<br/><br/>
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>管理 - 主块</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_inter.html">菜单 - 界面</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >主块</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">管理 - 主块</h3>
+         <p>所有网站都有主菜单！ 您无法删除此块，并且只能拥有一个。</p>
+         <p>此块对于指向您网站的功能至关重要。<br />在此块中您可以使用 HTML 代码，但不能使用 PHP。</p>
 
-<b>介绍几个主要功能：</b><br/>
-<br/>
-<li>•  a href=static.php?op=premier.txt => 统计页面 
-<li>•  a href=sdv.php?sdv=Annonces => 广告栏 (?sdv=[空间的名字]) 
-<li>•  a href=sdv.php?sdv=Nom%20de%20Salle => 广告栏 (%20 用以代替空格) 
-<li>•  a href=index.php?op=index.php => 新闻 (op=[page de démarrage]) 
-<li>•  a href=forum.php => 论坛 
-<li>•  a href=topics.php => 主题 
-<li>•  a href=sections.php => 栏目 
-<li>•  a href=reviews.php => 评论 
-<li>•  a href=links.php => 友好链接 
-<li>•  a href=download.php => 下载 
-<li>•  a href=memberslist.php => 通讯簿 
-<li>•  a href=faq.php => FAQ 
-<li>•  a href=friend.php => 向朋友推荐 
-<br/><br/>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+         <h4>主要链接提醒：</h4>
+         <ul>
+            <li><code>&lt;a href="static.php?op=premier.txt">静态页面&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="index.php?op=index.php">新闻（op=[起始页]）&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="forum.php">论坛&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="topics.php">主题&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="sections.php">评分表&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="modules.php?ModPath=links&ModStart=links">网络链接&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="reviews.php">评论&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="download.php">下载&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="memberslist.php">目录&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="map.php">站点地图&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="faq.php">常见问题解答&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="friend.php">推荐我们&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="submit.php">提交文章&lt;/a&gt;</code></li>
+            <li><code>&lt;a href="admin.php">管理&lt;/a&gt;</code></li>
+         </ul>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

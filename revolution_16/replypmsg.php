@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -27,7 +27,7 @@ settype($submitS,'string');
 settype($reply,'string');
 settype($Xreply,'string');
 settype($to_user,'string');
-settype($send,'string');
+//settype($send,'string');
 settype($sig,'string');
 settype($copie,'string');
 
@@ -39,9 +39,7 @@ if ($cancel) {
    die();
 }
 
-if (!$user)
-   Header("Location: user.php");
-else {
+if (isset($user)) {
    $userX = base64_decode($user);
    $userdataX = explode(':', $userX);
    $userdata = get_userdata($userdataX[1]);
@@ -151,9 +149,9 @@ else {
       header("Location: viewpmsg.php");
    }
 
-   settype($delete,'integer');
-   if ($delete) {
-      if ($type=='outbox')
+//   settype($delete,'integer');
+   if (isset($delete)) {
+      if (isset($type) and $type=='outbox')
          $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND from_userid='".$userdata['uid']."' AND type_msg='1'";
       else
          $sql = "DELETE FROM ".$NPDS_Prefix."priv_msgs WHERE msg_id='$msg_id' AND to_userid='".$userdata['uid']."'";
@@ -187,7 +185,7 @@ else {
       include("meta/meta.php");
       include("modules/include/header_before.inc");
       include("modules/include/header_head.inc");
-      echo import_css($tmp_theme, $language, $site_font, '','');
+      echo import_css($tmp_theme, $language, '', '','');
       echo '
    </head>
    <body class="my-4 mx-4">';
@@ -246,7 +244,7 @@ else {
             <label class="col-form-label col-sm-3" for="to_user">'.translate("Destinataire").'</label>
             <div class="col-sm-9">';
          if ($reply)
-            echo userpopover($fromuserdata['uname'],48).'
+            echo userpopover($fromuserdata['uname'],48,2).'
                <input class="form-control-plaintext d-inline-block w-75" type="text" id="to_user" name="to_user" value="'.$fromuserdata['uname'].'" readonly="readonly" />';
          else {
             settype($Xto_user,'string');
@@ -417,4 +415,6 @@ else {
          adminfoot('','',$arg1,'foo');
       }
    }
+else
+   Header("Location: user.php");
 ?>

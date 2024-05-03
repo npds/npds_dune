@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /* Translated by :  Zhang Yingzhu                                       */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function adm_translate($phrase) {
@@ -75,12 +75,14 @@ function adm_translate($phrase) {
   case "Activer export-news": $tmp="激活输出文章功能?"; break;
   case "Activer Facebook": $tmp="Activate Facebook"; break;
   case "Activer gestionnaire de fichiers du groupe": $tmp="Enable File manager of the group"; break;
+  case "Activer l'authentification SMTP(S)": $tmp="启用 SMTP(S) 身份验证"; break;
   case "Activer l'éditeur Tinymce": $tmp="激活Tiny-Mce编辑者"; break;
   case "Activer l'icône [N]ouveau pour les catégories": $tmp=" 激活新的分类图标(icon [N])？"; break;
   case "Activer l'upload dans les forums ?": $tmp="激活论坛的上传功能？"; break;
   case "Activer la description simplifiée des Utilisateurs": $tmp="激活对用户的简单描述?"; break;
   case "Activer la résolution DNS pour les posts des forums, IP-Ban, ... ?": $tmp="激活论坛中DNS功能, 这将显示DNS地址?"; break;
   case "Activer le Bloc": $tmp="激活该栏目框"; break;
+  case "Activer le chiffrement": $tmp="启用加密"; break;
   case "Activer le multi-langue": $tmp=" 激活多语言功能？"; break;
   case "Activer le tri des contributions 'résolues'": $tmp="激活对最终文章的选择排列"; break;
   case "Activer les avatars": $tmp="激活表情符号吗？"; break;
@@ -92,7 +94,7 @@ function adm_translate($phrase) {
   case "Activer les textes cachés dans les forums ?": $tmp="激活论坛中的隐藏文字？"; break;
   case "Activer PAD du groupe": $tmp="Enable PAD of the group"; break;
   case "Activer son MiniSite": $tmp="激活会员的Mini网站"; break;
-  case "Activer Twitter": $tmp="Activate Twitter"; break;
+  case "Activer Twitter": $tmp="激活 Twitter"; break;
   case "Activité": $tmp="职业"; break;
   case "Actualiser l'administrateur": $tmp="Update the administrator"; break;
   case "Admin-Plugins": $tmp="管理-插件"; break;
@@ -120,7 +122,7 @@ function adm_translate($phrase) {
   case "Afficher le logo sur la page web links": $tmp="在网站链接的页面上张贴Logo？"; break;
   case "Afficher les resultats des Sondages": $tmp="张贴调查的结果"; break;
   case "Afficher pendant": $tmp="在该期间发表"; break;
-  case "Afficher signature": $tmp="Show signature"; break;
+  case "Afficher signature": $tmp="显示签名"; break;
   case "Afficher votre signature": $tmp="显示签名"; break;
   case "Aide en ligne de ce bloc": $tmp="对本栏目框的在线帮助"; break;
   case "Aide en ligne": $tmp="网上帮助"; break;
@@ -134,7 +136,7 @@ function adm_translate($phrase) {
   case "Ajouter membres": $tmp="Add Members"; break;
   case "Ajouter plus d'affichages": $tmp="添加更多投放: "; break;
   case "Ajouter plus de Forum pour": $tmp="增加更多的论坛为了"; break;
-  case "Ajouter un administrateur": $tmp="Add an administrator"; break;
+  case "Ajouter un administrateur": $tmp="添加管理员"; break;
   case "Ajouter un annonceur": $tmp="添加客户"; break;
   case "Ajouter un Article dans une Rubrique": $tmp="在一个栏目中增加一篇文章"; break;
   case "Ajouter un article": $tmp="添加一篇文章"; break;
@@ -146,7 +148,7 @@ function adm_translate($phrase) {
   case "Ajouter un nouveau Lien": $tmp="添加新链接"; break;
   case "Ajouter un nouveau Sujet": $tmp="添加新主题"; break;
   case "Ajouter un nouvel Annonceur": $tmp="添加客户"; break;
-  case "Ajouter un ou des membres au groupe": $tmp="Add one or several members to the group"; break;
+  case "Ajouter un ou des membres au groupe": $tmp="添加一名或多名成员到群组"; break;
   case "Ajouter un Sujet": $tmp="添加主题!"; break;
   case "Ajouter un Téléchargement": $tmp="添加下载"; break;
   case "Ajouter un Utilisateur": $tmp="添加用户"; break;
@@ -202,13 +204,14 @@ function adm_translate($phrase) {
   case "Auteur(s)": $tmp="作者"; break;
   case "Auteurs actuels": $tmp="当前作者"; break;
   case "Auto-Articles": $tmp="自动文章"; break;
+  case "Automatique": $tmp="自动的"; break;
   case "Autoriser la connexion": $tmp="允许连接"; break;
   case "Autoriser la création automatique des membres": $tmp="允许自动定义新会员吗？"; break;
   case "Autoriser la création de news pour": $tmp=" 仅允许版主/管理员粘贴新帖子"; break;
   case "Autoriser le HTML": $tmp="允许的HTML"; break;
   case "Autoriser les abonnements": $tmp="允许预定？"; break;
   case "Autoriser les autres Utilisateurs à voir mon adresse E-mail ?": $tmp="允许其他注册用户看见我的email地址?"; break;
-  case "Autoriser les autres utilisateurs à voir son adresse E-mail": $tmp="Allow other users to view his email address"; break;
+  case "Autoriser les autres utilisateurs à voir son adresse E-mail": $tmp="允许其他用户查看他的电子邮件地址"; break;
   case "Autoriser les commentaires anonymes": $tmp="允许匿名评论吗？"; break;
   case "Autoriser les membres Invisibles": $tmp=" 允许隐藏会员？"; break;
   case "Autoriser les Signatures": $tmp="允许使用签名档"; break;
@@ -219,10 +222,10 @@ function adm_translate($phrase) {
   case "Bannières actives": $tmp="当前播放广告"; break;
   case "Bannières inactives": $tmp="当前非激活的Banners"; break;
   case "Bannières terminées": $tmp="已完成广告"; break;
-  case "Bannières": $tmp="Banners"; break;
+  case "Bannières": $tmp="广告横幅"; break;
   case "Blackboard": $tmp="Blackboard"; break;
   case "Bloc Administration": $tmp="管理栏"; break;
-  case "Bloc Principal": $tmp="页中主栏目框"; break;
+  case "Bloc Principal": $tmp="主块"; break;
   case "Blocs": $tmp="栏目框"; break;
   case "Bonjour et bienvenue dans l'installation automatique du module": $tmp="Hello and welcome on the automatic installation of the module"; break;
   case "Bonjour": $tmp="您好"; break;
@@ -281,10 +284,11 @@ function adm_translate($phrase) {
   case "Combien de référants au maximum": $tmp="您希望最多记录多少来访路径？"; break;
   case "comme modérateur du forum": $tmp="as forum moderator"; break;
   case "Commentaire": $tmp="评论"; break;
-  case "Communication": $tmp="Communication"; break;
+  case "Communication": $tmp="沟通"; break;
   case "Compte E-mail (Provenance)": $tmp="Email帐户（来自）：:"; break;
   case "Compteur": $tmp="计数器"; break;
-  case "Configuration de la page": $tmp="Page setting"; break;
+  case "Configuration de la page": $tmp="页面设置"; break;
+  case "Configuration de PHPmailer SMTP(S)": $tmp="配置 PHPmailer SMTP(S)"; break;
   case "Configuration des Forums": $tmp="论坛结构"; break;
   case "Configuration des infos en Backend & Réseaux Sociaux": $tmp="Configuration for Backend & Social Networks"; break;
   case "Configuration Forums": $tmp="Forums Configuration"; break;
@@ -326,6 +330,7 @@ function adm_translate($phrase) {
   case "Critiques": $tmp="评论"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
   case "dans": $tmp="在"; break;
+  case "dans le groupe": $tmp="在群里"; break;
   case "Date :": $tmp="日期：:"; break;
   case "Date de début": $tmp="起始日期"; break;
   case "Date de démarrage du site": $tmp="站点开通日期:"; break;
@@ -334,6 +339,8 @@ function adm_translate($phrase) {
   case "Date": $tmp="日期"; break;
   case "de": $tmp="的"; break;
   case "Déconnexion": $tmp="注销"; break;
+  case "Demande acceptée.": $tmp="请求已接受."; break;
+  case "Demande refusée pour votre participation au groupe": $tmp="您参加群组的请求被拒绝"; break;  
   case "Déplier la liste": $tmp="Show list"; break;
   case "Dernière optimisation effectuée le": $tmp="最近一次优化"; break;
   case "Derniers": $tmp="最近"; break;
@@ -353,11 +360,15 @@ function adm_translate($phrase) {
   case "Diffusion d'un Message Interne": $tmp=" 发送一个内部消息"; break;
   case "Distribution": $tmp="描述"; break;
   case "Divers": $tmp="多种"; break;
+  case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM（如果存在且有效）。"; break;
   case "DNS ou serveur de mail incorrect": $tmp="DNS或不正确的邮件服务器"; break;
+  case "Doit être un mot sans espace.": $tmp="必须是一个没有空格的单词。"; break;
+  case "Doit être un nom de fichier valide avec une de ces extensions : jpg, jpeg, png, gif.": $tmp="必须是带有以下扩展名之一的有效文件名：jpg、jpeg、png、gif。"; break;
   case "Droits de publication": $tmp="发表文章之权益"; break;
   case "Droits des auteurs": $tmp="作者所有权"; break;
   case "Droits modules": $tmp="Addons perms"; break;
   case "Droits": $tmp="权利"; break;
+  case "Du DNS": $tmp="来自 DNS"; break;
   case "du groupe": $tmp="from the group"; break;
   case "Durée de vie en heure du cookie Admin": $tmp=" 管理员Cookie的有效时间（小时）"; break;
   case "Durée de vie en heure du cookie User": $tmp=" 用户Cookie的有效时间（小时）"; break;
@@ -402,7 +413,7 @@ function adm_translate($phrase) {
   case "Edition du Bloc Principal": $tmp=" 对页中主栏目框的编辑"; break;
   case "Edition Forums": $tmp="Forums Edition"; break;
   case "Edition": $tmp=" 编辑中"; break;
-  case "Edito": $tmp="管理员评论"; break;
+  case "Edito": $tmp="社论"; break;
   case "Editorial ajouté à la base de données": $tmp="管理员评论已经添加到数据库"; break;
   case "Editorial modifié": $tmp="管理员评论已修改"; break;
   case "Editorial supprimé de la base de données": $tmp="管理员评论已删除"; break;
@@ -437,7 +448,7 @@ function adm_translate($phrase) {
   case "Envoyer à tous les membres": $tmp="发送给所有会员"; break;
   case "Envoyer La Lettre": $tmp="发送信件"; break;
   case "Envoyer par E-mail les nouveaux Articles à l'Administrateur": $tmp="通过Email发送新文章给管理员？"; break;
-  case "Envoyer un courriel à": $tmp="Send an Email to"; break;
+  case "Envoyer un courriel à": $tmp="发送电子邮件到"; break;
   case "Envoyer": $tmp="送出"; break;
   case "Ephémérides": $tmp="历史上的今天"; break;
   case "ERREUR : cet identifiant est déjà utilisé": $tmp="错误：这个呢称已经有人使用了。"; break;
@@ -451,7 +462,7 @@ function adm_translate($phrase) {
   case "est terminée !": $tmp="is ended!"; break;
   case "et tous ses Commentaires ?": $tmp="和所有相关评论？"; break;
   case "et toutes ses bannières !!!": $tmp="和所有他的Banners !!!"; break;
-  case "Etape suivante": $tmp="Following stage"; break;
+  case "Etape suivante": $tmp="下一步"; break;
   case "Etat : ": $tmp="状态:"; break;
   case "Etat": $tmp="状态"; break;
   case "Etes-vous certain de vouloir effacer cette publication ?": $tmp="您肯定要删除该发表信息吗？"; break;
@@ -465,8 +476,8 @@ function adm_translate($phrase) {
   case "Etes-vous sûr de vouloir effacer": $tmp="您肯定要删除吗？"; break;
   case "Etes-vous sûr de vouloir EFFACER": $tmp="肯定要删除"; break;
   case "Etes-vous sûr de vouloir supprimer cette boîte de Titres ?": $tmp="WARNING: Are you sure you want to delete this Headline?"; break;
-  case "Exclure TOUS les membres du groupe": $tmp="Exclude ALL members from the group"; break;
-  case "Exclure": $tmp="Exclude"; break;
+  case "Exclure TOUS les membres du groupe": $tmp="从组中排除所有成员"; break;
+  case "Exclure": $tmp="排除"; break;
   case "Exemple": $tmp="例子"; break;
   case "existe déjà !": $tmp="已经存在!"; break;
   case "Expédier en tant": $tmp="send as"; break;
@@ -477,43 +488,44 @@ function adm_translate($phrase) {
   case "Faq": $tmp="常见问题 (FAQ)"; break;
   case "Fermé": $tmp="关闭"; break;
   case "Fermer les nouvelles inscriptions": $tmp="关闭新的注册?"; break;
-  case "Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.": $tmp="Missing configuration file. Impossible installation/uninstallation."; break;
+  case "Fichier de configuration automatique absent. Installation/désinstallation automatique impossible.": $tmp="自动配置文件丢失。 无法自动安装/卸载。"; break;
   case "Fichier de formulaire": $tmp="Form file"; break;
-  case "Fichiers configurations": $tmp="Setting files"; break;
+  case "Fichiers configurations": $tmp="配置文件"; break;
   case "Fichiers dans /slogs. table par table, lignes par lignes, tables scindées : limite": $tmp=" 在/slogs.中的文件，是逐次按照表格，行，分裂表格排列的 : 限制"; break;
   case "Fichiers dans /slogs. table par table, tables non scindées : limite": $tmp=" 在/slogs中的文件. 表格逐次排列, 完整表格 : 有限"; break;
   case "Filtre": $tmp="Filter"; break;
   case "Fonction mail à utiliser": $tmp="使用什么邮件功能？"; break;
   case "Fonctions": $tmp="功能"; break;
-  case "Format de données": $tmp="Data format"; break;
-  case "Format de fichier": $tmp="File format"; break;
+  case "Format de données": $tmp="数据格式"; break;
+  case "Format de fichier": $tmp="文件格式"; break;
   case "Forum classé en": $tmp="论坛分类排列的顺序为"; break;
   case "Forum d'origine": $tmp="根论坛"; break;
   case "Forum de destination": $tmp="目标论坛"; break;
   case "Fréquence de visite des Robots/Spiders": $tmp="Robots访问的频率 "; break;
   case "Fusionner des forums": $tmp="合并论坛"; break;
-  case "Gain réalisable": $tmp="Gained"; break;
+  case "Gain réalisable": $tmp="可达到的增益"; break;
   case "Gain total réalisé": $tmp="优化后得到的新空间"; break;
+  case "génération automatique du DKIM par le portail.": $tmp="由门户自动生成 DKIM。"; break;
   case "Gérer les Liens Relatifs : ": $tmp="管理相关链接"; break;
   case "Gestion des blocs": $tmp="Blocs management"; break;
   case "Gestion des forums": $tmp="Forums management"; break;
   case "Gestion des groupes": $tmp="组的管理"; break;
   case "Gestion des sujets": $tmp="Topics management"; break;
   case "Gestion des Sujets": $tmp="主题管理"; break;
-  case "Gestion modules": $tmp="Modules management"; break;
+  case "Gestion modules": $tmp="管理模块"; break;
   case "Gestion, Installation Modules": $tmp="安装-模版"; break;
   case "Gestionnaire de Fichiers": $tmp="对文件的管理"; break;
-  case "Gestionnaire Fichiers": $tmp="Files Manager"; break;
+  case "Gestionnaire Fichiers": $tmp="文件管理器"; break;
   case "Grands Titres de sites de News": $tmp="新闻站点头条标题"; break;
   case "Groupe de travail": $tmp="Workgroup"; break;
-  case "Groupe ID": $tmp="Group ID"; break;
+  case "Groupe ID": $tmp="群组ID"; break;
   case "Groupe": $tmp="组"; break;
   case "Groupes": $tmp="组"; break;
   case "Hauteur de l'image du backend": $tmp="Backend图片的高度"; break;
   case "Heure locale": $tmp="当地时间:"; break;
   case "Heure": $tmp="小时"; break;
   case "Hors Ligne": $tmp="离线"; break;
-  case "Icône": $tmp="Icon"; break;
+  case "Icône": $tmp="图标"; break;
   case "ID Article:": $tmp="文章ID:"; break;
   case "ID Utilisateur": $tmp="用户ID"; break;
   case "ID": $tmp="ID"; break;
@@ -533,7 +545,7 @@ function adm_translate($phrase) {
   case "images": $tmp=" 图片"; break;
   case "Imp. restantes": $tmp="剩余投放次数"; break;
   case "Imp.": $tmp="投放次数."; break;
-  case "Impossible d'écrire dans le fichier \"": $tmp="Impossible to write in the file \""; break;
+  case "Impossible d'écrire dans le fichier \"": $tmp="无法在文件中写入 \""; break;
   case "Impressions réservées": $tmp="已付费投放次数: "; break;
   case "Impressions": $tmp="投放次数"; break;
   case "Inactif(s)": $tmp=" 关闭（非激活状态）"; break;
@@ -543,7 +555,7 @@ function adm_translate($phrase) {
   case "Informations": $tmp="Informations"; break;
   case "Infos Groupe": $tmp="Group Information"; break;
   case "Installer le module": $tmp="安装模版"; break;
-  case "Interface": $tmp="Interface"; break;
+  case "Interface": $tmp="界面"; break;
   case "Interne": $tmp="内部的"; break;
   case "Intitulé du Sondage": $tmp="调查的标题"; break;
   case "Intitulé du Sujet :": $tmp="主题名称:"; break;
@@ -552,9 +564,9 @@ function adm_translate($phrase) {
   case "Jour": $tmp="天"; break;
   case "jour(s)": $tmp="天"; break;
   case "L'installation automatique du module": $tmp="The automatic installation of the module"; break;
-  case "L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :": $tmp="The use of NPDS and the modules is submissive with the acceptance of the terms of licence GNU/GPL:"; break;
+  case "L'utilisation de NPDS et des modules est soumise à l'acceptation des termes de la licence GNU/GPL :": $tmp="NPDS 和模块的使用必须接受 GNU/GPL 许可条款:"; break;
   case "la Catégorie": $tmp="目录"; break;
-  case "La configuration de la base de données MySql a réussie !": $tmp="The configuration of the MySql database succeeded!"; break;
+  case "La configuration de la base de données MySql a réussie !": $tmp="MySql数据库配置成功！"; break;
   case "La configuration du(des) bloc(s) a réussi !": $tmp="The configuration of (the) block(s) succeeded!"; break;
   case "La désinstallation des modules n'est pas prise en charge de façon automatique à l'heure actuelle.": $tmp="The desinstallation of the addons is not dealt with automatic of way at the present time."; break;
   case "La Lettre": $tmp="信笺 NewsLetter"; break;
@@ -576,24 +588,24 @@ function adm_translate($phrase) {
   case "Le programme d'installation va maintenant modifier le(s) fichier(s) suivant(s) :": $tmp="The installer is now going to modify the following file(s) :"; break;
   case "Le répertoire courant est : ": $tmp="当前目录为："; break;
   case "Le répertoire": $tmp="目录（文件夹）"; break;
-  case "Les administrateurs": $tmp="The administrators"; break;
+  case "Les administrateurs": $tmp="管理员们"; break;
   case "Les articles en archive": $tmp="存档中的文章"; break;
   case "Les articles en ligne": $tmp="在线文章"; break;
-  case "Les fichiers de configuration": $tmp="The configuration files"; break;
+  case "Les fichiers de configuration": $tmp="配置文件"; break;
   case "Les modules": $tmp="Addons"; break;
-  case "Les paramètres ont été correctement écrits dans le fichier \"": $tmp="Parameters are correctly written in the file \""; break;
+  case "Les paramètres ont été correctement écrits dans le fichier \"": $tmp="文件中参数写入正确 \""; break;
   case "Les paramètres sont déjà inscrits dans le fichier \"": $tmp="Parameters are already written in the file \""; break;
   case "Les plus récents": $tmp="最新"; break;
   case "Les sondages": $tmp="民意调查"; break;
   case "les URLs que vous aurez renseignés ci-après (ne renseigner que la racine de l'URI)": $tmp="The URL that you will have informed below (Inform only the root of the URI)"; break;
   case "Lettre D'info": $tmp="信笺 NewsLetter"; break;
   case "Lien N° : ": $tmp="链接ID: "; break;
-  case "Liens à valider.": $tmp="Links waiting for checking."; break;
+  case "Liens à valider.": $tmp="网页链接等待检查。"; break;
   case "Liens cassés rapportés par un ou plusieurs Utilisateurs": $tmp="来自用户的断链接的报告"; break;
   case "Liens en attente de validation": $tmp="等待的链接"; break;
   case "Liens locaux sauf page courante": $tmp="链接，不含当前页面"; break;
   case "Liens relatifs : ": $tmp="相关链接:"; break;
-  case "Liens rompus à valider.": $tmp="Broken links waiting for checking."; break;
+  case "Liens rompus à valider.": $tmp="损坏的网页链接等待检查。"; break;
   case "Liens Web": $tmp="网站链接"; break;
   case "Liens": $tmp="链接"; break;
   case "Ligne 1": $tmp="页面底部内容 1"; break;
@@ -609,9 +621,9 @@ function adm_translate($phrase) {
   case "Liste des membres": $tmp="会员列表"; break;
   case "Liste des questions réponses": $tmp="Questions Answers list"; break;
   case "Liste des rubriques": $tmp="Sections list"; break;
-  case "Liste des sondages": $tmp="Polls list"; break;
+  case "Liste des sondages": $tmp="调查列表"; break;
   case "Logo du site pour les impressions": $tmp="站点Logo:"; break;
-  case "Logs": $tmp="Logs"; break;
+  case "Logs": $tmp="日志 Logs"; break;
   case "Longueur minimum du mot de passe des utilisateurs": $tmp="用户的密码的最小长度："; break;
   case "M'envoyer un Mel lorsque qu'un Msg Int. arrive": $tmp=" 有消息时，以邮件形式通知我"; break;
   case "Maintenance des Ephémérides (Editer/Effacer)": $tmp="项目维护(编辑/删除)：:"; break;
@@ -628,14 +640,14 @@ function adm_translate($phrase) {
   case "Membre": $tmp="位用户"; break;
   case "Membres": $tmp="位用户"; break;
   case "Menu Administration": $tmp="管理菜单"; break;
-  case "Menu": $tmp="Menu"; break;
+  case "Menu": $tmp="菜单"; break;
   case "Merci d'entrer l'information en fonction des spécifications": $tmp="请依照说明输入信息"; break;
   case "Merci de fournir une nouvelle adresse Email valide.": $tmp="请提供有效的新电子邮件地址。"; break;
   case "Merci pour votre Contribution !": $tmp="谢谢您的提交文章！!"; break;
   case "Message d'entête": $tmp="消息的抬头"; break;
   case "Message de l'E-mail": $tmp="电子邮件的信息:"; break;
   case "Message de pied de page": $tmp="页面底部显示信息"; break;
-  case "Message Interne": $tmp="Private message"; break;
+  case "Message Interne": $tmp="内部私信"; break;
   case "Message": $tmp="Message"; break;
   case "Meta obligatoire, ne pas le modifier ou le supprimer": $tmp="Compulsory Meta, not to modify it or to suppress it"; break;
   case "META-LANG": $tmp="META-LANG"; break;
@@ -660,16 +672,16 @@ function adm_translate($phrase) {
   case "Modifier la Catégorie": $tmp="编辑分类"; break;
   case "Modifier le groupe": $tmp="Modify the group"; break;
   case "Modifier le lien": $tmp="修改链接"; break;
-  case "Modifier le(s) fichier(s)": $tmp="Alter the file(s)"; break;
+  case "Modifier le(s) fichier(s)": $tmp="更改文件"; break;
   case "Modifier les Liens": $tmp="修改链接"; break;
   case "Modifier un ": $tmp="Change a "; break;
   case "Modifier un Bloc droit": $tmp="修改一个页右栏目框"; break;
   case "Modifier un Bloc gauche": $tmp="修改一项页左栏目框"; break;
   case "Modifier un utilisateur": $tmp="修改一个用户"; break;
   case "Modifier": $tmp="修改"; break;
-  case "Module installé": $tmp="Module installed"; break;
-  case "Module": $tmp="Module"; break;
-  case "Modules": $tmp="Addons"; break;
+  case "Module installé": $tmp="模块已安装"; break;
+  case "Module": $tmp="模块"; break;
+  case "Modules": $tmp="模块"; break;
   case "Mois": $tmp="月"; break;
   case "Mot de Passe : ": $tmp="客户密码: "; break;
   case "Mot de Passe": $tmp="密码"; break;
@@ -683,6 +695,7 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="进入等级"; break;
   case "Niveau de l'Utilisateur": $tmp="会员等级"; break;
   case "Nom : ": $tmp="名字: "; break;
+  case "Nom d'utilisateur": $tmp="用户名"; break;
   case "Nom d'utilisateur anonyme": $tmp="匿名默认名:"; break;
   case "Nom de fichier": $tmp="文件名"; break;
   case "Nom de l'annonceur": $tmp="客户名"; break;
@@ -694,6 +707,7 @@ function adm_translate($phrase) {
   case "Nom du Contact": $tmp="联系姓名"; break;
   case "Nom du forum": $tmp="版面名称"; break;
   case "Nom du produit": $tmp="产品名称:"; break;
+  case "Nom du serveur": $tmp="服务器名称"; break;
   case "Nom du site : ": $tmp="站点名称:"; break;
   case "Nom du site pour la balise title": $tmp="网站的标题<b>Title</b>"; break;
   case "Nom du site": $tmp="站点名称"; break;
@@ -735,14 +749,14 @@ function adm_translate($phrase) {
   case "Optimisation de la base de données": $tmp="优化数据库"; break;
   case "Optimisation effectuée": $tmp="Optimization done"; break;
   case "optimisée": $tmp="已优化"; break;
-  case "OptimySQL": $tmp="优化MySql"; break;
+  case "OptimySQL": $tmp="优化 MySql"; break;
   case "Option : ": $tmp="选项: "; break;
   case "Option": $tmp="选项"; break;
   case "Options des sondages": $tmp="调查的选项"; break;
   case "Options pour les Bannières": $tmp="Banners的选项"; break;
   case "Options pour les Commentaires": $tmp="评论的选项"; break;
   case "Original": $tmp="原始的"; break;
-  case "Oter": $tmp="Remove"; break;
+  case "Oter": $tmp="去掉"; break;
   case "ou les affecter à une autre Catégorie.": $tmp="或者您可以移动这些文章和评语到另外一个分类."; break;
   case "Oui": $tmp="是"; break;
   case "Page courante sans liens locaux": $tmp="当前页面，不含链接"; break;
@@ -752,7 +766,7 @@ function adm_translate($phrase) {
   case "par exemple : genial.png": $tmp="（例如: games.gif）"; break;
   case "par": $tmp="由"; break;
   case "Paramètres liés à l'illustration": $tmp="某个插图的参数"; break;
-  case "Paramètres": $tmp="Parameters"; break;
+  case "Paramètres": $tmp="参数"; break;
   case "Parcourir": $tmp=" 浏览"; break;
   case "Pas d'affichage du cache": $tmp ="No use of cache"; break;
   case "Pas d'installeur disponible": $tmp="没有可执行的自动安装文件"; break;
@@ -761,7 +775,7 @@ function adm_translate($phrase) {
   case "Pas de nouveaux Articles postés": $tmp="没有新提交"; break;
   case "Petite Lettre D'information": $tmp="信笺 NewsLetter"; break;
   case "Pied": $tmp="页面底部"; break;
-  case "Polices du site": $tmp="站点的字体:"; break;
+  case "Port TCP": $tmp="TCP 端口"; break;
   case "Position": $tmp="Position"; break;
   case "Poster un Article ": $tmp="发表文章"; break;
   case "Poster un Article Admin": $tmp=" 张贴一个管理文章"; break;
@@ -780,6 +794,7 @@ function adm_translate($phrase) {
   case "Proposition de modifications de Liens": $tmp="链接修改请求"; break;
   case "Propriétaire de la page Web : ": $tmp="该网页的主人是："; break;
   case "Propriétaire": $tmp="所有者"; break;
+  case "Protocole de chiffrement": $tmp="加密协议"; break;
   case "Public": $tmp="公开"; break;
   case "Publication Anonyme autorisée": $tmp="匿名粘贴"; break;
   case "publication(s) attachée(s)": $tmp="相关的发表文章"; break;
@@ -839,8 +854,8 @@ function adm_translate($phrase) {
   case "Sauver l'Article Automatique": $tmp="保存自动文章"; break;
   case "Sauver les modifications": $tmp="保存更改"; break;
   case "Sauver": $tmp="Save"; break;
-  case "SavemySQL": $tmp="保存mySQL"; break;
-  case "Script": $tmp="Script"; break;
+  case "SavemySQL": $tmp="保存 mySQL"; break;
+  case "Script": $tmp="脚本"; break;
   case "Sélectionner la langue du site": $tmp="选择语言:"; break;
   case "Sélectionner la nouvelle Catégorie : ": $tmp="请选择新分类:"; break;
   case "Sélectionner un Sujet": $tmp="选择主题"; break;
@@ -852,7 +867,7 @@ function adm_translate($phrase) {
   case "Seuil pour les Sujet 'chauds'": $tmp="热门主题的界限"; break;
   case "Seulement aux membres": $tmp="仅注册用户"; break;
   case "Seulement aux prospects": $tmp=" 仅限于潜在用户"; break;
-  case "Seulement pour ...": $tmp="Only for...."; break;
+  case "Seulement pour ...": $tmp="只为..."; break;
   case "Si Super administrateur est coché, cet administrateur aura TOUS les droits.": $tmp="如果选择了超级用户，该用户可以使用所有功能。"; break;
   case "Si vous le souhaitez, vous pouvez exécuter ce script vous même, si vous souhaitez par exemple l'exécuter sur une autre base que celle du site. Dans ce cas, pensez à reparamétrer le fichier de configuration du module.": $tmp="If you wish it, you can run this script you even, if you wish for example to run it on another base than that of the site. In that case, think of re-setting the file of configuration of the module."; break;
   case "Si vous préférez créer vous même le(s) bloc(s), cliquez sur 'Sauter cette étape et afficher le code du(des) bloc(s)' pour visualiser le code à taper dans le(s) bloc(s).": $tmp="If you prefer to create you even (the) block(s), click on 'Jump this stage and display the code of (the) block(s)' to show the code to be typed in (the) block(s)."; break;
@@ -885,7 +900,7 @@ function adm_translate($phrase) {
   case "Suppression effectuée": $tmp=" 删除操作完成"; break;
   case "Supprimer cette Critique": $tmp="删除该评论"; break;
   case "Supprimer forum du groupe": $tmp="Delete forum of the group"; break;
-  case "Supprimer groupe": $tmp="Delete group"; break;
+  case "Supprimer groupe": $tmp="删除组"; break;
   case "Supprimer l'Annonceur": $tmp="删除广告客户"; break;
   case "Supprimer la question réponse": $tmp="Delete the Question Answer"; break;
   case "Supprimer la rubrique": $tmp="Delete section"; break;
@@ -899,7 +914,7 @@ function adm_translate($phrase) {
   case "Surnom": $tmp="别名"; break;
   case "Synchroniser les forums": $tmp="使论坛同步"; break;
   case "Système de Messagerie (Email)": $tmp="邮件系统"; break;
-  case "Système": $tmp="System"; break;
+  case "Système": $tmp="系统"; break;
   case "Table": $tmp="表"; break;
   case "Tableau de Bord": $tmp="管理参数表"; break;
   case "Taille actuelle": $tmp="当前尺寸"; break;
@@ -909,7 +924,7 @@ function adm_translate($phrase) {
   case "Taille": $tmp="大小"; break;
   case "Téléchargements": $tmp="下载"; break;
   case "Télécharger URL": $tmp="下载地址："; break;
-  case "Temps de rétention en secondes": $tmp="Retention time in seconds"; break;
+  case "Temps de rétention en secondes": $tmp="保留时间（秒）"; break;
   case "Texte : ": $tmp="文本:"; break;
   case "Texte complet": $tmp="完整文章"; break;
   case "Texte d'introduction": $tmp="介绍文章"; break;
@@ -961,12 +976,14 @@ function adm_translate($phrase) {
   case "URL pour le fichier RDF/XML : ": $tmp="RDF/XML 文件的地址"; break;
   case "Url": $tmp="Url"; break;
   case "URL": $tmp="URL"; break;
-  case "Utilisateur en attente de validation !": $tmp="User(s) awaiting validation"; break;
+  case "Utilisateur en attente de groupe !": $tmp="用户等待进群！"; break;
+  case "Utilisateur en attente de validation !": $tmp="等待验证的用户"; break;
   case "Utilisateur enregistré uniquement": $tmp="仅注册用户"; break;
   case "Utilisateur enregistré": $tmp="注册用户"; break;
   case "Utilisateur inexistant !": $tmp="用户不存在！!"; break;
   case "Utilisateur": $tmp="用户"; break;
   case "Utilisateurs": $tmp="用户"; break;
+  case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="如果启用了 TLS 加密，请使用 587"; break;  
   case "Validation de votre publication": $tmp=" 对你的发表文章进行确认生效"; break;
   case "Valider": $tmp="确定"; break;
   case "Version": $tmp="版本"; break;
@@ -977,13 +994,13 @@ function adm_translate($phrase) {
   case "Veuillez nommer différement ce nouveau META-MOT": $tmp="Please choose another name for this new META-MOT"; break;
   case "Vider le répertoire cache": $tmp="清空临时内存目录"; break;
   case "Visite": $tmp="访问"; break;
-  case "Visiter le site web": $tmp="Visit the web site"; break;
+  case "Visiter le site web": $tmp="访问网站"; break;
   case "Visiter": $tmp="Visit"; break;
   case "Visualiser": $tmp="查看"; break;
   case "Voici la description du(des) bloc(s) qui sera(seront) créé(s) :": $tmp="Here is the description of (the) block(s) which will be created:"; break;
   case "Voici le code à taper dans le fichier :": $tmp="Here is the code to type in the file:"; break;
   case "Voici le code des bloc(s) :": $tmp="Here is the code of block(s):"; break;
-  case "Voici le script SQL :": $tmp="Here is the SQL script:"; break;
+  case "Voici le script SQL :": $tmp="这是 SQL 脚本:"; break;
   case "Voir les forums de cette catégorie": $tmp="Show the forums of this category"; break;
   case "Voir": $tmp="见"; break;
   case "Vos droits de publications vous permettent de mettre à jour ou de supprimer ce contenu mais pas de la mettre en ligne sur le site.": $tmp="您对该发表文章的所有权益允许您更新或删除之，但是不能使之在线生效。"; break;
@@ -996,7 +1013,7 @@ function adm_translate($phrase) {
   case "Votre Lien": $tmp="您的链接在"; break;
   case "Votre situation géographique": $tmp="您的住址"; break;
   case "Vous allez exclure TOUS les membres du groupe": $tmp="You will exclude ALL members from the group"; break;
-  case "Vous allez supprimer le groupe": $tmp="You will delete the group"; break;
+  case "Vous allez supprimer le groupe": $tmp="您将删除该组"; break;
   case "Vous avez choisi de configurer manuellement vos blocs. Voici le contenu de ceux-ci :": $tmp="You chose to configure manually your blocks. Here is the contents of these:"; break;
   case "Vous devez désinstaller le module manuellement. Pour cela, référez vous au fichier install.txt de l'archive du module, et faites les opérations inverses de celles décrites dans la section \"Installation manuelle\", et en partant de la fin.": $tmp="You owe to uninstall manually the addon. For that, refer to the file install.txt of the file of the addon, and make the operations opposite of those described in the section \"Installation manual\", and on the basis of the end."; break;
   case "Vous devez remplir tous les Champs": $tmp="您必须填写所有的表栏"; break;

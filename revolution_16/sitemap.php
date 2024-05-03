@@ -3,12 +3,12 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2023 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /* Based on Script for NPDS by Alexandre Pirard  / www.pascalex.net     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (stristr($_SERVER['PHP_SELF'],'sitemap.php')) die();
 
@@ -109,7 +109,8 @@ function sitemapothers($PAGES) {
    global $nuke_url;
    $tmp='';
    foreach($PAGES as $name => $loc) {
-      if (array_key_exists('sitemap',$PAGES[$name])) {
+      if(isset($PAGES[$name]['sitemap']))
+       {
          if (($PAGES[$name]['run']=="yes") and ($name!="article.php") and ($name!="forum.php") and ($name!="sections.php") and ($name!="download.php")) {
             $tmp .= "<url>\n";
             $tmp .= "<loc>$nuke_url/".str_replace("&","&amp;",$name)."</loc>\n";
@@ -130,17 +131,14 @@ function sitemap_create($PAGES, $filename) {
    $ibid .= "xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"\n";
    $ibid .= "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n";
    $ibid .= "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9\n http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n\n";
-   
-   if (array_key_exists('sitemap',$PAGES['article.php']))
+
+   if (isset($PAGES['article.php']['sitemap']))
       $ibid.=sitemaparticle($PAGES['article.php']['sitemap']);
-
-   if (array_key_exists('sitemap',$PAGES['forum.php']))
+   if (isset($PAGES['forum.php']['sitemap']))
       $ibid.=sitemapforum($PAGES['forum.php']['sitemap']);
-
-   if (array_key_exists('sitemap',$PAGES['sections.php']))
+   if (isset($PAGES['sections.php']['sitemap']))
       $ibid.=sitemaprub($PAGES['sections.php']['sitemap']);
-
-   if (array_key_exists('sitemap',$PAGES['download.php']))
+   if (isset($PAGES['download.php']['sitemap']))
       $ibid.=sitemapdown($PAGES['download.php']['sitemap']);
 
    $ibid.=sitemapothers($PAGES);
@@ -158,7 +156,7 @@ function sitemap_create($PAGES, $filename) {
 $filename="cache/sitemap.xml";
 // delais = 6 heures (21600 secondes)
 $refresh=21600;
-
+global $PAGES;
 if (file_exists($filename)) {
    if (time()-filemtime($filename)-$refresh > 0) {
       sitemap_create($PAGES, $filename);

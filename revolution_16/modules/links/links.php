@@ -5,13 +5,13 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFORM extentions                           */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
@@ -22,12 +22,10 @@ include_once("modules/$ModPath/links.conf.php");
 if ($links_DB=='') $links_DB=$NPDS_Prefix;
 
 function menu() {
-   global $ModPath, $ModStart, $links_anonaddlinklock,$op;
-   $ad_l='';$ne_l='';$in_l='';
-   if($op=='NewLinks') $ne_l='active'; else $ne_l='';
-   if($op=='AddLink') $ad_l='active'; else $ad_l='';
-   if($op=='') $in_l='active'; else $in_l='';
-
+   global $ModPath, $ModStart, $links_anonaddlinklock, $op;
+   $ne_l = $op=='NewLinks' ? 'active' : '';
+   $ad_l = $op=='AddLink' ? 'active' : '';
+   $in_l = $op=='' ? 'active' : '';
    echo '
    <ul class="nav nav-tabs mb-3">
       <li class="nav-item"><a class="nav-link '.$in_l.'" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'" >'.translate("Index").'</a></li>';
@@ -81,7 +79,7 @@ function SearchForm() {
 }
 
 function mainheader() {
-   menu();//
+   menu();
 }
 
 function autorise_mod($lid,$aff) {
@@ -207,9 +205,6 @@ function FooterOrderBy($cid, $sid, $orderbyTrans, $linkop) {
           '.translate("Date").' <a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateA"><i class="fas fa-sort-numeric-down fa-lg align-middle"></i></a><a class="me-3" href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=viewslink&amp;sid='.$sid.'&amp;orderby=dateD"><i class="fas fa-sort-numeric-down-alt fa-lg align-middle"></i></a>';
    }
    echo '<br />'.translate("Sites classés par").' : <strong>'.$orderbyTrans.'</strong></span></p>';
-
-
-
 /*
 echo '
 <div class="btn-group">
@@ -226,12 +221,6 @@ echo '
 </div>';
 
 */
-
-
-
-
-
-
 }
 
 function viewlink($cid, $min, $orderby, $show) {
@@ -319,7 +308,6 @@ function viewlink($cid, $min, $orderby, $show) {
 
 function viewslink($sid, $min, $orderby, $show) {
    global $ModPath, $ModStart, $links_DB, $admin, $perpage;
-   $perpage =2;//# to test debug
    include("header.php");
    include_once('functions.php');
 
@@ -356,7 +344,6 @@ function viewslink($sid, $min, $orderby, $show) {
       echo "<br />\n";
       $link_fiche_detail='';
       include_once("modules/$ModPath/links-view.php");
-//      echo "<br />\n";
 
       $orderby = convertorderbyout($orderby);
 
@@ -504,7 +491,6 @@ function viewlinkeditorial($lid, $ttitle) {
       echo '<p class="text-center">'.translate("Aucun édito n'est disponible pour ce site").'</p><br />';
    echo '
    </div>';
-   sql_free_result();
    include("footer.php");
 }
 

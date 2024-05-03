@@ -11,7 +11,7 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
                <li class="breadcrumb-item"><a href="men_syst.html">Sistema</a></li>
                <li class="breadcrumb-item active">Preferencias</li>
@@ -58,31 +58,29 @@ Solo funciona con Php 4.05 (o>) + el Zlib activo (hacer un phpinfo ();) y para A
          <h5>Cantidad de elementos en la pagina TOP x</h5>
          <p>Adapte aqui la cantidad de elementos que quiere que aparezcan en el TOP x (5,.10,.15...).</p>
 <br />
-</font></li>
 
-<h5>Cuantos articulos o noticias quiere que aparezca en una sola pagina ?</h5>
-<p>Una cifra correcta es 10 pero eso depende de la actividad de su portal. Recuerde que los miembros registrados de <strong>NPDS</strong>  pueden cambiar este valor, por lo tanto este par&aacute;metro no es m&aacute;s que un valor por defecto.</p>
-<h5>Cuantos articulos o noticias antiguas quiere que aparezca</h5>
-<p>En los bloques de la derecha, se encuentra el que muestra una lista de noticias antiguas. Es este n&uacute;mero que usted debe adaptar.</p>
-<h5>Activar Export-News</h5>
-<p>Export-News</b>
-son dos ficheros Texto localizados en
-  el directorio oculto de su portal. Por defecto este par&aacute;metro = no.
-  <br />
-  <br />
-</font>En estos dos ficheros (ultramode.txt et net2zone.txt) se alazenan las
-    10 &uacute;ltimas noticias de su portal.<br />
-    Este fichero permite en realidad a otros sitios formar canales de
-    informaci&oacute;n bas&aacute;ndose en estructuras simples:<br />
-    - ultramode.txt es un fichero texto y las noticias estan separadas por estos simbolos %%<br />
-    - net2zone.txt es un fichero texto al formato XML de net2zone.
-    </font>
-    <br />
-    La funci&oacute;n &quot;Online&quot; que realiza la misma operaci&oacute;n es Backend que
-    soporta el formato RDF/XML o mejor a&uacute;n el M&oacute;dulo NPDS Push Infos
-    System.</font>
-</li>
-<br />
+         <h5>Cuantos articulos o noticias quiere que aparezca en una sola pagina ?</h5>
+         <p>Una cifra correcta es 10 pero eso depende de la actividad de su portal. Recuerde que los miembros registrados de <strong>NPDS</strong>  pueden cambiar este valor, por lo tanto este par&aacute;metro no es m&aacute;s que un valor por defecto.</p>
+         <h5>Cuantos articulos o noticias antiguas quiere que aparezca</h5>
+         <p>En los bloques de la derecha, se encuentra el que muestra una lista de noticias antiguas. Es este n&uacute;mero que usted debe adaptar.</p>
+         <h5>Activar Export-News</h5>
+         <p>Export-News</b>
+         son dos ficheros Texto localizados en
+           el directorio oculto de su portal. Por defecto este par&aacute;metro = no.
+           <br />
+           <br />
+         En estos dos ficheros (ultramode.txt et net2zone.txt) se alazenan las
+             10 &uacute;ltimas noticias de su portal.<br />
+             Este fichero permite en realidad a otros sitios formar canales de
+             informaci&oacute;n bas&aacute;ndose en estructuras simples:<br />
+             - ultramode.txt es un fichero texto y las noticias estan separadas por estos simbolos %%<br />
+             - net2zone.txt es un fichero texto al formato XML de net2zone.
+             </font>
+             <br />
+             La funci&oacute;n &quot;Online&quot; que realiza la misma operaci&oacute;n es Backend que
+             soporta el formato RDF/XML o mejor a&uacute;n el M&oacute;dulo NPDS Push Infos
+             System.</font>
+         <br />
 
          <h5>Nombre por defecto de An&oacute;nimo</h5>
          <p>Nombre por defecto de los usuarios no registrados. An&oacute;nimo es un buen valor (y tambi&eacute;n hu&eacute;sped, visitante...). no cambien este valor si su  NPDS ya esta en linea.</p>
@@ -122,7 +120,7 @@ son dos ficheros Texto localizados en
          <p>sistema UNIX  depende de las funciones &quot;locales&quot; normalmente instaladas bajo/usr/share/locale</p>
          <h5>El d&iacute;a comienza a Y la noche comienza a:</h5>
          <p>Permite regular por ejemplo, el cambio de EDITO a partir de una determinada hora.</p>
-         <h5>UTC</strong>
+         <h5>UTC</h5>
          <p>Permite especificar (en + o -) un desfase por hora con relaci&oacute;n a el de la m&aacute;quina del servidor.</p>
 
          <h4>Opciones para los banners </h4>
@@ -166,26 +164,22 @@ son dos ficheros Texto localizados en
          <p>S&iacute; o no. El logotipo ocupa bastante espacio... .</p>
          <h5>Activar el icono [N]uevo para las categor&iacute;as:</h5><p>Muestra, cuando una categor&iacute;a es nueva o  que hay nuevos v&iacute;nculos un peque&ntilde;o s&iacute;mbolo en forma de N grafica.</p>
 
-         <h4> Sistema de Servicio de mensajer&iacute;a (Correo electr&oacute;nico)</h4>
-         <h5> Direcci&oacute;n de correo electr&oacute;nico del administrador</h5>
-         <p>Sirve cuando NPDS env&iacute;a autom&aacute;ticamente  Emails y permite pues responder al destinatario (Correo electr&oacute;nico real o no/completa con el nombre de<br />
-         &aacute;mbito = p.ej.: developpeur@npds.org).</p>
-         <h5>&iquest;Qu&eacute; funci&oacute;n Mail utilizada?</h5>
-         <p>funci&oacute;n: mail =>por defecto, para toda m&aacute;quina Linux digna de este nombre / funci&oacute;n: email => para algunos servidores.</p>
-         <h5>Pie de Correo electr&oacute;nico</h5>
-         <p><strong><em>NPDS</em></strong> env&iacute;a una serie de Correo electr&oacute;nico (contrase&ntilde;a...) y esta opci&oacute;n les permite parametrear el  &quot;pie&quot; (el final, la firma) de este Correo. Esta zona soporta los c&oacute;digos HTML. Una buena pr&aacute;ctica es el recordatorio de sus datos, su lema... .</p>
-         <h5>Enviar por correo electr&oacute;nico las noticias al Administrador</h5>
-         <p><strong>NPDS</strong>  (como <strong>Php-Nuke</strong>) permite informar a un administrador cada vez que un usuario a&ntilde;ade una noticia fresca.</p>
-         <h5>Notificar las nuevas contribuciones por correo electr&oacute;nico</h5>
-         <p>S&iacute; o no.</p>
-         <h5>Direcci&oacute;n correo electr&oacute;nico donde enviar el mensaje:</h5>
-         <p>Sin observaciones.</p>
-         <h5> Asunto del mensaje :</h5>
-         <p>Sin observaciones.</p>
-         <h5>Mensaje del correo electr&oacute;nico</h5>
-         <p>Sin observaciones.</p>
-         <h5>Cuenta correo electr&oacute;nico (Procedencia)</h5>
-         <p>Sin observaciones.</p>
+         <h4>Sistema de mensajer&iacute;a (correo electr&oacute;nico)</h4>
+         <h5>Direcci&oacute;n de correo electr&oacute;nico del administrador</h5>
+         <p>Se utiliza cuando NPDS env&iacute;a correos electr&oacute;nicos autom&aacute;ticamente y, por lo tanto, permite que el destinatario le responda (direcci&oacute;n de correo electr&oacute;nico v&aacute;lida y autorizada asociada con el servidor de env&iacute;o. => por ejemplo: desarrollador@npds. org).</p>
+         <h5>&iquest;Qu&eacute; protocolo de correo electr&oacute;nico utilizar?</h5>
+         <p>Usar o no el protocolo SMTP(S)</p>
+         <h6>Configuraci&oacute;n de PHPmailer SMTP</h6>
+         <p>
+            <ul>
+               <li>El nombre del servidor de env&iacute;o</li>
+               <li>Puerto TCP que se debe utilizar. 587 o 465 (m&aacute;s raro y obsoleto) si utiliza cifrado SMTPS. Para SMTP a veces los puertos 25 o 2525</li>
+               <li>Autenticaci&oacute;n: si su servidor la requiere, proporcione: nombre de usuario y contrase&ntilde;a.</li>
+               <li>Activa o no el cifrado de tus mensajes durante la transferencia. Y elija el protocolo de cifrado TLS (predeterminado) o SSL (obsoleto). Tenga en cuenta que SMTP solo cifra los mensajes durante la transferencia.</li>
+            </ul>
+         </p>
+         <h6>DKIM</h6>
+         <p>Usar el registro DKIM DNS o un registro DKIM generado autom&aacute;ticamente por el portal</p>
 
          <h4>Moderaci&oacute;n de los comentarios</h4>
          <h5> Tipo de moderaci&oacute;n</h5>
@@ -224,8 +218,6 @@ son dos ficheros Texto localizados en
          <p>S&iacute; o no. &quot;<strong>no</strong>&quot; le permitir&aacute; ganar tiempo en la administracion, puesto que las imagenes no seran mostradas, el tiempo de descarga de la pagina sera mas ligero.</p>
          <h5>Activar los menus cortos para la administraci&oacute;n</h5>
          <p>S&iacute; o no. <strong>S&iacute; </strong>le permitir&aacute; ganar tiempo.</p>
-         <h5>Fontes de su pagina</h5>
-         <p>Normalemente <strong>Verdana, Arial, Helvetica</strong>. Puede cambiar estas fontes, pero piensen con los usuarios que no tienen el tipo de fonte que usted pueda poner </p>
 
          <h4>Varios</h4>
          <h5> Cuantas noticias en m&eacute;todo Administraci&oacute;n</h5>
@@ -275,7 +267,7 @@ son dos ficheros Texto localizados en
          <p>Tipo de resultado deseado en la protecci&oacute;n.</p>
          <h5>Activar el editor Tiny-Mce</h5>
          <p>NPDS puede utilizar <strong>Tiny-Mce</strong>.</p>
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Manual de administración</span></p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - Manual de administraci&oacute;n</span></p>
       </div>
    </body>
 </html>

@@ -4,11 +4,11 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists("Mysql_Connexion"))
@@ -194,11 +194,22 @@ function GraphicAdmin($hlpfile) {
       sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."seccont_tempo")):
       sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."seccont_tempo WHERE author='$aid'"));
    if($newpubli) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newpubli."', fretour_h='".adm_translate("Publication(s) en attente de validation")."' WHERE fid='50'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='50'");
+   //utilisateur(s) en attente de groupe
+   $directory = "users_private/groupe";
+   $iterator = new DirectoryIterator($directory);
+   $j=0;
+   foreach ($iterator as $fileinfo) {
+      if ($fileinfo->isFile() and strpos($fileinfo->getFilename(),'ask4group') !== false)
+         $j++;
+   }
+   if($j>0)
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$j."',fretour_h='".adm_translate("Utilisateur en attente de groupe !")."' WHERE fid='46'");
+   else
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0' WHERE fid='46'");
    //<== etc...etc recupérations des états des fonctions d'ALERTE et maj
 
    //==> Pour les modules installés produisant des notifications
-
-   $alert_modules=sql_query("SELECT * FROM fonctions f LEFT JOIN modules m ON m.mnom = f.fnom WHERE m.minstall=1 AND fcategorie=9"); 
+   $alert_modules=sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN ".$NPDS_Prefix."modules m ON m.mnom = f.fnom WHERE m.minstall=1 AND fcategorie=9"); 
    if($alert_modules) {
       while($am=sql_fetch_array($alert_modules)) {
          include("modules/".$am['fnom']."/admin/adm_alertes.php");
@@ -216,16 +227,13 @@ function GraphicAdmin($hlpfile) {
          }
       }
    }
-   
    //<== Pour les modules installés produisant des notifications
 
    //==> construction des blocs menu : selection de fonctions actives ayant une interface graphique de premier niveau et dont l'administrateur connecté en posséde les droits d'accès
    // on prend tout ce qui a une interface 
-   if ($Q['radminsuper']==1)
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre");
-   else
-      $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie, f.fordre");
-
+   $R = $Q['radminsuper']==1 ?
+      sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie, f.fordre") :
+      sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN ".$NPDS_Prefix."droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN ".$NPDS_Prefix."authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie, f.fordre") ;
    $j=0;
 
    while($SAQ=sql_fetch_assoc($R)) {
@@ -282,7 +290,7 @@ function GraphicAdmin($hlpfile) {
          $li_c .='</a></li>';
          $ul_f='';
          if ($j!==0)
-         $ul_f ='
+            $ul_f ='
          </ul>
          <script type="text/javascript">
          //<![CDATA[
@@ -1224,6 +1232,7 @@ if ($admintest) {
       case 'groupe_mns_delete':
       case 'groupe_chat_create':
       case 'groupe_chat_delete':
+      case 'groupe_member_ask':
          include('admin/groupes.php');
       break;
       // NPDS-Instal-Modules

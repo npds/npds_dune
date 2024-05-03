@@ -5,11 +5,11 @@
 /*                                                                      */
 /* BLOC-NOTES engine for NPDS - Philippe Brunier & Arnaud Latourrette   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 #autodoc blocnotes ($typeBlocNote="shared", $nomBlocNote="", $largeur="", $nblBlocNote="5", $bnclass="") : Bloc blocnotes<br />=> syntaxe :

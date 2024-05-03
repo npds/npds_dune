@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function adm_translate($phrase) {
@@ -75,12 +75,14 @@ function adm_translate($phrase) {
   case "Activer export-news": $tmp="Activate Export-News"; break;
   case "Activer Facebook": $tmp="Activate Facebook"; break;
   case "Activer gestionnaire de fichiers du groupe": $tmp="Enable File manager of the group"; break;
+  case "Activer l'authentification SMTP(S)": $tmp="Enable SMTP(S) authentication"; break;
   case "Activer l'éditeur Tinymce": $tmp="Activate Tinymce editor"; break;
   case "Activer l'icône [N]ouveau pour les catégories": $tmp="Activate New Categories Icons"; break;
   case "Activer l'upload dans les forums ?": $tmp="Activate forum's upload?"; break;
   case "Activer la description simplifiée des utilisateurs": $tmp="Short User registration"; break;
   case "Activer la résolution DNS pour les posts des forums, IP-Ban, ...": $tmp="DNS resolution : activate for Posts in forum, IP-Ban, ..."; break;
   case "Activer le Bloc": $tmp="Activate the Block"; break;
+  case "Activer le chiffrement": $tmp="Enable encryption"; break;
   case "Activer le multi-langue": $tmp="Multi-language capability"; break;
   case "Activer le tri des contributions 'résolues'": $tmp="Activate the sort of the 'solved' contributions"; break;
   case "Activer les avatars": $tmp="Activate avatars"; break;
@@ -202,6 +204,7 @@ function adm_translate($phrase) {
   case "Auteur(s)": $tmp="Author(s)"; break;
   case "Auteurs actuels": $tmp="current authors"; break;
   case "Auto-Articles": $tmp="Auto Articles"; break;
+  case "Automatique": $tmp="Automatic"; break;
   case "Autoriser la connexion": $tmp="Allow connection"; break;
   case "Autoriser la création automatique des membres": $tmp="Allow automated new-users configuration"; break;
   case "Autoriser la création de news pour": $tmp="Allow the post of News"; break;
@@ -285,6 +288,7 @@ function adm_translate($phrase) {
   case "Compte E-mail (Provenance)": $tmp="Email Account (From)"; break;
   case "Compteur": $tmp="Counter"; break;
   case "Configuration de la page": $tmp="Page setting"; break;
+  case "Configuration de PHPmailer SMTP(S)": $tmp="Configuring PHPmailer SMTP(S)"; break;
   case "Configuration des Forums": $tmp="Forum Configuration"; break;
   case "Configuration des infos en Backend & Réseaux Sociaux": $tmp="Configuration for Backend & Social Networks"; break;
   case "Configuration Forums": $tmp="Forums Configuration"; break;
@@ -326,6 +330,7 @@ function adm_translate($phrase) {
   case "Critiques": $tmp="Reviews"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
   case "dans": $tmp="in"; break;
+  case "dans le groupe": $tmp="in the group"; break;
   case "Date :": $tmp="Date:"; break;
   case "Date de début": $tmp="Date Started"; break;
   case "Date de démarrage du site": $tmp="Site Start Date"; break;
@@ -334,6 +339,8 @@ function adm_translate($phrase) {
   case "Date": $tmp="Date"; break;
   case "de": $tmp="of"; break;
   case "Déconnexion": $tmp="Logout / Exit"; break;
+  case "Demande acceptée.": $tmp="Request accepted."; break;
+  case "Demande refusée pour votre participation au groupe": $tmp="Request refused for your participation in the group"; break;  
   case "Déplier la liste": $tmp="Show list"; break;
   case "Dernière optimisation effectuée le": $tmp="Last optimization made the"; break;
   case "Derniers": $tmp="Last"; break;
@@ -353,11 +360,15 @@ function adm_translate($phrase) {
   case "Diffusion d'un Message Interne": $tmp="Send an Internal Message"; break;
   case "Distribution": $tmp="Distribution"; break;
   case "Divers": $tmp="Miscellaneous"; break;
+  case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM (if existing and valid)."; break;
   case "DNS ou serveur de mail incorrect": $tmp="Invalid DNS or mail server"; break;
+  case "Doit être un mot sans espace.": $tmp="Must be a word without space."; break;
+  case "Doit être un nom de fichier valide avec une de ces extensions : jpg, jpeg, png, gif.": $tmp="Must be a valid file name with one of those extension : jpg, jpeg, png, gif."; break; 
   case "Droits de publication": $tmp="Publication' rights"; break;
   case "Droits des auteurs": $tmp="Authors' rights"; break;
   case "Droits modules": $tmp="Addons perms"; break;
   case "Droits": $tmp="Perms"; break;
+  case "Du DNS": $tmp="From DNS"; break;
   case "du groupe": $tmp="from the group"; break;
   case "Durée de vie en heure du cookie Admin": $tmp="Admin'cookie TTL (in hours)"; break;
   case "Durée de vie en heure du cookie User": $tmp="User'cookie TTL (in hours)"; break;
@@ -494,6 +505,7 @@ function adm_translate($phrase) {
   case "Fusionner des forums": $tmp="Merge forums"; break;
   case "Gain réalisable": $tmp="Gained"; break;
   case "Gain total réalisé": $tmp="Total gain"; break;
+  case "génération automatique du DKIM par le portail.": $tmp="automatic generation of the DKIM by the portal."; break;
   case "Gérer les Liens Relatifs : ": $tmp="Manage Related Links:"; break;
   case "Gestion des blocs": $tmp="Blocs management"; break;
   case "Gestion des forums": $tmp="Forums management"; break;
@@ -683,6 +695,7 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="Access Level"; break;
   case "Niveau de l'Utilisateur": $tmp="User Level"; break;
   case "Nom : ": $tmp="Name: "; break;
+  case "Nom d'utilisateur": $tmp="User Name"; break;
   case "Nom d'utilisateur anonyme": $tmp="Anonymous Default Name"; break;
   case "Nom de fichier": $tmp="File name"; break;
   case "Nom de l'annonceur": $tmp="Client Name"; break;
@@ -694,6 +707,7 @@ function adm_translate($phrase) {
   case "Nom du Contact": $tmp="Contact Name"; break;
   case "Nom du forum": $tmp="Forum Name"; break;
   case "Nom du produit": $tmp="Product Title"; break;
+  case "Nom du serveur": $tmp="Server Name"; break;
   case "Nom du site : ": $tmp="Site Name:"; break;
   case "Nom du site pour la balise title": $tmp="Html Site Name"; break;
   case "Nom du site": $tmp="Site Name"; break;
@@ -761,7 +775,7 @@ function adm_translate($phrase) {
   case "Pas de nouveaux Articles postés": $tmp="No New Submissions"; break;
   case "Petite Lettre D'information": $tmp="Little Newsletter"; break;
   case "Pied": $tmp="Footer"; break;
-  case "Polices du site": $tmp="Site Font"; break;
+  case "Port TCP": $tmp="TCP port"; break;
   case "Position": $tmp="Position"; break;
   case "Poster un Article ": $tmp="PostStory"; break;
   case "Poster un Article Admin": $tmp="Post Admin Story"; break;
@@ -780,6 +794,7 @@ function adm_translate($phrase) {
   case "Proposition de modifications de Liens": $tmp="Link Modification Requests"; break;
   case "Propriétaire de la page Web": $tmp="Owner Website"; break;
   case "Propriétaire": $tmp="Owner"; break;
+  case "Protocole de chiffrement": $tmp="Encryption protocol"; break;
   case "Public": $tmp="Public"; break;
   case "Publication Anonyme autorisée": $tmp="Anonymous Posting"; break;
   case "publication(s) attachée(s)": $tmp="attached publication(s)"; break;
@@ -961,12 +976,14 @@ function adm_translate($phrase) {
   case "URL pour le fichier RDF/XML": $tmp="URL for the RDF/XML file"; break;
   case "Url": $tmp="Url"; break;
   case "URL": $tmp="URL"; break;
+  case "Utilisateur en attente de groupe !": $tmp="User(s) awaiting group!"; break;
   case "Utilisateur en attente de validation !": $tmp="User(s) awaiting validation !"; break;
   case "Utilisateur enregistré uniquement": $tmp="Registered users only"; break;
   case "Utilisateur enregistré": $tmp="Registered User"; break;
   case "Utilisateur inexistant !": $tmp="User doesn't exist!"; break;
   case "Utilisateur": $tmp="user"; break;
   case "Utilisateurs": $tmp="Users"; break;
+  case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="Use 587 if you have TLS encryption enabled"; break;  
   case "Validation de votre publication": $tmp="Validation of your publication"; break;
   case "Valider": $tmp="Submit"; break;
   case "Version": $tmp="Version"; break;

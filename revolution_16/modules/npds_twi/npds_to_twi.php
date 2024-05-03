@@ -3,11 +3,11 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /* module npds_twi version 1.0                                          */
 /* npds_to_twi.php file 2015 by Jean Pierre Barbary jpb                 */
@@ -15,7 +15,7 @@
 if (!function_exists("Mysql_Connexion")) die();
 
 // Initialisation
-global $nuke_url, $npds_twi;
+global $nuke_url, $npds_twi, $NPDS_Prefix;
 if (!isset($sid)) {
    $result = sql_query("SELECT max(sid) FROM ".$NPDS_Prefix."stories");
    list ($sid)=sql_fetch_row($result);

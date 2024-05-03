@@ -5,20 +5,20 @@
 /*                                                                      */
 /* Sur une idée originale de PSTL                                       */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function code_aff($subject, $story, $bodytext, $notes) {
-    global $local_user_language;
-    $subjectX=aff_code(preview_local_langue($local_user_language, $subject));
-    $storyX=aff_code(preview_local_langue($local_user_language, $story));
-    $bodytextX=aff_code(preview_local_langue($local_user_language, $bodytext));
-    $notesX=aff_code(preview_local_langue($local_user_language, $notes));
-    themepreview($subjectX, $storyX, $bodytextX, $notesX);
+   global $local_user_language;
+   $subjectX=aff_code(preview_local_langue($local_user_language, $subject));
+   $storyX=aff_code(preview_local_langue($local_user_language, $story));
+   $bodytextX=aff_code(preview_local_langue($local_user_language, $bodytext));
+   $notesX=aff_code(preview_local_langue($local_user_language, $notes));
+   themepreview($subjectX, $storyX, $bodytextX, $notesX);
 }
 
 function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
@@ -61,7 +61,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
       </div>
       <div class="col-sm-3 mb-2">
          <label class="form-label" for="dh_pub">'.translate("Heure").'</label>
-         <div class="input-group">
+         <div class="input-group clockpicker">
             <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
             <input type="text" class="form-control" placeholder="Heure" id="dh_pub" name="dh_pub" value="'.$dh_pub.'" />
          </div>
@@ -75,7 +75,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
       </div>
       <div class="col-sm-3 mb-2">
          <label class="form-label" for="fh_pub">'.translate("Heure").'</label>
-         <div class="input-group">
+         <div class="input-group clockpicker">
             <span class="input-group-text"><i class="far fa-clock fa-lg"></i></span>
             <input type="text" class="form-control" placeholder="Heure" id="fh_pub" name="fh_pub" value="'.$fh_pub.'" />
          </div>
@@ -83,17 +83,18 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    </div>
    <script type="text/javascript" src="lib/flatpickr/dist/flatpickr.min.js"></script>
    <script type="text/javascript" src="lib/flatpickr/dist/l10n/'.language_iso(1,'','').'.js"></script>
-   <script type="text/javascript" src="lib/js/bootstrap-clockpicker.min.js" async="async"></script>
+   <script type="text/javascript" src="lib/js/bootstrap-clockpicker.min.js"></script>
    <script type="text/javascript">
    //<![CDATA[
       $(document).ready(function() {
          $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/flatpickr/dist/themes/npds.css"});
          $("<link>").appendTo("head").attr({type: "text/css", rel: "stylesheet",href: "lib/css/bootstrap-clockpicker.min.css"});
-         $("#dh_pub,#fh_pub").clockpicker({
+         $(".clockpicker").clockpicker({
             placement: "bottom",
-            align: "right",
+            align: "top",
             autoclose: "true"
          });
+
       })
       const fp = flatpickr(".flatpi", {
          altInput: true,

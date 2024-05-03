@@ -5,22 +5,21 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 function PrintPage($oper, $DB, $nl, $sid) {
-    global $user,$cookie, $theme,$Default_Theme, $language, $site_logo, $sitename, $datetime, $nuke_url, $site_font, $Titlesitename;
-    global $NPDS_Prefix;
+    global $user, $cookie, $theme, $Default_Theme, $language, $site_logo, $sitename, $datetime, $nuke_url, $Titlesitename, $NPDS_Prefix;
 
     $aff=true;
     if ($oper=='news') {
-       $xtab=news_aff('libre',"where sid='$sid'",1,1);
+       $xtab=news_aff('libre',"WHERE sid='$sid'",1,1);
        list($sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant, $notes) = $xtab[0];
        if ($topic!='') {
           $result2=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
@@ -55,9 +54,8 @@ function PrintPage($oper, $DB, $nl, $sid) {
              if ($nl)
                $remp=nl2br(str_replace(' ','&nbsp;',htmlentities($remp,ENT_QUOTES,cur_charset)));
              $title=$sid;
-          } else {
+          } else
              $aff=false;
-          }
        } else {
          $remp='<div class="alert alert-danger">'.translate("Merci d'entrer l'information en fonction des spécifications").'</div>';
          $aff=false;
@@ -80,7 +78,6 @@ function PrintPage($oper, $DB, $nl, $sid) {
        }
        echo '
          <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
-//       echo import_css($tmp_theme, $language, $site_font, '','');
        echo '
        </head>
        <body>
@@ -148,9 +145,8 @@ function PrintPage($oper, $DB, $nl, $sid) {
       </div>
    </body>
 </html>';
-    } else {
+    } else
        header("location: index.php");
-    }
 }
 if (!empty($sid)) {
    $tab=explode(':',$sid);
@@ -160,17 +156,15 @@ if (!empty($sid)) {
       PrintPage("static", $metalang, $nl, $tab[1]);
    } else {
       settype ($sid, 'integer');
-      settype ($archive, 'string');
-      if (!$archive) {
+      //settype ($archive, 'string');
+      if (!isset($archive))
          PrintPage("news", '', '', $sid);
-      } else {
+      else
          PrintPage("archive", '', '', $sid);
-      }
    }
 } elseif (!empty($lid)) {
    settype ($lid, "integer");
    PrintPage("links",$DB, '', $lid);
-} else {
+} else
    header("location: index.php");
-}
 ?>

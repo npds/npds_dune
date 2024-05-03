@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
-/* geoloc_geoloc.php file 2008-2022 by Jean Pierre Barbary (jpb)        */
+/* geoloc_geoloc.php file 2008-2024 by Jean Pierre Barbary (jpb)        */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
@@ -50,7 +50,7 @@ if(autorisation(-127)) {
    // IP géoréférencées
    if($geo_ip==1) {
       $arpostip = array();
-      $result_postip = sql_query('SELECT COUNT(*) AS nbpost , poster_ip, poster_dns FROM '.$NPDS_Prefix.'posts GROUP BY poster_ip');
+      $result_postip = sql_query('SELECT COUNT(*) AS nbpost , poster_ip FROM '.$NPDS_Prefix.'posts GROUP BY poster_ip');
       $postnb = sql_num_rows($result_postip);
       while ($p = sql_fetch_array($result_postip)){
          $arpostip[$p['poster_ip']] = $p['nbpost'];
@@ -197,7 +197,7 @@ if(isset($cookie)) {
    $found = sql_num_rows($resul);
    //mise à jour users_extend si besoin
    if ($found == 0)
-      $res = sql_query("INSERT INTO users_extend VALUES ('$uid','','','','','','','','','','','','','')");
+      $res = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$uid','','','','','','','','','','','','','')");
 }
 //==> georeferencement utilisateur
 if (array_key_exists('mod',$_GET)) {
@@ -474,9 +474,6 @@ $olg = $mbcg+$acg;//==> on line géoréférencés anonyme et membres
 
 $fond_provider = array(
    ['OSM', geoloc_translate("Plan").' (OpenStreetMap)'],
-   ['toner', geoloc_translate("Noir et blanc").' (Stamen)'],
-   ['watercolor', geoloc_translate("Dessin").' (Stamen)'],
-   ['terrain', geoloc_translate("Relief").' (Stamen)'],
    ['modisterra', geoloc_translate("Satellite").' (NASA)'],
    ['natural-earth-hypso-bathy', geoloc_translate("Relief").' (mapbox)'],
    ['geography-class', geoloc_translate("Carte").' (mapbox)'],
@@ -490,11 +487,11 @@ $fond_provider = array(
    ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)']
 );
 if($api_key_bing=='' and $api_key_mapbox=='')
-   unset($fond_provider[5],$fond_provider[6],$fond_provider[7],$fond_provider[8],$fond_provider[9]);
+   unset($fond_provider[2],$fond_provider[3],$fond_provider[4],$fond_provider[5],$fond_provider[6]);
 elseif($api_key_bing=='')
-   unset($fond_provider[7],$fond_provider[8],$fond_provider[9]);
+   unset($fond_provider[4],$fond_provider[5],$fond_provider[6]);
 elseif($api_key_mapbox=='')
-   unset($fond_provider[5],$fond_provider[6]);
+   unset($fond_provider[2],$fond_provider[3]);
 $optcart = '';
 foreach ($fond_provider as $k => $v) {
    $sel = $v[0]==$cartyp ? 'selected="selected"' : '';
@@ -502,22 +499,20 @@ foreach ($fond_provider as $k => $v) {
       case '0': $optcart .= '
                            <optgroup label="OpenStreetMap">';break;
       case '1': $optcart .= '
-                           <optgroup label="Stamen">';break;
-      case '4': $optcart .= '
                            <optgroup label="NASA">';break;
-      case '5': $optcart .= '
-                           <optgroup label="Mapbox">'; break;
-      case '7': $optcart .= '
+      case '2': $optcart .= '
+                           <optgroup label="Mapbox">';break;
+      case '4': $optcart .= '
                            <optgroup label="Bing maps">'; break;
-      case '10': $optcart .= '
-                           <optgroup label="Google">';break;
-      case '11': $optcart .= '
+      case '7': $optcart .= '
+                           <optgroup label="Google">'; break;
+      case '8': $optcart .= '
                            <optgroup label="ESRI">';break;
    }
    $optcart .= '
                               <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
    switch($k){
-      case '0': case '3': case '4': case '6': case '9': case '10': case '14': $optcart .= '
+      case '0': case '1': case '3': case '6': case '7': case '11': $optcart .= '
                            </optgroup>'; break;
    }
 }
@@ -552,15 +547,6 @@ switch ($cartyp) {
       })';
       $max_r='40000';
       $min_r='2000';
-      $layer_id= $cartyp;
-   break;
-   case 'terrain':case 'toner':case 'watercolor':
-      $source_fond='
-      new ol.source.Stamen({
-         layer:"'.$cartyp.'"
-      })';
-      $max_r='40000';
-      $min_r='0';
       $layer_id= $cartyp;
    break;
    case 'modisterra':

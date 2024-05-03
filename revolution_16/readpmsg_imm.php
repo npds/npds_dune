@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -32,7 +32,7 @@ function cache_ctrl() {
 }
 
 function show_imm($op) {
-   global $smilies, $user, $allow_bbcode, $language, $Default_Theme, $theme, $site_font, $short_user, $Titlesitename;
+   global $smilies, $user, $allow_bbcode, $language, $Default_Theme, $theme, $short_user, $Titlesitename;
    global $NPDS_Prefix;
    if (!$user)
       Header("Location: user.php");
@@ -40,21 +40,17 @@ function show_imm($op) {
       $userX = base64_decode($user);
       $userdata = explode(':', $userX);
       if ($userdata[9]!='') {
-         if (!$file=@opendir("themes/$userdata[9]")) {
+         if (!$file=@opendir("themes/$userdata[9]"))
             $theme=$Default_Theme;
-         } else {
+         else
             $theme=$userdata[9];
-         }
-      } else {
+      } else
          $theme=$Default_Theme;
-      }
       include("themes/$theme/theme.php");
       $userdata = get_userdata($userdata[1]);
-      if ($op!='new_msg') {
-         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND read_msg='1' AND type_msg='0' AND dossier='...' ORDER BY msg_id DESC";
-      } else {
-         $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND read_msg='0' AND type_msg='0' ORDER BY msg_id ASC";
-      }
+      $sql = ($op!='new_msg') ?
+         "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND read_msg='1' AND type_msg='0' AND dossier='...' ORDER BY msg_id DESC" :
+         "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '".$userdata['uid']."' AND read_msg='0' AND type_msg='0' ORDER BY msg_id ASC" ;
       $result = sql_query($sql);
       $pasfin=false;
       while ($myrow = sql_fetch_assoc($result)) {
@@ -63,7 +59,7 @@ function show_imm($op) {
             cache_ctrl();
             include("meta/meta.php");
             include("modules/include/header_head.inc");
-            echo import_css($theme, $language, $site_font, '','');
+            echo import_css($theme, $language, '', '','');
             echo '
       </head>
       <body>

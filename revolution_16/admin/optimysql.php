@@ -5,11 +5,11 @@
 /*                                                                      */
 /* M. PASCAL aKa EBH (plan.net@free.fr)                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -19,20 +19,20 @@ $f_titre = adm_translate("Optimisation de la base de données").' : '.$dbname;
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
+$hlpfile = 'manuels/'.$language.'/optimysql.html'; 
 
 $date_opt = date(adm_translate("dateforop"));
 $heure_opt = date("h:i a");
 include("header.php");
 GraphicAdmin($hlpfile);
-global $dbname;
 
-// Création de la table optimy (si nécessaire)
-$result = sql_query("CREATE TABLE IF NOT EXISTS ".$NPDS_Prefix."optimy (optid INT(11) NOT NULL auto_increment, optgain DECIMAL(10,3), optdate VARCHAR (11) DEFAULT '', opthour VARCHAR (8) DEFAULT '', optcount INT(11) DEFAULT '0', PRIMARY KEY (optid))");
+global $dbname; // non utile ?
+
 // Insertion de valeurs d'initialisation de la table (si nécessaire)
 $result = sql_query("SELECT optid FROM ".$NPDS_Prefix."optimy");
 list($idopt) = sql_fetch_row($result);
 if(!$idopt OR ($idopt == ''))
-    $result = sql_query("INSERT INTO ".$NPDS_Prefix."optimy (optid, optgain, optdate, opthour, optcount) VALUES ('1', '', '', '', '0')");
+    $result = sql_query("INSERT INTO ".$NPDS_Prefix."optimy (optid, optgain, optdate, opthour, optcount) VALUES ('1', '0', '', '', '0')");
 // Extraction de la date et de l'heure de la précédente optimisation
 $last_opti='';
 $result = sql_query("SELECT optdate, opthour FROM ".$NPDS_Prefix."optimy WHERE optid='1'");
@@ -101,26 +101,26 @@ echo $last_opti;
 echo '
 '.adm_translate("A ce jour, vous avez effectué ").' '.$countopt.' optimisation(s) '.adm_translate(" et réalisé un gain global de ").' '.$gainopt.' Ko.</p>
 <table id="tad_opti" data-toggle="table" data-striped="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
-<thead>
-    <tr>
-        <th data-sortable="true" data-halign="center" data-align="center">'.adm_translate('Table').'</th>
-        <th data-halign="center" data-align="center">'.adm_translate('Taille actuelle').'</th>
-        <th data-sortable="true" data-halign="center" data-align="center">'.adm_translate('Etat').'</th>
-        <th data-halign="center" date-align="center">'.adm_translate('Gain réalisable').'</th>
-    </tr>
-</thead>
-<tfoot>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>'.adm_translate("Gain total réalisé").' : </td>
-        <td>'.$total_gain.' Ko</td>
-    </tr>
-</tfoot>
-<tbody>';
+   <thead>
+       <tr>
+           <th data-sortable="true" data-halign="center" data-align="center">'.adm_translate('Table').'</th>
+           <th data-halign="center" data-align="center">'.adm_translate('Taille actuelle').'</th>
+           <th data-sortable="true" data-halign="center" data-align="center">'.adm_translate('Etat').'</th>
+           <th data-halign="center" date-align="center">'.adm_translate('Gain réalisable').'</th>
+       </tr>
+   </thead>
+   <tfoot>
+       <tr>
+           <td></td>
+           <td></td>
+           <td>'.adm_translate("Gain total réalisé").' : </td>
+           <td>'.$total_gain.' Ko</td>
+       </tr>
+   </tfoot>
+   <tbody>';
 echo $li_tab_opti;
 echo '
-</tbody>
+   </tbody>
 </table>';
 adminfoot('','','','');
 global $aid; Ecr_Log('security', "OptiMySql() by AID : $aid", '');

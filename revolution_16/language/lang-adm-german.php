@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 function adm_translate($phrase) {
@@ -75,12 +75,14 @@ function adm_translate($phrase) {
   case "Activer export-news": $tmp="Aktivieren Sie Export-News"; break;
   case "Activer Facebook": $tmp="Aktivieren Sie Facebook"; break;
   case "Activer gestionnaire de fichiers du groupe": $tmp="Aktivieren der Datei-Manager-Gruppe"; break;
+  case "Activer l'authentification SMTP(S)": $tmp="Aktivieren Sie die SMTP(S)-Authentifizierung"; break;
   case "Activer l'éditeur Tinymce": $tmp="Den Tinymce Editor aktivieren"; break;
   case "Activer l'icône [N]ouveau pour les catégories": $tmp="Activate New Categories Icons"; break;
   case "Activer l'upload dans les forums ?": $tmp="Activate forum's upload?"; break;
   case "Activer la description simplifiée des utilisateurs": $tmp="Vereinfachte Benutzerbeschreibung aktivieren"; break;
   case "Activer la résolution DNS pour les posts des forums, IP-Ban, ...": $tmp="DNS resolution : activate for Posts in forum, IP-Ban, ..."; break;
   case "Activer le Bloc": $tmp="Den Block aktivieren"; break;
+  case "Activer le chiffrement": $tmp="Verschlüsselung aktivieren"; break;
   case "Activer le multi-langue": $tmp="Multi-language capability"; break;
   case "Activer le tri des contributions 'résolues'": $tmp="Activate the sort of the 'solved' contributions"; break;
   case "Activer les avatars": $tmp="Activate avatars"; break;
@@ -98,7 +100,7 @@ function adm_translate($phrase) {
   case "Admin-Plugins": $tmp="Admin-Plugins"; break;
   case "Administrateur ID": $tmp="AdminID"; break;
   case "Administrateur(s) de la rubrique :": $tmp="Administrator(s) of the section:"; break;
-  case "Administrateur(s) du Sujet :": $tmp="Administrator(s) of the topic:"; break;
+  case "Administrateur(s) du Sujet :": $tmp="Administrator(en) für das Thema:"; break;
   case "Administrateur(s) du sujet": $tmp="Administrator(en) für das Thema"; break;
   case "Administrateur(s)": $tmp="Administrator(en)"; break;
   case "Administrateurs": $tmp="Administratoren"; break;
@@ -202,6 +204,7 @@ function adm_translate($phrase) {
   case "Auteur(s)": $tmp="Autor(en)"; break;
   case "Auteurs actuels": $tmp="Die aktuellen Autoren"; break;
   case "Auto-Articles": $tmp="Auto Articles"; break;
+  case "Automatique": $tmp="Automatisch"; break;
   case "Autoriser la connexion": $tmp="Verbindung zulassen"; break;
   case "Autoriser la création automatique des membres": $tmp="Allow automated new-users configuration"; break;
   case "Autoriser la création de news pour": $tmp="Allow the post of News"; break;
@@ -285,6 +288,7 @@ function adm_translate($phrase) {
   case "Compte E-mail (Provenance)": $tmp="Email Account (From)"; break;
   case "Compteur": $tmp="Zähler"; break;
   case "Configuration de la page": $tmp="Seiteneinstellungen"; break;
+  case "Configuration de PHPmailer SMTP(S)": $tmp="PHPmailer SMTP(S) konfigurieren"; break;
   case "Configuration des Forums": $tmp="Einstellungen für die Foren"; break;
   case "Configuration des infos en Backend & Réseaux Sociaux": $tmp="Configuration for Backend & Social Networks"; break;
   case "Configuration Forums": $tmp="Einstellungen für die Foren"; break;
@@ -326,6 +330,7 @@ function adm_translate($phrase) {
   case "Critiques": $tmp="Kritische"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
   case "dans": $tmp="in"; break;
+  case "dans le groupe": $tmp="in der Gruppe"; break;
   case "Date :": $tmp="Datum:"; break;
   case "Date de début": $tmp="Anfangsdatum"; break;
   case "Date de démarrage du site": $tmp="Site Start Date"; break;
@@ -334,6 +339,8 @@ function adm_translate($phrase) {
   case "Date": $tmp="Datum"; break;
   case "de": $tmp="of"; break;
   case "Déconnexion": $tmp="Logout / Exit"; break;
+  case "Demande acceptée.": $tmp="Anfrage akzeptiert."; break;
+  case "Demande refusée pour votre participation au groupe": $tmp="Antrag für Ihre Teilnahme an der Gruppe abgelehnt"; break;  
   case "Déplier la liste": $tmp="Erweitern Sie die Liste"; break;
   case "Dernière optimisation effectuée le": $tmp="Letzte Optimierung erfolgt am"; break;
   case "Derniers": $tmp="Letzten"; break;
@@ -353,11 +360,15 @@ function adm_translate($phrase) {
   case "Diffusion d'un Message Interne": $tmp="Senden Sie eine interne Nachricht"; break;
   case "Distribution": $tmp="Distribution"; break;
   case "Divers": $tmp="Verschieden"; break;
+  case "DKIM du DNS (si existant et valide).": $tmp="DNS DKIM (falls vorhanden und gültig)."; break;
   case "DNS ou serveur de mail incorrect": $tmp="Ungültiger DNS oder Mail-Server"; break;
+  case "Doit être un mot sans espace.": $tmp="Muss ein Wort ohne Leerzeichen sein."; break;
+  case "Doit être un nom de fichier valide avec une de ces extensions : jpg, jpeg, png, gif.": $tmp="Muss ein gültiger Dateiname mit einer der folgenden Erweiterungen sein: jpg, jpeg, png, gif."; break;
   case "Droits de publication": $tmp="Veröffentlichungsrechte"; break;
   case "Droits des auteurs": $tmp="Rechte der Autoren"; break;
   case "Droits modules": $tmp="Rechte an den Modulen"; break;
   case "Droits": $tmp="Rechte"; break;
+  case "Du DNS": $tmp="Vom DNS"; break;
   case "du groupe": $tmp="gruppe"; break;
   case "Durée de vie en heure du cookie Admin": $tmp="Lebensdauer des Cookie Admin in Stunden"; break;
   case "Durée de vie en heure du cookie User": $tmp="Lebensdauer des Cookie User in Stunden"; break;
@@ -494,6 +505,7 @@ function adm_translate($phrase) {
   case "Fusionner des forums": $tmp="Foren zusammenführen"; break;
   case "Gain réalisable": $tmp="Gained"; break;
   case "Gain total réalisé": $tmp="Total gain"; break;
+  case "génération automatique du DKIM par le portail.": $tmp="Automatische Generierung des DKIM durch das Portal."; break;
   case "Gérer les Liens Relatifs : ": $tmp="Weiterführende Links verwalten:"; break;
   case "Gestion des blocs": $tmp="Blockverwaltung"; break;
   case "Gestion des forums": $tmp="Foren Verwaltung"; break;
@@ -683,6 +695,7 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="Access Level"; break;
   case "Niveau de l'Utilisateur": $tmp="User Level"; break;
   case "Nom : ": $tmp="Name: "; break;
+  case "Nom d'utilisateur": $tmp="Nutzername"; break;
   case "Nom d'utilisateur anonyme": $tmp="Name für anonyme Benutzer"; break;
   case "Nom de fichier": $tmp="Dateiname"; break;
   case "Nom de l'annonceur": $tmp="Werber Name"; break;
@@ -694,6 +707,7 @@ function adm_translate($phrase) {
   case "Nom du Contact": $tmp="Name des Kontaktes"; break;
   case "Nom du forum": $tmp="Name des Forums"; break;
   case "Nom du produit": $tmp="Produktname"; break;
+  case "Nom du serveur": $tmp="Name des E-Mail-Servers"; break;
   case "Nom du site : ": $tmp="Name der Website:"; break;
   case "Nom du site pour la balise title": $tmp="Html Site Name"; break;
   case "Nom du site": $tmp="Name der Website"; break;
@@ -761,7 +775,7 @@ function adm_translate($phrase) {
   case "Pas de nouveaux Articles postés": $tmp="Keine neuen Artikel gepostet"; break;
   case "Petite Lettre D'information": $tmp="Kleiner Newsletter"; break;
   case "Pied": $tmp="Fußzeilen"; break;
-  case "Polices du site": $tmp="Site Font"; break;
+  case "Port TCP": $tmp="TCP-Port"; break;
   case "Position": $tmp="Position"; break;
   case "Poster un Article ": $tmp="PostStory"; break;
   case "Poster un Article Admin": $tmp="Post Admin Story"; break;
@@ -780,6 +794,7 @@ function adm_translate($phrase) {
   case "Proposition de modifications de Liens": $tmp="Link Modification Requests"; break;
   case "Propriétaire de la page Web": $tmp="Inhaber der Webseite"; break;
   case "Propriétaire": $tmp="Inhaber"; break;
+  case "Protocole de chiffrement": $tmp="Verschlüsselungsprotokoll"; break;
   case "Public": $tmp="Public"; break;
   case "Publication Anonyme autorisée": $tmp="Anonyme Veröffentlichung erlaubt"; break;
   case "publication(s) attachée(s)": $tmp="Verbundene Veröffentlichungen"; break;
@@ -961,12 +976,14 @@ function adm_translate($phrase) {
   case "URL pour le fichier RDF/XML": $tmp="URL für RDF / XML-Datei"; break;
   case "Url": $tmp="Url"; break;
   case "URL": $tmp="URL"; break;
+  case "Utilisateur en attente de groupe !": $tmp="Benutzer wartet auf Gruppe!"; break;
   case "Utilisateur en attente de validation !": $tmp="Benutzer warten auf Bestätigung !"; break;
   case "Utilisateur enregistré uniquement": $tmp="Nur registrierter Benutzer"; break;
   case "Utilisateur enregistré": $tmp="Registrierter Benutzer"; break;
   case "Utilisateur inexistant !": $tmp="Nicht vorhandener Benutzer!"; break;
   case "Utilisateur": $tmp="Benutzer"; break;
   case "Utilisateurs": $tmp="Benutzer"; break;
+  case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="Verwenden Sie 587, wenn Sie die TLS-Verschlüsselung aktiviert haben"; break;  
   case "Validation de votre publication": $tmp="Freigabe für Ihre Veröffentlichung"; break;
   case "Valider": $tmp="Akzeptieren"; break;
   case "Version": $tmp="Version"; break;
@@ -1010,7 +1027,6 @@ function adm_translate($phrase) {
   case "Vous pouvez simplement Effacer / Modifier les Critiques en naviguant sur": $tmp="Sie können hier einfach Kritiken löschen/ändern"; break;
   case "Vous pouvez supprimer la Catégorie, les Articles et Commentaires": $tmp="Sie können Kategorie, Artikel und Kommentare löschen"; break;
   case "Vous pouvez utiliser notre moteur de recherche sur : ": $tmp="You can browse our search engine at:"; break;
-
   default: $tmp="Es gibt keine Übersetzung [** $phrase **]"; break;
   }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));

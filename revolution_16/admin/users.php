@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -134,11 +134,7 @@ function Minisites($chng_mns,$chng_uname) {
       include ("modules/upload/upload.conf.php");
       if ($DOCUMENTROOT=='') {
          global $DOCUMENT_ROOT;
-         if ($DOCUMENT_ROOT) {
-            $DOCUMENTROOT=$DOCUMENT_ROOT;
-         } else {
-            $DOCUMENTROOT=$_SERVER['DOCUMENT_ROOT'];
-         }
+         $DOCUMENTROOT = ($DOCUMENT_ROOT) ? $DOCUMENT_ROOT : $_SERVER['DOCUMENT_ROOT'] ;
       }
       $user_dir=$DOCUMENTROOT.$racine."/users_private/".$chng_uname;
       $repertoire=$user_dir."/mns";
@@ -282,7 +278,7 @@ function nonallowedUsers() {
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $newsuti = sql_query("SELECT u.uid, u.uname, u.name, u.user_regdate FROM ".$NPDS_Prefix."users AS u LEFT JOIN users_status AS us ON u.uid = us.uid WHERE us.open='0' ORDER BY u.user_regdate DESC");
+   $newsuti = sql_query("SELECT u.uid, u.uname, u.name, u.user_regdate FROM ".$NPDS_Prefix."users AS u LEFT JOIN ".$NPDS_Prefix."users_status AS us ON u.uid = us.uid WHERE us.open='0' ORDER BY u.user_regdate DESC");
    echo '
    <hr />
    <h3>'.adm_translate("Utilisateur(s) en attente de validation").'<span class="badge bg-secondary float-end">'.sql_num_rows($newsuti).'</span></h3>
@@ -484,6 +480,7 @@ switch ($op) {
       settype($add_mns,'integer');
       settype($B1,'string');
       settype($raz_avatar,'integer');
+      settype($add_send_email,'integer');
    
       if (isset($add_group)) $add_group=implode(',',$add_group); else $add_group='';
       updateUser($chng_uid, $add_uname, $add_name, $add_url, $add_email, $add_femail, $add_user_from, $add_user_occ, $add_user_intrest, $add_user_viewemail, $add_avatar, $add_user_sig, $add_bio, $add_pass, $add_pass2, $add_level, $add_open_user, $add_group, $add_send_email, $add_is_visible, $add_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar,$chng_rank,$user_lnl);
@@ -543,7 +540,7 @@ switch ($op) {
 
          // Mettre un fichier 'delete' dans sa home_directory si elle existe
          if (is_dir($user_dir)) {
-            $fp = fopen($repertoire.$user_dir.'/delete', 'w');
+            $fp = fopen($user_dir.'/delete', 'w');
             fclose($fp);
          }
 
@@ -587,7 +584,7 @@ switch ($op) {
       settype($add_mns,'integer');
       settype($B1,'string');
       settype($raz_avatar,'integer');
-      settype($add_send_email,'string');
+      settype($add_send_email,'integer');
        if (sql_num_rows(sql_query("SELECT uname FROM ".$NPDS_Prefix."users WHERE uname='$add_uname'")) > 0) {
          global $hlpfile;
          include("header.php");

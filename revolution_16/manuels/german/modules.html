@@ -11,7 +11,7 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
                <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li> 
                <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
                <li class="breadcrumb-item active" aria-current="page">Module Verwalten</li> 
@@ -19,8 +19,29 @@
          </nav>
          <hr class="mt-n3" />
          <h3>Module Verwalten.</h3>
-         <p>Erm&ouml;glicht Ihnen die Installation und Deinstallation von Modulen.</p>
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
+         <p>Erm&ouml;glicht die Installation und Deinstallation von Modulen. Die Schnittstelle pr&auml;sentiert eine einfache Tabelle mit dem Symbol, dem Modulnamen und den Funktionen.</p>
+
+         <h4>Funktionen</h4>
+         <h5>F&uuml;r Module mit automatischer Installation</h5>
+         <ul>
+            <li class="mb-3 text-success"><i class="fa fa-compress fa-lg"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90 "></i>: Modul installieren.<br /></li>
+            <li class="text-danger"><i class="fa fa-expand fa-lg text-danger"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate- 90"></i>: Deinstallieren Sie das Modul.<br /> <b>Bitte beachten Sie, dass dieser Befehl zerst&ouml;rt, was durch die automatische Installation des Moduls erstellt wurde:</b>
+               <ul>
+                  <li>alle Tabellen in der Datenbank sowie die dort gefundenen Daten.</li>
+                  <li>alle administrativen Funktionen und damit verbundenen Rechte</li>
+                  <li>alle Bl&ouml;cke, die sich auf das Modul beziehen.</li>
+                  <li>beliebige Metaw&ouml;rter</li>
+               </ul>
+            </li>
+            <li>Diese beiden Befehle sind alternativ nur verf&uuml;gbar, wenn <u>f&uuml;r das Modul eine automatische Installation</u> in der Datei <code>/modules/mon_module/install.conf.php</code> definiert ist. Sie f&uuml;hren daher zur detaillierten und fortschrittlichen Schnittstelle zum Installieren oder Deinstallieren Ihres Moduls.</li>
+         </ul>
+         <h5>F&uuml;r Module ohne automatische Installation</h5>
+         <ul>
+            <li class="mb-3 text-success"><i class="fa fa-check fa-lg"></i><i class="fa fa-puzzle-piece fa-2x fa-rotate-90 "></i>: Markieren Sie das Modul als installiert.<br /></li>
+            <li class="text-danger"><i class="fa fa-ban fa-lg"></i><i class="fa fa fa-puzzle-piece fa-2x fa-rotate-90"> </i>: Markieren Sie das Modul als deinstalliert. </li>
+            <li>Diese beiden Befehle sind alternativ nur verf&uuml;gbar, wenn <u>das Modul nicht &uuml;ber eine automatische Installation verf&uuml;gt</u>. Sie dienen daher lediglich dazu, den Status des installierten/deinstallierten Moduls in der Datenbank und dessen Benachrichtigung in der Schnittstelle zu &auml;ndern. Sie m&uuml;ssen das Modul daher installieren/deinstallieren, indem Sie auf die Datei <code>install.txt</code> aus dem Modularchiv verweisen.</li>         
+         </ul>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Administrationshandbuch</span></p>
       </div>
    </body>
 </html>

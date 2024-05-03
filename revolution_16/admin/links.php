@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -19,7 +19,7 @@ $f_titre = 'Liens';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-global $language, $NPDS_Prefix;
+global $language;
 $hlpfile = "manuels/$language/weblinks.html";
 
 // valeur du pas de pagination
@@ -1024,7 +1024,7 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $xtext, $name, $email, $su
             $subject = html_entity_decode(adm_translate("Votre Lien"),ENT_COMPAT | ENT_HTML401,cur_charset)." : $sitename";
             $message = adm_translate("Bonjour")." $name :\n\n".adm_translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".adm_translate("Titre de la page")." : $title\n".adm_translate("URL de la Page : ")."<a href=\"$url\">$url</a>\n".adm_translate("Description : ")."$xtext\n".adm_translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".adm_translate("Merci pour votre Contribution !")."\n";
             include("signat.php");
-            send_email($email, $subject, $message, '', false, 'html');
+            send_email($email, $subject, $message, '', false, 'html', '');
          }
       }
       global $aid; Ecr_Log('security', "AddLinks($title) by AID : $aid", '');

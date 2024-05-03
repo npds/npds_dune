@@ -5,11 +5,11 @@
 /*                                                                      */
 /* NEO - 2007                                                           */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -19,7 +19,7 @@ $f_titre = 'META-LANG';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
-global $language, $NPDS_Prefix;
+global $language;
 $hlpfile = 'manuels/'.$language.'/meta_lang.html';
 
 function go_back($label) {
@@ -175,7 +175,7 @@ function Edit_Meta_Lang() {
    if ($Q['obligatoire'] != true) 
       echo '
    <h3>'.adm_translate("Modifier un ").' META-MOT</h3>';
-   echo aff_local_langue('<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language').'<br />';
+   echo aff_local_langue('','local_user_language').'<br />','<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>';
    echo '
    <div class="row">
       <div class="text-muted col-sm-3">META</div>
@@ -291,7 +291,7 @@ function Edit_Meta_Lang() {
 }
 
 function Creat_Meta_Lang() {
-   global $NPDS_Prefix, $hlpfile, $type_meta, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $type_meta, $f_meta_nom, $f_titre, $adminimg;
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -302,7 +302,6 @@ function Creat_Meta_Lang() {
    if (!$type_meta)
       echo adm_translate("Veuillez choisir un type de META-MOT").' ';
    echo list_meta_type($type_meta);
-//   echo $type_meta;
    if ($type_meta) {
       echo '
       <div class="mb-3 row">

@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -215,7 +215,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
       $name = $anonymous;
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, '')) {
-         Ecr_Log('security', "Submit Anti-Spam : name=".$yname." / mail=".$ymail, '');
+         Ecr_Log('security', "Submit Anti-Spam : uid=".$uid." / name=".$name, '');
          redirect_url("index.php");
          die();
       }
@@ -231,7 +231,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
    if (sql_last_id()) {
       if ($notify) {
          global $notify_email, $notify_subject, $notify_message, $notify_from;
-         send_email($notify_email, $notify_subject, $notify_message, $notify_from , false, "text");
+         send_email($notify_email, $notify_subject, $notify_message, $notify_from , false, "html", '');
       }
       include ('header.php');
       echo '

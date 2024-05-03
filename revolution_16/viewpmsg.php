@@ -5,19 +5,16 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 include("functions.php");
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj =  $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
 include("auth.php");
    if (!$user)
       Header("Location: user.php");
@@ -44,7 +41,7 @@ include("auth.php");
                <option '.$sel.' value="'.$dossierX.'">'.$dossierX.'</option>';
          $tempo[$dossierX]=0;
       }
-      if ($dossier=='All') $sel='selected="selected"'; else $sel='';
+      $sel = (isset($dossier) and $dossier=='All') ? 'selected="selected"' : '';
       echo '
                <option '.$sel.' value="All">'.translate("Tous les sujets").'</option>
             </select>
@@ -52,8 +49,9 @@ include("auth.php");
       </form>';
 
       settype($dossier,'string');
-      if ($dossier=="All") {$ibid='';} else {$ibid="and dossier='$dossier'";}
-      if (!$dossier) {$ibid="and dossier='...'";}
+
+      $ibid = $dossier=="All" ? '' : "AND dossier='$dossier'" ;
+      if (!$dossier) $ibid="AND dossier='...'";
       $sql = "SELECT * FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$userdata['uid']."' AND type_msg='0' $ibid ORDER BY msg_id DESC";
       $resultID = sql_query($sql);
       if (!$resultID) forumerror('0005');
@@ -117,17 +115,13 @@ include("auth.php");
                if ($ibid=theme_image("forum/subject/".$myrow['msg_image'])) $imgtmp=$ibid; else $imgtmp="images/forum/subject/".$myrow['msg_image'];
                echo '
                   <td><img class="n-smil" src="'.$imgtmp.'" alt="" /></td>';
-            } else {
+            } else
                echo '
                   <td></td>';
-            }
          }
          echo '
-                  <td>'.userpopover($posterdata['uname'],40);
-         if ($posterdata['uid']<>1)
-            echo $posterdata['uname'];
-         else
-            echo $sitename;
+                  <td>'.userpopover($posterdata['uname'],40,2);
+         echo ($posterdata['uid']<>1) ? $posterdata['uname'] : $sitename ;
          echo '</td>
                   <td>'.aff_langue($myrow['subject']).'</td>
                   <td class="small">'.$myrow['msg_time'].'</td>

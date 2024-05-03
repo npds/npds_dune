@@ -1,17 +1,47 @@
-<html>
-<title>对主题的管理 - NPDS V</title>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>对主题的管理</b></center>
-<br/><br/>
-为了正确发表，您的文章必须有个主题。这是系统的重要组成部分。
-对主题的管理使您可以添加，删除或是修改主题。 <br/><br/> 每个主题都必须有个题目，一个描述，并可能有一个图片。
-且，每个主题都有一个（或多个）管理员。 <br/><br/> <b>添加一个主题 :</b><br/> - 题目 : 这是NPDS用以区分主题的标识。输入题目时请使用小写，并没有空格。<br/><br/> - 描述 : 这是将显示的介绍文本。其中，您可以使用大小写和空格。<br/><br/>  - 图片 : NPDS允许不使用图片。但是，如果您期望使用图片，请在对应的表框内输入图片文件名 (例如: npds.gif)。该图片文件应该保存在您服务器的 images/topics 目录下。<br/><br/>  - 管理员 : NPDS允许就每个主题定义一个或多个管理员。<br/> 如果该表框为空，那么仅超级管理员可以在此主题下发表文章。<br/> 如果该表框包含一个管理员的名字（或多个管理员的名字，之间以逗号间隔），那么该管理员（当然包括超级管理员）可以在该主题下发表文章。 <br/><br/> <b>编辑一个主题 :</b><br/> 只需点击对应的图片或文本。在随后的页面上，您可以修改题目，描述和图片。<br/> 您同样可以删除该主题，但是请注意，该操作将删除所有该主题下的文章（系统将生成要求确认的信息）。 <br/><br/> 在该页面上，您也可以为一个主题规定去往其他站点的链接 (例如Php-Nuke)。 该相关链接将在所有与该主题有关的文章的页面上显示。
-<br/><br/>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>管理 - 对主题的管理</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"> <a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_contenu.html">内容</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >对主题的管理</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3>管理 - 对主题的管理</h3>
+         <p>您必须定义主题才能发布您的文章。<br />
+         它是系统的重要组成部分。 系统允许您添加、删除或
+         修改主题。<br />
+         每个主题必须有标题、描述、可能还有图像以及一个或多个管理员。</p>
+
+         <h4>添加话题</h4>
+         <p>
+            <ul>
+               <li><strong>标题：</strong>这是 NPDS 将使用的标识符。 以<b>小写字母输入，不含空格和重音符号</b>（最多 20 个字符）</li>
+               <li><strong>文本：</strong>这是将显示的文本。 您可以使用大写/小写字母和空格。（最多 250 个字符）</li>
+               <li><strong>图像：</strong> NPDS 允许您不使用图像，但如果您希望分配图像，请在此区域中输入文件名，例如：npds.gif。 此文件必须位于网站根目录的 <i>images/topics</i> 目录或您的主题文件夹中。</li>
+               <li><strong>管理员：</strong>NPDS 允许您为某个主题定义一个或多个管理员。<br />
+               如果此区域留空，则只有超级管理员才能在此主题中发帖。<br />
+               如果此区域包含一名或多名管理员的姓名，则这些姓名必须用逗号分隔。</li>
+            </ul>
+         </p>
+
+         <h4>编辑主题</h4>
+         <p>只需单击摘要表中的图像或文本即可。 在下一页上您可以修改标题、描述和图像。</p>
+         <p class="text-danger">您还可以删除主题，但请记住，这也会删除所有附加文章。<br />必须提供确认消息。</p>
+         <p>在此页面上，您还可以分配与该主题相关的网络链接。<br />
+         相关链接将与有关该主题的文章一起显示。</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

@@ -11,7 +11,7 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
                <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">Menu</a></li>
                <li class="breadcrumb-item"><a href="men_syst.html">Syst&egrave;me</a></li>
                <li class="breadcrumb-item active" aria-current="page" >Logs</li>
@@ -19,8 +19,15 @@
          </nav>
          <hr class="mt-n3" />
          <h3 class="mb-3">Administration - Logs</h3>
-         <p>A r&eacute;diger...</p>
-         <p class="border-top mt-5"><img class="me-3 mt-n4" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /><span class="text-muted font-italic small float-end">NPDS - Manuel administration</span></p>
+         <p>L'onglet Liste des sessions permet de visualiser dans le d&eacute;tail les sessions actives de votre site.</p>
+         <p>L'onglet Liste des Logs permet de visualiser et d'analyser les logs &eacute;mis par le portail. Ils sont r&eacute;partis en deux cat&eacute;gories les logs dit de s&eacute;curit&eacute; et les logs tra&ccedil;ant les t&eacute;l&eacute;chargements. Dans le tableau la fonction Infos permet d'obtenir des informations d&eacute;taill&eacute;es sur l'IP.</p>
+         <p>L'onglet <i class="fa fa-wrench fa-lg"></i> contient des commandes pour :
+         <ul>
+            <li>envoyer par email le fichier security.log au superadmin.</li>
+            <li>vider le fichier security.log</li>
+            <li>vider les fichiers temporaires des uploads (modules/upload/tmp/)</li>
+         </ul>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - Manuel administration</span></p>
       </div>
    </body>
 </html>

@@ -5,21 +5,18 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2021 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /* Great mods by snipe                                                  */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include('functions.php');
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj = $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
 
 global $NPDS_Prefix;
 include('auth.php');
@@ -82,11 +79,7 @@ $lock_state = $myrow['topic_status'];
          $tmp_theme=$Default_Theme;
    } else
       $tmp_theme=$Default_Theme;
-
-   if ($Mmod)
-      $post_aff=' ';
-   else
-      $post_aff=" AND post_aff='1' ";
+   $post_aff = $Mmod ? ' ' : " AND post_aff='1' " ;
 
    $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND post_id='$post_id'".$post_aff;
    if (!$result = sql_query($sql))
@@ -94,9 +87,7 @@ $lock_state = $myrow['topic_status'];
    $myrow = sql_fetch_assoc($result);
 
    if ($allow_upload_forum) {
-      $visible = '';
-      if (!$Mmod)
-         $visible = ' AND visible = 1';
+      $visible = !$Mmod ? ' AND visible = 1' : '' ;
       $sql = "SELECT att_id FROM $upload_table WHERE apli='forum_npds' && topic_id = '$topic' $visible";
       $att = sql_num_rows(sql_query($sql));
       if ($att>0)
@@ -140,11 +131,7 @@ $lock_state = $myrow['topic_status'];
       else
          echo '<img class="n-ava-48 border my-2" src="images/forum/avatar/blank.gif" alt="avatar" /><br />';
    }
-   if($myrow['poster_id'] != 0)
-      echo $posterdata['uname'];
-   else
-      echo $anonymous;
-
+   echo $myrow['poster_id'] != 0 ? $posterdata['uname'] : $anonymous ;
    echo '
       </div>
       <div class="col-md-10">
@@ -158,8 +145,7 @@ $lock_state = $myrow['topic_status'];
       if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
       echo '<img class="n-smil" src="'.$imgtmp.'" alt="icone du post" />';
    } else
-      echo '<img class="n-smil" src="'.$imgtmpPI.'"  alt="icone du post" />';
-
+      echo '<img class="n-smil" src="images/forum/subject/00.png" alt="icone du post" />';
    echo '</p>';
 
    $message=stripslashes($myrow['post_text']);
@@ -187,10 +173,9 @@ $lock_state = $myrow['topic_status'];
    }
 
    echo '
-         <hr />
-         <p class="text-center">'.translate("Cet article provient de").' '.$sitename.'<br />
-         <a href="'.$nuke_url.'/viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post_id='.$post_id.'">'.$nuke_url.'/viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'</a></p>
-
+            <hr />
+            <p class="text-center">'.translate("Cet article provient de").' '.$sitename.'<br />
+            <a href="'.$nuke_url.'/viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'&amp;post_id='.$post_id.'">'.$nuke_url.'/viewtopic.php?topic='.$topic.'&amp;forum='.$forum.'</a></p>
          </div>
       </div>
    </body>

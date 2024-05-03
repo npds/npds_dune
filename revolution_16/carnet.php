@@ -2,11 +2,11 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -39,7 +39,7 @@ function L_encrypt($txt) {
       echo '
       <link id="bsth" rel="stylesheet" href="themes/_skins/default/bootstrap.min.css" />';
 
-      echo import_css($tmp_theme, $language, $site_font, "","");
+      echo import_css($tmp_theme, $language, "", "","");
       include("lib/formhelp.java.php");
 
       $fic="users_private/".$userdata[1]."/mns/carnet.txt";

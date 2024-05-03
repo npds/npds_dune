@@ -6,21 +6,17 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2020 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include("functions.php");
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
-
+$cache_obj = $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
 include("auth.php");
 $Smax='99';
 
@@ -28,7 +24,7 @@ $Smax='99';
 function ancre($forum_id,$topic_id,$post_id,$posts_per_page) {
    global $NPDS_Prefix;
 
-   $rowQ1=Q_Select ("SELECT post_id FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum_id' and topic_id='$topic_id' order by post_id ASC", 600);
+   $rowQ1=Q_Select ("SELECT post_id FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum_id' AND topic_id='$topic_id' ORDER BY post_id ASC", 600);
    if (!$rowQ1)
       forumerror('0015');
    $i=0;
@@ -146,12 +142,8 @@ settype($term,'string');
       $andor='';
       $terms = explode(' ',stripslashes(removeHack(trim($term))));
       $addquery = "( (p.post_text LIKE '%$terms[0]%' OR strcmp(soundex(p.post_text), soundex('$terms[0]'))=0)";
-      if (isset($addterms)) {
-         if ($addterms=='any')
-            $andor = 'OR';
-         else
-            $andor = 'AND';
-      }
+      if (isset($addterms))
+         $andor = $addterms=='any' ? 'OR' : 'AND' ;
       $size = sizeof($terms);
       for ($i=1;$i<$size;$i++)
           $addquery.=" $andor (p.post_text LIKE '%$terms[$i]%' OR strcmp(soundex(p.post_text), soundex('$terms[$i]'))=0)";
@@ -169,31 +161,26 @@ settype($term,'string');
       if (!$result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$username'"))
          forumerror('0001');
       list($userid) = sql_fetch_row($result);
-      if (isset($addquery))
-         $addquery.=" AND p.poster_id='$userid' AND u.uname='$username'";
-      else
-         $addquery =" p.poster_id='$userid' AND u.uname='$username'";
+      $addquery.= isset($addquery) ? 
+         " AND p.poster_id='$userid' AND u.uname='$username'" :
+         " p.poster_id='$userid' AND u.uname='$username'";
    }
 
    if (!$user) {
       if (!isset($addquery)) $addquery='';
       $addquery.=" AND f.forum_type!='5' AND f.forum_type!='7' AND f.forum_type!='9'";
    }
-
-   if (isset($addquery))
-      $query.=" WHERE $addquery AND  ";
-   else
-      $query.=' WHERE ';
+   $query.= isset($addquery) ? " WHERE $addquery AND  " : ' WHERE ' ;
 
    settype($sortby, "integer");
    if ($sortby==0) $sortbyR="p.post_id";
    if ($sortby==1) $sortbyR="t.topic_title";
    if ($sortby==2) $sortbyR="f.forum_name";
    if ($sortby==3) $sortbyR="u.uname";
-   if (isset($only_solved))
-      $query.=" p.topic_id = t.topic_id AND p.forum_id = f.forum_id AND p.poster_id = u.uid AND t.topic_status='2' GROUP BY t.topic_title ORDER BY $sortbyR DESC";
-   else
-      $query.=" p.topic_id = t.topic_id AND p.forum_id = f.forum_id AND p.poster_id = u.uid AND t.topic_status!='2' ORDER BY $sortbyR DESC";
+
+   $query.= isset($only_solved) ?
+      " p.topic_id = t.topic_id AND p.forum_id = f.forum_id AND p.poster_id = u.uid AND t.topic_status='2' GROUP BY t.topic_title, u.uid, p.topic_id, p.post_id ORDER BY $sortbyR DESC" :
+      " p.topic_id = t.topic_id AND p.forum_id = f.forum_id AND p.poster_id = u.uid AND t.topic_status!='2' ORDER BY $sortbyR DESC" ;
 
    $Smax++;
    settype($Smax,'integer');
@@ -251,7 +238,7 @@ settype($term,'string');
          </tbody>
       </table>';
    }
-   sql_free_result();
+   sql_free_result($result);
    echo auto_complete ('membre','uname','users','username','86400');
    include('footer.php');
 ?>

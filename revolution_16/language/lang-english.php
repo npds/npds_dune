@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /*                                                                      */
 /* Translated by :                                                      */
@@ -149,9 +149,7 @@ function translate_pass1($phrase) {
    case "Articles présents dans les rubriques": $tmp="Articles in Sections"; break;
    case "Articles publiés : ": $tmp="news published:"; break;
    case "Articles publiés": $tmp="Stories published"; break;
-   case "Articles": $tmp="Articles"; break;
    case "Articles": $tmp="Stories"; break;
-   case "Articles": $tmp="Submissions"; break;
    case "Assurez-vous de l'exactitude de votre information avant de la communiquer. N'écrivez pas en majuscules, votre texte serait automatiquement rejeté": $tmp="Please make sure that the information entered is 100% valid and uses proper grammar and capitalization. For instance, please do not enter your text in ALL CAPS, as it will be rejected."; break;
    case "ATTENTION : Etes-vous certain de vouloir effacer cette catégorie et tous ses Liens ?": $tmp="WARNING: Are you sure you want to delete this Category and ALL its Links?"; break;
    case "Attention à votre expression écrite. Vous pouvez utiliser du code html si vous savez le faire": $tmp="Please observe proper grammar! Make it at least 100 words, OK? You may also use HTML tags if you know how to use them."; break;
@@ -372,6 +370,7 @@ function translate_pass1($phrase) {
    case "Entrer votre pseudonyme et votre mot de passe.": $tmp="Please enter the Nickname and the Password."; break;
    case "Entrez à nouveau votre mot de Passe": $tmp="Retype Password"; break;
    case "Envoi de l'article à un ami": $tmp="Send Story to a Friend"; break;
+   case "Envoi une demande aux administrateurs pour rejoindre ce groupe. Un message privé vous informera du résultat de votre demande.": $tmp="Send a request to administrators to join this group. A private message will inform you of the outcome of your request."; break;
    case "Envoyé à": $tmp="To"; break;
    case "Envoyé par ": $tmp="Contributed by "; break;
    case "Envoyé": $tmp="Sent"; break;
@@ -430,6 +429,8 @@ function translate_pass1($phrase) {
    case "Gestionnaire fichiers": $tmp="File manager"; break;
    case "Gras": $tmp="Bold"; break;
    case "Groupe": $tmp="Group"; break;
+   case "Groupe ouvert": $tmp="Open group"; break;
+   case "Groupes": $tmp="Groups"; break;
    case "Hasard": $tmp="Random"; break;
    case "Haut de page": $tmp="Back to Top"; break;
    case "Heure de la soumission": $tmp="Post Time"; break;
@@ -680,6 +681,7 @@ function translate_pass1($phrase) {
    case "Nous avons approuvé votre contribution à notre moteur de recherche.": $tmp="We approved your link submission for our search engine."; break;
    case "Nous avons bien reçu votre demande de lien, merci": $tmp="We received your Link submission. Thanks!"; break;
    case "Nous ne vendons ni ne communiquons vos informations personnelles à autrui.": $tmp="We don't sell/give to others your personal info."; break;
+   case "Nouveau commentaire": $tmp="New comment"; break;
    case "Nouveau dossier/sujet": $tmp="New folder/topic"; break;
    case "Nouveau lien ajouté dans la base de données": $tmp="New Link added to the Database"; break;
    case "Nouveau membre": $tmp="New User"; break;
@@ -723,6 +725,7 @@ function translate_pass1($phrase) {
    case "pas affiché dans l'annuaire, message à un membre, ...": $tmp="not showed in memberlist, members' message bloc ..."; break;
    case "Pas de connexion à la base forums.": $tmp="Could not connect to the forums database."; break;
    case "Pas de connexion à la base topics.": $tmp="Could not query the topics database."; break;
+   case "Pas de groupe ouvert.": $tmp="No open group."; break;
    case "Pas de problème. Saisissez votre identifiant et le nouveau mot de passe que vous souhaitez utiliser puis cliquez sur envoyer pour recevoir un Email de confirmation.": $tmp="No problem. Just type your Nickname, the new password you want and click on send button to recieve a email with the confirmation code."; break;
    case "Passer / Gérer une annonce": $tmp="Submit / Manage Item"; break;
    case "Pays": $tmp="Country"; break;
@@ -787,6 +790,7 @@ function translate_pass1($phrase) {
    case "Rechercher dans": $tmp="Search in"; break;
    case "Recommander ce site à un ami": $tmp="Recommend this Site to a Friend"; break;
    case "Reçus": $tmp="Received"; break;
+   case "Rejoindre ce groupe": $tmp="Join this group"; break;
    case "Replier la liste": $tmp="Hide list"; break;
    case "Répondre": $tmp="Reply"; break;
    case "Réponse postée.": $tmp="Reply Posted."; break;

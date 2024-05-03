@@ -1,27 +1,37 @@
-<html>
-<title>对组的管理 - NPDS V</title>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>对组的管理</b></center>
-<br/><br/>
-本模块允许您对NPDS上的组进行管理。
-<br/><br/>
-列表对不同的组和其相应会员进行区分显示：<br/>
-&nbsp;-	红色显示的组是当前存在的组，但是该组没有（或不再有）注册会员。<br/>
-&nbsp;-	您可以发布或删除该组的信息（该操作并不删除组本身）。
-<br/><br/>
-如要分配某个组给一个用户，该组必须已经被创建。
-<br/><br/>
-组的ID值必须介于数字2和126之间。
-<br/><br/>
-如要删除一个组，您必须首先删除该组中的所有会员。
-<br/><br/>
-如您期望在一个组中同时添加多个会员，只需在各会员的名字间以 逗号(,) 分隔即可。
-<br/><br/>
-<center><img src="../../images/admin/manuels.gif" border="0" /></center>
-</font>
-</body>
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+         <title>管理 - 群组管理</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1" />
+         <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+         <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+               <ol class="breadcrumb bg-transparent">
+                  <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+                  <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">菜单</a></li>
+                  <li class="breadcrumb-item"><a href="men_utilisateurs.html">用户</a></li>
+                  <li class="breadcrumb-item active" aria-current="page" >群组管理</li>
+               </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">管理 - 群组管理</h3>
+         <p>此模块允许您管理 NPDS 组。</p>
+         <p>群组及其附加的成员列表：
+            <ul>
+               <li>红色表示没有（或不再有）成员且存在于数据库中的群组。</li>
+               <li>您可以编辑或删除附加到群组的信息（这不会删除群组）。</li>
+            </ul>
+         </p>
+         <p>为了能够将组分配给用户，必须事先创建该组。</p>
+         <p>组 ID 值必须介于 <b>2</b> 和 <b>126</b> 之间。</p>
+         <p>要删除群组，您必须先删除所有成员。</p>
+         <p>如果您想通过界面向群组添加多个成员，请用,（逗号）分隔昵称。</p>
+         </div>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>

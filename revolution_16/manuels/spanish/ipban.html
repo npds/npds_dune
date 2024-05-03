@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administrar - IPban.</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">Sistema</a></li>
+               <li class="breadcrumb-item active">IPban</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administrar - IPban.</h3>
+         <p>Este módulo principal le permite ver las IP prohibidas o en proceso de prohibición por npds antispam. También le permite prohibir manualmente IP (v4 o v6) o rangos de IP (v4).</p>
+         <p>
+         Cada línea solo debe contener una dirección IP (v4 o v6) de la forma:<br /> a.b.c.d|X (ej. v4: 168.192.1.1|5);<br />a:b:c:d:e : f:g:h|X (ej. v6: 2001:0db8:0000:85a3:0000:0000:ac1f:8001|5).<br />
+         <span class="text-danger">Si X >= 5, entonces esta dirección IP está prohibida y se denegará el acceso.</span></p>
+         <p>También puedes prohibir rangos de direcciones IP (v4) de esta forma:<br /> x.x.%|5 o x.x.x.%|5</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazzy"><span class="text-muted font-italic small float-end">NPDS - Manual de administraci&oacute;n</span></p>
+      </div>
+   </body>
+</html>

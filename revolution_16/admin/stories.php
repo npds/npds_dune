@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
 if (!function_exists('admindroits'))
@@ -47,7 +47,7 @@ function puthome($ihome) {
    $sel2 = 'checked="checked"';
    echo '
       <div class="mb-3 row">
-         <label class="col-sm-4 col-form-label text-danger" >'.adm_translate("Seulement aux membres").'</label>
+         <label class="col-sm-4 col-form-label" >'.adm_translate("Seulement aux membres").', '.adm_translate("Groupe").'.</label>
          <div class="col-sm-8 my-2">
             <div class="form-check form-check-inline">';
 //?? à revoir comprends pas ...
@@ -81,8 +81,8 @@ function puthome($ihome) {
        <option value="'.$groupe_id.'" '.$sel3.'>'.$groupe_name.'</option>';
     }
    echo '
-      <div class="mb-3 row">
-         <label class="col-sm-4 col-form-label text-danger" for="Mmembers">'.adm_translate("Groupe").'</label>
+      <div class="mb-3 row" id="choixgroupe">
+         <label class="col-sm-4 col-form-label" for="Mmembers">'.adm_translate("Groupe").'</label>
          <div class="col-sm-8">
             <select class="form-select" id="Mmembers" name="Mmembers">'.$tmp_groupe.'</select>
          </div>
@@ -116,7 +116,7 @@ function SelectCategory($cat) {
 
 // CATEGORIES
 function AddCategory () {
-   global $NPDS_Prefix, $hlpfile, $language, $aid, $radminsuper,$adminimg;
+   global $hlpfile, $language, $aid, $radminsuper,$adminimg;
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Articles");
    //==> controle droit
@@ -150,6 +150,7 @@ function AddCategory () {
    inpandfieldlen("title",255);';
    adminfoot('fv','',$arg1,'');
 }
+
 function SaveCategory($title) {
    global $NPDS_Prefix, $aid, $f_meta_nom, $adminimg;
 
@@ -429,7 +430,7 @@ function displayStory ($qid) {
    echo '
    <hr />
    <h3>'.adm_translate("Prévisualiser l'Article").'</h3>
-   <form action="admin.php" method="post" name="adminForm">
+   <form action="admin.php" method="post" name="adminForm" id="adminForm">
       <label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>
       '.aff_localzone_langue("local_user_language").'
       <div class="card card-body mb-3">';
@@ -444,7 +445,7 @@ function displayStory ($qid) {
     echo '
          </div>
       <div class="mb-3 row">
-         <label class="col-sm-4 col-form-label" for="author">'.adm_translate("Utilisateur").'</label>
+         <label class="col-sm-4 col-form-label" for="author">'.userpopover($uname,40,'').adm_translate("Utilisateur").'</label>
          <div class="col-sm-8">
             <input class="form-control" type="text" id="author" name="author" value="'.$uname.'" />
             <a href="replypmsg.php?send='.urlencode($uname).'" target="_blank" title="'.adm_translate("Diffusion d'un Message Interne").'" data-bs-toggle="tooltip"><i class="far fa-envelope fa-lg"></i></a>
@@ -453,7 +454,7 @@ function displayStory ($qid) {
       <div class="mb-3 row">
          <label class="col-sm-4 col-form-label" for="subject">'.adm_translate("Titre").'</label>
          <div class="col-sm-8">
-            <input class="form-control" type="text" id="subject" name="subject" value="'.$subject.'" />
+            <input class="form-control" type="text" id="subject" name="subject" value="'.$subject.'" required="required" />
          </div>
       </div>
       <div class="mb-3 row">
@@ -529,7 +530,9 @@ function displayStory ($qid) {
       </div>
       <input class="btn btn-primary" type="submit" value="'.adm_translate("Ok").'" />
    </form>';
-   adminfoot('fv','','','');
+   $arg1='
+   var formulid = ["adminForm"];';
+   adminfoot('fv','',$arg1,'');
 }
 
 function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topic, $notes, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
@@ -742,8 +745,8 @@ function editStory ($sid) {
    $notes = stripslashes($notes);
 
    $affiche=false;
-   $result2=sql_query("SELECT topictext, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
-   list ($topictext, $topicimage, $topicadmin)=sql_fetch_row($result2);
+   $result2=sql_query("SELECT topictext, topicname, topicimage, topicadmin FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+   list ($topictext, $topicname, $topicimage, $topicadmin)=sql_fetch_row($result2);
    if ($radminsuper)
       $affiche=true;
    else {
@@ -753,7 +756,7 @@ function editStory ($sid) {
       }
    }
    if (!$affiche) header("location: admin.php");
-   $topiclogo = '<span class="badge bg-secondary float-end"><strong>'.aff_langue($topictext).'</strong></span>';
+   $topiclogo = '<span class="badge bg-secondary float-end"><strong>'.aff_langue($topicname).'</strong></span>';
 
    include ('header.php');
    GraphicAdmin($hlpfile);
@@ -762,7 +765,7 @@ function editStory ($sid) {
    $result=sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext, $topicimage) = sql_fetch_row($result);
 
-   echo '<hr />'.aff_local_langue('<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>','','local_user_language');
+   echo '<hr />'.aff_local_langue('','local_user_language','<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>');
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
@@ -802,10 +805,9 @@ function editStory ($sid) {
          }
       }
       if ($affiche) {
-         if ($topicid==$topic) $sel = 'selected="selected"';
+         $sel = $topicid==$topic ? 'selected="selected"' : '';
          echo '
                <option value="'.$topicid.'" '.$sel.'>'.aff_langue($topics).'</option>';
-         $sel = '';
       }
    }
    echo '
@@ -877,10 +879,29 @@ function editStory ($sid) {
          </div>
       </div>
    </form>';
+   $fv_parametres ='
+
+   !###!
+   mem_y.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         choixgroupe.style.display="flex";
+      }
+   });
+   mem_n.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         choixgroupe.style.display="none";
+      }
+   });
+   ';
    $arg1='
    var formulid = ["editstory"];
-   inpandfieldlen("subject",255);';
-   adminfoot('fv','',$arg1,'');
+   inpandfieldlen("subject",255);
+   const choixgroupe = document.getElementById("choixgroupe");
+   const mem_y = document.querySelector("#mem_y");
+   const mem_n = document.querySelector("#mem_n");
+   mem_y.checked ? "" : choixgroupe.style.display="none" ;
+   ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function deleteStory($qid) {
@@ -1078,10 +1099,29 @@ function adminStory() {
          </div>
       </div>
    </form>';
+   $fv_parametres ='
+
+   !###!
+   mem_y.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         choixgroupe.style.display="flex";
+      }
+   });
+   mem_n.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         choixgroupe.style.display="none";
+      }
+   });
+   ';
    $arg1='
    var formulid = ["storiesnewart"];
-   inpandfieldlen("subject",255);';
-   adminfoot('fv','',$arg1,'');
+   inpandfieldlen("subject",255);
+   const choixgroupe = document.getElementById("choixgroupe");
+   const mem_y = document.querySelector("#mem_y");
+   const mem_n = document.querySelector("#mem_n");
+   mem_y.checked ? "" : choixgroupe.style.display="none" ;
+   ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 
 function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihome, $members, $Mmembers, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
@@ -1207,10 +1247,29 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
          </div>
       </div>
    </form>';
+   $fv_parametres ='
+
+   !###!
+   mem_y.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         choixgroupe.style.display="flex";
+      }
+   });
+   mem_n.addEventListener("change", function (e) {
+      if(e.target.checked) {
+         choixgroupe.style.display="none";
+      }
+   });
+   ';
    $arg1='
    var formulid = ["storiespreviswart"];
-   inpandfieldlen("subject",255);';
-   adminfoot('fv','',$arg1,'');
+   inpandfieldlen("subject",255);
+   const choixgroupe = document.getElementById("choixgroupe");
+   const mem_y = document.querySelector("#mem_y");
+   const mem_n = document.querySelector("#mem_n");
+   mem_y.checked ? "" : choixgroupe.style.display="none" ;
+   ';
+   adminfoot('fv',$fv_parametres,$arg1,'');
 }
 settype($catid,'integer');
 

@@ -5,11 +5,11 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
@@ -279,36 +279,37 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
             $message .= "\n\n\n".aff_langue("[french]Conform&eacute;ment aux articles 38 et suivants de la loi fran&ccedil;aise n&deg; 78-17 du 6 janvier 1978 relative &agrave; l'informatique, aux fichiers et aux libert&eacute;s, tout membre dispose d&rsquo; un droit d&rsquo;acc&egrave;s, peut obtenir communication, rectification et/ou suppression des informations le concernant.[/french][english]In accordance with Articles 38 et seq. Of the French law n &deg; 78-17 of January 6, 1978 relating to data processing, files and freedoms, any member has a right of access, can obtain communication, rectification and / or deletion of information about him.[/english][chinese]&#26681;&#25454;1978&#24180;1&#26376;6&#26085;&#20851;&#20110;&#25968;&#25454;&#22788;&#29702;&#65292;&#26723;&#26696;&#21644;&#33258;&#30001;&#30340;&#27861;&#22269;78-17&#21495;&#27861;&#24459;&#65292;&#20219;&#20309;&#25104;&#21592;&#37117;&#26377;&#26435;&#36827;&#20837;&#65292;&#21487;&#20197;&#33719;&#24471;&#36890;&#20449;&#65292;&#32416;&#27491;&#21644;/&#25110; &#21024;&#38500;&#26377;&#20851;&#20182;&#30340;&#20449;&#24687;&#12290;[/chinese][spanish]De conformidad con los art&iacute;culos 38 y siguientes de la ley francesa n &deg; 78-17 del 6 de enero de 1978, relativa al procesamiento de datos, archivos y libertades, cualquier miembro tiene derecho de acceso, puede obtener comunicaci&oacute;n, rectificaci&oacute;n y / o supresi&oacute;n de informaci&oacute;n sobre &eacute;l.[/spanish][german]Gem&auml;&szlig; den Artikeln 38 ff. Des franz&ouml;sischen Gesetzes Nr. 78-17 vom 6. Januar 1978 in Bezug auf Datenverarbeitung, Akten und Freiheiten hat jedes Mitglied ein Recht auf Zugang, kann Kommunikation, Berichtigung und / oder L&ouml;schung von Informationen &uuml;ber ihn.[/german]");
             $message .= "\n\n\n".aff_langue("[french]Ce message et les pi&egrave;ces jointes sont confidentiels et &eacute;tablis &agrave; l'attention exclusive de leur destinataire (aux adresses sp&eacute;cifiques auxquelles il a &eacute;t&eacute; adress&eacute;). Si vous n'&ecirc;tes pas le destinataire de ce message, vous devez imm&eacute;diatement en avertir l'exp&eacute;diteur et supprimer ce message et les pi&egrave;ces jointes de votre syst&egrave;me.[/french][english]This message and any attachments are confidential and intended to be received only by the addressee. If you are not the intended recipient, please notify immediately the sender by reply and delete the message and any attachments from your system.[/english][chinese]&#27492;&#28040;&#24687;&#21644;&#20219;&#20309;&#38468;&#20214;&#37117;&#26159;&#20445;&#23494;&#30340;&#65292;&#24182;&#19988;&#25171;&#31639;&#30001;&#25910;&#20214;&#20154;&#25509;&#25910;&#12290; &#22914;&#26524;&#24744;&#19981;&#26159;&#39044;&#26399;&#25910;&#20214;&#20154;&#65292;&#35831;&#31435;&#21363;&#36890;&#30693;&#21457;&#20214;&#20154;&#24182;&#22238;&#22797;&#37038;&#20214;&#21644;&#31995;&#32479;&#20013;&#30340;&#25152;&#26377;&#38468;&#20214;&#12290;[/chinese][spanish]Este mensaje y cualquier adjunto son confidenciales y est&aacute;n destinados a ser recibidos por el destinatario. Si no es el destinatario deseado, notif&iacute;quelo al remitente de inmediato y responda al mensaje y cualquier archivo adjunto de su sistema.[/spanish][german]Diese Nachricht und alle Anh&auml;nge sind vertraulich und sollen vom Empf&auml;nger empfangen werden. Wenn Sie nicht der beabsichtigte Empf&auml;nger sind, benachrichtigen Sie bitte sofort den Absender und antworten Sie auf die Nachricht und alle Anlagen von Ihrem System.[/german]")."\n\n\n";
             include ("signat.php");
-            $subject= translate("Inscription")." $uname";
-            send_email($email, $subject, $message, '', true, 'html');
-          } else {
-             $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")."\n".translate("-Identifiant : ")." $uname\n".translate("-Mot de passe : ")." $makepass\n\n";
-             include ("signat.php");
-             $subject= translate("Mot de passe utilisateur pour")." $uname";
-             send_email($email, $subject, $message, '', true, 'html');
+            $subject= html_entity_decode(translate("Inscription"),ENT_COMPAT | ENT_HTML401,cur_charset).' '.$uname;
+            send_email($email, $subject, $message, '', true, 'html', '');
+         } else {
+            $message = translate("Bienvenue sur")." $sitename !\n\n".translate("Vous, ou quelqu'un d'autre, a utilisé votre Email identifiant votre compte")." ($email) ".translate("pour enregistrer un compte sur")." $sitename.\n\n".translate("Informations sur l'utilisateur :")."\n".translate("-Identifiant : ")." $uname\n".translate("-Mot de passe : ")." $makepass\n\n";
+            include ("signat.php");
+            $subject= html_entity_decode(translate("Mot de passe utilisateur pour"),ENT_COMPAT | ENT_HTML401,cur_charset).' '.$uname;
+            send_email($email, $subject, $message, '', true, 'html', '');
 
             echo '
             <h2>'.translate("Utilisateur").'</h2>
             <h2><i class="fa fa-user me-2"></i>Inscription</h2>
             <div class="alert alert-success lead"><i class="fa fa-exclamation me-2"></i>'.translate("Vous êtes maintenant enregistré. Vous allez recevoir un code de confirmation dans votre boîte à lettres électronique.").'</div>';
-          }
-          //------------------------------------------------
-          if (file_exists("modules/include/new_user.inc")) {
-             include ("modules/include/new_user.inc");
-             global $gmt;
-             $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
-             $message = meta_lang(AddSlashes(str_replace("\n","<br />", $message)));
-             $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
-             $sql .= "VALUES ('', '$sujet', '$emetteur_id', '$usr_id', '$time', '$message')";
-             sql_query($sql);
-          }
-          //------------------------------------------------
-         send_email($adminmail,"Inscription sur $sitename","Infos :
-            Nom : $name
-            ID : $uname
-            Email : $email", false,"text");
          }
-         include("footer.php");
+         //------------------------------------------------
+         if (file_exists("modules/include/new_user.inc")) {
+            include ("modules/include/new_user.inc");
+            global $gmt;
+            $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
+            $message = meta_lang(AddSlashes(str_replace("\n","<br />", $message)));
+            $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
+            $sql .= "VALUES ('', '$sujet', '$emetteur_id', '$usr_id', '$time', '$message')";
+            sql_query($sql);
+         }
+         //------------------------------------------------
+         $subject = html_entity_decode(translate("Inscription"),ENT_COMPAT | ENT_HTML401,cur_charset).' : '.$sitename;
+         send_email($adminmail, $subject,"Infos :
+         Nom : $name
+         ID : $uname
+         Email : $email", '', false, "text", '');
+      }
+      include("footer.php");
    } else
       message_error($stop, 'finish');
 }
@@ -316,7 +317,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
 function userinfo($uname) {
    global $NPDS_Prefix;
    global $user, $sitename, $smilies, $short_user;
-   global $name, $email, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal;
+   global $name, $email, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal, $C7, $C8;
 
    $uname=removeHack($uname);
    $result = sql_query("SELECT uid, name, femail, url, bio, user_avatar, user_from, user_occ, user_intrest, user_sig, user_journal, mns FROM ".$NPDS_Prefix."users WHERE uname='$uname'");
@@ -379,40 +380,47 @@ function userinfo($uname) {
    $useroutils = '';
    if (($user) and ($uid!=1))
       $useroutils .= '<a class=" text-primary me-3" href="powerpack.php?op=instant_message&amp;to_userid='.$posterdata["uname"].'" ><i class="far fa-envelope fa-2x" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
-   if ($posterdata['femail']!='')
-      $useroutils .= '<a class=" text-primary me-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
-   if ($posterdata['url']!='')
-      $useroutils .= '<a class=" text-primary me-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
-   if ($posterdata['mns'])
-       $useroutils .= '<a class=" text-primary me-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
+   if(array_key_exists('femail', $posterdata))
+      if ($posterdata['femail']!='')
+         $useroutils .= '<a class=" text-primary me-3" href="mailto:'.anti_spam($posterdata['femail'],1).'" target="_blank" ><i class="fa fa-at fa-2x" title="'.translate("Email").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
+   if(array_key_exists('url', $posterdata))
+      if ($posterdata['url']!='')
+         $useroutils .= '<a class=" text-primary me-3" href="'.$posterdata['url'].'" target="_blank" ><i class="fas fa-external-link-alt fa-2x" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
+   if(array_key_exists('mns', $posterdata))
+      if ($posterdata['mns'])
+          $useroutils .= '<a class=" text-primary me-3" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" ><i class="fa fa-desktop fa-2x" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"></i></a>&nbsp;';
 
    echo '
    <div class="d-flex flex-row flex-wrap">
       <div class="me-2 my-auto"><img src="'.$direktori.$user_avatar.'" class=" rounded-circle center-block n-ava-64 align-middle" /></div>
       <div class="align-self-center">
          <h2>'.translate("Utilisateur").'<span class="d-inline-block text-muted ms-1">'.$uname.'</span></h2>';
-   if ($uname !== $cookie[1])
-      echo $useroutils;
+   if(isset($cookie[1]))
+      if ($uname !== $cookie[1])
+         echo $useroutils;
    echo $my_rs;
-   if ($uname == $cookie[1])
-      echo '
+   if(isset($cookie[1]))
+      if ($uname == $cookie[1])
+         echo '
          <p class="lead">'.translate("Si vous souhaitez personnaliser un peu le site, c'est l'endroit indiqué. ").'</p>';
    echo '
       </div>
    </div>
    <hr />';
-
-   if ($uname == $cookie[1])
-      member_menu($mns,$uname);
+   if(isset($cookie[1]))
+      if ($uname == $cookie[1])
+         member_menu($mns,$uname);
 
    include('modules/geoloc/geoloc.conf'); 
    echo '
    <div class="card card-body">
       <div class="row">';
    if(array_key_exists($ch_lat, $posterdata_extend) and array_key_exists($ch_lon, $posterdata_extend))
-      if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') 
+      if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
+         $C7=$posterdata_extend[$ch_lat]; $C8=$posterdata_extend[$ch_lon]; 
          echo '
          <div class="col-md-6">';
+      }
       else
          echo '
          <div class="col-md-12">';
@@ -620,7 +628,8 @@ function userinfo($uname) {
          // Nbre de postes par sujet
          $TableRep = sql_query("SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id > 0 AND topic_id = '$topic_id'");
          $replys = sql_num_rows($TableRep)-1;
-         $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id' AND uid = '$cookie[0]' AND status != '0'";
+         $id_lecteur = isset($cookie[0]) ? $cookie[0] : '0';
+         $sqlR = "SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE topicid = '$topic_id' AND uid = '$id_lecteur' AND status != '0'";
             if (sql_num_rows(sql_query($sqlR))==0)
                $image = '<a href="" title="'.translate("Non lu").'" data-bs-toggle="tooltip"><i class="far fa-file-alt fa-lg faa-shake animated text-primary "></i></a>';
             else
@@ -769,7 +778,7 @@ function mail_password($uname, $code) {
 
        $subject=translate("Confirmation du code pour").' '.$uname;
 
-       send_email($email, $subject, $message, '', true, 'html');
+       send_email($email, $subject, $message, '', true, 'html', '');
        message_pass('<div class="alert alert-success lead text-center"><i class="fa fa-exclamation"></i>&nbsp;'.translate("Confirmation du code pour").' '.$uname.' '.translate("envoyée par courrier.").'</div>');
        Ecr_Log('security', 'Lost_password_request : '.$uname, '');
     }
@@ -905,7 +914,8 @@ function login($uname, $pass) {
             $scryptPass = crypt($dbpass, $hashpass);
          }
       }
-
+      else
+         $scryptPass = '';
       if(password_verify(urldecode($pass), $dbpass) or password_verify($pass, $dbpass))
          $CryptpPWD = $dbpass;
       elseif (password_verify($dbpass, $scryptPass) or strcmp($dbpass, $pass)==0)
@@ -1129,8 +1139,8 @@ function savehome($uid, $uname, $theme, $storynum, $ublockon, $ublock) {
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$check'");
    list($vuid) = sql_fetch_row($result);
    if (($check == $uname) AND ($uid == $vuid)) {
-      if ($ublockon) $ublockon=1; else $ublockon=0;
-      $ublock = FixQuotes($ublock);
+      $ublockon = $ublockon ? 1 : 0 ;
+      $ublock = removeHack(FixQuotes($ublock));
       sql_query("UPDATE ".$NPDS_Prefix."users SET storynum='$storynum', ublockon='$ublockon', ublock='$ublock' WHERE uid='$uid'");
       $userinfo=getusrinfo($user);
       docookie($userinfo['uid'],$userinfo['uname'],$userinfo['pass'],$userinfo['storynum'],$userinfo['umode'],$userinfo['uorder'],$userinfo['thold'],$userinfo['noscore'],$userinfo['ublockon'],$userinfo['theme'],$userinfo['commentmax'], '');
@@ -1292,6 +1302,18 @@ function savejournal($uid, $journal, $datetime){
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$cookie[1]'");
    list($vuid) = sql_fetch_row($result);
    if ($uid == $vuid) {
+      include ("modules/upload/upload.conf.php");
+      if ($DOCUMENTROOT=='') {
+         global $DOCUMENT_ROOT;
+         $DOCUMENTROOT = ($DOCUMENT_ROOT) ? $DOCUMENT_ROOT : $_SERVER['DOCUMENT_ROOT'] ;
+      }
+      $user_dir=$DOCUMENTROOT.$racine."/users_private/".$cookie[1];
+      if (!is_dir($user_dir)) {
+         mkdir($user_dir,0777);
+         $fp = fopen($user_dir.'/index.html', 'w');
+         fclose($fp);
+         chmod($user_dir.'/index.html', 0644);
+      }
       $journal = dataimagetofileurl($journal,'users_private/'.$cookie[1].'/jou');//
       $journal = removeHack(stripslashes(FixQuotes($journal)));
       if ($datetime) {
@@ -1421,6 +1443,16 @@ switch ($op) {
          include("footer.php");
       }
    break;
+   case 'askforgroupe':
+      if ($user) {
+         $userdata = explode(':', base64_decode($user));
+         if(!file_exists('users_private/groupe/ask4group_'.$userdata[0].'_'.$askedgroup.'_.txt'))
+            fopen('users_private/groupe/ask4group_'.$userdata[0].'_'.$askedgroup.'_.txt', 'w');
+         Header("Location: index.php");
+      } else
+         Header("Location: index.php");
+   break;
+
    default:
       if (!AutoReg()) unset($user);
       main($user);

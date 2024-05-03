@@ -5,17 +5,25 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 include("grab_globals.php");
 include("config.php");
 include("lib/multi-langue.php");
 include("language/lang-$language.php");
 include("cache.class.php");
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+require 'lib/PHPMailer/src/Exception.php';
+require 'lib/PHPMailer/src/PHPMailer.php';
+require 'lib/PHPMailer/src/SMTP.php';
+
 if ($mysql_i==1)
    include("lib/mysqli.php");
 else 
@@ -64,103 +72,14 @@ function session_manage() {
    global $NPDS_Prefix, $cookie, $REQUEST_URI, $nuke_url;
    $guest=0;
    $ip=getip();
-   $username = isset($cookie[1]) ? $cookie[1] : $ip;
+   $username = isset($cookie[1]) ? $cookie[1] : $ip;// pas bon ...
    if($username==$ip)
       $guest=1;
-      //==> mod_geoloc
-      include("modules/geoloc/geoloc.conf");
-      $file_path = array(
-      'https://ipapi.co/'.urldecode($ip).'/json/',
-      'https://api.ipdata.co/'.urldecode($ip).'?api-key='.$api_key_ipdata,
-      'https://extreme-ip-lookup.com/json/'.urldecode($ip),
-      'http://ip-api.com/json/'.urldecode($ip)
-      );
-      $file = file("modules/geoloc/geoloc.conf");
-      if(strstr($file[25],'geo_ip = 1')) {
-         $ousursit='';
-         global $ousursit;
-         $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"$ip\"");
-         $controle=sql_num_rows($resultat);
-         while ($row = sql_fetch_array($resultat)) {
-            $ousursit= preg_replace("#/.*?/#",'',$_SERVER['PHP_SELF']);
-         }
-         if($controle != 0)
-            sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1 , ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-         else {
-            $ibid=false;
-            if(strstr($nuke_url,'https')) {
-               if(file_contents_exist($file_path[0])) {
-                  $loc = file_get_contents($file_path[0]);
-                  $loc_obj = json_decode($loc);
-                  if($loc_obj) {
-                     if(!property_exists($loc_obj, "error")) {
-                        $ibid=true;
-                        $pay= !empty($loc_obj->country_name)? removeHack($loc_obj->country_name): '';
-                        $codepay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
-                        $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
-                        $lat= !empty($loc_obj->latitude)? (float)$loc_obj->latitude: ''; 
-                        $long= !empty($loc_obj->longitude)? (float)$loc_obj->longitude: '';
-                        sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                        sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-                     }
-                  }
-               }
-               if($ibid==false) {
-                  if(file_contents_exist($file_path[1])) {
-                     $loc = file_get_contents($file_path[1]);
-                     $loc_obj = json_decode($loc);
-                     if($loc_obj) {
-                        if(!property_exists($loc_obj, "message")) {
-                           $ibid=true;
-                           $pay= !empty($loc_obj->country_name)? removeHack($loc_obj->country_name): '';
-                           $codepay= !empty($loc_obj->country_code)? removeHack($loc_obj->country_code): '';
-                           $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
-                           $lat= !empty($loc_obj->latitude)? (float)$loc_obj->latitude: '';
-                           $long= !empty($loc_obj->longitude)? (float)$loc_obj->longitude: '';
-                           sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                           sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-                        }
-                     }
-                  }
-                  if($ibid==false) {
-                     if(file_contents_exist($file_path[2])) {
-                        $loc = file_get_contents($file_path[2]);
-                        $loc_obj = json_decode($loc);
-                        if ($loc_obj->status=='success') {
-                           $ibid=true;
-                           $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
-                           $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
-                           $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
-                           $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
-                           $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
-                           sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                           sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-                        }
-                     }
-                  }
-               }
-            }
-            else if(strstr($nuke_url,'http')) {
-               if(file_contents_exist($file_path[3])) {
-                  $loc = file_get_contents($file_path[3]);
-                  $loc_obj = json_decode($loc);
-                  if($loc_obj) {
-                     if ($loc_obj->status=='success') {
-                        $pay= !empty($loc_obj->country)? removeHack($loc_obj->country): '';
-                        $codepay= !empty($loc_obj->countryCode)? removeHack($loc_obj->countryCode): '';
-                        $vi= !empty($loc_obj->city)? removeHack($loc_obj->city): '';
-                        $lat= !empty($loc_obj->lat)? (float)$loc_obj->lat: '';
-                        $long= !empty($loc_obj->lon)? (float)$loc_obj->lon: '';
-                        sql_query("INSERT INTO ".$NPDS_Prefix."ip_loc (ip_long, ip_lat, ip_ip, ip_country, ip_code_country, ip_city) VALUES ('$long', '$lat', '$ip', '$pay', '$codepay', '$vi')");
-                        sql_query("UPDATE ".$NPDS_Prefix."ip_loc SET ip_visite= ip_visite +1, ip_visi_pag = \"$ousursit\" WHERE ip_ip LIKE \"$ip\" ");
-                     }
-                  }
-               }
-            }
-         }
-      }
-      //<== mod_geoloc
-
+   //==> geoloc
+   include("modules/geoloc/geoloc.conf");
+   if ($geo_ip == 1)
+      include "modules/geoloc/geoloc_refip.php";
+   //<== geoloc
    $past = time()-300;
    sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE time < '$past'");
    $result = sql_query("SELECT time FROM ".$NPDS_Prefix."session WHERE username='$username'");
@@ -398,64 +317,118 @@ function removeHack($Xstring) {
   }
   return($Xstring);
 }
-#autodoc getmicrotime() : Retourne le temps en micro-seconde
-// a supprimer (aussi dans metamots !) remplacer par fonction native php5 microtime(true)
-function getmicrotime() {
-   list($usec, $sec) = explode(' ',microtime());
-   return ((float)$usec + (float)$sec);
-}
-#autodoc send_email($email, $subject, $message, $from, $priority, $mime) : Pour envoyer un mail en texte ou html via les fonctions mail ou email  / $mime = 'text', 'html' 'html-nobr'-(sans application de nl2br) ou 'mixed'-(piece jointe)
-function send_email($email, $subject, $message, $from="", $priority=false, $mime="text") {
-   global $mail_fonction, $adminmail;
-   $advance='';
-   if ($priority)
-      $advance="X-Priority: 2\n";
-   if ($mime=='mixed') {
-      // dans $message se trouve le nom du fichier à joindre (voir le module session-log pour un exemple)
-      $boundary = '_'.md5 (uniqid(mt_rand()));
-      $attached_file = file_get_contents($message);
-      $attached_file = chunk_split(base64_encode($attached_file));
-      $message = "\n\n". "--" .$boundary . "\nContent-Type: application; name=\"".basename($message)."\" charset=".cur_charset."\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"".basename($message)."\"\r\n\n".$attached_file . "--" . $boundary . "--";
-      $advance.= "MIME-Version: 1.0\r\nContent-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
-   }
-   if ($mime=='text')
-      $advance.="Content-Type: text/plain; charset=".cur_charset."\n";
-   if (($mime=='html') or ($mime=='html-nobr')) {
-      $advance.="Content-Type: text/html; charset=".cur_charset."\n";
-      if ($mime!='html-nobr')
-         $message=nl2br($message);
-      else
-         $mime='html';
-      $css="<html>\n<head>\n<style type='text/css'>\nbody {\nbackground: #FFFFFF;\nfont-family: Tahoma, Calibri, Arial;\nfont-size: 1 rem;\ncolor: #000000;\n}\na, a:visited, a:link, a:hover {\ntext-decoration: underline;\n}\n</style>\n</head>\n<body>\n";
-      $message=$css.$message."\n</body>\n</html>";
-   }
-   if (($mail_fonction==1) or ($mail_fonction=="")) {
-      if ($from!='') {
-         $From_email=$from;
-      } else {
-         $From_email=$adminmail;
+#autodoc send_email($email, $subject, $message, $from, $priority, $mime, $file) : Pour envoyer un mail en texte ou html avec ou sans pieces jointes  / $mime = 'text', 'html' 'html-nobr'-(sans application de nl2br) ou 'mixed'-(avec piece(s) jointe(s) : génération ou non d'un DKIM suivant option choisie) 
+function send_email($email, $subject, $message, $from = "", $priority = false, $mime = "text", $file = null) { 
+   global $mail_fonction, $adminmail, $sitename, $NPDS_Key, $nuke_url; 
+
+   $From_email = $from != '' ? $from : $adminmail; 
+
+   if (preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i', $From_email)) { 
+      include 'lib/PHPMailer/PHPmailer.conf.php'; 
+      if ($dkim_auto == 2) {
+         //Private key filename for this selector 
+         $privatekeyfile = 'lib/PHPMailer/key/' . $NPDS_Key . '_dkim_private.pem'; 
+         //Public key filename for this selector 
+         $publickeyfile = 'lib/PHPMailer/key/' . $NPDS_Key . '_dkim_public.pem'; 
+         if (!file_exists($privatekeyfile)) { 
+            //Create a 2048-bit RSA key with an SHA256 digest 
+            $pk = openssl_pkey_new( 
+               [ 
+                  'digest_alg' => 'sha256', 
+                  'private_key_bits' => 2048, 
+                  'private_key_type' => OPENSSL_KEYTYPE_RSA, 
+               ] 
+            ); 
+            //Save private key 
+            openssl_pkey_export_to_file($pk, $privatekeyfile); 
+            //Save public key 
+            $pubKey = openssl_pkey_get_details($pk); 
+            $publickey = $pubKey['key']; 
+            file_put_contents($publickeyfile, $publickey); 
+         }
+      } 
+      $debug = false; 
+      $mail = new PHPMailer($debug); 
+      try { 
+         //Server settings config smtp 
+         if ($mail_fonction == 2) { 
+            $mail->isSMTP(); 
+            $mail->Host       = $smtp_host; 
+            $mail->SMTPAuth   = $smtp_auth; 
+            $mail->Username   = $smtp_username; 
+            $mail->Password   = $smtp_password; 
+            if ($smtp_secure) { 
+               if ($smtp_crypt === 'tls') 
+                  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
+               elseif ($smtp_crypt === 'ssl') 
+                  $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
+            } 
+            $mail->Port       = $smtp_port; 
+         } 
+         $mail->CharSet = cur_charset; 
+         $mail->Encoding = 'base64'; 
+         if ($priority)
+            $mail->Priority = 2; 
+         //Recipients 
+         $mail->setFrom($adminmail, $sitename); 
+         $mail->addAddress($email, $email); 
+         //Content 
+         if ($mime == 'mixed') { 
+            $mail->isHTML(true); 
+            // pièce(s) jointe(s)) 
+            if (!is_null($file)) { 
+               if (is_array($file))
+                  $mail->addAttachment($file['file'], $file['name']); 
+               else
+                  $mail->addAttachment($file); 
+            } 
+         } 
+         if (($mime == 'html') or ($mime == 'html-nobr')) { 
+            $mail->isHTML(true); 
+            if ($mime != 'html-nobr') 
+               $message = nl2br($message); 
+         } 
+         $mail->Subject = $subject; 
+         $stub_mail = "<html>\n<head>\n<style type='text/css'>\nbody {\nbackground: #FFFFFF;\nfont-family: Tahoma, Calibri, Arial;\nfont-size: 1 rem;\ncolor: #000000;\n}\na, a:visited, a:link, a:hover {\ntext-decoration: underline;\n}\n</style>\n</head>\n<body>\n %s \n</body>\n</html>"; 
+         if ($mime == 'text'){
+            $mail->isHTML(false);
+            $mail->Body = $message;
+         } else
+            $mail->Body = sprintf($stub_mail, $message);
+         if ($dkim_auto == 2) { 
+            $mail->DKIM_domain = str_replace(['http://', 'https://'], ['', ''], $nuke_url); 
+            $mail->DKIM_private = $privatekeyfile;; 
+            $mail->DKIM_selector = $NPDS_Key; 
+            $mail->DKIM_identity = $mail->From;
+         } 
+         if ($mail_fonction == 2) { 
+            if ($debug) { 
+               // on génère un journal détaillé après l'envoi du mail 
+               $mail->SMTPDebug = SMTP::DEBUG_SERVER; 
+            }
+         }
+         $mail->send(); 
+
+         if ($debug) { 
+            // stop l'exécution du script pour affichage du journal sur la page 
+            die(); 
+         }
+         $result = true; 
+      } catch (Exception $e) { 
+         Ecr_Log('smtpmail', "send Smtp mail by $email", "Message could not be sent. Mailer Error: $mail->ErrorInfo"); 
+         $result = false; 
       }
-      if (preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$From_email)) {
-         $result=mail($email, $subject, $message, "From: $From_email\nReturn-Path: $From_email\nX-Mailer: NPDS\n$advance");
-      }
-   } else {
-      $pos = strpos($adminmail, '@');
-      $tomail=substr($adminmail,0,$pos);
-      $result=email($tomail, $email, $subject, $message, $tomail, "Return-Path:\nX-Mailer: NPDS\n$advance");
-   }   
-   if ($result) {
-      return (true);
-   } else {
-      return (false);
    }
-}
+
+   return $result ? true : false; 
+} 
 #autodoc copy_to_email($to_userid,$sujet,$message) : Pour copier un subject+message dans un email ($to_userid)
 function copy_to_email($to_userid,$sujet,$message) {
    global $NPDS_Prefix;
    $result = sql_query("SELECT email,send_email FROM ".$NPDS_Prefix."users WHERE uid='$to_userid'");
    list($mail,$avertir_mail) = sql_fetch_row($result);
    if (($mail) and ($avertir_mail==1)) {
-      send_email($mail,$sujet,$message, '', true, 'html');
+      send_email($mail,$sujet,$message, '', true, 'html', '');
    }
 }
 #autodoc Ecr_Log($fic_log, $req_log, $mot_log) : Pour &eacute;crire dans un log (security.log par exemple)
@@ -505,7 +478,7 @@ function req_stat() {
    global $NPDS_Prefix;
    // Les membres
    $result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users");
-   $xtab[0] = $result ? sql_num_rows($result) : '0' ;
+   $xtab[0] = $result ? (sql_num_rows($result)-1) : '0' ;
    // Les Nouvelles (News)
    $result = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
    $xtab[1] = $result ? sql_num_rows($result) : '0' ;
@@ -746,14 +719,6 @@ function FixQuotes($what = '') {
    }
    return $what;
 }
-#autodoc check_html ($str, $strip) : Fonction obsolète / maintenue pour des raisons de compatibilité
-function check_html ($str, $strip='nohtml') {
-   return strip_tags($str);
-}
-#autodoc unhtmlentities($string) : Fonction obsolète / maintenue pour des raisons de compatibilité
-function unhtmlentities($string) {
-   return html_entity_decode($string);
-}
 #autodoc formatTimestamp($time) : Formate un timestamp en fonction de la valeur de $locale (config.php) / si "nogmt" est concaténé devant la valeur de $time, le décalage gmt n'est pas appliqué
 function formatTimestamp($time) {
    global $datetime, $locale, $gmt;
@@ -786,17 +751,13 @@ function formatAidHeader($aid) {
 function ctrl_aff($ihome, $catid=0) {
    global $user;
    $affich=false;
-   if ($ihome==-1 and (!$user)) {
+   if ($ihome==-1 and (!$user))
       $affich=true;
-   } elseif ($ihome==0) {
+   elseif ($ihome==0)
       $affich=true;
-   } elseif ($ihome==1) {
-      if ($catid>0) {
-         $affich=false;
-      } else {
-         $affich=true;
-      }
-   } elseif (($ihome>1) and ($ihome<=127)) {
+   elseif ($ihome==1)
+      $affich = $catid>0 ? false : true ;
+   elseif (($ihome>1) and ($ihome<=127)) {
       $tab_groupe=valid_group($user);
       if ($tab_groupe) {
          foreach($tab_groupe as $groupevalue) {
@@ -806,18 +767,16 @@ function ctrl_aff($ihome, $catid=0) {
             }
          }
       }
-   } else {
+   } else
       if ($user) $affich=true;
-   }
    return ($affich);
 }
 #autodoc news_aff($type_req, $sel, $storynum, $oldnum) : Une des fonctions fondamentales de NPDS / assure la gestion de la selection des News en fonctions des critères de publication
-function news_aff($type_req, $sel, $storynum, $oldnum) {
+function news_aff($type_req, $sel, $storynum, $oldnum) { // pas stabilisé ...!
    global $NPDS_Prefix;
    // Astuce pour afficher le nb de News correct même si certaines News ne sont pas visibles (membres, groupe de membres)
    // En fait on * le Nb de News par le Nb de groupes
    $row_Q2 = Q_select("SELECT COUNT(groupe_id) AS total FROM ".$NPDS_Prefix."groupes",86400);
-//   list(,$NumG)=each($row_Q2);
    $NumG=$row_Q2[0];
 
    if ($NumG['total']<2) $coef=2; else $coef=$NumG['total'];
@@ -828,34 +787,34 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
       $Znum=$storynum;
    }
    if ($type_req=='old_news') {
-      $Xstorynum=$oldnum*$coef;
-      $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY time DESC LIMIT $storynum,$Xstorynum",3600);
+//      $Xstorynum=$oldnum*$coef;
+      $result = Q_select("SELECT sid, catid, ihome, time FROM ".$NPDS_Prefix."stories $sel ORDER BY time DESC LIMIT $storynum",3600);
       $Znum=$oldnum;
    }
    if (($type_req=='big_story') or ($type_req=='big_topic')) {
-      $Xstorynum=$oldnum*$coef;
-      $result = Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum,$Xstorynum",3600);
+//      $Xstorynum=$oldnum*$coef;
+      $result = Q_select("SELECT sid, catid, ihome, counter FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum",0);
       $Znum=$oldnum;
    }
    if ($type_req=='libre') {
-      $Xstorynum=$oldnum*$coef;
+      $Xstorynum=$oldnum*$coef; //need for what ?
       $result=Q_select("SELECT sid, catid, ihome, time FROM ".$NPDS_Prefix."stories $sel",3600);
       $Znum=$oldnum;
    }
    if ($type_req=='archive') {
-      $Xstorynum=$oldnum*$coef;
+      $Xstorynum=$oldnum*$coef; //need for what ?
       $result=Q_select("SELECT sid, catid, ihome FROM ".$NPDS_Prefix."stories $sel",3600);
       $Znum=$oldnum;
    }
    $ibid=0; settype($tab,'array');
 
   foreach($result as $myrow) {
-//   while(list(,$myrow) = each($result)) {
       $s_sid=$myrow['sid'];
       $catid=$myrow['catid'];
       $ihome=$myrow['ihome'];
       if(array_key_exists('time', $myrow))
          $time=$myrow['time'];
+      
       if ($ibid==$Znum) {break;}
       if ($type_req=="libre") $catid=0;
       if ($type_req=="archive") $ihome=0;
@@ -870,9 +829,9 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
             $result2 = sql_query("SELECT sid, title FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
 
          $tab[$ibid]=sql_fetch_row($result2);
-         if (is_array($tab[$ibid])) {
+         if (is_array($tab[$ibid]))
             $ibid++;
-        }
+         sql_free_result($result2);
       }
    }
    @sql_free_result($result);
@@ -880,7 +839,7 @@ function news_aff($type_req, $sel, $storynum, $oldnum) {
 }
 #autodoc themepreview($title, $hometext, $bodytext, $notes) : Permet de prévisualiser la présentation d'un NEW
 function themepreview($title, $hometext, $bodytext='', $notes='') {
-   echo "<span class=\"titrea\">$title</span><br />".meta_lang($hometext)."<br />".meta_lang($bodytext)."<br />".meta_lang($notes);
+   echo "$title<br />".meta_lang($hometext)."<br />".meta_lang($bodytext)."<br />".meta_lang($notes);
 }
 #autodoc prepa_aff_news($op,$catid) : Prépare, serialize et stock dans un tableau les news répondant aux critères<br />$op="" ET $catid="" : les news // $op="categories" ET $catid="catid" : les news de la catégorie catid //  $op="article" ET $catid=ID_X : l'article d'ID X // Les news des sujets : $op="topics" ET $catid="topic"
 function prepa_aff_news($op,$catid,$marqeur) {
@@ -1276,14 +1235,14 @@ function Pre_fab_block($Xid, $Xblock, $moreclass) {
 #autodoc niv_block($Xcontent) : Retourne le niveau d'autorisation d'un block (et donc de certaines fonctions) / le paramètre (une expression régulière) est le contenu du bloc (function#....)
 function niv_block($Xcontent) {
    global $NPDS_Prefix;
-   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."rblocks WHERE content REGEXP '$Xcontent'");
+   $result = sql_query("SELECT member, actif FROM ".$NPDS_Prefix."rblocks WHERE content REGEXP '$Xcontent'");
    if (sql_num_rows($result)) {
-      list($content, $member, $actif) = sql_fetch_row($result);
+      list($member, $actif) = sql_fetch_row($result);
       return ($member.','.$actif);
    }
-   $result = sql_query("SELECT content, member, actif FROM ".$NPDS_Prefix."lblocks WHERE content REGEXP '$Xcontent'");
+   $result = sql_query("SELECT member, actif FROM ".$NPDS_Prefix."lblocks WHERE content REGEXP '$Xcontent'");
    if (sql_num_rows($result)) {
-      list($content, $member, $actif) = sql_fetch_row($result);
+      list($member, $actif) = sql_fetch_row($result);
       return ($member.','.$actif);
    }
    sql_free_result($result);
@@ -1413,7 +1372,7 @@ function subscribe_query($Xuser,$Xtype, $Xclef) {
 #autodoc pollSecur($pollID) : Assure la gestion des sondages membres
 function pollSecur($pollID) {
    global $NPDS_Prefix, $user;
-   $pollIDX=false;
+   $pollIDX=false; $pollClose='';
    $result = sql_query("SELECT pollType FROM ".$NPDS_Prefix."poll_data WHERE pollID='$pollID'");
    if (sql_num_rows($result)) {
       list($pollType)=sql_fetch_row($result);
@@ -1474,7 +1433,7 @@ function pollMain($pollID,$pollClose) {
    if ($pollcomm) {
       if (file_exists("modules/comments/pollBoth.conf.php"))
          include ("modules/comments/pollBoth.conf.php");
-      list($numcom) = sql_fetch_row(sql_query("SELECT count(*) FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$pollID' AND post_aff='1'"));
+      list($numcom) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$pollID' AND post_aff='1'"));
       $boxContent .= '
       <li class="list-group-item">'.translate("Commentaire(s) : ").' <span class="badge rounded-pill bg-secondary float-end">'.$numcom.'</span></li>';
    }
@@ -1607,8 +1566,8 @@ function aff_localzone_langue($ibid) {
       </noscript>';
    return ($M_langue);
 }
-#autodoc aff_local_langue($mess, $ibid_index, $ibid) : Charge une FORM de selection de langue $ibid_index = URL de la Form, $ibid = nom du champ
-function aff_local_langue($mess='' ,$ibid_index, $ibid) {
+#autodoc aff_local_langue($ibid_index, $ibid, $mess) : Charge une FORM de selection de langue $ibid_index = URL de la Form, $ibid = nom du champ
+function aff_local_langue($ibid_index, $ibid, $mess='') {
    if ($ibid_index=='') {
       global $REQUEST_URI;
       $ibid_index=$REQUEST_URI;
@@ -1698,7 +1657,7 @@ function split_string_without_space($msg, $split) {
 #autodoc wrapper_f (&$string, $key, $cols) : Fonction Wrapper pour split_string_without_space / Snipe 2004
 function wrapper_f (&$string, $key, $cols) {
 //   if (!(stristr($string,'IMG src=') or stristr($string,'A href=') or stristr($string,'HTTP:') or stristr($string,'HTTPS:') or stristr($string,'MAILTO:') or stristr($string,'[CODE]'))) {
-      $outlines = '';
+$outlines = '';
       if (strlen($string) > $cols) {
          while(strlen($string) > $cols) {
             $cur_pos = 0;
@@ -1788,10 +1747,9 @@ function utf8_java($ibid) {
       if ($bidon) {
          $bidon=substr($bidon,0,strpos($bidon,";"));
          $hex=strpos($bidon,'x');
-         if ($hex===false)
-            $ibid=str_replace('&#'.$bidon.';','\\u'.dechex($bidon),$ibid);
-         else
-            $ibid=str_replace('&#'.$bidon.';','\\u'.substr($bidon,1),$ibid);
+         $ibid = ($hex===false) ?
+            str_replace('&#'.$bidon.';','\\u'.dechex((int)$bidon),$ibid) :
+            str_replace('&#'.$bidon.';','\\u'.substr($bidon,1),$ibid);
       }
    }
    return ($ibid);
@@ -2046,37 +2004,34 @@ function hexfromchr($txt) {
 function Site_Activ() {
    global $startdate, $top;
    list($membres,$totala,$totalb,$totalc,$totald,$totalz)=req_stat();
-   $who_online='
-   <p class="text-center">'.translate("Pages vues depuis").' '.$startdate.' : '.wrh($totalz).'</p>
+   $aff ='
+   <p class="text-center">'.translate("Pages vues depuis").' '.$startdate.' : <span class="fw-semibold">'.wrh($totalz).'</span></p>
    <ul class="list-group mb-3" id="site_active">
-     <li class="my-1">'.translate("Nb. de membres").' <span class="badge rounded-pill bg-secondary float-end">'.wrh(($membres-1)).'</span></li>
+     <li class="my-1">'.translate("Nb. de membres").' <span class="badge rounded-pill bg-secondary float-end">'.wrh(($membres)).'</span></li>
      <li class="my-1">'.translate("Nb. d'articles").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totala).'</span></li>
      <li class="my-1">'.translate("Nb. de forums").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totalc).'</span></li>
      <li class="my-1">'.translate("Nb. de sujets").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totald).'</span></li>
      <li class="my-1">'.translate("Nb. de critiques").' <span class="badge rounded-pill bg-secondary float-end">'.wrh($totalb).'</span></li>
    </ul>';
-   if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
+   if ($ibid=theme_image("box/top.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}// no need
    if ($imgtmp) {
-      $who_online .= '
+      $aff .= '
    <p class="text-center"><a href="top.php"><img src="'.$imgtmp.'" alt="'.translate("Top").' '.$top.'" /></a>&nbsp;&nbsp;';
-      if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
-      $who_online .= '<a href="stats.php"><img src="'.$imgtmp.'" alt="'.translate("Statistiques").'" /></a></p>';
+      if ($ibid=theme_image("box/stat.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;} // no need
+      $aff .= '<a href="stats.php"><img src="'.$imgtmp.'" alt="'.translate("Statistiques").'" /></a></p>';
    } else
-      $who_online .= '
+      $aff .= '
    <p class="text-center"><a href="top.php">'.translate("Top").' '.$top.'</a>&nbsp;&nbsp;<a href="stats.php" >'.translate("Statistiques").'</a></p>';
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Activité du site");
-   else
-      $title=$block_title;
-   themesidebox($title, $who_online);
+   $title = $block_title =='' ? translate("Activité du site") : $block_title ;
+   themesidebox($title, $aff);
 }
 #autodoc online() : Bloc Online (Who_Online) <br />=> syntaxe : function#online
 function online() {
    global $NPDS_Prefix, $user, $cookie;
    $ip = getip();
-   $username = $cookie[1];
-   if (!isset($username)) {
+   $username = isset($cookie[1]) ? $cookie[1] : '';
+   if ($username=='') {
       $username = $ip;
       $guest = 1;
    }
@@ -2107,10 +2062,7 @@ function online() {
    } else
       $content .= '<br />'.translate("Devenez membre privilégié en cliquant").' <a href="user.php?op=only_newuser">'.translate("ici").'</a></p>';
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Qui est en ligne ?");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Qui est en ligne ?") : $block_title;
    themesidebox($title, $content);
 }
 #autodoc lnlbox() : Bloc Little News-Letter <br />=> syntaxe : function#lnlbox
@@ -2140,10 +2092,7 @@ function lnlbox() {
 #autodoc searchbox() : Bloc Search-engine <br />=> syntaxe : function#searchbox
 function searchbox() {
    global $block_title;
-   if ($block_title=='')
-      $title=translate("Recherche");
-   else
-      $title=$block_title;
+   $title = $block_title=='' ? translate("Recherche") : $block_title ;
    $content ='
    <form id="searchblock" action="search.php" method="get">
       <input class="form-control" type="text" name="query" />
@@ -2168,10 +2117,9 @@ function adminblock() {
    global $NPDS_Prefix, $admin, $aid, $admingraphic, $adminimg, $admf_ext, $Version_Sub, $Version_Num, $nuke_url;
    if ($admin) {
       $Q = sql_fetch_assoc(sql_query("SELECT * FROM ".$NPDS_Prefix."authors WHERE aid='$aid' LIMIT 1"));
-      if ($Q['radminsuper']==1)
-         $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie");
-      else
-         $R = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
+      $R = $Q['radminsuper']==1 ?
+         sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie") :
+         sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN ".$NPDS_Prefix."droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN ".$NPDS_Prefix."authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
       while($SAQ=sql_fetch_assoc($R)) {
          $arraylecture = explode('|', $SAQ['fdroits1_descr']);
          $cat[]=$SAQ['fcategorie'];
@@ -2194,15 +2142,11 @@ function adminblock() {
                    </a>';
             } 
          } else {
-            if(preg_match('#versusModal#', $SAQ['furlscript']))
-               $furlscript = 'data-bs-toggle="modal" data-bs-target="#bl_versusModal"';
-            else 
-               $furlscript = $SAQ['furlscript'];
-
-            if(preg_match('#NPDS#', $SAQ['fretour_h'])) {
+            $furlscript = preg_match('#versusModal#', $SAQ['furlscript']) ?
+               'data-bs-toggle="modal" data-bs-target="#bl_versusModal"' :
+               $SAQ['furlscript'] ;
+            if(preg_match('#NPDS#', $SAQ['fretour_h']))
                $SAQ['fretour_h'] = str_replace('NPDS', 'NPDS^', $SAQ['fretour_h']);
-             }
-
              $bloc_foncts_A .='
                <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$furlscript.' >
                  <img class="adm_img" src="'.$adminico.'" alt="icon_'.$SAQ['fnom_affich'].'" loading="lazy" />
@@ -2215,8 +2159,7 @@ function adminblock() {
       $result = sql_query("SELECT title, content FROM ".$NPDS_Prefix."block WHERE id=2");
       list($title, $content) = sql_fetch_row($result);
       global $block_title;
-      if ($title=='') $title=$block_title;
-      else $title=aff_langue($title);
+      $title = $title=='' ? $block_title : aff_langue($title) ;
       $content = aff_langue(preg_replace_callback('#<a href=[^>]*(&)[^>]*>#','changetoampadm',$content));
 
       //==> recuperation
@@ -2396,9 +2339,8 @@ function topdownload_data($form, $ordre) {
    while(list($did, $dcounter, $dfilename, $dcategory, $ddate, $dperm) = sql_fetch_row($result)) {
       if ($dcounter>0) {
          $okfile=autorisation($dperm);
-         if ($ordre=='dcounter') {
+         if ($ordre=='dcounter')
             $dd= wrh($dcounter);
-         }
          if ($ordre=='ddate') {
             $dd=translate("dateinternal");
             $day=substr($ddate,8,2);
@@ -2410,9 +2352,8 @@ function topdownload_data($form, $ordre) {
             $dd=str_replace("H:i","",$dd);
          }
          $ori_dfilename=$dfilename;
-         if (strlen($dfilename)>$long_chain) {
+         if (strlen($dfilename)>$long_chain)
             $dfilename = (substr($dfilename, 0, $long_chain))." ...";
-         }
          if ($form=='short') {
             if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2 flex-wrap">'.$lugar.' <a class="ms-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="badge bg-secondary ms-auto align-self-center">'.$dd.'</span></li>';}
          } else {
@@ -2427,56 +2368,48 @@ function topdownload_data($form, $ordre) {
 }
 #autodoc oldNews($storynum) : Bloc Anciennes News <br />=> syntaxe <br />function#oldNews<br />params#$storynum,lecture (affiche le NB de lecture) - facultatif
 function oldNews($storynum, $typ_aff='') {
-   global $locale, $oldnum, $storyhome, $categories, $cat;
-   global $user,$cookie;
+   global $locale, $oldnum, $storyhome, $categories, $cat, $user, $cookie, $language;
    $boxstuff = '<ul class="list-group">';
-   if (isset($cookie[3])) {
-      $storynum=$cookie[3];
-   } else {
-      $storynum=$storyhome;
-   }
-   if (($categories==1) and ($cat!='')) {
-      if ($user) { $sel="WHERE catid='$cat'"; }
-      else { $sel="WHERE catid='$cat' AND ihome=0"; }
-   } else {
-      if ($user) { $sel=''; }
-      else { $sel="WHERE ihome=0"; }
-   }
+   $storynum = isset($cookie[3]) ? $cookie[3] : $storyhome ;
+
+   if (($categories==1) and ($cat!=''))
+      $sel = $user ? "WHERE catid='$cat'" : "WHERE catid='$cat' AND ihome=0" ;
+   else
+      $sel = $user ? '' : "WHERE ihome=0" ;
+
+$sel =  "WHERE ihome=0";// en dur pour test
    $vari=0;
    $xtab=news_aff('old_news', $sel, $storynum, $oldnum);
-   $story_limit=0; $time2=0; $a=0;
+   $story_limit=0; 
+   $time2=0; $a=0;
    while (($story_limit<$oldnum) and ($story_limit<sizeof($xtab))) {
       list($sid, $title, $time, $comments, $counter) = $xtab[$story_limit];
       $story_limit++;
       setlocale (LC_TIME, aff_langue($locale));
       preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime2);
       $datetime2 = strftime("".translate("datestring2")."", @mktime($datetime2[4],$datetime2[5],$datetime2[6],$datetime2[2],$datetime2[3],$datetime2[1]));
-      if (cur_charset!="utf-8") {
+
+      if ($language != 'chinese')
          $datetime2 = ucfirst($datetime2);
-      }
+      $comments = $typ_aff=='lecture' ?
+         '<span class="badge rounded-pill bg-secondary ms-1" title="'.translate("Lu").'" data-bs-toggle="tooltip">'.$counter.'</span>' : '' ;
 
-      if ($typ_aff=='lecture') $comments='<span class="badge rounded-pill bg-secondary" title="'.translate("Lu").'" data-bs-toggle="tooltip">'.$counter.'</span>'; else $comments='';
-
-      if ($time2==$datetime2) {
+      if ($time2==$datetime2)
          $boxstuff .= '
          <li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a class="n-ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
-      } else {
+      else {
          if ($a==0) {
-            $boxstuff .= "<strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> $comments</li>\n";
+            $boxstuff .= '<li class="list-group-item fs-6">'.$datetime2.'</li><li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
             $time2 = $datetime2;
             $a = 1;
          } else {
-            $boxstuff .= "<br /><strong>$datetime2</strong><br /><li><a href=\"article.php?sid=$sid\">".aff_langue($title)."</a> $comments </li>\n";
+            $boxstuff .= '<li class="list-group-item fs-6">'.$datetime2.'</li><li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
             $time2 = $datetime2;
          }
       }
       $vari++;
       if ($vari==$oldnum) {
-         if (isset($cookie[3])) {
-            $storynum = $cookie[3];
-         } else {
-            $storynum = $storyhome;
-         }
+         $storynum = isset($cookie[3]) ? $cookie[3] : $storyhome ;
          $min = $oldnum + $storynum;
          $boxstuff .= "<li class=\"text-center mt-3\" ><a href=\"search.php?min=$min&amp;type=stories&amp;category=$cat\"><strong>".translate("Articles plus anciens")."</strong></a></li>\n";
       }
@@ -2489,28 +2422,24 @@ function oldNews($storynum, $typ_aff='') {
 }
 #autodoc bigstory() : Bloc BigStory <br />=> syntaxe : function#bigstory
 function bigstory() {
-   global $cookie;
+   global $cookie;//no need ?
+   $content ='';
    $today = getdate();
    $day = $today['mday'];
-   if ($day < 10)
-      $day = "0$day";
+   if ($day < 10) $day = "0$day";
    $month = $today['mon'];
-   if ($month < 10)
-      $month = "0$month";
+   if ($month < 10) $month = "0$month";
    $year = $today['year'];
    $tdate = "$year-$month-$day";
-   $xtab=news_aff("big_story","WHERE (time LIKE '%$tdate%')",0,1);
-   if (sizeof($xtab)) {
-      list($fsid, $ftitle) = $xtab[0];
-   } else {
+   $xtab=news_aff("big_story","WHERE (time LIKE '%$tdate%')",1,1);
+   if (sizeof($xtab))
+    list($fsid, $ftitle) = $xtab[0];
+   else {
       $fsid=''; $ftitle='';
    }
-   if ((!$fsid) AND (!$ftitle)) {
-      $content = translate("Il n'y a pas encore d'article du jour.");
-   } else {
-      $content = translate("L'article le plus consulté aujourd'hui est :")."<br /><br />";
-      $content .= "<a href=\"article.php?sid=$fsid\">".aff_langue($ftitle)."</a>";
-   }
+   $content .= ($fsid =='' and $ftitle =='') ?
+      '<span class="fw-semibold">'.translate("Il n'y a pas encore d'article du jour.").'</span>' :
+      '<span class="fw-semibold">'.translate("L'article le plus consulté aujourd'hui est :").'</span><br /><br /><a href="article.php?sid='.$fsid.'">'.aff_langue($ftitle).'</a>' ;
    global $block_title;
    $boxtitle = $block_title=='' ? translate("Article du Jour") : $block_title;
    themesidebox($boxtitle, $content);
@@ -2520,9 +2449,9 @@ function category() {
    global $NPDS_Prefix, $cat, $language;
    $result = sql_query("SELECT catid, title FROM ".$NPDS_Prefix."stories_cat ORDER BY title");
    $numrows = sql_num_rows($result);
-   if ($numrows == 0) {
+   if ($numrows == 0)
       return;
-   } else {
+   else {
       $boxstuff = '<ul>';
       while (list($catid, $title) = sql_fetch_row($result)) {
          $result2 = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories WHERE catid='$catid' LIMIT 0,1");
@@ -2530,10 +2459,9 @@ function category() {
          if ($numrows > 0) {
             $res = sql_query("SELECT time FROM ".$NPDS_Prefix."stories WHERE catid='$catid' ORDER BY sid DESC LIMIT 0,1");
             list($time) = sql_fetch_row($res);
-            if ($cat == $catid)
-               $boxstuff .= '<li><strong>'.aff_langue($title).'</strong></li>';
-            else 
-               $boxstuff .= '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernière contribution").' <br />'.formatTimestamp($time).' ">'.aff_langue($title).'</a></li>';
+            $boxstuff .= $cat == $catid ?
+               '<li><strong>'.aff_langue($title).'</strong></li>' :
+               '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernière contribution").' <br />'.formatTimestamp($time).' ">'.aff_langue($title).'</a></li>' ;
          }
       }
       $boxstuff .= '</ul>';
@@ -2561,124 +2489,77 @@ function headlines($hid='', $block=true) {
       $max_items = 6;
       $rss_timeout = 15;
       $rss_font = '<span class="small">';
+      if ( (!(file_exists($cache_file))) or (filemtime($cache_file)<(time()-$cache_time)) or (!(filesize($cache_file))) ) {
+         $rss=parse_url($url);
+         if ($rss_host_verif==true) {
+            $verif = fsockopen($rss['host'], 80, $errno, $errstr, $rss_timeout);
+            if ($verif) {
+               fclose($verif);
+               $verif=true;
+            }
+         } else
+            $verif=true;
+         if (!$verif) {
+            $cache_file_sec=$cache_file.".security";
+            if (file_exists($cache_file))
+               $ibid=rename($cache_file, $cache_file_sec);
+            themesidebox($boxtitle, "Security Error");
+            return;
+         } else {
+            if (!$long_chain) $long_chain=15;
+            $fpwrite = fopen($cache_file, 'w');
+            if ($fpwrite) {
+               fputs($fpwrite, "<ul>\n");
+               $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
+               $namespaces = $flux->getNamespaces(true); // get namespaces
+               $ic='';
+               //ATOM//
+               if($flux->entry) {
+                  $j=0;
+                  $cont='';
+                  foreach ($flux->entry as $entry) {
+                     if($entry->content) $cont=(string) $entry->content;
+                     fputs($fpwrite,'<li><a href="'.(string)$entry->link['href'].'" target="_blank" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
+                     if($j==$max_items) break;
+                     $j++;
+                  }
+               }
 
-    if ( (!(file_exists($cache_file))) or (filemtime($cache_file)<(time()-$cache_time)) or (!(filesize($cache_file))) ) {
-       $rss=parse_url($url);
-       if ($rss_host_verif==true) {
-          $verif = fsockopen($rss['host'], 80, $errno, $errstr, $rss_timeout);
-          if ($verif) {
-             fclose($verif);
-             $verif=true;
-          }
-       } else {
-          $verif=true;
-       }
+               if($flux->{'item'}) {
+                  $j=0;
+                  $cont='';
+                  foreach ($flux->item as $item) {
+                     if($item->description) $cont=(string) $item->description;
+                     fputs($fpwrite,'<li><a href="'.(string)$item->link['href'].'"  target="_blank" >'.(string) $item->title.'</a><br /></li>');
+                     if($j==$max_items) break;
+                     $j++;
+                  }
+               }
+               //RSS
+               if($flux->{'channel'}) {
+               $j=0;
+               $cont='';
+                  foreach ($flux->channel->item as $item) {
+                     if($item->description) $cont=(string) $item->description;
+                     fputs($fpwrite,'<li><a href="'.(string)$item->link.'"  target="_blank" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
+                     if($j==$max_items) break;
+                     $j++;
+                  }
+               }
 
-       if (!$verif) {
-          $cache_file_sec=$cache_file.".security";
-          if (file_exists($cache_file)) {
-             $ibid=rename($cache_file, $cache_file_sec);
-          }
-          themesidebox($boxtitle, "Security Error");
-          return;
-       } else {
-       
-/*
-          if (isset($proxy_url[$hid])) {
-             $fpread=fsockopen($proxy_url[$hid],$proxy_port[$hid],$errno,$errstr,$rss_timeout);
-             fputs($fpread,"GET $headlinesurl/ HTTP/1.0\n\n");
-          } else {
-             $fpread = fopen($headlinesurl, 'r');
-          }
-*/
-          if (!$long_chain) {$long_chain=15;}
+               $j=0;
+               if($flux->image) $ico='<img class="img-fluid" src="'.$flux->image->url.'" />&nbsp;'; 
+               foreach ($flux->item as $item) {
+                  fputs($fpwrite,'<li>'.$ico.'<a href="'.(string) $item->link.'" target="_blank" >'.(string) $item->title.'</a></li>');
+                  if($j==$max_items) break;
+                  $j++;
+               }
 
-
-//           if ($fpread) {
-             $fpwrite = fopen($cache_file, 'w');
-             if ($fpwrite) {
-                fputs($fpwrite, "<ul>\n");
-/*                while (!feof($fpread)) {
-                   $buffer = ltrim(Chop(fgets($fpread, 512)));
-                   if (($buffer == "<item>") and ($items < $max_items)) {
-                      $title = ltrim(Chop(fgets($fpread, 256)));
-                      $link = ltrim(Chop(fgets($fpread, 256)));
-                      $title = str_replace( "<title>", "", $title );
-                      $title = str_replace( "</title>", "", $title );
-                      $link = str_replace( "<link>", "", $link );
-                      $link = str_replace( "</link>", "", $link );
-
-                      if (function_exists("mb_detect_encoding")) {
-                         $encoding=mb_detect_encoding($title);
-                      } else {
-                         $encoding="UTF-8";
-                      }
-                    $title=$look_title=iconv($encoding,cur_charset."//TRANSLIT", $title);
-                      if ($block) {
-                         if (strlen($look_title)>$long_chain) {
-                            $title=(substr($look_title, 0, $long_chain))." ...";
-                         }
-                      }
-                      fputs($fpwrite,"<li><a href=\"$link\" alt=\"$look_title\" title=\"$look_title\" target=\"_blank\">$title</a></li>\n");
-                      $items++;
-                   }
-                }
-*/
-
-// this will not work with PHP < 5 mais si quelqu'un veut coder pour inf à 5 welcome ! à peaufiner ...
-   $flux = simplexml_load_file($headlinesurl,'SimpleXMLElement', LIBXML_NOCDATA);
-   $namespaces = $flux->getNamespaces(true); // get namespaces
-   $ic='';
-   //ATOM//
-   if($flux->entry) {
-      $j=0;
-      $cont='';
-      foreach ($flux->entry as $entry) {
-         if($entry->content) $cont=(string) $entry->content;
-         fputs($fpwrite,'<li><a href="'.(string)$entry->link['href'].'" target="_blank" >'.(string) $entry->title.'</a><br />'.$cont.'</li>');
-         if($j==$max_items) break;
-         $j++;
+               fputs($fpwrite, "\n".'</ul>');
+               fclose($fpwrite);
+            }
+         }
       }
-   }
-   
-   if($flux->{'item'}) {
-   $j=0;
-   $cont='';
-      foreach ($flux->item as $item) {
-         if($item->description) $cont=(string) $item->description;
-         fputs($fpwrite,'<li><a href="'.(string)$item->link['href'].'"  target="_blank" >'.(string) $item->title.'</a><br /></li>');
-         if($j==$max_items) break;
-         $j++;
-      }
-   }
-   //RSS
-   if($flux->{'channel'}) {
-   $j=0;
-   $cont='';
-      foreach ($flux->channel->item as $item) {
-         if($item->description) $cont=(string) $item->description;
-         fputs($fpwrite,'<li><a href="'.(string)$item->link.'"  target="_blank" >'.(string) $item->title.'</a><br />'.$cont.'</li>');
-         if($j==$max_items) break;
-         $j++;
-      }
-   }
-   
-   $j=0;
-   if($flux->image) $ico='<img class="img-fluid" src="'.$flux->image->url.'" />&nbsp;'; 
-   foreach ($flux->item as $item) {
-      fputs($fpwrite,'<li>'.$ico.'<a href="'.(string) $item->link.'" target="_blank" >'.(string) $item->title.'</a></li>');
-      if($j==$max_items) break;
-      $j++;
-   }
-
-                fputs($fpwrite, "\n".'</ul>');
-                fclose($fpwrite);
-             }
-//              fclose($fpread);
-//           }
-       }
-    }
-
       if (file_exists($cache_file)) {
          ob_start();
          $ibid=readfile($cache_file);
@@ -2686,7 +2567,7 @@ function headlines($hid='', $block=true) {
          ob_end_clean();
       }
       $boxstuff .= '
-         <div class="text-end"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
+            <div class="text-end"><a href="'.$url.'" target="_blank">'.translate("Lire la suite...").'</a></div>';
       if ($block) {
          themesidebox($boxtitle, $boxstuff);
          $boxstuff='';
@@ -2695,7 +2576,7 @@ function headlines($hid='', $block=true) {
    }
 }
 #autodoc PollNewest() : Bloc Sondage <br />=> syntaxe : <br />function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
-function PollNewest($id='') {
+function PollNewest(int $id=null) : void {
    global $NPDS_Prefix;
    // snipe : multi-poll evolution
    if ($id!=0) {
@@ -2710,18 +2591,20 @@ function PollNewest($id='') {
 }
 #autodoc bloc_langue() : Bloc langue <br />=> syntaxe : function#bloc_langue
 function bloc_langue() {
-   global $block_title;
-   $title = $block_title=='' ? translate("Choisir une langue") : $block_title;
-   themesidebox($title,aff_local_langue('' ,"index.php", "choice_user_language"));
+   global $block_title, $multi_langue ;
+   if($multi_langue) {
+      $title = $block_title=='' ? translate("Choisir une langue") : $block_title;
+      themesidebox($title,aff_local_langue("index.php", "choice_user_language", ''));
+   }
 }
 #autodoc bloc_rubrique() : Bloc des Rubriques <br />=> syntaxe : function#bloc_rubrique
 function bloc_rubrique() {
    global $NPDS_Prefix, $language, $user;
-   $result = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' AND rubname<>'divers' ORDER BY ordre");
+   $result = sql_query("SELECT rubid, rubname, ordre FROM ".$NPDS_Prefix."rubriques WHERE enligne='1' AND rubname<>'divers' ORDER BY ordre");
    $boxstuff = '<ul>';
    while (list($rubid, $rubname) = sql_fetch_row($result)) {
       $title=aff_langue($rubname);
-      $result2 = sql_query("SELECT secid, secname, userlevel FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
+      $result2 = sql_query("SELECT secid, secname, userlevel, ordre FROM ".$NPDS_Prefix."sections WHERE rubid='$rubid' ORDER BY ordre");
       $boxstuff.='<li><strong>'.$title.'</strong></li>';
       //$ibid++;//??? only for notice ???
       while (list($secid, $secname, $userlevel) = sql_fetch_row($result2)) {
@@ -2785,10 +2668,11 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $content.='<p>'.aff_langue($rsql['groupe_description']).'</p>'."\n";
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
       $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-fluid mx-auto d-block rounded" alt="'.translate("Groupe").'" loading="lazy" />';
-
    //=> liste des membres
    $li_mb=''; $li_ic='';
-   $result = sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC");
+   $result = mysqli_get_client_info() <= '8.0' ?
+      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC") :
+      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE `groupe` REGEXP \"\\\\b$gr\\\\b\" ORDER BY uid ASC;") ;
    $nb_mb=sql_num_rows ($result);
    $count=0;
    $li_mb.='
@@ -2967,6 +2851,63 @@ $content.='<div class="px-1 card card-body d-flex flex-row mt-3 flex-wrap text-c
    </div>';
    return ($content);
 }
+#autodoc bloc_groupes() : Bloc des groupes <br />=> syntaxe :<br />function#bloc_groupes<br />params#Aff_img_groupe(0 ou 1) / Si le bloc n'a pas de titre, 'Les groupes' sera utilisé. Liste des groupes AVEC membres et lien pour demande d'adhésion pour l'utilisateur.
+function bloc_groupes($im) {
+   global $block_title, $user;
+   $title = $block_title=='' ? 'Les groupes' : $block_title ; 
+   themesidebox($title, fab_groupes_bloc($user,$im));
+}
+function fab_groupes_bloc($user,$im) {
+   global $NPDS_Prefix; $user;
+   $lstgr = array();
+   $userdata = explode(':', base64_decode($user));
+   $result=sql_query("SELECT DISTINCT `groupe` FROM ".$NPDS_Prefix."`users_status` WHERE `groupe` > 1;");
+   while(list($groupe) = sql_fetch_row($result)) {
+      $pos = strpos($groupe, ',');
+      if ($pos === false)
+        $lstgr[] = $groupe;
+      else {
+         $arg = explode(',', $groupe);
+         foreach($arg as $v){
+            if(!in_array($v, $lstgr, true))
+               $lstgr[] = $v;
+         }
+      }
+   }
+   $ids_gr = join("','",$lstgr);
+   sql_free_result($result);
+   $result=sql_query("SELECT groupe_id, groupe_name, groupe_description FROM `".$NPDS_Prefix."groupes` WHERE groupe_id IN ('$ids_gr')");
+   $nb_groupes = sql_num_rows($result);
+   $content = '
+      <div id="bloc_groupes" class="">
+         <ul id="lst_groupes" class="list-group list-group-flush mb-3">
+            <li class="list-group-item d-flex justify-content-between align-items-start px-0">
+               <div class="me-auto">
+                  <div class="fw-bold"><i class="fa fa-users fa-2x text-muted me-2"></i>'.translate('Groupes').'</div>';
+   $content .= $nb_groupes>0 ? translate('Groupe ouvert') : translate('Pas de groupe ouvert') ;
+   $content .= '
+               </div>
+               <span class="badge bg-primary rounded-pill">'.$nb_groupes.'</span>
+            </li>';
+   while(list($groupe_id, $groupe_name, $groupe_description) = sql_fetch_row($result)) {
+      $content .= '
+            <li class="list-group-item px-0">'.$groupe_name.'<div class="small">'.$groupe_description.'</div>';
+      $content .= $im == 1 ? '<div class="text-center my-2"><img class="img-fluid" src="users_private/groupe/'.$groupe_id.'/groupe.png" loading="lazy"></div>' : '' ;
+      if(!file_exists('users_private/groupe/ask4group_'.$userdata[0].'_'.$groupe_id.'_.txt') and !autorisation($groupe_id))
+         if(!autorisation(-1))
+            $content .= '<div class="text-end small"><a href="user.php?op=askforgroupe&amp;askedgroup='.$groupe_id.'" title="'.translate('Envoi une demande aux administrateurs pour rejoindre ce groupe. Un message privé vous informera du résultat de votre demande.').'" data-bs-toggle="tooltip">'.translate('Rejoindre ce groupe').'</a></div>';
+      $content .= '</li>';
+   }
+   $content .= '
+         </ul>';
+   if (autorisation(-127))
+      $content.='
+         <div class="text-end"><a class="mx-2" href="admin.php?op=groupes" ><i title="'.translate("Gestion des groupes.").'" data-bs-toggle="tooltip" data-bs-placement="left" class="fa fa-cogs fa-lg"></i></a></div>';
+   $content.='
+      </div>';
+   sql_free_result($result);
+   return($content);
+}
 #autodoc:</Mainfile.php>
 
 #autodoc theme_image($theme_img) : Retourne le chemin complet si l'image est trouvée dans le répertoire image du thème sinon false
@@ -2974,9 +2915,8 @@ function theme_image($theme_img) {
     global $theme;
     if (@file_exists("themes/$theme/images/$theme_img")) {
        return ("themes/$theme/images/$theme_img");
-    } else {
-       return (false);
-    }
+    } else
+       return false;
 }
 #autodoc import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref, $css) : recherche et affiche la CSS (site, langue courante ou par défaut) / Charge la CSS complémentaire / le HTML ne contient que de simple quote pour être compatible avec javascript
 function import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref='', $css='') {
@@ -3042,11 +2982,11 @@ function import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref=''
    return($tmp);
 }
 #autodoc import_css($tmp_theme, $language, $fw_css, $css_pages_ref, $css) : Fonctionnement identique à import_css_javascript sauf que le code HTML en retour ne contient que de double quote
-function import_css ($tmp_theme, $language, $fw_css, $css_pages_ref, $css) {
+function import_css($tmp_theme, $language, $fw_css, $css_pages_ref, $css) {
    return (str_replace("'","\"",import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref, $css)));
 }
 #autodoc auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) : fabrique un array js à partir de la requete sql et implente un auto complete pour l'input (dependence : jquery.min.js ,jquery-ui.js) $nom_array_js=> nom du tableau javascript; $nom_champ=>nom de champ bd; $nom_tabl=>nom de table bd,$id_inpu=> id de l'input,$temps_cache=>temps de cache de la requête. Si $id_inpu n'est pas défini retourne un array js.
-function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) {
+function auto_complete($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_cache) {
    global $NPDS_Prefix;
 
    $list_json='';
@@ -3084,7 +3024,7 @@ function auto_complete ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $temps_c
    return ($scri_js);
 }
 #autodoc auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) : fabrique un pseudo array json à partir de la requete sql et implente un auto complete pour le champ input (dependence : jquery-2.1.3.min.js ,jquery-ui.js)
-function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) {
+function auto_complete_multi($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $req) {
    global $NPDS_Prefix;
 
    $list_json='';
@@ -3141,23 +3081,24 @@ function auto_complete_multi ($nom_array_js, $nom_champ, $nom_tabl, $id_inpu, $r
 }
 #autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2 $l=> 0 ou 1(requis), $s (séparateur - | _) , $c=> 0 ou 1 (requis)
 function language_iso($l,$s,$c) {
-    global $language;
-    $iso_lang='';$iso_country='';$ietf='';
-    switch ($language) {
-        case "french": $iso_lang ='fr';$iso_country='FR'; break;
-        case "english": $iso_lang ='en';$iso_country='US'; break;
-        case "spanish": $iso_lang ='es';$iso_country='ES'; break;
-        case "german": $iso_lang ='de';$iso_country='DE'; break;
-        case "chinese": $iso_lang ='zh';$iso_country='CN'; break;
-        default:
-        break;
-    }
-    if ($c!==1) $ietf= $iso_lang;
-    if (($l==1) and ($c==1)) $ietf=$iso_lang.$s.$iso_country;
-    if (($l!==1) and ($c==1)) $ietf=$iso_country;
-    if (($l!==1) and ($c!==1)) $ietf='';
-    if (($l==1) and ($c!==1)) $ietf=$iso_lang;
-    return ($ietf);
+   global $language, $user_language;
+   $iso_lang='';$iso_country='';$ietf=''; $select_lang='';
+   $select_lang = !empty($user_language) ? $user_language : $language ;
+   switch ($select_lang) {
+      case "french": $iso_lang ='fr';$iso_country='FR'; break;
+      case "english": $iso_lang ='en';$iso_country='US'; break;
+      case "spanish": $iso_lang ='es';$iso_country='ES'; break;
+      case "german": $iso_lang ='de';$iso_country='DE'; break;
+      case "chinese": $iso_lang ='zh';$iso_country='CN'; break;
+      default:
+      break;
+   }
+   if ($c!==1) $ietf= $iso_lang;
+   if (($l==1) and ($c==1)) $ietf=$iso_lang.$s.$iso_country;
+   if (($l!==1) and ($c==1)) $ietf=$iso_country;
+   if (($l!==1) and ($c!==1)) $ietf='';
+   if (($l==1) and ($c!==1)) $ietf=$iso_lang;
+   return ($ietf);
 }
 #autodoc adminfoot($fv,$fv_parametres,$arg1,$foo) : fin d'affichage avec form validateur ou pas, ses parametres (js), fermeture div admin et inclusion footer.php  $fv=> fv : inclusion du validateur de form , $fv_parametres=> éléments de l'objet fields differents input (objet js ex :   xxx: {},...) si !###! est trouvé dans la variable la partie du code suivant sera inclu à la fin de la fonction d'initialisation, $arg1=>js pur au début du script js, $foo =='' ==> </div> et inclusion footer.php $foo =='foo' ==> inclusion footer.php
 function adminfoot($fv,$fv_parametres,$arg1,$foo) {
@@ -3359,5 +3300,4 @@ function dataimagetofileurl($base_64_string, $output_path) {
    }
    return $base_64_string;
 }
-
 ?>

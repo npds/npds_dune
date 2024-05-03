@@ -1,91 +1,63 @@
-<html>
-<head>
-<title>对META标记语言的管理- NPDS V</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<style>
- BODY { FONT-FAMILY: arial,sans-serif }
-</style>
-</head>
-<body ALINK="#000000" bgcolor="#ffffff" VLINK="#551a8b">
-<table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#FFFFFF">
-  <tbody>
-  <tr>
-    <td align="CENTER">
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>对meta标记语言的管理</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"> <a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">系统</a></li>
+               <li class="breadcrumb-item active">对meta标记语言的管理</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">对meta标记语言的管理</h3>
 
-    <p><b><font size="+2">对META标记语言的管理</b></center>
-<br /><br/>
- 
-<p><table border="0" cellpadding="0" cellspacing="0" width="100%"
-    bgcolor="#FFFFFF">
-      <tbody>
-      <tr>
-        <td>
-        <p><table border="0" cellpadding="2" cellspacing="0" width="100%">
-          <tbody>
-          <tr>
-            <td bgcolor="#333366" nowrap>
-            <b><font color="#ffffff" face="arial,sans-serif">
-META标记语言
-</font></b></td>
-          </tr></tbody>
-        </table><br/>
-<b><u>她的用途是什么 ? </u> </b><br /> META标记是HTML语言中的特殊标记语言。她的优点为利于参照您的网站到搜索引擎上（例如Altavista和Yahoo或Hotbot等）。既然一般以上的访问者来自搜索引擎的引导，那么如何有效地定义您的网站的参数就显得尤为重要。</p>
- <p><b><u>小知识 </u> </b><br /> META标记语言不应被切断使用，请保持在同一行内。所以，在表单设计中，请不要使用类似&lt;BR&gt;的标记。<br /></p>
+         <h4>meta标记语言</h4>
+         <p>她的用途是什么 ? meta标记是HTML语言中的特殊标记语言。她的优点为利于参照您的网站到搜索引擎上（例如Altavista和Yahoo或Hotbot等）。既然一般以上的访问者来自搜索引擎的引导，那么如何有效地定义您的网站的参数就显得尤为重要。</p>
+         <p>小知识 meta标记语言不应被切断使用，请保持在同一行内。所以，在表单设计中，请不要使用类似&lt;br&gt;的标记。<br /></p>
 
-        <p><table border="0" cellpadding="2" cellspacing="0" width="100%">
-          <tbody>
-          <tr>
-            <td bgcolor="#333366" nowrap>
-            <b><font color="#ffffff" face="arial,sans-serif">
-&lt;TITLE&gt; 标题标记 (特殊情况)
-</font></b></td>
-          </tr></tbody>
-        </table></p>
-<p><b><u>标题</u></b><br /> 搜索引擎都很重视文件的标题。 因此应该在网站的每一页上都注明标题。在NPDS中，网站的标题在所有相应页面中是唯一并统一的。该参数在NPDS的“参数设置”中是可更改的，并保存在pages.php文件中（themes目录下）。 
-但是请注意，该标题不要超过５0个中文字 (100英文字母)。
-</p>
+         <h4>meta参数设置 (较为普遍应用)</h4>
+         <p><b>meta "Author" 作者</b> <br /> 该标记在搜索引擎中很少使用。</p>
+         <p><b>meta "Owner" 所有者</b> <br /> 该标记用以注明该网站的所有者。</p>
+         <p><b>meta "Reply-to" 回复</b> <br /> 该标记用以注明网站作者的主要Email地址。该项有利于浏览者保存您的页面并和您取得联系。</p>
+         <p><b>meta "Description" 描述</b> <br /> 该标记用以客观介绍您网站的内容。只需一句介绍！请注意不要超过200字。</p>
+         <p><b>meta "Keywords" 关键字</b> <br /> 该标记用以强调该网页（网站）涉及的主要关键字（关键词）。关键字之间请以逗号分隔，不要使用空格。请不要超过100个字。区分大小写对被搜索到也很重要。</p>
+         <p><b>meta "Rating" 浏览对象</b> <br /> 该标记用以定义您网站适用的浏览者。比如，适合于所有浏览者，或成年人，或仅限14岁以上阅读。</p>
+         <p><b>meta "Distribution" 发布范围</b> <br /> 该标记用以注明该文档可以被广泛传播（如全球范围）或是有一定限制要求（如当地范围）。</p>
+         <p><b>meta "Copyright" 版权</b><br /> 该标记很少使用。但是她可以注明版权Copyright。</p>
+         <p><b>meta "Robots" 机器人设置</b> <br /> 该标记用以引导搜索引擎的机器人使用什么方法来索引您的网站。</p>
+         <p><b>meta "Revisit-After" 下次访问</b><br /> 该标记用以注明机器人在下一次索引前需要等候的时间。它可以少于14天(包括14天)。</p>
 
-        <p>提示：在页面标题中采用一个或多个关键字，对被搜索到的效果是最理想的。
-</p>
-       <p><table border="0" cellpadding="2" cellspacing="0" width="100%">
-          <tbody>
-          <tr>
-            <td bgcolor="#333366" nowrap>
-            <b><font color="#ffffff" face="arial,sans-serif">
-META参数设置 (较为普遍应用)
-</font></b></td>
-          </tr></tbody>
-        </table></p>
-<p><b>Meta "Author" 作者</b> <br /> 该标记在搜索引擎中很少使用。</p>
-<p><b>Meta "Owner" 所有者</b> <br /> 该标记用以注明该网站的所有者。<br /> <br /> <b>Meta "Reply-to" 回复</b> <br /> 该标记用以注明网站作者的主要Email地址。该项有利于浏览者保存您的页面并和您取得联系。<br /> <br /> <b>Meta "Language" 语言</b> <br /> 该标记用以注明您网站所使用的主要语言。自从多数搜索引擎都开始区分搜索的语言范围以来，该设置显得尤为重要。</p>
-<p><b>Meta "Description" 描述</b> <br /> 该标记用以客观介绍您网站的内容。只需一句介绍！请注意不要超过200字。</p>
-<p><b>Meta "Keywords" 关键字</b> <br /> 该标记用以强调该网页（网站）涉及的主要关键字（关键词）。关键字之间请以逗号分隔，不要使用空格。请不要超过100个字。区分大小写对被搜索到也很重要。</p>
-<p><b>Meta "Rating" 浏览对象</b> <br /> 该标记用以定义您网站适用的浏览者。比如，适合于所有浏览者，或成年人，或仅限14岁以上阅读。</p>
-<p><b>Meta "Distribution" 发布范围</b> <br /> 该标记用以注明该文档可以被广泛传播（如全球范围）或是有一定限制要求（如当地范围）。</p>
-<p><b>Meta "Copyright" 版权</b><br /> 该标记很少使用。但是她可以注明版权Copyright。</p>
-<p><b>Meta "Robots" 机器人设置</b> <br /> 该标记用以引导搜索引擎的机器人使用什么方法来索引您的网站。</p>
-<p><b>Meta "Revisit-After" 下次访问</b><br /> 该标记用以注明机器人在下一次索引前需要等候的时间。它可以少于14天(包括14天)。</p>
-        <table border="0" cellpadding="2" cellspacing="0" width="100%">
-          <tbody>
-          <tr>
-            <td bgcolor="#333366" nowrap>
-            <b><font color="#ffffff" face="arial,sans-serif">其它的META标记中的自动参数设置</font></b></td>
-          </tr></tbody>
-        </table><p></p>
-<p><b>Meta "Content-Type" 内容类别</b><br /> 该标记用以定义所用字的表格。系统默认为西方式样的表格 ( text/html; charset=iso-8859-1)。</p> 提示：该项目仅为浏览器识别使用。
-<p><b>Meta "Content-Script-Type" Script内容类别</b><br /> 该标记用以定义网站所使用的scripts ( 比如text/_javascript )。 提示：该项目仅为浏览器识别使用。</p>
-<b>Meta "Content-Style-Type" 内容式样类别</b><br /> 该标记用以定义网站所使用的式样 ( 比如text/css )。 提示：该项目仅为浏览器识别使用。<br />
-<br />
-<b>Meta "Identifier-url" 标识url</b><br /> 该标记用以注明您网站的主要url地址。它将使用在NPDS配置文件中定义的主要地址。<br />
-<br />
-<b>Meta "Generator" 网站创建工具</b><br /> 该标记对于搜索引擎没有任何意义。仅用以注明创建/维护该网站的工具。 当然，本网站创建工具的名称为NPDS ;-)<br /> 
-<br />  
-<b>Meta "Pragma"</b><br />  该标记主要用以平衡浏览器对页面设置的缓存（主要是针对Netscape）。该项设置使每次浏览器必须重新下载刷新该页面（无缓存情况下）。</td>
-</tr></tbody>
-    </table></td>
-  </tr></tbody>
-</table><br/><br/>
-<p align="CENTER"><img src="../../images/admin/manuels.gif" border="0" /></p>
-</body>
+         <h4>其它的META标记中的自动参数设置</h4>
+         <p><b>meta "Content-Script-Type" Script内容类别</b><br /> 该标记用以定义网站所使用的scripts ( 比如text/javascript )。 提示：该项目仅为浏览器识别使用。</p>
+         <p><b>meta "Content-Style-Type" 内容式样类别</b><br /> 该标记用以定义网站所使用的式样 ( 比如text/css )。 提示：该项目仅为浏览器识别使用。</p>
+         <p><b>meta "Identifier-url" 标识url</b><br /> 该标记用以注明您网站的主要url地址。它将使用在NPDS配置文件中定义的主要地址。</p>
+         <p><b>meta "Generator" 网站创建工具</b><br /> 该标记对于搜索引擎没有任何意义。仅用以注明创建/维护该网站的工具。 当然，本网站创建工具的名称为NPDS ;-)</p>
+         <p><b>meta "Pragma"</b><br />  该标记主要用以平衡浏览器对页面设置的缓存（主要是针对Netscape）。该项设置使每次浏览器必须重新下载刷新该页面（无缓存情况下）。</p>
+         <h5>meta 具有 og（开放图谱）和 twitter 属性的元标记</h5>
+         <p>这些标签专门针对社交网络。 它们允许在社交网络中自动显示您网站的信息（标题、描述、图像等）。 我们已经实现了其中 6 个，以覆盖主要社交网络作为标准。</p>
+         <ul>
+            <li><b>"og:type"</b><br />设置为网站的上下文类型</li>
+            <li><b>"og:url"</b><br />网站网址</li>
+            <li><b>"og:title"</b><br />网站标题</li>
+            <li><b>"og:description"</b><br />网站描述</li>
+            <li><b>"og:image"</b><br />站点图片<br />注意：您可以通过保留网址和文件名来选择您的图片：<code>/images/ogimg.jpg</code ></li>
+            <li><b>"twitter:card"</b><br />设置为摘要</li>
+         </ul>
+
+         <h4>&lt;title&gt; 标题标记 (特殊情况)</h4>
+         <p><b>标题</b><br />
+         搜索引擎都很重视文件的标题。 因此应该在网站的每一页上都注明标题。在NPDS中，网站的标题在所有相应页面中是唯一并统一的。该参数在NPDS的“参数设置”中是可更改的，并保存在pages.php文件中（themes目录下）。 但是请注意，该标题不要超过５0个中文字 (100英文字母)。</p>
+         <p>提示：在页面标题中采用一个或多个关键字，对被搜索到的效果是最理想的。</p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-muted font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
 </html>
-
