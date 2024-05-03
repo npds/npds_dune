@@ -78,7 +78,7 @@ function getListBox ($name, $items, $selected='', $multiple=0, $onChange='') {
 /* Pour la class                                                        */
 /************************************************************************/
 /************************************************************************/
-/* Ajoute l'attachement dans la base de donnée                          */
+/* Ajoute l'attachement dans la base de données                         */
 /************************************************************************/
 function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $inline="A", $size=0, $type="") {
    global $upload_table, $visible_forum;
@@ -92,7 +92,7 @@ function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $in
    return sql_last_id ();
 }
 /************************************************************************/
-/* Suprime l'attachement dans la base de donné en cas d erreur d'upload */
+/* Suprime l'attachement dans la base de données en cas d'erreur d'upload */
 /************************************************************************/
 function deleteAttachment ($apli, $IdPost, $upload_dir, $id, $att_name){
    global $upload_table;
@@ -103,7 +103,7 @@ function deleteAttachment ($apli, $IdPost, $upload_dir, $id, $att_name){
 /************************************************************************/
 /* Pour la visualisation dans les forum                                 */
 /************************************************************************/
-/* Fonction de snipe pour l'affichage des fichier uploader dans forums  */
+/* Fonction de snipe pour l'affichage des fichiers uploadés dans forums */
 /************************************************************************/
 function display_upload($apli,$post_id,$Mmod){
    $att_size = '';
@@ -186,7 +186,7 @@ function att_icon ($filename) {
 /************************************************************************/
 /* Partie Graphique                                                     */
 /************************************************************************/
-/* Controle la taille de l image a afficher                             */
+/* Controle la taille de l'image à afficher                             */
 /************************************************************************/
 function verifsize ($size) {
    $width_max = 500;
@@ -322,7 +322,7 @@ function word_wrap ($string, $cols = 80, $prefix = '') {
 }
 
 /***********************************************/
-/* Affiche la source d une page html           */
+/* Affiche la source d'une page html           */
 /***********************************************/
 function scr_html ($text) {
    $text = str_replace ('<', '&lt;', $text);
@@ -334,24 +334,20 @@ function scr_html ($text) {
 /* Effacer les fichier joint demander                */
 /*****************************************************/
 function delete($del_att){
-   global $upload_table, $rep_upload_forum, $apli;
-   global $DOCUMENTROOT;
-
+   global $upload_table, $rep_upload_forum, $apli, $DOCUMENTROOT;
    $rep=$DOCUMENTROOT;
-   if (is_array($del_att) ) {
-      $del_att = implode ($del_att, ',');
-      $sql = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($del_att)";
-      $result=sql_query($sql);
-      while(list($att_id, $att_name, $att_path)=sql_fetch_row($result)){
-         @unlink($rep."$att_path/$att_id.$apli.$att_name");
-      }
-      $sql = "DELETE FROM $upload_table WHERE att_id IN ($del_att)";
-      sql_query($sql);
+   $del_att = is_array($del_att) ? implode (',', $del_att) : $del_att;
+   $sql = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($del_att)";
+   $result=sql_query($sql);
+   while(list($att_id, $att_name, $att_path)=sql_fetch_row($result)){
+      @unlink($rep."$att_path/$att_id.$apli.$att_name");
    }
+   $sql = "DELETE FROM $upload_table WHERE att_id IN ($del_att)";
+   sql_query($sql);
 }
 
 /*****************************************************/
-/* Update le type d affichage                        */
+/* Update le type d'affichage                        */
 /*****************************************************/
 function update_inline($inline_att) {
    global $upload_table;

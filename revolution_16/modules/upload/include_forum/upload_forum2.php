@@ -82,7 +82,6 @@ global $Titlesitename;
       if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
    }
 $thanks_msg='';
-//settype($thanks_msg,'string');
 settype($actiontype,'string');
 settype($visible_att, 'array');
 if ($actiontype) {
