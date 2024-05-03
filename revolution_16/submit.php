@@ -18,12 +18,12 @@ include ("publication.php");
 settype($user,'string');
 
 if ($mod_admin_news>0) {
-   if ($admin=='' and $user=='') {
+    if (!isset($admin) and !isset($user)) {
       Header("Location: index.php");
       exit;
    }
    if ($mod_admin_news==1) {
-      if ($user!='' and $admin=='') {
+       if (!isset($admin) and !isset($user)) {
          global $cookie;
          $result = sql_query("SELECT level FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
          if (sql_num_rows($result)==1) {
