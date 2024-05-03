@@ -18,10 +18,10 @@
 /************************************************************************/
 
 function ins_translate($phrase) {
- switch($phrase) {
-  default: $tmp = "$phrase";
-  break;
- }
- return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
+   switch($phrase) {
+      default: $tmp = "$phrase";
+      break;
+   }
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>
