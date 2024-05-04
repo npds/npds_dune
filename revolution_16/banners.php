@@ -145,7 +145,7 @@ function header_page() {
    </head>
    <body style="margin-top:64px;">
       <div class="container-fluid">
-      <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-primary">
+      <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark">
          <div class="container-fluid">
            <a class="navbar-brand" href="index.php"><i class="fa fa-home fa-lg me-2"></i></a>
            <span class="navbar-text">'.translate("Bannières - Publicité").'</span>

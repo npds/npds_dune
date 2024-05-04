@@ -4,11 +4,11 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 3 of the License.       */
+/* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
    $lepath = dirname($_SERVER['PHP_SELF']);
@@ -28,28 +28,7 @@
    $skinpath = dirname($_SERVER['PHP_SELF']);
    $parts = explode('/', $skinpath);
    $skinametitre = end($parts);
-
-   switch ($skinametitre) {
-      case 'cyborg':
-      case 'solar':
-      case 'superhero':
-         $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
-      break;
-      case 'lumen':
-      case 'journal':
-      case 'materia':
-         $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
-      break;
-      case 'simplex':
-      case 'litera':
-      case 'spacelab':
-         $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
-      break;
-      default :
-         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti default
-      break;
-   }
-
+   $headerclasses ='navbar navbar-expand-md bg-primary fixed-top';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +59,7 @@
       </style>
    </head>
    <body>
-      <nav class="<?php echo $headerclasses; ?>">
+      <nav class="<?php echo $headerclasses; ?>" data-bs-theme="dark">
          <div class="container-fluid">
             <a class="navbar-brand" href="#"><img class="me-2" width="32" height="32" src="<?php echo implode($result[1]); ?>images/admin/message_npds.png" alt="logo_npds">NPDS skins</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav" aria-controls="barnav" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,14 +69,14 @@
                <ul class="nav navbar-nav">
                   <li class="nav-item"><a class="nav-link" href="<?php echo implode($result[1]); ?>"><i class="fa fa-home fa-lg"></i></a></li>
                   <li class="nav-item"><a class="nav-link" href="<?php echo implode($result[1]); ?>user.php?op=chgtheme"><i class="fas fa-paint-brush fa-lg"></i></a></li>
-                  <li class="nav-item dropdown">
+                  <li class="nav-item dropdown" data-bs-theme="light">
                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" id="skins">Skins</a>
                      <div class="dropdown-menu" aria-labelledby="skins"  role="menu">
                         <a class="dropdown-item" href="../default">Default</a>
                         <?php echo $optskins; ?>
                      </div>
                   </li>
-                  <li class="nav-item dropdown">
+                  <li class="nav-item dropdown" data-bs-theme="light">
                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">T&eacute;l&eacute;chargement</a>
                         <ul class="dropdown-menu">
                            <li><a class="dropdown-item" href="./bootstrap.css" target="_blank">bootstrap.css</a></li>
@@ -152,7 +131,7 @@
                  <h1 id="navbars">Barre de navigation</h1>
                </div>
                <div class="bs-component">
-                 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
                     <div class="container-fluid">
                       <a class="navbar-brand" href="#">Navbar</a>
                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation" style="">
@@ -182,7 +161,7 @@
                  </nav>
                </div>
                <div class="bs-component">
-                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
                    <div class="container-fluid">
                       <a class="navbar-brand" href="#">Navbar</a>
                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="true" aria-label="Toggle navigation" style="">
@@ -212,13 +191,12 @@
                  </nav>
                </div>
                <div class="bs-component">
-                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                 <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
                   <div class="container-fluid">
                    <a class="navbar-brand" href="#">Navbar</a>
                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="true" aria-label="Toggle navigation" style="">
                      <span class="navbar-toggler-icon"></span>
                    </button>
-
                    <div class="navbar-collapse collapse show" id="navbarColor03" style="">
                      <ul class="navbar-nav me-auto">
                        <li class="nav-item active">
@@ -434,7 +412,7 @@
                  <h6>Heading 6</h6>
                  <h3>
                    Heading
-                   <small class="text-muted">with muted text</small>
+                   <small class="text-body-secondary">with faded secondary text</small>
                  </h3>
                  <p class="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
                <div class="source-button btn btn-primary btn-sm" style="display: none;">&lt; &gt;</div></div>
@@ -452,15 +430,28 @@
              </div>
              <div class="col-lg-4">
                <div class="bs-component">
-                 <h2>Emphasis classes</h2>
-                 <p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
-                 <p class="text-primary">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                 <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
-                 <p class="text-danger">Donec ullamcorper nulla non metus auctor fringilla.</p>
-                 <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-                 <p class="text-info">Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                  <h2>Emphasis classes</h2>
+                  <p class="text-primary">.text-primary</p>
+                  <p class="text-primary-emphasis">.text-primary-emphasis</p>
+                  <p class="text-secondary">.text-secondary</p>
+                  <p class="text-secondary-emphasis">.text-secondary-emphasis</p>
+                  <p class="text-success">.text-success</p>
+                  <p class="text-success-emphasis">.text-success-emphasis</p>
+                  <p class="text-danger">.text-danger</p>
+                  <p class="text-danger-emphasis">.text-danger-emphasis</p>
+                  <p class="text-warning">.text-warning</p>
+                  <p class="text-warning-emphasis">.text-warning-emphasis</p>
+                  <p class="text-info">.text-info</p>
+                  <p class="text-info">.text-info-emphasis</p>
+                  <p class="text-light">.text-light</p>
+                  <p class="text-light">.text-light-emphasis</p>
+                  <p class="text-dark">.text-dark</p>
+                  <p class="text-dark">.text-dark-emphasis</p>
+                  <p class="text-body">.text-body</p>
+                  <p class="text-body">.text-body-emphasis</p>
+                  <p class="text-body-secondary">.text-body-secondary</p>
+                  <p class="text-body-tertiary">.text-body-tertiary</p>
                </div>
-
              </div>
            </div>
 

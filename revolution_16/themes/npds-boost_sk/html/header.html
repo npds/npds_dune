@@ -13,26 +13,7 @@
       $skinname = $Default_Skin;
       $username='';
    }
-   switch ($skinname) {
-      case 'cyborg':
-      case 'solar':
-      case 'superhero':
-         $headerclasses ='navbar navbar-expand-md navbar-dark bg-dark fixed-top';
-      break;
-      case 'lumen':
-      case 'journal':
-      case 'materia':
-         $headerclasses ='navbar navbar-expand-md navbar-dark bg-primary fixed-top';
-      break;
-      case 'simplex':
-      case 'litera':
-      case 'spacelab':
-         $headerclasses ='navbar navbar-expand-md navbar-light bg-light fixed-top';
-      break;
-      default :
-         $headerclasses = 'navbar navbar-expand-md navbar-dark bg-primary fixed-top'; // empty & cerulean cosmo darkly flatly lux minty pulse sandstone slate united yeti default
-      break;
-   }
+   $headerclasses = 'navbar navbar-expand-md bg-primary fixed-top';
 
    if (!isset($powerpack)) include_once ("powerpack.php");
 
@@ -46,15 +27,6 @@
       $menuser .='
                   <li><a class="dropdown-item" href="user.php?op=edituser" title="'.translate("Vous").'"  ><i class="fa fa-user-edit fa-lg me-2"></i>'.translate("Vous").'</a></li>
                   <li><a class="dropdown-item" href="user.php?op=editjournal" title="'.translate("Editer votre journal").'" ><i class="fa fa-edit fa-lg me-2"></i>'.translate("Journal").'</a></li>';
-/*
-      include_once ("modules/upload/upload.conf.php");
-      if (($userdata['mns']) and ($autorise_upload_p)) {
-         include_once ("modules/blog/upload_minisite.php");
-         $Pop=win_upload("popup");
-         $menuser .= '
-                  <li><a class="dropdown-item" href="javascript:void(0);" onclick="window.open('.$Pop.')" title="'.translate("Gérer votre miniSite").'"><i class="fa fa-desktop fa-lg me-2"></i>'.translate("MiniSite").'</a></li>';
-      }
-*/
       $menuser .= '
                   <li><a class="dropdown-item " href="user.php?op=edithome" title="'.translate("Editer votre page principale").'" ><i class="fa fa-edit fa-lg me-2 "></i>'.translate("Page").'</a></li>
                   <li><a class="dropdown-item " href="user.php?op=chgtheme" title="'.translate("Changer le thème").'" ><i class="fa fa-paint-brush fa-lg me-2"></i>'.translate("Thème").'</a></li>
@@ -80,7 +52,7 @@
    }
 ?>
 
-   <nav id="uppernavbar" class=" <?php echo $headerclasses; ?>">
+   <nav id="uppernavbar" class=" <?php echo $headerclasses; ?>" data-bs-theme="dark">
       <div class="container-fluid">
          <a class="navbar-brand" href="index.php" ><span data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt;&lt;/i&gt;">NPDS^ 16</span></a>
          <button href="#" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav">
