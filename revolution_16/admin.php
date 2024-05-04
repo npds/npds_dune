@@ -268,7 +268,7 @@ function GraphicAdmin($hlpfile) {
       } 
       else {
          $ul_o = '
-         <h4 class="text-muted"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
+         <h4 class="text-body-secondary"><a class="tog" id="hide_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" title="'.adm_translate("Replier la liste").'" style="clear:left;"><i id="i_'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="fa fa-caret-up fa-lg text-primary" ></i></a>&nbsp;'.adm_translate($SAQ['fcategorie_nom']).'</h4>
          <ul id="'.strtolower(substr($SAQ['fcategorie_nom'],0,3)).'" class="list" style="clear:left;">';
          $li_c = '
             <li id="'.$SAQ['fid'].'"  data-bs-toggle="tooltip" data-bs-placement="top" title="';
@@ -491,7 +491,7 @@ function GraphicAdmin($hlpfile) {
             </div>
          </div>
      </div>
-      <div id ="mes_perm" class="contenair-fluid text-muted" >
+      <div id ="mes_perm" class="contenair-fluid text-body-secondary" >
           <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="tempsconnection" class="car"></span>
       </div>
          <div class="modal fade" id="versusModal" tabindex="-1" aria-labelledby="versusModalLabel" aria-hidden="true">
@@ -530,7 +530,7 @@ function GraphicAdmin($hlpfile) {
                </form>
             </div>
             <div class="modal-footer">
-            <span class="small text-muted">Information de npds.org</span><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" />
+            <span class="small text-body-secondary">Information de npds.org</span><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" />
             </div>
          </div>
       </div>

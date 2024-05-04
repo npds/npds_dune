@@ -471,7 +471,7 @@ function viewlinkeditorial($lid, $ttitle) {
    echo '
    <div class="card card-body">
    <h3>'.translate("EDITO").' : 
-      <span class="text-muted">'.aff_langue($displaytitle).'</span>';
+      <span class="text-body-secondary">'.aff_langue($displaytitle).'</span>';
    if ($url!='')
       echo '
       <span class="float-end"><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" title="'.translate("Visiter ce site web").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fas fa-external-link-alt"></i></a></span>';
@@ -483,7 +483,7 @@ function viewlinkeditorial($lid, $ttitle) {
          $formatted_date=formatTimestamp($editorialtimestamp);
          echo '
          <h4>'.aff_langue($editorialtitle).'</h4>
-         <p><span class="text-muted small">'.translate("Editorial par").' '.$adminid.' - '.$formatted_date.'</span></p>
+         <p><span class="text-body-secondary small">'.translate("Editorial par").' '.$adminid.' - '.$formatted_date.'</span></p>
          <hr/>'.aff_langue($editorialtext);
       }
    }

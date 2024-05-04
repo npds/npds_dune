@@ -71,7 +71,7 @@ function links() {
    echo '
    <h2>'.translate("Liens").'<span class="badge bg-secondary mx-2 float-end" title="DB : '.$links_DB.translate("Il y a").' '.$numrows.' '.translate("Liens").'" data-bs-toggle="tooltip">'.$numrows.'</span></h2>
    <hr class="mb-0" />
-   <div class="text-end mt-1 mb-2"><a href="javascript:openwindow();">'.translate("Manuel en ligne").'</a><i class="fa fa-cogs ms-3 fa-lg text-muted"></i></div>';
+   <div class="text-end mt-1 mb-2"><a href="javascript:openwindow();">'.translate("Manuel en ligne").'</a><i class="fa fa-cogs ms-3 fa-lg text-body-secondary"></i></div>';
    echo '
    <nav aria-label="breadcrumb">
       <ol class="breadcrumb">';
@@ -101,7 +101,7 @@ function links() {
       $numrowsAE = sql_num_rows($resultAE);
       echo '
    <div class="card card-body mb-3">
-   <h3 class="mb-3">'.translate("Lien").' <span class="text-muted">#'.$lid.'</span> '.translate("en attente de validation").'</h3>
+   <h3 class="mb-3">'.translate("Lien").' <span class="text-body-secondary">#'.$lid.'</span> '.translate("en attente de validation").'</h3>
    <div class="lead">'.translate("Auteur").' : '.$submitter.' </div>
    <hr />
    <form action="modules.php" method="post" name="'.$adminform.'">
@@ -487,7 +487,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
 
     echo '
     <h2>'.translate("Modifier les liens").'</h2>
-    <h3>'.translate("Lien web").'&nbsp;<span class="text-muted">#'.$lid.'</span></h3>
+    <h3>'.translate("Lien web").'&nbsp;<span class="text-body-secondary">#'.$lid.'</span></h3>
     ';
     echo "[ <a href=\"modules.php?ModStart=$ModStart&amp;ModPath=$ModStart\" class=\"box\">".translate("Index")."</a> ][ <a href=\"javascript:openwindow();\" class=\"box\">".translate("Manuel en ligne")."</a> ]";
 

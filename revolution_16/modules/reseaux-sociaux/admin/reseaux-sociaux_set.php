@@ -53,7 +53,7 @@ function ListReseaux($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
          <tr>
             <td>'.$v1[0].'</td>
             <td>'.$v1[1].'</td>
-            <td><i class="fab fa-'.$v1[2].' fa-2x text-muted align-middle"></i></td>
+            <td><i class="fab fa-'.$v1[2].' fa-2x text-body-secondary align-middle"></i></td>
             <td>
                <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=EditReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fa fa-edit fa-lg me-2 align-middle" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a>
                <a href="admin.php?op=Extend-Admin-SubModule&amp;ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;subop=DeleteReseaux&amp;rs_id='.urlencode($v1[0]).'&amp;rs_url='.urlencode($v1[1]).'&amp;rs_ico='.urlencode($v1[2]).'" ><i class="fas fa-trash fa-lg text-danger align-middle" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"></i></a>

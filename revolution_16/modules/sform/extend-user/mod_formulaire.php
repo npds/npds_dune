@@ -54,7 +54,7 @@ if(isbadmailuser($userinfo['uid'])===false) {//proto
 if ($smilies) {
    if (stristr($userinfo['user_avatar'],"users_private")) {
       $m->add_field('user_avatar',translate("Votre Avatar"), $userinfo['user_avatar'],'show-hidden',false,30,'','');
-      $m->add_extender('user_avatar', '', '<img class="img-thumbnail n-ava" src="'.$userinfo['user_avatar'].'" name="avatar" alt="avatar" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="Your next avatar" />
+      $m->add_extender('user_avatar', '', '<img class="img-thumbnail n-ava" src="'.$userinfo['user_avatar'].'" name="avatar" alt="avatar" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-body-secondary mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="Your next avatar" />
 ');
    } else {
       global $theme;
@@ -74,7 +74,7 @@ if ($smilies) {
             if ($userinfo['user_avatar']==$file) {$tmp_tempo[$file]['selected']=true;} else {$tmp_tempo[$file]['selected']=false;}
       }
       $m->add_select('user_avatar',translate("Votre Avatar"), $tmp_tempo, false, '', false);
-      $m->add_extender('user_avatar', 'onkeyup="showimage();$(\'#avatar,#tonewavatar\').show();" onchange="showimage();$(\'#avatar,#tonewavatar\').show();"', '<div class="help-block"><img class="img-thumbnail n-ava" src="'.$direktori.'/'.$userinfo['user_avatar'].'" align="top" title="" /><span id="tonewavatar" class="lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="img-thumbnail n-ava " src="'.$direktori.'/'.$userinfo['user_avatar'].'" name="avatar" id="avatar" align="top" title="Your next avatar" data-bs-placement="right" data-bs-toggle="tooltip" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-muted mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="your next avatar" title="Your next avatar" data-bs-placement="right" data-bs-toggle="tooltip" /></div>');
+      $m->add_extender('user_avatar', 'onkeyup="showimage();$(\'#avatar,#tonewavatar\').show();" onchange="showimage();$(\'#avatar,#tonewavatar\').show();"', '<div class="help-block"><img class="img-thumbnail n-ava" src="'.$direktori.'/'.$userinfo['user_avatar'].'" align="top" title="" /><span id="tonewavatar" class="lead"><i class="fa fa-angle-right fa-lg text-body-secondary mx-3"></i></span><img class="img-thumbnail n-ava " src="'.$direktori.'/'.$userinfo['user_avatar'].'" name="avatar" id="avatar" align="top" title="Your next avatar" data-bs-placement="right" data-bs-toggle="tooltip" /><span class="ava-meca lead"><i class="fa fa-angle-right fa-lg text-body-secondary mx-3"></i></span><img class="ava-meca img-thumbnail n-ava" id="ava_perso" src="#" alt="your next avatar" title="Your next avatar" data-bs-placement="right" data-bs-toggle="tooltip" /></div>');
    }
 
    // Permet à l'utilisateur de télécharger un avatar (photo) personnel

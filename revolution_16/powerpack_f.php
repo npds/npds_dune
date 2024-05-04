@@ -165,7 +165,7 @@ function instant_members_message() {
       for ($i = 1; $i <= $ibid[0]; $i++) {
           $timex=time()-$ibid[$i]['time'];
           if ($timex>=60)
-             $timex='<i class="fa fa-plug text-muted" title="'.$ibid[$i]['username'].' '.translate("n'est pas connecté").'" data-bs-toggle="tooltip" data-bs-placement="right"></i>&nbsp;';
+             $timex='<i class="fa fa-plug text-body-secondary" title="'.$ibid[$i]['username'].' '.translate("n'est pas connecté").'" data-bs-toggle="tooltip" data-bs-placement="right"></i>&nbsp;';
           else
              $timex='<i class="fa fa-plug faa-flash animated text-primary" title="'.$ibid[$i]['username'].' '.translate("est connecté").'" data-bs-toggle="tooltip" data-bs-placement="right" ></i>&nbsp;';
           global $member_invisible;

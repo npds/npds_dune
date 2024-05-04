@@ -321,14 +321,14 @@ function sections() {
       $nb_enattente=sql_num_rows($result);
       while(list($artid, $secid, $title, $content, $author) = sql_fetch_row($result)) {
          $enattente .= '
-         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pe-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg me-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
+         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pe-4">'.aff_langue($title).'<br /><span class="text-body-secondary"><i class="fa fa-user fa-lg me-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
       }
    } else {
       $result = sql_query("SELECT distinct seccont_tempo.artid, seccont_tempo.title, seccont_tempo.author FROM ".$NPDS_Prefix."seccont_tempo, ".$NPDS_Prefix."publisujet WHERE seccont_tempo.secid=publisujet.secid2 AND publisujet.aid='$aid' AND (publisujet.type='1' OR publisujet.type='2')");
       $nb_enattente=sql_num_rows($result);
       while(list($artid, $title, $author) = sql_fetch_row($result)) {
          $enattente .= '
-         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pe-4">'.aff_langue($title).'<br /><span class="text-muted"><i class="fa fa-user fa-lg me-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
+         <li class="list-group-item list-group-item-action" ><div class="d-flex flex-row align-items-center"><span class="flex-grow-1 pe-4">'.aff_langue($title).'<br /><span class="text-body-secondary"><i class="fa fa-user fa-lg me-1"></i>['.$author.']</span></span><span class="text-center"><a href="admin.php?op=secartupdate&amp;artid='.$artid.'">'.adm_translate("Editer").'<br /><i class="fa fa-edit fa-lg"></i></a></span></div>';
       }
    }
    echo '
@@ -461,7 +461,7 @@ function publishcompat($article) {
    $result = sql_query("SELECT rubid, rubname, enligne, ordre FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Publications connexes").' : <span class="text-muted">'.aff_langue($titre).'</span></h3>
+   <h3 class="mb-3">'.adm_translate("Publications connexes").' : <span class="text-body-secondary">'.aff_langue($titre).'</span></h3>
    <form action="admin.php" method="post">';
 
    $i = 0;
@@ -545,7 +545,7 @@ function rubriquedit($rubid) {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Editer une Rubrique : ").' <span class="text-muted">'.aff_langue($rubname).' #'.$rubid.'</span></h3>';
+   <h3 class="mb-3">'.adm_translate("Editer une Rubrique : ").' <span class="text-body-secondary">'.aff_langue($rubname).' #'.$rubid.'</span></h3>';
    if ($number)
       echo '<span class="badge bg-secondary">'.$number.'</span>&nbsp;'.adm_translate("sous-rubrique(s) attachée(s)");
    echo '
@@ -651,7 +651,7 @@ function sectionedit($secid) {
 
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Sous-rubrique").' : <span class="text-muted">'.aff_langue($secname).'</span></h3>';
+   <h3 class="mb-3">'.adm_translate("Sous-rubrique").' : <span class="text-body-secondary">'.aff_langue($secname).'</span></h3>';
    $result2 = sql_query("SELECT artid FROM ".$NPDS_Prefix."seccont WHERE secid='$secid'");
    $number = sql_num_rows($result2);
    if ($number)
@@ -1044,7 +1044,7 @@ function rubriquedelete($rubid, $ok=0) {
       list($rubname) = sql_fetch_row($result);
       echo '
       <hr />
-      <h3 class="mb-3 text-danger">'.adm_translate("Effacer la Rubrique : ").'<span class="text-muted">'.aff_langue($rubname).'</span></h3>
+      <h3 class="mb-3 text-danger">'.adm_translate("Effacer la Rubrique : ").'<span class="text-body-secondary">'.aff_langue($rubname).'</span></h3>
       <div class="alert alert-danger">
          <strong>'.adm_translate("Etes-vous sûr de vouloir effacer cette Rubrique ?").'</strong><br /><br />
          <a class="btn btn-danger btn-sm" href="admin.php?op=rubriquedelete&amp;rubid='.$rubid.'&amp;ok=1" role="button">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm" href="admin.php?op=sections" role="button">'.adm_translate("Non").'</a>
@@ -1081,7 +1081,7 @@ function sectiondelete($secid, $ok=0) {
       list($secname) = sql_fetch_row($result);
       echo '
       <hr />
-      <h3 class="mb-3 text-danger">'.adm_translate("Effacer la sous-rubrique : ").'<span class="text-muted">'.aff_langue($secname).'</span></h3>
+      <h3 class="mb-3 text-danger">'.adm_translate("Effacer la sous-rubrique : ").'<span class="text-body-secondary">'.aff_langue($secname).'</span></h3>
       <div class="alert alert-danger">
          <strong>'.adm_translate("Etes-vous sûr de vouloir effacer cette sous-rubrique ?").'</strong><br /><br />
          <a class="btn btn-danger btn-sm" href="admin.php?op=sectiondelete&amp;secid='.$secid.'&amp;ok=1" role="button">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm" role="button" href="admin.php?op=sections" >'.adm_translate("Non").'</a>
@@ -1119,7 +1119,7 @@ function secartdelete($artid,$ok=0) {
       list($title) = sql_fetch_row($result);
       echo '
       <hr />
-      <h3 class="mb-3 text-danger">'.adm_translate("Effacer la publication :").' <span class="text-muted">'.aff_langue($title).'</span></h3>
+      <h3 class="mb-3 text-danger">'.adm_translate("Effacer la publication :").' <span class="text-body-secondary">'.aff_langue($title).'</span></h3>
       <p class="alert alert-danger">
          <strong>'.adm_translate("Etes-vous certain de vouloir effacer cette publication ?").'</strong><br /><br />
          <a class="btn btn-danger btn-sm" href="admin.php?op=secartdelete&amp;artid='.$artid.'&amp;ok=1" role="button">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm" role="button" href="admin.php?op=sections" >'.adm_translate("Non").'</a>
@@ -1144,7 +1144,7 @@ function secartdelete2($artid, $ok=0) {
       list($title) = sql_fetch_row($result);
       echo '
       <hr />
-      <h3 class="mb-3 text-danger">'.adm_translate("Effacer la publication :").' <span class="text-muted">'.aff_langue($title).'</span></h3>
+      <h3 class="mb-3 text-danger">'.adm_translate("Effacer la publication :").' <span class="text-body-secondary">'.aff_langue($title).'</span></h3>
       <p class="alert alert-danger">
          <strong>'.adm_translate("Etes-vous certain de vouloir effacer cette publication ?").'</strong><br /><br />
          <a class="btn btn-danger btn-sm" href="admin.php?op=secartdelete2&amp;artid='.$artid.'&amp;ok=1" role="button">'.adm_translate("Oui").'</a>&nbsp;<a class="btn btn-secondary btn-sm" role="button" href="admin.php?op=sections" >'.adm_translate("Non").'</a>
@@ -1224,7 +1224,7 @@ function ordrechapitre() {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Changer l'ordre des sous-rubriques").' '.adm_translate("dans").' / <span class="text-muted">'.$rubname.'</span></h3>
+   <h3 class="mb-3">'.adm_translate("Changer l'ordre des sous-rubriques").' '.adm_translate("dans").' / <span class="text-body-secondary">'.$rubname.'</span></h3>
    <form action="admin.php" method="post" id="ordrechapitre" name="adminForm">
       <table class="table table-borderless table-sm table-hover table-striped">
          <thead>
@@ -1387,7 +1387,7 @@ function publishrights($author) {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-3"><i class="fa fa-user-edit me-2"></i>'.adm_translate("Droits des auteurs").' : <span class="text-muted">'.$author.'</span></h3>
+   <h3 class="mb-3"><i class="fa fa-user-edit me-2"></i>'.adm_translate("Droits des auteurs").' : <span class="text-body-secondary">'.$author.'</span></h3>
    <form action="admin.php" method="post">';
    $result1 = sql_query("SELECT rubid, rubname FROM ".$NPDS_Prefix."rubriques ORDER BY ordre");
    $numrow=sql_num_rows($result1);

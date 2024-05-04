@@ -173,7 +173,7 @@ function displayadmins() {
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits").'" /> '.adm_translate("Droits").' </legend>
          <div id="adm_droi_f" class="container-fluid ">
             <div class="mb-3">
-               <input type="checkbox" id="ckball_f" />&nbsp;<span class="small text-muted" id="ckb_status_f">'.adm_translate("Tout cocher").'</span>
+               <input type="checkbox" id="ckball_f" />&nbsp;<span class="small text-body-secondary" id="ckb_status_f">'.adm_translate("Tout cocher").'</span>
             </div>
             <div class="row">
                '.$listdroits.'
@@ -184,7 +184,7 @@ function displayadmins() {
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits modules").'" /> '.adm_translate("Droits modules").' </legend>
          <div id="adm_droi_m" class="container-fluid">
             <div class="mb-3">
-               <input type="checkbox" id="ckball_m" />&nbsp;<span class="small text-muted" id="ckb_status_m">'.adm_translate("Tout cocher").'</span>
+               <input type="checkbox" id="ckball_m" />&nbsp;<span class="small text-body-secondary" id="ckb_status_m">'.adm_translate("Tout cocher").'</span>
             </div>
             <div class="row">
             '.$listdroitsmodulo.'
@@ -248,7 +248,7 @@ function modifyadmin($chng_aid) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate("Actualiser l'administrateur").' : <span class="text-muted">'.$chng_aid.'</span></h3>';
+   <h3>'.adm_translate("Actualiser l'administrateur").' : <span class="text-body-secondary">'.$chng_aid.'</span></h3>';
 
    $result = sql_query("SELECT aid, name, url, email, pwd, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid='$chng_aid'");
    list($chng_aid, $chng_name, $chng_url, $chng_email, $chng_pwd, $chng_radminsuper) = sql_fetch_row($result);
@@ -329,7 +329,7 @@ function modifyadmin($chng_aid) {
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits").'" /> '.adm_translate("Droits").' </legend>
          <div id="adm_droi_f" class="container-fluid ">
             <div class="mb-3">
-               <input type="checkbox" id="ckball_f" />&nbsp;<span class="small text-muted" id="ckb_status_f">'.adm_translate("Tout cocher").'</span>
+               <input type="checkbox" id="ckball_f" />&nbsp;<span class="small text-body-secondary" id="ckb_status_f">'.adm_translate("Tout cocher").'</span>
             </div>
             <div class="row">
             '.$listdroits.'
@@ -340,7 +340,7 @@ function modifyadmin($chng_aid) {
          <legend><img src="'.$adminimg.'authors.'.$admf_ext.'" class="vam" border="0" width="24" height="24" alt="'.adm_translate("Droits modules").'" /> '.adm_translate("Droits modules").' </legend>
          <div id="adm_droi_m" class="container-fluid ">
             <div class="mb-3">
-               <input type="checkbox" id="ckball_m" />&nbsp;<span class="small text-muted" id="ckb_status_m">'.adm_translate("Tout cocher").'</span>
+               <input type="checkbox" id="ckball_m" />&nbsp;<span class="small text-body-secondary" id="ckb_status_m">'.adm_translate("Tout cocher").'</span>
             </div>
             <div class="row">
                '.$listdroitsmodulo.'
@@ -537,7 +537,7 @@ switch ($op) {
       adminhead ($f_meta_nom, $f_titre, $adminimg);
       echo '
       <hr />
-      <h3>'.adm_translate("Effacer l'Administrateur").' : <span class="text-muted">'.$del_aid.'</span></h3>
+      <h3>'.adm_translate("Effacer l'Administrateur").' : <span class="text-body-secondary">'.$del_aid.'</span></h3>
       <div class="alert alert-danger">
       <p><strong>'.adm_translate("Etes-vous sûr de vouloir effacer").' '.$del_aid.' ? </strong></p>
       <a href="admin.php?op=deladminconf&amp;del_aid='.$del_aid.'" class="btn btn-danger btn-sm">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=mod_authors" class="btn btn-secondary btn-sm">'.adm_translate("Non").'</a>

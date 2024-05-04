@@ -40,7 +40,7 @@ function geninfo($did,$out_template) {
          echo '
          <h2 class="mb-3">'.translate("Chargement de fichiers").'</h2>
          <div class="card">
-            <div class="card-header"><h4>'.$dfilename.'<span class="ms-3 text-muted small">@'.$durl.'</h4></div>
+            <div class="card-header"><h4>'.$dfilename.'<span class="ms-3 text-body-secondary small">@'.$durl.'</h4></div>
             <div class="card-body">';
       }
       echo '
@@ -82,7 +82,7 @@ function tlist() {
    $acounter = sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."downloads");
    list($acount) = sql_fetch_row($acounter);
    if (($cate == translate("Tous")) OR ($cate == ''))
-      echo '<i class="fa fa-folder-open fa-2x text-muted align-middle me-2"></i><strong><span class="align-middle">'.translate("Tous").'</span>
+      echo '<i class="fa fa-folder-open fa-2x text-body-secondary align-middle me-2"></i><strong><span class="align-middle">'.translate("Tous").'</span>
 <span class="badge bg-secondary ms-2 float-end my-2">'.$acount.'</span></strong>';
    else
       echo '<a href="download.php?dcategory='.translate("Tous").'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x align-middle me-2"></i><span class="align-middle">'.translate("Tous").'</span></a><span class="badge bg-secondary ms-2 float-end my-2">'.$acount.'</span>';
@@ -92,7 +92,7 @@ function tlist() {
       $category=stripslashes($category);
       echo '<p class="p-2 mb-0">';
       if ($category == $cate)
-         echo '<i class="fa fa-folder-open fa-2x text-muted align-middle me-2"></i><strong class="align-middle">'.aff_langue($category).'<span class="badge bg-secondary ms-2 float-end my-2">'.$dcount.'</span></strong>';
+         echo '<i class="fa fa-folder-open fa-2x text-body-secondary align-middle me-2"></i><strong class="align-middle">'.aff_langue($category).'<span class="badge bg-secondary ms-2 float-end my-2">'.$dcount.'</span></strong>';
       else {
          $category2 = urlencode($category);
          echo '<a href="download.php?dcategory='.$category2.'&amp;sortby='.$sortby.'"><i class="fa fa-folder fa-2x align-middle me-2"></i><span class="align-middle">'.aff_langue($category).'</span></a><span class="badge bg-secondary ms-2 my-2 float-end">'.$dcount.'</span>';

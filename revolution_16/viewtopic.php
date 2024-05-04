@@ -161,7 +161,7 @@ include('header.php');
          aff_pub($lock_state,$topic,$forum,$mod);
    }
 
-   echo $topic_subject.'<span class="text-muted ms-1">#'.$topic.'</span>';
+   echo $topic_subject.'<span class="text-body-secondary ms-1">#'.$topic.'</span>';
    if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
@@ -181,7 +181,7 @@ include('header.php');
       <div class="card mb-3">
          <div class="card-body p-2">
          <div class="d-flex ">
-            <div class=" align-self-center badge bg-secondary mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class=" me-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ms-1 d-inline d-md-none" title="'.translate("Contributeur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributeur(s)").'</span></div>
+            <div class=" align-self-center badge bg-secondary mx-2 col-2 col-md-3 col-xl-2 bg-white text-body-secondary py-2"><span class=" me-1 lead">'.$total_contributeurs.'<i class="fa fa-edit fa-fw fa-lg ms-1 d-inline d-md-none" title="'.translate("Contributeur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Contributeur(s)").'</span></div>
             <div class=" align-self-center me-auto">';
    for ($i = 0; $i < $total_contributeurs; $i++) {
       $contri = get_userdata_from_id($contributeurs[$i]);
@@ -204,7 +204,7 @@ include('header.php');
    $ibidcountmod = count($moderator);
    echo '
          <div class="d-flex">
-            <div class="badge bg-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2"><span class="me-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ms-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
+            <div class="badge bg-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-body-secondary py-2"><span class="me-1 lead">'.$ibidcountmod.' <i class="fa fa-balance-scale fa-fw fa-lg ms-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
             <div class=" align-self-center me-auto">';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
@@ -364,15 +364,15 @@ include('header.php');
             }
             echo '
           <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div> \'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>
-          <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+          <span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>';
          } else {
             echo '<a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-bs-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" /></a>
-            <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$anonymous.'</strong></span>'; }
+            <span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$anonymous.'</strong></span>'; }
       } else {
          if($myrow['poster_id'] !== '0')
-            echo '<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+            echo '<span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>';
          else
-            echo '<span class="text-muted"><strong>'.$anonymous.'</strong></span>';
+            echo '<span class="text-body-secondary"><strong>'.$anonymous.'</strong></span>';
       }
       echo '<span class="float-end">';
       if ($myrow['image'] != '') {
@@ -424,7 +424,7 @@ include('header.php');
             </div>
                <div class="card-footer">
                   <div class="row">
-                     <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
+                     <div class=" col-sm-6 text-body-secondary small">'.post_convertdate($date_post).'</div>
                      <div class=" col-sm-6 text-end">';
 
    if ($forum_access!=9) {

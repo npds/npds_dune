@@ -28,7 +28,7 @@ function modifylinkrequest($lid, $modifylinkrequest_adv_infos, $author) {
       $title = stripslashes($title);
       $description = stripslashes($description);
       echo '
-   <h3 class="my-3">'.translate("Proposition de modification").' : <span class="text-muted">'.$title.'</span></h3>
+   <h3 class="my-3">'.translate("Proposition de modification").' : <span class="text-body-secondary">'.$title.'</span></h3>
    <form action="modules.php" method="post" name="adminForm">
       <input type="hidden" name="ModPath" value="'.$ModPath.'" />
       <input type="hidden" name="ModStart" value="'.$ModStart.'" />

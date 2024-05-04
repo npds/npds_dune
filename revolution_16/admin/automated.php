@@ -227,7 +227,7 @@ function autoEdit($anid) {
          $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="topic_logo" loading="lazy" title="'.$topictext.'" data-bs-toggle="tooltip" data-bs-placement="left" />';
    }
 
-   code_aff('<div class="d-flex"><div class="w-100 p-2 ps-0"><h3>'.$titre.'</h3></div><div class="align-self-center p-2 flex-shrink-1 h3">'.$topiclogo.'</div></div>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
+   code_aff('<div class="d-flex"><div class="w-100 p-2 ps-0"><h3>'.$titre.'</h3></div><div class="align-self-center p-2 flex-shrink-1 h3">'.$topiclogo.'</div></div>', '<div class="text-body-secondary">'.$hometext.'</div>', $bodytext, $notes);
 
    echo '<hr /><b>'.adm_translate("Utilisateur").'</b>'.$informant.'<br />';
    echo '

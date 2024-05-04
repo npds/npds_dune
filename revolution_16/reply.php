@@ -462,16 +462,16 @@ if ($submitS) {
 
                echo '
                <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>
-               <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+               <span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>';
             } else {
                echo '
                <a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-bs-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" /></a>
-               <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$anonymous.'</strong></span>';
+               <span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$anonymous.'</strong></span>';
             }
          } else {
             echo $myrow['poster_id'] !== '0' ?
-               '<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>' :
-               '<span class="text-muted"><strong>'.$anonymous.'</strong></span>' ;
+               '<span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>' :
+               '<span class="text-body-secondary"><strong>'.$anonymous.'</strong></span>' ;
          }
          echo '
                   <span class="float-end">';
@@ -488,7 +488,7 @@ if ($submitS) {
                   </span>
                </div>
                <div class="card-body">
-                  <span class="text-muted float-end small" style="margin-top:-1rem;">'.translate("Posté : ").convertdate($myrow['post_time']).'</span>
+                  <span class="text-body-secondary float-end small" style="margin-top:-1rem;">'.translate("Posté : ").convertdate($myrow['post_time']).'</span>
                   <div class="card-text pt-4">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {

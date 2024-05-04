@@ -288,7 +288,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<i class="bi bi-folder fs-1 me-2 align-middle text-muted"></i>'.fma_translate("Renommer un répertoire");
+               $cmd='<i class="bi bi-folder fs-1 me-2 align-middle text-body-secondary"></i>'.fma_translate("Renommer un répertoire");
                $rename_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -381,7 +381,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<i class="bi bi-folder fs-1 me-2 align-middle text-muted"></i>'.fma_translate("Changer les droits d'un répertoire");
+               $cmd='<i class="bi bi-folder fs-1 me-2 align-middle text-body-secondary"></i>'.fma_translate("Changer les droits d'un répertoire");
                $chmod_dir ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -443,7 +443,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-muted"></i>'.fma_translate("Renommer un fichier");
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-body-secondary"></i>'.fma_translate("Renommer un fichier");
                $rename_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -491,7 +491,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-muted"></i>'.fma_translate("Déplacer / Copier un fichier");
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-body-secondary"></i>'.fma_translate("Déplacer / Copier un fichier");
                $move_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -609,7 +609,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-muted"></i>'.fma_translate("Changer les droits d'un fichier").'</span>';
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-body-secondary"></i>'.fma_translate("Changer les droits d'un fichier").'</span>';
                $chmod_file ='
                <form method="post" action="modules.php">
                   <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -656,7 +656,7 @@ switch ($op) {
             $auto[3]=decrypt($browse);
             if (file_exists($auto[3].'/'.$auto[2])) {
                $theme_fma=$themeC_fma;
-               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-muted"></i>'.fma_translate("Editer un fichier").'</span>';
+               $cmd='<i class="bi bi-file-earmark fs-2 me-2 align-middle text-body-secondary"></i>'.fma_translate("Editer un fichier").'</span>';
                $fp=fopen($auto[3].'/'.$auto[2],'r');
                if (filesize($auto[3].'/'.$auto[2])>0)
                   $Fcontent=fread($fp,filesize($auto[3].'/'.$auto[2]));
@@ -716,7 +716,7 @@ switch ($op) {
          $auto[3]=decrypt($browse);
          if (file_exists($auto[3].'/'.$auto[2])) {
             $theme_fma=$themeC_fma;
-            $cmd='<span class="text-muted"><i class="fa fa-image fa-2x me-2 align-middle"></i></span>'.fma_translate("Autoriser Pic-Manager").' >> '.$auto[2];
+            $cmd='<span class="text-body-secondary"><i class="fa fa-image fa-2x me-2 align-middle"></i></span>'.fma_translate("Autoriser Pic-Manager").' >> '.$auto[2];
             $pict_dir ='
             <form method="post" action="modules.php">
                <input type="hidden" name="ModPath" value="'.$ModPath.'" />
@@ -828,7 +828,7 @@ while (false!==($file = readdir($handle))) {
       $att_icons[$prefix]='<img src="images/upload/file_types/'.$file.'" alt="" />'; // no more used keep if we back
       $att_icons[$prefix]='
       <span class="fa-stack">
-        <i class="bi bi-file-earmark fa-stack-2x text-muted"></i>
+        <i class="bi bi-file-earmark fa-stack-2x text-body-secondary"></i>
         <span class="fa-stack-1x filetype-text small ">'.$prefix.'</span>
       </span>';
    }
@@ -836,7 +836,7 @@ while (false!==($file = readdir($handle))) {
 closedir($handle);
 $att_icon_default='
       <span class="fa-stack">
-        <i class="bi bi-file-earmark fa-stack-2x text-muted"></i>
+        <i class="bi bi-file-earmark fa-stack-2x text-body-secondary"></i>
         <span class="fa-stack-1x filetype-text ">?</span>
       </span>';
 $att_icon_multiple="<img src=\"images/upload/file_types/multiple.gif\" alt=\"\" />";

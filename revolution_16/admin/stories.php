@@ -440,7 +440,7 @@ function displayStory ($qid) {
       if (file_exists($imgtmp)) 
       $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="" />';
    }
-    code_aff('<h4>'.$subject.$topiclogo.'</h4>','<div class="text-muted">'.meta_lang($story).'</div>', meta_lang($bodytext), "");
+    code_aff('<h4>'.$subject.$topiclogo.'</h4>','<div class="text-body-secondary">'.meta_lang($story).'</div>', meta_lang($bodytext), "");
 
     echo '
          </div>
@@ -578,7 +578,7 @@ function previewStory($qid, $uid, $author, $subject, $hometext, $bodytext, $topi
       if (file_exists($imgtmp)) 
          $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="" />';
    }
-    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.meta_lang($hometext).'</div>', meta_lang($bodytext), meta_lang($notes));
+    code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-body-secondary">'.meta_lang($hometext).'</div>', meta_lang($bodytext), meta_lang($notes));
 
     echo '
           </div>
@@ -740,7 +740,7 @@ function editStory ($sid) {
    list($catid, $subject, $hometext, $bodytext, $topic, $notes, $ihome, $date_finval,$epur) = sql_fetch_row($result);
    $subject = stripslashes($subject);
    $hometext = stripslashes($hometext);
-   $hometext=str_replace('<i class="fa fa-thumb-tack fa-2x me-2 text-muted"></i>','',$hometext);
+   $hometext=str_replace('<i class="fa fa-thumb-tack fa-2x me-2 text-body-secondary"></i>','',$hometext);
    $bodytext = stripslashes($bodytext);
    $notes = stripslashes($notes);
 
@@ -775,7 +775,7 @@ function editStory ($sid) {
    global $local_user_language;
    echo '
    <div id="art_preview" class="card card-body mb-3">';
-   echo code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, $notes);
+   echo code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-body-secondary">'.$hometext.'</div>', $bodytext, $notes);
    echo '
    </div>';
    echo '
@@ -983,7 +983,7 @@ function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $cati
        sql_query("UPDATE ".$NPDS_Prefix."stories SET catid='$catid', title='$subject', hometext='$hometext', bodytext='$bodytext', topic='$topic', notes='$notes', ihome='$ihome', date_finval='$date_finval', auto_epur='$epur' WHERE sid='$sid'");
     }
     if ($Csid) {
-       sql_query("UPDATE ".$NPDS_Prefix."stories SET hometext='<i class=\"fa fa-thumb-tack fa-2x me-2 text-muted\"></i> $hometext' WHERE sid='$sid'");
+       sql_query("UPDATE ".$NPDS_Prefix."stories SET hometext='<i class=\"fa fa-thumb-tack fa-2x me-2 text-body-secondary\"></i> $hometext' WHERE sid='$sid'");
        list($Lsid)=sql_fetch_row(sql_query("SELECT sid FROM ".$NPDS_Prefix."stories ORDER BY sid DESC"));
        $Lsid++;
        sql_query("UPDATE ".$NPDS_Prefix."stories SET sid='$Lsid' WHERE sid='$sid'");
@@ -1173,7 +1173,7 @@ function previewAdminStory($subject, $hometext, $bodytext, $topic, $catid, $ihom
          $topiclogo = '<img class="img-fluid " src="'.$timage.'" align="right" alt="" />';
    }
 
-   code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-muted">'.$hometext.'</div>', $bodytext, '');
+   code_aff('<h3>'.$subject.$topiclogo.'</h3>', '<div class="text-body-secondary">'.$hometext.'</div>', $bodytext, '');
    echo '
       </div>
          <div class="mb-3 row">

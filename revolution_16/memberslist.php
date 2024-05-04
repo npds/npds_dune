@@ -158,7 +158,7 @@ list($lastuser,$lastava) = sql_fetch_row($result);
 echo '
    <h2><img src="images/admin/users.png" alt="'.translate("Liste des membres").'" />'.translate("Liste des membres");
 if (isset ($uid_from_ws) and ($uid_from_ws!='')) 
-   echo '<span class="text-muted"> '.translate("pour le groupe").' #'.$gr_from_ws.'</span>';
+   echo '<span class="text-body-secondary"> '.translate("pour le groupe").' #'.$gr_from_ws.'</span>';
 echo '</h2>
    <hr />';
 
@@ -222,7 +222,7 @@ if ( $letter != 'front' ) {
    <table class="table table-no-bordered table-sm " data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons="icons" data-icons-prefix="fa" data-show-columns="true">
       <thead>
          <tr>
-            <th class="n-t-col-xs-1 align-middle text-muted" data-halign="center" data-align="center"><i class="fa fa-user-o fa-lg"></i></th>
+            <th class="n-t-col-xs-1 align-middle text-body-secondary" data-halign="center" data-align="center"><i class="fa fa-user-o fa-lg"></i></th>
             <th class="align-middle" data-sortable="true">'.translate("Identifiant").'</th>
             <th class="align-middle" data-sortable="true">'.translate("Identité").'</th>
             ';

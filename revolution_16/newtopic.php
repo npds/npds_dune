@@ -210,7 +210,7 @@ if ($submitS) {
    echo '
          </div>
       </div>
-      <h4 class="my-3"><img width="48" height="48" class=" rounded-circle me-3" src="'.$imgava.'" alt="" />'.translate("Poster un nouveau sujet dans :").' '.stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span></h4>
+      <h4 class="my-3"><img width="48" height="48" class=" rounded-circle me-3" src="'.$imgava.'" alt="" />'.translate("Poster un nouveau sujet dans :").' '.stripslashes($forum_name).'<span class="text-body-secondary">&nbsp;#'.$forum.'</span></h4>
          <blockquote class="blockquote">'.translate("A propos des messages publiés :").'<br />';
    if ($forum_access == 0)
       echo translate("Les utilisateurs anonymes peuvent poster de nouveaux sujets et des réponses dans ce forum.");

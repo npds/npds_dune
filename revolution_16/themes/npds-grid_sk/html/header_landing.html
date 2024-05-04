@@ -18,7 +18,7 @@
 
    if (autorisation(-1)) {
       $btn_con = '<a class="dropdown-item" href="user.php"><i class="fas fa-sign-in-alt fa-lg me-2 align-middle"></i>'.translate("Connexion").'</a>';
-      $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-3x text-muted"></i></a>';
+      $ava='<a class="dropdown-item" href="user.php"><i class="fa fa-user fa-3x text-body-secondary"></i></a>';
    }
    elseif (autorisation(1)) {
       list($nbmes)=sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid='".$cookie[0]."' AND read_msg='0'"));
@@ -85,11 +85,11 @@
    </nav>
    <div class="page-header px-2">
       <div class="row row-cols-1 row-cols-md-2 mt-3">
-         <div class="col-md-6"><div><img  class="float-start align-middle me-2" width="128" height="128" src="themes/!theme!/images/header.png" /><h1 class="pt-4">NPDS^ 16.4<br /><small class="text-muted">Responsive</small></h1></div></div>
+         <div class="col-md-6"><div><img  class="float-start align-middle me-2" width="128" height="128" src="themes/!theme!/images/header.png" /><h1 class="pt-4">NPDS^ 16.4<br /><small class="text-body-secondary">Responsive</small></h1></div></div>
          <div id="ban" class="col text-end">!banner!</div>
       </div>
       <div class="row px-2">
-         <div id="slogan" class="col-md-6 text-muted slogan"><strong>!slogan!</strong></div>
+         <div id="slogan" class="col-md-6 text-body-secondary slogan"><strong>!slogan!</strong></div>
          <div id="online" class="col-md-6 text-end">!nb_online!</div>
       </div>
    </div>

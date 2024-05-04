@@ -121,7 +121,7 @@ function display_upload($apli,$post_id,$Mmod){
       <div class="list-group">
          <div class="list-group-item d-flex justify-content-start align-items-center mt-2">
             <img class="n-smil" src="images/forum/subject/07.png" alt="icon_pieces jointes" />
-            <span class="text-muted p-2">'.upload_translate("Pièces jointes").'</span><a data-bs-toggle="collapse" href="#lst_pj'.$post_id.'"><i data-bs-toggle="tooltip" data-bs-placement="top" title="" class="toggle-icon fa fa-lg me-2 fa-caret-up"></i></a>
+            <span class="text-body-secondary p-2">'.upload_translate("Pièces jointes").'</span><a data-bs-toggle="collapse" href="#lst_pj'.$post_id.'"><i data-bs-toggle="tooltip" data-bs-placement="top" title="" class="toggle-icon fa fa-lg me-2 fa-caret-up"></i></a>
             <span class="badge bg-secondary ms-auto">'.$att_count.'</span>
          </div>
          <div id="lst_pj'.$post_id.'" class="collapse show">';

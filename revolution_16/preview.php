@@ -88,7 +88,7 @@ switch ($acc) {
       if (($forum_type!=6) and ($forum_type!=5)) {
          $messageP = af_cod($messageP);
          $messageP = str_replace("\n", '<br />', removeHack($messageP));
-         $messageP .= '<br /><div class=" text-muted text-end small"><i class="fa fa-edit"></i> '.translate("Message édité par").' : '.$userdata['uname'].'</div';
+         $messageP .= '<br /><div class=" text-body-secondary text-end small"><i class="fa fa-edit"></i> '.translate("Message édité par").' : '.$userdata['uname'].'</div';
          if ($allow_bbcode) $messageP = aff_video_yt($messageP);
       } 
       else
@@ -124,7 +124,7 @@ if ($smilies) {
 }
 $postername = array_key_exists('1', $userdatat) ? $userdatat[1] : $anonymous;
 echo'
-                  &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$postername.'</strong></span>
+                  &nbsp;<span style="position:absolute; left:6rem;" class="text-body-secondary"><strong>'.$postername.'</strong></span>
 
 
                   <span class="float-end">';
@@ -138,7 +138,7 @@ if (isset($image_subject)) {
    echo '</span>
                   </div>
                   <div class="card-body">
-                     <span class="text-muted float-end small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
+                     <span class="text-body-secondary float-end small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
                      <div id="post_preview" class="card-text pt-3">';
 
    $messageP=stripslashes($messageP);

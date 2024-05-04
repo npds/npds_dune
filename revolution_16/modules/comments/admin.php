@@ -76,9 +76,9 @@ elseif ($moderate==2) {
             <h3 class="card-title mb-3">'.translate("Adresses IP et informations sur les utilisateurs").'</h3>
             <div class="row">
                <div class="col mb-3">
-                  <span class="text-muted">'.translate("Identifiant : ").'</span> '.$m['uname'].'<br />
-                  <span class="text-muted">'.translate("Adresse IP de l'utilisateur : ").'</span> '.$m['poster_ip'].'<br />
-                  <span class="text-muted">'.translate("Adresse DNS de l'utilisateur : ").'</span> '.$m['poster_dns'].'<br />
+                  <span class="text-body-secondary">'.translate("Identifiant : ").'</span> '.$m['uname'].'<br />
+                  <span class="text-body-secondary">'.translate("Adresse IP de l'utilisateur : ").'</span> '.$m['poster_ip'].'<br />
+                  <span class="text-body-secondary">'.translate("Adresse DNS de l'utilisateur : ").'</span> '.$m['poster_dns'].'<br />
                </div>';
                echo localiser_ip($iptoshow=$m['poster_ip']);
                echo '

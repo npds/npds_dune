@@ -60,7 +60,7 @@ function hreferer($filter) {
          <td>';
       if($TheCount == 1) echo '<a href="'.$url.'" target="_blank">';
       if ($filter!=2048)
-        echo '<span>'.substr($url,0,$filter).'</span><span class="text-muted">'.substr($url,$filter).'</span>';
+        echo '<span>'.substr($url,0,$filter).'</span><span class="text-body-secondary">'.substr($url,$filter).'</span>';
       else
         echo $url;
       if($TheCount == 1) echo '</a>';

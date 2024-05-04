@@ -26,7 +26,7 @@ function FriendSend($sid, $archive) {
 
    echo '
    <div class="card card-body">
-   <h2><i class="fa fa-at fa-lg text-muted"></i>&nbsp;'.translate("Envoi de l'article à un ami").'</h2>
+   <h2><i class="fa fa-at fa-lg text-body-secondary"></i>&nbsp;'.translate("Envoi de l'article à un ami").'</h2>
    <hr />
    <p class="lead">'.translate("Vous allez envoyer cet article").' : <strong>'.aff_langue($title).'</strong></p>
    <form id="friendsendstory" action="friend.php" method="post">

@@ -73,9 +73,9 @@ function show_imm($op) {
 
          if ($posterdata['uid']==1) {
             global $sitename;
-            echo ' <span class="text-muted">'.$sitename.'</span></h3>';
+            echo ' <span class="text-body-secondary">'.$sitename.'</span></h3>';
          }
-         if ($posterdata['uid']<>1) echo ' <span class="text-muted">'.$posterdata['uname'].'</span></h3>';
+         if ($posterdata['uid']<>1) echo ' <span class="text-body-secondary">'.$posterdata['uname'].'</span></h3>';
 
          $myrow['subject']=strip_tags($myrow['subject']);
 

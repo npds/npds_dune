@@ -177,7 +177,7 @@ function topicedit($topicid) {
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Editer le Sujet :").' <span class="text-muted">'.aff_langue($topicname).'</span></h3>';
+   <h3 class="mb-3">'.adm_translate("Editer le Sujet :").' <span class="text-body-secondary">'.aff_langue($topicname).'</span></h3>';
    if ($topicimage!='') {
       echo '
    <div class="card card-body my-4 py-3"><img class="img-fluid mx-auto d-block" src="'.$tipath.$topicimage.'" alt="image-sujet" /></div>';
@@ -253,7 +253,7 @@ function topicedit($topicid) {
    
     echo '
     <hr />
-    <h3 class="my-2">'.adm_translate("Gérer les Liens Relatifs : ").' <span class="text-muted">'.aff_langue($topicname).'</span></h3>';
+    <h3 class="my-2">'.adm_translate("Gérer les Liens Relatifs : ").' <span class="text-body-secondary">'.aff_langue($topicname).'</span></h3>';
     $res=sql_query("SELECT rid, name, url FROM ".$NPDS_Prefix."related WHERE tid='$topicid'");
     echo '
    <table id="tad_linkrel" data-toggle="table" data-striped="true" data-icons="icons" data-icons-prefix="fa">

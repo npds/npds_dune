@@ -132,7 +132,7 @@ function group_liste() {
          <div id="bloc_gr_'.$gp.'" class="row border rounded ms-1 p-2 px-0 mb-2 w-100">
             <div class="col-lg-4 ">
                <span>'.$gp.'</span>
-               <i class="fa fa-users fa-2x text-muted"></i><h4 class="my-2">'.aff_langue($result['groupe_name']).'</h4><p>'.aff_langue($result['groupe_description']);
+               <i class="fa fa-users fa-2x text-body-secondary"></i><h4 class="my-2">'.aff_langue($result['groupe_name']).'</h4><p>'.aff_langue($result['groupe_description']);
          if (file_exists ('users_private/groupe/'.$gp.'/groupe.png'))
             echo'<img class="d-block my-2" src="users_private/groupe/'.$gp.'/groupe.png" width="80" height="80" alt="logo_groupe" />';
          echo '
@@ -142,7 +142,7 @@ function group_liste() {
          $nb_mb=(count($tab_groupe))-1;
          echo '
                <a class="tog" id="show_lst_mb_'.$gp.'" title="'.adm_translate("Déplier la liste").'"><i id="i_lst_mb_gr_'.$gp.'" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;&nbsp;
-               <i class="fa fa-user fa-2x text-muted"></i> <span class=" align-top badge bg-secondary">&nbsp;'.$nb_mb.'</span>&nbsp;&nbsp;';
+               <i class="fa fa-user fa-2x text-body-secondary"></i> <span class=" align-top badge bg-secondary">&nbsp;'.$nb_mb.'</span>&nbsp;&nbsp;';
          $lst_uid_json='';
          $lst_uidna_json='';
          
@@ -262,16 +262,16 @@ function group_liste() {
          <div class="row border rounded ms-1 p-2 px-0 mb-2 w-100">
             <div id="bloc_gr_'.$gp.'" class="col-lg-5">
                <span class="text-danger">'.$gp.'</span>
-               <i class="fa fa-users fa-2x text-muted"></i>
-               <h4 class="my-2 text-muted">'.aff_langue($gp_name).'</h4>
-               <p class="text-muted">'.aff_langue($gp_description);
+               <i class="fa fa-users fa-2x text-body-secondary"></i>
+               <h4 class="my-2 text-body-secondary">'.aff_langue($gp_name).'</h4>
+               <p class="text-body-secondary">'.aff_langue($gp_description);
          if (file_exists ('users_private/groupe/'.$gp.'/groupe.png'))
             echo'<img class="d-block my-2" src="users_private/groupe/'.$gp.'/groupe.png" width="80" height="80" />';
          echo'
                </p>
             </div>
             <div class="col-lg-4 ">
-               <i class="fa fa-user-o fa-2x text-muted"></i><span class="align-top badge bg-secondary ms-1">0</span>
+               <i class="fa fa-user-o fa-2x text-body-secondary"></i><span class="align-top badge bg-secondary ms-1">0</span>
             </div>
             <div class="col-lg-3 list-group-item px-0 mt-2">
                <a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=groupe_edit&amp;groupe_id='.$gp.'" title="'.adm_translate("Editer groupe").' '.$gp.'" data-bs-toggle="tooltip"  ><i class="fas fa-pencil-alt fa-lg"></i></a><a class="btn btn-outline-danger btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="#" onclick="confirm_deleteGroup(\''.$gp.'\');" title="'.adm_translate("Supprimer groupe").' '.$gp.'" data-bs-toggle="tooltip" ><i class="fas fa-trash fa-lg"></i></a><a class="btn btn-outline-secondary btn-sm col-lg-6 col-md-1 col-sm-2 col-3 mb-1 border-0" href="admin.php?op=membre_add&amp;groupe_id='.$gp.'" title="'.adm_translate("Ajouter un ou des membres au groupe").' '.$gp.'" data-bs-toggle="tooltip" ><i class="fa fa-user-plus fa-lg"></i></a>
@@ -297,7 +297,7 @@ function membre_add($gp) {
    <h3>'.adm_translate("Ajouter des membres").' / '.adm_translate("Groupe").' : '.$gp.'</h3>
    <form id="groupesaddmb" class="admform" action="admin.php" method="post">
       <fieldset>
-         <legend><i class="fa fa-users fa-2x text-muted"></i></legend>
+         <legend><i class="fa fa-users fa-2x text-body-secondary"></i></legend>
          <div class="mb-3">
             <label class="col-form-label" for="luname">'.adm_translate("Liste des membres").'</label>
             <input type="text" class="form-control" id="luname" name="luname" maxlength="255" value="" required="required" />
@@ -455,7 +455,7 @@ function groupe_edit($groupe_id) {
    echo '
    <form class="admform" id="groupesaddmod" action="admin.php" method="post">
       <fieldset>
-         <legend><i class="fas fa-users fa-2x text-muted"></i></legend>'."\n";
+         <legend><i class="fas fa-users fa-2x text-body-secondary"></i></legend>'."\n";
 
    if ($groupe_id != 'groupe_add')
       echo '<input type="hidden" name="groupe_id" value="'.$groupe_id.'" />';

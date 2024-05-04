@@ -123,9 +123,9 @@ echo '
       <div class="card card-body">
          <div class="row">
             <div class="col mb-3">
-              <span class="text-muted">'.SessionLog_translate("@ IP").'</span> : <span>'.$theip.'</span><br />
-              <span class="text-muted">'.SessionLog_translate("@ IP résolue").'</span> : <span>'.$hostname.'</span><br />
-              <span class="text-muted">'.SessionLog_translate("Fournisseur").'</span> : <span>'.$provider.'</span><br />
+              <span class="text-body-secondary">'.SessionLog_translate("@ IP").'</span> : <span>'.$theip.'</span><br />
+              <span class="text-body-secondary">'.SessionLog_translate("@ IP résolue").'</span> : <span>'.$hostname.'</span><br />
+              <span class="text-body-secondary">'.SessionLog_translate("Fournisseur").'</span> : <span>'.$provider.'</span><br />
             </div>';
       echo localiser_ip($iptoshow=$theip);
       echo '

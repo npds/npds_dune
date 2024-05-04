@@ -460,7 +460,7 @@ function showcontent($id) {
    <hr />
    <a href="reviews.php">'.translate("Retour à l'index des critiques").'</a>
    <div class="card card-body my-3">
-      <div class="card-text text-muted text-end small">
+      <div class="card-text text-body-secondary text-end small">
    '.translate("Ajouté :").' '.$fdate.'<br />
       </div>
    <hr />

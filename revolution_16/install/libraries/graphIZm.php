@@ -57,7 +57,7 @@ function entete() {
          <div class="row">
             <div class="col-sm-2 d-none d-md-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
             <div id="logo_header" class="col my-auto ps-3 ps-md-0">
-               <h1 class="display-4">NPDS<br /><small class="text-muted">'.ins_translate("Installation automatique").' <em> '.NEW_VERSION.'</em></small></h1>
+               <h1 class="display-4">NPDS<br /><small class="text-body-secondary">'.ins_translate("Installation automatique").' <em> '.NEW_VERSION.'</em></small></h1>
             </div>
             <div class="col-sm-3 text-end small my-auto">
                <ul class="list-group list-group-flush">

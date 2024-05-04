@@ -101,7 +101,7 @@ function Liste_Page() {
    $nb_pages=sql_num_rows(sql_query("SELECT COUNT(page) FROM ".$NPDS_Prefix."wspad WHERE member='$groupe' GROUP BY page"));
    if ($groupe>0) {
       $gp=sql_fetch_assoc(sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$groupe'"));
-      $aff.='<span class="badge bg-secondary me-2">'.$nb_pages.'</span>'.wspad_trans("Document(s) et révision(s) disponible(s) pour le groupe").' <span class="text-muted">'.aff_langue($gp['groupe_name'])." [$groupe]</span></h3>";
+      $aff.='<span class="badge bg-secondary me-2">'.$nb_pages.'</span>'.wspad_trans("Document(s) et révision(s) disponible(s) pour le groupe").' <span class="text-body-secondary">'.aff_langue($gp['groupe_name'])." [$groupe]</span></h3>";
    } else
       $aff.='<span class="badge bg-secondary me-2">'.$nb_pages.'</span>'.wspad_trans("Document(s) et révision(s) disponible(s) pour les administrateurs").'</h3>';
    $aff.='<div id="lst_paddoc" class="collapse" style =" padding-left:10px;">';
@@ -331,7 +331,7 @@ function Page($page, $ranq) {
       $row['ranq']+=1;
    global $surlignage;
    echo '
-   <hr /><h3>'.wspad_trans("Document : ").'</h3><h4>'.$page.'<span class="text-muted">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+((integer)$gmt*3600)).' ] </span> <span class="float-end"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
+   <hr /><h3>'.wspad_trans("Document : ").'</h3><h4>'.$page.'<span class="text-body-secondary">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+((integer)$gmt*3600)).' ] </span> <span class="float-end"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
    <div id="" class="alert alert-success" role="alert">
       <div id="mess">'.$mess.'</div>
    </div>

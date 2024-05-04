@@ -145,7 +145,7 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
 
    $storyX=aff_code($story);
    $bodytextX=aff_code($bodytext);
-   themepreview('<h3>'.$subject.$topiclogo.'</h3>','<div class="text-muted">'.$storyX.'</div>', $bodytextX);
+   themepreview('<h3>'.$subject.$topiclogo.'</h3>','<div class="text-body-secondary">'.$storyX.'</div>', $bodytextX);
 //    if ($no_img) {
 //       echo '<strong>'.aff_langue($topictext).'</strong>';
 //    }

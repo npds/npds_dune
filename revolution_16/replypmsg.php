@@ -344,7 +344,7 @@ if (isset($user)) {
             <button class="btn btn-outline-primary btn-sm" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate("Prévisualiser").'" data-bs-toggle="tooltip" ><i class="fa fa-eye "></i></button>
          </span>
                </div>
-               <div class="card-footer text-muted">';
+               <div class="card-footer text-body-secondary">';
          if ($allow_bbcode)
             putitems('ta_replypm');
          echo '

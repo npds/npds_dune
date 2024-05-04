@@ -100,7 +100,7 @@ if(autorisation(-127)) {
                <span class="badge bg-secondary ms-1" title="'.geoloc_translate("Visites").'" data-bs-toggle="tooltip" data-bs-placement="left" >'.$ip_visite.'</span>
             </span>
             </span>
-            <span class="d-flex w-100">'.$ip_country1.' '.$ip_city1.'<span class="ms-auto"><i class="fa fa-desktop fa-lg text-muted"></i></span></span>
+            <span class="d-flex w-100">'.$ip_country1.' '.$ip_city1.'<span class="ms-auto"><i class="fa fa-desktop fa-lg text-body-secondary"></i></span></span>
          </p>';
          }
          $i++;
@@ -113,7 +113,7 @@ if(autorisation(-127)) {
       <div class="bg-light text-dark fw-light p-2">
          <a id="carrets_ip" class="link" data-bs-toggle="collapse" href="#l_sb_ip"><i class="toggle-icon fa visually-hidden fa-lg me-2" style="font-size:1.6rem;"></i></a>
          <div class="form-check form-switch d-inline-block">
-            <input class="form-check-input" type="checkbox" id="ipbox" /><label class="form-check-label" for="ipbox"><span class="text-muted" data-bs-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer les IP').'"><i class="bi bi-display me-1 h3 align-middle"></i></span>IP</label>
+            <input class="form-check-input" type="checkbox" id="ipbox" /><label class="form-check-label" for="ipbox"><span class="text-body-secondary" data-bs-toggle="tooltip" title="'.geoloc_translate('Voir ou masquer les IP').'"><i class="bi bi-display me-1 h3 align-middle"></i></span>IP</label>
          </div>
          <span class="h6"><span id="ipnb" class="badge bg-secondary rounded-pill float-end">'.$ipnb.'</span></span>
       </div>
@@ -412,7 +412,7 @@ while ($row = sql_fetch_array($membre)) {
          $imm .='<a href="minisite.php?op='.$us_uname.'" target="_blank" ><i class="fa fa-desktop fa-lg me-3 tooltipbyclass" title="'.geoloc_translate("Visitez le minisite").'"></i></a>';
 
       //==> construction du fichier json
-      $cont_json .='{"lat":'.$us_lat.', "lng":'.$us_long.', "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" />&nbsp;'.addslashes($us_uname).'<br /><span class=\\"text-muted\\">'.geoloc_translate("Dernière visite").' : </span>'.$visit.'<br />", "label":"<span>'. addslashes($us_uname) .'</span>", "icon":"icon"},';
+      $cont_json .='{"lat":'.$us_lat.', "lng":'.$us_long.', "html":"<img src=\\"'.$av_ch.'\\" width=\\"32\\" height=\\"32\\" align=\\"middle\\" />&nbsp;'.addslashes($us_uname).'<br /><span class=\\"text-body-secondary\\">'.geoloc_translate("Dernière visite").' : </span>'.$visit.'<br />", "label":"<span>'. addslashes($us_uname) .'</span>", "icon":"icon"},';
       $cont_geojson .='
    {"type": "Feature", "id": "u_'.$us_uid.'", "properties": { "name": "'.addslashes($us_uname).'", "description": ""}, "geometry": { "type": "Point", "coordinates": ['.$us_long.','.$us_lat.'] } },';
 
@@ -970,7 +970,7 @@ $sb_georef='';
 
 if ($username !='') {
    if ($ue_lat !='' and $ue_long !='') {
-      $infooo ='<div id="oldloc"><strong>'.geoloc_translate("Coordonnées enregistrées :").'</strong><br /><span class="text-muted">'.geoloc_translate("Latitude").' :</span> '.$ue_lat.'<br /><span class="text-muted">'.geoloc_translate("Longitude").' :</span> '.$ue_long.'<br /></div><br /><strong>'.geoloc_translate("Voulez vous changer pour :").'</strong><br />';
+      $infooo ='<div id="oldloc"><strong>'.geoloc_translate("Coordonnées enregistrées :").'</strong><br /><span class="text-body-secondary">'.geoloc_translate("Latitude").' :</span> '.$ue_lat.'<br /><span class="text-body-secondary">'.geoloc_translate("Longitude").' :</span> '.$ue_long.'<br /></div><br /><strong>'.geoloc_translate("Voulez vous changer pour :").'</strong><br />';
       $mess_mb = geoloc_translate('Cliquer sur la carte pour modifier votre position.');
    }
    else {
@@ -1014,7 +1014,7 @@ if ($username !='') {
             content: \'<form action="" onsubmit=" window.location.href = \\\'modules.php?ModPath=geoloc&ModStart=geoloc&lng=\'+lng.toFixed(6)+\'&lat=\'+lat.toFixed(6)+\'&mod=neo&uid=\\\'; return false;">\'
         + \'<img src="'.$the_av_ch.'" class="img-thumbnail n-ava-40 me-2" loading="lazy" /><span class="lead">'.$username.'</span>\'
         + \''.$infooo.'\'
-        + \'<div id="lalo"><span class="text-muted">'.geoloc_translate("Latitude").' : </span>\' + lat.toFixed(6) + \'<br /><span class="text-muted">'.geoloc_translate("Longitude").' : </span>\' + lng.toFixed(6) + \'</div>\'
+        + \'<div id="lalo"><span class="text-body-secondary">'.geoloc_translate("Latitude").' : </span>\' + lat.toFixed(6) + \'<br /><span class="text-body-secondary">'.geoloc_translate("Longitude").' : </span>\' + lng.toFixed(6) + \'</div>\'
         + \'<button type="submit" class ="btn btn-primary btn-sm mt-2">'.geoloc_translate("Enregistrez").'</button>\'
         + \'<input type="hidden" id="html" value="'.addslashes($user_from).'" />\'
         + \'<input type="hidden" id="longitude" value="\' + lng.toFixed(6) + \'" />\'
@@ -1291,9 +1291,9 @@ $ecr_scr .='
                    container.innerHTML = \'<div class="text-center">\' + feature.get("userlinks") + \'</div><hr /><img class="me-2 img-thumbnail n-ava" src="\' + feature.get("ava") + \'" align="middle" /><span class="lead">\' + feature.get("pseudo") + \'</span><hr /><div class="text-center">\' + feature.get("social") + \'</div>\';
                if(layerid =="anony") {
                   if(feature.get("ip_qui") == "A")
-                     container.innerHTML = \''.$ic_b_acg.' \' + feature.getId() + \' @ \' + feature.get("ip_hostaddr") + \' <br /><hr /><span class="text-muted">'.geoloc_translate("Hôte").' : </span>\'+ feature.get("ip_hote") +\'<br /><span class="text-muted">'.geoloc_translate("En visite ici").' : </span> \' + feature.get("ip_visitpage") +\'<br /><span class="text-muted">'.geoloc_translate("Visites").' : </span>[\' + feature.get("ip_visit") +\']<br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>\'+ feature.get("ip_city") +\'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>\'+ feature.get("ip_country") +\'<hr /><img src="\'+ feature.get("ip_flagsrc") +\'.png" class="n-smil" alt="flag" />\' || "(unknown)";
+                     container.innerHTML = \''.$ic_b_acg.' \' + feature.getId() + \' @ \' + feature.get("ip_hostaddr") + \' <br /><hr /><span class="text-body-secondary">'.geoloc_translate("Hôte").' : </span>\'+ feature.get("ip_hote") +\'<br /><span class="text-body-secondary">'.geoloc_translate("En visite ici").' : </span> \' + feature.get("ip_visitpage") +\'<br /><span class="text-body-secondary">'.geoloc_translate("Visites").' : </span>[\' + feature.get("ip_visit") +\']<br /><span class="text-body-secondary">'.geoloc_translate("Ville").' : </span>\'+ feature.get("ip_city") +\'<br /><span class="text-body-secondary">'.geoloc_translate("Pays").' : </span>\'+ feature.get("ip_country") +\'<hr /><img src="\'+ feature.get("ip_flagsrc") +\'.png" class="n-smil" alt="flag" />\' || "(unknown)";
                   else
-                     container.innerHTML = \''.$ic_b_mbgc.' \' + feature.get("ip") + \' @ \' + feature.get("ip_hostaddr") + \' <br /><hr /><span class="text-muted">'.geoloc_translate("Hôte").' : </span>\'+ feature.get("ip_hote") +\'<br /><span class="text-muted">'.geoloc_translate("En visite ici").' : </span> \' + feature.get("ip_visitpage") +\'<br /><span class="text-muted">'.geoloc_translate("Visites").' : </span>[\' + feature.get("ip_visit") +\']<br /><span class="text-muted">'.geoloc_translate("Ville").' : </span>\'+ feature.get("ip_city") +\'<br /><span class="text-muted">'.geoloc_translate("Pays").' : </span>\'+ feature.get("ip_country") +\'<hr /><img src="\'+ feature.get("ip_flagsrc") +\'.png" class="n-smil" alt="flag" />\' || "(unknown)";
+                     container.innerHTML = \''.$ic_b_mbgc.' \' + feature.get("ip") + \' @ \' + feature.get("ip_hostaddr") + \' <br /><hr /><span class="text-body-secondary">'.geoloc_translate("Hôte").' : </span>\'+ feature.get("ip_hote") +\'<br /><span class="text-body-secondary">'.geoloc_translate("En visite ici").' : </span> \' + feature.get("ip_visitpage") +\'<br /><span class="text-body-secondary">'.geoloc_translate("Visites").' : </span>[\' + feature.get("ip_visit") +\']<br /><span class="text-body-secondary">'.geoloc_translate("Ville").' : </span>\'+ feature.get("ip_city") +\'<br /><span class="text-body-secondary">'.geoloc_translate("Pays").' : </span>\'+ feature.get("ip_country") +\'<hr /><img src="\'+ feature.get("ip_flagsrc") +\'.png" class="n-smil" alt="flag" />\' || "(unknown)";
                }
             } else {
                var cfeatures = feature.get("features");
@@ -1309,7 +1309,7 @@ $ecr_scr .='
                         case "5" : infospam = \'<br /><span class="text-danger">'.geoloc_translate("Adresse IP bannie !").' [\'+ cfeatures[i].get("spam") +\']</span>\'; break;
                         default : infospam = \'<br /><span class="text-danger">'.geoloc_translate("Adresse IP signalée par l’antispam !").' [\'+ cfeatures[i].get("spam") +\']</span>\'; break;
                      }
-                     l_ip += \'<div class=""><a class="\'+cl+\'" href="#div\' + cfeatures[i].getId() + \'" data-bs-toggle="collapse">\' + cfeatures[i].get("ip") + \'</a></div><div class="collapse small border-bottom pb-1 mb-1" id="div\' + cfeatures[i].getId() + \'"><span class="text-muted">'.geoloc_translate("Visites").' : </span>[\' + cfeatures[i].get("visit") + \']<br /><img class="n-smil me-2" alt="flag" src="\' + cfeatures[i].get("flag") + \'.png" loading="lazy"/>\' + cfeatures[i].get("pays") + \' \' + cfeatures[i].get("city") + \'<br /><span class="text-muted">'.geoloc_translate("Posts/Commentaires").' : </span>[\' + cfeatures[i].get("post") + \']\'+infospam+\'</div>\';
+                     l_ip += \'<div class=""><a class="\'+cl+\'" href="#div\' + cfeatures[i].getId() + \'" data-bs-toggle="collapse">\' + cfeatures[i].get("ip") + \'</a></div><div class="collapse small border-bottom pb-1 mb-1" id="div\' + cfeatures[i].getId() + \'"><span class="text-body-secondary">'.geoloc_translate("Visites").' : </span>[\' + cfeatures[i].get("visit") + \']<br /><img class="n-smil me-2" alt="flag" src="\' + cfeatures[i].get("flag") + \'.png" loading="lazy"/>\' + cfeatures[i].get("pays") + \' \' + cfeatures[i].get("city") + \'<br /><span class="text-body-secondary">'.geoloc_translate("Posts/Commentaires").' : </span>[\' + cfeatures[i].get("post") + \']\'+infospam+\'</div>\';
                   }
                   l_ip += \'</div>\';
                   $(container).append(l_ip);
@@ -1322,7 +1322,7 @@ $ecr_scr .='
                      case "5" : infospam = \'<br /><hr /><span class="text-danger">'.geoloc_translate("Adresse IP bannie !").' [\'+ cfeatures[0].get("spam") +\']</span>\'; break;
                      default : infospam = \'<br /><hr /><span class="text-danger">'.geoloc_translate("Adresse IP signalée par l’antispam !").' [\'+ cfeatures[0].get("spam") +\']</span>\'; break;
                   }
-                  container.innerHTML = \'<div class="small"><span class="\' + cl + \'"><i class="me-1 bi bi-display h4 align-middle"></i>@ \' + cfeatures[0].get("ip") + \'</span><hr /><span class="text-muted">'.geoloc_translate("Visites").' : </span>[\' + cfeatures[0].get("visit") + \']<br /><img class="n-smil me-2" alt="flag" src="\' + cfeatures[0].get("flag") + \'.png" loading="lazy"/>\' + cfeatures[0].get("pays")+ \' \' + cfeatures[0].get("city")+ \'<br /><span class="text-muted">'.geoloc_translate("Posts/Commentaires").' : </span>[\' + cfeatures[0].get("post") + \']\'+infospam+\'</div>\';
+                  container.innerHTML = \'<div class="small"><span class="\' + cl + \'"><i class="me-1 bi bi-display h4 align-middle"></i>@ \' + cfeatures[0].get("ip") + \'</span><hr /><span class="text-body-secondary">'.geoloc_translate("Visites").' : </span>[\' + cfeatures[0].get("visit") + \']<br /><img class="n-smil me-2" alt="flag" src="\' + cfeatures[0].get("flag") + \'.png" loading="lazy"/>\' + cfeatures[0].get("pays")+ \' \' + cfeatures[0].get("city")+ \'<br /><span class="text-body-secondary">'.geoloc_translate("Posts/Commentaires").' : </span>[\' + cfeatures[0].get("post") + \']\'+infospam+\'</div>\';
                }
             }
             popup.setPosition(coord);

@@ -177,15 +177,15 @@ if ($mycount) {
             }
             echo '
             <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" loading="lazy" /></a>
-            <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+            <span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>';
          } else
             echo '
             <a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-bs-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" loading="lazy" /></a>
-            <span style="position:absolute; left:6em;" class="text-muted"><strong>'.$anonymous.'</strong></span>';
+            <span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$anonymous.'</strong></span>';
       } else
          echo $myrow['poster_id'] !== '0' ?
-            '<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>' :
-            '<span class="text-muted"><strong>'.$anonymous.'</strong></span>';
+            '<span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>' :
+            '<span class="text-body-secondary"><strong>'.$anonymous.'</strong></span>';
       $imgtmp = $ibid=theme_image("forum/subject/00.png") ? $ibid : 'images/forum/subject/00.png';
       echo '
                   <span class="float-end"><img class="n-smil" src="'.$imgtmp.'" alt="" /></span>
@@ -209,7 +209,7 @@ if ($mycount) {
                </div>
                <div class="card-footer">
                   <div class="row">
-                     <div class=" col-sm-6 text-muted small">'.post_convertdate($date_post).'</div>
+                     <div class=" col-sm-6 text-body-secondary small">'.post_convertdate($date_post).'</div>
                      <div class=" col-sm-6 text-end">';
       if ($allow_to_post)
          echo '<a class="me-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Commentaire").'" data-bs-toggle="tooltip"><i class="far fa-comment fa-lg"></i></a>';

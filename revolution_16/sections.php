@@ -64,12 +64,12 @@ function listsections($rubric) {
                $aff.='
          <a href="#" class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#rub-'.$rubid.'" ><i class="toggle-icon fa fa-caret-down"></i></a>';
             else
-               $aff.='<i class="fa fa-caret-down text-muted invisible "></i>';
+               $aff.='<i class="fa fa-caret-down text-body-secondary invisible "></i>';
             $aff.='
          <a class="ms-2" href="sections.php?rubric='.$rubid.'">'.aff_langue($rubname).'</a><span class=" float-end">#NEW#<span class="badge bg-secondary" title="'.translate("Sous-rubrique").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$nb_section.'</span></span>
       </h3>';
             if ($intro!='')
-               $aff.='<p class="text-muted">'.aff_langue($intro).'</p>';
+               $aff.='<p class="text-body-secondary">'.aff_langue($intro).'</p>';
             $aff.= '
       <div id="rub-'.$rubid.'" class="collapse" >';
             while (list($secid, $secname, $image, $userlevel, $intro) = sql_fetch_row($result2)) {
@@ -260,8 +260,8 @@ function viewarticle($artid, $page) {
          } else 
             echo $chemin.'
             <hr />
-            <h3 class="mb-2">'.$title.'<span class="small text-muted"> - '.$pindex.'</span></h3>
-            <p><span class="text-muted small">('.$words.' '.translate("mots dans ce texte )").'&nbsp;-&nbsp;
+            <h3 class="mb-2">'.$title.'<span class="small text-body-secondary"> - '.$pindex.'</span></h3>
+            <p><span class="text-body-secondary small">('.$words.' '.translate("mots dans ce texte )").'&nbsp;-&nbsp;
          '.translate("lu : ").' '.$counter.' '.translate("Fois").'</span><span class="float-end"><a href="sections.php?op=printpage&amp;artid='.$artid.'" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="fa fa-print fa-lg ms-3"></i></a></span></p><hr />';
             preg_match_all('#\[page.*\]#', $Xcontent, $rs);
             $ndepages=count($rs[0]);

@@ -132,9 +132,9 @@ include('auth.php');
       }
 //      }
    if ($posterdata['uid']<>1) 
-      echo '&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$posterdata['uname'].'</strong></span>';
+      echo '&nbsp;<span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>';
    else 
-      echo'&nbsp;<span style="position:absolute; left:6em;" class="text-muted"><strong>'.$sitename.'</strong></span>';
+      echo'&nbsp;<span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$sitename.'</strong></span>';
    echo '<span class="float-end">';
       if ($smilies) {
          if ($myrow['msg_image']!='') {

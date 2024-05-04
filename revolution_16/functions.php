@@ -825,7 +825,7 @@ function forum($rowQ1) {
          $ibid.='
       <div class="form-check mt-1">
          <input class="form-check-input" type="checkbox" id="ckball_f" />
-         <label class="form-check-label text-muted" for="ckball_f" id="ckb_status_f">Tout cocher</label>
+         <label class="form-check-label text-body-secondary" for="ckball_f" id="ckb_status_f">Tout cocher</label>
       </div>';
       }
     }

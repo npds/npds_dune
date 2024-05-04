@@ -125,7 +125,7 @@ function ConfigFiles($contents, $files) {
    } else {
       echo '
       <hr />
-      <h3 class="my-3">'.adm_translate("Modification de").' : <span class="text-muted">'.$files.'</span></h3>
+      <h3 class="my-3">'.adm_translate("Modification de").' : <span class="text-body-secondary">'.$files.'</span></h3>
       <form action="admin.php?op=ConfigFiles_save" method="post">
          <code><textarea class="form-control" name="Xtxt" rows="20" cols="70">';
       echo htmlspecialchars($contents,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);

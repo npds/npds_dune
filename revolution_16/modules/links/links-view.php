@@ -46,7 +46,7 @@ global $NPDS_Prefix;
             <div class="card-body ibid_descr">';
          if ($url=='')
             echo '
-               <h4 class="text-muted"><i class="fas fa-external-link-alt"></i>&nbsp;'.aff_langue($title);
+               <h4 class="text-body-secondary"><i class="fas fa-external-link-alt"></i>&nbsp;'.aff_langue($title);
          else
             echo '
                <h4><a href="modules.php?ModStart='.$ModStart.'&amp;ModPath='.$ModPath.'&amp;op=visit&amp;lid='.$lid.'" target="_blank" ><i class="fas fa-external-link-alt"></i>&nbsp;'.aff_langue($title).'</a>';

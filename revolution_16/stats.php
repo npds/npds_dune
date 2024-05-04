@@ -440,16 +440,16 @@ $cat = $cat1+$cat2;
 echo '
    <h3 class="my-4">'.translate("Statistiques diverses").'</h3>
    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-muted me-1"></i>'.translate("Utilisateurs enregistrés").' <span class="badge bg-secondary ms-auto">'.wrh($unum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-muted me-1"></i>'.translate("Groupe").' <span class="badge bg-secondary ms-auto">'.wrh($gnum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user-edit fa-2x text-muted me-1"></i>'.translate("Auteurs actifs").' <span class="badge bg-secondary ms-auto">'.wrh($anum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user fa-2x text-body-secondary me-1"></i>'.translate("Utilisateurs enregistrés").' <span class="badge bg-secondary ms-auto">'.wrh($unum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-users fa-2x text-body-secondary me-1"></i>'.translate("Groupe").' <span class="badge bg-secondary ms-auto">'.wrh($gnum).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-user-edit fa-2x text-body-secondary me-1"></i>'.translate("Auteurs actifs").' <span class="badge bg-secondary ms-auto">'.wrh($anum).' </span></li>';
 $imgtmp = theme_image('stats/postnew.png') ? theme_image('stats/postnew.png') : 'images/admin/postnew.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Articles publiés").' <span class="badge bg-secondary ms-auto">'.wrh($snum).' </span></li>';
 $imgtmp = theme_image('stats/topicsman.png') ? theme_image('stats/topicsman.png') : 'images/admin/topicsman.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Sujets actifs").' <span class="badge bg-secondary ms-auto">'.wrh($tnum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-muted me-1"></i>'.translate("Commentaires").' <span class="badge bg-secondary ms-auto">'.wrh($cnum).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-comments fa-2x text-body-secondary me-1"></i>'.translate("Commentaires").' <span class="badge bg-secondary ms-auto">'.wrh($cnum).' </span></li>';
 $imgtmp = theme_image('stats/sections.png') ? theme_image('stats/sections.png') : 'images/admin/sections.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Rubriques spéciales").' <span class="badge bg-secondary ms-auto">'.wrh($secnum).' </span></li>';
@@ -457,14 +457,14 @@ $imgtmp = theme_image('stats/sections.png') ?  theme_image('stats/sections.png')
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Articles présents dans les rubriques").' <span class="badge bg-secondary ms-auto">'.wrh($secanum).' </span></li>';
 echo '
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted me-1"></i>'.translate("Liens présents dans la rubrique des liens web").' <span class="badge bg-secondary ms-auto">'.wrh($links).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-muted me-1"></i>'.translate("Catégories dans la rubrique des liens web").' <span class="badge bg-secondary ms-auto">'.wrh($cat).' </span></li>';
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-body-secondary me-1"></i>'.translate("Liens présents dans la rubrique des liens web").' <span class="badge bg-secondary ms-auto">'.wrh($links).' </span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-link fa-2x text-body-secondary me-1"></i>'.translate("Catégories dans la rubrique des liens web").' <span class="badge bg-secondary ms-auto">'.wrh($cat).' </span></li>';
 $imgtmp = theme_image('stats/submissions.png') ?  theme_image('stats/submissions.png') : 'images/admin/submissions.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'"  alt="" />'.translate("Article en attente d'édition").' <span class="badge bg-secondary ms-auto">'.wrh($subnum).' </span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted me-1"></i>Version Num <span class="badge bg-danger ms-auto">'.$Version_Num.'</span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted me-1"></i>Version Id <span class="badge bg-danger ms-auto">'.$Version_Id.'</span></li>
-      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-muted me-1"></i>Version Sub <span class="badge bg-danger ms-auto">'.$Version_Sub.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-body-secondary me-1"></i>Version Num <span class="badge bg-danger ms-auto">'.$Version_Num.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-body-secondary me-1"></i>Version Id <span class="badge bg-danger ms-auto">'.$Version_Id.'</span></li>
+      <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-body-secondary me-1"></i>Version Sub <span class="badge bg-danger ms-auto">'.$Version_Sub.'</span></li>
    </ul>
    <br />
    <p class="text-center"><a href="http://www.npds.org" >http://www.npds.org</a> - French Portal Generator Gnu/Gpl Licence</p><br />';

@@ -66,7 +66,7 @@ if ($submitS) {
       $message = make_clickable($message);
       $message = af_cod($message);
       $message = str_replace("\n", "<br />", removeHack($message));
-      $message .= '<div class="text-muted text-end small"><i class="fa fa-edit"></i>&nbsp;'.translate("Message édité par")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600)).'</div>';
+      $message .= '<div class="text-body-secondary text-end small"><i class="fa fa-edit"></i>&nbsp;'.translate("Message édité par")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600)).'</div>';
    } else {
       $message .= "\n\n".translate("Message édité par")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600));
    }
@@ -158,7 +158,7 @@ if ($submitS) {
       $qui = $myrow['poster_id'] == 0 ? $anonymous : $myrow['uname'];
       echo '
       <div>
-      <h3>'.translate("Edition de la soumission").' de <span class="text-muted">'.$qui.'</span></h3>
+      <h3>'.translate("Edition de la soumission").' de <span class="text-body-secondary">'.$qui.'</span></h3>
       <hr />
       <form action="editpost.php" method="post" name="coolsus">';
       if ($Mmod)

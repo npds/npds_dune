@@ -605,7 +605,7 @@
                       <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <small id="emailHelp" class="form-text text-body-secondary">We'll never share your email with anyone else.</small>
                       </div>
                       <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
@@ -1196,10 +1196,10 @@
                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                      <div class="d-flex w-100 justify-content-between">
                        <h5 class="mb-1">List group item heading</h5>
-                       <small class="text-muted">3 days ago</small>
+                       <small class="text-body-secondary">3 days ago</small>
                      </div>
                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                     <small class="text-muted">Donec id elit non mi porta.</small>
+                     <small class="text-body-secondary">Donec id elit non mi porta.</small>
                    </a>
                  </div>
                </div>
@@ -1338,7 +1338,7 @@
                    <h3 class="card-header">Card header</h3>
                    <div class="card-body">
                      <h5 class="card-title">Special title treatment</h5>
-                     <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                     <h6 class="card-subtitle text-body-secondary">Support card subtitle</h6>
                    </div>
                    <img style="height: 200px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image">
                    <div class="card-body">
@@ -1353,14 +1353,14 @@
                      <a href="#" class="card-link">Card link</a>
                      <a href="#" class="card-link">Another link</a>
                    </div>
-                   <div class="card-footer text-muted">
+                   <div class="card-footer text-body-secondary">
                      2 days ago
                    </div>
                  </div>
                  <div class="card">
                    <div class="card-body">
                      <h4 class="card-title">Card title</h4>
-                     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                     <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                      <a href="#" class="card-link">Card link</a>
                      <a href="#" class="card-link">Another link</a>

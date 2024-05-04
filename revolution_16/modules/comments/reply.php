@@ -126,7 +126,7 @@ if (isset($submitS)) {
       redirect_url("$url_ret");
    } else {
       echo '
-   <h2><i class="far fa-comment text-muted fa-lg me-2"></i>'.translate("Commentaire").'</h2>
+   <h2><i class="far fa-comment text-body-secondary fa-lg me-2"></i>'.translate("Commentaire").'</h2>
    <hr />
    <div class="alert alert-danger" >'.translate("Vous devez taper un message à poster.").'</div>
    <p><a href="javascript:history.go(-1)" class="btn btn-primary">'.translate("Retour en arrière").'</a></p>';
@@ -136,7 +136,7 @@ if (isset($submitS)) {
    if ($allow_bbcode==1)
       include("lib/formhelp.java.php");
    echo '
-   <h2><i class="far fa-comment text-muted fa-lg me-2"></i>'.translate("Commentaire").'</h2>
+   <h2><i class="far fa-comment text-body-secondary fa-lg me-2"></i>'.translate("Commentaire").'</h2>
    <hr />';
    if ($formulaire=='')
       echo '
@@ -180,10 +180,10 @@ if (isset($submitS)) {
             }
          }
          echo'
-                  &nbsp;<span style="position:absolute; left:6rem;" class="text-muted"><strong>'.$theposterdata['uname'].'</strong></span>
+                  &nbsp;<span style="position:absolute; left:6rem;" class="text-body-secondary"><strong>'.$theposterdata['uname'].'</strong></span>
       </div>
       <div class="card-body">
-         <span class="text-muted float-end small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
+         <span class="text-body-secondary float-end small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
          <div id="post_preview" class="card-text pt-3">';
       $messageP=stripslashes($messageP);
       if (($forum_type=='6') or ($forum_type=='5'))
@@ -323,7 +323,7 @@ if (isset($submitS)) {
                <div class="card-header">';
             if ($smilies) echo userpopover($posterdata['uname'],'48',2);
             echo $posterdata['uname'];
-            echo '<span class="float-end text-muted small">'.translate("Posté : ").convertdate($myrow['post_time']).'</span>
+            echo '<span class="float-end text-body-secondary small">'.translate("Posté : ").convertdate($myrow['post_time']).'</span>
                </div>
                <div class="card-body">';
             $posts = $posterdata['posts'];

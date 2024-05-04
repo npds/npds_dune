@@ -158,7 +158,7 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
       <div class="card mb-3">
          <div class="card-body">
             <h2 class="card-title">'.aff_langue($crtsplit[1]).'</h2>
-            <h6 class="card-subtitle text-muted">'.translate("Posté le ").' '.$crtsplit[0].'</h6>
+            <h6 class="card-subtitle text-body-secondary">'.translate("Posté le ").' '.$crtsplit[0].'</h6>
          </div>
          <div class=" card-body">'.convert_ressources($crtsplit[2]).'</div>';
       if ($adminblog) {

@@ -102,7 +102,7 @@ function List_Meta_Lang() {
             <td>
                <input type="hidden" name="nbr" value="'.$ibid.'" />';
       if ($obligatoire == false) 
-         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-bs-toggle="tooltip" data-bs-placement="right"></i></a>&nbsp;&nbsp;<i class="fas fa-trash fa-lg text-muted" title="Effacer ce m&#xE9;ta-mot" data-bs-toggle="tooltip" data-bs-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
+         $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'"><i class="fa fa-edit fa-lg" title="Editer ce m&#xE9;ta-mot" data-bs-toggle="tooltip" data-bs-placement="right"></i></a>&nbsp;&nbsp;<i class="fas fa-trash fa-lg text-body-secondary" title="Effacer ce m&#xE9;ta-mot" data-bs-toggle="tooltip" data-bs-placement="right"></i>&nbsp;<input type="checkbox" name="action['.$ibid.']" value="'.$def.'" />';
       else $tablmeta_c.= '<a href="admin.php?op=Edit_Meta_Lang&amp;ml='.urlencode($def).'" ><i class="fa fa-eye fa-lg" title="Voir le code de ce m&#xE9;ta-mot" data-bs-toggle="tooltip" ></i></a>';
       $tablmeta_c.='
             </td>
@@ -178,15 +178,15 @@ function Edit_Meta_Lang() {
    echo aff_local_langue('','local_user_language').'<br />','<label class="col-form-label">'.adm_translate("Langue de Prévisualisation").'</label>';
    echo '
    <div class="row">
-      <div class="text-muted col-sm-3">META</div>
+      <div class="text-body-secondary col-sm-3">META</div>
       <div class="col-sm-9"><code>'.$Q['def'].'</code></div>
    </div>
    <div class="row">
-      <div class="text-muted col-sm-3">'.adm_translate("Type").'</div>
+      <div class="text-body-secondary col-sm-3">'.adm_translate("Type").'</div>
       <div class="col-sm-9">'.$Q['type_meta'].'</div>
    </div>
    <div class="row">
-      <div class="text-muted col-sm-3">'.adm_translate("Description").'</div>
+      <div class="text-body-secondary col-sm-3">'.adm_translate("Description").'</div>
       <div class="col-sm-9">';
    if ($Q['type_meta']=='smil') {
       eval($Q['content']);
@@ -200,7 +200,7 @@ function Edit_Meta_Lang() {
    if ($Q['type_meta']!='docu' and $Q['type_meta']!='them') {
       echo '
    <div class="row">
-      <div class="text-muted col-sm-12">'.adm_translate("Script").'</div>
+      <div class="text-body-secondary col-sm-12">'.adm_translate("Script").'</div>
       <div class=" col-sm-12">
          <pre class="language-php"><code class="language-php">'.htmlspecialchars($Q['content'], ENT_QUOTES).'</code></pre>
       </div>

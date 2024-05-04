@@ -169,7 +169,7 @@ function ForumGo($cat_id) {
    echo '
       </tbody>
    </table>
-   <h3 class="my-3">'.adm_translate("Ajouter plus de Forum pour").' : <span class="text-muted">'.$ctg.'</span></h3>
+   <h3 class="my-3">'.adm_translate("Ajouter plus de Forum pour").' : <span class="text-body-secondary">'.$ctg.'</span></h3>
    <form id="fadaddforu" action="admin.php" method="post">
       <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="forum_index">'.adm_translate("Index").'</label>
@@ -364,7 +364,7 @@ function ForumGoEdit($forum_id, $ctg) {
    settype($sel9,'string');
    echo '
    <hr />
-   <h3 class="mb-3">'.adm_translate("Editer").' : <span class="text-muted">'.$forum_name.'</span></h3>
+   <h3 class="mb-3">'.adm_translate("Editer").' : <span class="text-body-secondary">'.$forum_name.'</span></h3>
    <form id="fadeditforu" action="admin.php" method="post">
    <input type="hidden" name="forum_id" value="'.$forum_id.'" />
       <div class="mb-3 row">

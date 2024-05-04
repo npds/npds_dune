@@ -297,7 +297,7 @@
             $furl = "reviews.php?op=showcontent&amp;id=$id";
             echo '
             <tr>
-               <td><a href="'.$furl.'">'.$title.'</a> '.translate("par").' <i class="fa fa-user text-muted"></i>&nbsp;'.$reviewer.'</td>
+               <td><a href="'.$furl.'">'.$title.'</a> '.translate("par").' <i class="fa fa-user text-body-secondary"></i>&nbsp;'.$reviewer.'</td>
             </tr>';
             $x++;
          }
@@ -399,7 +399,7 @@
                if ($name=='') $name = translate("Aucun nom n'a été entré");
                echo '
                <tr>
-                  <td><a href="'.$furl.'"><i class="fa fa-user text-muted me-2"></i>'.$uname.'</a> ('.$name.')</td>
+                  <td><a href="'.$furl.'"><i class="fa fa-user text-body-secondary me-2"></i>'.$uname.'</a> ('.$name.')</td>
                </tr>';
                $x++;
             }

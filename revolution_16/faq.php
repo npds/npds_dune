@@ -19,7 +19,7 @@ function ShowFaq($id_cat, $categories) {
    echo '
    <h2 class="mb-4">'.translate("FAQ - Questions fréquentes").'</h2>
    <hr />
-   <h3 class="mb-3">'.translate("Catégorie").' <span class="text-muted"># '.StripSlashes($categories).'</span></h3>
+   <h3 class="mb-3">'.translate("Catégorie").' <span class="text-body-secondary"># '.StripSlashes($categories).'</span></h3>
    <p class="lead">
       <a href="faq.php" title="'.translate("Retour à l'index FAQ").'" data-bs-toggle="tooltip">Index</a>&nbsp;&raquo;&raquo;&nbsp;'.StripSlashes($categories).'
    </p>';

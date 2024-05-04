@@ -173,7 +173,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
       if ($allow_to_post)
          echo '<a href="newtopic.php?forum='.$forum.'" title="'.translate("Nouveau").'"><i class="fa fa-plus-square me-2"></i><span class="d-none d-sm-inline">'.translate("Nouveau sujet").'<br /></span></a>';
    }
-   echo stripslashes($forum_name).'<span class="text-muted">&nbsp;#'.$forum.'</span>
+   echo stripslashes($forum_name).'<span class="text-body-secondary">&nbsp;#'.$forum.'</span>
    </h3>';
    $moderator_data=explode(' ',$moderator);
    $ibidcountmod = count($moderator_data);
@@ -181,7 +181,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
       <div class="card mb-3">
          <div class="card-body p-2">
             <div class="d-flex ">
-               <div class="badge bg-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-muted py-2 px-1"><span class="me-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ms-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
+               <div class="badge bg-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-body-secondary py-2 px-1"><span class="me-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ms-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
                <div class=" align-self-center me-auto">';
                   $Mmod=false;
 
@@ -214,16 +214,16 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
 
    if ($myrow = sql_fetch_assoc($result)) {
       echo '
-      <h4 class="my-2">'.translate("Sujets").' <span class="text-muted">'.$mess_closoled.'</span></h4>
+      <h4 class="my-2">'.translate("Sujets").' <span class="text-body-secondary">'.$mess_closoled.'</span></h4>
       <table id ="lst_forum" data-toggle="table" data-striped="true" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
                <th class="n-t-col-xs-1" data-align="center"></th>
                <th class="n-t-col-xs-1" data-align="center"></th>
                <th class="" data-sortable="true" data-sorter="htmlSorter">'.translate("Sujet").'&nbsp;&nbsp;</th>
-               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-muted" title="'.translate("Réponses").'" data-bs-toggle="tooltip" ></i></th>
-               <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-muted" title="'.translate("Emetteur").'" data-bs-toggle="tooltip"></i></th>
-               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-muted" title="'.translate("Lectures").'" data-bs-toggle="tooltip" ></i></th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-reply fa-lg text-body-secondary" title="'.translate("Réponses").'" data-bs-toggle="tooltip" ></i></th>
+               <th data-sortable="true" data-halign="center" data-align="left" ><i class="fa fa-user fa-lg text-body-secondary" title="'.translate("Emetteur").'" data-bs-toggle="tooltip"></i></th>
+               <th class="n-t-col-xs-1" class="text-center" data-sortable="true" data-align="right" ><i class="fa fa-eye fa-lg text-body-secondary" title="'.translate("Lectures").'" data-bs-toggle="tooltip" ></i></th>
                <th data-align="right" >'.translate("Dernières contributions").'</th>
             </tr>
          </thead>

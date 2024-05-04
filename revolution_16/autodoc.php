@@ -35,13 +35,13 @@ function dochead($a,$b) {
    </head>
    <body class="my-3 mx-3">
       <h1 class="mb-3">Documentation des fonctions NPDS</h1>
-      <p class="h4 my-3"><i class="me-1 far fa-file-alt"></i>'.$a.' '.$b.' <span class="text-muted">[ Documentation ]</span></p>';
+      <p class="h4 my-3"><i class="me-1 far fa-file-alt"></i>'.$a.' '.$b.' <span class="text-body-secondary">[ Documentation ]</span></p>';
    }
 }
 
 function docfoot() {
    echo '
-      <p class="text-end small my-3 text-muted">Autodoc by NPDS</p>
+      <p class="text-end small my-3 text-body-secondary">Autodoc by NPDS</p>
    </body>
 </html>';
 }
@@ -109,7 +109,7 @@ function docu() {
       autodoc("powerpack_f.php", "Powerpack_f.php");
    echo '
       <div class="alert alert-success mt-3">Rappels :<br />Si votre thème est adapté, chaque bloc peut contenir :<br />- class-title#nom de la classe de la CSS pour le titre du bloc<br />- class-content#nom de la classe de la CSS pour le corps du bloc<br />- uri#uris séparée par un espace</div>
-      <p class="text-end small my-3 text-muted">Autodoc by NPDS</p>
+      <p class="text-end small my-3 text-body-secondary">Autodoc by NPDS</p>
    </body>
 </html>';
    die();

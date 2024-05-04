@@ -2180,7 +2180,7 @@ function adminblock() {
          $content .= '<a class="btn btn-outline-primary btn-sm me-2 my-1" title="'.translate("Vider la table chatBox").'" data-bs-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge bg-danger ms-1">X</span></a>';
       $content .= '</div>
       <div class="mt-3">
-         <small class="text-muted"><i class="fas fa-user-cog fa-2x align-middle"></i> '.$aid.'</small>
+         <small class="text-body-secondary"><i class="fas fa-user-cog fa-2x align-middle"></i> '.$aid.'</small>
       </div>
    <div class="modal fade" id="bl_versusModal" tabindex="-1" aria-labelledby="bl_versusModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -2218,7 +2218,7 @@ function adminblock() {
                </form>
             </div>
             <div class="modal-footer">
-            <span class="small text-muted">Information de npds.org</span><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" loading="lazy" />
+            <span class="small text-body-secondary">Information de npds.org</span><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" loading="lazy" />
             </div>
          </div>
       </div>
@@ -2677,7 +2677,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    $count=0;
    $li_mb.='
       <div class="my-4">
-         <a data-bs-toggle="collapse" data-bs-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Déplier la liste").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-muted ms-3 align-middle" title="'.translate("Liste des membres du groupe.").'" data-bs-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Membres").'</a><span class="badge bg-secondary float-end">'.$nb_mb.'</span>';
+         <a data-bs-toggle="collapse" data-bs-target="#lst_mb_ws_'.$gr.'" class="text-primary" id="show_lst_mb_ws_'.$gr.'" title="'.translate("Déplier la liste").'"><i id="i_lst_mb_ws_'.$gr.'" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="fa fa-users fa-2x text-body-secondary ms-3 align-middle" title="'.translate("Liste des membres du groupe.").'" data-bs-toggle="tooltip"></i>&nbsp;<a href="memberslist.php?gr_from_ws='.$gr.'" class="text-uppercase">'.translate("Membres").'</a><span class="badge bg-secondary float-end">'.$nb_mb.'</span>';
    $tab=online_members();
    $li_mb.='
          <ul id="lst_mb_ws_'.$gr.'" class="list-group ul_bloc_ws collapse">';
@@ -2730,7 +2730,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          if ($posterdata_extend[$ch_lat] !='')
             $useroutils .= '<a class="list-group-item text-primary" href="modules.php?ModPath=geoloc&amp;ModStart=geoloc&op=u'.$uid.'" title="'.translate("Localisation").'" ><i class="fas fa-map-marker-alt fa-2x align-middle fa-fw"></i><span class="ms-2 d-none d-sm-inline">'.translate("Localisation").'</span></a>';
 
-      $conn= '<i class="fa fa-plug text-muted" title="'.$uname.' '.translate("n'est pas connecté").'" data-bs-toggle="tooltip" ></i>';
+      $conn= '<i class="fa fa-plug text-body-secondary" title="'.$uname.' '.translate("n'est pas connecté").'" data-bs-toggle="tooltip" ></i>';
       if (!$user_avatar)
          $imgtmp="images/forum/avatar/blank.gif";
       else if (stristr($user_avatar,"users_private"))
@@ -2785,7 +2785,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          $lst_for.='</ul>';
       }
       $content.='
-      <hr /><div class="">'.$lst_for_tog.'<i class="fa fa-list-alt fa-2x text-muted ms-3 align-middle" title="'.translate("Groupe").'('.$gr.'): '.translate("forum").'." data-bs-toggle="tooltip" ></i>&nbsp;<a class="text-uppercase" href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</div>'."\n";
+      <hr /><div class="">'.$lst_for_tog.'<i class="fa fa-list-alt fa-2x text-body-secondary ms-3 align-middle" title="'.translate("Groupe").'('.$gr.'): '.translate("forum").'." data-bs-toggle="tooltip" ></i>&nbsp;<a class="text-uppercase" href="forum.php">'.translate("Forum").'</a>'.$nb_for_gr.$lst_for.'</div>'."\n";
    }
    //=> wspad
    if ($rsql['groupe_pad'] == 1) {
@@ -2803,13 +2803,13 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
             $lst_doc.='
-            <li class="list-group-item list-group-item-action px-1 py-3" style="line-height:14px;"><div id="last_editor_'.$p.'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernier éditeur").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:1rem; height:1rem; background-color:'.$surlignage.'"></div><i class="fa fa-edit text-muted mx-1" data-bs-toggle="tooltip" title="'.translate("Document co-rédigé").'." ></i><a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a></li>';
+            <li class="list-group-item list-group-item-action px-1 py-3" style="line-height:14px;"><div id="last_editor_'.$p.'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernier éditeur").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:1rem; height:1rem; background-color:'.$surlignage.'"></div><i class="fa fa-edit text-body-secondary mx-1" data-bs-toggle="tooltip" title="'.translate("Document co-rédigé").'." ></i><a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a></li>';
          }
          $lst_doc.='
          </ul>';
       }
       $content.='
-      <hr /><div class="">'. $lst_doc_tog.'<i class="fa fa-edit fa-2x text-muted ms-3 align-middle" title="'.translate("Co-rédaction").'" data-bs-toggle="tooltip" data-bs-placement="right"></i>&nbsp;<a class="text-uppercase" href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-rédaction").'</a>'.$nb_doc_gr.$lst_doc.'</div>'."\n";
+      <hr /><div class="">'. $lst_doc_tog.'<i class="fa fa-edit fa-2x text-body-secondary ms-3 align-middle" title="'.translate("Co-rédaction").'" data-bs-toggle="tooltip" data-bs-placement="right"></i>&nbsp;<a class="text-uppercase" href="modules.php?ModPath=wspad&ModStart=wspad&member='.$gr.'" >'.translate("Co-rédaction").'</a>'.$nb_doc_gr.$lst_doc.'</div>'."\n";
    }
    //<= wspad
    
@@ -2818,7 +2818,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
       settype($lst_blocnote_tog,'string');
       settype($lst_blocnote,'string');
       include_once("modules/bloc-notes/bloc-notes.php");
-      $lst_blocnote_tog ='<a data-bs-toggle="collapse" data-bs-target="#lst_blocnote_'.$gr.'" class="text-primary" id="show_lst_blocnote" title="'.translate("Déplier la liste").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="far fa-sticky-note fa-2x text-muted ms-3 align-middle"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
+      $lst_blocnote_tog ='<a data-bs-toggle="collapse" data-bs-target="#lst_blocnote_'.$gr.'" class="text-primary" id="show_lst_blocnote" title="'.translate("Déplier la liste").'"><i id="i_lst_blocnote" class="toggle-icon fa fa-caret-down fa-2x" >&nbsp;</i></a><i class="far fa-sticky-note fa-2x text-body-secondary ms-3 align-middle"></i>&nbsp;<span class="text-uppercase">Bloc note</span>';
       $lst_blocnote = '
       <div id="lst_blocnote_'.$gr.'" class="mt-3 collapse">
       '.blocnotes("shared", 'WS-BN'.$gr,'','7','bg-dark text-light',false).'
@@ -2883,7 +2883,7 @@ function fab_groupes_bloc($user,$im) {
          <ul id="lst_groupes" class="list-group list-group-flush mb-3">
             <li class="list-group-item d-flex justify-content-between align-items-start px-0">
                <div class="me-auto">
-                  <div class="fw-bold"><i class="fa fa-users fa-2x text-muted me-2"></i>'.translate('Groupes').'</div>';
+                  <div class="fw-bold"><i class="fa fa-users fa-2x text-body-secondary me-2"></i>'.translate('Groupes').'</div>';
    $content .= $nb_groupes>0 ? translate('Groupe ouvert') : translate('Pas de groupe ouvert') ;
    $content .= '
                </div>
