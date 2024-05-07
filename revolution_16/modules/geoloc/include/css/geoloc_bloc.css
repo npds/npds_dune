@@ -19,6 +19,7 @@
 .ol-control button, .ol-scale-line {
    background-color: var(--bs-primary);
    opacity: 0.8;
+   color: white;
 }
 /*contrôles*/
 #map_bloc_ol .ol-rotate {

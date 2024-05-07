@@ -459,7 +459,7 @@ function userinfo($uname) {
                   vectorSource = new ol.source.Vector({features: [iconFeature]}),
                   vectorLayer = new ol.layer.Vector({source: vectorSource}),
                   map = new ol.Map({
-                     interactions: new ol.interaction.defaults({
+                     interactions: new ol.interaction.defaults.defaults({
                         constrainResolution: true, onFocusOnly: true
                      }),
                     target: document.getElementById("map_user"),

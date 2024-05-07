@@ -26,7 +26,6 @@ if (!stristr($_SERVER['PHP_SELF'],"modules.php"))
 if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
 
-//function geoloc() {
 global $pdst, $language, $title;
 include ('modules/'.$ModPath.'/geoloc.conf');
 include_once('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
@@ -56,7 +55,7 @@ if(autorisation(-127)) {
          $arpostip[$p['poster_ip']] = $p['nbpost'];
       }
 
-      $spamip =array();
+      $spamip = array();
       $spamipfile = file("slogs/spam.log");
       foreach($spamipfile as $v){
          $ab = explode('|', $v);
@@ -841,7 +840,7 @@ if(autorisation(-127) and $geo_ip==1)
                   if (size > 1) {
                      let color = "rgba(99, 99, 98, 0.7)";
                      feature.get("features").every(ip => {
-                        if(ip.A.spam !="") {
+                        if(ip.values_.spam !="") {
                            color = "rgba(220, 53, 69, 0.7)";
                            return false;
                         } return true;
@@ -853,7 +852,7 @@ if(autorisation(-127) and $geo_ip==1)
                            fill: new ol.style.Fill({color: color}),
                         }),
                         text: new ol.style.Text({
-                           text: size.toString()+"\n"+"\uf302",
+                           text: size.toString()+"\n"+"\uF5ED",
                            font: "12px \'bootstrap-icons\'",
                            fill: new ol.style.Fill({color: "#fff"}),
                            textBaseline:"bottom",
@@ -862,7 +861,7 @@ if(autorisation(-127) and $geo_ip==1)
                      });
                   }
                   else {
-                     style = feature.get("features")[0].A.spam !="" ? styleIpdanger : styleIp;
+                     style = feature.get("features")[0].values_.spam !="" ? styleIpdanger : styleIp;
                      styleCache[size] = "";
                   }
                   //styleCache[size] = style;
@@ -902,10 +901,10 @@ $ecr_scr .='
           zoomslider = new ol.control.ZoomSlider();
 
       var map = new ol.Map({
-         interactions: new ol.interaction.defaults({
+         interactions: new ol.interaction.defaults.defaults({
             constrainResolution: true, onFocusOnly: true
          }),
-         controls: new ol.control.defaults({attribution: false}).extend([attribution,fullscreen, mousePositionControl, scaleline, zoomslider]),
+         controls: new ol.control.defaults.defaults({attribution: false}).extend([attribution,fullscreen, mousePositionControl, scaleline, zoomslider]),
          target: document.getElementById("map"),
          layers: [
             fond_carte,

@@ -146,11 +146,11 @@ $content .='
       // <== cluster users
 
       var map = new ol.Map({
-         interactions: new ol.interaction.defaults({
+         interactions: new ol.interaction.defaults.defaults({
             constrainResolution: true,
             onFocusOnly: true
          }),
-         controls: new ol.control.defaults({attribution: false}).extend([attribution, fullscreen]),
+         controls: new ol.control.defaults.defaults({attribution: false}).extend([attribution, fullscreen]),
          target: document.getElementById("map_bloc_ol"),
          layers: [
          new ol.layer.Tile({

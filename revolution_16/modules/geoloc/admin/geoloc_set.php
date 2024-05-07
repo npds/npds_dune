@@ -751,10 +751,10 @@ $(document).ready(function() {
 
       var attribution = new ol.control.Attribution({collapsible: true});
       var map = new ol.Map({
-         interactions: new ol.interaction.defaults({
+         interactions: new ol.interaction.defaults.defaults({
             constrainResolution: true, onFocusOnly: true
          }),
-         controls: new ol.control.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen()]),
+         controls: new ol.control.defaults.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen()]),
          target: "map_conf",
          layers: [
             fond_carte,

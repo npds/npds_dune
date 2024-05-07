@@ -116,11 +116,22 @@ display: block;
   text-transform :lowercase;
   text-transform : capitalize;
 }
-/* openlayers hack */
+/* openlayers hack 4 themes BS*/
+ .ol-scale-line-inner {
+     border: 1px solid white;
+     border-top: none;
+     color: white;
+     font-size: 10px;
+     text-align: center;
+     margin: 1px;
+     will-change: contents, width;
+     transition: all 0.25s;
+ }
 
 .ol-control button, .ol-scale-line {
    background-color: var(--bs-primary);
    opacity: 0.8;
+   color: white;
 }
 .ol-scale-singlebar-even {
    background-color: var(--bs-primary);

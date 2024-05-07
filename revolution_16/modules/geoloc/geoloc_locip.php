@@ -65,7 +65,7 @@ function localiser_ip($iptoshow) {
                source: vectorSource,
                style: pointStyleFunction
             }),
-            Controls = new ol.control.defaults,
+            Controls = new ol.control.defaults.defaults,
             fullscreen = new ol.control.FullScreen();
          var map = new ol.Map({
             controls: Controls.extend([
