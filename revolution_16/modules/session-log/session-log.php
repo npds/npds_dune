@@ -121,7 +121,7 @@ echo '
          $hostname = $theip;
       echo '
       <div class="card card-body">
-         <div class="row">
+         <div class="row align-items-center">
             <div class="col mb-3">
               <span class="text-body-secondary">'.SessionLog_translate("@ IP").'</span> : <span>'.$theip.'</span><br />
               <span class="text-body-secondary">'.SessionLog_translate("@ IP résolue").'</span> : <span>'.$hostname.'</span><br />
