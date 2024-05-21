@@ -103,9 +103,8 @@ function poll_createPosted() {
 
    $timeStamp = time();
    $pollTitle = FixQuotes($pollTitle);
-   $result = sql_query("INSERT INTO ".$NPDS_Prefix."poll_desc VALUES (NULL, '$pollTitle', '$timeStamp', 0)");
-   $object = sql_fetch_assoc(sql_query("SELECT pollID FROM ".$NPDS_Prefix."poll_desc WHERE pollTitle='$pollTitle'"));
-   $id = $object['pollID'];
+   $result = sql_query("INSERT INTO ".$NPDS_Prefix."poll_desc VALUES (0, '$pollTitle', '$timeStamp', 0)");
+   $id = sql_last_id();
    for ($i = 1; $i <= sizeof($optionText); $i++) {
       if ($optionText[$i] != '')
          $optionText[$i] = FixQuotes($optionText[$i]);
