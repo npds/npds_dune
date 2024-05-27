@@ -45,10 +45,10 @@ function action_log($ThisFile,$logtype) {
    $whatlog='security';
    if($FileUpload!=$FileSecure) $whatlog='upload';
    $task= '
-      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$whatlog.'"><i class="fa fa-at me-1 fa-lg"></i>'.SessionLog_translate("Recevoir le fichier par mail").'</a>
-      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$whatlog.'"><i class="fa fa-times me-1 fa-lg"></i>'.SessionLog_translate("Vider le fichier").'<br /><small>'.$FileSecure.'</small></a>
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=mailog&amp;log='.$whatlog.'"><i class="fa fa-at me-1 fa-lg text-primary"></i>'.SessionLog_translate("Recevoir le fichier par mail").'</a>
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidlog&amp;log='.$whatlog.'"><i class="fa fa-times me-1 fa-lg text-danger"></i>'.SessionLog_translate("Vider le fichier").'<br /><small>'.$FileSecure.'</small></a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="fas fa-trash me-1 fa-lg"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
+      <a class="dropdown-item" href="'.$ThisFile.'&amp;subop=vidtemp"><i class="fas fa-trash me-1 fa-lg text-danger"></i>'.SessionLog_translate("Effacer les fichiers temporaires").'<br /><small>'.$rep_cache.'</small></a>';
    return $task;
 }
 
@@ -72,7 +72,7 @@ echo '
    if ($subop=='session') {
       echo '
       <br />
-      <h3>'.SessionLog_translate("Liste des Sessions").' : <code>TABLE session</code></h3>
+      <h3>'.SessionLog_translate("Liste des Sessions").' : <code>TABLE session</code><span class="float-end"><a href="'.$ThisFile.'&amp;subop=videsession" title="'.SessionLog_translate("Vide la table des sessions et interrompt les connexions.").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="bi bi-database-fill-x text-danger"></i></a></span></h3>
       <table id="tad_ses" data-classes="table table-sm table-striped table-borderless" data-toggle="table" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
@@ -91,7 +91,7 @@ echo '
          echo '
             <tr>
                <td class="small">'.$username.'</td>
-               <td class="small">'.urldecode($host_addr).'</td>
+               <td class="small">'.urldecode($host_addr).' <br /><a href="'.$ThisFile.'&amp;subop=banthisip&amp;iptoban='.urldecode($host_addr).'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.SessionLog_translate("Déconnecter et bannir cette adresse IP !").'"><i class="fas fa-ban text-danger"></i></a></td>
                <td class="small">'.gethostbyaddr($host_addr).'</td>
                <td class="small">'.$uri.'</td>
                <td class="small">'.$agent.'</td>
@@ -262,5 +262,21 @@ echo '
          action_log($ThisFile,"upload");
       }
    }
+
+   // bannir cette IP
+   if ($subop=="banthisip") {
+      sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr='$iptoban'");
+      L_spambot($iptoban,"ban");
+      echo '<div class="alert alert-danger my-3"><strong>'.$iptoban.'</strong> '.SessionLog_translate("cette adresse IP a été déconnectée et bannie !").'</div>';
+      redirect_url("admin.php?op=Extend-Admin-SubModule&ModPath=".$ModPath."&ModStart=".$ModStart."&subop=session");
+   }
+   
+   // vider la table des sessions
+   if ($subop=="videsession") {
+      sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr >=0");
+      echo '<div class="alert alert-danger my-3">'.SessionLog_translate("Table session vidée. Connexions interrompues !").'</div>';
+      redirect_url("admin.php?op=Extend-Admin-SubModule&ModPath=".$ModPath."&ModStart=".$ModStart."&subop=session");
+   }
+
 adminfoot('','','','');
 ?>
