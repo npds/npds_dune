@@ -64,7 +64,6 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
 
    $ibid=0;
    $story_limit=0;
-
    while (($story_limit<$maxcount) and ($story_limit<sizeof($xtab))) {
       list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant) = $xtab[$story_limit];
       $story_limit++;
@@ -78,11 +77,8 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
       }
       else
          $title = '<a href="article.php?sid='.$sid.'&amp;archive='.$arch.'" >'.aff_langue(ucfirst($title)).'</a>';
-      setlocale (LC_TIME, aff_langue($locale));
       preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-      $datetime = strftime("%d-%m-%Y %H:%M:%S", mktime($datetime[4]+(integer)$gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
-      if (cur_charset!="utf-8") //no need !
-         $datetime = ucfirst($datetime);// no need ! capital sur un chiffre ?
+      $datetime = $datetime[3].'-'.$datetime[2].'-'.$datetime[1].' '.$datetime[4].':'.$datetime[5].':'.$datetime[6];
       echo '
         <tr>
            <td>'.$title.'</td>
