@@ -1,3 +1,10 @@
+# This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   #
+# npds basique robots.txt file                                         #
+# Note :
+# line starting with # are ignored                                     #
+# some bots will not follow or understand all the rules of this file.  #
+# In this case please use your .htaccess file.                         #
+
 User-agent: *
 Disallow: admin.php
 Disallow: /admin
@@ -5,6 +12,8 @@ Disallow: /slogs
 Disallow: /cache
 Allow: /cache/sitemap.xml
 Disallow: /sql
-## doit etre une url absolue .!
-#Sitemap: cache/sitemap.xml
-##
+
+# doit être une url absolue : $nuke_url/cache/sitemap.xml              #
+# compléter et décommenter la ligne suivante                           #
+
+# Sitemap: cache/sitemap.xml
