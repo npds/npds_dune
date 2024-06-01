@@ -174,7 +174,7 @@ function adm_translate($phrase) {
   case "Arbre": $tmp="Arbol"; break;
   case "Archiver les Référants": $tmp="Archivar los referentes"; break;
   case "Archives articles": $tmp="Archivos de artículos"; break;
-  case "Article en attente de validation": $tmp="Waiting stories for publication"; break;
+  case "Article en attente de validation": $tmp="Artículos pendientes de validación"; break;
   case "Article(s) attaché(s)": $tmp="Articulo(s) liado(s)"; break;
   case "Articles !": $tmp="Articulos dentro!"; break;
   case "Articles en attente de validation !": $tmp="¡Artículos pendientes de validación!"; break;
