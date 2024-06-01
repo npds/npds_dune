@@ -99,7 +99,7 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
    $boxstuff .='
       </ul>
       <p align="center">
-         <a href="print.php?sid='.$sid.'&amp;archive='.$archive.'" ><i class="fa fa-print fa-2x me-3" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip"></i></a>
+         <a href="print.php?sid='.$sid.'" ><i class="fa fa-print fa-2x me-3" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip"></i></a>
          <a href="friend.php?op=FriendSend&amp;sid='.$sid.'&amp;archive='.$archive.'"><i class="fa fa-2x fa-at" title="'.translate("Envoyer cet article à un ami").'" data-bs-toggle="tooltip"></i></a>
       </p>';
 
