@@ -16,71 +16,61 @@ global $Titlesitename;
 /*****************************************************/
 /* Include et définition                             */
 /*****************************************************/
-   $forum=$IdForum;
-   include_once("auth.php");
-   include_once("functions.php");
-   include_once("modules/upload/lang/upload.lang-$language.php");
-   include_once("modules/upload/include_forum/upload.conf.forum.php");
-   include_once("modules/upload/include_forum/upload.func.forum.php");
-   include_once("lib/file.class.php");
+$forum=$IdForum;
+include_once("auth.php");
+include_once("functions.php");
+include_once("modules/upload/lang/upload.lang-$language.php");
+include_once("modules/upload/include_forum/upload.conf.forum.php");
+include_once("modules/upload/include_forum/upload.func.forum.php");
+include_once("lib/file.class.php");
 
-   $inline_list['1'] = upload_translate("Oui");
-   $inline_list['0'] = upload_translate("Non");
+$inline_list['1'] = upload_translate("Oui");
+$inline_list['0'] = upload_translate("Non");
 
-   // Security
-   if (!$allow_upload_forum) Access_Error();
-   if (!autorize()) Access_Error();
+// Security
+if (!$allow_upload_forum) Access_Error();
+if (!autorize()) Access_Error();
 
 /*****************************************************/
 /* Entete                                            */
 /*****************************************************/
-   ob_start();
-   $Titlesitename=upload_translate("Télécharg.");
-   include("meta/meta.php");
-   $userX = base64_decode($user);
-   $userdata = explode(':', $userX);
-   if ($userdata[9]!='') {
-      if (!$file=@opendir("themes/$userdata[9]"))
-         $theme=$Default_Theme;
-      else
-         $theme=$userdata[9];
-   }
-   else
-      $theme=$Default_Theme;
+ob_start();
+$Titlesitename=upload_translate("Télécharg.");
+include("meta/meta.php");
+$userX = base64_decode($user);
+$userdata = explode(':', $userX);
+if ($userdata[9]!='') {
+   $ibix=explode('+', urldecode($userdata[9]));
+   if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
+   if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_Skin; 
+   $tmp_theme=$theme;
+   if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
+}
+else 
+   $tmp_theme=$Default_Theme;
+$skin = $skin =='' ? 'default' : $skin ;
 
-   if (isset($user)) {
-      global $cookie;
-      $skin='';
-      if (array_key_exists(11,$cookie)) $skin=$cookie[11];
-   }
-   echo '
-         <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />';
-   if($skin!='') {
-      echo '
-         <link rel="stylesheet" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
-         <link rel="stylesheet" href="themes/_skins/'.$skin.'/extra.css" />';
-   } else 
-      echo ' 
-         <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
-   echo '
-         <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />';//hardcoded lol
-   echo import_css($theme, $language, '', '','');
-   echo '
-      </head>
-   <body>';
+echo '
+      <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
+      <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-icons.css" />
+      <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />';
+echo import_css($tmp_theme, $language, $skin, '','');
+echo '
+   </head>
+   <body class="bg-body-tertiary">';
 
-   // Moderator
-   global $NPDS_Prefix;
-   $sql = "SELECT forum_moderator FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'";
-   if (!$result = sql_query($sql))
-      forumerror('0001');
-   $myrow = sql_fetch_assoc($result);
-   $moderator=get_moderator($myrow['forum_moderator']);
-   $moderator=explode(' ',$moderator);
-   $Mmod=false;
-   for ($i = 0; $i < count($moderator); $i++) {
-      if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
-   }
+// Moderator
+global $NPDS_Prefix;
+$sql = "SELECT forum_moderator FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'";
+if (!$result = sql_query($sql))
+   forumerror('0001');
+$myrow = sql_fetch_assoc($result);
+$moderator=get_moderator($myrow['forum_moderator']);
+$moderator=explode(' ',$moderator);
+$Mmod=false;
+for ($i = 0; $i < count($moderator); $i++) {
+   if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
+}
 $thanks_msg='';
 settype($actiontype,'string');
 settype($visible_att, 'array');
@@ -111,10 +101,7 @@ function forum_upload() {
 
    // Récupération des valeurs de PCFILE
    global $HTTP_POST_FILES, $_FILES;
-   if (!empty($HTTP_POST_FILES))
-       $fic=$HTTP_POST_FILES;
-   else
-       $fic=$_FILES;
+   $fic = (!empty($HTTP_POST_FILES)) ? $HTTP_POST_FILES : $_FILES ;
    $pcfile_name = $fic['pcfile']['name'];
    $pcfile_type = $fic['pcfile']['type'];
    $pcfile_size = $fic['pcfile']['size'];

@@ -50,8 +50,8 @@ function getAttachments ($apli, $post_id, $att_id=0, $Mmod=0 ) {
 /************************************************************************/
 /* Fonction permettant de créer une checkbox                            */
 /************************************************************************/
-function getCheckBox ($name, $value=1, $current, $text='') {
-   $p =  sprintf ('<input type="checkbox" name="%s" value="%s"%s />%s',
+function getCheckBox ($name, $value=1, $current, $text='', $cla=' ') {
+   $p =  sprintf ('<input class="form-check-input '.$cla.'" type="checkbox" name="%s" value="%s"%s />%s',
          $name,
          $value, ("$current"=="$value")? ' checked="checked"' : '',
          (empty ($text)) ? '' : " $text" );
@@ -63,7 +63,7 @@ function getCheckBox ($name, $value=1, $current, $text='') {
 function getListBox ($name, $items, $selected='', $multiple=0, $onChange='') {
    $oc = empty ($onChange) ? '' : ' onchange="'.$onChange.'"';
    $p = sprintf ('
-               <select class="form-select-sm" name="%s%s"%s%s>', $name, ($multiple == 1)?'[]':'',
+               <select class="form-select form-select-sm mx-auto" name="%s%s"%s%s>', $name, ($multiple == 1)?'[]':'',
                 ($multiple == 1)?' multiple':'', $oc);
    if (is_array($items)) {
       foreach($items as $k => $v) {
@@ -101,7 +101,7 @@ function deleteAttachment ($apli, $IdPost, $upload_dir, $id, $att_name){
    sql_query($sql);
 }
 /************************************************************************/
-/* Pour la visualisation dans les forum                                 */
+/* Pour la visualisation dans les forums                                */
 /************************************************************************/
 /* Fonction de snipe pour l'affichage des fichiers uploadés dans forums */
 /************************************************************************/
@@ -135,7 +135,7 @@ function display_upload($apli,$post_id,$Mmod){
          $compteur      = $att[$i]["compteur"];
          $visible       = $att[$i]["visible"];
          $att_inline    = $att[$i]["inline"];
-         if (!$visible) {$marqueurV="@";} else {$marqueurV='';}
+         $marqueurV     = (!$visible) ? '@' : '' ;
          $att_link      = getAttachmentUrl ($apli, $post_id, $att_id, "$att_path/$att_id.$apli.".$marqueurV."$att_name", $att_type, $att_size, $att_inline, $compteur, $visible, $Mmod);
          $attachments .= $att_link;
          $att_list[$att_id] = $att_name;
@@ -148,7 +148,7 @@ function display_upload($apli,$post_id,$Mmod){
 }
 
 /************************************************************************/
-/* Retourne Le mode d affichage pour un attachement                     */
+/* Retourne Le mode d'affichage pour un attachement                     */
 /* 1   display as icon (link)                                           */
 /* 2   display as image                                                 */
 /* 3   display as embedded HTML text or the source                      */
@@ -157,18 +157,11 @@ function display_upload($apli,$post_id,$Mmod){
 /************************************************************************/
 function getAttDisplayMode ($att_type, $att_inline="A") {
    global $mime_dspfmt, $mimetype_default, $ext;
-
    load_mimetypes();
-
-   if ($att_inline) {
-      if (isset($mime_dspfmt[$att_type])) {
-          $display_mode = $mime_dspfmt[$att_type];
-      } else {
-          $display_mode = $mime_dspfmt[$mimetype_default];
-      }
-   } else
-       $display_mode = ATT_DSP_LINK;
-
+   if ($att_inline)
+      $display_mode = (isset($mime_dspfmt[$att_type])) ? $mime_dspfmt[$att_type] : $mime_dspfmt[$mimetype_default] ;
+   else
+      $display_mode = ATT_DSP_LINK;
    return $display_mode;
 }
 
@@ -176,10 +169,8 @@ function getAttDisplayMode ($att_type, $att_inline="A") {
 /* Retourne l'icon                                                      */
 /************************************************************************/
 function att_icon ($filename) {
-   global $att_icons, $att_icon_default,  $att_icon_multiple;
-
+   global $att_icons, $att_icon_default, $att_icon_multiple;
    load_mimetypes();
-
    $suffix = strtoLower(substr(strrchr( $filename, '.' ), 1 ));
    return (isset($att_icons[$suffix]) ) ? $att_icons[$suffix] : $att_icon_default;
 }
@@ -192,8 +183,8 @@ function verifsize ($size) {
    $width_max = 500;
    $height_max = 500;
 
-   if ($size[0]==0) {$size[0]=ceil($width_max/3);}
-   if ($size[1]==0) {$size[1]=ceil($height_max/3);}
+   if ($size[0]==0) $size[0]=ceil($width_max/3);
+   if ($size[1]==0) $size[1]=ceil($height_max/3);
    $width = $size[0];
    $height = $size[1];
 
@@ -221,25 +212,21 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    $att_name = substr(strstr (basename($att_path), '.'), 1);
    $att_name = substr(strstr (basename($att_name), '.'), 1);
    $att_path = $DOCUMENTROOT.$att_path;
-   if (!is_file($att_path)) {
-       return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non trouvé").' : '.$att_name.'</span>';
-   }
+   if (!is_file($att_path))
+      return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non trouvé").' : '.$att_name.'</span>';
 
    if ($att_inline) {
-      if (isset($mime_dspfmt[$att_type])) {
+      if (isset($mime_dspfmt[$att_type]))
          $display_mode = $mime_dspfmt[$att_type];
-      } else {
+      else
          $display_mode = $mime_dspfmt[$mimetype_default];
-      }
-   } else {
+   } else
       $display_mode = ATT_DSP_LINK;
-   }
    if ($Mmod) {
       global $userdata;
       $marqueurM='&amp;Mmod='.substr($userdata[2],8,6);
-   } else {
+   } else
       $marqueurM='';
-   }
    $att_url= "getfile.php?att_id=$att_id&amp;apli=$apli".$marqueurM."&amp;att_name=".rawurlencode($att_name);
    
    settype($visible_wrn,'string');
@@ -381,7 +368,7 @@ function renomme_fichier($listeV, $listeU) {
 function update_visibilite($visible_att,$visible_list) {
    global $upload_table;
    if (is_array ($visible_att) ) {
-      $visible = implode ($visible_att, ',');
+      $visible = implode (',', $visible_att);
       $sql = "UPDATE $upload_table SET visible='1' WHERE att_id IN ($visible)";
       sql_query($sql);
       $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list)-1));
