@@ -73,9 +73,8 @@ function PrintPage($oper, $DB, $nl, $sid) {
           if (!$file=@opendir("themes/$cookie[9]")) {
              $tmp_theme=$Default_Theme;
           }
-       } else {
+       } else
           $tmp_theme=$Default_Theme;
-       }
        echo '
          <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />';
        echo '
@@ -94,7 +93,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           $hometext=meta_lang(aff_code(aff_langue($hometext)));
           $bodytext=meta_lang(aff_code(aff_langue($bodytext)));
           echo '
-             <span class="float-end text-capitalize" style="font-size: .8rem;"> '.$datetime.'</span><br />
+             <span class="float-end" style="font-size: .8rem;"> '.formatTimestamp($time).'</span><br />
              <hr />
              <h2 class="mb-3">'.translate("Sujet : ").' '.aff_langue($topictext).'</h2>
          </div>
@@ -122,7 +121,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           }
        }
        if ($oper=='links') {
-          echo '<span class="float-end text-capitalize" style="font-size: .8rem;">'.$datetime.'</span><br /><hr />';
+          echo '<span class="float-end" style="font-size: .8rem;">'.formatTimestamp($time).'</span><br /><hr />';
           if ($url!='') {
              echo '<h2 class="mb-3">'.translate("Liens").' : '.$url.'</h2>';
           }
@@ -155,8 +154,6 @@ if (!empty($sid)) {
       settype ($nl, 'integer');
       PrintPage("static", $metalang, $nl, $tab[1]);
    } else {
-      settype ($sid, 'integer');
-      //settype ($archive, 'string');
       if (!isset($archive))
          PrintPage("news", '', '', $sid);
       else
