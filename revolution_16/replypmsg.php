@@ -15,10 +15,7 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include('functions.php');
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj = $SuperCache ? new cacheManager() : new SuperCacheEmpty() ;
 include('auth.php');
 
 settype($cancel,'string');
@@ -175,17 +172,20 @@ if (isset($user)) {
    settype($full_interface,'string');
    if ($full_interface=='short') {
       if ($userdataX[9]!='') {
-         if (!$file=@opendir("themes/$userdataX[9]"))
-            $tmp_theme=$Default_Theme;
-         else
-            $tmp_theme=$userdataX[9];
+         $ibix=explode('+', urldecode($userdataX[9]));
+         if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
+         if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_Skin; 
+         $tmp_theme=$theme;
+         if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
       } else
          $tmp_theme=$Default_Theme;
+      $skin = $skin =='' ? 'default' : $skin ;
+
       include("themes/$tmp_theme/theme.php");
       include("meta/meta.php");
       include("modules/include/header_before.inc");
       include("modules/include/header_head.inc");
-      echo import_css($tmp_theme, $language, '', '','');
+      echo import_css($tmp_theme, $language, $skin, '','');
       echo '
    </head>
    <body class="my-4 mx-4">';
