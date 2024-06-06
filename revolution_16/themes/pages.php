@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -35,7 +35,7 @@
 //   => 3 : Colonne gauche (Blocs) + Colonne Droite (Blocs) + Central
 //   => 4 : Central + Colonne Gauche(Blocs) + Colonne Droite (Blocs)
 //      Si Aucune Variable de renseigné : Affichage par défaut = 0
-//   ATTENTION cette Variable se Renseigne Maintenant sur cette page et non plus dans votre thème !
+//   ATTENTION cette valeur n'aura d'effet que si elle n'est pas définie dans votre thème ($pdst) !
 
 // $PAGES['index.php']['run']="yes or no or script";
 //   => "" ou "yes" : le script aura l'autorisation de s'executer
@@ -111,6 +111,7 @@ settype($nuke_url,'string');
 settype($api_key,'string');
 settype($ModPath,'string');
 settype($title,'string');
+global $nuke_url, $language;
 // ----------------------------
 
 $PAGES['index.php']['title']="[french]Index[/french][english]Home[/english][spanish]Index[/spanish][german]Index[/german][chinese]&#x7D22;&#x5F15;[/chinese]+";
@@ -123,8 +124,6 @@ $PAGES['user.php']['blocs']="0";
 $PAGES['user.php']['run']="yes";
 $PAGES['user.php']['TinyMce']=1;
 $PAGES['user.php']['TinyMce-theme']="short";
-$PAGES['user.php']['css']=array($nuke_url."lib/ol/ol.css+");
-
 
 $PAGES['memberslist.php']['title']="[french]Liste des membres[/french][english]Members list[/english][spanish]Lista de Miembros[/spanish][german]Mitglieder[/german][chinese]&#x4F1A;&#x5458;&#x5217;&#x8868;[/chinese]+";
 $PAGES['memberslist.php']['blocs']="0";
@@ -186,7 +185,7 @@ $PAGES['admin.php']['blocs']="0";
 $PAGES['admin.php']['run']="yes";
 $PAGES['admin.php']['TinyMce']=1;
 $PAGES['admin.php']['TinyMce-theme']="full";
-$PAGES['admin.php']['css']=array("admin.css+",$nuke_url."lib/ol/ol.css+");
+$PAGES['admin.php']['css']=array("admin.css+");
 $PAGES['admin.php']['TinyMceRelurl']="false";
 
 $PAGES['forum.php']['title']="[french]Les forums de discussion[/french][english]Forums[/english][spanish]Foros de discusi&oacute;n[/spanish][german]Diskussionsforen[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese]+";
@@ -266,9 +265,10 @@ $PAGES['modules.php?ModPath=links/admin&ModStart=links*']['TinyMce-theme']="full
 
 $PAGES['modules.php?ModPath=f-manager&ModStart=f-manager*']['title']="[french]Gestionnaire de fichiers[/french][english]Files manager[/english][spanish]Administrador de Ficheros[/spanish][german]Datei-Manager[/german][chinese]Files manager[/chinese]";
 $PAGES['modules.php?ModPath=f-manager&ModStart=f-manager*']['run']="yes";
-$PAGES['modules.php?ModPath=f-manager&ModStart=f-manager*']['blocs']="0";
+$PAGES['modules.php?ModPath=f-manager&ModStart=f-manager*']['blocs']="-1";
 $PAGES['modules.php?ModPath=f-manager&ModStart=f-manager*']['TinyMce']=1;
 $PAGES['modules.php?ModPath=f-manager&ModStart=f-manager*']['TinyMce-theme']="short";
+$PAGES['modules.php?ModPath=f-manager&ModStart=f-manager*']['css']= array($nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css+');
 
 $PAGES['modules.php?ModPath=comments&ModStart=reply*']['title']="[french]Commentaires[/french][english]Comments[/english][spanish]Comentarios[/spanish][german]Kommentare[/german][chinese]Comments[/chinese]";
 $PAGES['modules.php?ModPath=comments&ModStart=reply*']['run']="yes";
@@ -286,10 +286,10 @@ $PAGES['modules.php?ModPath=archive-stories&ModStart=archive-stories*']['blocs']
 
 $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['title']="[french]Afficheur de fichiers multim&eacute;dia[/french][english]Multimedia files viewer[/english][spanish]Visualizaci&oacute;n de Ficheros multimedia[/spanish][german]Anzeige von Multimedia-Dateien[/german][chinese]Multimedia files viewer[/chinese]";
 $PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['run']="yes";
-$PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['blocs']="0";
+$PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['blocs']="-1";
+$PAGES['modules.php?ModPath=f-manager&ModStart=pic-manager*']['css']= array($nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css+');
 
 // CSS sur fichiers particuliers car n'utilisant pas header.php
-global $nuke_url;
 $PAGES['chatrafraich.php']['css']=array("chat.css+");
 $PAGES['chatinput.php']['css']=array("chat.css+");
 
@@ -308,8 +308,6 @@ $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['blocs']="0";
 $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['TinyMce']=1;
 $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['TinyMce-theme']="short";
 $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['css']=array($nuke_url.'/modules/npds_galerie/css/galerie.css+');
-
-global $language;
 
 $PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocation[/english][spanish]Geolocalizaci&oacute;n[/spanish][german]Geolocation[/german][chinese]&#22320;&#29702;&#20301;&#32622;[/chinese]+|$title+";
 $PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['run']="yes";
