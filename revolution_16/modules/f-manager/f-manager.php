@@ -825,10 +825,9 @@ $handle=opendir("$racine_fma/images/upload/file_types");
 while (false!==($file = readdir($handle))) {
    if ($file!='.' && $file!='..') {
       $prefix = strtoLower(substr($file,0,strpos($file,'.')));
-      $att_icons[$prefix]='<img src="images/upload/file_types/'.$file.'" alt="" />'; // no more used keep if we back
       $att_icons[$prefix]='
       <span class="fa-stack">
-        <i class="bi bi-file-earmark fa-stack-2x text-body-secondary"></i>
+        <i class="bi bi-file-earmark-fill fa-stack-2x text-body-secondary"></i>
         <span class="fa-stack-1x filetype-text small ">'.$prefix.'</span>
       </span>';
    }
@@ -836,7 +835,7 @@ while (false!==($file = readdir($handle))) {
 closedir($handle);
 $att_icon_default='
       <span class="fa-stack">
-        <i class="bi bi-file-earmark fa-stack-2x text-body-secondary"></i>
+        <i class="bi bi-file-earmark-fill fa-stack-2x text-body-secondary"></i>
         <span class="fa-stack-1x filetype-text ">?</span>
       </span>';
 $att_icon_multiple="<img src=\"images/upload/file_types/multiple.gif\" alt=\"\" />";
@@ -1070,15 +1069,15 @@ if (file_exists($infos_fma))
 
    $search_file ='
    <form method="post" action="modules.php">
-      <input type="hidden" name="ModPath" value="'.$ModPath.'">
-      <input type="hidden" name="ModStart" value="'.$ModStart.'">
-      <input type="hidden" name="FmaRep" value="'.$FmaRep.'">
-      <input type="hidden" name="browse" value="'.$browse.'">
-      <input type="hidden" name="op" value="searchfile">
+      <input type="hidden" name="ModPath" value="'.$ModPath.'" />
+      <input type="hidden" name="ModStart" value="'.$ModStart.'" />
+      <input type="hidden" name="FmaRep" value="'.$FmaRep.'" />
+      <input type="hidden" name="browse" value="'.$browse.'" />
+      <input type="hidden" name="op" value="searchfile" />
       <div class="mb-3">
-         <input class="form-control" name="filesearch" type="text" size="50" value="">
+         <input class="form-control" name="filesearch" type="text" size="50" value="" />
       </div>
-      <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'">
+      <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
    </form>';
 
 chdir("$racine_fma/");
@@ -1103,8 +1102,7 @@ if ($inclusion) {
       $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><span class="bi bi-house-fill fs-1 align-middle"></a>',$Xcontent);
    
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><i class="bi bi-arrow-clockwise fs-1 d-sm-none" title="'.fma_translate("Rafraîchir").'" data-bs-toggle="tooltip">
-   </i><span class="d-none d-sm-block mt-2">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><i class="bi bi-arrow-clockwise fs-1 d-sm-none" title="'.fma_translate("Rafraîchir").'" data-bs-toggle="tooltip"></i><span class="d-none d-sm-block mt-2">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
 //   if ($dirsize_fma)
       $Xcontent=str_replace('_size',$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);
@@ -1114,11 +1112,9 @@ if ($inclusion) {
    $Xcontent=str_replace('_subdirs',$subdirs,$Xcontent);
    $Xcontent=str_replace('_nb_file',($obj->Count("f")-$fic_minuscptr),$Xcontent);
    $Xcontent=str_replace('_files',$files,$Xcontent);
-
-   if (isset($cmd))
-      $Xcontent=str_replace('_cmd',$cmd,$Xcontent);
-   else
-      $Xcontent=str_replace('_cmd','',$Xcontent);
+   $Xcontent= (isset($cmd)) ?
+      str_replace('_cmd',$cmd,$Xcontent) :
+      str_replace('_cmd','',$Xcontent) ;
 
    if ($dircmd_fma[0])
       $Xcontent=str_replace('_cre_dir',$create_dir,$Xcontent);
@@ -1130,11 +1126,9 @@ if ($inclusion) {
    $Xcontent=str_replace('_del_dir',$remove_dir,$Xcontent);
    $Xcontent=str_replace('_ren_dir',$rename_dir,$Xcontent);
    $Xcontent=str_replace('_chm_dir',$chmod_dir,$Xcontent);
-
-   if (isset($pict_dir))
-      $Xcontent=str_replace('_pic_dir',$pict_dir,$Xcontent);
-   else
-      $Xcontent=str_replace("_pic_dir",'',$Xcontent);
+   $Xcontent= (isset($pict_dir)) ?
+      str_replace('_pic_dir',$pict_dir,$Xcontent) :
+      str_replace("_pic_dir",'',$Xcontent) ;
 
    if ($ficcmd_fma[0]) {
       $Xcontent=str_replace('_upl_file',$upload_file,$Xcontent);
@@ -1152,21 +1146,16 @@ if ($inclusion) {
    $Xcontent=str_replace('_chm_file',$chmod_file,$Xcontent);
    $Xcontent=str_replace('_ren_file',$rename_file,$Xcontent);
    $Xcontent=str_replace('_mov_file',$move_file,$Xcontent);
-
-   if (isset($Err))
-      $Xcontent=str_replace('_error','<div class="alert alert-danger alert-dismissible fade show" role="alert">'.$Err.'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>',$Xcontent);
-   else
-      $Xcontent=str_replace('_error','',$Xcontent);
-
-   if (isset($infos))
-      $Xcontent=str_replace('_infos',$infos,$Xcontent);
-   else
-      $Xcontent=str_replace('_infos','',$Xcontent);
+   $Xcontent= (isset($Err)) ?
+      str_replace('_error','<div class="alert alert-danger alert-dismissible fade show" role="alert">'.$Err.'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>',$Xcontent) :
+      str_replace('_error','',$Xcontent) ;
+   $Xcontent= (isset($infos)) ?
+      str_replace('_infos',$infos,$Xcontent) :
+      str_replace('_infos','',$Xcontent) ;
    if ($dirpres_fma[5]) {
-      if ($uniq_fma)
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="bi bi-image fs-1" title="'.fma_translate("Images manager").'" data-bs-toggle="tooltip" data-bs-placement="bottom"></i></span><span class="d-none d-sm-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent);
-      else
-         $Xcontent=str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent);
+      $Xcontent = ($uniq_fma) ?
+         str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="bi bi-image fs-1" title="'.fma_translate("Images manager").'" data-bs-toggle="tooltip" data-bs-placement="bottom"></i></span><span class="d-none d-sm-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent) :
+         str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent) ;
    } else
       $Xcontent=str_replace('_picM','',$Xcontent);
 
@@ -1183,8 +1172,8 @@ if ($inclusion) {
          global $cookie;
          if($cookie[9] !='') {
             $ibix=explode('+', urldecode($cookie[9]));
-            if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
-            if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_skin; //$skin=''; 
+            $theme = (array_key_exists(0, $ibix)) ? $ibix[0] : $Default_Theme ;
+            $skin = (array_key_exists(1, $ibix)) ? $ibix[1] : $Default_skin ;
             $tmp_theme=$theme;
             if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
          } else 
@@ -1194,6 +1183,8 @@ if ($inclusion) {
          $skin=$Default_Skin;
          $tmp_theme=$theme;
       }
+      $skin = $skin =='' ? 'default' : $skin ;
+
       include("meta/meta.php");
       echo '
       <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />

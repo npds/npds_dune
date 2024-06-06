@@ -16,10 +16,10 @@ include ("modules/$ModPath/lang/f-manager-$language.php");
 include ("modules/$ModPath/class.navigator.php");
 
 if (isset($user)) {
-    include("themes/list.php");
-    $themelist = explode(' ', $themelist);
-    $pos=array_search($cookie[9],$themelist);
-    if ($pos!==false)
+   include("themes/list.php");
+   $themelist = explode(' ', $themelist);
+   $pos=array_search($cookie[9],$themelist);
+   if ($pos!==false)
       $Default_Theme=$themelist[$pos];
 }
 settype($curn_nav,'string');
@@ -49,14 +49,12 @@ function fma_filter($type, $filename, $Extension) {
    if (($suffix!='') or ($type=='d')) {
       if ((in_array($suffix,$Extension)) or ($Extension[0]=='*') or $type=='d') {
          // Fichiers interdits en fonction de qui est connecté
-         if (fma_autorise($type, $filename)) {
+         if (fma_autorise($type, $filename))
             $autorise=true;
-         } else {
+         else
             $error=fma_translate("Fichier interdit");
-         }
-      } else {
+      } else
          $error=fma_translate("Type de fichier interdit");
-      }
    } else
       $error=fma_translate("Fichier interdit");
    $tab[]=$autorise;
@@ -68,18 +66,12 @@ function fma_filter($type, $filename, $Extension) {
 // Gestion des autorisations sur les répertoires et les fichiers
 function fma_autorise($type, $dir) {
    global $user, $admin, $dirlimit_fma, $ficlimit_fma, $access_fma, $dir_minuscptr, $fic_minuscptr;
-   /* ==> 
-   was noticeSss on if($type f) in some case ...Coriace ..... 
-   add set type de la variable $autorise_arbo=false;
-   controle de l'index dans le array and array_key_exists($dir, $ficlimit_fma))
-   cohérence de la correction et de ses implications encore incertaine
-   à suivre !!
-   <==*/
    $autorise_arbo=false;
    if ($type=='a')
       $autorise_arbo=$access_fma;
    if ($type=='d')
-      $autorise_arbo=$dirlimit_fma[$dir];
+      if(isset($dirlimit_fma) and array_key_exists($dir, $dirlimit_fma))
+         $autorise_arbo=$dirlimit_fma[$dir];
    if ($type=='f')
       if(array_key_exists($dir, $ficlimit_fma))
          $autorise_arbo=$ficlimit_fma[$dir];
@@ -217,7 +209,7 @@ if ($browse!='') {
    else
       $ibid=preg_replace('#[\:\*\?"<>|]#i','', $ibid);
    $ibid=str_replace('..','',$ibid);
-   // contraint ‡ rester dans la zone de repertoire dÈfinie
+   // contraint à rester dans la zone de repertoire définie
    $ibid=$basedir_fma.substr($ibid,strlen($basedir_fma));
    $base=$ibid;
 } else
@@ -351,10 +343,7 @@ if ($Max_thumb>0) {
                      $files.='
                      <div class="imagethumb">
                         <a href="javascript:void(0);" onclick="popup=window.open('.$PopUp.'); popup.focus();"><img src="getfile.php?att_id=';
-                     if ($imagette)
-                        $files.= $imagette;
-                     else
-                        $files.= $ibid;
+                     $files.= ($imagette) ? $imagette : $ibid ;
                      $files.="&amp;apli=f-manager\" border=\"0\" width=\"$w_i\" height=\"$h_i\" alt=\"$obj->FieldName\" loading=\"lazy\"/ ></a>\n";
                      $files.='
                      </div>';
@@ -410,15 +399,10 @@ if ($inclusion) {
    if(($obj->Count('d')-$dir_minuscptr)==0)
       $Xcontent=str_replace('_classempty','collapse',$Xcontent);
    $Xcontent=str_replace('_subdirs',$subdirs,$Xcontent);
-   if ($uniq_fma)
-      $Xcontent=str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><i class="bi bi-folder fs-1 d-sm-none" data-bs-toggle="tooltip" title="'.fma_translate("Gestionnaire de fichiers").'"></i><span class="d-none d-sm-block mt-2">'.fma_translate("Gestionnaire de fichiers").'</span></a>',$Xcontent);
-   else
-      $Xcontent=str_replace('_fileM','',$Xcontent);
-
-   if (isset($files))
-      $Xcontent=str_replace('_files',$files,$Xcontent);
-   else
-      $Xcontent=str_replace('_files','',$Xcontent);
+   $Xcontent = ($uniq_fma) ?
+      str_replace('_fileM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=f-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><i class="bi bi-folder fs-1 d-sm-none" data-bs-toggle="tooltip" title="'.fma_translate("Gestionnaire de fichiers").'"></i><span class="d-none d-sm-block mt-2">'.fma_translate("Gestionnaire de fichiers").'</span></a>',$Xcontent) :
+      str_replace('_fileM','',$Xcontent) ;
+   $Xcontent = (isset($files)) ? str_replace('_files',$files,$Xcontent) : str_replace('_files','',$Xcontent) ;
 
    if (!$NPDS_fma) {
       // utilisation de pages.php
@@ -430,8 +414,8 @@ if ($inclusion) {
          global $cookie;
          if($cookie[9] !='') {
             $ibix=explode('+', urldecode($cookie[9]));
-            if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
-            if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_skin; //$skin=''; 
+            $theme = (array_key_exists(0, $ibix)) ? $theme=$ibix[0] : $Default_Theme ;
+            $skin = (array_key_exists(1, $ibix)) ? $skin=$ibix[1] : $skin=$Default_skin ;
             $tmp_theme=$theme;
             if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
          } else 
@@ -441,16 +425,18 @@ if ($inclusion) {
          $skin=$Default_Skin;
          $tmp_theme=$theme;
       }
+      $skin = $skin =='' ? 'default' : $skin ;
+
       include("meta/meta.php");
       echo '
-      <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-      <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
-      <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-icons.css" />
-      <link rel="stylesheet" id="fw_css" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
-      <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />
-      <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$skin.'/extra.css" />
-      <link href="'.$css_fma.'" title="default" rel="stylesheet" type="text/css" media="all" />
-      <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+         <link rel="stylesheet" href="lib/font-awesome/css/all.min.css" />
+         <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-icons.css" />
+         <link rel="stylesheet" id="fw_css" href="themes/_skins/'.$skin.'/bootstrap.min.css" />
+         <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />
+         <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$skin.'/extra.css" />
+         <link href="'.$css_fma.'" title="default" rel="stylesheet" type="text/css" media="all" />
+         <script type="text/javascript" src="lib/js/jquery.min.js"></script>
       </head>
       <body class="p-3">';
    }
