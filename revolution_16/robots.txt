@@ -6,7 +6,7 @@
 # In this case please use your .htaccess file.                         #
 
 User-agent: *
-Disallow: admin.php
+Disallow: /admin.php
 Disallow: /admin
 Disallow: /slogs
 Disallow: /cache
