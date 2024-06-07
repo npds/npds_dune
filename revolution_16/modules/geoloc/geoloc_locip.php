@@ -65,23 +65,24 @@ function localiser_ip($iptoshow) {
                source: vectorSource,
                style: pointStyleFunction
             }),
-            Controls = new ol.control.defaults.defaults,
+            attribution = new ol.control.Attribution({collapsible: true}),
             fullscreen = new ol.control.FullScreen();
          var map = new ol.Map({
-            controls: Controls.extend([
+            controls: new ol.control.defaults.defaults({attribution: false}).extend([
+               attribution,
                fullscreen
             ]),
-           target: document.getElementById("map_ip"),
-           layers: [
-             new ol.layer.Tile({
-               source: new ol.source.OSM()
-             }),
-             vectorLayer
-           ],
-           view: new ol.View({
-             center: ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].']),
-             zoom: 12
-           })
+            target: document.getElementById("map_ip"),
+            layers: [
+               new ol.layer.Tile({
+                  source: new ol.source.OSM()
+               }),
+               vectorLayer
+            ],
+            view: new ol.View({
+               center: ol.proj.fromLonLat(['.$row['ip_long'].','.$row['ip_lat'].']),
+               zoom: 12
+            })
          });';
    $aff_location .= file_get_contents('modules/geoloc/include/ol-dico.js');
    $aff_location .= '

@@ -1460,11 +1460,6 @@ a.tooltip_ws:hover em span {
 }
 
 .fa-stack-1x-com { top: .35em; }
-.fa-stack {
-  font-size: .9em;
-  vertical-align: -16%;
-  color:#818a91;
-}
 .com .filetype-text {
   font-size: .8em;
   font-weight: 700;

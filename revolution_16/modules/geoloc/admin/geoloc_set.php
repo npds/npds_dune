@@ -9,7 +9,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 3 of the License.       */
+/* the Free Software Foundation; either version 2 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
 /* geoloc_set.php file 2007-2024 by Jean Pierre Barbary (jpb)           */
@@ -97,8 +97,8 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       unset($fond_provider[3],$fond_provider[4],$fond_provider[5]);
    elseif($api_key_mapbox=='')
       unset($fond_provider[1],$fond_provider[2]);
-
-   echo '
+   $aff='';
+   $aff .= '
    <hr />
    <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg me-2 "></i>'.geoloc_translate('Carte').'</a>
    <form id="geolocset" name="geoloc_set" action="admin.php" method="post">
@@ -111,10 +111,10 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                <select class="form-select" name="ch_lat" id="ch_lat">
                   <option selected="selected">'.$ch_lat.'</option>';
    foreach($dispofield as $ke => $va) {
-      echo '
+      $aff .= '
                   <option>'.$va.'</option>';
    }
-   echo '
+   $aff .= '
                </select>
             </div>
          </div>
@@ -124,10 +124,10 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                <select class="form-select" name="ch_lon" id="ch_lon">
                   <option selected="selected">'.$ch_lon.'</option>';
    foreach($dispofield as $ke => $va) {
-      echo '
+      $aff .= '
                   <option>'.$va.'</option>';
    }
-   echo '
+   $aff .= '
                </select>
             </div>
          </div>
@@ -139,7 +139,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          </div>';
    $cky_geo=''; $ckn_geo='';
    if ($geo_ip==1) $cky_geo='checked="checked"'; else $ckn_geo='checked="checked"';
-   echo '
+   $aff .= '
          <div class="mb-3 row">
             <label class="col-sm-6 col-form-label" for="geo_ip">'.geoloc_translate('Géolocalisation des IP').'</label>
             <div class="col-sm-6 my-2">
@@ -174,6 +174,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       </fieldset>
       <hr />
       <h4 class="my-3" >'.geoloc_translate('Interface carte').'</h4>
+
       <div class="mb-3 row">
          <label class="col-form-label col-sm-4" for="api_key_bing">'.geoloc_translate("Clef d'API").' Bing maps</label>
          <div class="col-sm-8">
@@ -199,26 +200,26 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    foreach ($fond_provider as $k => $v) {
       $sel = $v[0]==$cartyp ? 'selected="selected"': '';
       switch($k){
-         case '0': echo '<optgroup label="OpenStreetMap">';break;
-         case '1': echo '<optgroup label="Mapbox">';break;
-         case '4': echo '<optgroup label="Bing maps">';break;
-         case '6': echo '<optgroup label="Google">';break;
-         case '7': echo '<optgroup label="ESRI">';break;
+         case '0': $aff .= '<optgroup label="OpenStreetMap">';break;
+         case '1': $aff .= '<optgroup label="Mapbox">';break;
+         case '4': $aff .= '<optgroup label="Bing maps">';break;
+         case '6': $aff .= '<optgroup label="Google">';break;
+         case '7': $aff .= '<optgroup label="ESRI">';break;
       }
-      echo '
+      $aff .= '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($k) {
-         case '0': case '2': case '5': case '6': case '10': echo '</optgroup>'; break;
+         case '0': case '2': case '5': case '6': case '10': $aff .= '</optgroup>'; break;
       }
    }
-   echo '
+   $aff .= '
                      </select>
                   </div>
                </div>';
                $s_dd='';$s_dm='';
                if($co_unit =='dd') $s_dd='selected="selected"';
                else if($co_unit =='dms') $s_dm='selected="selected"'; 
-               echo '
+               $aff .= '
                <div class="mb-3 row">
                   <label class="col-form-label col-sm-6" for="co_unit">'.geoloc_translate('Unité des coordonnées').'<span class="text-danger ms-1">*</span></label>
                   <div class="col-sm-6">
@@ -230,7 +231,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                </div>';
                $cky_mar=''; $ckn_mar='';
                if ($mark_typ==1) $cky_mar='checked="checked"'; else $ckn_mar='checked="checked"';
-               echo '
+               $aff .= '
                <div class="mb-3 row">
                   <label class="col-sm-12 col-form-label" for="mark_typ">'.geoloc_translate('Type de marqueur').'</label>
                   <div class="col-sm-12">
@@ -295,15 +296,15 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                foreach ($fonts_svg as $v) {
                   if($v[0]==$f_mbg) $fafont = '&#x'.substr($v[1],1).';'; 
                }
-               echo'
+               $aff .= '
                      <span id="vis_ic" class="input-group-text"><span class="fa fa-lg" id="fontchoice">'.$fafont.'</span></span>
                      <select class="form-select input-lg" name="f_mbg" id="f_mbg">';
    foreach ($fonts_svg as $v) {
-      if($v[0]==$f_mbg) $sel='selected="selected"'; else $sel='';
-      echo '
+      $sel= ($v[0]==$f_mbg) ? 'selected="selected"' : '' ;
+      $aff .= '
                          <option '.$sel.' value="'.$v[0].'">'.$v[2].'</option>';
    }
-   echo '
+   $aff .= '
                      </select>
                   </div>
                </div>
@@ -492,19 +493,19 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    foreach ($fond_provider as $k => $v) {
       $sel = $v[0]==$cartyp_b ? 'selected="selected"': '';
       switch($k){
-         case '0': echo '<optgroup label="OpenStreetMap">';break;
-         case '1': echo '<optgroup label="Mapbox">';break;
-         case '4': echo '<optgroup label="Bing maps">';break;
-         case '6': echo '<optgroup label="Google">';break;
-         case '7': echo '<optgroup label="ESRI">';break;
+         case '0': $aff .= '<optgroup label="OpenStreetMap">';break;
+         case '1': $aff .= '<optgroup label="Mapbox">';break;
+         case '4': $aff .= '<optgroup label="Bing maps">';break;
+         case '6': $aff .= '<optgroup label="Google">';break;
+         case '7': $aff .= '<optgroup label="ESRI">';break;
       }
-      echo '
+      $aff .= '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($k){
-         case '0': case '2': case '5': case '6': case '10': echo '</optgroup>'; break;
+         case '0': case '2': case '5': case '6': case '10': $aff .= '</optgroup>'; break;
       }
    }
-   echo '
+   $aff .= '
             </select>
          </div>
       </div>
@@ -576,7 +577,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    </form>
 </div>
 <div class="col-sm-4">
-   <div id="map_conf"></div>
+   <div id="map_conf" lang="'.language_iso(1,0,0).'"></div>
        Icônes en service
    </div>
 
@@ -615,18 +616,18 @@ switch ($cartyp) {
    default:
    $source_fond='new ol.source.OSM()';
 }
-   echo '
+$scri ='';
+$scri .= '
 <script type="text/javascript" src="lib/js/jscolor.min.js"></script>
-<script type="text/javascript">
+<script type="module">
 //<![CDATA[
-   $(document).ready(function() {
+   $(function() {
       if (typeof ol=="undefined")
          $("head").append($("<script />").attr({"type":"text/javascript","src":"lib/ol/ol.js"}));
       $("head").append($("<script />").attr({"type":"text/javascript","src":"modules/geoloc/include/fontawesome.js"}));
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
       $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\'/modules/geoloc/include/css/geoloc_admin.css\' type=\'text/css\' media=\'screen\'>");
    });
-
    jscolor.presets.default = {
       format:"rgba",
       backgroundColor:"rgba(0,0,0,1)",
@@ -644,16 +645,20 @@ switch ($cartyp) {
       ],
    };
 
-function geoloc_conf() {
    var
-   w_ico_size = $("#w_ico").val(),
-   h_ico_size = $("#h_ico").val();
+      i_path_mbg,
+      i_path_mbcg,
+      i_path_acg,
+      f_pa,
+      w_ico_size = $("#w_ico").val(),
+      h_ico_size = $("#h_ico").val();
 
-$(document).ready(function() {
-   var para_svg = document.getElementById("para_svg");
-   var para_ima = document.getElementById("para_ima");
-   var img_img = document.getElementById("img_img");
-   var img_svg = document.getElementById("img_svg");
+$(function() {
+   var 
+      para_svg = document.getElementById("para_svg"),
+      para_ima = document.getElementById("para_ima"),
+      img_img = document.getElementById("img_img"),
+      img_svg = document.getElementById("img_svg");
 
    if(img_svg.checked) para_ima.classList.add("collapse");
    if(img_img.checked) para_svg.classList.add("collapse");
@@ -667,7 +672,6 @@ $(document).ready(function() {
       para_svg.classList.remove("collapse");
    });
 
-
    $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg, #f_mbg" ).change(function() {
       w_ico_size = $("#w_ico").val();
       h_ico_size = $("#h_ico").val();
@@ -678,7 +682,6 @@ $(document).ready(function() {
    }).trigger("change");
  
    var 
-      map_c,
       w_ico_size,
       h_ico_size,
       mark_cmbg,
@@ -697,6 +700,7 @@ $(document).ready(function() {
          imgSize:['.$w_ico_b.','.$h_ico_b.']
       })
    }));
+
    mark_cmbgc.setStyle(new ol.style.Style({
       image: new ol.style.Icon({
          crossOrigin: "anonymous",
@@ -739,44 +743,39 @@ $(document).ready(function() {
      })
    }));
 
-      var src_markers = new ol.source.Vector({
-        features: [mark_cmbg, mark_cmbgc, mark_cacg, mark_cmbg_svg, mark_cmbgc_svg, mark_acg_svg]
-      });
-      var les_markers = new ol.layer.Vector({source: src_markers});
+   var 
+      src_markers = new ol.source.Vector({
+         features: [mark_cmbg, mark_cmbgc, mark_cacg, mark_cmbg_svg, mark_cmbgc_svg, mark_acg_svg]
+      }),
+      les_markers = new ol.layer.Vector({source: src_markers}),
+      src_fond = '.$source_fond.',
+      fond_carte = new ol.layer.Tile({source: '.$source_fond.'}),
+      attribution = new ol.control.Attribution({collapsible: true}),
+      fullscreen = new ol.control.FullScreen() ;
+   var map = new ol.Map({
+      interactions: new ol.interaction.defaults.defaults({
+         constrainResolution: true, onFocusOnly: true
+      }),
+      controls: new ol.control.defaults.defaults({attribution: false}).extend([attribution, fullscreen]),
+      target: document.getElementById("map_conf"),
+      layers: [
+         fond_carte,
+         les_markers
+      ],
+      view: new ol.View({
+         center: ol.proj.fromLonLat([0, 45]),
+         zoom: 3
+      })
+   });
 
-       var src_fond = '.$source_fond.';
-       var fond_carte = new ol.layer.Tile({
-       source: '.$source_fond.'
-       });
-
-      var attribution = new ol.control.Attribution({collapsible: true});
-      var map = new ol.Map({
-         interactions: new ol.interaction.defaults.defaults({
-            constrainResolution: true, onFocusOnly: true
-         }),
-         controls: new ol.control.defaults.defaults({attribution: false}).extend([attribution, new ol.control.FullScreen()]),
-         target: "map_conf",
-         layers: [
-            fond_carte,
-            les_markers
-         ],
-         view: new ol.View({
-            center: ol.proj.fromLonLat([0, 45]),
-            zoom: 3
-         })
-      });
-
-    var coul_temp;
-
-
-/*
-"Je suis le marker (image au format .gif .jpg .png) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9;.");
-"Je suis le marker (image au format .gif .jpg .png) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9; actuellement connecté sur le site.");
-"Je suis le marker (image au format .gif .jpg .png) symbolisant un visiteur actuellement connecté sur le site géolocalisé par son adresse IP");
-"Je suis le marker (image au format SVG) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9;");
-"Je suis le marker (image au format SVG) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9; actuellement connecté sur le site.");
-"Je suis le marker (image au format SVG) symbolisant un visiteur actuellement connecté sur le site géolocalisé par son adresse IP.");
-*/
+   /*
+   "Je suis le marker (image au format .gif .jpg .png) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9;.");
+   "Je suis le marker (image au format .gif .jpg .png) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9; actuellement connecté sur le site.");
+   "Je suis le marker (image au format .gif .jpg .png) symbolisant un visiteur actuellement connecté sur le site géolocalisé par son adresse IP");
+   "Je suis le marker (image au format SVG) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9;");
+   "Je suis le marker (image au format SVG) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9; actuellement connecté sur le site.");
+   "Je suis le marker (image au format SVG) symbolisant un visiteur actuellement connecté sur le site géolocalisé par son adresse IP.");
+   */
 
 // size dont work à revoir
    $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg" ).change(function() {
@@ -809,18 +808,17 @@ $(document).ready(function() {
       $("#v_img_acg").html("<img width=\"22\" height=\"22\" alt=\"'.geoloc_translate('Image anonyme géoréférencé en ligne').'\" src=\""+$("#ch_img").val()+$("#nm_img_acg").val()+"\" />");
    })
 
-
-var changestyle = function(m,f_fa,fc,tc,sc) {
-   m.setStyle(new ol.style.Style({
-     text: new ol.style.Text({
-       text: fa(f_fa),
-       font: "900 "+sc+"px \'Font Awesome 5 Free\'",
-       bottom: "Bottom",
-       fill: new ol.style.Fill({color: fc}),
-       stroke: new ol.style.Stroke({color: tc, width: '.$mbg_t_ep.'})
-     })
-   }));
-}
+   var changestyle = function(m,f_fa,fc,tc,sc) {
+      m.setStyle(new ol.style.Style({
+        text: new ol.style.Text({
+          text: fa(f_fa),
+          font: "900 "+sc+"px \'Font Awesome 5 Free\'",
+          bottom: "Bottom",
+          fill: new ol.style.Fill({color: fc}),
+          stroke: new ol.style.Stroke({color: tc, width: '.$mbg_t_ep.'})
+        })
+      }));
+   }
 
 //==> change font on the map
    $("#f_mbg").change(function(event) {
@@ -936,26 +934,8 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
         mark_acg_svg.setIcon(icon_cacg_svg);
     });
 */
-
-/*
-    $(".pickcol_tmb").colorpicker().on("changeColor.colorpicker", function(event){
-        var coul = event.color.toHex()
-        icon_mbg_svg.strokeColor=coul;
-        mark_cmbg_svg.setIcon(icon_mbg_svg);
-    });
-    $(".pickcol_tmbc").colorpicker().on("changeColor.colorpicker", function(event){
-        var coul = event.color.toHex()
-        icon_cmbg_svg.strokeColor=coul;
-        mark_cmbgc_svg.setIcon(icon_cmbg_svg);
-    });
-    $(".pickcol_tac").colorpicker().on("changeColor.colorpicker", function(event){
-        var coul = event.color.toHex()
-        icon_cacg_svg.strokeColor=coul;
-        mark_acg_svg.setIcon(icon_cacg_svg);
-    });
-*/
-
-   $("#cartyp").on("change", function() {
+   const cartypInp = document.querySelector("#cartyp");
+   cartypInp.oninput = function() {
       cartyp = $( "#cartyp option:selected" ).val();
       switch (cartyp) {
          case "OSM":
@@ -982,15 +962,30 @@ var changestyle = function(m,f_fa,fc,tc,sc) {
            }));
          break;
       }
-   });
+   };';
 
+
+$scri .= file_get_contents('modules/geoloc/include/ol-dico.js');
+$scri .='
+   const targ = map.getTarget();
+   const lang = targ.lang;
+   for (var i in dic) {
+      if (dic.hasOwnProperty(i)) {
+         $("#map_conf "+dic[i].cla).prop("title", dic[i][lang]);
+      }
+   }
+   $("#map_conf .ol-zoom-in, #map_conf .ol-zoom-out").tooltip({placement: "right", container: "#map_conf",});
+   $("#map_conf .ol-rotate-reset, #map_conf .ol-attribution button[title], #map_conf .ol-full-screen button[title]").tooltip({placement: "left", container: "#map_conf",});
+//});
+';
+
+
+$scri .= '
 });
-}
-
-window.onload = geoloc_conf;
 
 //]]>
 </script>';
+echo $aff.$scri;
 adminfoot('','','','');
 
 }
@@ -1010,7 +1005,7 @@ function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-   $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
+   $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
    $content .= "/*                                                                      */\n";
    $content .= "/* module geoloc version 4.1                                            */\n";
    $content .= "/* geoloc.conf file 2008-".date('Y')." by Jean Pierre Barbary (jpb)              */\n";
