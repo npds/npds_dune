@@ -27,15 +27,13 @@ function viewbanner() {
          break;
       $bresult2 = sql_query("SELECT bid, userlevel FROM ".$NPDS_Prefix."banner WHERE userlevel!='9' LIMIT $bannum,1");
       list($bid, $userlevel) = sql_fetch_row($bresult2);
-      if ($userlevel==0) {
+      if ($userlevel==0)
          $okprint=true;
-      } else {
-         if ($userlevel==1) {
-            if (secur_static("member")) {$okprint=true;}
-         }
-         if ($userlevel==3) {
-            if (secur_static("admin")) {$okprint=true;}
-         }
+      else {
+         if ($userlevel==1)
+            if (secur_static("member")) $okprint=true;
+         if ($userlevel==3)
+            if (secur_static("admin")) $okprint=true;
       }
       $while_cpt=$while_cpt+1;
    }
@@ -52,9 +50,8 @@ function viewbanner() {
    if ($okprint) {
       global $myIP;
       $myhost = getip();
-      if ($myIP!=$myhost) {
+      if ($myIP!=$myhost)
          sql_query("UPDATE ".$NPDS_Prefix."banner SET impmade=impmade+1 WHERE bid='$bid'");
-      }
       if (($numrows>0) and ($bid)) {
          $aborrar = sql_query("SELECT cid, imptotal, impmade, clicks, imageurl, clickurl, date FROM ".$NPDS_Prefix."banner WHERE bid='$bid'");
          list($cid, $imptotal, $impmade, $clicks, $imageurl, $clickurl, $date) = sql_fetch_row($aborrar);
@@ -64,7 +61,7 @@ function viewbanner() {
          }
 
          if ($imageurl!='')
-            echo'<a href="banners.php?op=click&amp;bid='.$bid.'" target="_blank"><img class="img-fluid" src="'.aff_langue($imageurl).'" alt="" /></a>';
+            echo'<a href="banners.php?op=click&amp;bid='.$bid.'" target="_blank"><img class="img-fluid" src="'.aff_langue($imageurl).'" alt="banner" loading="lazy" /></a>';
          else {
             if (stristr($clickurl,'.txt')) {
                if (file_exists($clickurl))
@@ -156,11 +153,11 @@ function header_page() {
 }
 
 function footer_page() {
-include('modules/include/footer_after.inc');
-   echo '</p>
-      </div>
-   </body>
-</html>';
+   include('modules/include/footer_after.inc');
+      echo '</p>
+         </div>
+      </body>
+   </html>';
 }
 
 function bannerstats($login, $pass) {
@@ -339,7 +336,8 @@ function EmailStats($login, $cid, $bid) {
       }
    } else {
       header_page();
-      echo "<p align=\"center\"><br />".translate("Identifiant incorrect !")."<br /><br />".translate("Merci de")." <a href=\"banners.php?op=login\" class=\"noir\">".translate("vous reconnecter.")."</a></p>";
+      echo '
+       <div class="alert alert-danger">'.translate("Identifiant incorrect !").'<br />'.translate("Merci de").' <a href="banners.php?op=login" class="alert-link">'.translate("vous reconnecter.").'</a></div>';
    }
    footer_page();
 }
