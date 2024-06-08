@@ -579,9 +579,6 @@ function userinfo($uname) {
       $message=smilie(stripslashes($post_text));
       $message = aff_video_yt($message);
       $message = str_replace('[addsig]','',$message);
-      if (stristr($message,"<a href")) {
-         $message=preg_replace('#_blank(")#i','_blank\1 class=\1noir\1',$message);
-      }
       echo nl2br($message).'<hr />';
    }
    echo '
