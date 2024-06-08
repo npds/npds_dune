@@ -432,6 +432,10 @@ function userinfo($uname) {
    if(array_key_exists($ch_lat, $posterdata_extend) and array_key_exists($ch_lon, $posterdata_extend))
       if ($posterdata_extend[$ch_lat]!='' and $posterdata_extend[$ch_lon] !='') {
          $content = '';
+         if(!defined('OL')) {
+            define('OL','ol');
+            $content .= '<script type="text/javascript" src="'.$nuke_url.'/lib/ol/ol.js"></script>';
+         }
          $content .='
          <div class="col-md-6">
             <div id="map_user" tabindex="300" style="width:100%; height:400px;" lang="'.language_iso(1,0,0).'">
@@ -439,8 +443,10 @@ function userinfo($uname) {
             </div>
             <script type="module">
             //<![CDATA[
-               if (typeof ol=="undefined")
-                  $("head").append($("<script />").attr({"type":"text/javascript","src":"/lib/ol/ol.js"}));
+                  if (!$("link[href=\'/lib/ol/ol.css\']").length)
+                     $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/lib/ol/ol.css\' type=\'text/css\' media=\'screen\'>");
+                  if (!$("link[href=\'/modules/geoloc/include/css/geoloc_style.css\']").length)
+                     $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/modules/geoloc/include/css/geoloc_style.css\' type=\'text/css\' media=\'screen\'>");
                $(function(){
                var 
                   iconFeature = new ol.Feature({
