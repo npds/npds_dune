@@ -72,7 +72,7 @@ echo '
    if ($subop=='session') {
       echo '
       <br />
-      <h3>'.SessionLog_translate("Liste des Sessions").' : <code>TABLE session</code><span class="float-end"><a href="'.$ThisFile.'&amp;subop=videsession" title="'.SessionLog_translate("Vide la table des sessions et interrompt les connexions.").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class="bi bi-database-fill-x text-danger"></i></a></span></h3>
+      <h3>'.SessionLog_translate("Liste des Sessions").' : <code>TABLE session</code><span class="float-end"><a href="'.$ThisFile.'&amp;subop=videsession" title="'.SessionLog_translate("Vide la table des sessions et interrompt les connexions.").'" data-bs-toggle="tooltip" data-bs-placement="left"><i class=" fas fa-database text-danger"></i></a></span></h3>
       <table id="tad_ses" data-classes="table table-sm table-striped table-borderless" data-toggle="table" data-show-toggle="true" data-search="true" data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-prefix="fa" data-icons="icons">
          <thead>
             <tr>
