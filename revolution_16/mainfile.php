@@ -719,19 +719,32 @@ function FixQuotes($what = '') {
    }
    return $what;
 }
-#autodoc formatTimestamp($time) : Formate un timestamp en fonction de la valeur de $locale (config.php) / si "nogmt" est concaténé devant la valeur de $time, le décalage gmt n'est pas appliqué
+#autodoc formatTimestamp($time) : Formate un timestamp le décalage $gmt défini dans les préférences n'est pas appliqué
 function formatTimestamp($time) {
-   global $datetime, $locale, $gmt;
-   $local_gmt=$gmt;
-   setlocale (LC_TIME, aff_langue($locale));
-   if (substr($time,0,5)=='nogmt') {
-      $time=substr($time,5);
-      $local_gmt=0;
-   }
-   preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-   $datetime = strftime(translate("datestring"), mktime($datetime[4]+(integer)$local_gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
-   return (ucfirst(htmlentities($datetime,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset)));
+   $fmt = datefmt_create(
+      language_iso(1,'_',1),
+      IntlDateFormatter::FULL,
+      IntlDateFormatter::MEDIUM,
+      'Europe/Paris',
+      IntlDateFormatter::GREGORIAN,
+   );
+   $date_au_format = ucfirst(htmlentities(datefmt_format($fmt,strtotime($time)),ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+   return($date_au_format);
 }
+
+// #autodoc formatTimestamp($time) : Formate un timestamp en fonction de la valeur de $locale (config.php) / si "nogmt" est concaténé devant la valeur de $time, le décalage gmt n'est pas appliqué
+// function formatTimestamp($time) {
+//    global $datetime, $locale, $gmt;
+//    $local_gmt=$gmt;
+//    setlocale (LC_TIME, aff_langue($locale));
+//    if (substr($time,0,5)=='nogmt') {
+//       $time=substr($time,5);
+//       $local_gmt=0;
+//    }
+//    preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
+//    $datetime = strftime(translate("datestring"), mktime($datetime[4]+(integer)$local_gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
+//    return (ucfirst(htmlentities($datetime,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset)));
+// }
 #autodoc formatAidHeader($aid) : Affiche URL et Email d'un auteur
 function formatAidHeader($aid) {
    global $NPDS_Prefix;
@@ -1551,19 +1564,19 @@ function aff_localzone_langue($ibid) {
    $flag = array('french'=>'🇫🇷','spanish'=>'🇪🇸','german'=>'🇩🇪','english'=>'🇺🇸','chinese'=>'🇨🇳');
    $M_langue= '
    <div class="mb-3">
-      <select name="'.$ibid.'" class="form-select" onchange="this.form.submit()">
+      <select name="'.$ibid.'" class="form-select" onchange="this.form.submit()" aria-label="'.translate("Choisir une langue").'">
          <option value="">'.translate("Choisir une langue").'</option>';
    foreach($tab_langue as $bidon => $langue) {
       $M_langue.='
-            <option value="'.$langue.'">'.$flag[$langue].' '.translate("$langue").'</option>';
+         <option value="'.$langue.'">'.$flag[$langue].' '.translate("$langue").'</option>';
    }
    $M_langue.='
-            <option value="">- '.translate("Aucune langue").'</option>
-         </select>
-      </div>
-      <noscript>
-         <input class="btn btn-primary" type="submit" name="local_sub" value="'.translate("Valider").'" />
-      </noscript>';
+         <option value="">- '.translate("Aucune langue").'</option>
+      </select>
+   </div>
+   <noscript>
+      <input class="btn btn-primary" type="submit" name="local_sub" value="'.translate("Valider").'" />
+   </noscript>';
    return ($M_langue);
 }
 #autodoc aff_local_langue($ibid_index, $ibid, $mess) : Charge une FORM de selection de langue $ibid_index = URL de la Form, $ibid = nom du champ
@@ -2385,6 +2398,7 @@ $sel =  "WHERE ihome=0";// en dur pour test
    while (($story_limit<$oldnum) and ($story_limit<sizeof($xtab))) {
       list($sid, $title, $time, $comments, $counter) = $xtab[$story_limit];
       $story_limit++;
+      //ici on sort les dates en ancien format (datestring2 ==> %A, %d %B jour en toute lettre, date 2 chiffre,mois toutes lettre) ce qui dans le nouveau format devrait donner : l d F
       setlocale (LC_TIME, aff_langue($locale));
       preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime2);
       $datetime2 = strftime("".translate("datestring2")."", @mktime($datetime2[4],$datetime2[5],$datetime2[6],$datetime2[2],$datetime2[3],$datetime2[1]));
