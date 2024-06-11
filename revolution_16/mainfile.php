@@ -16,18 +16,13 @@ include("config.php");
 include("lib/multi-langue.php");
 include("language/lang-$language.php");
 include("cache.class.php");
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 require 'lib/PHPMailer/src/Exception.php';
 require 'lib/PHPMailer/src/PHPMailer.php';
 require 'lib/PHPMailer/src/SMTP.php';
-
-if ($mysql_i==1)
-   include("lib/mysqli.php");
-else 
-   include("lib/mysql.php");
+include("lib/mysqli.php");
 include("modules/meta-lang/adv-meta_lang.php");
 
 #autodoc Mysql_Connexion() : Connexion plus détaillée ($mysql_p=true => persistente connexion) - Attention : le type de SGBD n'a pas de lien avec le nom de cette fontion
@@ -45,10 +40,7 @@ function Mysql_Connexion() {
 }
 /****************/
 $dblink=Mysql_Connexion();
-if ($mysql_i==1)
-   mysqli_set_charset($dblink,"utf8mb4");
-else 
-   mysql_set_charset($dblink,"utf8mb4");
+mysqli_set_charset($dblink,"utf8mb4");
 $mainfile=1;
 require_once("auth.inc.php");
 if (isset($user)) $cookie=cookiedecode($user);
@@ -56,7 +48,7 @@ session_manage();
 $tab_langue=make_tab_langue();
 global $meta_glossaire;
 $meta_glossaire=charg_metalang();
-if (function_exists("date_default_timezone_set")) date_default_timezone_set("Europe/Paris");
+date_default_timezone_set("Europe/Paris"); // à voir si on garde ??
 /****************/
 
 #autodoc file_contents_exist() : Controle de réponse// c'est pas encore assez fin not work with https probably
@@ -82,6 +74,24 @@ function session_manage() {
    //<== geoloc
    $past = time()-300;
    sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE time < '$past'");
+
+//==> proto en test badbotcontrol ...
+   // bad robot limited at x connections ...
+
+   $gulty_robots = array('facebookexternalhit','Amazonbot','ClaudeBot','bingbot'); // to be defined in config.php ...
+   foreach($gulty_robots as $robot) {
+      if(!empty($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $robot) !== false) {
+         $result = sql_query("SELECT agent FROM ".$NPDS_Prefix."session WHERE agent REGEXP '".$robot."'");
+         if(mysql_num_rows($result)>3) {
+            header($_SERVER["SERVER_PROTOCOL"] . ' 429 Too Many Requests');
+            echo 'Too Many Requests';
+            die;
+         }
+      }
+   }
+
+//==> proto
+
    $result = sql_query("SELECT time FROM ".$NPDS_Prefix."session WHERE username='$username'");
    if ($row = sql_fetch_assoc($result)) {
       if ($row['time'] < (time()-30)) {
@@ -1636,29 +1646,10 @@ function aff_code($ibid) {
             $fragment=ob_get_contents();
          ob_end_clean();
          $ibid=str_replace(substr($ibid,$pos_deb,($pos_fin-$pos_deb+7)),$fragment,$ibid);
-      } else {
+      } else
          $pasfin=false;
-      }
    }
    return ($ibid);
-}
-#autodoc is_admin($xadmin) : Phpnuke compatibility functions
-function is_admin($xadmin) {
-   global $admin;
-   if (isset($admin) and ($admin!='')) {
-      return (true);
-   } else {
-      return (false);
-   }
-}
-#autodoc is_user($xuser) : Phpnuke compatibility functions
-function is_user($xuser) {
-   global $user;
-   if (isset($user) and ($user!='')) {
-      return (true);
-   } else {
-      return (false);
-   }
 }
 #autodoc split_string_without_space($msg, $split) : Découpe la chaine en morceau de $slpit longueur si celle-ci ne contient pas d'espace / Snipe 2004
 function split_string_without_space($msg, $split) {
@@ -2927,10 +2918,9 @@ function fab_groupes_bloc($user,$im) {
 #autodoc theme_image($theme_img) : Retourne le chemin complet si l'image est trouvée dans le répertoire image du thème sinon false
 function theme_image($theme_img) {
     global $theme;
-    if (@file_exists("themes/$theme/images/$theme_img")) {
+    if (@file_exists("themes/$theme/images/$theme_img"))
        return ("themes/$theme/images/$theme_img");
-    } else
-       return false;
+    return false;
 }
 #autodoc import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref, $css) : recherche et affiche la CSS (site, langue courante ou par défaut) / Charge la CSS complémentaire / le HTML ne contient que de simple quote pour être compatible avec javascript
 function import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref='', $css='') {
@@ -2979,8 +2969,7 @@ function import_css_javascript($tmp_theme, $language, $fw_css, $css_pages_ref=''
                $tmp.=$admtmp;
          }
       }
-      else
-      {
+      else {
       $oups=$PAGES[$css_pages_ref]['css'];
          settype($oups, 'string');
          $op=substr($oups,-1);
