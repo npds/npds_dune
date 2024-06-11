@@ -35,14 +35,14 @@ function adminhead($f_meta_nom, $f_titre, $adminimg) {
    global $admf_ext, $NPDS_Prefix, $f_meta_nom, $ModPath, $adm_img_mod;
    list($furlscript, $ficone)=sql_fetch_row(sql_query("SELECT furlscript, ficone FROM ".$NPDS_Prefix."fonctions WHERE fnom='$f_meta_nom'"));
    if (file_exists($adminimg.$ficone.'.'.$admf_ext))
-      $img_adm ='<img src="'.$adminimg.$ficone.'.'.$admf_ext.'" class="vam " alt="'.$f_titre.'" />';
+      $img_adm ='<img src="'.$adminimg.$ficone.'.'.$admf_ext.'" class="me-2" alt="'.$f_titre.'" loading="lazy" />';
    elseif (stristr($_SERVER['QUERY_STRING'],"Extend-Admin-SubModule")||$adm_img_mod==1) {
-      if (file_exists('modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext)) {
-         $img_adm ='<img src="modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext.'" class="vam" alt="'.$f_titre.'" />';
-      } else $img_adm ='';
+      $img_adm = (file_exists('modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext)) ?
+         '<img src="modules/'.$ModPath.'/'.$ModPath.'.'.$admf_ext.'" class="me-2" alt="'.$f_titre.'" loading="lazy" />' :
+         '';
    }
    else $img_adm ='';
-   $entete_adm ='<div id="adm_workarea" class="adm_workarea">'."\n".'   <h2><a '.$furlscript.' >'.$img_adm.'&nbsp;'.$f_titre.'</a></h2>';
+   $entete_adm ='<div id="adm_workarea" class="adm_workarea">'."\n".'   <h2><a '.$furlscript.' >'.$img_adm.$f_titre.'</a></h2>';
    echo $entete_adm;
 }
 
@@ -476,10 +476,9 @@ function GraphicAdmin($hlpfile) {
          <div id="adm_men_man" class="col-6 col-lg-6 men_man text-end">
             <ul class="liste" id="lst_men_top">
                <li data-bs-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a class="btn btn-outline-danger btn-sm" href="admin.php?op=logout" ><i class="fas fa-sign-out-alt fa-2x"></i></a></li>';
-   if ($hlpfile) {
+   if ($hlpfile)
       $adm_ent .='
               <li class="ms-2" data-bs-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a class="btn btn-outline-primary btn-sm" href="javascript:openwindow();"><i class="fa fa-question-circle fa-2x"></i></a></li>';
-   }
    $adm_ent .='
             </ul>
          </div>
@@ -563,7 +562,7 @@ function adminMain($deja_affiches) {
    
    echo '
    <div id="adm_men_art" class="adm_workarea">
-   <h2><img src="images/admin/submissions.'.$admf_ext.'" class="adm_img" title="'.adm_translate("Articles").'" alt="icon_'.adm_translate("Articles").'" />&nbsp;'.adm_translate("Derniers").' '.$admart.' '.adm_translate("Articles").'</h2>';
+      <h2><img src="images/admin/submissions.'.$admf_ext.'" class="adm_img" title="'.adm_translate("Articles").'" alt="icon_'.adm_translate("Articles").'" />&nbsp;'.adm_translate("Derniers").' '.$admart.' '.adm_translate("Articles").'</h2>';
 
    $resul = sql_query("SELECT sid FROM ".$NPDS_Prefix."stories");
    $nbre_articles = sql_num_rows($resul);
@@ -573,13 +572,12 @@ function adminMain($deja_affiches) {
 
    $nbPages = ceil($nbre_articles/$admart);
    $current = 1;
-   if ($deja_affiches >= 1) {
+   if ($deja_affiches >= 1)
       $current=$deja_affiches/$admart;
-   } else if ($deja_affiches < 1) {
+   else if ($deja_affiches < 1)
       $current=0;
-   } else {
+   else
       $current = $nbPages;
-   }
    $start=($current*$admart);
 
    if ($nbre_articles) {
@@ -629,9 +627,8 @@ function adminMain($deja_affiches) {
                else
                if($catid>0)
                   echo '<br /><small><span class="badge bg-secondary" title="'.adm_translate("Catégorie").'" data-bs-toggle="tooltip"> '.aff_langue($cat_title).'</span> <span class="text-success"> publié en index</span></small>';
-            } else {
+            } else
                echo '<i>'.$title.'</i>';
-            }
          }
          if ($topictext=='') {
             echo '</td>
@@ -715,151 +712,151 @@ if ($admintest) {
          Header("Location: admin.php?op=$op_back");
       break;
       // FORUMS
-      case "ForumConfigAdmin":
-         include ("admin/phpbbconfig.php");
+      case 'ForumConfigAdmin':
+         include ('admin/phpbbconfig.php');
          ForumConfigAdmin();
       break;
-      case "ForumConfigChange":
-         include ("admin/phpbbconfig.php");
+      case 'ForumConfigChange':
+         include ('admin/phpbbconfig.php');
          ForumConfigChange($allow_html,$allow_bbcode,$allow_sig,$posts_per_page,$hot_threshold,$topics_per_page,$allow_upload_forum,$allow_forum_hide,$rank1,$rank2,$rank3,$rank4,$rank5,$anti_flood,$solved);
       break;
-      case "MaintForumAdmin":
-         include ("admin/phpbbmaint.php");
+      case 'MaintForumAdmin':
+         include ('admin/phpbbmaint.php');
          ForumMaintAdmin();
       break;
-      case "MaintForumMarkTopics":
-         include ("admin/phpbbmaint.php");
+      case 'MaintForumMarkTopics':
+         include ('admin/phpbbmaint.php');
          ForumMaintMarkTopics();
       break;
-      case "MaintForumTopics":
-         include ("admin/phpbbmaint.php");
+      case 'MaintForumTopics':
+         include ('admin/phpbbmaint.php');
          ForumMaintTopics($before, $forum_name);
       break;
-      case "MaintForumTopicDetail":
-         include ("admin/phpbbmaint.php");
+      case 'MaintForumTopicDetail':
+         include ('admin/phpbbmaint.php');
          ForumMaintTopicDetail($topic, $topic_title);
       break;
-      case "SynchroForum":
-         include ("admin/phpbbmaint.php");
+      case 'SynchroForum':
+         include ('admin/phpbbmaint.php');
          SynchroForum();
       break;
-      case "ForumMaintTopicSup":
-         include ("admin/phpbbmaint.php");
+      case 'ForumMaintTopicSup':
+         include ('admin/phpbbmaint.php');
          ForumMaintTopicSup($topic);
       break;
-      case "ForumMaintTopicMassiveSup":
-         include ("admin/phpbbmaint.php");
+      case 'ForumMaintTopicMassiveSup':
+         include ('admin/phpbbmaint.php');
          ForumMaintTopicMassiveSup($topics);
       break;
-      case "MergeForum":
-         include ("admin/phpbbmaint.php");
+      case 'MergeForum':
+         include ('admin/phpbbmaint.php');
          MergeForum();
       break;
-      case "MergeForumAction":
-         include ("admin/phpbbmaint.php");
+      case 'MergeForumAction':
+         include ('admin/phpbbmaint.php');
          MergeForumAction($oriforum,$destforum);
       break;
-      case "ForumGoAdd":
+      case 'ForumGoAdd':
          settype($forum_pass,'string');
-         include ("admin/phpbbforum.php");
+         include ('admin/phpbbforum.php');
          ForumGoAdd($forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg);
       break;
-      case "ForumGoSave":
-         include ("admin/phpbbforum.php");
+      case 'ForumGoSave':
+         include ('admin/phpbbforum.php');
          ForumGoSave($forum_id, $forum_name, $forum_desc, $forum_access, $forum_mod, $cat_id, $forum_type, $forum_pass, $arbre, $attachement, $forum_index, $ctg);
       break;
-      case "ForumCatDel":
-         include ("admin/phpbbforum.php");
+      case 'ForumCatDel':
+         include ('admin/phpbbforum.php');
          ForumCatDel($cat_id, $ok);
       break;
-      case "ForumGoDel":
-         include ("admin/phpbbforum.php");
+      case 'ForumGoDel':
+         include ('admin/phpbbforum.php');
          ForumGoDel($forum_id, $ok);
       break;
-      case "ForumCatSave":
-         include ("admin/phpbbforum.php");
+      case 'ForumCatSave':
+         include ('admin/phpbbforum.php');
          ForumCatSave($old_cat_id, $cat_id, $cat_title);
       break;
-      case "ForumCatEdit":
-         include ("admin/phpbbforum.php");
+      case 'ForumCatEdit':
+         include ('admin/phpbbforum.php');
          ForumCatEdit($cat_id);
       break;
-      case "ForumGoEdit":
-         include ("admin/phpbbforum.php");
+      case 'ForumGoEdit':
+         include ('admin/phpbbforum.php');
          ForumGoEdit($forum_id,$ctg);
       break;
-      case "ForumGo":
-         include ("admin/phpbbforum.php");
+      case 'ForumGo':
+         include ('admin/phpbbforum.php');
          ForumGo($cat_id);
       break;
-      case "ForumCatAdd":
-         include ("admin/phpbbforum.php");
+      case 'ForumCatAdd':
+         include ('admin/phpbbforum.php');
          ForumCatAdd($catagories);
       break;
-      case "ForumAdmin":
-         include ("admin/phpbbforum.php");
+      case 'ForumAdmin':
+         include ('admin/phpbbforum.php');
          ForumAdmin();
       break;
       // DOWNLOADS
-      case "DownloadDel":
-         include ("admin/download.php");
+      case 'DownloadDel':
+         include ('admin/download.php');
          DownloadDel($did, $ok);
       break;
-      case "DownloadAdd":
-         include ("admin/download.php");
+      case 'DownloadAdd':
+         include ('admin/download.php');
          DownloadAdd($dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $dver, $dcategory, $sdcategory, $xtext, $privs, $Mprivs);
       break;
-      case "DownloadSave":
-         include ("admin/download.php");
+      case 'DownloadSave':
+         include ('admin/download.php');
          DownloadSave($did, $dcounter, $durl, $dfilename, $dfilesize, $dweb, $duser, $ddate, $dver, $dcategory, $sdcategory, $xtext, $privs, $Mprivs);
       break;
-      case "DownloadAdmin":
-         include ("admin/download.php");
+      case 'DownloadAdmin':
+         include ('admin/download.php');
          DownloadAdmin();
       break;
-      case "DownloadEdit":
-         include ("admin/download.php");
+      case 'DownloadEdit':
+         include ('admin/download.php');
          DownloadEdit($did);
       break;
       // FAQ
-      case "FaqCatSave":
-         include ("admin/adminfaq.php");
+      case 'FaqCatSave':
+         include ('admin/adminfaq.php');
          FaqCatSave($old_id_cat, $id_cat, $categories);
       break;
-      case "FaqCatGoSave":
-         include ("admin/adminfaq.php");
+      case 'FaqCatGoSave':
+         include ('admin/adminfaq.php');
          FaqCatGoSave($id, $question, $answer);
       break;
-      case "FaqCatAdd":
-         include ("admin/adminfaq.php");
+      case 'FaqCatAdd':
+         include ('admin/adminfaq.php');
          FaqCatAdd($categories);
       break;
-      case "FaqCatGoAdd":
-         include ("admin/adminfaq.php");
+      case 'FaqCatGoAdd':
+         include ('admin/adminfaq.php');
          FaqCatGoAdd($id_cat, $question, $answer);
       break;
-      case "FaqCatEdit":
-         include ("admin/adminfaq.php");
+      case 'FaqCatEdit':
+         include ('admin/adminfaq.php');
          FaqCatEdit($id_cat);
       break;
-      case "FaqCatGoEdit":
-         include ("admin/adminfaq.php");
+      case 'FaqCatGoEdit':
+         include ('admin/adminfaq.php');
          FaqCatGoEdit($id);
       break;
-      case "FaqCatDel":
-         include ("admin/adminfaq.php");
+      case 'FaqCatDel':
+         include ('admin/adminfaq.php');
          FaqCatDel($id_cat, $ok);
       break;
-      case "FaqCatGoDel":
-         include ("admin/adminfaq.php");
+      case 'FaqCatGoDel':
+         include ('admin/adminfaq.php');
          FaqCatGoDel($id, $ok);
       break;
-      case "FaqAdmin":
-         include ("admin/adminfaq.php");
+      case 'FaqAdmin':
+         include ('admin/adminfaq.php');
          FaqAdmin();
       break;
-      case "FaqCatGo":
-         include ("admin/adminfaq.php");
+      case 'FaqCatGo':
+         include ('admin/adminfaq.php');
          FaqCatGo($id_cat);
       break;
       // AUTOMATED
@@ -867,11 +864,11 @@ if ($admintest) {
       case 'autoEdit':
       case 'autoDelete':
       case 'autoSaveEdit':
-         include("admin/automated.php");
+         include('admin/automated.php');
       break;
       // NEWS
       case 'submissions':
-         include("admin/submissions.php");
+         include('admin/submissions.php');
       break;
       // REFERANTS
       case 'HeadlinesDel':
@@ -879,12 +876,12 @@ if ($admintest) {
       case 'HeadlinesSave':
       case 'HeadlinesAdmin':
       case 'HeadlinesEdit':
-         include("admin/headlines.php");
+         include('admin/headlines.php');
       break;
       // PREFERENCES
       case 'Configure':
       case 'ConfigSave':
-         include("admin/settings.php");
+         include('admin/settings.php');
       break;
       // EPHEMERIDS
       case 'Ephemeridsedit':
@@ -893,7 +890,7 @@ if ($admintest) {
       case 'Ephemeridsmaintenance':
       case 'Ephemeridsadd':
       case 'Ephemerids':
-         include("admin/ephemerids.php");
+         include('admin/ephemerids.php');
       break;
       // LINKS
       case 'links':
@@ -920,7 +917,7 @@ if ($admintest) {
       case 'LinksDelVote':
       case 'LinksDelComment':
       case 'suite_links':
-         include("admin/links.php");
+         include('admin/links.php');
       break;
       // BANNERS
       case 'BannersAdmin':
@@ -933,13 +930,13 @@ if ($admintest) {
       case 'BannerClientDelete':
       case 'BannerClientEdit':
       case 'BannerClientChange':
-         include("admin/banners.php");
+         include('admin/banners.php');
       break;
       // HTTP Referer
       case 'hreferer':
       case 'delreferer':
       case 'archreferer':
-         include("admin/referers.php");
+         include('admin/referers.php');
       break;
       // TOPIC Manager
       case 'topicsmanager':
@@ -950,7 +947,7 @@ if ($admintest) {
       case 'relatedsave':
       case 'relatededit':
       case 'relateddelete':
-         include("admin/topics.php");
+         include('admin/topics.php');
       break;
       // SECTIONS - RUBRIQUES
       case 'new_rub_section':
@@ -981,31 +978,31 @@ if ($admintest) {
       case 'updatecompat':
       case 'droitauteurs':
       case 'updatedroitauteurs':
-         include("admin/sections.php");
+         include('admin/sections.php');
       break;
       // BLOCKS
       case 'blocks':
-         include("admin/blocks.php");
+         include('admin/blocks.php');
       break;
       case 'makerblock':
       case 'deleterblock':
       case 'changerblock':
       case 'gaucherblock':
-         include("admin/rightblocks.php");
+         include('admin/rightblocks.php');
       break;
       case 'makelblock':
       case 'deletelblock':
       case 'changelblock':
       case 'droitelblock':
-         include("admin/leftblocks.php");
+         include('admin/leftblocks.php');
       break;
       case 'ablock':
       case 'changeablock':
-         include("admin/adminblock.php");
+         include('admin/adminblock.php');
       break;
       case 'mblock':
       case 'changemblock':
-         include("admin/mainblock.php");
+         include('admin/mainblock.php');
       break;
       // STORIES
       case 'DisplayStory':
@@ -1025,7 +1022,7 @@ if ($admintest) {
       case 'SaveEditCategory':
       case 'AddCategory':
       case 'SaveCategory':
-         include("admin/stories.php");
+         include('admin/stories.php');
       break;
       // AUTHORS
       case 'mod_authors':
@@ -1034,7 +1031,7 @@ if ($admintest) {
       case 'AddAuthor':
       case 'deladmin':
       case 'deladminconf':
-         include("admin/authors.php");
+         include('admin/authors.php');
       break;
       // USERS
       case 'mod_users':
@@ -1047,7 +1044,7 @@ if ($admintest) {
       case 'unsubUser':
       case 'nonallowed_users':
       case 'checkdnsmail_users':
-         include("admin/users.php");
+         include('admin/users.php');
       break;
       // SONDAGES
       case 'create':
@@ -1057,133 +1054,133 @@ if ($admintest) {
       case 'editpoll':
       case 'editpollPosted':
       case 'SendEditPoll':
-         include("admin/polls.php");
+         include('admin/polls.php');
       break;
       // DIFFUSION MI ADMIN
-      case "email_user":
-      case "send_email_to_user":
-         include("admin/email_user.php");
+      case 'email_user':
+      case 'send_email_to_user':
+         include('admin/email_user.php');
       break;
       // LNL
-      case "lnl":
-         include("admin/lnl.php");
+      case 'lnl':
+         include('admin/lnl.php');
       break;
-      case "lnl_Sup_Header":
-         $op="Sup_Header";
-         include("admin/lnl.php");
+      case 'lnl_Sup_Header':
+         $op='Sup_Header';
+         include('admin/lnl.php');
       break;
-      case "lnl_Sup_Body":
-         $op="Sup_Body";
-         include("admin/lnl.php");
+      case 'lnl_Sup_Body':
+         $op='Sup_Body';
+         include('admin/lnl.php');
       break;
-      case "lnl_Sup_Footer":
-         $op="Sup_Footer";
-         include("admin/lnl.php");
+      case 'lnl_Sup_Footer':
+         $op='Sup_Footer';
+         include('admin/lnl.php');
       break;
-      case "lnl_Sup_HeaderOK":
-         $op="Sup_HeaderOK";
-         include("admin/lnl.php");
+      case 'lnl_Sup_HeaderOK':
+         $op='Sup_HeaderOK';
+         include('admin/lnl.php');
       break;
-      case "lnl_Sup_BodyOK":
-         $op="Sup_BodyOK";
-         include("admin/lnl.php");
+      case 'lnl_Sup_BodyOK':
+         $op='Sup_BodyOK';
+         include('admin/lnl.php');
       break;
-      case "lnl_Sup_FooterOK":
-         $op="Sup_FooterOK";
-         include("admin/lnl.php");
+      case 'lnl_Sup_FooterOK':
+         $op='Sup_FooterOK';
+         include('admin/lnl.php');
       break;
-      case "lnl_Shw_Header":
-         $op="Shw_Header";
-         include("admin/lnl.php");
+      case 'lnl_Shw_Header':
+         $op='Shw_Header';
+         include('admin/lnl.php');
       break;
-      case "lnl_Shw_Body":
-         $op="Shw_Body";
-         include("admin/lnl.php");
+      case 'lnl_Shw_Body':
+         $op='Shw_Body';
+         include('admin/lnl.php');
       break;
-      case "lnl_Shw_Footer":
-         $op="Shw_Footer";
-         include("admin/lnl.php");
+      case 'lnl_Shw_Footer':
+         $op='Shw_Footer';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Header":
-         $op="Add_Header";
-         include("admin/lnl.php");
+      case 'lnl_Add_Header':
+         $op='Add_Header';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Header_Submit":
-         $op="Add_Header_Submit";
-         include("admin/lnl.php");
+      case 'lnl_Add_Header_Submit':
+         $op='Add_Header_Submit';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Header_Mod":
-         $op="Add_Header_Mod";
-         include("admin/lnl.php");
+      case 'lnl_Add_Header_Mod':
+         $op='Add_Header_Mod';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Body":
-         $op="Add_Body";
-         include("admin/lnl.php");
+      case 'lnl_Add_Body':
+         $op='Add_Body';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Body_Submit":
-         $op="Add_Body_Submit";
-         include("admin/lnl.php");
+      case 'lnl_Add_Body_Submit':
+         $op='Add_Body_Submit';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Body_Mod":
-         $op="Add_Body_Mod";
-         include("admin/lnl.php");
+      case 'lnl_Add_Body_Mod':
+         $op='Add_Body_Mod';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Footer":
-         $op="Add_Footer";
-         include("admin/lnl.php");
+      case 'lnl_Add_Footer':
+         $op='Add_Footer';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Footer_Submit":
-         $op="Add_Footer_Submit";
-         include("admin/lnl.php");
+      case 'lnl_Add_Footer_Submit':
+         $op='Add_Footer_Submit';
+         include('admin/lnl.php');
       break;
-      case "lnl_Add_Footer_Mod":
-         $op="Add_Footer_Mod";
-         include("admin/lnl.php");
+      case 'lnl_Add_Footer_Mod':
+         $op='Add_Footer_Mod';
+         include('admin/lnl.php');
       break;
-      case "lnl_Test":
-         $op="Test";
-         include("admin/lnl.php");
+      case 'lnl_Test':
+         $op='Test';
+         include('admin/lnl.php');
       break;
-      case "lnl_Send":
-         $op="Send";
-         include("admin/lnl.php");
+      case 'lnl_Send':
+         $op='Send';
+         include('admin/lnl.php');
       break;
-      case "lnl_List":
-         $op="List";
-         include("admin/lnl.php");
+      case 'lnl_List':
+         $op='List';
+         include('admin/lnl.php');
       break;
-      case "lnl_User_List":
-         $op="User_List";
-         include("admin/lnl.php");
+      case 'lnl_User_List':
+         $op='User_List';
+         include('admin/lnl.php');
       break;
-      case "lnl_Sup_User":
-         $op="Sup_User";
-         include("admin/lnl.php");
+      case 'lnl_Sup_User':
+         $op='Sup_User';
+         include('admin/lnl.php');
       break;
       // SUPERCACHE
       case 'supercache':
       case 'supercache_save':
       case 'supercache_empty':
-         include("admin/overload.php");
+         include('admin/overload.php');
       break;
       // OPTIMYSQL
       case 'OptimySQL':
-         include("admin/optimysql.php");
+         include('admin/optimysql.php');
       break;
       // SAVEMYSQL
       case 'SavemySQL':
-         include("admin/savemysql.php");
+         include('admin/savemysql.php');
       break;
       // EDITO
       case 'Edito':
       case 'Edito_save':
       case 'Edito_load':
-         include("admin/adminedito.php");
+         include('admin/adminedito.php');
       break;
       // METATAGS
       case 'MetaTagAdmin':
       case 'MetaTagSave':
-         include("admin/metatags.php");
+         include('admin/metatags.php');
       break;
       // META-LANG
       case 'Meta-LangAdmin':
@@ -1192,7 +1189,7 @@ if ($admintest) {
       case 'Edit_Meta_Lang':
       case 'Kill_Meta_Lang':
       case 'Valid_Meta_Lang':
-         include("admin/meta_lang.php");
+         include('admin/meta_lang.php');
       break;
       // ConfigFiles
       case 'ConfigFiles':
@@ -1201,12 +1198,12 @@ if ($admintest) {
       case 'ConfigFiles_create':
       case 'delete_configfile':
       case 'ConfigFiles_delete':
-         include("admin/configfiles.php");
+         include('admin/configfiles.php');
       break;
       // NPDS-Admin-Plugins
       case 'Extend-Admin-Module':
       case 'Extend-Admin-SubModule':
-         include("admin/plugins.php");
+         include('admin/plugins.php');
       break;
       // NPDS-Admin-Groupe
       case 'groupes';
@@ -1237,14 +1234,14 @@ if ($admintest) {
       break;
       // NPDS-Instal-Modules
       case 'modules':
-         include("admin/modules.php");
+         include('admin/modules.php');
       break;
       case 'Module-Install':
-         include("admin/module-install.php");
+         include('admin/module-install.php');
       break;
       case 'alerte_api':
       case 'alerte_update':
-         include("npds_api.php");
+         include('npds_api.php');
       break;
       // NPDS-Admin-Main
       case 'suite_articles':
