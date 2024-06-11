@@ -21,7 +21,7 @@
 # dbpass:      MySQL Password
 # dbname:      MySQL Database Name
 # mysql_p:     Persistent connection to MySQL Server (1) or Not (0)
-# mysql_i:     Use MySQLi (1) instead of MySQL interface (0)
+# mysql_i:     Use MySQLi PHP extension (1) do not modify
 # =======================
 # not_used1:  unused
 # not_used2:  unused
