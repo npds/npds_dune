@@ -844,21 +844,20 @@ function groupe_member_ask() {
          list($gn)=sql_fetch_row($r);
 
          echo '
-   <form id="acceptmember_'.$us_gr[1].'_'.$us_gr[2].'" class="admform" action="admin.php" method="post">
-      <div id="" class="">
-      '.adm_translate("Accepter").' '.$myrow['uname'].' '.adm_translate("dans le groupe").' '.$us_gr[2].' : '.$gn.' ?
-      </div>
-      <input type="hidden" name="op" value="groupe_member_ask" />
-      <input type="hidden" name="user_asked" value="'.$us_gr[1].'" />
-      <input type="hidden" name="groupe_asked" value="'.$us_gr[2].'" />
-      <div class="mb-3">
-         <input class="btn btn-primary btn-sm" type="submit" name="sub_op" value="'.adm_translate("Oui").'" />
-         <input class="btn btn-primary btn-sm" type="submit" name="sub_op" value="'.adm_translate("Non").'" />
+   <form id="acceptmember_'.$us_gr[1].'_'.$us_gr[2].'" class="admform mb-3" action="admin.php" method="post">
+      <div id="" class="alert alert-danger">
+         '.adm_translate("Accepter").' '.$myrow['uname'].' '.adm_translate("dans le groupe").' '.$us_gr[2].' : '.$gn.' ? 
+         <input type="hidden" name="op" value="groupe_member_ask" />
+         <input type="hidden" name="user_asked" value="'.$us_gr[1].'" />
+         <input type="hidden" name="groupe_asked" value="'.$us_gr[2].'" />
+         <input class="btn btn-success btn-sm mx-2" type="submit" name="sub_op" value="'.adm_translate("Oui").'" />
+         <input class="btn btn-danger btn-sm" type="submit" name="sub_op" value="'.adm_translate("Non").'" />
       </div>
    </form>';
          $j++;
       }
    }
+   adminfoot('','','','');
 }
 
 switch ($op) {
