@@ -54,13 +54,13 @@
    <nav id="uppernavbar" class=" <?php echo $headerclasses; ?>" data-bs-theme="dark">
       <div class="container-fluid">
          <a class="navbar-brand" href="index.php" ><img class="me-2" width="32px" height="32px" src="images/admin/message_npds.png" alt="logo_npds"><span data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt;&lt;/i&gt;">NPDS^ 16</span></a>
-         <button href="#" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav">
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav" aria-controls="barnav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
          </button>
          <div class="collapse navbar-collapse" id="barnav">
             <ul class="navbar-nav me-auto">
                <li class="nav-item dropdown" data-bs-theme="light"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">News</a>
-                  <ul class="dropdown-menu" role="menu">
+                  <ul class="dropdown-menu" role="menu" aria-label="list news">
                      <li><a class="dropdown-item" href="index.php?op=index.php">[french]Les articles[/french][english]Stories[/english][chinese]&#x6587;&#x7AE0;[/chinese][spanish]Art&#xED;culo[/spanish][german]Artikeln[/german]</a></li>
                      <li><a class="dropdown-item" href="search.php">[french]Les archives[/french][english]Archives[/english][chinese]&#x6863;&#x6848;&#x9986;[/chinese][spanish]Los archivos[/spanish][german]Die Archive[/german]</a></li>
                      <li><a class="dropdown-item" href="submit.php">[french]Soumettre un article[/french][english]Submit a New[/english][chinese]&#x63D0;&#x8BAE;&#x51FA;&#x7248;&#x4E00;&#x4EFD;&#x51FA;&#x7248;&#x7269;[/chinese][spanish]Enviar un artículo[/spanish][german]Publikation vorschlagen[/german]</a></li>
@@ -72,7 +72,7 @@
                <li class="nav-item dropdown" data-bs-theme="light">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user fa-lg me-1"></i><?php echo $username; ?></a>
                   <ul class="dropdown-menu">
-                     <li><?php echo $ava; ?></li>
+                     <li class="text-center"><?php echo $ava; ?></li>
                      <?php echo $menuser; ?>
                      <li class="dropdown-divider"></li>
                      <li><?php echo $btn_con; ?></li>
@@ -80,6 +80,8 @@
                </li>
                <?php echo $bal; ?>
             </ul>
+            <?php if (autorisation(-127))
+            echo '<div class="d-flex float-end"><a href="admin.php" title="[french]Administration[/french][english]Administration[/english][chinese]&#31649;&#29702;[/chinese][spanish]Administraci&oacute;n[/spanish][german]Verwaltung[/german]" data-bs-toggle="tooltip" data-bs-placement="left"><i id="cogs" class="fa fa-cogs fa-lg"></i></a></div>'; ?>
          </div>
       </div>
    </nav>

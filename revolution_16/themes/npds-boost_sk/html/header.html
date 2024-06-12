@@ -1,9 +1,8 @@
 <?php
    global $cookie, $anonymous, $NPDS_Prefix, $Default_Skin;
    $ava='';$cha='';$bal='';$menuser='';
-
    if ($user) {
-      include_once("functions.php");
+      include_once('functions.php');
       $userdata = get_userdata_from_id($cookie[0]);
       $username = $cookie[1];
       $ibix=explode('+', urldecode($cookie[9]));
@@ -55,13 +54,13 @@
    <nav id="uppernavbar" class=" <?php echo $headerclasses; ?>" data-bs-theme="dark">
       <div class="container-fluid">
          <a class="navbar-brand" href="index.php" ><span data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="&lt;i class='fa fa-home fa-lg' &gt;&lt;/i&gt;">NPDS^ 16</span></a>
-         <button href="#" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav">
+         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#barnav" aria-controls="barnav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
          </button>
          <div class="collapse navbar-collapse" id="barnav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto">
                <li class="nav-item dropdown" data-bs-theme="light"><a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">News</a>
-                  <ul class="dropdown-menu" role="menu">
+                  <ul class="dropdown-menu" role="menu" aria-label="list news">
                      <li><a class="dropdown-item" href="index.php?op=index.php">[french]Les articles[/french][english]Stories[/english][chinese]&#x6587;&#x7AE0;[/chinese][spanish]Art&#xED;culo[/spanish][german]Artikeln[/german]</a></li>
                      <li><a class="dropdown-item" href="search.php">[french]Les archives[/french][english]Archives[/english][chinese]&#x6863;&#x6848;&#x9986;[/chinese][spanish]Los archivos[/spanish][german]Die Archive[/german]</a></li>
                      <li><a class="dropdown-item" href="submit.php">[french]Soumettre un article[/french][english]Submit a New[/english][chinese]&#x63D0;&#x8BAE;&#x51FA;&#x7248;&#x4E00;&#x4EFD;&#x51FA;&#x7248;&#x7269;[/chinese][spanish]Enviar un artículo[/spanish][german]Publikation vorschlagen[/german]</a></li>
@@ -71,9 +70,9 @@
                <li class="nav-item"><a class="nav-link" href="download.php">[french]T&eacute;l&eacute;chargements[/french][english]Downloads[/english][chinese]Downloads[/chinese][spanish]Descargas[/spanish][german]Downloads[/german]</a></li>
                <li class="nav-item"><a class="nav-link" href="modules.php?ModPath=links&amp;ModStart=links">[french]Liens[/french][english]Links[/english][chinese]&#x7F51;&#x9875;&#x94FE;&#x63A5;[/chinese][spanish]Enlaces web[/spanish][german]Internetlinks[/german]</a></li>
                <li class="nav-item dropdown" data-bs-theme="light">
-                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user fa-lg"></i>&nbsp;<?php echo $username; ?></a>
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user fa-lg me-1"></i><?php echo $username; ?></a>
                   <ul class="dropdown-menu">
-                     <li><?php echo $ava; ?></li>
+                     <li class="text-center"><?php echo $ava; ?></li>
                      <?php echo $menuser; ?>
                      <li class="dropdown-divider"></li>
                      <li><?php echo $btn_con; ?></li>
@@ -81,12 +80,14 @@
                </li>
                <?php echo $bal; ?>
             </ul>
+            <?php if (autorisation(-127))
+            echo '<div class="d-flex float-end"><a href="admin.php" title="[french]Administration[/french][english]Administration[/english][chinese]&#31649;&#29702;[/chinese][spanish]Administraci&oacute;n[/spanish][german]Verwaltung[/german]" data-bs-toggle="tooltip" data-bs-placement="left"><i id="cogs" class="fa fa-cogs fa-lg"></i></a></div>'; ?>
          </div>
       </div>
    </nav>
    <div class="page-header">
       <div class="row">
-      <div class="col-sm-2"><img class="img-fluid" src="themes/!theme!/images/header.png" alt="image_entete" /></div>
+      <div class="col-sm-2"><img class="img-fluid" src="themes/!theme!/images/header.png" loading="lazy" alt="logo" /></div>
          <div id="logo_header" class="col-sm-6">
             <h1 class="my-4">NPDS<br /><small class="text-body-secondary">Responsive</small></h1>
          </div>
@@ -94,7 +95,7 @@
       </div>
       <div class="row">
          <div id="slogan" class="col-sm-8 text-body-secondary slogan"><strong>!slogan!</strong></div>
-         <div id="online" class="col-sm-4 text-body-secondary text-end">!nb_online!</div>
+         <div id="online" class="col-sm-4 text-body-secondary text-end">!nb_online! <br />!date!</div>
       </div>
    </div>
    <script type="text/javascript">
