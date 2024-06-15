@@ -28,7 +28,8 @@ include ('install/libraries/graphIZm.php');
 include ('install/libraries/lib-inc.php');
 include('config.php');
 verif_php();
-verif_sql();
+//verif_sql();//
+$sqlver = '';
 
 /*
 # Paramètres install
