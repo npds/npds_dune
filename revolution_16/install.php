@@ -457,21 +457,20 @@ if($stage == 9) {
 
          // La suppression de l'installation
          function icare_delete_Dir($rep) {
-         $dir = opendir($rep);
-         chdir($rep);
-         while($nom = readdir($dir)) {
-            if ($nom != '.' && $nom != '..' && $nom != '') {
-               if (is_dir($nom)) {
-                  $archive[$nom] = icare_delete_Dir($nom);
-                  rmdir($nom);
-               } elseif(is_file($nom)) {
-                  @unlink($nom);
-              }
+            $dir = opendir($rep);
+            chdir($rep);
+            while($nom = readdir($dir)) {
+               if ($nom != '.' && $nom != '..' && $nom != '') {
+                  if (is_dir($nom)) {
+                     $archive[$nom] = icare_delete_Dir($nom);
+                     rmdir($nom);
+                  } elseif(is_file($nom)) {
+                     @unlink($nom);
+                 }
+               }
             }
-         }
-         chdir('..');
-         closedir($dir);
-         return $archive;
+            chdir('..');
+            closedir($dir);
          }
          if (file_exists('IZ-Xinstall.ok'))
             if (file_exists('install.php') OR is_dir('install')) {
@@ -485,7 +484,7 @@ if($stage == 9) {
       case 'etape_9':
       default;
          etape_9();
-         break;
+      break;
    }
    pied_depage('success');
 }
