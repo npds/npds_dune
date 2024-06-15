@@ -1,10 +1,12 @@
 <h2 class="mb-3">Forums</h2>
    forum_subscribeON()
+<!-- 
    <div class="mb-3 row">
       <div class="col-sm-12">
          <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="Filtrer les résultats" />
       </div>
    </div>
+ -->
    <div class="n-filtrable list-group">
       forum_all()
    </div>
@@ -19,6 +21,7 @@
    <script type="text/javascript">
    //<![CDATA[
       $(function(){
+/* 
          $('.n-filtrable div p').each(function(){
             $(this).attr('data-search-term', $(this).text().toLowerCase());
             $('.n_filtrbox').on('keyup', function(){
@@ -32,6 +35,7 @@
                 });
             });
          });
+ */
          $('#ckball_f').change(function(){
             check_a_f = $('#ckball_f').is(':checked');
             if(check_a_f) {
