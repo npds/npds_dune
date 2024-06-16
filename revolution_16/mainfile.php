@@ -2171,7 +2171,7 @@ function adminblock() {
       $messages_npds = explode("\n", $messagerie_npds);
       array_pop($messages_npds);
 
-      // traitement specifique car fonction permanente versus
+      // traitement spécifique car fonction permanente versus
       $versus_info = explode('|', $messages_npds[0]);
       if($versus_info[1] == $Version_Sub and $versus_info[2] == $Version_Num)
          sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
@@ -2181,7 +2181,7 @@ function adminblock() {
       <div class="d-flex justify-content-start flex-wrap" id="adm_block">
       '.$bloc_foncts_A;
       if ($Q['radminsuper']==1)
-         $content .= '<a class="btn btn-outline-primary btn-sm me-2 my-1" title="'.translate("Vider la table chatBox").'" data-bs-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" />&nbsp;<span class="badge bg-danger ms-1">X</span></a>';
+         $content .= '<a class="btn btn-outline-primary btn-sm me-2 my-1" title="'.translate("Vider la table chatBox").'" data-bs-toggle="tooltip" href="powerpack.php?op=admin_chatbox_write&amp;chatbox_clearDB=OK" ><img src="images/admin/chat.png" class="adm_img" alt="icon clear chat" loading="lazy" />&nbsp;<span class="badge bg-danger ms-1">X</span></a>';
       $content .= '</div>
       <div class="mt-3">
          <small class="text-body-secondary"><i class="fas fa-user-cog fa-2x align-middle"></i> '.$aid.'</small>
