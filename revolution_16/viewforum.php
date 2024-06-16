@@ -14,12 +14,8 @@
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-
 include('functions.php');
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else 
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj = ($SuperCache) ? new cacheManager() : new SuperCacheEmpty() ;
 include('auth.php');
 global $NPDS_Prefix,$admin;
 
@@ -109,14 +105,15 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
       if ($modera['user_avatar'] != '') {
          if (stristr($modera['user_avatar'],"users_private"))
             $imgtmp=$modera['user_avatar'];
-         else {
-            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-         }
+         else
+            $imgtmp = ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) ? 
+               $ibid : 
+               "images/forum/avatar/".$modera['user_avatar'] ;
       }
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" loading="lazy" /></a>';
    }
-   echo '</p>';
    echo '
+      </p>
       <p class="lead">
          <a href="forum.php">'.translate("Index du forum").'</a>&nbsp;&raquo;&raquo;&nbsp;'.stripslashes($forum_name).'
       </p>
@@ -125,7 +122,7 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             <div class="mb-3 row">
                <label class="col-form-label col-sm-12" for="forum_pass">'.translate("Ceci est un forum privé. Vous devez entrer le mot de passe pour y accéder").'</label>
                <div class="col-sm-12">
-                  <input class="form-control" type="password" id="forum_pass" name="Forum_passwd"  placeholder="'.translate("Mot de passe").'" required="required"/>
+                  <input class="form-control" type="password" id="forum_pass" name="Forum_passwd"  placeholder="'.translate("Mot de passe").'" required="required" />
                   <span class="help-block text-end" id="countcar_forum_pass"></span>
                </div>
             </div>
@@ -136,13 +133,14 @@ if ( ($myrow['forum_type'] == 1) and ( ($myrow['forum_name'] != $forum_name) or 
             </div>
          </form>
       </div>';
-         $arg1='
+   $arg1='
          var formulid=["privforumentry"];
          inpandfieldlen("forum_pass",60);';
    adminfoot('fv','',$arg1,'');
 }
 elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
-   if (($myrow['forum_type']== 9) and (!$user)) { header("location: forum.php"); }
+   if (($myrow['forum_type']== 9) and (!$user)) 
+      header("location: forum.php");
    $title=$forum_name;
    include('header.php');
    if ($user) {
@@ -188,15 +186,15 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
    for ($i = 0; $i < count($moderator_data); $i++) {
       $modera = get_userdata($moderator_data[$i]);
       if ($modera['user_avatar'] != '') {
-         if (stristr($modera['user_avatar'],'users_private')) {
+         if (stristr($modera['user_avatar'],'users_private'))
             $imgtmp=$modera['user_avatar'];
-         } else {
+         else {
             if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
          }
       }
       if ($user)
-         if (($userR[1]==$moderator_data[$i])) {$Mmod=true;}
-      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small me-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
+         if (($userR[1]==$moderator_data[$i])) $Mmod=true;
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img class=" img-thumbnail img-fluid n-ava-small me-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate("Modéré par : ").' '.$modera['uname'].'" data-bs-toggle="tooltip" loading="lazy" /></a>';
    }
    echo '
                </div>
@@ -344,9 +342,9 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
    $nbPages = ceil($all_topics/$topics_per_page);
 
    $current = 1;
-   if ($start >= 1) {$current=$start/$topics_per_page;}
-   else if ($start < 1) {$current=0;}
-   else {$current = $nbPages;}
+   if ($start >= 1) $current=$start/$topics_per_page;
+   else if ($start < 1) $current=0;
+   else $current = $nbPages;
 
    echo '<div class="mb-2"></div>'.paginate('viewforum.php?forum='.$forum.'&amp;start=', $closol, $nbPages, $current, 1, $topics_per_page, $start);
 
@@ -381,25 +379,23 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
             <select class="form-select" name="forum" onchange="submit();">
                <option value="index">'.translate("Sauter à : ").'</option>
                <option value="index">'.translate("Index du forum").'</option>';
-       $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
-       if ($res = sql_query($sub_sql)) {
-          while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
-             if (($forum_type != '9') or ($userdata)) {
-                if (($forum_type == '7') or ($forum_type == '5')) {
-                   $ok_affich=false;
-                } else {
-                   $ok_affich=true;
-                }
-                if ($ok_affich) echo '<option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
-             }
-          }
-       }
-       echo '
+      $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
+      if ($res = sql_query($sub_sql)) {
+         while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
+            if ($forum_type != '9') {
+               $ok_affich = (($forum_type == '7') or ($forum_type == '5')) ? false : true ;
+               if ($ok_affich) 
+                  echo '
+               <option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
+            }
+         }
+      }
+      echo '
             </select>
          </div>
       </div>
    </form>';
-   include("footer.php");
+      include("footer.php");
    }
    if ($SuperCache)
       $cache_obj->endCachingBlock($cache_clef);
