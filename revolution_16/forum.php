@@ -14,11 +14,7 @@
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-
-   if ($SuperCache)
-      $cache_obj = new cacheManager();
-   else
-      $cache_obj = new SuperCacheEmpty();
+   $cache_obj = ($SuperCache) ? new cacheManager() :  new SuperCacheEmpty() ;
    settype($op,'string');
    settype($Subforumid,'array');
    if ($op=="maj_subscribe") {
@@ -38,30 +34,26 @@ if (!function_exists("Mysql_Connexion"))
 
    include("header.php");
    // -- SuperCache
-   if (($SuperCache) and (!$user)) {
+   if (($SuperCache) and (!$user))
       $cache_obj->startCachingPage();
-   }
-
    if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache) or ($user)) {
       $inclusion=false;
       settype($catid, 'integer');
       if ($catid!='') {
-         if (file_exists("themes/$theme/html/forum-cat$catid.html")) {
+         if (file_exists("themes/$theme/html/forum-cat$catid.html"))
             $inclusion="themes/$theme/html/forum-cat$catid.html";
-         } elseif (file_exists("themes/default/html/forum-cat$catid.html")) {
+         elseif (file_exists("themes/default/html/forum-cat$catid.html"))
             $inclusion="themes/default/html/forum-cat$catid.html";
-         }      
       }
       if ($inclusion==false) {
-         if (file_exists("themes/$theme/html/forum-adv.html")) {
+         if (file_exists("themes/$theme/html/forum-adv.html"))
             $inclusion="themes/$theme/html/forum-adv.html";
-         } elseif (file_exists("themes/$theme/html/forum.html")) {
+         elseif (file_exists("themes/$theme/html/forum.html"))
             $inclusion="themes/$theme/html/forum.html";
-         } elseif (file_exists("themes/default/html/forum.html")) {
+         elseif (file_exists("themes/default/html/forum.html"))
             $inclusion="themes/default/html/forum.html";
-         } else {
+         else
             echo "html/forum.html / not find !<br />";
-         }
       }
       if ($inclusion) {
          $Xcontent=join('',file($inclusion));
