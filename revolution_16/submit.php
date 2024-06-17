@@ -113,8 +113,7 @@ function defaultDisplay() {
 }
 
 function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
-   global $tipath, $NPDS_Prefix, $topictext, $topicimage;
-   $topiclogo = '<span class="badge bg-secondary float-end"><strong>'.aff_langue($topictext).'</strong></span>';
+   global $tipath, $NPDS_Prefix, $topicimage;
    include ('header.php');
    $story = stripslashes(dataimagetofileurl($story, 'cache/ai'));
    $bodytext = stripslashes(dataimagetofileurl($bodytext, 'cache/ac'));
@@ -133,22 +132,21 @@ function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_p
       $warning = '<div class="alert alert-danger"><strong>'.translate("Sélectionner un sujet").'</strong></div>';
    } else {
       $warning = '';
-      $result = sql_query("SELECT topictext, topicimage FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
-      list($topictext, $topicimage) = sql_fetch_row($result);
+      $result = sql_query("SELECT topictext, topicimage, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
+      list($topictext, $topicimage, $topicname) = sql_fetch_row($result);
    }
+      $topiclogo = '<span class="badge bg-secondary float-end" title="'.aff_langue($topictext).'" data-bs-toggle="tooltip">'.aff_langue($topicname).'</span>';
+
    if ($topicimage!=='') { 
       if (!$imgtmp=theme_image('topics/'.$topicimage)) {$imgtmp=$tipath.$topicimage;}
       $timage=$imgtmp;
       if (file_exists($imgtmp)) 
-      $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="" />';
+         $topiclogo = '<img class="img-fluid n-sujetsize" src="'.$timage.'" align="right" alt="logo du sujet" loading="lazy" />';
    }
 
    $storyX=aff_code($story);
    $bodytextX=aff_code($bodytext);
    themepreview('<h3>'.$subject.$topiclogo.'</h3>','<div class="text-body-secondary">'.$storyX.'</div>', $bodytextX);
-//    if ($no_img) {
-//       echo '<strong>'.aff_langue($topictext).'</strong>';
-//    }
    echo '
    </div>
       <div class="mb-3 row">
