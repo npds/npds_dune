@@ -315,8 +315,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
 }
 
 function userinfo($uname) {
-   global $NPDS_Prefix;
-   global $user, $sitename, $smilies, $short_user;
+   global $NPDS_Prefix, $user, $admin, $sitename, $smilies, $short_user;
    global $name, $email, $url, $bio, $user_avatar, $user_from, $user_occ, $user_intrest, $user_sig, $user_journal, $C7, $C8;
 
    $uname=removeHack($uname);
