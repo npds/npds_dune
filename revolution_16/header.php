@@ -232,7 +232,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
       // Assure la gestion des titres ALTERNATIFS
       $tab_page_ref=explode("|",$PAGES[$pages_ref]['title']);
       if (count($tab_page_ref)>1) {
-         $PAGES[$pages_ref]['title'] = (strlen($tab_page_ref[1])>1) ? tab_page_ref[1] : $tab_page_ref[0] ;
+         $PAGES[$pages_ref]['title'] = (strlen($tab_page_ref[1])>1) ? $tab_page_ref[1] : $tab_page_ref[0] ;
          $PAGES[$pages_ref]['title']=strip_tags($PAGES[$pages_ref]['title']);
       }
       $fin_title=substr($PAGES[$pages_ref]['title'],-1);
