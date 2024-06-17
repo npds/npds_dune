@@ -16,7 +16,7 @@ define ('DateFormat',translate("dateinternal"));
 class Navigator {
    // Vars
    var $GetDirSz;
-   var $Curdir;
+   var $CurDir;
    var $DirsList  =  array("Name" =>array(),"DateM"=>array(),"Size" =>array(),
                            "Perms"=>array() );
    var $FilesList =  array("Name" =>array(),"DateM"=>array(),"Size" =>array(),
