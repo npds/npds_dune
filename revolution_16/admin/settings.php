@@ -25,6 +25,7 @@ $hlpfile = "manuels/$language/config.html";
 function Configure() {
    global $hlpfile, $filemanager,$f_meta_nom, $f_titre, $adminimg;
    include ("config.php");
+   $notmodifiedlangue = $language; //ici la variable est conforme
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -258,12 +259,14 @@ function Configure() {
             <div class="form-floating mb-3">
                <select class="form-select" id="xlanguage" name="xlanguage">';
     include("manuels/list.php");
+    // var_dump($language);// ici la valeur de la variable est celle choisi par l'utilisateur 
     $languageslist = explode(' ', $languageslist);
-    for ($i=0; $i < sizeof($languageslist); $i++) {
+    $nb_language = sizeof($languageslist) ;
+    for ($i=0; $i < $nb_language ; $i++) {
         if ($languageslist[$i]!='') {
            echo '
                   <option value="'.$languageslist[$i].'" ';
-           if ($languageslist[$i]==$language) echo 'selected="selected"';
+           if ($languageslist[$i]==$notmodifiedlangue) echo 'selected="selected"';
               echo '>'.$languageslist[$i].'</option>';
         }
     }
