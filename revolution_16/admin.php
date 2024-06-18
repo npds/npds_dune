@@ -262,7 +262,7 @@ function GraphicAdmin($hlpfile) {
             $bloc_foncts_A .='
          <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$SAQ['furlscript'].' >
             <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
-            <span class="badge bg-danger ms-1">'.$SAQ['fretour'].'</span>
+            <span class="badge rounded-pill bg-danger ms-1">'.$SAQ['fretour'].'</span>
          </a>';
          array_pop($cat_n);
       } 
@@ -300,11 +300,10 @@ function GraphicAdmin($hlpfile) {
          //]]>
          </script>';
 
-         if ($j==0) {$bloc_foncts .= $ul_o.$li_c;} 
-         else { 
-            if ($j>0 and $cat[$j]>$cat[$j-1]) $bloc_foncts.=$ul_f.$ul_o.$li_c; 
-            else $bloc_foncts .= $li_c;
-         }
+         if ($j==0) 
+            $bloc_foncts .= $ul_o.$li_c;
+         else
+            $bloc_foncts .= ($j>0 and $cat[$j]>$cat[$j-1]) ? $ul_f.$ul_o.$li_c : $li_c ;
       }
       $j++;
    }
@@ -360,28 +359,31 @@ function GraphicAdmin($hlpfile) {
       window.open (\"$hlpfile\",\"Help\",\"toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400\");
    }
 
-      $( document ).ready(function () {
+      $(function () {
+         /*
          $('ul.list').sortable({
             update: function(){
-           Cookies.set('items', getItems('#lst_men_main'));
-           console.log(Cookies.get('items'));
-    }
+            Cookies.set('items', getItems('#lst_men_main'));
+            console.log(Cookies.get('items'));
+            }
+         });
+         */
 
-});
-
- var htmmll=[];
-   // Get all items from a container
-   function getItems(container) {
-      var columns = [];
-      $(container+ ' ul.list').each(function(){
-      columns.push($(this).sortable('toArray').join(','));
-      htmmll.push($(this).html());
-      });
-      return columns.join('|');
-
-   }
-   var itemStr = getItems('#lst_men_main');
-   //console.log(htmmll);
+         /*
+          var htmmll=[];
+            // Get all items from a container
+            function getItems(container) {
+               var columns = [];
+               $(container+ ' ul.list').each(function(){
+               columns.push($(this).sortable('toArray').join(','));
+               htmmll.push($(this).html());
+               });
+               return columns.join('|');
+         
+            }
+            var itemStr = getItems('#lst_men_main');
+            //console.log(htmmll);
+         */
 
          $('[data-bs-toggle=\"tooltip\"]').tooltip();
          $('[data-bs-toggle=\"popover\"]').popover();
@@ -394,47 +396,45 @@ function GraphicAdmin($hlpfile) {
       //==>date d'expiration connection admin
       $(function () {
          var dae = Cookies.get('adm_exp')*1000,
-          dajs = new Date(dae);
-          console.log(Cookies.get('adm_exp'));//
+             dajs = new Date(dae);
+         $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
 
-      $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
-
-      deCompte= function() {
-      var date1 = new Date(), sec = (dae - date1) / 1000, n = 24 * 3600;
-        if (sec > 0) {
-          j = Math.floor (sec / n);
-          h = Math.floor ((sec - (j * n)) / 3600);
-          mn = Math.floor ((sec - ((j * n + h * 3600))) / 60);
-          sec = Math.floor (sec - ((j * n + h * 3600 + mn * 60)));
-          $('#tempsconnection').text(j +'j '+ h +':'+ mn +':'+sec);
-        }
-      t_deCompte=setTimeout (deCompte, 1000);
-      }
-      deCompte();
+         deCompte= function() {
+            var date1 = new Date(), sec = (dae - date1) / 1000, n = 24 * 3600;
+            if (sec > 0) {
+               j = Math.floor (sec / n);
+               h = Math.floor ((sec - (j * n)) / 3600);
+               mn = Math.floor ((sec - ((j * n + h * 3600))) / 60);
+               sec = Math.floor (sec - ((j * n + h * 3600 + mn * 60)));
+               $('#tempsconnection').text(j +'j '+ h +':'+ mn +':'+sec);
+            }
+            t_deCompte=setTimeout (deCompte, 1000);
+         }
+         deCompte();
       })
       //<== date d'expiration connection admin
    
-   tog = function(lst,sho,hid){
-      $('#adm_men, #adm_workarea').on('click', 'a.tog', function() {
-         var buttonID = $(this).attr('id');
-         lst_id = $('#'+lst);
-         i_id=$('#i_'+lst);
-         btn_show=$('#'+sho);
-         btn_hide=$('#'+hid);
-         if (buttonID == sho) {
-            lst_id.fadeIn(1000);//show();
-            btn_show.attr('id',hid)
-            btn_show.attr('title','".adm_translate("Replier la liste")."');
-            i_id.attr('class','fa fa-caret-up fa-lg text-primary me-1');
-         } else if (buttonID == hid) {
-            lst_id.fadeOut(1000);//hide();
+      tog = function(lst,sho,hid){
+         $('#adm_men, #adm_workarea').on('click', 'a.tog', function() {
+            var buttonID = $(this).attr('id');
+            lst_id = $('#'+lst);
+            i_id=$('#i_'+lst);
+            btn_show=$('#'+sho);
             btn_hide=$('#'+hid);
-            btn_hide.attr('id',sho);
-            btn_hide.attr('title','".html_entity_decode(adm_translate("Déplier la liste"),ENT_QUOTES|ENT_HTML401,cur_charset)."');
-            i_id.attr('class','fa fa-caret-down fa-lg text-primary me-1');
-        }
-       });
-   };
+            if (buttonID == sho) {
+               lst_id.fadeIn(1300);//show();
+               btn_show.attr('id',hid)
+               btn_show.attr('title','".adm_translate("Replier la liste")."');
+               i_id.attr('class','fa fa-caret-up fa-lg text-primary me-1');
+            } else if (buttonID == hid) {
+               lst_id.fadeOut(1300);//hide();
+               btn_hide=$('#'+hid);
+               btn_hide.attr('id',sho);
+               btn_hide.attr('title','".html_entity_decode(adm_translate("Déplier la liste"),ENT_QUOTES|ENT_HTML401,cur_charset)."');
+               i_id.attr('class','fa fa-caret-down fa-lg text-primary me-1');
+           }
+         });
+      };
 
       $(function () {
         $('#messageModal').on('show.bs.modal', function (event) {
@@ -458,16 +458,11 @@ function GraphicAdmin($hlpfile) {
             });
          });
       });
-
    //]]>
    </script>\n";
    $adm_ent ='';
    $adm_ent .='
-   <div id="adm_tit" class="row">
-      <div id="adm_tit_l" class="col-12">
-         <h1>'.adm_translate("Administration").'</h1>
-      </div>
-   </div>
+   <h1 class="mb-3">'.adm_translate("Administration").'</h1>
    <div id ="adm_men" class="mb-4">
       <div id="adm_header" class="row justify-content-end">
          <div class="col-6 col-lg-6 men_tit align-self-center">
@@ -546,7 +541,6 @@ function GraphicAdmin($hlpfile) {
          </div>
       </div>
    </div>
-   
 ';
    return ($Q['radminsuper']);
 }
