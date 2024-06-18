@@ -77,8 +77,7 @@ function session_manage() {
 
 //==> proto en test badbotcontrol ...
    // bad robot limited at x connections ...
-
-   $gulty_robots = array('facebookexternalhit','Amazonbot','ClaudeBot','bingbot'); // to be defined in config.php ...
+   $gulty_robots = array('facebookexternalhit','Amazonbot','ClaudeBot','bingbot','Applebot','AhrefsBot'); // to be defined in config.php ...
    foreach($gulty_robots as $robot) {
       if(!empty($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $robot) !== false) {
          $result = sql_query("SELECT agent FROM ".$NPDS_Prefix."session WHERE agent REGEXP '".$robot."'");
@@ -90,7 +89,7 @@ function session_manage() {
       }
    }
 
-//==> proto
+//<== proto
 
    $result = sql_query("SELECT time FROM ".$NPDS_Prefix."session WHERE username='$username'");
    if ($row = sql_fetch_assoc($result)) {
