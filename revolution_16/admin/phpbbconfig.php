@@ -159,29 +159,29 @@ function ForumConfigAdmin() {
             </div>
          </div>
       </div>
-      <div class="mb-3">
-         <label class="col-form-label" for="rank1">'.adm_translate("Texte pour le rôle").' 1 </label>
+      <div class="mb-3 form-floating">
          <textarea class="form-control" id="rank1" name="rank1" rows="3" maxlength="255">'.$rank1.'</textarea>
+         <label for="rank1">'.adm_translate("Texte pour le rôle").' 1 </label>
          <span class="help-block text-end" id="countcar_rank1"></span>
       </div>
-      <div class="mb-3">
-         <label class="col-form-label" for="rank2">'.adm_translate("Texte pour le rôle").' 2 </label>
+      <div class="mb-3 form-floating">
          <textarea class="form-control" id="rank2" name="rank2" rows="3" maxlength="255">'.$rank2.'</textarea>
+         <label for="rank2">'.adm_translate("Texte pour le rôle").' 2 </label>
          <span class="help-block text-end" id="countcar_rank2"></span>
       </div>
-      <div class="mb-3">
-         <label class="col-form-label" for="rank3">'.adm_translate("Texte pour le rôle").' 3 </label>
+      <div class="mb-3 form-floating">
          <textarea class="form-control" id="rank3" name="rank3" rows="3" maxlength="255">'.$rank3.'</textarea>
+         <label for="rank3">'.adm_translate("Texte pour le rôle").' 3 </label>
          <span class="help-block text-end" id="countcar_rank3"></span>
       </div>
-      <div class="mb-3">
-         <label class="col-form-label" for="rank4">'.adm_translate("Texte pour le rôle").' 4 </label>
+      <div class="mb-3 form-floating">
          <textarea class="form-control" id="rank4" name="rank4" rows="3" maxlength="255">'.$rank4.'</textarea>
+         <label for="rank4">'.adm_translate("Texte pour le rôle").' 4 </label>
          <span class="help-block text-end" id="countcar_rank4"></span>
       </div>
-      <div class="mb-3">
-         <label class="col-form-label" for="rank5">'.adm_translate("Texte pour le rôle").' 5 </label>
+      <div class="mb-3 form-floating">
          <textarea class="form-control" id="rank5" name="rank5" rows="3" maxlength="255">'.$rank5.'</textarea>
+         <label for="rank5">'.adm_translate("Texte pour le rôle").' 5 </label>
          <span class="help-block text-end" id="countcar_rank5"></span>
       </div>
       <input type="hidden" name="op" value="ForumConfigChange" />
