@@ -15,16 +15,10 @@
 settype($cancel, 'string');
 if ($cancel)
    header("Location: viewforum.php?forum=$forum");
-
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
-
 include('functions.php');
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
-
+$cache_obj = ($SuperCache) ? new cacheManager() : new SuperCacheEmpty() ;
 include('auth.php');
 global $NPDS_Prefix;
 
@@ -56,10 +50,7 @@ if ($forum_access== 9)
 if (!does_exists($forum, "forum"))
    forumerror('0030');
 // Forum ARBRE
-if ($myrow['arbre'])
-   $hrefX="viewtopicH.php";
-else
-   $hrefX="viewtopic.php";
+$hrefX = ($myrow['arbre']) ? 'viewtopicH.php' : 'viewtopic.php' ;
 
 settype($submitS,'string');
 settype($stop,'integer');
