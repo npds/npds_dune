@@ -34,7 +34,7 @@
 //   --> Nouveau --- Ajout Canasson --- Nouveau --- Ajout Canasson --- Nouveau <--
 //   => 3 : Colonne gauche (Blocs) + Colonne Droite (Blocs) + Central
 //   => 4 : Central + Colonne Gauche(Blocs) + Colonne Droite (Blocs)
-//      Si Aucune Variable de renseigné : Affichage par défaut = 0
+//      Si Aucune variable n'est renseignée : Affichage par défaut = 0
 //   ATTENTION cette valeur n'aura d'effet que si elle n'est pas définie dans votre thème ($pdst) !
 
 // $PAGES['index.php']['run']="yes or no or script";
@@ -43,33 +43,33 @@
 //   $PAGES['index.php']['run']="no" affichera un message : "Site Web fermé"
 //   => "script like xxxx.php : autorise le re-routage vers un autre script / exemple : user.php reroute vers user2.php
 //
-// Pour les modules il existe deux forme d'écriture :
+// Pour les modules il existe deux formes d'écriture :
 // la syntaxe : $PAGES['modules.php?ModPath=links&ModStart=links']['title']=... qui permet d'affecter un titre, le run et le type de bloc pour chaque 'sous-url' du module
-// la syntaxe : $PAGES['mdoules.php?ModPath=links&ModStart=links*']['title']=... (rajout d'une * à la fin) qui permet de faire la même chose mais en indiquant que TOUTES les pages du module seront traitÈes de la même manière
+// la syntaxe : $PAGES['modules.php?ModPath=links&ModStart=links*']['title']=... (rajout d'une * à la fin) qui permet de faire la même chose mais en indiquant que TOUTES les pages du module seront traitées de la même manière
 
 // TinyMCE
 // $PAGES['index.php']['TinyMce']=1 or 0;
 //   => Permet d'indiquer que TinyMCE doit être initialisé pour ce script
 // $PAGES['index.php']['TinyMce-theme']="full or short";
-//   => Permet d'indiquer le theme qui sera utilisé
+//   => Permet d'indiquer le thème qui sera utilisé
 //
 // => Si ces deux lignes ne sont pas présentes : TinyMce ne sera pas initialisé
 //
 // $PAGES['index.php']['TinyMceRelurl']="true or false";
-//   => Permet d'indiquer si TinyMce utilise - "fabrique" un chemins relatif (par défaut) ou un chemin absolu (par exemple pour le script LNL de l'admin)
+//   => Permet d'indiquer si TinyMCE utilise - "fabrique" un chemins relatif (par défaut) ou un chemin absolu (par exemple pour le script LNL de l'admin)
 
 // CSS
 // $PAGES['index.php']['css']="css-specifique.css+-"; OU $PAGES['index.php']['css']=array("css-specifique.css+-","http://www.exemple.com/css/.min.css+-","... ...");
-//   => Permet de charger une ou plusieurs css spécifiques (aussi bien local que distant) en complément ou en remplacement de la CSS du theme de NPDS
+//   => Permet de charger une ou plusieurs css spécifiques (aussi bien local que distant) en complément ou en remplacement de la CSS du thème de NPDS
 //
-//   si "css-specifique.css+" => La CSS sera rajouter en PLUS de la CSS de base
+//   si "css-specifique.css+" => La CSS sera rajoutée en PLUS de la CSS de base
 //   si "css-specifique.css-" => La CSS specifique sera LA SEULE chargée (dans le cas d'un tableau - les options sont cumulatives)
-//   => La CSS LOCALE DOIT IMPERATIVEMENT se trouver dans le repertoire style de votre theme (theme/votre_theme/style) OU LE CHEMIN doit-être explicite depuis la racine du site("themes/.../style/specif.css")
-//   => La CSS DISTANTE DOIT IMPERATIVEMENT se charger via http:// et l'URL ne doit pas contenir d'erreur
+//   => La CSS LOCALE DOIT IMPERATIVEMENT se trouver dans le répertoire style de votre thème (theme/votre_theme/style) OU LE CHEMIN doit-être explicite depuis la racine du site("themes/.../style/specif.css")
+//   => La CSS DISTANTE DOIT IMPERATIVEMENT se charger via http(s):// et l'URL ne doit pas contenir d'erreur
 
 // JS
 // $PAGES['index.php']['js']="javascript"; OU $PAGES['index.php']['js']=array("javascript","http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js","... ...");
-//   => Permet de charger un ou plusieurs javascript spÈcifiques (aussi bien local que distant)
+//   => Permet de charger un ou plusieurs javascript spécifiques (aussi bien local que distant)
 //
 //   => Le JS LOCAL DOIT IMPERATIVEMENT se trouver dans le répertoire js de votre thème (theme/votre_theme/js) OU LE CHEMIN doit-être explicite depuis la racine du site("lib/yui/build/...")
 //   => Le JS DISTANT DOIT IMPERATIVEMENT se charger via http:// et l'URL ne doit pas contenir d'erreur
@@ -77,7 +77,7 @@
 /// --- SEO ---///
 
 // SITEMAP
-// $PAGES['index.php']['sitemap']="priorite";
+// $PAGES['index.php']['sitemap']="priorité";
 //   => Priorité = 0.1 à 1 
 //   => Permet de configurer le sitemap.xml généré par le fichier sitemap.php
 //   => Pour article.php, forum.php, sections.php et download.php - sitemap.php génère un ensemble de paragraphes correspondant à l'intégralité des données disponibles.
@@ -108,7 +108,6 @@
 settype($title,'string');
 settype($post,'string');
 settype($nuke_url,'string');
-settype($api_key,'string');
 settype($ModPath,'string');
 settype($title,'string');
 global $nuke_url, $language;
@@ -122,8 +121,12 @@ $PAGES['index.php']['sitemap']="0.8";
 $PAGES['user.php']['title']="[french]Section membre pour personnaliser le site[/french][english]Your personal page to customize the site [/english][spanish]Secci&oacute;n para personalizar el sitio[/spanish][german]Mitglied Abschnitt auf der Website anpassen[/german][chinese]&#x4E2A;&#x4EBA;&#x8BBE;&#x7F6E;&#x9875;&#x9762;, &#x5141;&#x8BB8;&#x4F7F;&#x7528;&#x6237;&#x7684;&#x7AD9;&#x70B9;&#x5B9E;&#x73B0;&#x4E2A;&#x4EBA;&#x5316;[/chinese]+";
 $PAGES['user.php']['blocs']="0";
 $PAGES['user.php']['run']="yes";
-$PAGES['user.php']['TinyMce']=1;
-$PAGES['user.php']['TinyMce-theme']="short";
+
+$PAGES['user.php?op=editjournal']['title']="[french]Edition du journal utilisateur[/french][english][/english][spanish][/spanish][german][/german][chinese][/chinese]+";
+$PAGES['user.php?op=editjournal']['blocs']="0";
+$PAGES['user.php?op=editjournal']['run']="yes";
+$PAGES['user.php?op=editjournal']['TinyMce']=1;
+$PAGES['user.php?op=editjournal']['TinyMce-theme']="short";
 
 $PAGES['memberslist.php']['title']="[french]Liste des membres[/french][english]Members list[/english][spanish]Lista de Miembros[/spanish][german]Mitglieder[/german][chinese]&#x4F1A;&#x5458;&#x5217;&#x8868;[/chinese]+";
 $PAGES['memberslist.php']['blocs']="0";
@@ -179,14 +182,36 @@ $PAGES['stats.php']['blocs']="1";
 $PAGES['stats.php']['run']="yes";
 $PAGES['stats.php']['sitemap']="0.5";
 
-// admin why charge the tiny on each admin page 360k !! ??
 $PAGES['admin.php']['title']=""; // obligatoirement à vide
 $PAGES['admin.php']['blocs']="0";
 $PAGES['admin.php']['run']="yes";
+$PAGES['admin.php']['css']=array("admin.css+");
+/*
 $PAGES['admin.php']['TinyMce']=1;
 $PAGES['admin.php']['TinyMce-theme']="full";
-$PAGES['admin.php']['css']=array("admin.css+");
 $PAGES['admin.php']['TinyMceRelurl']="false";
+*/
+// ==> éviter un chargement de tiny à toutes les pages admin //
+// page nécessitant tiny appelée par l'url admin.php + variable op transmise par POST
+if(isset($_POST['op'])){
+   if($_POST['op'] == 'PreviewAdminStory'){
+      $PAGES['admin.php']['TinyMce']=1;
+      $PAGES['admin.php']['TinyMce-theme']="full";
+      $PAGES['admin.php']['TinyMceRelurl']="false";
+   }
+}
+// page nécessitant tiny appelée par l'url admin.php + variable op transmise dans l'url
+$adm_op_url = array('adminStory','DisplayStory','PreviewAgain','EditStory','autoEdit','Edito_load','sections','sectionedit','new_rub_section','rubriquedit','secartedit','secartupdate','DownloadAdmin','DownloadEdit','email_user','FaqCatGo','lnl_Shw_Body','links','LinksModLink','Add_Footer');
+foreach($adm_op_url as $v){
+   $PAGES['admin.php?op='.$v]['title']=""; // obligatoirement à vide
+   $PAGES['admin.php?op='.$v]['blocs']="0";
+   $PAGES['admin.php?op='.$v]['run']="yes";
+   $PAGES['admin.php?op='.$v]['TinyMce']=1;
+   $PAGES['admin.php?op='.$v]['TinyMce-theme']="full";
+   $PAGES['admin.php?op='.$v]['css']=array("admin.css+");
+   $PAGES['admin.php?op='.$v]['TinyMceRelurl']="false";
+}
+// <== éviter un chargement de tiny à toutes les pages admin //
 
 $PAGES['forum.php']['title']="[french]Les forums de discussion[/french][english]Forums[/english][spanish]Foros de discusi&oacute;n[/spanish][german]Diskussionsforen[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese]+";
 $PAGES['forum.php']['run']="yes";
