@@ -64,7 +64,7 @@ function pollCollector($pollID, $voteID, $forwarder) {
 
 function pollList() {
    global $NPDS_Prefix;
-   $result = sql_query("SELECT pollID, pollTitle, voters FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp");
+   $result = sql_query("SELECT pollID, pollTitle, voters FROM ".$NPDS_Prefix."poll_desc ORDER BY timeStamp DESC");
    echo '
    <h2 class="mb-3">'.translate("Sondage").'</h2>
    <hr />
@@ -189,7 +189,7 @@ function pollboxbooth($pollID,$pollClose) {
    echo '<div class="card card-body">'.$boxContent.'</div>'; 
 }
 
-function PollMain_aff($pollID) {
+function PollMain_aff() {
    $boxContent = '<p><strong><a href="pollBooth.php">'.translate("Anciens sondages").'</a></strong></p>';
    echo $boxContent;
 }
