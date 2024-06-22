@@ -152,7 +152,7 @@ if (isset($list)) {
    $list=urlencode(implode(',',$tempo));
 }
 
-$result = sql_query("SELECT u.uname, u.user_avatar FROM ".$NPDS_Prefix."users AS u LEFT JOIN users_status AS us ON u.uid = us.uid where us.open='1' ORDER BY u.uid DESC LIMIT 0,1");
+$result = sql_query("SELECT u.uname, u.user_avatar FROM ".$NPDS_Prefix."users AS u LEFT JOIN ".$NPDS_Prefix."users_status AS us ON u.uid = us.uid where us.open='1' ORDER BY u.uid DESC LIMIT 0,1");
 list($lastuser,$lastava) = sql_fetch_row($result);
 
 echo '
