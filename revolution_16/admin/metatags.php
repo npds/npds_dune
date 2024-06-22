@@ -277,7 +277,16 @@ function MetaTagSave($filename, $tags) {
       $content .= MetaTagMakeSingleTag('og:url', '$nuke_url', 'property');
       $content .= MetaTagMakeSingleTag('og:title', '$Titlesitename', 'property');
       $content .= MetaTagMakeSingleTag('og:description', $tags['description'], 'property');
-      $content .= MetaTagMakeSingleTag('og:image', '$nuke_url/images/ogimg.jpg', 'property');
+      $content .= MetaTagMakeSingleTag('og:image', '$nuke_url/images/ogimg_rect.png', 'property');
+      $content .= MetaTagMakeSingleTag('og:image:type', 'image/png', 'property');
+      $content .= MetaTagMakeSingleTag('og:image:width', '1200', 'property');
+      $content .= MetaTagMakeSingleTag('og:image:height', '630', 'property');
+      $content .= MetaTagMakeSingleTag('og:image:alt', 'logo site', 'property');
+      $content .= MetaTagMakeSingleTag('og:image', '$nuke_url/images/ogimg_square.png', 'property');
+      $content .= MetaTagMakeSingleTag('og:image:type', 'image/png', 'property');
+      $content .= MetaTagMakeSingleTag('og:image:width', '630', 'property');
+      $content .= MetaTagMakeSingleTag('og:image:height', '630', 'property');
+      $content .= MetaTagMakeSingleTag('og:image:alt', 'logo site', 'property');
       $content .= MetaTagMakeSingleTag('twitter:card', 'summary', 'property');
       //<== OpenGraph Meta Tags
       $content .= "if (\$meta_op==\"\") echo \$l_meta; else \$l_meta=str_replace(\"\\n\",\"\",str_replace(\"\\\"\",\"'\",\$l_meta));\n?>";
