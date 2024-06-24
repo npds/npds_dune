@@ -43,8 +43,6 @@ a:active, a:hover {
 /** <== Balises html                                                         **/
 
 /** ==> Classes BS5                                                         **/
-/* ==> remove the no aesthetic border provided by BS5 css*/
-.table > :not(:first-child) { border-color: var(--bs-gray-300); }
 /* ==> hauteur et scroll des modal */
 .modal-body {
   max-height: calc(100vh - 210px);
