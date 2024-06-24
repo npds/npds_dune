@@ -10,8 +10,9 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
-$theme = 'corporate';
-$long_chain = '34'; // Nombre de caractères affichés avant troncature pour certains blocs
+$theme          = 'corporate'; // nom du thème
+$theme_darkness = "light"; // light or dark
+$long_chain     = '34'; // Nombre de caractères affichés avant troncature pour certains blocs
 
 // ne pas supprimer cette ligne / Don't remove this line
 require_once('themes/themes-dynamic/theme.php');

@@ -9,8 +9,9 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
-$theme      = "BaseRoc";
-$long_chain = "15"; // Nombre de caractères affiché avant troncature pour certains blocs
+$theme          = "BaseRoc"; // nom du thème
+$theme_darkness = "light"; // light or dark
+$long_chain     = "15"; // Nombre de caractères affichés avant troncature pour certains blocs
 
 // ne pas supprimer cette ligne / Don't remove this line
 require_once("themes/themes-dynamic/theme.php");

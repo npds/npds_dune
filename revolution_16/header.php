@@ -21,8 +21,7 @@ settype($m_description, 'string');
 $skin='';
 
 function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords) {
-   global $slogan, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language;
-   global $topic, $hlpfile, $user, $hr, $long_chain;
+   global $slogan, $Titlesitename, $banners, $Default_Theme, $theme, $gzhandler, $language, $topic, $hlpfile, $user, $hr, $long_chain, $theme_darkness;
 
    settype($m_keywords, 'string');
    settype($m_description, 'string');
@@ -41,7 +40,10 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
       'images/favicon.ico' ;
 
    echo '
-<link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />';
+<link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />
+<link rel="apple-touch-icon" sizes="120x120" href="images/favicon-120.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="images/favicon-152.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png" />';
 
    // Syndication RSS & autres
    global $sitename, $nuke_url;
