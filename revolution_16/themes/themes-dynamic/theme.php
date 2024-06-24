@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* DYNAMIC THEME engine for NPDS                                        */
-/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -65,7 +65,6 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
    "'!N_emetteur!'i"=>userpopover($informant,40,2).'<a href="user.php?op=userinfo&amp;uname='.$informant.'">'.$informant.'</a>',
-
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
    "'!N_date_m!'i"=>strftime("%B", mktime(0,0,0, substr($time,5,2),1,2000)),
@@ -121,13 +120,12 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
 
    if (!$imgtmp=theme_image('topics/'.$topicimage)) $imgtmp=$tipath.$topicimage;
    $timage=$imgtmp;
-
    $npds_METALANG_words=array(
    "'!N_publicateur!'i"=>$aid,
    "'!N_emetteur!'i"=>userpopover($informant,40,2).'<a href="user.php?op=userinfo&amp;uname='.$informant.'"><span class="">'.$informant.'</span></a>',
    "'!N_date!'i"=>formatTimestamp($time),
    "'!N_date_y!'i"=>substr($time,0,4),
-   "'!N_date_m!'i"=>strftime("%B", mktime(0,0,0, substr($time,5,2),1,2000)),
+   "'!N_date_m!'i"=> translate(date('F', strtotime($time))),
    "'!N_date_d!'i"=>substr($time,8,2),
    "'!N_date_h!'i"=>substr($time,11),
    "'!N_print!'i"=>$printP,
@@ -259,7 +257,7 @@ function userpopover($who,$dim,$avpop) {
    if ($temp_user['url']!='')
       $useroutils .= '<li><a class="dropdown-item text-center text-md-start" href="'.$temp_user['url'].'" target="_blank" title="'.translate("Visiter ce site web").'"><i class="fas fa-external-link-alt fa-lg align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Visiter ce site web").'</span></a></li>';
    if ($temp_user['mns'])
-       $useroutils .= '<li><a class="dropdown-item text-center text-md-start" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" ><i class="fa fa-lg fa-desktop align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a></li>';
+       $useroutils .= '<li><a class="dropdown-item text-center text-md-start" href="minisite.php?op='.$temp_user['uname'].'" target="_blank" title="'.translate("Visitez le minisite").'" ><i class="fa fa-lg fa-desktop align-middle fa-fw"></i><span class="ms-2 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a></li>';
 
    if (stristr($temp_user['user_avatar'],'users_private')) 
       $imgtmp=$temp_user['user_avatar'];
@@ -268,22 +266,20 @@ function userpopover($who,$dim,$avpop) {
 
       $userpop = $avpop==1 ?
          '<img class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" />' :
-//         '<a tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>' ;
-
-'
-   <div class="dropdown d-inline-block me-4 dropend">
-      <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-         <img class=" btn-outline-primary img-fluid n-ava-'.$dim.' me-0" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" />
-      </a>
-      <ul class="dropdown-menu bg-light">
-         <li><span class="dropdown-item-text text-center py-0 my-0">'.userpopover($who,64,1).'</span></li>
-         <li><h6 class="dropdown-header text-center py-0 my-0">'.$who.'</h6></li>
-         <li><hr class="dropdown-divider"></li>
-         '.$useroutils.'
-         <li><hr class="dropdown-divider"></li>
-         <li><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>
-      </ul>
-   </div>' ;
+         '
+            <div class="dropdown d-inline-block me-4 dropend">
+               <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                  <img class=" btn-outline-primary img-fluid n-ava-'.$dim.' me-0" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" />
+               </a>
+               <ul class="dropdown-menu bg-light">
+                  <li><span class="dropdown-item-text text-center py-0 my-0">'.userpopover($who,64,1).'</span></li>
+                  <li><h6 class="dropdown-header text-center py-0 my-0">'.$who.'</h6></li>
+                  <li><hr class="dropdown-divider"></li>
+                  '.$useroutils.'
+                  <li><hr class="dropdown-divider"></li>
+                  <li><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>
+               </ul>
+            </div>' ;
 
    return $userpop;
    }
