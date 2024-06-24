@@ -76,9 +76,24 @@
     }, false);
   }
 
+// Toggle light and dark themes
+   function toggleThemeMenu() {
+      let themeMenu = document.querySelector('#theme-menu');
+      if (!themeMenu) return;
+      document.querySelectorAll('[data-bs-theme-value]').forEach(value => {
+         value.addEventListener('click', () => {
+         const theme = value.getAttribute('data-bs-theme-value');
+         document.documentElement.setAttribute('data-bs-theme', theme);
+         });
+      });
+   }
+
   addNavbarTransparentClass();
 
   addSourceModals();
+  
+  toggleThemeMenu();
+
 
   // Prevent empty `a` elements or `submit` buttons from navigating away
   const targets = document.querySelectorAll('[href="#"], [type="submit"]');

@@ -88,7 +88,24 @@
                      </li>
                </ul>
                <ul class="nav navbar-nav ms-auto">
-                  <li class="nav-item"><a class="nav-link" href="http://bootswatch.com/" target="_blank">Built With Bootswatch</a></li>
+                <li class="nav-item dropdown" data-bs-theme="light">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme">
+                      <i class="bi bi-circle-half"></i>
+                      <span class="d-lg-none ms-2">Toggle theme</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                          <i class="bi bi-sun-fill"></i><span class="ms-2">Light</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="true">
+                          <i class="bi bi-moon-stars-fill"></i><span class="ms-2">Dark</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </li>
                </ul>
             </div>
          </div>
@@ -1488,7 +1505,7 @@
             <ul class="list-unstyled">
               <li class="float-end"><a class="btn btn-outline-primary" href="#top" title="Top" data-bs-toggle="tooltip"><i class="bi bi-chevron-double-up"></i></a></li>
             </ul>
-            <p>Made by <a href="http://thomaspark.co" rel="nofollow">Thomas Park</a>. Contact him at <a href="mailto:thomas@bootswatch.com">thomas@bootswatch.com</a>.</p>
+            <p>Made with Bootswatch by <a href="http://thomaspark.co" rel="nofollow">Thomas Park</a>. Contact him at <a href="mailto:thomas@bootswatch.com">thomas@bootswatch.com</a>.</p>
             <p>Npds fork by <a href="#" rel="nofollow">Jpb</a>. Contact him at <a href="mailto:jpb@npds.org">jpb@npds.org</a>.</p>
             <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/gh-pages/LICENSE">MIT License</a>.</p>
             <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap 5</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
