@@ -17,7 +17,7 @@ sortie : une liste de sélection des skins disponible pour le thème courant
 objet : visualisation de la page courante avec le skin choisi
 */
 
-global $Default_Skin, $Default_Theme;
+global $Default_Skin, $Default_Theme, $nuke_url;
 $skinOn = '';
 if ($user) {
    $user2 = base64_decode($user);
@@ -35,8 +35,32 @@ if($skinOn != '')
    <select class="form-select" id="blocskinchoice"><option>'.$skinOn.'</option></select>
    <label for="blocskinchoice">Choisir un skin</label>
 </div>
+<ul class="nav navbar-nav ms-auto">
+ <li class="nav-item dropdown" data-bs-theme="light">
+     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="theme-darkness" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme">
+       <i class="bi bi-circle-half"></i>
+       <span class="d-lg-none ms-2">Toggle theme</span>
+     </a>
+     <ul class="dropdown-menu dropdown-menu-end">
+       <li>
+         <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+           <i class="bi bi-sun-fill"></i><span class="ms-2">Light</span>
+         </button>
+       </li>
+       <li>
+         <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="true">
+           <i class="bi bi-moon-stars-fill"></i><span class="ms-2">Dark</span>
+         </button>
+       </li>
+     </ul>
+   </li>
+</ul>
+
 <script type="text/javascript">
    //<![CDATA[
+   if (!$("link[href=\''.$nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css\']").length)
+      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
+
    fetch("api/skins.json")
       .then(response => response.json())
       .then(data => load(data));
@@ -59,6 +83,22 @@ if($skinOn != '')
       const changeEvent = new Event("change");
       select.dispatchEvent(changeEvent);
    }
+
+   (function () {
+     "use strict";
+         function toggledarkness() {
+         let themeMenu = document.querySelector("#theme-darkness");
+         if (!themeMenu) return;
+         document.querySelectorAll("[data-bs-theme-value]").forEach(value => {
+            value.addEventListener("click", () => {
+            const theme_darkness = value.getAttribute("data-bs-theme-value");
+            document.body.setAttribute("data-bs-theme", theme_darkness);
+            });
+         });
+      }
+      toggledarkness();
+   })();
+
    //]]>
 </script>';
 else
