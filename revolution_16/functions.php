@@ -740,7 +740,7 @@ function forum($rowQ1) {
 
                      $last_post = get_last_post($myrow['forum_id'], "forum","infos",$Mmod);
                      $ibid.='
-                              <p class="mb-0 flex-column align-items-start p-3 bg-light">
+                              <p class="mb-0 flex-column align-items-start p-3">
                                  <span class="lead d-flex w-100 mt-1">';
                      if (($tab_folder[$myrow['forum_id']][0]-$tab_folder[$myrow['forum_id']][1])>0)
                         $ibid.='<i class="fa fa-folder text-primary fa-lg me-2 mt-1" title="'.translate("Les nouvelles contributions depuis votre dernière visite.").'" data-bs-toggle="tooltip" data-bs-placement="right"></i>';
@@ -807,7 +807,7 @@ function forum($rowQ1) {
                            }
                         }
                      }
-                        $ibid.='<div class="w-100 text-end bg-light"><div class="small">'.translate("Dernière contribution").' : '.$last_post.'</div><hr class="mb-0"/></div>';
+                        $ibid.='<div class="w-100 text-end"><div class="small">'.translate("Dernière contribution").' : '.$last_post.'</div><hr class="mb-0"/></div>';
                      } else
                         $ibid.='';
                   }
