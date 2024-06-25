@@ -39,17 +39,17 @@ if($skinOn != '')
  <li class="nav-item dropdown" data-bs-theme="light">
      <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="theme-darkness" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme">
        <i class="bi bi-circle-half"></i>
-       <span class="d-lg-none ms-2">Toggle theme</span>
+       <span class="d-lg-none ms-2">[french]Choisir tonalit&#xE9;[/french][english]Choose tone[/english][spanish]Elige tono[/spanish][german]Ton w&#xE4;hlen[/german][chinese]&#x9009;&#x62E9;&#x8272;&#x8C03;[/chinese]</span>
      </a>
      <ul class="dropdown-menu dropdown-menu-end">
        <li>
          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-           <i class="bi bi-sun-fill"></i><span class="ms-2">Light</span>
+           <i class="bi bi-sun-fill"></i><span class="ms-2">[french]Clair[/french][english]Light[/english][chinese]&#x6E05;&#x9664;[/chinese][spanish]Claro[/spanish][german]klar[/german]</span>
          </button>
        </li>
        <li>
          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="true">
-           <i class="bi bi-moon-stars-fill"></i><span class="ms-2">Dark</span>
+           <i class="bi bi-moon-stars-fill"></i><span class="ms-2">[french]Sombre[/french][english]Dark[/english][chinese]&#x9ED1;&#x6697;&#x7684;[/chinese][spanish]Oscuro[/spanish][german]dunkel[/german]</span>
          </button>
        </li>
      </ul>
@@ -58,8 +58,14 @@ if($skinOn != '')
 
 <script type="text/javascript">
    //<![CDATA[
-   if (!$("link[href=\''.$nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css\']").length)
-      $("head link[rel=\'stylesheet\']").last().after("<link rel=\'stylesheet\' href=\''.$nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css\' type=\'text/css\' media=\'screen\'>");
+   var el = document.querySelector(\'link[href="'.$nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css"]\')
+   if (!el) {
+      el = document.createElement("link");
+      el.rel= "stylesheet";
+      el.href = "'.$nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css";
+      el.type = "text/css"
+      document.getElementsByTagName("head")[0].appendChild(el);
+   }
 
    fetch("api/skins.json")
       .then(response => response.json())
@@ -103,4 +109,5 @@ if($skinOn != '')
 </script>';
 else
    $content.='<div class="alert alert-danger">Thème non skinable</div>';
+$content = aff_langue($content);
 ?>
