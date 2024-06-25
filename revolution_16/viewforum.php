@@ -179,7 +179,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
       <div class="card mb-3">
          <div class="card-body p-2">
             <div class="d-flex ">
-               <div class="badge bg-secondary align-self-center mx-2 col-2 col-md-3 col-xl-2 bg-white text-body-secondary py-2 px-1"><span class="me-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ms-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
+               <div class="align-self-center mx-2 py-2 px-1"><span class="me-1 lead">'.$ibidcountmod.'<i class="fa fa-balance-scale fa-fw ms-1 d-inline d-md-none" title="'.translate("Modérateur(s)").'" data-bs-toggle="tooltip"></i></span><span class=" d-none d-md-inline">'.translate("Modérateur(s)").'</span></div>
                <div class=" align-self-center me-auto">';
                   $Mmod=false;
 
