@@ -81,7 +81,7 @@ function session_manage() {
    foreach($gulty_robots as $robot) {
       if(!empty($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $robot) !== false) {
          $result = sql_query("SELECT agent FROM ".$NPDS_Prefix."session WHERE agent REGEXP '".$robot."'");
-         if(mysql_num_rows($result)>3) {
+         if(sql_num_rows($result)>3) {
             header($_SERVER["SERVER_PROTOCOL"] . ' 429 Too Many Requests');
             echo 'Too Many Requests';
             die;
@@ -1716,8 +1716,8 @@ function aff_editeur($Xzone, $Xactiv) {
       static $tmp_Xzone;
       if ($Xzone=='tiny_mce') {
          if ($Xactiv=='end') {
-            if (substr($tmp_Xzone,-1)==',')
-               $tmp_Xzone=substr_replace($tmp_Xzone,'',-1);
+            if (substr((string) $tmp_Xzone,-1)==',')
+               $tmp_Xzone=substr_replace((string) $tmp_Xzone,'',-1);
             if ($tmp_Xzone) {
                $tmp="
       <script type=\"text/javascript\">
