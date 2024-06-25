@@ -12,7 +12,7 @@
 /************************************************************************/
 
 $theme          = 'npds-boost_sk'; // nom du thème
-$theme_darkness = "dark"; // light or dark
+$theme_darkness = "light"; // light or dark
 $long_chain     = '34'; // Nombre de caractères affichés avant troncature pour certains blocs
 
 // ne pas supprimer cette ligne / Don't remove this line
