@@ -17,11 +17,7 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include('functions.php');
-if ($SuperCache) 
-   $cache_obj = new cacheManager();
-else 
-   $cache_obj = new SuperCacheEmpty();
-
+$cache_obj = ($SuperCache) ? new cacheManager() : new SuperCacheEmpty() ;
 include('auth.php');
 global $NPDS_Prefix, $admin, $adminforum;
 
@@ -345,14 +341,12 @@ include('header.php');
          if ($posterdata['mns'])
              $useroutils .= '<a class="list-group-item list-group-item-action text-primary text-center text-md-start" href="minisite.php?op='.$posterdata['uname'].'" target="_blank" target="_blank" title="'.translate("Visitez le minisite").'" data-bs-toggle="tooltip"><i class="fa fa-desktop fa-2x align-middle fa-fw"></i><span class="ms-3 d-none d-md-inline">'.translate("Visitez le minisite").'</span></a>';
       }
+      if (($count+1)==$mycount) echo '<a name="lastpost"></a>';
       echo '
-      <div class="row mb-3">
-         <a name="'.$forum.$topic.$myrow['post_id'].'"></a>';
-      if (($count+2)==$mycount) echo '<a name="lastpost"></a>';
-      echo '
-         <div class="col-12">
-            <div class="card">
-               <div class="card-header">';
+      <div class="mb-3 shadow">
+         <a name="'.$forum.$topic.$myrow['post_id'].'"></a>
+         <div class="card">
+            <div class="card-header">';
       if ($smilies) {
          if($myrow['poster_id'] !== '0') {
             if ($posterdata['user_avatar'] != '') {
@@ -384,8 +378,8 @@ include('header.php');
             </div>';
       $message=stripslashes($myrow['post_text']);
       echo '
-               <div class="card-body">
-                  <div class="card-text pt-2">';
+            <div class="card-body">
+               <div class="card-text pt-2">';
       $date_post=convertdateTOtimestamp($myrow['post_time']);
       if (isset($last_read)) {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !='0' AND $userdata[0]!=$myrow['poster_id']) {
@@ -420,12 +414,12 @@ include('header.php');
          echo '</div>';
       }
    echo '
-               </div>
             </div>
-               <div class="card-footer">
-                  <div class="row">
-                     <div class=" col-sm-6 text-body-secondary small">'.post_convertdate($date_post).'</div>
-                     <div class=" col-sm-6 text-end">';
+         </div>
+            <div class="card-footer">
+               <div class="row">
+                  <div class=" col-sm-6 text-body-secondary small">'.post_convertdate($date_post).'</div>
+                  <div class=" col-sm-6 text-end">';
 
    if ($forum_access!=9) {
       $allow_to_post=false;
@@ -474,7 +468,6 @@ include('header.php');
       }
    }
       echo '
-                     </div>
                   </div>
                </div>
             </div>
