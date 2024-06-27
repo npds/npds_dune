@@ -105,7 +105,8 @@ $sql_nbREQ=0;
    }
 // Nombre de lignes affectées par les requêtes de type INSERT, UPDATE et DELETE
    function sql_affected_rows() {
-      return @mysqli_affected_rows();
+      global $dblink;
+      return @mysqli_affected_rows($dblink);
    }
 // Le dernier identifiant généré par un champ de type AUTO_INCREMENT
    function sql_last_id() {
@@ -121,7 +122,7 @@ $sql_nbREQ=0;
       return @sql_query("SHOW TABLES FROM $dbnom");
    }
 
-// Controle
+// Contrôle
    function sql_select_db() {
       global $dbname, $dblink;
       if (!@mysqli_select_db($dblink, $dbname))
@@ -135,7 +136,9 @@ $sql_nbREQ=0;
          return @mysqli_free_result($q_id);
    }
 // Ferme la connexion avec la Base de données
-   function sql_close($dblink) {
-      return @mysqli_close($dblink);
+   function sql_close() {
+      global $dblink, $mysql_p;
+      if (!$mysql_p)
+         return @mysqli_close($dblink);
    }
 ?>

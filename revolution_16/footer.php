@@ -64,7 +64,5 @@ function foot() {
    </html>';
 
    include("sitemap.php");
-
-   global $mysql_p, $dblink;
-   if (!$mysql_p) sql_close($dblink);
+   sql_close();
 ?>
