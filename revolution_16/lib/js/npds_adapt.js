@@ -2,6 +2,7 @@
       /* ce script assure :
       responsivité des anciens site : forçage des dimensions par la classe img-fluid,
       paramétrages de plugins :  tooltips, popover, toggle, boostrap table, highlight
+      adaptation du mode du theme au choix fait dans le media ...
       */
       // ==> choix icon boostrap table //
          window.icons = {
@@ -47,8 +48,17 @@
                $('[data-bs-toggle="tooltip"]').tooltip();
                $('[data-bs-toggle="popover"]').popover();
             });
- 
          });
+
+         // adaptation du mode du theme au choix fait dans le media ...
+         function updateDarkness() {
+            const colorMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            document.querySelector("body").setAttribute("data-bs-theme", colorMode);
+         }
+         updateDarkness()
+         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateDarkness);
+
+         // un autre moyen d'initialiser le tootip
          (function(t) {
             "use strict";
             t((function() {
