@@ -38,7 +38,7 @@ if (isset($user)) {
    $userdata = explode(':', $userX);
    $Mmod=false;
    for ($i = 0; $i < count($moderator); $i++) {
-       if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
+      if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
    }
    $userdata = get_userdata($userdata[1]);
 }
@@ -86,10 +86,7 @@ if ($submitS) {
    // Either valid user/pass, or valid session. continue with post.
    if ($stop != 1) {
       $poster_ip = getip();
-      if ($dns_verif)
-         $hostname=@gethostbyaddr($poster_ip);
-      else
-         $hostname='';
+      $hostname = ($dns_verif) ? gethostbyaddr($poster_ip) : '' ;
 
      // anti flood
       anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);

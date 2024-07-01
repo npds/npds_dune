@@ -16,11 +16,7 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include('functions.php');
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
-
+$cache_obj = ($SuperCache) ? new cacheManager() : new SuperCacheEmpty() ;
 include('auth.php');
 global $NPDS_Prefix;
 
@@ -92,11 +88,7 @@ if ($submitS) {
    // Either valid user/pass, or valid session. continue with post.
    if ($stop != 1) {
       $poster_ip =  getip();
-      if ($dns_verif)
-         $hostname=@gethostbyaddr($poster_ip);
-      else
-         $hostname='';
-
+      $hostname = ($dns_verif) ? gethostbyaddr($poster_ip) : '' ;
       // anti flood
       anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);
       //anti_spambot

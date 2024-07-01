@@ -64,7 +64,7 @@ include("functions.php");
          <input type="hidden" name="auto" value="'.$auto.'" />';
 
    if (!isset($cookie[1]))
-      $pseudo = ((isset($name))?($name):urldecode(getip()));
+      $pseudo = isset($name) ? $name : getip() ;
    else
       $pseudo = $cookie[1];
    $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';

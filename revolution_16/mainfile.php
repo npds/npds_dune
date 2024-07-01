@@ -64,7 +64,7 @@ function session_manage() {
    global $NPDS_Prefix, $cookie, $REQUEST_URI, $nuke_url;
    $guest=0;
    $ip=getip();
-   $username = isset($cookie[1]) ? $cookie[1] : $ip;// pas bon ...
+   $username = isset($cookie[1]) ? $cookie[1] : $ip ;
    if($username==$ip)
       $guest=1;
    //==> geoloc
@@ -452,8 +452,8 @@ function Ecr_Log($fic_log, $req_log, $mot_log) {
    $fp = fopen($logfile, 'a');
    flock($fp, 2);
    fseek($fp, filesize($logfile));
-   if ($mot_log=="") {$mot_log="IP=>".getip();}
-   $ibid = sprintf("%-10s %-60s %-10s\r\n",date("m/d/Y H:i:s",time()),basename($_SERVER['PHP_SELF'])."=>".strip_tags(urldecode($req_log)),strip_tags(urldecode($mot_log)));
+   if ($mot_log=="") $mot_log="IP=>".getip();
+   $ibid = sprintf("%-10s %-60s %-10s\r\n",date("m/d/Y H:i:s",time()),basename($_SERVER['PHP_SELF'])."=>".strip_tags(urldecode($req_log)),strip_tags(urldecode($mot_log)));//pourquoi urldecode ici ?
    fwrite($fp, $ibid);
    flock($fp, 3);
    fclose($fp);
@@ -1851,7 +1851,6 @@ function L_spambot($ip, $status) {
    $maj_fic=false;
    if ($ip=='')
       $ip=getip();
-   $ip=urldecode($ip);
    if (file_exists("slogs/spam.log")) {
       $tab_spam=str_replace("\r\n",'',file("slogs/spam.log"));
       if (in_array($ip.'|1',$tab_spam))

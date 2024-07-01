@@ -43,17 +43,14 @@ function pollCollector($pollID, $voteID, $forwarder) {
       }
       if ($setCookies=="1") {
          $ip=getip();
-         if ($dns_verif)
-            $hostname="OR al_hostname='".@gethostbyaddr($ip)."' ";
-         else
-            $hostname="";
+         $hostname = ($dns_verif) ? "OR al_hostname='".gethostbyaddr($ip)."' " : '';
          $sql="SELECT al_id FROM ".$NPDS_Prefix."appli_log WHERE al_id='$al_id' AND al_subid='$pollID' AND (al_ip='$ip' ".$hostname.$user_req.")";
          if ($result = sql_fetch_row(sql_query($sql)))
             $voteValid="0";
       }
       if ($voteValid=="1") {
          $ip=getip();
-         $hostname = $dns_verif ? @gethostbyaddr($ip) : '';
+         $hostname = $dns_verif ? gethostbyaddr($ip) : '' ;
          sql_query("INSERT INTO ".$NPDS_Prefix."appli_log (al_id, al_name, al_subid, al_date, al_uid, al_data, al_ip, al_hostname) VALUES ('$al_id', '$al_nom', '$pollID', now(), '$cookie[0]', '$voteID', '$ip', '$hostname')");
          sql_query("UPDATE ".$NPDS_Prefix."poll_data SET optionCount=optionCount+1 WHERE (pollID='$pollID') AND (voteID='$voteID')");
          sql_query("UPDATE ".$NPDS_Prefix."poll_desc SET voters=voters+1 WHERE pollID='$pollID'");

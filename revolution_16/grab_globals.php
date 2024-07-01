@@ -46,7 +46,7 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
     if (strpos($realip, ",")>0)
        $realip=substr($realip,0,strpos($realip, ",")-1);
     // from Gu1ll4um3r0m41n - 08-05-2007 - dev 2012
-    return (urlencode(trim($realip)));
+    return (trim($realip));
    } 
 
    function access_denied() {
@@ -57,7 +57,7 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
    if (file_exists("slogs/spam.log"))
       $tab_spam=str_replace("\r\n","",file("slogs/spam.log"));
    if (is_array($tab_spam)) {
-      $ipadr = urldecode(getip());
+      $ipadr = getip();
       $ipv = strstr($ipadr, ':') ? '6' : '4';
       if (in_array($ipadr."|5",$tab_spam))
           access_denied();

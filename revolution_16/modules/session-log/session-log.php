@@ -91,7 +91,7 @@ echo '
          echo '
             <tr>
                <td class="small">'.$username.'</td>
-               <td class="small">'.urldecode($host_addr).' <br /><a href="'.$ThisFile.'&amp;subop=banthisip&amp;iptoban='.urldecode($host_addr).'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.SessionLog_translate("Déconnecter et bannir cette adresse IP !").'"><i class="fas fa-ban text-danger"></i></a></td>
+               <td class="small">'.$host_addr.' <br /><a href="'.$ThisFile.'&amp;subop=banthisip&amp;iptoban='.urlencode($host_addr).'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.SessionLog_translate("Déconnecter et bannir cette adresse IP !").'"><i class="fas fa-ban text-danger"></i></a></td>
                <td class="small">'.gethostbyaddr($host_addr).'</td>
                <td class="small">'.$uri.'</td>
                <td class="small">'.$agent.'</td>
@@ -265,12 +265,13 @@ echo '
 
    // bannir cette IP
    if ($subop=="banthisip") {
+      $iptoban = urldecode($iptoban);
       sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr='$iptoban'");
       L_spambot($iptoban,"ban");
       echo '<div class="alert alert-danger my-3"><strong>'.$iptoban.'</strong> '.SessionLog_translate("cette adresse IP a été déconnectée et bannie !").'</div>';
       redirect_url("admin.php?op=Extend-Admin-SubModule&ModPath=".$ModPath."&ModStart=".$ModStart."&subop=session");
    }
-   
+
    // vider la table des sessions
    if ($subop=="videsession") {
       sql_query("DELETE FROM ".$NPDS_Prefix."session WHERE host_addr >=0");
