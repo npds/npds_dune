@@ -11,7 +11,7 @@
 /************************************************************************/
 
 // ---------------------------------------------------------------------
-// CE CHAMPS est indispensable --- Don't remove this field
+// CE CHAMP est indispensable --- Don't remove this field
 // Champ text : Longueur = 50 / obligatoire / Pas de vérification
 $m->add_field('subject', 'Sujet','','text',true,50,'','');
 // ---------------------------------------------------------------------
@@ -19,9 +19,9 @@ $m->add_field('subject', 'Sujet','','text',true,50,'','');
 // Titre de la Grille de Formulaire
 $m->add_title("NPDS Forum Extender :: Probl&egrave;mes ");
 
-// Champ Combo : hauteur = 4 / Pas d'option par défaut / titre "Votre Système d'Exploitation"
+// Champ Combo : hauteur = 4 / Option par défaut Linux / titre "Votre Système d'Exploitation"
 $tmp=array(
-  "a1"=>array('en'=>"-: Linux ", 'selected'=>false),
+  "a1"=>array('en'=>"-: Linux ", 'selected'=>true),
   "a2"=>array('en'=>"-: Windows Seven ", 'selected'=>false),
   "a3"=>array('en'=>"-: Windows Vista ", 'selected'=>false),
   "a4"=>array('en'=>"-: windows XP", 'selected'=>false),
@@ -31,28 +31,29 @@ $tmp=array(
 );
 $m->add_select('t1', "Votre Syst&egrave;me d'Exploitation",$tmp,false,4,false);
 
-// Champ Combo : hauteur = 2 / Pas d'option par défaut / titre "Votre Package Web"
+// Champ Combo : hauteur = 2 / Option par défaut Apache + Php + MySql / titre "Votre Package Web"
 $tmp=array(
   "b1"=>array('en'=>"-: EasyPhp", 'selected'=>false),
   "b2"=>array('en'=>"-: WAMP ", 'selected'=>false),
   "b3"=>array('en'=>"-: XAMP ", 'selected'=>false),
-  "b4"=>array('en'=>"-: Apache + Php + MySql ", 'selected'=>false),
+  "b4"=>array('en'=>"-: Apache + Php + MySql ", 'selected'=>true),
   "b5"=>array('en'=>"-: Autres ", 'selected'=>false),
   "b6"=>array('en'=>"-: Je ne sais pas ! ", 'selected'=>false),
 );
 $m->add_select('t2', "Votre Package Web",$tmp,false,2,false);
 
-// Champ Combo : hauteur = 2 / Pas d'option par défaut / titre "Votre version de PHP"
+// Champ Combo : hauteur = 2 / Option par défaut Php 8.x / titre "Votre version de PHP"
 $tmp=array(
   "c1"=>array('en'=>"-: Php 3.x ", 'selected'=>false),
   "c2"=>array('en'=>"-: Php 4.x ", 'selected'=>false),
   "c3"=>array('en'=>"-: Php 5.x ", 'selected'=>false),
   "c4"=>array('en'=>"-: Php 7.x ", 'selected'=>false),
-  "c5"=>array('en'=>"-: Je ne sais pas ! ", 'selected'=>false),
+  "c5"=>array('en'=>"-: Php 8.x ", 'selected'=>true),
+  "c6"=>array('en'=>"-: Je ne sais pas ! ", 'selected'=>false),
 );
 $m->add_select('t3', "Votre version de PHP",$tmp,false,2,false);
 
-// Champ Combo : hauteur = 5 / Pas d'option par défaut / Mutli-selection active / titre "Version NPDS (voir statistiques du site)"
+// Champ Combo : hauteur = 5 / Option par défaut NPDS RÉvolution 16.8 / Mutli-selection active / titre "Version NPDS (voir statistiques du site)"
 $tmp=array(
   "n1"=>array('en'=>"-: NPDS 4.x ", 'selected'=>false),
   "n2"=>array('en'=>"-: NPDS 5.x ", 'selected'=>false),
@@ -64,27 +65,30 @@ $tmp=array(
   "n8"=>array('en'=>"-: NPDS RÉvolution 16.0 ", 'selected'=>false),
   "n9"=>array('en'=>"-: NPDS RÉvolution 16.1 ", 'selected'=>false),
   "n10"=>array('en'=>"-: NPDS RÉvolution 16.2 ", 'selected'=>false),
+  "n11"=>array('en'=>"-: NPDS RÉvolution 16.3 ", 'selected'=>false),
+  "n12"=>array('en'=>"-: NPDS RÉvolution 16.4 ", 'selected'=>false),
+  "n13"=>array('en'=>"-: NPDS RÉvolution 16.8 ", 'selected'=>true),
 );
 $m->add_select('t4', 'Version NPDS (<a href="stats.php">voir statistiques du site</a>)',$tmp,false,4,true);
 
-// Champ Combo : hauteur = 6 / Pas d'option par défaut / titre "Type de problème"
+// Champ Combo : hauteur = 6 / Option par défaut Erreur(s) Php / titre "Type de problème"
 $tmp=array(
   "d1"=>array('en'=>"-: Installation ", 'selected'=>false),
   "d2"=>array('en'=>"-: Erreur(s) MySql ", 'selected'=>false),
-  "d3"=>array('en'=>"-: Erreur(s) Php ", 'selected'=>false),
+  "d3"=>array('en'=>"-: Erreur(s) Php ", 'selected'=>true),
   "d4"=>array('en'=>"-: Utilisation ", 'selected'=>false),
   "d5"=>array('en'=>"-: Administration ", 'selected'=>false),
   "d6"=>array('en'=>"-: Autre(s) Erreur(s) ", 'selected'=>false),
 );
 $m->add_select('t5', "Type de probl&egrave;me",$tmp,false,6,false);
 
-// Champ Combo : hauteur = 5 / Pas d'option par défaut / titre "Votre hébergeur"
+// Champ Combo : hauteur = 5 / Option par défaut Autre(s) / titre "Votre hébergeur"
 $tmp=array(
   "e1"=>array('en'=>"-: Free ", 'selected'=>false),
   "e2"=>array('en'=>"-: OVH ", 'selected'=>false),
   "e3"=>array('en'=>"-: Amen ", 'selected'=>false),
   "e4"=>array('en'=>"-: Chez-moi via ADSL ", 'selected'=>false),
-  "e5"=>array('en'=>"-: Autre(s) ", 'selected'=>false),
+  "e5"=>array('en'=>"-: Autre(s) ", 'selected'=>true),
 );
 $m->add_select('t6', 'Votre h&eacute;bergeur',$tmp,false,5,false);
 
@@ -100,7 +104,7 @@ $m->add_radio('r1', "Votre Priorité", $tmp, false);
 // ---------------------------------------------------------------------
 // CE CHAMP est indispensable --- Don't remove this field
 // Champ text : Longueur = 800 / TextArea / Obligatoire / Pas de Vérification
-$m->add_field('message', "Description du problème",'','textarea',true,800,15,'','');
+$m->add_field('message', "Description du problème",'','textarea',true,800,15,'');
 // ---------------------------------------------------------------------
 
 // Champ Boite à cocher / Valeur de retour true / coché
@@ -113,7 +117,6 @@ $m->add_checkbox('notify2', "Notification par Email", 'Oui', false, false);
 // CES CHAMPS sont indispensables --- Don't remove these fields
 // Champ Hidden
 $m->add_field('forum','',$forum,'hidden',false);
-
 $m->add_extra('<br />');
 // Anti-Spam
 $m->add_Qspam();
@@ -128,5 +131,6 @@ $m->add_field('Submit','','Soumettre','submit',false);
 $m->add_extra('
          </div>
       </div>');
+$m->add_field('submitS','','submitS','hidden',false);
 // ----------------------------------------------------------------
 ?>

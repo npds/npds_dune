@@ -54,7 +54,7 @@ $hrefX = ($myrow['arbre']) ? 'viewtopicH.php' : 'viewtopic.php' ;
 
 settype($submitS,'string');
 settype($stop,'integer');
-if ($submitS) {
+if (isset($submitS)) {
    if ($message == '')
       $stop=1;
    if ($subject == '')
@@ -124,14 +124,12 @@ if ($submitS) {
       $Msubject = $subject;
       $time = date("Y-m-d H:i",time()+((integer)$gmt*3600));
       $sql = "INSERT INTO ".$NPDS_Prefix."forumtopics (topic_title, topic_poster, current_poster, forum_id, topic_time, topic_notify) VALUES ('$subject', '".$userdata['uid']."', '".$userdata['uid']."', '$forum', '$time'";
-      if (isset($notify2) && $userdata['uid'] != 1)
-         $sql .= ", '1'";
-      else
-         $sql .= ", '0'";
+      $sql .= (isset($notify2) && $userdata['uid'] != 1) ? ", '1'" : ", '0'" ;
       $sql .= ')';
       if(!$result = sql_query($sql))
          forumerror('0020');
       $topic_id = sql_last_id();
+      $image_subject = isset($image_subject) ? $image_subject : '00.png' ;
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('$topic_id', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
       if (!$result = sql_query($sql))
          forumerror('0020');
@@ -250,14 +248,8 @@ if ($submitS) {
          $acc = 'newtopic';
          $subject=stripslashes($subject);
          $message=stripslashes($message);
-         if (isset($username))
-            $username=stripslashes($username);
-         else
-            $username='';
-         if (isset($password))
-            $password=stripslashes($password);
-         else
-            $password='';
+         $username = (isset($username)) ? stripslashes($username) : '' ;
+         $password = (isset($password)) ? stripslashes($password) : '' ;
          include ("preview.php");
       } else {
         $username='';
