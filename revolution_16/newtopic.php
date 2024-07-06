@@ -52,9 +52,8 @@ if (!does_exists($forum, "forum"))
 // Forum ARBRE
 $hrefX = ($myrow['arbre']) ? 'viewtopicH.php' : 'viewtopic.php' ;
 
-settype($submitS,'string');
 settype($stop,'integer');
-if (isset($submitS)) {
+if ($submitS) {
    if ($message == '')
       $stop=1;
    if ($subject == '')
@@ -87,10 +86,8 @@ if (isset($submitS)) {
    if ($stop != 1) {
       $poster_ip = getip();
       $hostname = ($dns_verif) ? gethostbyaddr($poster_ip) : '' ;
-
      // anti flood
       anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);
-
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, $message)) {
          Ecr_Log('security', 'Forum Anti-Spam : forum='.$forum.' / topic_title='.$subject, '');
@@ -189,10 +186,10 @@ if (isset($submitS)) {
          if (stristr($modera['user_avatar'],"users_private"))
             $imgtmp=$modera['user_avatar'];
          else
-            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
+            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$modera['user_avatar'];
       }
-            echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava me-1 mx-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
-      }
+      echo '<a href="user.php?op=userinfo&amp;uname='.$moderator_data[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava me-1 mx-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" loading="lazy" /></a>';
+   }
    echo '
          </div>
       </div>
@@ -228,9 +225,8 @@ if (isset($submitS)) {
             </div>
          </fieldset>';
          $allow_to_post = 1;
-      } else {
+      } else
          $allow_to_post = 1;
-      }
    }
    elseif ($forum_access==2) {
       if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
@@ -252,10 +248,7 @@ if (isset($submitS)) {
          $password = (isset($password)) ? stripslashes($password) : '' ;
          include ("preview.php");
       } else {
-        $username='';
-        $password='';
-        $subject='';
-        $message='';
+        $username=''; $password=''; $subject=''; $message='';
       }
       if ($myrow['forum_type']==8) {
          $formulaire=$myrow['forum_pass'];
@@ -315,8 +308,7 @@ if (isset($submitS)) {
          <div class="col-sm-12">
             <div class="custom-controls-stacked">';
          if (($allow_html==1) and ($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
-            if (isset($html)) $sethtml = 'checked="checked"';
-            else $sethtml = '';
+            $sethtml = (isset($html)) ? 'checked="checked"' : '' ;
             echo '
                <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="html" name="html" '.$sethtml.' />
@@ -327,8 +319,7 @@ if (isset($submitS)) {
             if ($allow_sig == 1 || $sig == 'on') {
                $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
                list($attachsig) = sql_fetch_row($asig);
-               if ($attachsig == 1) $s = 'checked="checked"';
-               else $s = '';
+               $s = ($attachsig == 1) ? 'checked="checked"' : '' ;
                if (($myrow['forum_type']!=6) and ($myrow['forum_type']!=5)) {
                   echo '
                <div class="form-check">
@@ -348,11 +339,8 @@ if (isset($submitS)) {
                   <label class="form-check-label" for="upload">'.translate("Charger un fichier une fois l'envoi accepté").'</label>
                </div>';
             }
-            if (isset($notify2))
-               $selnot='checked="checked"';
-            else
-               $selnot='';
-         echo '
+            $selnot = isset($notify2) ? 'checked="checked"' : '' ;
+            echo '
                <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="notify2" name="notify2" '.$selnot.' />
                   <label class="form-check-label" for="notify2">'.translate("Prévenir par Email quand de nouvelles réponses sont postées").'</label>
