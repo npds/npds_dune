@@ -35,7 +35,6 @@ global $NPDS_Prefix, $adminforum;
 //<== droits des admin sur les forums (superadmin et admin avec droit gestion forum)
 
    if (isset($arbre) and ($arbre=='1')) $url_ret="viewtopicH.php"; else $url_ret="viewtopic.php";
-//   if($mode!='viewip') {
       $Mmod=false;
       if(isset($user)) {
          $userX = base64_decode($user);
@@ -56,7 +55,6 @@ global $NPDS_Prefix, $adminforum;
       }
       if ((!$Mmod) and ($adminforum==0))
          forumerror('0007');
-//   }
    if ((isset($submit)) and ($mode=='move')) {
       $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET forum_id='$newforum' WHERE topic_id='$topic'";
       if (!$r = sql_query($sql))
@@ -99,14 +97,12 @@ global $NPDS_Prefix, $adminforum;
                         echo '
                      <option value="'.$myrow['forum_id'].'">'.$myrow['forum_name'].'</option>';
                      } while($myrow = sql_fetch_assoc($result));
-                  } else {
+                  } else
                      echo '
                      <option value="-1">'.translate("Plus de forum").'</option>';
-                  }
-               } else {
+               } else
                   echo '
                      <option value="-1">Database Error</option>';
-               }
                echo '
                   </select>
             </div>
