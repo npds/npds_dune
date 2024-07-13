@@ -2636,7 +2636,7 @@ function bloc_rubrique() {
 }
 #autodoc espace_groupe() : Bloc du WorkSpace <br />=> syntaxe :<br />function#bloc_espace_groupe<br />params#ID_du_groupe, Aff_img_groupe(0 ou 1) / Si le bloc n'a pas de titre, Le nom du groupe sera utilisé
 function bloc_espace_groupe($gr, $i_gr) {
-   global $NPDS_Prefix, $block_title;
+   global $NPDS_Prefix, $block_title ;
    if ($block_title=='') {
       $rsql=sql_fetch_assoc(sql_query("SELECT groupe_name FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gr'"));
       $title=$rsql['groupe_name'];
@@ -2645,7 +2645,7 @@ function bloc_espace_groupe($gr, $i_gr) {
    themesidebox($title, fab_espace_groupe($gr, "0", $i_gr));
 }
 function fab_espace_groupe($gr, $t_gr, $i_gr) {
-   global $NPDS_Prefix, $short_user;
+   global $NPDS_Prefix, $short_user, $dblink;
 
    $rsql=sql_fetch_assoc(sql_query("SELECT groupe_id, groupe_name, groupe_description, groupe_forum, groupe_mns, groupe_chat, groupe_blocnote, groupe_pad FROM ".$NPDS_Prefix."groupes WHERE groupe_id='$gr'"));
 
@@ -2672,10 +2672,14 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
    if (file_exists('users_private/groupe/'.$gr.'/groupe.png') and ($i_gr==1)) 
       $content.='<img src="users_private/groupe/'.$gr.'/groupe.png" class="img-fluid mx-auto d-block rounded" alt="'.translate("Groupe").'" loading="lazy" />';
    //=> liste des membres
+   $mysql_version = mysqli_get_server_info($dblink);
+   $query = "SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE ";
+   $query .= (version_compare($mysql_version, '8.0.4', '>=')) ?
+      "groupe REGEXP '\\\\b$gr\\\\b'" :
+      "groupe REGEXP '[[:<:]]".$gr."[[:>:]]'";
+   $query .= " ORDER BY uid ASC";
+   $result = sql_query($query);
    $li_mb=''; $li_ic='';
-   $result = mysqli_get_client_info() <= '8.0' ?
-      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr."[[:>:]]' ORDER BY uid ASC") :
-      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE `groupe` REGEXP \"\\\\b$gr\\\\b\" ORDER BY uid ASC;") ;
    $nb_mb=sql_num_rows ($result);
    $count=0;
    $li_mb.='
