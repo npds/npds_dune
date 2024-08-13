@@ -341,8 +341,11 @@ function reviews($field, $order) {
       case 'hits':
          $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY hits $order");
       break;
-      case 'date':
+      case 'id':
          $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY id $order");
+      break;
+      case 'date':
+         $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY date $order");
       break;
       default:
          $result = sql_query("SELECT id, title, hits, reviewer, score, date FROM ".$NPDS_Prefix."reviews ORDER BY title $order");
@@ -371,8 +374,10 @@ function reviews($field, $order) {
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=reviewer&amp;order=DESC"><i class="fa fa-sort-amount-up me-2"></i>'.translate("Posté par").'</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=score&amp;order=ASC"><i class="fa fa-sort-amount-down me-2"></i>Score</a>
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=score&amp;order=DESC"><i class="fa fa-sort-amount-up me-2"></i>Score</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=ASC"><i class="fa fa-sort-amount-down"></i>Hits</a>
-         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=DESC"><i class="fa fa-sort-amount-up"></i>Hits</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=ASC"><i class="fa fa-sort-amount-down me-2"></i>Hits</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=hits&amp;order=DESC"><i class="fa fa-sort-amount-up me-2"></i>Hits</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=id&amp;order=ASC"><i class="fa fa-sort-amount-down me-2"></i>ID</a>
+         <a class="dropdown-item" href="reviews.php?op=sort&amp;field=id&amp;order=DESC"><i class="fa fa-sort-amount-up me-2"></i>ID</a>
       </div>
    </div>';
 
