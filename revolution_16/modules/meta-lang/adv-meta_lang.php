@@ -21,10 +21,10 @@ function MM_img($ibid) {
    $ibid=arg_filter($ibid);
    $ibidX=theme_image($ibid);
    if ($ibidX)
-      $ret="<img src=\"$ibidX\" border=\"0\" alt=\"\" />";
+      $ret='<img src="'.$ibidX.'" alt="smiley" loading="lazy" />';
    else {
       if (@file_exists("images/$ibid"))
-         $ret="<img src=\"images/$ibid\" border=\"0\" alt=\"\" />";
+         $ret='<img src="images/'.$ibid.'" alt="smiley" loading="lazy" />';
       else
          $ret=false;
    }
@@ -58,12 +58,10 @@ function charg($funct,$arguments) {
    return($cmd);
 }
 
-function match_uri($racine, $R_uri)  {
+function match_uri($racine, $R_uri) {
    $tab_uri=explode(' ',$R_uri);
    foreach($tab_uri as $RR_uri){
-//   while (list(,$RR_uri)=each($tab_uri)) {
-      if ($racine==$RR_uri)
-         return (true);
+      if ($racine==$RR_uri) return (true);
    }
    return (false);
 }
@@ -116,7 +114,7 @@ function ana_args($arg) {
 }
 
 function meta_lang($Xcontent) {
-   global $meta_glossaire, $admin, $NPDS_debug,$NPDS_debug_str,$NPDS_debug_cycle;
+   global $meta_glossaire, $admin, $NPDS_debug, $NPDS_debug_str, $NPDS_debug_cycle;
 
    // Reduction
    $Xcontent=str_replace("<!--meta","",$Xcontent);
@@ -148,10 +146,9 @@ function meta_lang($Xcontent) {
    $tab=array();
 
    foreach($text as $word) {
-//   while ($word=each($text)) { // code original + suppression de l'indice de la variable $word !
       // longueur minimale du mot : 2 semble un bon compromis sauf pour les smilies ... (1 est donc le choix par défaut)
       if (strlen($word)>1) {
-         $op=0; $arguments=""; $cmd="";
+         $op=0; $arguments=''; $cmd='';
          $car_deb=substr($word,0,1);
          $car_fin=substr($word,-1);
 
@@ -245,14 +242,14 @@ function meta_lang($Xcontent) {
             }
 
          // si le mot se termine par ^ : on supprime ^ | cela permet d'assurer la protection d'un mot (intouchable)
-         if ($car_fin=="^")
-            $Cword=substr($Cword,0,-1)."&nbsp;";
+         if ($car_fin=='^')
+            $Cword=substr($Cword,0,-1).'&nbsp;';
 
          // si c'est un meta : remplacement identique à str_replace
-         if ($type_meta=="meta")
+         if ($type_meta=='meta')
             $tab[$Rword]=$Cword;
          else {
-            if ($car_fin==substr($Rword,-1)) $car_fin=" ";
+            if ($car_fin==substr($Rword,-1)) $car_fin=' ';
             $tab[$Rword.$car_fin]=$Cword.$car_fin;
          }
 
@@ -266,12 +263,11 @@ function meta_lang($Xcontent) {
    while (strstr($Xcontent,"!delete!")) {
       $deb=strpos($Xcontent,"!delete!",0);
       $fin=strpos($Xcontent,"!/!",$deb+8);
-      if ($fin)
-         $Xcontent=str_replace(substr($Xcontent,$deb,($fin+3)-$deb),"",$Xcontent);
-      else
-         $Xcontent=str_replace("!delete!","",$Xcontent);
+      $Xcontent = ($fin) ? 
+         str_replace(substr($Xcontent,$deb,($fin+3)-$deb),'',$Xcontent) :
+         str_replace("!delete!",'',$Xcontent) ;
    }
-   $Xcontent=str_replace("!/!","",$Xcontent);
+   $Xcontent=str_replace("!/!",'',$Xcontent);
 
    // traitement [code] ... [/code]
    if (strstr($Xcontent,"[code]"))
