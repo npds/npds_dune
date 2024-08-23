@@ -53,7 +53,8 @@ if (($forum_type==9) and (!$user))
 if (isset($user)) {
    $userX = base64_decode($user);
    $userdata = explode(':', $userX);
-}
+} else
+   $userdata[0]=0;
 $moderator=get_moderator($mod);
 $moderator=explode(' ',$moderator);
 $Mmod=false;
@@ -87,8 +88,8 @@ function maketree($rootcatid,$sql,$maxlevel){
    $result=sql_query($sql);
    $max_post_id=0;
    while($tempo=sql_fetch_assoc($result)){
-      $table[$tempo['post_idH']][$tempo['post_id']]=serialize($tempo);
-      if ($max_post_id<$tempo['post_id']) {$max_post_id=$tempo['post_id'];}
+      $table[$tempo['post_idH']][$tempo['post_id']] = serialize($tempo);
+      if ($max_post_id<$tempo['post_id']) $max_post_id = $tempo['post_id'];
    }
    $resultX='';
    $resultX.= makebranch($rootcatid,$table,0,$maxlevel,$max_post_id,$clas,$idtog);
@@ -97,8 +98,8 @@ function maketree($rootcatid,$sql,$maxlevel){
 
 function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
    global $imgtmpPI, $imgtmpNE, $user;
-   global $smilies,$theme,$forum,$forum_type,$allow_bbcode,$allow_to_post,$forum_access,$Mmod,$topic,$lock_state, $userdata;
-   global $allow_upload_forum, $att, $anonymous, $short_user, $last_read, $toggle;
+   global $smilies, $theme, $forum, $forum_type, $allow_bbcode, $allow_to_post, $forum_access, $Mmod, $topic, $lock_state, $userdata;
+   global $allow_upload_forum, $att, $anonymous, $short_user, $last_read;
    settype($result,'string');
 
    $my_rsos=array();$count=0;
@@ -203,15 +204,14 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
          } else {
             echo '
                <a style="position:absolute; top:1rem;" title="'.$anonymous.'" data-bs-toggle="tooltip"><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="images/forum/avatar/blank.gif" alt="'.$anonymous.'" /></a>
-               <span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$anonymous.'</strong></span>'; }
+               <span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$anonymous.'</strong></span>';
          }
-            
-             else {
-            if($myrow['poster_id'] !== '0')
-               echo '<span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>';
-            else
-               echo '<span class="text-body-secondary"><strong>'.$anonymous.'</strong></span>';
-         }
+      }
+      else {
+         echo ($myrow['poster_id'] !== '0') ?
+               '<span style="position:absolute; left:6em;" class="text-body-secondary"><strong>'.$posterdata['uname'].'</strong></span>' :
+               '<span class="text-body-secondary"><strong>'.$anonymous.'</strong></span>';
+      }
 
       echo '<span class="float-end">';
          if ($myrow['image'] != '') {
@@ -262,12 +262,11 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
                      <div class=" col-sm-6 text-end">';
       if ($forum_access!=9) {
          if ($allow_to_post) {
-         if($idtog==11)
-            echo aff_pub_in($lock_state,$topic,$forum,0);
-         else
-            echo aff_pub_in($lock_state,$topic,$forum,$myrow['post_id']);
+            echo ($idtog==11) ?
+               aff_pub_in($lock_state,$topic,$forum,0) :
+               aff_pub_in($lock_state,$topic,$forum,$myrow['post_id']) ;
          }
-         if (($Mmod) or ($posterdata['uid']==$userdata[0]) and (!$lock_state) and ($posterdata['uid']!='')) {
+         if (($Mmod) or (!empty($userdata[0])) and ($posterdata['uid']==$userdata[0]) and (!$lock_state) and ($posterdata['uid']!='')) {
             echo '<a class="me-3" href="editpost.php?post_id='.$myrow["post_id"].'&amp;topic='.$topic.'&amp;forum='.$forum.'&amp;arbre=1" title="'.translate("Editer").'" data-bs-toggle="tooltip"><i class="fa fa-edit fa-lg"></i></a>';
             if ($allow_upload_forum) {
                $PopUp=win_upload("forum_npds",$myrow['post_id'],$forum,$topic,"popup");
@@ -305,7 +304,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
             </div>
          </div>
       </div>';
-   $count++;
+      $count++;
    }
    return($result);
 }
@@ -335,26 +334,25 @@ $total_contributeurs = count($contributeurs);
 
 $title=$forum_name; $post=$topic_subject;
 include('header.php');
-$r_to='';$n_to='';
-   if ($forum_access!=9) {
-      $allow_to_post=false;
-      if ($forum_access==0) {
+$r_to=''; $n_to='';
+if ($forum_access!=9) {
+   $allow_to_post=false;
+   if ($forum_access==0)
+      $allow_to_post=true;
+   elseif ($forum_access==1) {
+      if (isset($user))
          $allow_to_post=true;
-      } elseif ($forum_access==1) {
-         if (isset($user)) {
-            $allow_to_post=true;
-         }
-      } elseif ($forum_access==2) {
-         if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
-            $allow_to_post=true;
-         }
-      }
-      if ($allow_to_post) {
-         $n_to = aff_pub($lock_state,$topic,$forum,0,9);
-         $r_to = aff_pub_in($lock_state,$topic,$forum,0);
-      }
    }
-  echo '
+   elseif ($forum_access==2) {
+      if (user_is_moderator($userdata[0],$userdata[2],$forum_access))
+         $allow_to_post=true;
+   }
+   if ($allow_to_post) {
+      $n_to = aff_pub($lock_state,$topic,$forum,0,9);
+      $r_to = aff_pub_in($lock_state,$topic,$forum,0);
+   }
+}
+echo '
    <a name="topofpage"></a>
    <p class="lead">
       <a href="forum.php">'.translate("Index du forum").'</a>&nbsp;&raquo;&raquo;&nbsp;
@@ -370,9 +368,9 @@ $r_to='';$n_to='';
       $contri = get_userdata_from_id($contributeurs[$i]);
       if($contributeurs[$i] !== '0') {
          if ($contri['user_avatar'] != '') {
-            if (stristr($contri['user_avatar'],"users_private")) {
+            if (stristr($contri['user_avatar'],"users_private"))
                $imgtmp=$contri['user_avatar'];
-            } else {
+            else {
                if ($ibid=theme_image("forum/avatar/".$contri['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$contri['user_avatar'];}
             }
          }
@@ -424,23 +422,16 @@ $r_to='';$n_to='';
 
    if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
    if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
-
-   if ($Mmod)
-      $post_aff=' ';
-   else
-      $post_aff=" AND post_aff='1' ";
+   $post_aff = ($Mmod) ? '' : " AND post_aff='1' ";
    settype($start,'integer');
    settype($posts_per_page,'integer');
    if (isset($start)) {
       if ($start==9999) { $start=$posts_per_page*($pages-1); if ($start<0) {$start=0;}; }
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id";
-   } else {
+   } else
       $sql = "SELECT * FROM ".$NPDS_Prefix."posts WHERE topic_id='$topic' AND forum_id='$forum'".$post_aff."ORDER BY post_id";
-   }
    if ($allow_upload_forum) {
-      $visible = '';
-      if (!$Mmod)
-         $visible = " AND visible = 1";
+      $visible = (!$Mmod) ? " AND visible = 1" : '';
       $sql2 = "SELECT att_id FROM $upload_table WHERE apli='forum_npds' && topic_id = '$topic' $visible";
       $att = sql_num_rows(sql_query($sql2));
       if ($att>0)
@@ -450,7 +441,6 @@ $r_to='';$n_to='';
    $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_views = topic_views + 1 WHERE topic_id = '$topic'";
    sql_query($sql);
    echo '<br />';
-
 
    if ($forum_access!=9) {
       // un anonyme ne peut pas mettre un topic en resolu
@@ -481,10 +471,7 @@ $r_to='';$n_to='';
       if ($res = sql_query($sub_sql)) {
          while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
             if (($forum_type != "9") or ($userdata)) {
-               if (($forum_type == "7") or ($forum_type == "5"))
-                  $ok_affich=false;
-               else
-                  $ok_affich=true;
+               $ok_affich = (($forum_type == "7") or ($forum_type == "5")) ? false : true ;
                if ($ok_affich)
                   echo '
             <option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';

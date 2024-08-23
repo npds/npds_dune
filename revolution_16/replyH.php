@@ -52,9 +52,9 @@ if ($submitS) {
          $modo='';
          include("header.php");
       } else {
-         if (($username=='') or ($password=='')) {
+         if (($username=='') or ($password==''))
             forumerror('0027');
-         } else {
+         else {
             $result = sql_query("SELECT pass FROM ".$NPDS_Prefix."users WHERE uname='$username'");
             list($pass) = sql_fetch_row($result);
             if ((password_verify($password, $pass)) and ($pass != '')) {
@@ -74,8 +74,12 @@ if ($submitS) {
          }
       }
    } else {
-      $userX = base64_decode($user);
-      $userdata = explode(':', $userX);
+      if (isset($user)) {
+         $userX = base64_decode($user);
+         $userdata = explode(':', $userX);
+      }
+      else
+         $userdata[0] = 0;
       $modo=user_is_moderator($userdata[0],$userdata[2],$forum_access);
       if ($forum_access==2) {
          if (!$modo)
@@ -104,10 +108,9 @@ if ($submitS) {
          $message = aff_code($message);
          $message = str_replace("\n", '<br />', $message);
       }
-      if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5')) {
+      if (($allow_bbcode==1) and ($forum_type!='6') and ($forum_type!='5'))
          $message = smile($message);
-      }
-      if (($forum_type!='6') and ($forum_type!='5')){
+      if (($forum_type!='6') and ($forum_type!='5')) {
          $message = make_clickable($message);
          $message = removeHack($message);
       }
@@ -169,8 +172,11 @@ if ($submitS) {
       include("lib/formhelp.java.php");
 
    list($topic_title, $topic_status) = sql_fetch_row(sql_query("select topic_title, topic_status from ".$NPDS_Prefix."forumtopics where topic_id='$topic'"));
-   $userX = base64_decode($user);
-   $userdata = explode(':', $userX);
+   if (isset($user)) {
+      $userX = base64_decode($user);
+      $userdata = explode(':', $userX);
+   } else
+      $userdata[0] = 0;
    $moderator = get_moderator($mod);
    $moderator=explode(' ',$moderator);
    $Mmod=false;
@@ -194,28 +200,26 @@ if ($submitS) {
       }
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
       if (isset($user))
-         if (($userdata[1]==$moderator[$i])) { $Mmod=true;}
+         if ($userdata[1]==$moderator[$i]) $Mmod=true;
    }
    echo '
       </div>
    </div>
    <h4 class="hidden-xs-down">'.translate("Poster une réponse dans le sujet").'</h4>
-   <form action="replyH.php" method="post" name="coolsus">';
-
-   echo '<blockquote class="blockquote hidden-xs-down"><p>'.translate("A propos des messages publiés :").'<br />';
-   if ($forum_access == 0) {
+   <form action="replyH.php" method="post" name="coolsus">
+      <blockquote class="blockquote hidden-xs-down"><p>'.translate("A propos des messages publiés :").'<br />';
+   if ($forum_access == 0)
       echo translate("Les utilisateurs anonymes peuvent poster de nouveaux sujets et des réponses dans ce forum.");
-   } else if($forum_access == 1) {
+   else if($forum_access == 1)
       echo translate("Tous les utilisateurs enregistrés peuvent poster de nouveaux sujets et répondre dans ce forum.");
-   } else if($forum_access == 2) {
+   else if($forum_access == 2)
       echo translate("Seuls les modérateurs peuvent poster de nouveaux sujets et répondre dans ce forum.");
-   }
    echo '</p></blockquote>';
 
    $allow_to_reply=false;
-   if ($forum_access==0) {
+   if ($forum_access==0)
       $allow_to_reply=true;
-   } elseif ($forum_access==1) {
+   elseif ($forum_access==1) {
       if (isset($user)) {
          $allow_to_reply=true;
       }
@@ -234,16 +238,12 @@ if ($submitS) {
          $acc = 'reply';
          $message=stripslashes($message);
          include ("preview.php");
-      } else {
+      } else
          $message='';
-      }
-   echo '
+      echo '
    <br />
    <span class="lead">'.translate("Identifiant : ");
-      if (isset($user))
-         echo $userdata[1].'</span>';
-      else
-         echo $anonymous.'</span>';
+      echo (isset($user)) ? $userdata[1].'</span>' : $anonymous.'</span>' ;
 
    settype($image_subject,'string');
    if ($smilies) {
@@ -265,11 +265,11 @@ if ($submitS) {
                <div class="card-header">
                   <div class="float-start">';
    putitems('ta_replyh');
-      echo '
+   echo '
                   </div>';
-   if ($allow_html == 1) {
+   if ($allow_html == 1)
       echo '<span class="text-success float-end mt-2" title="HTML '.translate("Activé").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
-   } else
+   else
       echo '<span class="text-danger float-end mt-2" title="HTML '.translate("Désactivé").'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
    echo '
                </div>
@@ -310,12 +310,12 @@ if ($submitS) {
       <div class="mb-3 row">
          <label class="form-label">'.translate("Options").'</label>';
       if (($allow_html==1) and ($forum_type!='6') and ($forum_type!='5')) {
-         if (isset($html)) {$sethtml = 'checked="checked"';} else {$sethtml = '';}
+         $checkhtml = (isset($html)) ? 'checked="checked"' : '';
          echo '
          <div class="col-sm-12">
             <div class="checkbox">
                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="html" name="html" '.$sethtml.' />
+                  <input class="form-check-input" type="checkbox" id="html" name="html" '.$checkhtml.' />
                   <label class="form-check-label" for="html">'.translate("Désactiver le html pour cet envoi").'</label>
                </div>
             </div>';
@@ -324,12 +324,12 @@ if ($submitS) {
          if ($allow_sig == 1) {
             $asig = sql_query("SELECT attachsig FROM ".$NPDS_Prefix."users_status WHERE uid='$cookie[0]'");
             list($attachsig) = sql_fetch_row($asig);
-            if ($attachsig == 1) $s = 'checked="checked"'; else $s = '';
+            $checksig = ($attachsig == 1) ? 'checked="checked"' : '';
             if (($forum_type!='6') and ($forum_type!='5')) {
                echo '
             <div class="checkbox">
                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="sig" name="sig" '.$s.' />
+                  <input class="form-check-input" type="checkbox" id="sig" name="sig" '.$checksig.' />
                   <label class="form-check-label" for="sig">'.translate("Afficher la signature").'</label>
                   <small class="help-text">'.translate("Cela peut être retiré ou ajouté dans vos paramètres personnels").'</small>
                </div>
@@ -337,13 +337,12 @@ if ($submitS) {
             }
          }
          settype($upload,'string');
-         settype($up,'string');
          if ($allow_upload_forum) {
-            if ($upload == 'on') $up = 'checked="checked"';
-            echo '
+            $checkupl = ($upload == 'on') ? 'checked="checked"' : '';
+         echo '
             <div class="checkbox">
                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="upload" name="upload" '.$up.' />
+                  <input class="form-check-input" type="checkbox" id="upload" name="upload" '.$checkupl.' />
                   <label class="form-check-label" for="upload">'.translate("Charger un fichier une fois l'envoi accepté").'</label>
                </div>
             </div>';
@@ -362,10 +361,9 @@ if ($submitS) {
             <button class="btn btn-danger" type="submit" value="'.translate("Annuler la contribution").'" name="cancel" title="'.translate("Annuler la contribution").'" data-bs-toggle="tooltip" >'.translate("Annuler la contribution").'</button>
          </div>
       </div>';
-   } else {
+   } else
       echo '
       <div class="alert alert-danger">'.translate("Vous n'êtes pas autorisé à participer à ce forum").'</div>';
-   }
    echo '
    </form>';
 }

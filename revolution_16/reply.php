@@ -179,8 +179,11 @@ if ($submitS) {
       include("lib/formhelp.java.php");
 
    list($topic_title, $topic_status) = sql_fetch_row(sql_query("SELECT topic_title, topic_status FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'"));
-   $userX = base64_decode($user);
-   $userdata = explode(':', $userX);
+   if (isset($user)) {
+      $userX = base64_decode($user);
+      $userdata = explode(':', $userX);
+   } else
+      $userdata[0] = 0;
    
    $posterdata = get_userdata_from_id($userdata[0]);
    if ($smilies) {
@@ -309,7 +312,7 @@ if ($submitS) {
       }
       if (!isset($reply)) $reply=$message;
       if ($allow_bbcode)
-      $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
+         $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
       echo '
                   <textarea id="ta_replypost" class="form-control" '.$xJava.' name="message" rows="15">'.$reply.'</textarea>
                </div>
