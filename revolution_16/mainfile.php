@@ -48,7 +48,7 @@ session_manage();
 $tab_langue=make_tab_langue();
 global $meta_glossaire;
 $meta_glossaire=charg_metalang();
-date_default_timezone_set("Europe/Paris"); // à voir si on garde ??
+date_default_timezone_set("Europe/Paris");
 /****************/
 
 #autodoc file_contents_exist() : Controle de réponse// c'est pas encore assez fin not work with https probably
