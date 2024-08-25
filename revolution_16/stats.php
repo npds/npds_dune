@@ -418,7 +418,7 @@ echo '
 $imgtmp = theme_image('stats/sections.png') ?: 'images/admin/sections.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Rubriques spéciales").' <span class="badge bg-secondary ms-auto">'.wrh($secnum).' </span></li>';
-$imgtmp = theme_image('stats/sections.png') ?  theme_image('stats/sections.png') : 'images/admin/sections.png';
+$imgtmp = theme_image('stats/sections.png') ?: 'images/admin/sections.png';
 echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><img class="me-1" src="'.$imgtmp.'" alt="" loading="lazy"/>'.translate("Articles présents dans les rubriques").' <span class="badge bg-secondary ms-auto">'.wrh($secanum).' </span></li>';
 echo '
