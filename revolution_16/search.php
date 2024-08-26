@@ -247,10 +247,10 @@
       for ($i=$min; $i<($increment+$min); $i++) {
          $furl = 'article.php?sid='.$tab_sid[$i]['sid'];
          if ($type=='archive') {$furl.='&amp;archive=1';}
-         formatTimestamp($tab_sid[$i]['time']);
+         $date_au_format = formatTimestamp($tab_sid[$i]['time']);
          echo '
             <tr>
-               <td><span>['.($i+1).']</span>&nbsp;'.translate("Contribution de").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> :<br /><strong><a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a></strong><br /><span>'.translate("Posté par ").'<a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("le").' '.$datetime.'</td>
+               <td><span>['.($i+1).']</span>&nbsp;'.translate("Contribution de").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> :<br /><strong><a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a></strong><br /><span>'.translate("Posté par ").' <a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("le").' '.$date_au_format.'</td>
             </tr>';
       }
       echo '
