@@ -74,7 +74,7 @@ function submissions() {
             echo aff_langue($topictext).'</td>
             <td><i>'.ucfirst($subject).'</i></td>';
          echo '
-             <td class="small">'.formatTimestamp($timestamp).'</td>';
+             <td class="small">'.formatTimes($timestamp,IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</td>';
          if ($affiche)
             echo '
              <td><a class="" href="admin.php?op=DisplayStory&amp;qid='.$qid.'"><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" ></i></a><a class="text-danger" href="admin.php?op=DeleteStory&amp;qid='.$qid.'"><i class="fas fa-trash fa-lg ms-3" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" ></i></a></td>
