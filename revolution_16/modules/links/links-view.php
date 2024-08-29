@@ -72,17 +72,15 @@ global $NPDS_Prefix;
             echo '<div class="d-flex justify-content-between">';
             global $popular;
             if ($hits>$popular)
-               echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ms-auto">'.translate("Hits: ").'<span class=" badge bg-secondary">'.$hits.'</span></span>';
+               echo '<span class="text-success"><i class="fa fa-star-o fa-lg"></i></span><span class="ms-auto">'.translate("Hits").'<span class=" badge bg-secondary ms-2">'.$hits.'</span></span>';
             else
                echo '<span class="ms-auto">'.translate("Nb hits : ").'<span class=" badge bg-secondary">'.$hits.'</span></span>';
             echo '</div>';
          }
          echo '
             </div>
-            <div class="card-footer d-flex justify-content-start">';
-         $datetime=formatTimestampShort($time);
-         echo '
-               <span class="small">'.translate("Ajouté le : ").$datetime.'</span>
+            <div class="card-footer d-flex justify-content-start">
+               <span class="small">'.translate("Ajouté le : ").formatTimes($time).'</span>
                <span class="ms-auto">';
          if ($url!='')
             echo '

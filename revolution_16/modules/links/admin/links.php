@@ -627,7 +627,7 @@ function LinksModLink($lid, $modifylinkrequest_adv_infos) {
       </form>';
        } else {
           list($adminid, $editorialtimestamp, $editorialtext, $editorialtitle) = sql_fetch_row($resulted2);
-          $formatted_date=formatTimestamp($editorialtimestamp);
+          $formatted_date=formatTimes($editorialtimestamp, IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
           echo translate("Modifier l'édito")." : ".translate("Auteur")." : $adminid / $formatted_date<br /><br />";
           echo '
       <form action="modules.php" method="post">

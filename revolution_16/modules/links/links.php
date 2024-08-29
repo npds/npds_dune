@@ -480,7 +480,7 @@ function viewlinkeditorial($lid, $ttitle) {
    if ($recordexist!= 0) {
       while (list($adminid, $editorialtimestamp, $editorialtext, $editorialtitle)=sql_fetch_row($result)) {
          $editorialtitle = stripslashes($editorialtitle); $editorialtext = stripslashes($editorialtext);
-         $formatted_date=formatTimestamp($editorialtimestamp);
+         $formatted_date = formatTimes($editorialtimestamp, IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
          echo '
          <h4>'.aff_langue($editorialtitle).'</h4>
          <p><span class="text-body-secondary small">'.translate("Editorial par").' '.$adminid.' - '.$formatted_date.'</span></p>
@@ -494,6 +494,7 @@ function viewlinkeditorial($lid, $ttitle) {
    include("footer.php");
 }
 
+/*
 function formatTimestampShort($time) {
    global $datetime, $locale, $gmt;
    setlocale (LC_TIME, aff_langue($locale));
@@ -503,6 +504,7 @@ function formatTimestampShort($time) {
       $datetime = ucfirst($datetime);
    return($datetime);
 }
+*/
 
 settype($op,'string');
 switch ($op) {
