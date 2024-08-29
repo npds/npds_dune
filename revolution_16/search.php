@@ -246,8 +246,8 @@
 
       for ($i=$min; $i<($increment+$min); $i++) {
          $furl = 'article.php?sid='.$tab_sid[$i]['sid'];
-         if ($type=='archive') {$furl.='&amp;archive=1';}
-         $date_au_format = formatTimestamp($tab_sid[$i]['time']);
+         $furl .= ($type=='archive') ? '&amp;archive=1' : '';
+         $date_au_format = formatTimes($tab_sid[$i]['time'], IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
          echo '
             <tr>
                <td><span>['.($i+1).']</span>&nbsp;'.translate("Contribution de").' <a href="user.php?op=userinfo&amp;uname='.$tab_sid[$i]['informant'].'">'.$tab_sid[$i]['informant'].'</a> :<br /><strong><a href="'.$furl.'">'.aff_langue($tab_sid[$i]['title']).'</a></strong><br /><span>'.translate("Posté par ").' <a href="'.$tab_sid[$i]['url'].'" >'.$tab_sid[$i]['aid'].'</a></span> '.translate("le").' '.$date_au_format.'</td>
@@ -416,10 +416,10 @@
             <li class="page-item disabled"><a class="page-link" href="#">'.$nrows.'</a></li>';
          if ($prev>=0)
             echo '
-            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("réponses précédentes").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;min='.$prev.'&amp;query='.$query.'&amp;type='.$type.'">'.$offset.' '.translate("réponses précédentes").'</a></li>';
          if ($x>=($offset-1))
             echo '
-            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;topic='.$t.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("réponses suivantes").'</a></li>';
+            <li class="page-item"><a class="page-link" href="search.php?author='.$author.'&amp;min='.$max.'&amp;query='.$query.'&amp;type='.$type.'" >'.translate("réponses suivantes").'</a></li>';
          echo '
          </ul>
       </p>';
