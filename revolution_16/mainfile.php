@@ -629,18 +629,10 @@ function secur_static($sec_type) {
    global $user, $admin;
    switch ($sec_type) {
       case 'member':
-         if (isset($user)) {
-            return true;
-         } else {
-            return false;
-         }
+         return isset($user) ;
       break;
       case 'admin':
-         if (isset($admin)) {
-            return true;
-         } else {
-            return false;
-         }
+         return isset($admin) ;
       break;
    }
 }
@@ -731,6 +723,14 @@ function FixQuotes($what = '') {
       $what=preg_replace("#\\\\'#", "'", $what);
    }
    return $what;
+}
+#autodoc formatTimes($time) : Formate un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time - le décalage $gmt défini dans les préférences n'est pas appliqué
+function formatTimes($time, $dateStyle = IntlDateFormatter::SHORT, $timeStyle = IntlDateFormatter::NONE, $timezone = 'Europe/Paris') {
+   $locale = language_iso(1, '_', 1); // Utilise la langue de l'affichage du site
+   $fmt = datefmt_create($locale, $dateStyle, $timeStyle, $timezone, IntlDateFormatter::GREGORIAN);
+   $timestamp = is_numeric($time) ? $time : strtotime($time);
+   $date_au_format = ucfirst(htmlentities($fmt->format($timestamp), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, cur_charset));
+   return $date_au_format;
 }
 #autodoc formatTimestamp($time) : Formate un timestamp le décalage $gmt défini dans les préférences n'est pas appliqué
 function formatTimestamp($time) {
