@@ -63,8 +63,10 @@ function PrintPage($oper, $DB, $nl, $sid) {
     }
     if ($aff==true) {
        $Titlesitename='NPDS - '.translate("Page spéciale pour impression").' / '.$title;
-       if (isset($time))
-          formatTimestamp($time);
+/*
+       if (isset($time))// à quoi ça sert pas utilisé ?... (datetime)
+          formatTimes($time);
+*/
        include("meta/meta.php");
        if (isset($user)) {
           if ($cookie[9]=='') $cookie[9]=$Default_Theme;
@@ -93,7 +95,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           $hometext=meta_lang(aff_code(aff_langue($hometext)));
           $bodytext=meta_lang(aff_code(aff_langue($bodytext)));
           echo '
-             <span class="float-end" style="font-size: .8rem;"> '.formatTimestamp($time).'</span><br />
+             <span class="float-end" style="font-size: .8rem;"> '.formatTimes($time, IntlDateFormatter::FULL, IntlDateFormatter::SHORT).'</span><br />
              <hr />
              <h2 class="mb-3">'.translate("Sujet : ").' '.aff_langue($topictext).'</h2>
          </div>
@@ -121,7 +123,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           }
        }
        if ($oper=='links') {
-          echo '<span class="float-end" style="font-size: .8rem;">'.formatTimestamp($time).'</span><br /><hr />';
+          echo '<span class="float-end" style="font-size: .8rem;">'.formatTimes($time, IntlDateFormatter::FULL, IntlDateFormatter::SHORT).'</span><br /><hr />';
           if ($url!='') {
              echo '<h2 class="mb-3">'.translate("Liens").' : '.$url.'</h2>';
           }
