@@ -41,6 +41,9 @@ function ancre($forum_id,$topic_id,$post_id,$posts_per_page) {
 include('header.php');
 settype($term,'string');
    $term = removeHack(stripslashes(htmlspecialchars(urldecode($term),ENT_QUOTES,cur_charset))); // electrobug
+   $ck_solved = (isset($only_solved) and $only_solved=='ON') ? 'checked="checked"' : '';
+   $ck_addterm_all = (isset($addterm) and $addterm=='all') ? 'checked="checked"' : '';
+
    echo '
    <h2>'.translate("Rechercher dans").' : Forums</h2>
    <hr />
@@ -55,21 +58,21 @@ settype($term,'string');
          <label class="col-form-label col-sm-4" for="only_solved">'.translate("Etat du topic").'</label>
          <div class="col-sm-8 pt-1">
             <div class="form-check">
-               <input type="checkbox" id="only_solved" name="only_solved" class="form-check-input" value="ON" />
+               <input type="checkbox" id="only_solved" name="only_solved" class="form-check-input" value="ON" '.$ck_solved.' />
                <label class="form-check-label" for="only_solved">'.translate("Résolu").'</label>
             </div>
          </div>
       </div>
       <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="addterms">'.translate("Classé par").'</label>
+         <label class="col-form-label col-sm-4" for="addterm">'.translate("Classé par").'</label>
          <div class="col-sm-8">
             <div class="custom-controls-stacked">
                <div class="form-check mb-2">
-                  <input type="radio" id="any" name="addterms" class="form-check-input" value="any" checked="checked" />
+                  <input type="radio" id="any" name="addterm" class="form-check-input" value="any" checked="checked" />
                   <label class="form-check-label" for="any">'.translate("Chercher n'importe quel terme (par défaut)").'</label>
                </div>
                <div class="form-check mb-2">
-                  <input type="radio" id="all" name="addterms" class="form-check-input" value="all" />
+                  <input type="radio" id="all" name="addterm" class="form-check-input" value="all" '.$ck_addterm_all.' />
                   <label class="form-check-label" for="all">'.translate("Chercher tous les mots").'</label>
                </div>
             </div>
@@ -138,25 +141,25 @@ settype($term,'string');
    </form>';
 
    $query = "SELECT u.uid, f.forum_id, p.topic_id, p.post_id, u.uname, p.post_time, t.topic_title, f.forum_name, f.forum_type, f.forum_pass, f.arbre FROM ".$NPDS_Prefix."posts p, ".$NPDS_Prefix."users u, ".$NPDS_Prefix."forums f, ".$NPDS_Prefix."forumtopics t";
-   if (isset($term)&&$term!='') {
+   if (isset($term) && $term!='') {
       $andor='';
       $terms = explode(' ',stripslashes(removeHack(trim($term))));
       $addquery = "( (p.post_text LIKE '%$terms[0]%' OR strcmp(soundex(p.post_text), soundex('$terms[0]'))=0)";
-      if (isset($addterms))
-         $andor = $addterms=='any' ? 'OR' : 'AND' ;
+      if (isset($addterm))
+         $andor = $addterm=='any' ? 'OR' : 'AND' ;
       $size = sizeof($terms);
       for ($i=1;$i<$size;$i++)
           $addquery.=" $andor (p.post_text LIKE '%$terms[$i]%' OR strcmp(soundex(p.post_text), soundex('$terms[$i]'))=0)";
       $addquery.=")";
    }
-
-   if (isset($forum)&&$forum!='all') {
+   if (isset($forum) && $forum!='all' && $forum!=0) {
       if (isset($addquery))
          $addquery.=" AND p.forum_id='$forum' AND f.forum_id='$forum'";
       else
-         $addquery.=" p.forum_id='$forum' AND f.forum_id='$forum'";
+         $addquery=" p.forum_id='$forum' AND f.forum_id='$forum'";
    }
-   if (isset($username)&&$username!='') {
+
+   if (isset($username) && $username!='') {
       $username = removeHack(stripslashes(htmlspecialchars(urldecode($username),ENT_QUOTES,cur_charset))); // electrobug
       if (!$result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$username'"))
          forumerror('0001');
@@ -182,7 +185,7 @@ settype($term,'string');
       " p.topic_id = t.topic_id AND p.forum_id = f.forum_id AND p.poster_id = u.uid AND t.topic_status='2' GROUP BY t.topic_title, u.uid, p.topic_id, p.post_id ORDER BY $sortbyR DESC" :
       " p.topic_id = t.topic_id AND p.forum_id = f.forum_id AND p.poster_id = u.uid AND t.topic_status!='2' ORDER BY $sortbyR DESC" ;
 
-   $Smax++;
+//   $Smax++;
    settype($Smax,'integer');
    $query.=" LIMIT 0,$Smax";
    $result = sql_query($query);
@@ -224,12 +227,12 @@ settype($term,'string');
             <tr>
                <td><span class="badge bg-success">'.($count+1).'</span></td>
                <td><a href="viewforum.php?forum='.$row['forum_id'].'">'.stripslashes($row['forum_name']).'</a></td>';
-            if ($row['arbre']) {$Hplus="H";} else {$Hplus="";}
-            $ancre=ancre($row['forum_id'],$row['topic_id'],$row['post_id'],$posts_per_page);
+            $Hplus = ($row['arbre']) ? 'H' : '';
+            $ancre = ancre($row['forum_id'],$row['topic_id'],$row['post_id'],$posts_per_page);
             echo '
                <td><a href="viewtopic'.$Hplus.'.php?topic='.$row['topic_id'].'&amp;forum='.$row['forum_id'].$ancre.'" >'.stripslashes($row['topic_title']).'</a></td>
-               <td><a href="user.php?op=userinfo&amp;uname='.$row['uname'].'" >'.$row['uname'].'</a></td>
-               <td><small>'.convertdate($row['post_time']).'</small></td>
+               <td>'.userpopover($row['uname'], 36, 1).'<a href="user.php?op=userinfo&amp;uname='.$row['uname'].'" >'.$row['uname'].'</a></td>
+               <td><small>'.formatTimes($row['post_time'], IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</small></td>
             </tr>';
             $count++;
          }
