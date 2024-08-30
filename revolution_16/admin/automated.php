@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -140,27 +140,28 @@ function autoStory() {
          $affiche=false;
          $result2=sql_query("SELECT topicadmin, topicname FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
          list ($topicadmin, $topicname)=sql_fetch_row($result2);
-         if ($radminsuper) {
+         if ($radminsuper)
             $affiche=true;
-         } else {
+         else {
             $topicadminX=explode(",",$topicadmin);
             for ($i = 0; $i < count($topicadminX); $i++) {
                if (trim($topicadminX[$i])==$aid) $affiche=true;
             }
          }
-         if ($title=='') {$title=adm_translate("Aucun Sujet");}
+         $title = ($title=='') ? adm_translate("Aucun Sujet") : $title ;
+         $date_au_format = formatTimes($time, IntlDateFormatter::FULL, IntlDateFormatter::MEDIUM);
          if ($affiche) {
             echo '
          <tr>
             <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'">'.aff_langue($title).'</a></td>
-            <td>'.formatTimestamp("nogmt".$time).'</td>
+            <td>'.$date_au_format.'</td>
             <td><a href="admin.php?op=autoEdit&amp;anid='.$anid.'"><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Afficher l'article").'" data-bs-toggle="tooltip"></i></a><a href="admin.php?op=autoDelete&amp;anid='.$anid.'">&nbsp;<i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer l'Article").'" data-bs-toggle="tooltip" ></i></a></td>
          </tr>';
          } else {
             echo '
          <tr>
             <td><i>'.aff_langue($title).'</i></td>
-            <td>'.formatTimestamp("nogmt".$time).'</td>
+            <td>'.$date_au_format.'</td>
             <td>&nbsp;</td>
          </tr>';
          }
