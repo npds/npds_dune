@@ -527,7 +527,7 @@ function LinksModLink($lid) {
          $editorialtext = stripslashes($editorialtext);
 
          echo '
-   <h3 class="mb-3">'.adm_translate("Modifier l'Editorial").'</h3> - '.adm_translate("Auteur").' : '.$adminid.' : '.formatTimeStamp($editorialtimestamp);
+   <h3 class="mb-3">'.adm_translate("Modifier l'Editorial").'</h3> - '.adm_translate("Auteur").' : '.$adminid.' : '.formatTimes($editorialtimestamp, IntlDateFormatter::FULL, IntlDateFormatter::SHORT);
          echo '
    <form action="admin.php" method="post" id="linkseditorial">
       <div class="mb-3 row">
