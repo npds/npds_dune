@@ -732,32 +732,14 @@ function formatTimes($time, $dateStyle = IntlDateFormatter::SHORT, $timeStyle = 
    $date_au_format = ucfirst(htmlentities($fmt->format($timestamp), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, cur_charset));
    return $date_au_format;
 }
-#autodoc formatTimestamp($time) : Formate un timestamp le décalage $gmt défini dans les préférences n'est pas appliqué
-function formatTimestamp($time) {
-   $fmt = datefmt_create(
-      language_iso(1,'_',1),
-      IntlDateFormatter::FULL,
-      IntlDateFormatter::MEDIUM,
-      'Europe/Paris',
-      IntlDateFormatter::GREGORIAN,
-   );
-   $date_au_format = ucfirst(htmlentities(datefmt_format($fmt,strtotime($time)),ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
-   return($date_au_format);
+#autodoc getPartOfTime($time) : découpe/extrait/formate et plus grâce au paramètre $format.... un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time -
+function getPartOfTime($time, $format, $timezone = 'Europe/Paris') {
+   $locale = language_iso(1, '_', 1);
+   $timestamp = is_numeric($time) ? $time : strtotime($time);
+   $fmt = new IntlDateFormatter($locale, IntlDateFormatter::FULL, IntlDateFormatter::FULL, $timezone, IntlDateFormatter::GREGORIAN, $format);
+   $date_au_format = $fmt->format($timestamp);
+   return ucfirst(htmlentities($date_au_format, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, cur_charset));
 }
-
-// #autodoc formatTimestamp($time) : Formate un timestamp en fonction de la valeur de $locale (config.php) / si "nogmt" est concaténé devant la valeur de $time, le décalage gmt n'est pas appliqué
-// function formatTimestamp($time) {
-//    global $datetime, $locale, $gmt;
-//    $local_gmt=$gmt;
-//    setlocale (LC_TIME, aff_langue($locale));
-//    if (substr($time,0,5)=='nogmt') {
-//       $time=substr($time,5);
-//       $local_gmt=0;
-//    }
-//    preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-//    $datetime = strftime(translate("datestring"), mktime($datetime[4]+(integer)$local_gmt,$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]));
-//    return (ucfirst(htmlentities($datetime,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset)));
-// }
 #autodoc formatAidHeader($aid) : Affiche URL et Email d'un auteur
 function formatAidHeader($aid) {
    global $NPDS_Prefix;
@@ -2391,34 +2373,27 @@ $sel =  "WHERE ihome=0";// en dur pour test
    while (($story_limit<$oldnum) and ($story_limit<sizeof($xtab))) {
       list($sid, $title, $time, $comments, $counter) = $xtab[$story_limit];
       $story_limit++;
-      //ici on sort les dates en ancien format (datestring2 ==> %A, %d %B jour en toute lettre, date 2 chiffre,mois toutes lettre) ce qui dans le nouveau format devrait donner : l d F
-      setlocale (LC_TIME, aff_langue($locale));
-      preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime2);
-      $datetime2 = strftime("".translate("datestring2")."", @mktime($datetime2[4],$datetime2[5],$datetime2[6],$datetime2[2],$datetime2[3],$datetime2[1]));
-
-      if ($language != 'chinese')
-         $datetime2 = ucfirst($datetime2);
+      $date_au_format = formatTimes($time,IntlDateFormatter::FULL);
       $comments = $typ_aff=='lecture' ?
          '<span class="badge rounded-pill bg-secondary ms-1" title="'.translate("Lu").'" data-bs-toggle="tooltip">'.$counter.'</span>' : '' ;
-
-      if ($time2==$datetime2)
+      if ($time2==$date_au_format)
          $boxstuff .= '
          <li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a class="n-ellipses" href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
       else {
          if ($a==0) {
-            $boxstuff .= '<li class="list-group-item fs-6">'.$datetime2.'</li><li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
-            $time2 = $datetime2;
+            $boxstuff .= '<li class="list-group-item fs-6">'.$date_au_format.'</li><li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
+            $time2 = $date_au_format;
             $a = 1;
          } else {
-            $boxstuff .= '<li class="list-group-item fs-6">'.$datetime2.'</li><li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
-            $time2 = $datetime2;
+            $boxstuff .= '<li class="list-group-item fs-6">'.$date_au_format.'</li><li class="list-group-item list-group-item-action d-inline-flex justify-content-between align-items-center"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a>'.$comments.'</li>';
+            $time2 = $date_au_format;
          }
       }
       $vari++;
       if ($vari==$oldnum) {
          $storynum = isset($cookie[3]) ? $cookie[3] : $storyhome ;
          $min = $oldnum + $storynum;
-         $boxstuff .= "<li class=\"text-center mt-3\" ><a href=\"search.php?min=$min&amp;type=stories&amp;category=$cat\"><strong>".translate("Articles plus anciens")."</strong></a></li>\n";
+         $boxstuff .= '<li class="text-center mt-3"><a href="search.php?min='.$min.'&amp;type=stories&amp;category='.$cat.'"><strong>'.translate("Articles plus anciens").'</strong></a></li>';
       }
    }
    $boxstuff .='</ul>';
@@ -2468,7 +2443,7 @@ function category() {
             list($time) = sql_fetch_row($res);
             $boxstuff .= $cat == $catid ?
                '<li><strong>'.aff_langue($title).'</strong></li>' :
-               '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernière contribution").' <br />'.formatTimestamp($time).' ">'.aff_langue($title).'</a></li>' ;
+               '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernière contribution").' <br />'.formatTimes($time).' ">'.aff_langue($title).'</a></li>' ;
          }
       }
       $boxstuff .= '</ul>';
