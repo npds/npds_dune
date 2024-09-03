@@ -22,10 +22,15 @@ if ( ($member_list==1) and !isset($user) and !isset($admin) )
 if (isset($gr_from_ws) and ($gr_from_ws!=0)) {
    settype($gr_from_ws, 'integer');
    $uid_from_ws="^(";
-   $re = mysqli_get_client_info() <= '8.0' ?
-      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE groupe REGEXP '[[:<:]]".$gr_from_ws."[[:>:]]' ORDER BY uid ASC") :
-      sql_query("SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE `groupe` REGEXP \"\\\\b$gr_from_ws\\\\b\" ORDER BY uid ASC;") ;
-   while (list($ws_uid) = sql_fetch_row($re)) {
+   global $dblink;
+   $mysql_version = mysqli_get_server_info($dblink);
+   $query = "SELECT uid, groupe FROM ".$NPDS_Prefix."users_status WHERE ";
+   $query .= (version_compare($mysql_version, '8.0.4', '>=')) ?
+      "groupe REGEXP '\\\\b$gr_from_ws\\\\b'" :
+      "groupe REGEXP '[[:<:]]".$gr_from_ws."[[:>:]]'";
+   $query .= " ORDER BY uid ASC";
+   $result = sql_query($query);
+   while (list($ws_uid) = sql_fetch_row($result)) {
       $uid_from_ws.= $ws_uid."|";
    }
   $uid_from_ws=substr($uid_from_ws,0,-1).")\$";
