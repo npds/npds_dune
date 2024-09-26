@@ -393,7 +393,7 @@ function categorynewlinkgraphic($cat) {
    if ($OnCatNewLink=='1') {
       $newresult = sql_query("SELECT date FROM ".$links_DB."links_links WHERE cid='$cat' ORDER BY date DESC LIMIT 1");
       list($time)=sql_fetch_row($newresult);
-      if (isset($ime)) {
+      if (isset($time)) {
          setlocale (LC_TIME, aff_langue($locale));
          preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
          $count = round((time()- mktime($datetime[4],$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]))/86400,0);
