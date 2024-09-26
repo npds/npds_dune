@@ -53,7 +53,7 @@ if (!does_exists($forum, "forum"))
 $hrefX = ($myrow['arbre']) ? 'viewtopicH.php' : 'viewtopic.php' ;
 
 settype($stop,'integer');
-if ($submitS) {
+if (isset($submitS)) {
    if ($message == '')
       $stop=1;
    if ($subject == '')
