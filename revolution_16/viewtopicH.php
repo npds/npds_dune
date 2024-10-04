@@ -225,7 +225,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
       echo '
                <div class="card-body">
                   <div class="card-text pt-2">';
-      $date_post=convertdateTOtimestamp($myrow['post_time']);
+      $date_post = strtotime(getPartOfTime($myrow['post_time'],'yyyy-MM-dd H:m:s'));
       if ($last_read!='') {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !="0" AND $userdata[0]!=$myrow['poster_id']) {
             //echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />';
@@ -258,7 +258,7 @@ function makebranch($parcat,$table,$level,$maxlevel,$max_post_id,$clas,$idtog) {
                </div>
                <div class="card-footer">
                   <div class="row">
-                     <div class=" col-sm-6 text-body-secondary small">'.post_convertdate($date_post).'</div>
+                     <div class=" col-sm-6 text-body-secondary small">'.formatTimes($myrow['post_time'], IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</div>
                      <div class=" col-sm-6 text-end">';
       if ($forum_access!=9) {
          if ($allow_to_post) {
