@@ -77,13 +77,11 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
       }
       else
          $title = '<a href="article.php?sid='.$sid.'&amp;archive='.$arch.'" >'.aff_langue(ucfirst($title)).'</a>';
-      preg_match('#^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$#', $time, $datetime);
-      $datetime = $datetime[3].'-'.$datetime[2].'-'.$datetime[1].' '.$datetime[4].':'.$datetime[5].':'.$datetime[6];
       echo '
         <tr>
            <td>'.$title.'</td>
            <td>'.$counter.'</td>
-           <td><small>'.$datetime.'</small></td>
+           <td><small>'.formatTimes($time, IntlDateFormatter::SHORT, IntlDateFormatter::MEDIUM).'</small></td>
            <td>'.userpopover($informant,40,2).' '.$informant.'</td>
            <td>'.$printP.$sendF.'</td>
         </tr>';
