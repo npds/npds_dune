@@ -380,14 +380,13 @@ include('header.php');
       echo '
             <div class="card-body">
                <div class="card-text pt-2">';
-      $date_post=convertdateTOtimestamp($myrow['post_time']);
+      $date_post = strtotime(getPartOfTime($myrow['post_time'],'yyyy-MM-dd H:m:s'));
       if (isset($last_read)) {
          if (($last_read <= $date_post) AND $userdata[3]!='' AND $last_read !='0' AND $userdata[0]!=$myrow['poster_id']) {
             //echo '&nbsp;<img src="'.$imgtmpNE.'" alt="" />';
             echo '<span class="me-2 badge bg-success animated faa-flash">NEW</span>';
          }
       }
-
       echo '
                </div>
                <div class="card-text pt-2">';
@@ -418,9 +417,8 @@ include('header.php');
          </div>
             <div class="card-footer">
                <div class="row">
-                  <div class=" col-sm-6 text-body-secondary small">'.post_convertdate($date_post).'</div>
+                  <div class=" col-sm-6 text-body-secondary small">'.formatTimes($myrow['post_time'], IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</div>
                   <div class=" col-sm-6 text-end">';
-
    if ($forum_access!=9) {
       $allow_to_post=false;
       if ($forum_access==0) {
@@ -515,18 +513,15 @@ include('header.php');
 <form action="viewforum.php" method="post">
    <div class="mb-3 row">
       <div class="col-12">
-         <label class="visually-hidden" for="forum">'.translate("Sauter à : ").'</label>
-         <select class="form-select" name="forum" onchange="submit();">
+         <label class="visually-hidden" for="forumjump">'.translate("Sauter à : ").'</label>
+         <select class="form-select" id="forumjump" name="forum" onchange="submit();">
             <option value="index">'.translate("Sauter à : ").'</option>
             <option value="index">'.translate("Index du forum").'</option>';
       $sub_sql = "SELECT forum_id, forum_name, forum_type, forum_pass FROM ".$NPDS_Prefix."forums ORDER BY cat_id,forum_index,forum_id";
       if ($res = sql_query($sub_sql)) {
          while (list($forum_id, $forum_name, $forum_type, $forum_pass)=sql_fetch_row($res)) {
             if (($forum_type != '9') or ($userdata)) {
-               if (($forum_type == '7') or ($forum_type == '5'))
-                  $ok_affich=false;
-               else
-                  $ok_affich=true;
+               $ok_affich = (($forum_type == '7') or ($forum_type == '5')) ? false : true ;
                if ($ok_affich) echo '
             <option value="'.$forum_id.'">&nbsp;&nbsp;'.stripslashes($forum_name).'</option>';
             }
