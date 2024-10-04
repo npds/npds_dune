@@ -491,7 +491,7 @@ if ($submitS) {
                   </span>
                </div>
                <div class="card-body">
-                  <span class="text-body-secondary float-end small" style="margin-top:-1rem;">'.translate("Posté : ").convertdate($myrow['post_time']).'</span>
+                  <span class="text-body-secondary float-end small" style="margin-top:-1rem;">'.translate("Posté : ").formatTimes($myrow['post_time'], IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).'</span>
                   <div class="card-text pt-4">';
          $message = stripslashes($myrow['post_text']);
          if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5)) {
