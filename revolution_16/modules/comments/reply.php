@@ -79,7 +79,7 @@ if (isset($submitS)) {
    // Either valid user/pass, or valid session. continue with post.
    if ($stop != 1) {
       $poster_ip =  getip();
-      $hostname = $dns_verif ? gethostbyaddr(urldecode($poster_ip)) : urldecode($poster_ip) ;
+      $hostname = $dns_verif ? gethostbyaddr($poster_ip) : $poster_ip ;
       // anti flood
       anti_flood ($Mmod, $anti_flood, $poster_ip, $userdata, $gmt);
       //anti_spambot
@@ -323,7 +323,7 @@ if (isset($submitS)) {
                <div class="card-header">';
             if ($smilies) echo userpopover($posterdata['uname'],'48',2);
             echo $posterdata['uname'];
-            echo '<span class="float-end text-body-secondary small">'.translate("Posté : ").convertdate($myrow['post_time']).'</span>
+            echo '<span class="float-end text-body-secondary small">'.translate("Posté : ").formatTimes($myrow['post_time'], IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).'</span>
                </div>
                <div class="card-body">';
             $posts = $posterdata['posts'];
