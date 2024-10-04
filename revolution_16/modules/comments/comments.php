@@ -191,7 +191,6 @@ if ($mycount) {
                   <span class="float-end"><img class="n-smil" src="'.$imgtmp.'" alt="" /></span>
                </div>';
       $message=stripslashes($myrow['post_text']);
-      $date_post=convertdateTOtimestamp($myrow['post_time']);
       echo '
                <div class="card-body">
                   <div class="card-text pt-3">';
@@ -209,7 +208,7 @@ if ($mycount) {
                </div>
                <div class="card-footer">
                   <div class="row">
-                     <div class=" col-sm-6 text-body-secondary small">'.post_convertdate($date_post).'</div>
+                     <div class=" col-sm-6 text-body-secondary small">'.formatTimes($myrow['post_time'], IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).'</div>
                      <div class=" col-sm-6 text-end">';
       if ($allow_to_post)
          echo '<a class="me-3" href="modules.php?ModPath=comments&amp;ModStart=reply&amp;topic='.$topic.'&amp;file_name='.$file_name.'&amp;archive='.$archive.'" title="'.translate("Commentaire").'" data-bs-toggle="tooltip"><i class="far fa-comment fa-lg"></i></a>';
