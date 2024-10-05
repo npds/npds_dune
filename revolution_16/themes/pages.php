@@ -224,9 +224,11 @@ $PAGES['viewforum.php']['run']="yes";
 
 $PAGES['viewtopic.php']['title']="[french]Forum[/french][english]Forum[/english][spanish]Foro[/spanish][german]Forum[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese] : $title / $post+";
 $PAGES['viewtopic.php']['run']="yes";
+$PAGES['viewtopic.php']['css']= array($nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css+');
 
 $PAGES['viewtopicH.php']['title']="[french]Forum[/french][english]Forum[/english][spanish]Foro[/spanish][german]Forum[/german][chinese]&#x7248;&#x9762;&#x7BA1;&#x7406;[/chinese] : $title / $post+";
 $PAGES['viewtopicH.php']['run']="yes";
+$PAGES['viewtopicH.php']['css']= array($nuke_url.'/lib/bootstrap/dist/css/bootstrap-icons.css+');
 
 $PAGES['reply.php']['title']="[french]R&eacute;pondre &#xE0; un post sur le forum[/french][english]Forum : reply to a post[/english][spanish]Responder a un mensaje en el foro[/spanish][german]Antwort auf einen Beitrag im Forum[/german][chinese]&#x56DE;&#x590D;&#x8BBA;&#x575B;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5E16;&#x5B50;[/chinese]+";
 $PAGES['reply.php']['run']="yes";
