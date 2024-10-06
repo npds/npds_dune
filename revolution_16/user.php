@@ -574,7 +574,7 @@ function userinfo($uname) {
    $result=sql_query("SELECT topic_id, forum_id, post_text, post_time FROM ".$NPDS_Prefix."posts WHERE forum_id<0 and poster_id='$uid' ORDER BY post_time DESC LIMIT 0,10");
    while(list($topic_id, $forum_id, $post_text, $post_time) = sql_fetch_row($result)) {
       $url=str_replace("#topic#",$topic_id,$filelist[$forum_id]);
-      echo '<p><a href="'.$url.'">'.translate("Posté : ").convertdate($post_time).'</a></p>';
+      echo '<p><a href="'.$url.'">'.translate("Posté : ").formatTimes($post_time,IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).'</a></p>';
       $message=smilie(stripslashes($post_text));
       $message = aff_video_yt($message);
       $message = str_replace('[addsig]','',$message);
@@ -639,7 +639,7 @@ function userinfo($uname) {
          $content .='
          <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start" >
             <span class="d-flex w-100 mt-1">
-            <span>'.$post_time.'</span>
+            <span>'.formatTimes($post_time,IntlDateFormatter::SHORT, IntlDateFormatter::MEDIUM).'</span>
             <span class="ms-auto">
                <span class="badge bg-secondary ms-1" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="left">'.$replys.'</span>
             </span>
