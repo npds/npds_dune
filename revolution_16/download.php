@@ -47,13 +47,10 @@ function geninfo($did,$out_template) {
                <p><strong>'.translate("Taille du fichier").' : </strong>';
       $Fichier = new File($durl);
       $objZF = new FileManagement;
-      if ($dfilesize!=0)
-         echo $objZF->file_size_format($dfilesize, 1);
-      else
-         echo $objZF->file_size_auto($durl, 2);
+      echo ($dfilesize!=0) ? $objZF->file_size_format($dfilesize, 1) : $objZF->file_size_auto($durl, 2) ;
       echo '</p>
                <p><strong>'.translate("Version").'&nbsp;:</strong>&nbsp;'.$dver.'</p>
-               <p><strong>'.translate("Date de chargement sur le serveur").'&nbsp;:</strong>&nbsp;'.convertdate($ddate).'</p>
+               <p><strong>'.translate("Date de chargement sur le serveur").'&nbsp;:</strong>&nbsp;'.formatTimes($ddate, IntlDateFormatter::SHORT, IntlDateFormatter::NONE).'</p>
                <p><strong>'.translate("Chargements").'&nbsp;:</strong>&nbsp;'.wrh($dcounter).'</p>
                <p><strong>'.translate("Catégorie").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($dcategory)).'</p>
                <p><strong>'.translate("Description").'&nbsp;:</strong>&nbsp;'.aff_langue(stripslashes($ddescription)).'</p>
@@ -252,8 +249,8 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
 //
   if ($total>$perpage) {
     $pages=ceil($total/$perpage);
-    if ($page > $pages) { $page = $pages; }
-    if (!$page) { $page=1; }
+    if ($page > $pages) $page = $pages;
+    if (!$page) $page=1;
     $offset=($page-1)*$perpage;
   } else {
     $offset=0;
@@ -307,13 +304,12 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
          echo '<span class="text-danger"><i class="fa fa-ban fa-lg me-1"></i>...</span>';
       echo '</td>
             <td class="small text-center">';
-      if ($dfilesize!=0)
-         echo $FichX->file_size_format($dfilesize, 1);
-      else
-         echo $FichX->file_size_auto($durl, 2);
+      echo ($dfilesize!=0) ? 
+         $FichX->file_size_format($dfilesize, 1) : 
+         $FichX->file_size_auto($durl, 2) ;
       echo '</td>
             <td>'.aff_langue(stripslashes($dcat)).'</td>
-            <td class="small text-center">'.convertdate($ddate).'</td>
+            <td class="small text-center">'.formatTimes($ddate, IntlDateFormatter::SHORT, IntlDateFormatter::NONE).'</td>
             <td class="small text-center">'.$dver.'</td>
             <td class="small text-center">'.wrh($dcounter).'</td>';
       if ($user!='' or autorisation(-127)) {
