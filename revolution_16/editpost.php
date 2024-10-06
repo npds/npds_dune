@@ -16,10 +16,7 @@ if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
 
 include("functions.php");
-if ($SuperCache)
-   $cache_obj = new cacheManager();
-else
-   $cache_obj = new SuperCacheEmpty();
+$cache_obj = ($SuperCache) ? new cacheManager() : new SuperCacheEmpty() ;
 include("auth.php");
 global $NPDS_Prefix;
 
@@ -37,7 +34,7 @@ if (isset($user)) {
    $moderator=explode(' ',$moderator);
    $Mmod=false;
    for ($i = 0; $i < count($moderator); $i++) {
-       if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
+      if (($userdata[1]==$moderator[$i])) { $Mmod=true; break;}
    }
 }
 settype($submitS,'string');
@@ -52,8 +49,8 @@ if ($submitS) {
    if ($userdata[0]==$row['poster_id'])
       $ok_maj=true;
    else {
-      if (!$Mmod) { forumerror('0035'); }
-      if ((user_is_moderator($userdata[0],$userdata[2],$forum_access)<2) ) { forumerror('0036'); }
+      if (!$Mmod) forumerror('0035');
+      if ((user_is_moderator($userdata[0],$userdata[2],$forum_access)<2) ) forumerror('0036');
    }
    $userdata = get_userdata($userdata[1]);
 
@@ -66,19 +63,15 @@ if ($submitS) {
       $message = make_clickable($message);
       $message = af_cod($message);
       $message = str_replace("\n", "<br />", removeHack($message));
-      $message .= '<div class="text-body-secondary text-end small"><i class="fa fa-edit"></i>&nbsp;'.translate("Message édité par")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600)).'</div>';
-   } else {
-      $message .= "\n\n".translate("Message édité par")." : ".$userdata['uname']." / ".post_convertdate(time()+((integer)$gmt*3600));
-   }
+      $message .= '<div class="text-body-secondary text-end small"><i class="fa fa-edit"></i>&nbsp;'.translate("Message édité par")." : ".$userdata['uname']." / ".formatTimes(time(),IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</div>';
+   } else 
+      $message .= "\n\n".translate("Message édité par")." : ".$userdata['uname']." / ".formatTimes(time(),IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
    $message = addslashes($message);
 
    if ($subject=='') $subject=translate("Sans titre");
 
    // Forum ARBRE
-   if ($arbre)
-      $hrefX='viewtopicH.php';
-   else
-      $hrefX='viewtopic.php';
+   $hrefX = ($arbre) ? 'viewtopicH.php' : 'viewtopic.php' ;
 
    if (!isset($delete)) {
       $sql = "UPDATE ".$NPDS_Prefix."posts SET post_text = '$message', image='$image_subject' WHERE (post_id = '$post_id')";
@@ -179,7 +172,7 @@ if ($submitS) {
    if ($smilies) {
       echo '
       <div class="d-none d-sm-block mb-3 row">
-         <label class="col-form-label col-sm-12">'.translate("Icone du message").'</label>
+         <span class="col-form-label">'.translate("Icone du message").'</span>
          <div class="col-sm-12">
             <div class="border rounded pt-2 px-2 n-fond_subject">
             '.emotion_add($image_subject).'
@@ -189,7 +182,7 @@ if ($submitS) {
    }
    echo '
       <div class="mb-3 row">
-         <label class="col-form-label col-sm-12" for="message">'.translate("Message").'</label>';
+         <label class="col-form-label col-sm-12" for="ta_edipost">'.translate("Message").'</label>';
    if ($allow_bbcode)
       $xJava = ' onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
    echo '
@@ -220,13 +213,10 @@ if ($submitS) {
          </div>
       </div>';
    if (($allow_html==1) and ($forum_type!=6)) {
-      if (isset($html))
-         $sethtml='checked="checked"';
-      else
-         $sethtml='';
-   echo '
+      $sethtml = isset($html) ? 'checked="checked"' : ''; 
+      echo '
    <div class="mb-3 row">
-      <label class="col-form-label col-sm-12">'.translate("Options").'</label>
+      <span class="col-form-label">'.translate("Options").'</span>
       <div class="col-sm-12">
          <div class="checkbox">
             <div class="form-check text-danger">
