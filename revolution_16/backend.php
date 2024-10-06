@@ -12,24 +12,6 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 include("mainfile.php");
-
-function convertdateTOtimestamp($myrow) {
-   if (substr($myrow,2,1)=='-') {
-      $day=substr($myrow,0,2);
-      $month=substr($myrow,3,2);
-      $year=substr($myrow,6,4);
-   } else {
-      $day=substr($myrow,8,2);
-      $month=substr($myrow,5,2);
-      $year=substr($myrow,0,4);
-   }
-   $hour=substr($myrow,11,2);
-   $mns=substr($myrow,14,2);
-   $sec=substr($myrow,17,2);
-   $tmst=mktime($hour,$mns,$sec,$month,$day,$year);
-   return ($tmst);
-}
-
 function fab_feed($type,$filename,$timeout) {
    global $sitename,$slogan,$nuke_url,$backend_image,$backend_title,$backend_width,$backend_height,$backend_language,$storyhome;
    include("lib/feedcreator.class.php");
@@ -64,10 +46,9 @@ function fab_feed($type,$filename,$timeout) {
       $item->link = $nuke_url."/article.php?sid=$sid";
       $item->description = meta_lang(preview_local_langue($backend_language, $hometext));
       $item->descriptionHtmlSyndicated = true;
-      $item->date = convertdateTOtimestamp($time)+((integer)$gmt*3600);
+      $item->date = strtotime(getPartOfTime($time,'yyyy-MM-dd H:m:s'));
       $item->source = $nuke_url;
       $item->author = $aid;
-
       $rss->addItem($item);
    }
    echo $rss->saveFeed($type, $filename);
