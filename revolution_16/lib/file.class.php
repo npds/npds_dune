@@ -11,9 +11,9 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 class File {
-   var $Url = '';
-   var $Extention = '';
-   var $Size = 0;
+   public $Url = '';
+   public $Extention = '';
+   public $Size = 0;
 
    public function __construct($Url) {
       $this->Url = $Url;
@@ -28,23 +28,6 @@ class File {
       $extension=strtolower(substr(strrchr($this->Url,'.'),1));
       $this->Extention = $extension;
    }
-
-  function Affiche_Size($Format="CONVERTI") {
-      $this->Size();
-      if (!$this->Size) return '<span class="text-danger"><strong>?</strong></span>';
-
-      switch ( $Format ) {
-         case "CONVERTI": // en kilo/mega ou giga
-//            return ($this->pretty_Size($this->Size));
-            return ('!!bug!!');
-         break;
-
-         case "NORMAL": // en octet
-            return $this->Size;
-         break;
-      }
-   }
-
    function Affiche_Extention($Format) {
       $this->Extention();
       switch ($Format) {
