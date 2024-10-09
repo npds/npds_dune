@@ -27,7 +27,7 @@ if ($rep) {
    $Xcontent=ob_get_contents();
    ob_end_clean();
    if ($ContainerGlobal)
-    $Xcontent.=$ContainerGlobal;
+      $Xcontent.=$ContainerGlobal;
    echo meta_lang(aff_langue($Xcontent));
 }
 ?>
