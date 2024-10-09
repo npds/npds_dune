@@ -107,7 +107,7 @@ class Navigator {
          $Fdroits.=$droits;
          $mask = $mask >> 3;
       }
-   
+
       $tab[]=$Fdroits;
       $tab[]=$ret2;
       return ($tab);
