@@ -22,23 +22,23 @@ $moreclass = 'col-12';
 switch ($pdst) {
    case '-1':case '3':case '5':
       echo '
-         </div>
-      </div>
-   </div>';
+               </div>
+            </div>
+         </div>';
    break;
    case '1':case '2':
       echo '
-         </div>';
+               </div>';
          colsyst('#col_RB');
          echo '
-         <div id="col_RB" class="collapse show col-lg-3 ">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
+               <div id="col_RB" class="collapse show col-lg-3 ">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
            rightblocks($moreclass);
       echo '
+                  </div>
+               </div>
             </div>
-         </div>
-      </div>
-   </div>';
+         </div>';
    break;
    case '4':
       echo '
@@ -57,10 +57,10 @@ switch ($pdst) {
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
             rightblocks($moreclass);
       echo '
+                  </div>
+               </div>
             </div>
-         </div>
-      </div>
-   </div>';
+         </div>';
    break;
    case '6':
       echo '
@@ -71,23 +71,23 @@ switch ($pdst) {
          <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
          leftblocks($moreclass);
       echo '
-         </div>
-      </div>
-   </div>
-</div>';
+                  </div>
+               </div>
+            </div>
+         </div>';
    break;
    default:
       echo '
-         </div>
-      </div>
-   </div>';
+               </div>
+            </div>
+         </div>';
    break;
 }
 
 // ContainerGlobal permet de transmettre · Theme-Dynamic un élément de personnalisation après
 // le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
 $ContainerGlobal='
-</div>';
+            </div>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
   require_once("themes/themes-dynamic/footer.php");

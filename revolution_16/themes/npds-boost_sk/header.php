@@ -58,18 +58,17 @@ if ($nb_bld_actif == 0) {
 }
 function colsyst($coltarget) {
    $coltoggle ='
-      <div class="col d-lg-none me-2 my-2">
-         <hr />
-         <a class=" small float-end" href="#" data-bs-toggle="collapse" data-bs-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
-      </div>
-   ';
+               <div class="col d-lg-none me-2 my-2">
+                  <hr />
+                  <a class=" small float-end" href="#" data-bs-toggle="collapse" data-bs-target="'.$coltarget.'"><span class="plusdecontenu trn">Plus de contenu</span></a>
+               </div>';
    echo $coltoggle;
 }
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
 $ContainerGlobal='
-<div id="container">';
+      <div id="container">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
@@ -87,76 +86,76 @@ $ContainerGlobal='
 /*   ==> Alors affichage par defaut : col_LB + col_princ soit $pdst=0   */
 /* =====================================================================*/
 echo '
-   <div id="corps" class="container-fluid n-hyphenate">
-      <div class="row g-3">';
+         <div id="corps" class="container-fluid n-hyphenate">
+            <div class="row g-3">';
 switch ($pdst) {
    case '-1':
       echo '
-         <div id="col_princ" class="col-12">';
+               <div id="col_princ" class="col-12">';
    break;
 
    case '1':
    colsyst('#col_LB');
       echo '
-         <div id="col_LB" class="collapse show col-lg-3">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
-            leftblocks($moreclass);
+               <div id="col_LB" class="collapse show col-lg-3">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
+               leftblocks($moreclass);
       echo '
-           </div>
-         </div>
-         <div id="col_princ" class="col-lg-6">';
+                  </div>
+               </div>
+               <div id="col_princ" class="col-lg-6">';
    break;
 
    case '2': case '6':
       echo '
-      <div id="col_princ" class="col-lg-9">';
+               <div id="col_princ" class="col-lg-9">';
    break;
 
    case '3':
       colsyst('#col_LB');
       echo '
-      <div id="col_LB" class="collapse show col-lg-3">
-         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
-         leftblocks($moreclass);
+               <div id="col_LB" class="collapse show col-lg-3">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
+                  leftblocks($moreclass);
       echo '
-         </div>
-      </div>';
+                  </div>
+               </div>';
       colsyst('#col_RB');
       echo' 
-      <div id="col_RB" class="collapse show col-lg-3">
-         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
+               <div id="col_RB" class="collapse show col-lg-3">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
       rightblocks($moreclass);
       echo '
-         </div>
-      </div>
-      <div id="col_princ" class="col-lg-6">';
+                  </div>
+               </div>
+               <div id="col_princ" class="col-lg-6">';
    break;
 
    case '4':
       echo '
-         <div id="col_princ" class="col-lg-6">';
+               <div id="col_princ" class="col-lg-6">';
    break;
 case '5':
    colsyst('#col_RB');
    echo '
-      <div id="col_RB" class="collapse show col-lg-3">
-         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
+               <div id="col_RB" class="collapse show col-lg-3">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
    rightblocks($moreclass);
    echo '
-         </div>
-      </div>
-      <div id="col_princ" class="col-lg-9">';
+                  </div>
+               </div>
+               <div id="col_princ" class="col-lg-9">';
 break;
 default:
    colsyst('#col_LB');
    echo '
-         <div id="col_LB" class="collapse show col-lg-3">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
+               <div id="col_LB" class="collapse show col-lg-3">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
    leftblocks($moreclass);
    echo '
-            </div>
-         </div>
-         <div id="col_princ" class="col-lg-9">';
+                  </div>
+               </div>
+               <div id="col_princ" class="col-lg-9">';
 break;
 }
 ?>

@@ -40,10 +40,10 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
       'images/favicon.ico' ;
 
    echo '
-<link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />
-<link rel="apple-touch-icon" sizes="120x120" href="images/favicon-120.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="images/favicon-152.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png" />';
+      <link rel="shortcut icon" href="'.$favico.'" type="image/x-icon" />
+      <link rel="apple-touch-icon" sizes="120x120" href="images/favicon-120.png" />
+      <link rel="apple-touch-icon" sizes="152x152" href="images/favicon-152.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png" />';
 
    // Syndication RSS & autres
    global $sitename, $nuke_url;
@@ -53,18 +53,18 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    $host = $_SERVER['HTTP_HOST'];
    $uri = $_SERVER['REQUEST_URI'];
    echo '
-<link rel="canonical" href="'.($scheme.'://'.$host.$uri).'" />';
+      <link rel="canonical" href="'.($scheme.'://'.$host.$uri).'" />';
 
    // humans.txt
    if (file_exists("humans.txt"))
       echo '
-<link type="text/plain" rel="author" href="'.$nuke_url.'/humans.txt" />';
+      <link type="text/plain" rel="author" href="'.$nuke_url.'/humans.txt" />';
 
    echo '
-<link href="backend.php?op=RSS0.91" title="'.$sitename.' - RSS 0.91" rel="alternate" type="text/xml" />
-<link href="backend.php?op=RSS1.0" title="'.$sitename.' - RSS 1.0" rel="alternate" type="text/xml" />
-<link href="backend.php?op=RSS2.0" title="'.$sitename.' - RSS 2.0" rel="alternate" type="text/xml" />
-<link href="backend.php?op=ATOM" title="'.$sitename.' - ATOM" rel="alternate" type="application/atom+xml" />
+      <link href="backend.php?op=RSS0.91" title="'.$sitename.' - RSS 0.91" rel="alternate" type="text/xml" />
+      <link href="backend.php?op=RSS1.0" title="'.$sitename.' - RSS 1.0" rel="alternate" type="text/xml" />
+      <link href="backend.php?op=RSS2.0" title="'.$sitename.' - RSS 2.0" rel="alternate" type="text/xml" />
+      <link href="backend.php?op=ATOM" title="'.$sitename.' - ATOM" rel="alternate" type="application/atom+xml" />
 ';
 
    // Tiny_mce

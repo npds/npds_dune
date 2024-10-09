@@ -60,8 +60,8 @@ function foot() {
          if (file_exists("modules/include/footer_after.inc")) include ("modules/include/footer_after.inc");
       }
    echo '
-      </body>
-   </html>';
+   </body>
+</html>';
 
    include("sitemap.php");
    sql_close();

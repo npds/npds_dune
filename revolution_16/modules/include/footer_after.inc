@@ -12,26 +12,26 @@
 
 //==> core required dont remove
 echo '
-      <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-      <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
-      <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js" async="async"></script>
-      <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js" async="async"></script>
-      <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js" async="async"></script>
-      <script type="text/javascript" src="lib/tableExport.jquery.plugin-master/tableExport.js" async="async"></script>
-      <script type="text/javascript" src="lib/js/js.cookie.js" async="async"></script>
-      <script type="text/javascript" src="lib/js/jquery-ui.min.js" ></script>
-      <script type="text/javascript" src="lib/js/bootbox.min.js" async="async"></script>
-      <script type="text/javascript" src="lib/js/prism.js"></script>
-      <script type="text/javascript">
-         //<![CDATA[
-            (tarteaucitron.job = tarteaucitron.job || []).push("vimeo");
-            (tarteaucitron.job = tarteaucitron.job || []).push("youtube");
-            (tarteaucitron.job = tarteaucitron.job || []).push("dailymotion");
-            //tarteaucitron.user.gtagUa = ""; /*uncomment the line and add your gtag*/
-            //tarteaucitron.user.gtagMore = function () { /* uncomment the line add here your optionnal gtag() */ };
-            //(tarteaucitron.job = tarteaucitron.job || []).push("gtag");
-         //]]
-      </script>';
+            <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script type="text/javascript" src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+            <script type="text/javascript" src="lib/bootstrap-table/dist/locale/bootstrap-table-'.language_iso(1,"-",1).'.min.js" async="async"></script>
+            <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js" async="async"></script>
+            <script type="text/javascript" src="lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js" async="async"></script>
+            <script type="text/javascript" src="lib/tableExport.jquery.plugin-master/tableExport.js" async="async"></script>
+            <script type="text/javascript" src="lib/js/js.cookie.js" async="async"></script>
+            <script type="text/javascript" src="lib/js/jquery-ui.min.js" ></script>
+            <script type="text/javascript" src="lib/js/bootbox.min.js" async="async"></script>
+            <script type="text/javascript" src="lib/js/prism.js"></script>
+            <script type="text/javascript">
+               //<![CDATA[
+                  (tarteaucitron.job = tarteaucitron.job || []).push("vimeo");
+                  (tarteaucitron.job = tarteaucitron.job || []).push("youtube");
+                  (tarteaucitron.job = tarteaucitron.job || []).push("dailymotion");
+                  //tarteaucitron.user.gtagUa = ""; /*uncomment the line and add your gtag*/
+                  //tarteaucitron.user.gtagMore = function () { /* uncomment the line add here your optionnal gtag() */ };
+                  //(tarteaucitron.job = tarteaucitron.job || []).push("gtag");
+               //]]
+            </script>';
 // <== core
 
 // ==> page-time pseudo-module : If you want to show the time used to generate each page uncomment those lines
@@ -43,7 +43,7 @@ echo '
 // <== page-time pseudo-module
 
 echo '
-   </footer>
-</div>
-<script type="text/javascript" src="lib/js/npds_adapt.js"></script>';
+         </footer>
+      </div>
+      <script type="text/javascript" src="lib/js/npds_adapt.js"></script>';
 ?>

@@ -177,7 +177,7 @@ function themesidebox($title, $content) {
    echo $htvar;// modif ji fantôme block
    echo meta_lang(preg_replace(array_keys($npds_METALANG_words),array_values($npds_METALANG_words), $Xcontent));
    echo '
-            </div>';// modif ji fantôme block
+                     </div>';// modif ji fantôme block
 }
 
 function themedito($content) {

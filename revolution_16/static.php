@@ -50,7 +50,7 @@ if (!function_exists("Mysql_Connexion"))
    $remp='';
    include ("header.php");
    echo '
-   <div id="static_cont">';
+                  <div id="static_cont">';
    if (($op!='') and ($op)) {
       // Troll Control for security
       if (preg_match('#^[a-z0-9_\.-]#i',$op) and !stristr($op,".*://") and !stristr($op,"..") and !stristr($op,"../") and !stristr($op, "script") and !stristr($op, "cookie") and !stristr($op, "iframe") and  !stristr($op, "applet") and !stristr($op, "object") and !stristr($op, "meta")) {
@@ -69,20 +69,20 @@ if (!function_exists("Mysql_Connexion"))
                echo $remp;
             }
             echo '
-      <div class=" my-3"><a href="print.php?sid=static:'.$op.'&amp;metalang='.$metalang.'&amp;nl='.$nl.'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Page spéciale pour impression").'"><i class="fa fa-2x fa-print"></i></a></div>';
+                     <div class=" my-3"><a href="print.php?sid=static:'.$op.'&amp;metalang='.$metalang.'&amp;nl='.$nl.'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Page spéciale pour impression").'"><i class="fa fa-2x fa-print"></i></a></div>';
 
             // Si vous voulez tracer les appels au pages statiques : supprimer les // devant la ligne ci-dessous
             // Ecr_Log("security", "static/$op", "");
          }
          else
             echo '
-      <div class="alert alert-danger">'.translate("Merci d'entrer l'information en fonction des spécifications").'</div>';
+                     <div class="alert alert-danger">'.translate("Merci d'entrer l'information en fonction des spécifications").'</div>';
       } 
       else
          echo '
-      <div class="alert alert-danger">'.translate("Merci d'entrer l'information en fonction des spécifications").'</div>';
+                     <div class="alert alert-danger">'.translate("Merci d'entrer l'information en fonction des spécifications").'</div>';
    }
    echo '
-   </div>';
+                  </div>';
    include ("footer.php");
 ?>

@@ -159,7 +159,7 @@ function instant_members_message() {
    if ($user) {
       global $cookie;
       $boxstuff='
-      <ul class="">';
+                              <ul>';
       $ibid=online_members();
       $rank1='';
       for ($i = 1; $i <= $ibid[0]; $i++) {
@@ -219,11 +219,12 @@ function instant_members_message() {
             $N = $ibid[$i]['username'];
             $M = (strlen($N)>$long_chain) ? substr($N,0,$long_chain).'.' : $N ;
             $boxstuff .='
-         <li class="">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip" >'.$M.'</a><span class="float-end">'.$icon.'</span></li>';
+                                 <li>'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip" >'.$M.'</a><span class="float-end">'.$icon.'</span></li>';
          }//suppression temporaire ... rank  '.$tmpR.'
       }
       $boxstuff .='
-      </ul>';
+                              </ul>
+                           ';
       themesidebox($block_title, $boxstuff);
    } else {
       if ($admin) {
@@ -325,7 +326,8 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
    $result = sql_query($query);
 
    if (!$result) exit();
-   $boxstuff = '<ul>';
+   $boxstuff = '
+                              <ul>';
 
    while ($row = sql_fetch_row($result)) {
       if (($row[6] == "5") or ($row[6] == "7")) {
@@ -339,7 +341,8 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
          $forumname = $row[1];
          $forum_desc =$row[2];
          if ($hr)
-            $boxstuff .= '<li><hr /></li>';
+            $boxstuff .= '
+                                 <li><hr /></li>';
          if ($parse==0) {
             $forumname = FixQuotes($forumname);
             $forum_desc = FixQuotes($forum_desc);
@@ -351,7 +354,7 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
          $res = sql_query("SELECT * FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$forumid' ORDER BY topic_time DESC");
          $ibidx = sql_num_rows($res);
          $boxstuff .= '
-          <li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-bs-toggle="tooltip">'.$forumname.'</a><span class="float-end badge bg-secondary" title="'.translate("Sujets").'" data-bs-toggle="tooltip">'.$ibidx.'</span></h6></li>';
+                                 <li class="list-unstyled border-0 p-2 mt-1"><h6><a href="viewforum.php?forum='.$forumid.'" title="'.strip_tags($forum_desc).'" data-bs-toggle="tooltip">'.$forumname.'</a><span class="float-end badge bg-primary" title="'.translate("Sujets").'" data-bs-toggle="tooltip">'.$ibidx.'</span></h6></li>';
 
          $topics = 0;
          while(($topics < $maxtopics) && ($topicrow = sql_fetch_row($res))) {
@@ -382,7 +385,8 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
                $tt =  strip_tags(stripslashes($tt));
                $topictitle= stripslashes($topictitle);
             }
-            $boxstuff .= '<li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge bg-secondary mx-2" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
+            $boxstuff .= '
+                                 <li class="list-group-item p-1 border-right-0 border-left-0 list-group-item-action"><div class="n-ellipses"><span class="badge bg-secondary mx-2" title="'.translate("Réponses").'" data-bs-toggle="tooltip" data-bs-placement="top">'.$replies.'</span><a href="viewtopic.php?topic='.$topicid.'&amp;forum='.$forumid.'" >'.$topictitle.'</a></div>';
             if ($displayposter) $boxstuff .= $decoration.'<span class="ms-1">'.$postername.'</span>';
             $boxstuff .= '</li>';
             $topics++;
@@ -390,7 +394,8 @@ function RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $t
       }
     }
    $boxstuff .= '
-    </ul>';
+                              </ul>
+                           ';
    return ($boxstuff);
 }
 #autodoc:</Powerpack_f.php>

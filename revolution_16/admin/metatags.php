@@ -155,12 +155,11 @@ function GetMetaTags($filename) {
 function MetaTagMakeSingleTag($name, $content, $type='name') {
    if ($content!="humans.txt") {
       if ($content!="")
-         return "\$l_meta.=\"<meta $type=\\\"".$name."\\\" content=\\\"".$content."\\\" />\\n\";\n";
+         return "\$l_meta.=\"      <meta $type=\\\"".$name."\\\" content=\\\"".$content."\\\" />\\n\";\n";
       else
-         return "\$l_meta.=\"<meta $type=\\\"".$name."\\\" />\\n\";\n";
+         return "\$l_meta.=\"      <meta $type=\\\"".$name."\\\" />\\n\";\n";
    } else
-      return "\$l_meta.=\"<link type=\"text/plain\" rel=\"author\" href=\"http://humanstxt.org/humans.txt\" />\";\n";
-
+      return "\$l_meta.=\"      <link type=\"text/plain\" rel=\"author\" href=\"http://humanstxt.org/humans.txt\" />\";\n";
 }
 
 function MetaTagSave($filename, $tags) {
@@ -181,17 +180,17 @@ function MetaTagSave($filename, $tags) {
       $content .= "if (\$meta_doctype==\"\")\n";
       if (!empty($tags['doctype'])) {
          if ($tags['doctype'] == "XHTML 1.0 Transitional")
-            $content .= "   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\n<html lang=\\\"\$lang\\\" xml:lang=\\\"\$lang\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n\";\n";
+            $content .= "   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\n<html lang=\\\"\$lang\\\" xml:lang=\\\"\$lang\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n   <head>\\n\";\n";
          if ($tags['doctype'] == "XHTML 1.0 Strict")
-            $content .= "   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Strict//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\\\">\\n<html lang=\\\"\$lang\\\" xml:lang=\\\"\$lang\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n<head>\\n\";\n";
+            $content .= "   \$l_meta=\"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Strict//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\\\">\\n<html lang=\\\"\$lang\\\" xml:lang=\\\"\$lang\\\" xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n   <head>\\n\";\n";
          if ($tags['doctype'] == "HTML 5.1")
-            $content .= "   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"\$lang\\\">\\n<head>\\n\";\n";
+            $content .= "   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"\$lang\\\">\\n   <head>\\n\";\n";
       } else {
          $tags['doctype'] = "HTML 5.1";
-         $content .= "   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"\$lang\\\">\\n<head>\\n\";\n";
+         $content .= "   \$l_meta=\"<!DOCTYPE html>\\n<html lang=\\\"\$lang\\\">\\n   <head>\\n\";\n";
       }
       $content .= "else\n";
-      $content .= "   \$l_meta=\$meta_doctype.\"\\n<html lang=\\\"\$lang\\\">\\n<head>\\n\";\n";
+      $content .= "   \$l_meta=\$meta_doctype.\"\\n<html lang=\\\"\$lang\\\">\\n   <head>\\n\";\n";
       if (!empty($tags['content-type'])) {
          $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $fp = fopen("meta/cur_charset.php", "w");
@@ -217,7 +216,7 @@ function MetaTagSave($filename, $tags) {
             $content .= MetaTagMakeSingleTag('utf-8', '', 'charset');
          }
       }
-      $content .= "\$l_meta.=\"<title>\$Titlesitename</title>\\n\";\n";
+      $content .= "\$l_meta.=\"      <title>\$Titlesitename</title>\\n\";\n";
       $content .= MetaTagMakeSingleTag('viewport', 'width=device-width, initial-scale=1, shrink-to-fit=no');
       $content .= MetaTagMakeSingleTag('content-script-type', 'text/javascript', 'http-equiv');
       $content .= MetaTagMakeSingleTag('content-style-type', 'text/css', 'http-equiv');
@@ -241,14 +240,14 @@ function MetaTagSave($filename, $tags) {
       if (!empty($tags['description'])) {
          $tags['description'] = htmlspecialchars(stripslashes($tags['description']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= "if (\$m_description!=\"\")\n";
-         $content .= "   \$l_meta.=\"<meta name=\\\"description\\\" content=\\\"\$m_description\\\" />\\n\";\n";
+         $content .= "   \$l_meta.=\"      <meta name=\\\"description\\\" content=\\\"\$m_description\\\" />\\n\";\n";
          $content .= "else\n";
          $content .= "   ".MetaTagMakeSingleTag('description', $tags['description']);
       }
       if (!empty($tags['keywords'])) {
          $tags['keywords'] = htmlspecialchars(stripslashes($tags['keywords']),ENT_COMPAT|ENT_HTML401,cur_charset);
          $content .= "if (\$m_keywords!=\"\")\n";
-         $content .= "   \$l_meta.=\"<meta name=\\\"keywords\\\" content=\\\"\$m_keywords\\\" />\\n\";\n";
+         $content .= "   \$l_meta.=\"      <meta name=\\\"keywords\\\" content=\\\"\$m_keywords\\\" />\\n\";\n";
          $content .= "else\n";
          $content .= "   ".MetaTagMakeSingleTag('keywords', $tags['keywords']);
       }
