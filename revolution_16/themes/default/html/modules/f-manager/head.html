@@ -1,11 +1,21 @@
 <!-- head interne de F-Manager -->
 <script type="text/javascript">
-   if ($("#corps").length == 0) {
-      $('head').append($('<script />').attr({'type':'text/javascript','src':'lib/bootstrap/dist/js/bootstrap.bundle.min.js'}));
-      $('head').append($('<script />').attr({'type':'text/javascript','src':'lib/bootstrap-table/dist/bootstrap-table.min.js'}));
-      $('head').append($('<script />').attr({'type':'text/javascript','src':'lib/bootstrap-table/dist/locale/bootstrap-table-fr-FR.min.js'}));
-      $('head').append($('<script />').attr({'type':'text/javascript','src':'lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js'}));
-      $('head').append($('<script />').attr({'type':'text/javascript','src':'lib/js/npds_adapt.js'}));
-   }
+   //<![CDATA[
+      if (document.getElementById('corps') === null) {
+         const scripts = [
+            'lib/bootstrap/dist/js/bootstrap.bundle.min.js',
+            'lib/bootstrap-table/dist/bootstrap-table.min.js',
+            'lib/bootstrap-table/dist/locale/bootstrap-table-fr-FR.min.js',
+            'lib/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.min.js',
+            'lib/js/npds_adapt.js'
+         ];
+         scripts.forEach(src => {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = src;
+            document.head.appendChild(script);
+         });
+      }
+   //]]>
 </script>
 <div id="fm_corps" class=" mt-4">
