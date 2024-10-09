@@ -125,49 +125,14 @@ function fma_autorise($type, $dir) {
 }
 
 function chmod_pres($ibid, $champ) {
-   $sel='';
-   if ($ibid[0]==400) $sel="selected=\"selected\""; else $sel='';
-   $chmod="
-   <option name=\"$champ\" value=\"400\" $sel> 400 (r--------)</option>";
-   if ($ibid[0]==444) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"444\" $sel> 444 (r-x------)</option>";
-   if ($ibid[0]==500) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"500\" $sel> 500 (r--------)</option>";
-   if ($ibid[0]==544) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"544\" $sel> 544 (r-xr--r--)</option>";
-   if ($ibid[0]==600) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"600\" $sel> 600 (rw-------)</option>";
-   if ($ibid[0]==644) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"644\" $sel> 644 (rw-r--r--)</option>";
-   if ($ibid[0]==655) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"655\" $sel> 655 (rw-r-xr-x)</option>";
-   if ($ibid[0]==666) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"666\" $sel> 666 (rw-rw-rw-)</option>";
-   if ($ibid[0]==700) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"700\" $sel> 700 (rwx------)</option>";
-   if ($ibid[0]==744) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"744\" $sel> 744 (rwxr--r--)</option>";
-   if ($ibid[0]==755) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"755\" $sel> 755 (rwxr-xr-x)</option>";
-   if ($ibid[0]==766) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"766\" $sel> 766 (rwxrw-rw-)</option>";
-   if ($ibid[0]==777) $sel="selected=\"selected\""; else $sel="";
-   $chmod.="
-   <option name=\"$champ\" value=\"777\" $sel> 777 (rwxrwxrwx)</option>";
-   $chmod.="
-   </select>";
-   return ($chmod);
+   $options = ['400' => 'r--------', '444' => 'r-x------', '500' => 'r--------', '544' => 'r-xr--r--', '600' => 'rw-------', '644' => 'rw-r--r--', '655' => 'rw-r-xr-x', '666' => 'rw-rw-rw-', '700' => 'rwx------', '744' => 'rwxr--r--', '755' => 'rwxr-xr-x', '766' => 'rwxrw-rw-', '770' => 'rwxrwx---', '777' => 'rwxrwxrwx'];
+   $chmod = '';
+   $current_value = isset($ibid[0]) ? $ibid[0] : '';
+   foreach ($options as $value => $description) {
+      $selected = ($current_value == $value) ? ' selected="selected"' : '';
+      $chmod .= '<option value="' . $value . '"' . $selected . '> ' . $value . ' (' . $description . ')</option>';
+   }
+   return $chmod;
 }
 
 // Lancement sur un Répertoire en fonction d'un fichier de conf particulier
@@ -394,6 +359,7 @@ switch ($op) {
                      <label class="form-label" for="chmoddir" ><code>'.extend_ascii($auto[2]).'</code></label>
                      <select class="form-select" id="chmoddir" name="chmoddir">
                         '.chmod_pres($obj->GetPerms($auto[3].'/'.$auto[2]),'chmoddir').'
+                     </select>
                   </div>
                   <div class="mb-3">
                      <input class="btn btn-primary" type="submit" name="ok" value="'.fma_translate("Ok").'" />
@@ -622,6 +588,7 @@ switch ($op) {
                      <label class="form-label" for="chmodfile"><code>'.extend_ascii($auto[2]).'</code></label>
                      <select class="form-select" id="chmodfile" name="chmodfile">
                         '.chmod_pres($obj->GetPerms($auto[3].'/'.$auto[2]),"chmodfile").'
+                     </select>
                   </div>
                   <div class="mb-3">
                      <button class="btn btn-primary" type="submit" name="ok">'.fma_translate("Ok").'</button>
@@ -821,24 +788,24 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
 }
 
 // gestion des types d'extension de fichiers
-$handle=opendir("$racine_fma/images/upload/file_types");
-while (false!==($file = readdir($handle))) {
-   if ($file!='.' && $file!='..') {
-      $prefix = strtoLower(substr($file,0,strpos($file,'.')));
-      $att_icons[$prefix]='
+$extensions = ['asf', 'avi', 'bmp', 'box', 'cfg', 'cfm', 'conf', 'crypt', 'css', 'dia', 'dir', 'doc', 'dot', 'dwg', 'excel', 'exe', 'filebsd', 'filelinux', 'fla', 'flash', 'gif', 'gz', 'gzip', 'hlp', 'htaccess', 'htm', 'html', 'ico', 'image', 'img', 'indd', 'index', 'ini', 'iso', 'java', 'jpg', 'js', 'json', 'kml', 'lyx', 'mdb', 'mid', 'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'php', 'php3', 'php4', 'phps', 'png', 'pot', 'ppt', 'ps', 'psd', 'psp', 'ra', 'rar', 'rpm', 'rtf', 'search', 'sit', 'svg', 'swf', 'sxc', 'sxd', 'sxi', 'sys', 'tar', 'tgz', 'ttf', 'txt', 'unknown', 'vsd', 'wav', 'wbk', 'wma', 'wmf', 'wmv', 'word', 'xls', 'xml', 'xsl', 'zip'];
+foreach ($extensions as $extens) {
+   $att_icons[$extens]='
       <span class="fa-stack">
         <i class="bi bi-file-earmark-fill fa-stack-2x text-body-secondary"></i>
-        <span class="fa-stack-1x filetype-text small ">'.$prefix.'</span>
+        <span class="fa-stack-1x filetype-text small ">'.$extens.'</span>
       </span>';
-   }
 }
-closedir($handle);
 $att_icon_default='
       <span class="fa-stack">
         <i class="bi bi-file-earmark-fill fa-stack-2x text-body-secondary"></i>
         <span class="fa-stack-1x filetype-text ">?</span>
       </span>';
-$att_icon_multiple="<img src=\"images/upload/file_types/multiple.gif\" alt=\"\" />";
+$att_icon_multiple='
+      <span class="fa-stack">
+        <i class="bi bi-file-earmark-fill fa-stack-2x text-body-secondary"></i>
+        <span class="fa-stack-1x filetype-text ">...</span>
+      </span>';
 $att_icon_dir='<i class="bi bi-folder fs-3"></i>';
 $att_icon_search='<i class="bi bi-search fs-4"></i>';
 
@@ -865,7 +832,7 @@ while ($obj->NextDir()) {
          <td nowrap="nowrap">'.$clik_url.extend_ascii($obj->FieldName).'</a></td>';
       if ($dirpres_fma[2])
          $subdirs.='
-         <td><small>'.$obj->FieldDate.'</small></td>';
+         <td class="text-center"><small>'.$obj->FieldDate.'</small></td>';
       if ($dirpres_fma[3]) {
          $sizeofD=$obj->FieldSize;
          $sizeofDir=$sizeofDir+(integer)$sizeofD;
@@ -976,7 +943,7 @@ while ($obj->NextFile()) {
       }
       if ($ficpres_fma[2])
          $files.='
-         <td><small>'.$obj->FieldDate.'</small></td>';
+         <td class="text-center"><small>'.$obj->FieldDate.'</small></td>';
       if ($ficpres_fma[3]) {
          $sizeofF=$obj->FieldSize;
          $sizeofFic=$sizeofFic+$sizeofF;
@@ -986,7 +953,7 @@ while ($obj->NextFile()) {
          <td><small>#NA#</small></td>';
       if ($ficpres_fma[4]) 
          $files.='
-         <td><small>'.$obj->FieldPerms.'</small></td>'; else $files.="<td><small>#NA#</small></td>";
+         <td class="text-end"><small>'.$obj->FieldPerms.'</small></td>'; else $files.="<td><small>#NA#</small></td>";
       // Traitements
       $obj->FieldName=rawurlencode($obj->FieldName);
       $cmd_ibid='';
@@ -1102,7 +1069,7 @@ if ($inclusion) {
       $Xcontent=str_replace('_home','<a class="nav-link" href="index.php" target="_blank"><span class="bi bi-house-fill fs-1 align-middle"></a>',$Xcontent);
    
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
-   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><i class="bi bi-arrow-clockwise fs-1 d-sm-none" title="'.fma_translate("Rafraîchir").'" data-bs-toggle="tooltip"></i><span class="d-none d-sm-block mt-2">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
+   $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).$urlext_fma.'"><i class="bi bi-arrow-clockwise fs-1 d-md-none" title="'.fma_translate("Rafraîchir").'" data-bs-toggle="tooltip"></i><span class="d-none d-md-block mt-2">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
 //   if ($dirsize_fma)
       $Xcontent=str_replace('_size',$obj->ConvertSize($obj->GetDirSize($cur_nav)),$Xcontent);
 //   else $Xcontent=str_replace("_size",'-',$Xcontent);
@@ -1152,13 +1119,13 @@ if ($inclusion) {
    $Xcontent= (isset($infos)) ?
       str_replace('_infos',$infos,$Xcontent) :
       str_replace('_infos','',$Xcontent) ;
-   if ($dirpres_fma[5]) {
+      $chemin_pic = $cur_nav.'/pic-manager.txt';
+   if ($dirpres_fma[5] and file_exists($chemin_pic)) {
       $Xcontent = ($uniq_fma) ?
-         str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-sm-none"><i class="bi bi-image fs-1" title="'.fma_translate("Images manager").'" data-bs-toggle="tooltip" data-bs-placement="bottom"></i></span><span class="d-none d-sm-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent) :
-         str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-sm-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-sm-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent) ;
+         str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><span class="d-md-none"><i class="bi bi-image fs-1" title="'.fma_translate("Images manager").'" data-bs-toggle="tooltip" data-bs-placement="bottom"></i></span><span class="d-none d-md-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent) :
+         str_replace('_picM','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart=pic-manager&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'" target="_blank"><span class="d-md-none"><i class="fa fa-image fa-lg"></i></span><span class="d-none d-md-block mt-2">'.fma_translate("Images manager").'</span></a>',$Xcontent) ;
    } else
-      $Xcontent=str_replace('_picM','',$Xcontent);
-
+      $Xcontent=str_replace('_picM','<a class="nav-link text-body-secondary"><span class="d-md-none"><i class="bi bi-image fs-1" title="'.fma_translate("Vous n'êtes pas autorisé à utiliser le gestionnaire de média. SVP contacter l'administrateur.").'" data-bs-toggle="tooltip" data-bs-placement="top"></i></span><span class="d-none d-md-block mt-2" title="'.fma_translate("Vous n'êtes pas autorisé à utiliser le gestionnaire de média. SVP contacter l'administrateur.").'" data-bs-toggle="tooltip" data-bs-placement="bottom">'.fma_translate("Images manager").'</span></a>',$Xcontent);
    $Xcontent=str_replace('_quota',$obj->ConvertSize($sizeofDir+$sizeofFic).' || '.fma_translate("Taille maximum d'un fichier : ").$obj->ConvertSize($max_size),$Xcontent);
 
    if (!$NPDS_fma) {
@@ -1225,17 +1192,15 @@ if ($inclusion) {
    ?>
    <script type="text/javascript">
    //<![CDATA[
-   function previewImage(fileInfo) {
-     var filename = '';
-     filename = fileInfo;
-
-     //create the popup
-     popup = window.open('', 'imagePreview', 'width=600,height=450,left=100,top=75,screenX=100,screenY=75,scrollbars,location,menubar,status,toolbar,resizable=1');
-
-     //start writing in the html code
-     popup.document.writeln("<html><body style='background-color: #FFFFFF;'>");
-     popup.document.writeln("<img src='" + filename + "'></body></html>");
-   }
+      function previewImage(fileInfo) {
+        var filename = '';
+        filename = fileInfo;
+        //create the popup
+        popup = window.open('', 'imagePreview', 'width=600,height=450,left=100,top=75,screenX=100,screenY=75,scrollbars,location,menubar,status,toolbar,resizable=1');
+        //start writing in the html code
+        popup.document.writeln("<html><body style='background-color: #FFFFFF;'>");
+        popup.document.writeln("<img src='" + filename + "'></body></html>");
+      }
    //]]>
    </script>
    <?php
