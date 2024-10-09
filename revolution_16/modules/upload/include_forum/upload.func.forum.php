@@ -125,7 +125,6 @@ function display_upload($apli,$post_id,$Mmod){
             <span class="badge bg-secondary ms-auto">'.$att_count.'</span>
          </div>
          <div id="lst_pj'.$post_id.'" class="collapse show">';
-      $ncell = 0;
       for ($i=0; $i<$att_count; $i++) {
          $att_id        = $att[$i]["att_id"];
          $att_name      = $att[$i]["att_name"];
@@ -237,29 +236,40 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    switch ($display_mode) {
       case ATT_DSP_IMG: // display as an embedded image
          $size = @getImageSize ("$att_path");
-         $img_size = 'style="max-width: 100%; height:auto;" loading="lazy" ';
+         $img_size = 'style="width: 100%; height:auto;" loading="lazy" ';
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_IMG]);
          eval ("\$ret=stripSlashes(\"$text\");");
-         break;
+      break;
       case ATT_DSP_PLAINTEXT: // display as embedded text, PRE-formatted
          $att_contents = str_replace ("\\", "\\\\", htmlSpecialChars (join('',file ($att_path)),ENT_COMPAT|ENT_HTML401,cur_charset));
          $att_contents = word_wrap ($att_contents);
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_PLAINTEXT]);
          eval ("\$ret=\"$text\";");
-         break;
+      break;
       case ATT_DSP_HTML: // display as embedded HTML text
          //au choix la source ou la page
          $att_contents = word_wrap (nl2br(scr_html (join ("", file ($att_path)))));
          //$att_contents = removeHack (join ("", file ($att_path)));
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_HTML]);
          eval ("\$ret=stripSlashes(\"$text\");");
-         break;
+      break;
       case ATT_DSP_SWF: // Embedded Macromedia Shockwave Flash
          $size = @getImageSize ("$att_path");
          $img_size = verifsize( $size );
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_SWF]);
          eval ("\$ret=stripSlashes(\"$text\");");
-         break;
+      break;
+      case ATT_DSP_VIDEO: // display in a <video> html5 tag
+         $img_size = 'width="100%" height="auto" ';
+         $text = str_replace('"','\"', $mime_renderers[ATT_DSP_VIDEO]);
+         eval ("\$ret=stripSlashes(\"$text\");");
+      break;
+      case ATT_DSP_AUDIO: // display in a <audio> html5 tag
+         $img_size = 'width="100%" height="auto" ';
+         $text = str_replace('"','\"', $mime_renderers[ATT_DSP_AUDIO]);
+         eval ("\$ret=stripSlashes(\"$text\");");
+      break;
+
       default: // display as link
          $Fichier = new FileManagement;
          $att_size = $Fichier->file_size_format($att_size, 1);
