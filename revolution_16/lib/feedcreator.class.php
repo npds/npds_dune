@@ -893,7 +893,7 @@ class AtomCreator03 extends FeedCreator {
    function createFeed() {
       $feed = "<?xml version=\"1.0\" encoding=\"".$this->encoding."\"?>\n";
       $feed.= $this->_createGeneratorComment();
-      $feed.= "<feed xmlns=\"http://www.w3.org/2005/Atom\"";
+      $feed.= "<feed xmlns=\"http://www.w3.org/2005/Atom\" ";
       if ($this->language!="") {
          $feed.= " xml:lang=\"".$this->language."\"";
       }
@@ -901,7 +901,7 @@ class AtomCreator03 extends FeedCreator {
       $feed.= "    <title type=\"html\">".htmlspecialchars($this->title,ENT_COMPAT|ENT_HTML401,$this->encoding)."</title>\n";
       $feed.= "    <tagline>".htmlspecialchars($this->description,ENT_COMPAT|ENT_HTML401,$this->encoding)."</tagline>\n";
       $feed.= "    <link rel=\"alternate\" type=\"text/html\" href=\"".htmlspecialchars($this->link,ENT_COMPAT|ENT_HTML401,$this->encoding)."\"/>\n";
-      $feed.= "    <id>".htmlspecialchars($this->link,ENT_COMPAT|ENT_HTML401,$this->encoding)."</id>\n";
+      $feed.= "    <id>".htmlspecialchars($this->link,ENT_COMPAT|ENT_HTML401,$this->encoding)."/</id>\n";
       $now = new FeedDate();
       $feed.= "    <updated>".htmlspecialchars($now->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</updated>\n";
       if ($this->editor!="") {
@@ -922,8 +922,10 @@ class AtomCreator03 extends FeedCreator {
             $this->items[$i]->date = time();
          }
          $itemDate = new FeedDate($this->items[$i]->date);
+/*
          $feed.= "        <created>".htmlspecialchars($itemDate->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</created>\n";
          $feed.= "        <issued>".htmlspecialchars($itemDate->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</issued>\n";
+*/
          $feed.= "        <updated>".htmlspecialchars($itemDate->iso8601(),ENT_COMPAT|ENT_HTML401,$this->encoding)."</updated>\n";
          $feed.= "        <id>".htmlspecialchars($this->items[$i]->link,ENT_COMPAT|ENT_HTML401,$this->encoding)."</id>\n";
          $feed.= $this->_createAdditionalElements($this->items[$i]->additionalElements, "        ");
