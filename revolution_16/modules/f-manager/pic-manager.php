@@ -11,7 +11,7 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],'modules.php')) die();
 
-global $ModPath, $ModStart, $language, $Default_Theme, $Default_Skin, $NPDS_Key;
+global $ModPath, $ModStart, $language, $Default_Theme, $Default_Skin, $NPDS_Key, $nuke_url;
 include ("modules/$ModPath/lang/f-manager-$language.php");
 include ("modules/$ModPath/class.navigator.php");
 
@@ -294,16 +294,16 @@ $rep_cache_encrypt=rawurlencode(encrypt($rep_cache));
 $cache_prefix=$cookie[1].md5(str_replace('/','.',str_replace($racine_fma.'/','',$cur_nav)));
 
 if ($Max_thumb>0) {
-   $files='<div id="photo">';
+   $files='<div id="photo" class="mt-3 d-flex flex-wrap justify-content-center justify-content-md-between">';
    while ($obj->NextFile()) {
       if (fma_autorise('f', $obj->FieldName)) {
          $suf=strtolower($obj->FieldView);
-         if (($suf=='gif') or ($suf=='jpg') or ($suf=='png') or ($suf=='swf') or ($suf=='mp3')) {
+         if (($suf=='gif') or ($suf=='jpg') or ($suf=='jpeg') or ($suf=='png') or ($suf=='swf') or ($suf=='mp3') or ($suf=='mp4') or ($suf=='svg') ) {
             if ($ficpres_fma[1]) {
                $ibid=rawurlencode(encrypt(rawurldecode($cur_nav_encrypt).'#fma#'.encrypt($obj->FieldName)));
                $imagette='';
 
-               if (($suf=='gif') or ($suf=='jpg')) {
+               if (($suf=='gif') or ($suf=='jpg') or ($suf=='jpeg')) {
                   if ((function_exists('gd_info')) or extension_loaded('gd')) {
                      //cached or not ?
                      if (file_exists($rep_cache.$cache_prefix.'.'.$obj->FieldName)) {
@@ -330,10 +330,12 @@ if ($Max_thumb>0) {
                } else if (($suf=='png') or ($suf=='swf')) {
                   $image=imagesize($curn_nav.$obj->FieldName, $Max_thumb);
                }
-               $h_i=$image['hauteur'][0];
-               $h_pi=$image['hauteur'][1];
-               $w_i=$image['largeur'][0];
-               $w_pi=$image['largeur'][1];;
+               if(($suf!='mp3') or ($suf!='mp4') or ($suf!='svg')) {
+                  $h_i=$image['hauteur'][0];
+                  $h_pi=$image['hauteur'][1];
+                  $w_i=$image['largeur'][0];
+                  $w_pi=$image['largeur'][1];
+               }
 
                switch ($suf) {
                   case 'gif':
@@ -342,7 +344,7 @@ if ($Max_thumb>0) {
                      $PopUp="'getfile.php?att_id=$ibid&amp;apli=f-manager','PicManager','menubar=no,location=no,directories=no,status=no,copyhistory=no,height=".($h_pi+40).",width=".($w_pi+40).",toolbar=no,scrollbars=yes,resizable=yes'";
                      $files.='
                      <div class="imagethumb">
-                        <a href="javascript:void(0);" onclick="popup=window.open('.$PopUp.'); popup.focus();"><img src="getfile.php?att_id=';
+                        <a title="'.$obj->FieldName.'" data-bs-toggle="tooltip" href="javascript:void(0);" onclick="popup=window.open('.$PopUp.'); popup.focus();"><img src="getfile.php?att_id=';
                      $files.= ($imagette) ? $imagette : $ibid ;
                      $files.="&amp;apli=f-manager\" border=\"0\" width=\"$w_i\" height=\"$h_i\" alt=\"$obj->FieldName\" loading=\"lazy\"/ ></a>\n";
                      $files.='
@@ -360,16 +362,32 @@ if ($Max_thumb>0) {
 
                   case "mp3":
                      $PopUp="getfile.php?att_id=$ibid&amp;apli=f-manager";
-                     $files.="<div class=\"imagethumb\">";
-                     $uniqid=uniqid("mp3");
-                     $files.="<a href=\"javascript:void(0);\" onclick=\"document.$uniqid.SetVariable('player:jsUrl', '$PopUp'); document.$uniqid.SetVariable('player:jsPlay', '');\">";
-                     $files.="<div class=\"mp3\"><p align=\"center\">".fma_translate("Cliquer ici pour charger le fichier dans le player")."</p><br />".split_string_without_space($obj->FieldName, 24)."</div>";
-                     $files.="<div style=\"margin-top: 10px;\">";
-                     $files.="<object id=\"".$uniqid."\" type=\"application/x-shockwave-flash\" data=\"modules/$ModPath/plugins/player_mp3_maxi.swf\" width=\"$Max_thumb\" height=\"15\">
-                     <param name=\"movie\" value=\"modules/$ModPath/plugins/player_mp3_maxi.swf\" />
-                     <param name=\"FlashVars\" value=\"showstop=1&amp;showinfo=1&amp;showvolume=1\" />
-                     </object></div>";
-                     $files.="</a>\n</div>";
+                     $files.= '
+                     <div class="mp3">
+                        <audio controls src="'.$PopUp.'"></audio><br />
+                        <a href="javascript:void(0);" onclick="popup=window.open(\''.$PopUp.'\',\'PicManager\',\'menubar=no,location=no,directories=no,status=no,copyhistory=no,height=180,width=280,toolbar=no,scrollbars=yes,resizable=yes\'); popup.focus();">'.fma_translate("Ecouter").'<br />'.$obj->FieldName.'</a>
+                     </div>';
+                  break;
+
+                  case "mp4":
+                     $PopUp='getfile.php?att_id='.$ibid.'&amp;apli=f-manager';
+                     $files.= '
+                     <div class="mp4">
+                        <video data-bs-toggle="tooltip" title="'.$obj->FieldName.'" preload="auto" width="220" height="175" controls="controls">
+                           <source src="'.$PopUp.'" type="video/mp4">
+                        </video>
+                     </div>';
+                  break;
+
+                  case "svg":
+                     $ibid=decrypt(rawurldecode($cur_nav_encrypt)).'/'.$obj->FieldName;
+                     $PopUp='getfile.php?att_id='.$ibid.'&amp;apli=f-manager';
+                     $files.= '
+                     <div class="svg">
+                        <a data-bs-toggle="tooltip" title="'.$obj->FieldName.'">
+                        '.file_get_contents($ibid).'
+                        </a>
+                     </div>';
                   break;
                }
             }
@@ -379,7 +397,6 @@ if ($Max_thumb>0) {
    $files.='
    </div>';
 }
-
 chdir("$racine_fma/");
 
 // Génération de l'interface
@@ -393,6 +410,7 @@ else
 
 if ($inclusion) {
    $Xcontent=join('',file($inclusion));
+   $Xcontent=str_replace('_nuke',$nuke_url,$Xcontent);
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
    $Xcontent=str_replace('_refresh','<a class="nav-link" href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.rawurlencode($browse).'"><i class="bi bi-arrow-clockwise fs-1 d-sm-none" title="'.fma_translate("Rafraîchir").'" data-bs-toggle="tooltip"></i><span class="d-none d-sm-block mt-2">'.fma_translate("Rafraîchir").'</span></a>',$Xcontent);
    $Xcontent=str_replace('_nb_subdir',($obj->Count('d')-$dir_minuscptr),$Xcontent);
@@ -436,7 +454,8 @@ if ($inclusion) {
          <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" />
          <link rel="stylesheet" id="fw_css_extra" href="themes/_skins/'.$skin.'/extra.css" />
          <link href="'.$css_fma.'" title="default" rel="stylesheet" type="text/css" media="all" />
-         <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+         <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
       </head>
       <body class="p-3">';
    }
@@ -468,7 +487,6 @@ if ($inclusion) {
       include ("themes/default/html/modules/f-manager/foot.html");
       echo "\n";
    }
-
    if (!$NPDS_fma)
       echo '
       </body>
