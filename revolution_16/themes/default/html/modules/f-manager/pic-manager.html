@@ -1,41 +1,22 @@
-<style type="text/css">
-#photo {
-  text-align: center;
-  width: 100%;
-}
-#photo .imagethumb a {
-  height: 175px;
-  width:  175px;
-  padding: 10px;
-  margin: 6px;
-  border: 1px solid var(--bs-primary);
-  background: var(--bs-light);
-  float: left;
-  line-height: 0px;
-  text-align: center;
-}
-#photo .imagethumb a:hover {
-  border: 1px solid var(--bs-primary);
-  background: var(--bs-dark);
-}
-div.mp3 {
-  height: 110px;
-  width:  150px;
-  padding: 10px;
-  margin-bottom: 5px;
-  float: left;
-  line-height: 12px;
-  text-align: left;
-  border: 1px solid #000;
-  background: #CACDC2;
-}
-</style>
+<script type="text/javascript">
+   //<![CDATA[
+   if (!document.querySelector("link[href='_nuke/themes/default/style/f-manager.css']")) {
+      const lastStylesheet = document.querySelector("head link[rel='stylesheet']:last-of-type");
+      const newLink = document.createElement('link');
+      newLink.rel = 'stylesheet';
+      newLink.href = '_nuke/themes/default/style/f-manager.css';
+      newLink.type = 'text/css';
+      newLink.media = 'screen';
+      lastStylesheet.insertAdjacentElement('afterend', newLink);
+   }
+   //]]>
+</script>
 <h2 class="mb-3">[french]Images manager[/french][english]Pictures Manager[/english][chinese]&#x56FE;&#x7247;&#x7BA1;&#x7406;&#x5458;[/chinese][spanish]Gerente de fotos[/spanish][german]Bilder Manager[/german]</h2>
-<nav class="nav nav-pill nav-justified mb-4 bg-light">
-    <a class="nav-link" href="index.php"><span class="bi bi-house-fill fs-1 align-middle"></span></a>
-    _fileM
-    <a class="nav-link disabled bg-white"><i class="bi bi-image fs-1 d-sm-none"></i><span class="d-none d-sm-block mt-2">[french]Images manager[/french][english]Pictures Manager[/english][chinese]&#x56FE;&#x7247;&#x7BA1;&#x7406;&#x5458;[/chinese][spanish]Gerente de fotos[/spanish][german]Bilder Manager[/german]</span></a>
-    _refresh
+<nav class="nav nav-pill nav-justified mb-4 nav-underline">
+   <a class="nav-link" href="index.php"><span class="bi bi-house-fill fs-1 align-middle"></span></a>
+   _fileM
+   <a class="nav-link active" aria-current="true" href="#"><i class="bi bi-image fs-1 d-sm-none"></i><span class="d-none d-sm-block mt-2">[french]Images manager[/french][english]Pictures Manager[/english][chinese]&#x56FE;&#x7247;&#x7BA1;&#x7406;&#x5458;[/chinese][spanish]Gerente de fotos[/spanish][german]Bilder Manager[/german]</span></a>
+   _refresh
 </nav>
 <p class="lead">
    <strong>_back</strong>
