@@ -29,7 +29,7 @@ global $language;
 include("modules/upload/lang/upload.lang-$language.php");
 
 function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
-   global $hlpfile, $filemanager,$f_meta_nom, $f_titre, $adminimg, $subop;
+   global $hlpfile, $filemanager, $f_meta_nom, $f_titre, $adminimg, $subop;
    include ("modules/upload/upload.conf.php");
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
@@ -120,15 +120,12 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
             </div>
          </div>';
    include('modules/upload/include/mimetypes.php');
-   $sel='';
    $opt='';
    $tab_ext = explode(' ',$extension_autorise);
    foreach($mimetypes as $ext_name => $ext_def) {
-      if(in_array($ext_name, $tab_ext))
-         $sel=' selected="selected"';
-         else $sel='';
-         $opt.='
-         <option '.$sel. 'value="'.$ext_name.'">.'.$ext_name.'</option>';
+      $sel = (in_array($ext_name, $tab_ext)) ? 'selected="selected"' : '' ;
+      $opt.='
+         <option '.$sel.' value="'.$ext_name.'">.'.$ext_name.'</option>';
    };
    echo '
          <div class="mb-3 row">
@@ -143,7 +140,7 @@ function upConfigure($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    $opt=''; $v='';
    $hrchoice = array('0'=>'afficher les images de !divers','1'=>'afficher les images de !mime','2'=>'afficher les images de la racine du répertoire','3'=>'afficher les documents');
    foreach($hrchoice as $k => $af) {
-      if($ed_profil[$k]=="1") $sel='selected="selected"'; else $sel='';
+      $sel = ($ed_profil[$k]=="1") ? 'selected="selected"' : '';
       $opt.='
                   <option '.$sel.' value="'.$k.'">'.$af.'</option>';
    };
