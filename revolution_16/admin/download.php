@@ -34,12 +34,9 @@ function groupe($groupe) {
             if (($groupe_id==$groupevalue) and ($groupe_id!=0)) $selectionne=1;
          }
       }
-      if ($selectionne==1)
-         $str.='
-         <option value="'.$groupe_id.'" selected="selected">'.$groupe_name.'</option>';
-      else
-         $str.='
-         <option value="'.$groupe_id.'">'.$groupe_name.'</option>';
+      $str.= ($selectionne==1) ?
+         '<option value="'.$groupe_id.'" selected="selected">'.$groupe_name.'</option>' :
+         '<option value="'.$groupe_id.'">'.$groupe_name.'</option>' ;
       $nbg++;
    }
    if ($nbg>5) $nbg=5;
