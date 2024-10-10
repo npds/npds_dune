@@ -178,7 +178,7 @@ function CreateThumb($Image, $Source, $Destination, $Max, $ext) {
             @imagepng($im, $Destination.$Image, 6);
          break;
       }
-      @chmod($Dest.$Image,0766);
+      @chmod($Destination.$Image,0766);
       $size['gene-img'][0]=true;
    }
    return ($size);
