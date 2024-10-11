@@ -103,7 +103,7 @@ function ForumMaintTopics($before,$forum_name) {
       $resultT=sql_query("SELECT topic_id, topic_title FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum_id' $add_sql ORDER BY topic_id ASC");
       while (list($topic_id, $topic_title)=sql_fetch_row($resultT)) {
          $tt = $parse==0 ? FixQuotes($topic_title) : stripslashes($topic_title) ;
-         $oo = urlencode($tt);/////
+         urlencode($tt);
          echo '
          <div class="form-check form-check-inline">
             <input type="checkbox" class="form-check-input" name="topics['.$topic_id.']" id="topics'.$topic_id.'" '.$topic_check.'/>
@@ -136,7 +136,7 @@ function ForumMaintTopicDetail($topic, $topic_title) {
    <h3 class="mb-3 text-danger">'.adm_translate("Supprimer massivement les Topics").'</h3>
    <div class="lead">Topic : '.$topic.' | '.stripslashes($topic_title).'</div>
    <div class="card p-4 my-3 border-danger">
-      <p class="text-end small text-body-secondary">[ '.convertdate($post_time).' ]</p>'.stripslashes($post_text).'
+      <p class="text-end small text-body-secondary">[ '.formatTimes($post_time, IntlDateFormatter::SHORT, IntlDateFormatter::MEDIUM,).' ]</p>'.stripslashes($post_text).'
    </div>
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="ForumMaintTopicSup" />
