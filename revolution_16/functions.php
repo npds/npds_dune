@@ -69,12 +69,11 @@ function get_last_post($id, $type, $cmd, $Mmod) {
       case 'forum':
            $sql1 = "SELECT topic_time, current_poster FROM ".$NPDS_Prefix."forumtopics WHERE forum_id = '$id' ORDER BY topic_time DESC LIMIT 0,1";
            $sql2 = "SELECT uname FROM ".$NPDS_Prefix."users WHERE uid=";
-           break;
-
+      break;
       case 'topic':
            $sql1 = "SELECT topic_time, current_poster FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$id'";
            $sql2 = "SELECT uname FROM ".$NPDS_Prefix."users WHERE uid=";
-           break;
+      break;
    }
    if (!$result = sql_query($sql1))
       return("ERROR");
@@ -84,40 +83,12 @@ function get_last_post($id, $type, $cmd, $Mmod) {
          $val=translate("Rien");
       else {
          $rowQ1=Q_Select ($sql2."'".$myrow[1]."'", 3600);
-         $val = convertdate($myrow[0]);
+         $val = formatTimes($myrow[0], IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
          $val .= $rowQ1 ? ' '.userpopover($rowQ1[0]['uname'],36,2) : '';
       }
    }
    sql_free_result($result);
    return($val);
-}
-
-function convertdateTOtimestamp($myrow) {
-   if (substr($myrow,2,1)=="-") {
-      $day=substr($myrow,0,2);
-      $month=substr($myrow,3,2);
-      $year=substr($myrow,6,4);
-   } else {
-      $day=substr($myrow,8,2);
-      $month=substr($myrow,5,2);
-      $year=substr($myrow,0,4);
-   }
-   $hour=substr($myrow,11,2);
-   $mns=substr($myrow,14,2);
-   $sec=substr($myrow,17,2);
-   $tmst=mktime((int) $hour,(int) $mns,(int) $sec,(int) $month,(int) $day,(int) $year);
-   return ($tmst);
-}
-
-function post_convertdate($tmst) {
-   $val = $tmst>0 ? date(translate("dateinternal"),$tmst) : '';
-   return ($val);
-}
-
-function convertdate($myrow) {
-   $tmst=convertdateTOtimestamp($myrow);
-   $val=post_convertdate($tmst);
-   return ($val);
 }
 
 function get_moderator($user_id) {
@@ -164,18 +135,7 @@ function get_userdata_from_id($userid) {
 function get_userdata_extend_from_id($userid) {
    global $NPDS_Prefix;
    $sql1 = "SELECT * FROM ".$NPDS_Prefix."users_extend WHERE uid='$userid'";
-/*   $sql2 = "SELECT * FROM ".$NPDS_Prefix."users_status WHERE uid='$userid'";
-
-   if (!$result = sql_query($sql1))  
-      forumerror('0016');
-
-   if (!$myrow = sql_fetch_assoc($result))
-      $myrow = array( "uid" => 1);
-   else
-      $myrow=array_merge($myrow,(array)sql_fetch_assoc(sql_query($sql1)));
- */
    $myrow= (array)sql_fetch_assoc(sql_query($sql1));
- 
    return($myrow);
 }
 
@@ -193,11 +153,11 @@ function does_exists($id, $type) {
    global $NPDS_Prefix;
    switch($type) {
       case 'forum':
-           $sql = "SELECT forum_id FROM ".$NPDS_Prefix."forums WHERE forum_id = '$id'";
-           break;
+         $sql = "SELECT forum_id FROM ".$NPDS_Prefix."forums WHERE forum_id = '$id'";
+      break;
       case 'topic':
-           $sql = "SELECT topic_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$id'";
-           break;
+         $sql = "SELECT topic_id FROM ".$NPDS_Prefix."forumtopics WHERE topic_id = '$id'";
+      break;
    }
    if (!$result = sql_query($sql))
       return(0);
