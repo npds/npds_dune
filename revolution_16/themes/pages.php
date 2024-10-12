@@ -324,6 +324,13 @@ $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['title']
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['run']="yes";
 $PAGES['modules.php?ModPath=reseaux-sociaux&ModStart=reseaux-sociaux*']['blocs']="0";
 
+$PAGES['modules.php?ModPath=wspad&ModStart=wspad*']['title']="[french]WS-Pad[/french][english]WS-PAd[/english][spanish]WS-Pad[/spanish][german]WS-Pad[/german][chinese]WS-Pad[/chinese]+|$title+";
+$PAGES['modules.php?ModPath=wspad&ModStart=wspad*']['run']="yes";
+$PAGES['modules.php?ModPath=wspad&ModStart=wspad*']['blocs']="0";
+$PAGES['modules.php?ModPath=wspad&ModStart=wspad*']['TinyMce']=1;
+$PAGES['modules.php?ModPath=wspad&ModStart=wspad*']['TinyMce-theme']="full+setup";
+$PAGES['modules.php?ModPath=wspad&ModStart=wspad*']['css']=array($nuke_url."/lib/bootstrap/dist/css/bootstrap-icons.css+");
+
 // Filtre sur l'URI
 // $PAGES['forum=1']['title']="forum.php";
 // $PAGES['forum=1']['run']="user";
