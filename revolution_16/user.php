@@ -295,8 +295,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
          //------------------------------------------------
          if (file_exists("modules/include/new_user.inc")) {
             include ("modules/include/new_user.inc");
-            global $gmt;
-            $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
+            $time = getPartOfTime(time(), 'yyyy-MM-dd H:mm:ss');
             $message = meta_lang(AddSlashes(str_replace("\n","<br />", $message)));
             $sql = "INSERT INTO ".$NPDS_Prefix."priv_msgs (msg_image, subject, from_userid, to_userid, msg_time, msg_text) ";
             $sql .= "VALUES ('', '$sujet', '$emetteur_id', '$usr_id', '$time', '$message')";
@@ -1321,8 +1320,7 @@ function savejournal($uid, $journal, $datetime){
       if ($datetime) {
          $journalentry = $journal;
          $journalentry .= '<br /><br />';
-         global $gmt;
-         $journalentry .= date(translate("dateinternal"),time()+((integer)$gmt*3600));
+         $journalentry .= formatTimes(time(), IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journalentry' WHERE uid='$uid'");
       } else
          sql_query("UPDATE ".$NPDS_Prefix."users SET user_journal='$journal' WHERE uid='$uid'");

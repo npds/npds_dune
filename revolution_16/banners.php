@@ -279,8 +279,8 @@ function bannerstats($login, $pass) {
                   <td>'.wrh($impressions).'</td>
                   <td>'.$clicks.'</td>
                   <td>'.$percent.' %</td>
-                  <td><small>'.$datestart.'</small></td>
-                  <td><small>'.$dateend.'</small></td>
+                  <td><small>'.formatTimes($datestart, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</small></td>
+                  <td><small>'.formatTimes($dateend, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</small></td>
                </tr>';
          }
          echo '
@@ -314,8 +314,8 @@ function EmailStats($login, $cid, $bid) {
             $imptotal = translate("Illimité");
          } else
             $left = $imptotal-$impmade;
-         global $sitename, $gmt;
-         $fecha = date(translate("dateinternal"),time()+((integer)$gmt*3600));
+         global $sitename;
+         $fecha = formatTimes(time(), IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
          $subject = html_entity_decode(translate("Bannières - Publicité"),ENT_COMPAT | ENT_HTML401,cur_charset).' : '.$sitename;
          $message  = "Client : $name\n".translate("Bannière")." ID : $bid\n".translate("Bannière")." Image : $imageurl\n".translate("Bannière")." URL : $clickurl\n\n";
          $message .= "Impressions ".translate("Réservées")." : $imptotal\nImpressions ".translate("Réalisées")." : $impmade\nImpressions ".translate("Restantes")." : $left\nClicks ".translate("Reçus")." : $clicks\nClicks ".translate("Pourcentage")." : $percent%\n\n";

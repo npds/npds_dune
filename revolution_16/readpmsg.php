@@ -141,7 +141,7 @@ else {
          </div>
          <div class="card-body">
             <div class="card-text pt-2">
-               <div class="text-end small">'.translate("Envoyé").' : '.$myrow['msg_time'].'</div>
+               <div class="text-end small">'.translate("Envoyé").' : '.formatTimes($myrow['msg_time'], IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).'</div>
                <hr /><strong>'.aff_langue($myrow['subject']).'</strong><br />';
       $message = stripslashes($myrow['msg_text']);
       if ($allow_bbcode) {

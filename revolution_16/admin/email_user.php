@@ -182,8 +182,7 @@ function send_email_to_user($username, $subject, $message, $all, $groupe, $exped
       if (($subject=='') or ($message==''))
          header("location: admin.php");
       $message = str_replace('\n','<br />', $message);
-      global $gmt;
-      $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
+      $time = getPartOfTime(time(), 'yyyy-MM-dd H:mm:ss');
       $pasfin=false;
       $count=0;
       include_once("language/lang-multi.php");

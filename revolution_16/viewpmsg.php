@@ -124,7 +124,7 @@ include("auth.php");
          echo ($posterdata['uid']<>1) ? $posterdata['uname'] : $sitename ;
          echo '</td>
                   <td>'.aff_langue($myrow['subject']).'</td>
-                  <td class="small">'.$myrow['msg_time'].'</td>
+                  <td class="small">'.formatTimes($myrow['msg_time'], IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</td>
                </tr>';
          $tempo[$myrow['dossier']]=$tempo[$myrow['dossier']]+1;
          $count++;

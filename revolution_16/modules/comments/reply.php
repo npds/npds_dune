@@ -150,7 +150,7 @@ if (isset($submitS)) {
          $allow_to_reply=true;
    if ($allow_to_reply) {
       if (isset($submitP)) {
-         $time=date(translate("dateinternal"),time()+((integer)$gmt*3600));
+         $time=formatTimes(time(), IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
          if(isset($user)){
             $userY = base64_decode($user);
             $userdata = explode(':', $userY);

@@ -312,7 +312,7 @@ function nonallowedUsers() {
 }
 
 function checkdnsmailusers() {
-   global $hlpfile, $admf_ext, $f_meta_nom, $f_titre, $adminimg, $NPDS_Prefix, $gmt, $adminmail, $page, $end, $autocont;
+   global $hlpfile, $admf_ext, $f_meta_nom, $f_titre, $adminimg, $NPDS_Prefix, $adminmail, $page, $end, $autocont;
    include("header.php");
    include_once('functions.php');
    GraphicAdmin($hlpfile);
@@ -335,7 +335,7 @@ function checkdnsmailusers() {
    $arrayusers=array();
    $image='18.png';
    $subject=adm_translate("Votre adresse Email est incorrecte.");
-   $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
+   $time = getPartOfTime(time(), 'yyyy-MM-dd H:mm:ss');
    $message = adm_translate("Votre adresse Email est incorrecte.").' ('.adm_translate("DNS ou serveur de mail incorrect").').<br />'.adm_translate("Tous vos abonnements vers cette adresse Email ont été suspendus.").'<br /><a href="user.php?op=edituser">'.adm_translate("Merci de fournir une nouvelle adresse Email valide.").' <i class="fa fa-user fa-2x align-middle fa-fw"></i></a><br />'.adm_translate("Sans réponse de votre part sous 60 jours vous ne pourrez plus vous connecter en tant que membre sur ce site.").' '.adm_translate("Puis votre compte pourra être supprimé.").'<br /><br />'.adm_translate("Contacter l'administration du site.").'<a href="mailto:'.$adminmail.'" target="_blank"><i class="fa fa-at fa-2x align-middle fa-fw"></i>';
    $output='';
    $contents='';

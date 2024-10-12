@@ -64,7 +64,7 @@ if (isset($user)) {
          $message = smile($message);
       $message = make_clickable($message);
       $message = removeHack(addslashes($message));
-      $time = date(translate("dateinternal"),time()+((integer)$gmt*3600));
+      $time = getPartOfTime(time(), 'yyyy-MM-dd H:mm:ss');
 
       include_once("language/lang-multi.php");
       if (strstr($to_user,',')) {

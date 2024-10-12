@@ -317,9 +317,9 @@ if ( $letter != 'front' ) {
          if ($ibid_avatar=avatar($temp_user['user_avatar']))
          echo '<a tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$temp_user['uname'].'" data-bs-content=\'<div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div>\'></i><img data-bs-html="true" class=" btn-outline-'.$clconnect.' img-thumbnail img-fluid n-ava-40" src="'.$ibid_avatar.'" alt="'.$temp_user['uname'].'" loading="lazy" /></a>
             </td>
-            <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.translate("Inscription").' : '.date(translate("dateinternal"),(integer)$temp_user['user_regdate']);
+            <td><a href="user.php?op=userinfo&amp;uname='.$temp_user['uname'].'" title="'.translate("Inscription").' : '.formatTimes($temp_user['user_regdate'], IntlDateFormatter::SHORT, IntlDateFormatter::MEDIUM);
          if ($admin and $temp_user['user_lastvisit']!='')
-            echo '<br />'.translate("Connexion").' : '.date(translate("dateinternal"),(integer)$temp_user['user_lastvisit']);
+            echo '<br />'.translate("Connexion").' : '.formatTimes($temp_user['user_lastvisit'], IntlDateFormatter::SHORT, IntlDateFormatter::MEDIUM);
          echo '"  data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right">'.$temp_user['uname'].'</a>
             </td>
             <td>'.$temp_user['name'].'</td>

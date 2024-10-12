@@ -14,7 +14,7 @@
 
 $userdatat=$userdata;
 $messageP=$message;
-$time=date(translate("dateinternal"),time()+((integer)$gmt*3600));
+$time= formatTimes(time(), IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
 switch ($acc) {
    case "newtopic":
       $forum_type=$myrow['forum_type'];
@@ -138,7 +138,7 @@ if (isset($image_subject)) {
    echo '</span>
                   </div>
                   <div class="card-body">
-                     <span class="text-body-secondary float-end small" style="margin-top:-1rem;">'.translate("Commentaires postés : ").$time.'</span>
+                     <span class="text-body-secondary float-end small" style="margin-top:-1rem;">'.translate("Posté : ").$time.'</span>
                      <div id="post_preview" class="card-text pt-3">';
 
    $messageP=stripslashes($messageP);
