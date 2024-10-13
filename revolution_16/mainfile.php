@@ -2339,22 +2339,14 @@ function topdownload_data($form, $ordre) {
       if ($dcounter>0) {
          $okfile=autorisation($dperm);
          if ($ordre=='dcounter')
-            $dd= wrh($dcounter);
-         if ($ordre=='ddate') {
-            $dd=translate("dateinternal");
-            $day=substr($ddate,8,2);
-            $month=substr($ddate,5,2);
-            $year=substr($ddate,0,4);
-            $dd=str_replace('d',$day,$dd);
-            $dd=str_replace('m',$month,$dd);
-            $dd=str_replace('Y',$year,$dd);
-            $dd=str_replace("H:i","",$dd);
-         }
+            $dd = wrh($dcounter);
+         if ($ordre=='ddate')
+            $dd = formatTimes($ddate, IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
          $ori_dfilename=$dfilename;
          if (strlen($dfilename)>$long_chain)
             $dfilename = (substr($dfilename, 0, $long_chain))." ...";
          if ($form=='short') {
-            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2 flex-wrap">'.$lugar.' <a class="ms-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" >'.$dfilename.'</a><span class="badge bg-secondary ms-auto align-self-center">'.$dd.'</span></li>';}
+            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2 flex-wrap">'.$lugar.' <a class="ms-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" data-bs-toggle="tooltip" >'.$dfilename.'</a><span class="badge bg-secondary ms-auto align-self-center">'.$dd.'</span></li>';}
          } else {
             if ($okfile) { $ibid.='<li class="ms-4 my-1"><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Catégorie"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge bg-secondary float-end align-self-center">'.wrh($dcounter).'</span></li>';}
          }
@@ -2805,7 +2797,7 @@ function fab_espace_groupe($gr, $t_gr, $i_gr) {
          while (list($p,$e,$m,$r)=sql_fetch_row($docs_gr)) {
             $surlignage=$couleur[hexfromchr($e)];
             $lst_doc.='
-                                       <li class="list-group-item list-group-item-action px-1 py-3" style="line-height:14px;"><div id="last_editor_'.$p.'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernier éditeur").' : '.$e.' '.date (translate("dateinternal"),$m ).'" style="float:left; width:1rem; height:1rem; background-color:'.$surlignage.'"></div><i class="fa fa-edit text-body-secondary mx-1" data-bs-toggle="tooltip" title="'.translate("Document co-rédigé").'." ></i><a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a></li>';
+                                       <li class="list-group-item list-group-item-action px-1 py-3" style="line-height:14px;"><div id="last_editor_'.$p.'" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernier éditeur").' : '.$e.' '.formatTimes($m, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'" style="float:left; width:1rem; height:1rem; background-color:'.$surlignage.'"></div><i class="fa fa-edit text-body-secondary mx-1" data-bs-toggle="tooltip" title="'.translate("Document co-rédigé").'." ></i><a href="modules.php?ModPath=wspad&amp;ModStart=wspad&amp;op=relo&amp;page='.$p.'&amp;member='.$gr.'&amp;ranq='.$r.'">'.$p.'</a></li>';
          }
          $lst_doc.='
                                     </ul>';

@@ -203,7 +203,7 @@ function Liste_Page() {
                <tr>
                   <td>'.$ibid.$ranq.'</td>
                   <td><div class="me-1" style="float: left; margin-top: 0.5rem; width: 1.5rem; height: 1.5rem; border-radius:50%; background-color: '.$couleur[hexfromchr($editedby)].';"></div>'.userpopover($editedby,'40',2).'&nbsp;'.$editedby.'</td>
-                  <td class="small">'.date(translate("dateinternal"),$modtime+((integer)$gmt*3600)).'</td>';
+                  <td class="small">'.formatTimes($modtime, IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).'</td>';
             // voir la révision du ranq x
             $PopUp=JavaPopUp("modules.php?ModPath=$ModPath&amp;ModStart=preview&amp;pad=".encrypt($page."#wspad#".$groupe."#wspad#".$ranq),"NPDS_wspad",500,400);
             $aff.='
@@ -331,7 +331,7 @@ function Page($page, $ranq) {
       $row['ranq']+=1;
    global $surlignage;
    echo '
-   <hr /><h3>'.wspad_trans("Document : ").'</h3><h4>'.$page.'<span class="text-body-secondary">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.date(translate("dateinternal"),$row['modtime']+((integer)$gmt*3600)).' ] </span> <span class="float-end"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
+   <hr /><h3>'.wspad_trans("Document : ").'</h3><h4>'.$page.'<span class="text-body-secondary">&nbsp;[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby'].' / '.formatTimes($row['modtime'], IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).' ] </span> <span class="float-end"><img src="modules/'.$ModPath.'/images/ajax_waiting.gif" id="verrous" title="wspad locks" /></span></h4>
    <div id="" class="alert alert-success" role="alert">
       <div id="mess">'.$mess.'</div>
    </div>

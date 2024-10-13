@@ -48,7 +48,7 @@ if (isset($user) and $user!='') {
       $row=sql_fetch_assoc(sql_query("SELECT content, modtime, editedby, ranq  FROM ".$NPDS_Prefix."wspad WHERE page='".$wspad[0]."' AND member='".$wspad[1]."' AND ranq='".$wspad[2]."'"));
       echo '
       <h2>'.$wspad[0].'</h2>
-      <span class="">[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby']." / ".date(translate("dateinternal"),$row['modtime']+((integer)$gmt*3600)).' ]</span>
+      <span>[ '.wspad_trans("révision").' : '.$row['ranq'].' - '.$row['editedby']." / ".formatTimes($row['modtime'], IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).' ]</span>
       <hr />
       '.aff_langue($row['content']).'
    </body>
