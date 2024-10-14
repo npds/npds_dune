@@ -187,19 +187,14 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    if ($error == 1)
       echo '<button class="btn btn-secondary" type="button" onclick="history.go(-1)"><i class="fa fa-lg fa-undo"></i></button>';
    else {
-      global $gmt;
-      $fdate=date(str_replace('%','',translate("linksdatestring")),time()+((integer)$gmt*3600));
-
-      echo translate("Critique");
-
-      echo '
+      $fdate=formatTimes(time(), IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+      echo translate("Critique").'
       <br />'.translate("Ajouté :").' '.$fdate.'
       <hr />
       <h3>'.stripslashes($title).'</h3>';
       if ($cover != '')
-         echo '<img class="img-fluid" src="images/reviews/'.$cover.'" alt="img_" />';
-      echo $text;
-      echo '
+         echo '<img class="img-fluid" src="images/reviews/'.$cover.'" alt="img_" loading="lazy" />';
+      echo $text.'
       <hr />
       <strong>'.translate("Le critique").' :</strong> <a href="mailto:'.$email.'" target="_blank">'.$reviewer.'</a><br />
       <strong>'.translate("Note").'</strong>
@@ -216,7 +211,7 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
       echo '
             <input type="hidden" name="id" value="'.$id.'" />
             <input type="hidden" name="hits" value="'.$hits.'" />
-            <input type="hidden" name="date" value="'.$fdate.'" />
+            <input type="hidden" name="date" value="'.getPartOfTime(time(), 'yyyy-MM-dd').'" />
             <input type="hidden" name="title" value="'.$title.'" />
             <input type="hidden" name="text" value="'.$text.'" />
             <input type="hidden" name="reviewer" value="'.$reviewer.'" />
@@ -252,8 +247,7 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
          <div class="col small" >'.aff_langue($consent).'
          </div>
       </div>';
-      if ($id != 0) $word = translate("modifié");
-      else $word = translate("ajouté");
+      $word = ($id != 0) ? translate("modifié") : translate("ajouté") ;
       if ($admin)
          echo '
          <div class="alert alert-success"><strong>'.translate("Note :").'</strong> '.translate("Actuellement connecté en administrateur... Cette critique sera").' '.$word.' '.translate("immédiatement").'.</div>';
@@ -266,24 +260,10 @@ function preview_review($title, $text, $reviewer, $email, $score, $cover, $url, 
    adminfoot('fv','',$arg1,'foo');
 }
 
-function reversedate($myrow) {
-   if (substr($myrow,2,1)=='-') {
-      $day=substr($myrow,0,2);
-      $month=substr($myrow,3,2);
-      $year=substr($myrow,6,4);
-   } else {
-      $day=substr($myrow,8,2);
-      $month=substr($myrow,5,2);
-      $year=substr($myrow,0,4);
-   }
-   return ($year.'-'.$month.'-'.$day);
-}
-
 function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse) {
    global $admin, $user, $NPDS_Prefix;
 
    include ('header.php');
-   $date=reversedate($date);
    $title = stripslashes(FixQuotes(strip_tags($title)));
    $text = stripslashes(Fixquotes(urldecode(removeHack($text))));
 
@@ -295,19 +275,15 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
          die();
       }
    }
-   if ($id != 0)
-      echo '
-      <h2>'.translate("Modification d'une critique").'</h2>';
-   else
-      echo '
-      <h2>'.translate("Ecrire une critique").'</h2>';
+   echo ($id != 0) ?
+      '<h2>'.translate("Modification d'une critique").'</h2>' :
+      '<h2>'.translate("Ecrire une critique").'</h2>';
    echo '
    <hr />
    <div class="alert alert-success">';
-   if ($id != 0)
-      echo translate("Merci d'avoir modifié cette critique").'.';
-   else
-      echo translate("Merci d'avoir posté cette critique").', '.$reviewer;
+   echo ($id != 0) ?
+      translate("Merci d'avoir modifié cette critique").'.' :
+      translate("Merci d'avoir posté cette critique").', '.$reviewer ;
    echo '<br />';
    if (($admin) && ($id == 0)) {
       sql_query("INSERT INTO ".$NPDS_Prefix."reviews VALUES (NULL, '$date', '$title', '$text', '$reviewer', '$email', '$score', '$cover', '$url', '$url_title', '1')");
@@ -321,7 +297,7 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
    }
    echo '
    </div>
-   <a class="btn btn-secondary" href="reviews.php" title="'.translate("Retour à l'index des critiques").'"><i class="fa fa-lg fa-undo"></i>  '.translate("Retour à l'index des critiques").'</a>';
+   <a class="btn btn-secondary" href="reviews.php" title="'.translate("Retour à l'index des critiques").'">'.translate("Retour à l'index des critiques").'</a>';
    include ("footer.php");
 }
 
@@ -358,12 +334,10 @@ function reviews($field, $order) {
    <hr />
    <h3>'.aff_langue($r_title).'</h3>
    <p class="lead">'.aff_langue($r_description).'</p>
-   <h4><a href="reviews.php?op=write_review"><i class="fa fa-edit"></i></a>&nbsp;'.translate("Ecrire une critique").'</h4><br />
-   ';
-   echo'
+   <h4><a href="reviews.php?op=write_review"><i class="fa fa-edit me-2"></i></a>'.translate("Ecrire une critique").'</h4><br />
    <div class="dropdown">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <i class="fa fa-sort-amount-down me-2"></i>'.translate("Critiques").'
+      <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="fa fa-sort-amount-down me-2"></i><i class="fa fa-sort-amount-up me-2"></i>'.translate("Critiques").'
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
          <a class="dropdown-item" href="reviews.php?op=sort&amp;field=date&amp;order=ASC"><i class="fa fa-sort-amount-down me-2"></i>'.translate("Date").'</a>
@@ -414,7 +388,7 @@ function reviews($field, $order) {
          $date = $myrow['date'];
          echo '
             <tr>
-               <td>'.f_date ($date).'</td>
+               <td>'.formatTimes($date, IntlDateFormatter::SHORT, IntlDateFormatter::NONE).'</td>
                <td><a href="reviews.php?op=showcontent&amp;id='.$id.'">'.ucfirst($title).'</a></td>
                <td>';
          if ($reviewer != '') echo $reviewer;
@@ -433,14 +407,6 @@ function reviews($field, $order) {
    include ("footer.php");
 }
 
-function f_date($xdate) {
-   $year = substr($xdate,0,4);
-   $month = substr($xdate,5,2);
-   $day = substr($xdate,8,2);
-   $fdate=date(str_replace("%",'',translate("linksdatestring")),mktime (0,0,0,(int)$month,(int)$day,(int)$year));
-   return $fdate;
-}
-
 function showcontent($id) {
    global $admin, $NPDS_Prefix;
    include ('header.php');
@@ -449,7 +415,7 @@ function showcontent($id) {
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews WHERE id='$id'");
    $myrow = sql_fetch_assoc($result);
    $id =  $myrow['id'];
-   $fdate=f_date($myrow['date']);
+   $fdate=formatTimes($myrow['date'], IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
    $title = $myrow['title'];
    $text = $myrow['text'];
    $cover = $myrow['cover'];
@@ -471,7 +437,7 @@ function showcontent($id) {
    <hr />
    <h3 class="mb-3">'.$title.'</h3><br />';
    if ($cover != '')
-      echo '<img class="img-fluid" src="images/reviews/'.$cover.'" />';
+      echo '<img class="img-fluid" src="images/reviews/'.$cover.'" alt="reviews image" loading="lazy" />';
    echo $text;
 
    echo '
@@ -670,7 +636,7 @@ function del_review($id_del) {
 
 settype($op,'string');
 settype($hits,'integer');
-//settype($id,'integer');
+$id = isset($id) ? $id : 0 ;
 settype($cover,'string');
 settype($asb_question,'string');
 settype($asb_reponse,'string');
