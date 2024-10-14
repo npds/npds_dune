@@ -26,13 +26,6 @@ function translate_pass1($phrase) {
  settype($englishname,'string');
  switch($phrase) {
    case "$englishname": $tmp="$englishname"; break;
-   case "datestring": $tmp="%A %d %B %Y @ %T"; break;
-   case "datestring2": $tmp="%A, %d %B"; break;
-   case "linksdatestring": $tmp="%d-%m-%Y"; break;
-   case "dateinternal": $tmp="d-m-Y H:i"; break;
-   case "Chatdate": $tmp="G:i d-m"; break;
-   case "daydate": $tmp="%A %d %B %Y"; break;// meta-lang !date!
-
    case "Monday": $tmp="Montag"; break;
    case "Tuesday": $tmp="Dienstag"; break;
    case "Wednesday": $tmp="Mittwoch"; break;

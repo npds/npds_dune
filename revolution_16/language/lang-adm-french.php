@@ -16,9 +16,6 @@ function adm_translate($phrase) {
    settype($englishname,'string');
    switch($phrase) {
       case "$englishname": $tmp="$englishname"; break;
-      case "datestring": $tmp="%A %d %B %Y @ %H:%M:%S %Z"; break;
-      case "linksdatestring": $tmp="%d-%b-%Y"; break;
-      case "datestring2": $tmp="%A, %d %B"; break;
       case "dateforop": $tmp="d-m-y"; break;
       case "english": $tmp="Anglais"; break;
       case "french": $tmp="Français"; break;
