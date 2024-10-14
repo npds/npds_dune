@@ -49,7 +49,7 @@ function publication($dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    echo '
    <hr />
    <p class="small text-end">
-   '.translate(date("l")).date(" ".translate("dateinternal"),time()+((integer)$gmt*3600)).'
+   '.formatTimes(time(), IntlDateFormatter::FULL, IntlDateFormatter::SHORT).'
    </p>';
 
    if($dd_pub!=-1 and $dh_pub!=-1)

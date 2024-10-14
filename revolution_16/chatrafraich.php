@@ -49,7 +49,7 @@ settype($connectes,'integer');
    if ($result){
       include("themes/themes-dynamic/theme.php");
       while(list($username, $message, $dbname, $date_message) = sql_fetch_row($result)) {
-         $thing.="<div class='chatmessage'><div class='chatheure'>".date(translate("Chatdate"),$date_message+((integer)$gmt*3600))."</div>";
+         $thing.="<div class='chatmessage'><div class='chatheure'>".getPartOfTime($date_message, 'H:mm d MMM')."</div>";
          if ($dbname==1) {
             if ((!$user) and ($member_list==1) and (!$admin))
                $thing.="<div class='chatnom'>$username</div>";

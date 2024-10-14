@@ -724,7 +724,7 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
 }
 
 function editStory ($sid) {
-   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper, $adminimg, $gmt;
+   global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper, $adminimg;
    $f_meta_nom ='adminStory';
    $f_titre = adm_translate("Editer un Article");
    //==> controle droit
@@ -848,7 +848,7 @@ function editStory ($sid) {
                <input class="form-check-input" type="checkbox" id="Cdate" name="Cdate" value="true" />
                <label class="form-check-label" for="Cdate">'.adm_translate("Oui").'</label>
             </div>
-            <span class="small help-block">'.translate(date("l")).date(" ".translate("dateinternal"),time()+((integer)$gmt*3600)).'</span>
+            <span class="small help-block">'.formatTimes(time(), IntlDateFormatter::FULL, IntlDateFormatter::SHORT).'</span>
          </div>
       </div>
       <div class="mb-3 row">
