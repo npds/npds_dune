@@ -1026,6 +1026,6 @@ function adm_translate($phrase) {
   case "Vous pouvez utiliser notre moteur de recherche sur : ": $tmp="You can browse our search engine at:"; break;
   default: $tmp="Need to be translated [** $phrase **]"; break;
   }
-  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>

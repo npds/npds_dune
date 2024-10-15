@@ -1026,6 +1026,6 @@ function adm_translate($phrase) {
   case "Vous pouvez utiliser notre moteur de recherche sur : ": $tmp="您可以使用我们的该搜索引擎： :"; break;
   default: $tmp="需要翻译稿 [** $phrase **]"; break;
  }
-  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>
