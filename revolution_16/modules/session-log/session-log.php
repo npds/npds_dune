@@ -162,7 +162,7 @@ echo '
          'file' => $Mylog,
          'name' => 'security.log',
       ];
-      $subject = html_entity_decode(SessionLog_translate("Fichier de Log de"),ENT_COMPAT | ENT_HTML401,cur_charset).' '.$sitename;
+      $subject = html_entity_decode(SessionLog_translate("Fichier de Log de"),ENT_COMPAT | ENT_HTML401,'UTF-8').' '.$sitename;
       $message = SessionLog_translate("Fichier de Log de").' '.$sitename."<br /><br />";
       send_email($adminmail, $subject, $message, $adminmail, true, 'mixed', $file);
    }

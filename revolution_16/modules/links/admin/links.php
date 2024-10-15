@@ -469,7 +469,7 @@ function LinksAddLink($new, $lid, $title, $url, $cat, $description, $name, $emai
       sql_query("DELETE FROM ".$links_DB."links_newlink WHERE lid='$lid'");
       if ($email!='') {
          global $sitename, $nuke_url;
-         $subject = html_entity_decode(translate("Votre lien"),ENT_COMPAT | ENT_HTML401,cur_charset)." : $sitename";
+         $subject = html_entity_decode(translate("Votre lien"),ENT_COMPAT | ENT_HTML401,'UTF-8')." : $sitename";
          $message = translate("Bonjour")." $name :\n\n".translate("Nous avons approuvé votre contribution à notre moteur de recherche.")."\n\n".translate("Titre de la page : ")."$title\n".translate("Url de la page : ")."<a href=\"$url\">$url</a>\n".translate("Description : ")."$description\n".translate("Vous pouvez utiliser notre moteur de recherche sur : ")." <a href=\"$nuke_url/modules.php?ModPath=links&ModStart=links\">$nuke_url/modules.php?ModPath=links&ModStart=links</a>\n\n".translate("Merci pour votre contribution")."\n";
          include("signat.php");
          send_email($email, $subject, $message, '', false, 'html', '');

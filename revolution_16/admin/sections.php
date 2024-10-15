@@ -1000,7 +1000,7 @@ function secartpublish($artid, $secid, $title, $content, $author, $members, $Mme
 
       $result = sql_query("SELECT email FROM ".$NPDS_Prefix."authors WHERE aid='$author'");
       list($lemail) = sql_fetch_row($result);
-      $sujet = html_entity_decode(adm_translate("Validation de votre publication"),ENT_COMPAT | ENT_HTML401,cur_charset);
+      $sujet = html_entity_decode(adm_translate("Validation de votre publication"),ENT_COMPAT | ENT_HTML401,'UTF-8');
       $message = adm_translate("La publication que vous aviez en attente vient d'être validée");
       global $notify_from;
       send_email($lemail, $sujet, $message, $notify_from, true, "html", '');

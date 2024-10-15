@@ -92,7 +92,7 @@ function SendStory($sid, $yname, $ymail, $fname, $fmail, $archive, $asb_question
    list($title, $time, $topic) = sql_fetch_row($result2);
    $result3=sql_query("SELECT topictext FROM ".$NPDS_Prefix."topics WHERE topicid='$topic'");
    list($topictext) = sql_fetch_row($result3);
-   $subject = html_entity_decode(translate("Article intéressant sur"),ENT_COMPAT | ENT_HTML401,cur_charset)." $sitename";
+   $subject = html_entity_decode(translate("Article intéressant sur"),ENT_COMPAT | ENT_HTML401,'UTF-8')." $sitename";
    $fname=removeHack($fname);
    $message = translate("Bonjour")." $fname :\n\n".translate("Votre ami")." $yname ".translate("a trouvé cet article intéressant et a souhaité vous l'envoyer.")."\n\n".aff_langue($title)."\n".translate("Date :")." $time\n".translate("Sujet : ")." ".aff_langue($topictext)."\n\n".translate("L'article")." : <a href=\"$nuke_url/article.php?sid=$sid&amp;archive=$archive\">$nuke_url/article.php?sid=$sid&amp;archive=$archive</a>\n\n";
    include("signat.php");
@@ -190,7 +190,7 @@ function SendSite($yname, $ymail, $fname, $fmail, $asb_question, $asb_reponse) {
    }
 
    global $sitename, $nuke_url;
-   $subject = html_entity_decode(translate("Site à découvrir : "),ENT_COMPAT | ENT_HTML401,cur_charset)." $sitename";
+   $subject = html_entity_decode(translate("Site à découvrir : "),ENT_COMPAT | ENT_HTML401,'UTF-8')." $sitename";
    $fname=removeHack($fname);
    $message = translate("Bonjour")." $fname :\n\n".translate("Votre ami")." $yname ".translate("a trouvé notre site")." $sitename ".translate("intéressant et a voulu vous le faire connaître.")."\n\n$sitename : <a href=\"$nuke_url\">$nuke_url</a>\n\n";
    include("signat.php");
