@@ -58,6 +58,6 @@ function fma_translate($phrase) {
       case "Vous n'êtes pas autorisé à utiliser le gestionnaire de média. SVP contacter l'administrateur." : $tmp = "You are not authorized to use the media manager. Please contact the administrator."; break;
       default: $tmp = "Translation error [** $phrase **]"; break;
    }
-   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>

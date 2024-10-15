@@ -12,7 +12,7 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /* module geoloc version 4.1                                            */
-/* geoloc.lang-german.php file 2008-2021                                */
+/* geoloc.lang-german.php file 2008-2024                                */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
@@ -136,6 +136,6 @@ function geoloc_translate($phrase) {
       case "Zoom": $tmp="Zoom"; break;
       default: $tmp = "Es ist notwendig zu übersetzen [** $phrase **]"; break;
    }
-   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>

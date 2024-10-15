@@ -36,6 +36,6 @@ function SessionLog_translate($phrase) {
       case "Vide la table des sessions et interrompt les connexions." : $tmp = "Leert die Sitzungstabelle und unterbricht Verbindungen."; break;
       default: $tmp = "Es gibt keine Übersetzung [** $phrase **]"; break;
    }
-   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>

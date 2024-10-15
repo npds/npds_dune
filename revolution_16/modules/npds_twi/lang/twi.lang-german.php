@@ -42,6 +42,6 @@ function twi_trad($phrase) {
   case "Réécriture d'url avec mod_rewrite": $tmp='Url mit mod_rewrite überschreiben'; break;
   default: $tmp = "Es gibt keine Übersetzung [** $phrase **]"; break;
  }
-  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>

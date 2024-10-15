@@ -36,6 +36,6 @@ function SessionLog_translate($phrase) {
       case "Vide la table des sessions et interrompt les connexions." : $tmp = "清空会话表并中断连接。"; break;
       default: $tmp = "需要翻译稿 [** $phrase **]"; break;
    }
-   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>

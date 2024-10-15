@@ -19,6 +19,6 @@ function ipban_translate($phrase) {
       case "Ce fichier est mis à jour automatiquement par l'anti-spam de NPDS.": $tmp = "This file is updated by the NPDS anti-spam engine."; break;
       default: $tmp = "Translation error [** $phrase **]"; break;
    }
-  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset));
+  return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
 }
 ?>
