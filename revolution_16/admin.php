@@ -1,6 +1,6 @@
 <?php
 /************************************************************************/
-/* DUNE by NPDS - admin prototype                                       */
+/* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
@@ -42,7 +42,9 @@ function adminhead($f_meta_nom, $f_titre, $adminimg) {
          '';
    }
    else $img_adm ='';
-   $entete_adm ='<div id="adm_workarea" class="adm_workarea">'."\n".'   <h2><a '.$furlscript.' >'.$img_adm.$f_titre.'</a></h2>';
+   $entete_adm ='
+            <div id="adm_workarea" class="adm_workarea">
+               <h2><a '.$furlscript.' >'.$img_adm.$f_titre.'</a></h2>';
    echo $entete_adm;
 }
 
@@ -253,17 +255,17 @@ function GraphicAdmin($hlpfile) {
          if(preg_match('#mes_npds_\d#', $SAQ['fnom'])) {
             if(!in_array($aid, $adm_lecture, true))
                $bloc_foncts_A .='
-         <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$SAQ['furlscript'].' >
-            <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
-            <span class="badge bg-danger ms-1">'.$SAQ['fretour'].'</span>
-         </a>';
+                  <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$SAQ['furlscript'].' >
+                     <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
+                     <span class="badge bg-danger ms-1">'.$SAQ['fretour'].'</span>
+                  </a>';
          }
          else
             $bloc_foncts_A .='
-         <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$SAQ['furlscript'].' >
-            <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
-            <span class="badge rounded-pill bg-danger ms-1">'.$SAQ['fretour'].'</span>
-         </a>';
+                  <a class=" btn btn-outline-primary btn-sm me-2 my-1 tooltipbyclass" title="'.$SAQ['fretour_h'].'" data-id="'.$SAQ['fid'].'" data-bs-html="true" '.$SAQ['furlscript'].' >
+                     <img class="adm_img" src="'.$adminico.'" alt="icon_message" loading="lazy" />
+                     <span class="badge rounded-pill bg-danger ms-1">'.$SAQ['fretour'].'</span>
+                  </a>';
          array_pop($cat_n);
       } 
       else {
@@ -324,211 +326,155 @@ function GraphicAdmin($hlpfile) {
    }
 
    echo "
-   <script type=\"text/javascript\">
-   //<![CDATA[
-   /* 
-   $( document ).ready(function () {
-      $( '#lst_men_main ul' ).each(function() {
-         var idi= $(this).attr('id'),
-              eu= Cookies.get('eu_'+idi),
-              eb= Cookies.get('eb_'+idi),
-              es= Cookies.get('es_'+idi),
-              et= Cookies.get('et_'+idi);
-         $('#i_'+idi).attr('class',eb);
-         $(this).attr('style',eu);
-         $('a.tog[id$=\"'+idi+'\"]').attr('id',es);
-         $('a.tog[id$=\"'+idi+'\"]').attr('title',et);
-      });
-   });
-   
-   $( window ).unload(function() {
-      $( '#lst_men_main ul' ).each(function( index ) {
-         var idi= $(this).attr('id'),
-             sty= $(this).attr('style'),
-            idsp= $('a.tog[id$=\"'+idi+'\"]').attr('id'),
-            tisp= $('a.tog[id$=\"'+idi+'\"]').attr('title'),
-             cla= $('#i_'+idi).attr('class');
-         Cookies.set('et_'+idi,tisp);
-         Cookies.set('es_'+idi,idsp);
-         Cookies.set('eu_'+idi,sty);
-         Cookies.set('eb_'+idi,cla);
-       });
-   });
-*/
-   function openwindow(){
-      window.open (\"$hlpfile\",\"Help\",\"toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400\");
-   }
+                  <script type=\"text/javascript\">
+                  //<![CDATA[
+                     function openwindow(){
+                        window.open (\"$hlpfile\",\"Help\",\"toolbar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=no,copyhistory=no,width=600,height=400\");
+                     }
+                     $(function () {
+                        $('[data-bs-toggle=\"tooltip\"]').tooltip();
+                        $('[data-bs-toggle=\"popover\"]').popover();
+                        $('table').on('all.bs.table', function (e, name, args) {
+                           $('[data-bs-toggle=\"tooltip\"]').tooltip();
+                           $('[data-bs-toggle=\"popover\"]').popover();
+                        });
+                     });
 
-      $(function () {
-         /*
-         $('ul.list').sortable({
-            update: function(){
-            Cookies.set('items', getItems('#lst_men_main'));
-            console.log(Cookies.get('items'));
-            }
-         });
-         */
+                     //==>date d'expiration connection admin
+                     $(function () {
+                        var dae = Cookies.get('adm_exp')*1000,
+                            dajs = new Date(dae);
+                        $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
+               
+                        deCompte= function() {
+                           var date1 = new Date(), sec = (dae - date1) / 1000, n = 24 * 3600;
+                           if (sec > 0) {
+                              j = Math.floor (sec / n);
+                              h = Math.floor ((sec - (j * n)) / 3600);
+                              mn = Math.floor ((sec - ((j * n + h * 3600))) / 60);
+                              sec = Math.floor (sec - ((j * n + h * 3600 + mn * 60)));
+                              $('#tempsconnection').text(j +'j '+ h +':'+ mn +':'+sec);
+                           }
+                           t_deCompte=setTimeout (deCompte, 1000);
+                        }
+                        deCompte();
+                     })
+                     //<== date d'expiration connection admin
 
-         /*
-          var htmmll=[];
-            // Get all items from a container
-            function getItems(container) {
-               var columns = [];
-               $(container+ ' ul.list').each(function(){
-               columns.push($(this).sortable('toArray').join(','));
-               htmmll.push($(this).html());
-               });
-               return columns.join('|');
-         
-            }
-            var itemStr = getItems('#lst_men_main');
-            //console.log(htmmll);
-         */
+                     tog = function(lst,sho,hid) {
+                        $('#adm_men, #adm_workarea').on('click', 'a.tog', function() {
+                           var buttonID = $(this).attr('id');
+                           lst_id = $('#'+lst);
+                           i_id=$('#i_'+lst);
+                           btn_show=$('#'+sho);
+                           btn_hide=$('#'+hid);
+                           if (buttonID == sho) {
+                              lst_id.fadeIn(1300);//show();
+                              btn_show.attr('id',hid)
+                              btn_show.attr('title','".adm_translate("Replier la liste")."');
+                              i_id.attr('class','fa fa-caret-up fa-lg text-primary me-1');
+                           } else if (buttonID == hid) {
+                              lst_id.fadeOut(1300);//hide();
+                              btn_hide=$('#'+hid);
+                              btn_hide.attr('id',sho);
+                              btn_hide.attr('title','".html_entity_decode(adm_translate("Déplier la liste"),ENT_QUOTES|ENT_HTML401,cur_charset)."');
+                              i_id.attr('class','fa fa-caret-down fa-lg text-primary me-1');
+                          }
+                        });
+                     };
 
-         $('[data-bs-toggle=\"tooltip\"]').tooltip();
-         $('[data-bs-toggle=\"popover\"]').popover();
-         $('table').on('all.bs.table', function (e, name, args) {
-            $('[data-bs-toggle=\"tooltip\"]').tooltip();
-            $('[data-bs-toggle=\"popover\"]').popover();
-         });
-      });
-
-      //==>date d'expiration connection admin
-      $(function () {
-         var dae = Cookies.get('adm_exp')*1000,
-             dajs = new Date(dae);
-         $('#adm_connect_status').attr('title', 'Connexion ouverte jusqu\'au : '+dajs.getDate()+'/'+ (dajs.getMonth()+1) +'/'+ dajs.getFullYear() +'/'+ dajs.getHours() +':'+ dajs.getMinutes()+':'+ dajs.getSeconds()+' GMT');
-
-         deCompte= function() {
-            var date1 = new Date(), sec = (dae - date1) / 1000, n = 24 * 3600;
-            if (sec > 0) {
-               j = Math.floor (sec / n);
-               h = Math.floor ((sec - (j * n)) / 3600);
-               mn = Math.floor ((sec - ((j * n + h * 3600))) / 60);
-               sec = Math.floor (sec - ((j * n + h * 3600 + mn * 60)));
-               $('#tempsconnection').text(j +'j '+ h +':'+ mn +':'+sec);
-            }
-            t_deCompte=setTimeout (deCompte, 1000);
-         }
-         deCompte();
-      })
-      //<== date d'expiration connection admin
-   
-      tog = function(lst,sho,hid){
-         $('#adm_men, #adm_workarea').on('click', 'a.tog', function() {
-            var buttonID = $(this).attr('id');
-            lst_id = $('#'+lst);
-            i_id=$('#i_'+lst);
-            btn_show=$('#'+sho);
-            btn_hide=$('#'+hid);
-            if (buttonID == sho) {
-               lst_id.fadeIn(1300);//show();
-               btn_show.attr('id',hid)
-               btn_show.attr('title','".adm_translate("Replier la liste")."');
-               i_id.attr('class','fa fa-caret-up fa-lg text-primary me-1');
-            } else if (buttonID == hid) {
-               lst_id.fadeOut(1300);//hide();
-               btn_hide=$('#'+hid);
-               btn_hide.attr('id',sho);
-               btn_hide.attr('title','".html_entity_decode(adm_translate("Déplier la liste"),ENT_QUOTES|ENT_HTML401,cur_charset)."');
-               i_id.attr('class','fa fa-caret-down fa-lg text-primary me-1');
-           }
-         });
-      };
-
-      $(function () {
-        $('#messageModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); 
-            var id = button.data('id');
-            $('#messageModalId').val(id);
-            $('#messageModalForm').attr('action', '".$nuke_url."/admin.php?op=alerte_update');
-            $.ajax({
-               url:\"".$nuke_url."/admin.php?op=alerte_api\",
-               method: \"POST\",
-               data:{id:id},
-               dataType:\"JSON\",
-               success:function(data) {
-                  var fnom_affich = JSON.stringify(data['fnom_affich']),
-                      fretour_h = JSON.stringify(data['fretour_h']),
-                      ficone = JSON.stringify(data['ficone']);
-                  $('#messageModalLabel').html(JSON.parse(fretour_h));
-                  $('#messageModalContent').html(JSON.parse(fnom_affich));
-                  $('#messageModalIcon').html('<img src=\"images/admin/'+JSON.parse(ficone)+'.png\" />');
-               }
-            });
-         });
-      });
-   //]]>
-   </script>\n";
+                     $(function () {
+                       $('#messageModal').on('show.bs.modal', function (event) {
+                           var button = $(event.relatedTarget); 
+                           var id = button.data('id');
+                           $('#messageModalId').val(id);
+                           $('#messageModalForm').attr('action', '".$nuke_url."/admin.php?op=alerte_update');
+                           $.ajax({
+                              url:\"".$nuke_url."/admin.php?op=alerte_api\",
+                              method: \"POST\",
+                              data:{id:id},
+                              dataType:\"JSON\",
+                              success:function(data) {
+                                 var fnom_affich = JSON.stringify(data['fnom_affich']),
+                                     fretour_h = JSON.stringify(data['fretour_h']),
+                                     ficone = JSON.stringify(data['ficone']);
+                                 $('#messageModalLabel').html(JSON.parse(fretour_h));
+                                 $('#messageModalContent').html(JSON.parse(fnom_affich));
+                                 $('#messageModalIcon').html('<img src=\"images/admin/'+JSON.parse(ficone)+'.png\" />');
+                              }
+                           });
+                        });
+                     });
+                  //]]>
+                  </script>\n";
    $adm_ent ='';
    $adm_ent .='
-   <h1 class="mb-3">'.adm_translate("Administration").'</h1>
-   <div id ="adm_men" class="mb-4">
-      <div id="adm_header" class="row justify-content-end">
-         <div class="col-6 col-lg-6 men_tit align-self-center">
-            <h2><a href="admin.php">'.adm_translate("Menu").'</a></h2>
-         </div>
-         <div id="adm_men_man" class="col-6 col-lg-6 men_man text-end">
-            <ul class="liste" id="lst_men_top">
-               <li data-bs-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a class="btn btn-outline-danger btn-sm" href="admin.php?op=logout" ><i class="fas fa-sign-out-alt fa-2x"></i></a></li>';
+                  <h1 class="mb-3">'.adm_translate("Administration").'</h1>
+                  <div id ="adm_men" class="mb-4">
+                     <div id="adm_header" class="row justify-content-end">
+                        <div class="col-6 col-lg-6 men_tit align-self-center">
+                           <h2><a href="admin.php">'.adm_translate("Menu").'</a></h2>
+                        </div>
+                        <div id="adm_men_man" class="col-6 col-lg-6 men_man text-end">
+                           <ul class="liste" id="lst_men_top">
+                              <li data-bs-toggle="tooltip" title="'.adm_translate("Déconnexion").'" ><a class="btn btn-outline-danger btn-sm" href="admin.php?op=logout" ><i class="fas fa-sign-out-alt fa-2x"></i></a></li>';
    if ($hlpfile)
       $adm_ent .='
-              <li class="ms-2" data-bs-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a class="btn btn-outline-primary btn-sm" href="javascript:openwindow();"><i class="fa fa-question-circle fa-2x"></i></a></li>';
+                             <li class="ms-2" data-bs-toggle="tooltip" title="'.adm_translate("Manuel en ligne").'"><a class="btn btn-outline-primary btn-sm" href="javascript:openwindow();"><i class="fa fa-question-circle fa-2x"></i></a></li>';
    $adm_ent .='
-            </ul>
-         </div>
-      </div>
-      <div id="adm_men_dial" class="border rounded px-2 py-2" >
-         <div id="adm_men_alert" >
-            <div id="alertes">
-            '.aff_langue($bloc_foncts_A).'
-            </div>
-         </div>
-     </div>
-      <div id ="mes_perm" class="contenair-fluid text-body-secondary" >
-          <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="tempsconnection" class="car"></span>
-      </div>
-         <div class="modal fade" id="versusModal" tabindex="-1" aria-labelledby="versusModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="versusModalLabel"><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" />'.adm_translate("Version").' NPDS</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <p>Vous utilisez NPDS '.$Version_Sub.' '.$Version_Num.'</p>
-               <p>'.adm_translate("Une nouvelle version de NPDS est disponible !").'</p>
-               <p class="lead mt-3">'.$versus_info[1].' '.$versus_info[2].'</p>
-               <p class="my-3">
-                  <a class="me-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-bs-toggle="tooltip" data-bs-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.zip</a>
-                  <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-bs-toggle="tooltip" data-bs-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.tar.gz</a>
-               </p>
-            </div>
-            <div class="modal-footer">
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id=""><span id="messageModalIcon" class="me-2"></span><span id="messageModalLabel"></span></h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <p id="messageModalContent"></p>
-               <form class="mt-3" id="messageModalForm" action="" method="POST">
-                  <input type="hidden" name="id" id="messageModalId" value="0" />
-                  <button type="submit" class="btn btn btn-primary btn-sm">'.adm_translate("Confirmer la lecture").'</button>
-               </form>
-            </div>
-            <div class="modal-footer">
-            <span class="small text-body-secondary">Information de npds.org</span><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" />
-            </div>
-         </div>
-      </div>
-   </div>';
+                           </ul>
+                        </div>
+                     </div>
+                     <div id="adm_men_dial" class="border rounded px-2 py-2" >
+                        <div id="adm_men_alert" >
+                           <div id="alertes">
+                           '.aff_langue($bloc_foncts_A).'
+                           </div>
+                        </div>
+                    </div>
+                     <div id ="mes_perm" class="contenair-fluid text-body-secondary" >
+                         <span class="car">'.$Version_Sub.' '.$Version_Num.' '.$aid.' </span><span id="tempsconnection" class="car"></span>
+                     </div>
+                     <div class="modal fade" id="versusModal" tabindex="-1" aria-labelledby="versusModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="versusModalLabel"><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" />'.adm_translate("Version").' NPDS</h5>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                 <p>Vous utilisez NPDS '.$Version_Sub.' '.$Version_Num.'</p>
+                                 <p>'.adm_translate("Une nouvelle version de NPDS est disponible !").'</p>
+                                 <p class="lead mt-3">'.$versus_info[1].' '.$versus_info[2].'</p>
+                                 <p class="my-3">
+                                    <a class="me-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.zip" target="_blank" title="" data-bs-toggle="tooltip" data-bs-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.zip</a>
+                                    <a class="mx-3" href="https://github.com/npds/npds_dune/archive/refs/tags/'.$versus_info[2].'.tar.gz" target="_blank" title="" data-bs-toggle="tooltip" data-bs-original-title="Charger maintenant"><i class="fa fa-download fa-2x me-1"></i>.tar.gz</a>
+                                 </p>
+                              </div>
+                              <div class="modal-footer"></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id=""><span id="messageModalIcon" class="me-2"></span><span id="messageModalLabel"></span></h5>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                 <p id="messageModalContent"></p>
+                                 <form class="mt-3" id="messageModalForm" action="" method="POST">
+                                    <input type="hidden" name="id" id="messageModalId" value="0" />
+                                    <button type="submit" class="btn btn btn-primary btn-sm">'.adm_translate("Confirmer la lecture").'</button>
+                                 </form>
+                              </div>
+                              <div class="modal-footer">
+                              <span class="small text-body-secondary">Information de npds.org</span><img class="adm_img me-2" src="images/admin/message_npds.png" alt="icon_" />
+                              </div>
+                           </div>
+                        </div>
+                     </div>';
       echo $adm_ent;
      if ($short_menu_admin!=false) {
         echo '</div>';
@@ -553,7 +499,7 @@ function adminMain($deja_affiches) {
    global $short_menu_admin;
    $short_menu_admin=false;
    $radminsuper=GraphicAdmin($hlpfile);///????????
-   
+
    echo '
    <div id="adm_men_art" class="adm_workarea">
       <h2><img src="images/admin/submissions.'.$admf_ext.'" class="adm_img" title="'.adm_translate("Articles").'" alt="icon_'.adm_translate("Articles").'" />&nbsp;'.adm_translate("Derniers").' '.$admart.' '.adm_translate("Articles").'</h2>';
@@ -655,7 +601,7 @@ function adminMain($deja_affiches) {
       echo '
       </div>';
 
-      echo '
+      if ($affiche) echo '
       <form id="fad_articles" class="form-inline" action="admin.php" method="post">
          <label class="me-2 mt-sm-1">'.adm_translate("ID Article:").'</label>
          <input class="form-control  me-2 mt-sm-3 mb-2" type="number" name="sid" />
