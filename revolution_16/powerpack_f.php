@@ -63,7 +63,7 @@ function writeDB_private_message($to_userid,$image,$subject,$from_userid,$messag
       }
       global $subscribe, $nuke_url, $sitename;
       if ($subscribe) {
-         $sujet=html_entity_decode(translate_ml($user_languex, "Notification message privé."),ENT_COMPAT | ENT_HTML401,cur_charset).'['.$from_userid.'] / '.$sitename;
+         $sujet=html_entity_decode(translate_ml($user_languex, "Notification message privé."),ENT_COMPAT | ENT_HTML401,'UTF-8').'['.$from_userid.'] / '.$sitename;
          $message = $time.'<br />'.translate_ml($user_languex, "Bonjour").'<br />'.translate_ml($user_languex, "Vous avez un nouveau message.").'<br /><br /><b>'.$subject.'</b><br /><br /><a href="'.$nuke_url.'/viewpmsg.php">'.translate_ml($user_languex, "Cliquez ici pour lire votre nouveau message.").'</a><br />';
          include("signat.php");
          copy_to_email($to_useridx,$sujet,stripslashes($message));

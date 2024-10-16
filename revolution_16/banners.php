@@ -240,7 +240,7 @@ function bannerstats($login, $pass) {
                <div class="mb-3 row">
                   <label class="control-label col-sm-12" for="url">'.translate("Changer").' URL</label>
                   <div class="col-sm-12">
-                     <input class="form-control" type="text" name="url" maxlength="200" value="'.htmlentities($clickurl, ENT_QUOTES, cur_charset).'" />
+                     <input class="form-control" type="text" name="url" maxlength="200" value="'.htmlentities($clickurl, ENT_QUOTES, 'UTF-8').'" />
                   </div>
                </div>';
             }
@@ -316,7 +316,7 @@ function EmailStats($login, $cid, $bid) {
             $left = $imptotal-$impmade;
          global $sitename;
          $fecha = formatTimes(time(), IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT);
-         $subject = html_entity_decode(translate("Bannières - Publicité"),ENT_COMPAT | ENT_HTML401,cur_charset).' : '.$sitename;
+         $subject = html_entity_decode(translate("Bannières - Publicité"),ENT_COMPAT | ENT_HTML401,'UTF-8').' : '.$sitename;
          $message  = "Client : $name\n".translate("Bannière")." ID : $bid\n".translate("Bannière")." Image : $imageurl\n".translate("Bannière")." URL : $clickurl\n\n";
          $message .= "Impressions ".translate("Réservées")." : $imptotal\nImpressions ".translate("Réalisées")." : $impmade\nImpressions ".translate("Restantes")." : $left\nClicks ".translate("Reçus")." : $clicks\nClicks ".translate("Pourcentage")." : $percent%\n\n";
          $message .= translate("Rapport généré le").' : '."$fecha\n\n";

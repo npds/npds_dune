@@ -67,7 +67,7 @@ function group_liste() {
    function choisir_mod_forum(gp,gn,ar_user,ar_uid) {
       var user_json = ar_user.split(",");
       var uid_json = ar_uid.split(",");
-      var choix_mod = prompt("'.html_entity_decode(adm_translate("Choisir un modérateur"),ENT_COMPAT | ENT_HTML401,cur_charset).' : \n"+user_json);
+      var choix_mod = prompt("'.html_entity_decode(adm_translate("Choisir un modérateur"),ENT_COMPAT | ENT_HTML401,'UTF-8').' : \n"+user_json);
       if (choix_mod) {
          for (i=0; i<user_json.length; i++) {
             if (user_json[i] == choix_mod) {var ind_uid=i;}
