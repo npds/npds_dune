@@ -86,7 +86,7 @@ if (isset($user)) {
                global $nuke_url, $subscribe, $sitename;;
                if ($subscribe) {
                   $old_message=$message; // what this
-                  $sujet=translate_ml($user_langue, "Notification message privé.").'['.$usermore['uname'].'] / '.$sitename;
+                  $sujet=html_entity_decode(translate_ml($user_langue, "Notification message privé."),ENT_COMPAT | ENT_HTML401,'UTF-8').'['.$usermore['uname'].'] / '.$sitename;
                   $message=translate_ml($user_langue, "Bonjour").'<br />'.translate_ml($user_langue, "Vous avez un nouveau message.").'<br />'.$time.'<br /><br /><b>'.$subject.'</b><br /><br /><a href="'.$nuke_url.'/viewpmsg.php">'.translate_ml($user_langue, "Cliquez ici pour lire votre nouveau message.").'</a><br /><br />';
                   include("signat.php");
                   copy_to_email($to_userid,$sujet,stripslashes($message));
@@ -113,7 +113,7 @@ if (isset($user)) {
             }
             global $nuke_url, $subscribe, $sitename;
             if ($subscribe) {
-               $sujet=translate_ml($user_langue, "Notification message privé.").'['.$usermore['uname'].'] / '.$sitename;
+               $sujet=html_entity_decode(translate_ml($user_langue, "Notification message privé."), ENT_COMPAT | ENT_HTML401,'UTF-8').'['.$usermore['uname'].'] / '.$sitename;
                $message=translate_ml($user_langue, "Bonjour").'<br />'.translate_ml($user_langue, "Vous avez un nouveau message.").'<br />'.$time.'<br /><br /><b>'.$subject.'</b><br /><br /><a href="'.$nuke_url.'/viewpmsg.php">'.translate_ml($user_langue, "Cliquez ici pour lire votre nouveau message.").'</a><br /><br />';
                include("signat.php");
                copy_to_email($to_userid,$sujet,stripslashes($message));

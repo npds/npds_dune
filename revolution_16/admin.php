@@ -371,13 +371,13 @@ function GraphicAdmin($hlpfile) {
                            if (buttonID == sho) {
                               lst_id.fadeIn(1300);//show();
                               btn_show.attr('id',hid)
-                              btn_show.attr('title','".adm_translate("Replier la liste")."');
+                              btn_show.attr('title','".html_entity_decode(adm_translate("Replier la liste"),ENT_QUOTES|ENT_HTML401,'UTF-8')."');
                               i_id.attr('class','fa fa-caret-up fa-lg text-primary me-1');
                            } else if (buttonID == hid) {
                               lst_id.fadeOut(1300);//hide();
                               btn_hide=$('#'+hid);
                               btn_hide.attr('id',sho);
-                              btn_hide.attr('title','".html_entity_decode(adm_translate("Déplier la liste"),ENT_QUOTES|ENT_HTML401,cur_charset)."');
+                              btn_hide.attr('title','".html_entity_decode(adm_translate("Déplier la liste"),ENT_QUOTES|ENT_HTML401,'UTF-8')."');
                               i_id.attr('class','fa fa-caret-down fa-lg text-primary me-1');
                           }
                         });
