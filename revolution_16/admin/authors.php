@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2022 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -69,9 +69,9 @@ $scri_check ='
       $("#ckball_f").change(function(){
          check_a_f = $("#ckball_f").is(":checked");
          if(check_a_f) {
-            $("#ckb_status_f").text("'.html_entity_decode(adm_translate("Tout décocher"),ENT_COMPAT | ENT_HTML401,cur_charset).'");
+            $("#ckb_status_f").text("'.html_entity_decode(adm_translate("Tout décocher"),ENT_COMPAT | ENT_HTML401,'UTF-8').'");
          } else {
-            $("#ckb_status_f").text("'.adm_translate("Tout cocher").'");
+            $("#ckb_status_f").text("'.html_entity_decode(adm_translate("Tout cocher"),ENT_COMPAT | ENT_HTML401,'UTF-8').'");
          }
          $(".ckbf").prop("checked", $(this).prop("checked"));
       });
@@ -79,9 +79,9 @@ $scri_check ='
       $("#ckball_m").change(function(){
          check_a_m = $("#ckball_m").is(":checked");
          if(check_a_m) {
-            $("#ckb_status_m").text("'.html_entity_decode(adm_translate("Tout décocher"),ENT_COMPAT | ENT_HTML401,cur_charset).'");
+            $("#ckb_status_m").text("'.html_entity_decode(adm_translate("Tout décocher"),ENT_COMPAT | ENT_HTML401,'UTF-8').'");
          } else {
-            $("#ckb_status_m").text("'.adm_translate("Tout cocher").'");
+            $("#ckb_status_m").text("'.html_entity_decode(adm_translate("Tout cocher"),ENT_COMPAT | ENT_HTML401,'UTF-8').'");
          }
          $(".ckbm").prop("checked", $(this).prop("checked"));
       });
@@ -539,8 +539,8 @@ switch ($op) {
       <hr />
       <h3>'.adm_translate("Effacer l'Administrateur").' : <span class="text-body-secondary">'.$del_aid.'</span></h3>
       <div class="alert alert-danger">
-      <p><strong>'.adm_translate("Etes-vous sûr de vouloir effacer").' '.$del_aid.' ? </strong></p>
-      <a href="admin.php?op=deladminconf&amp;del_aid='.$del_aid.'" class="btn btn-danger btn-sm">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=mod_authors" class="btn btn-secondary btn-sm">'.adm_translate("Non").'</a>
+         <p><strong>'.adm_translate("Etes-vous sûr de vouloir effacer").' '.$del_aid.' ? </strong></p>
+         <a href="admin.php?op=deladminconf&amp;del_aid='.$del_aid.'" class="btn btn-danger btn-sm">'.adm_translate("Oui").'</a>&nbsp;<a href="admin.php?op=mod_authors" class="btn btn-secondary btn-sm">'.adm_translate("Non").'</a>
       </div>';
       adminfoot('','','','');
    break;
