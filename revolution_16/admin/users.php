@@ -60,8 +60,7 @@ function displayUsers() {
    echo auto_complete ('membre','uname','users','chng_uid','86400');
    echo '<hr />
     <h3 class="mb-3">'.adm_translate("Fonctions").'</h3>
-    <a href="admin.php?op=checkdnsmail_users">'.adm_translate("Contrôler les serveurs de mail de tous les utilisateurs").'</a><br />
-    <a href="admin.php?op=checkdnsmail_users&amp;page=0&amp;end=1">'.adm_translate("Serveurs de mail incorrects").'</a><br />';
+    <a href="admin.php?op=checkdnsmail_users">'.adm_translate("Contrôler les serveurs de mail de tous les utilisateurs").'</a><br />';
    adminfoot('','','','');
 }
 
@@ -378,7 +377,7 @@ function checkdnsmailusers() {
             $datelimit= date('d/m/Y',$res[1]+5184000);
          }
          $wrongdnsmail++;
-         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="float-end"><i class="far fa-envelope me-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
+         $output.= '<li>'.adm_translate("DNS ou serveur de mail incorrect").' : <a class="alert-link" href="admin.php?chng_uid='. $uid.'&amp;op=modifyUser">'. $uname.'</a><span class="ms-3"><i class="far fa-envelope me-1 align-middle"></i><small>'.$datenvoi.'</small><i class="fa fa-ban mx-1 align-middle"></i><small>'.$datelimit.'</small></span></li>';
       }
    }
 
@@ -393,12 +392,15 @@ function checkdnsmailusers() {
    if($end!=1) {
       if(!isset($autocont)) $autocont=0;
       settype($autocont,'integer');
-      if($autocont==1){$ck='checked="checked"';} else {$ck='';};
+      $ck = $autocont==1 ? 'checked="checked"' : '' ;
       echo '
       <div>'.adm_translate("Serveurs de mails contrôlés").'<span class="badge bg-success float-end">'.($page*$pagesize).'</span><br /></div>
       <a class="btn btn-success btn-sm mt-2" href="admin.php?op=checkdnsmail_users&amp;page='.$next_page.'&amp;end='.$end.'">Continuer</a>
       <hr />
-      <div class="text-end"><input id="controlauto" '.$ck.' type="checkbox" /></div>
+      <div class="form-check form-check-reverse text-end fs-6">
+         <label class="form-check-label small" for="#controlauto">Pour un passage automatique au contrôle du (des) prochain(s) lot : cocher.</label>
+         <input class="form-check-input" id="controlauto" '.$ck.' type="checkbox" />
+      </div>
       <script type="text/javascript">
       //<![CDATA[
          $(function () {
