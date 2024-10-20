@@ -55,6 +55,15 @@
 
          <h4>Directory extraction</h4>
          <p>By clicking on Ok, you obtain a zip of the file containing information on all users. The zip contains a file in csv format.</p>
+
+         <h4>Functions</h4>
+         <h5>Check all users' mail servers</h5>
+         <p>This function allows you to check the validity of mail servers. It is particularly useful for old user data entered in npds versions lower than 16.0, since a systematic check rejects non-compliant mail server entries. However, it remains useful for monitoring their evolution over time (closure, etc.).<br />
+         <span class="text-danger">In the event of a non-compliant mail server</span><br />
+         - All subscriptions of the user concerned are suspended.<br />
+         - A private message is sent to the user concerned. Without a response to this message within 60 days, he will no longer be able to connect to the site.
+         </p>
+         <p>Interface: the command launches the check for the first 40 users, then click on continue or check the checkbox for automatic processing of the remaining batches.</p>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Administration manual</span></p>      </div>
    </body>
 </html>

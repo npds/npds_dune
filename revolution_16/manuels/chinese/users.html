@@ -5,14 +5,14 @@
          <title>管理 - 用户版</title>
          <meta name="viewport" content="width=device-width, initial-scale=1" />
          <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
+         <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
          <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
    </head>
    <body>
       <div class="container">
          <nav class="my-3">
                <ol class="breadcrumb bg-transparent">
-                  <li><a href="admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
+                  <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" /></a></li>
                   <li class="breadcrumb-item">&nbsp;<a href="men_gen.html">菜单</a></li>
                   <li class="breadcrumb-item"><a href="men_utilisateurs.html">用户</a></li>
                   <li class="breadcrumb-item active" aria-current="page" >用户版</li>
@@ -54,6 +54,15 @@
 
          <h4>目录提取</h4>
          <p>通过单击“确定”，您将获得包含所有用户信息的文件 zip。 该 zip 包含一个 csv 格式的文件。</p>
+
+         <h4>函数</h4>
+         <h5>控制所有用户的邮件服务器</h5>
+         <p>此功能允许您检查邮件服务器的有效性。它对于在低于 16.0 的 npds 版本中输入的旧用户数据特别有用，因为系统检查会拒绝来自不合规邮件服务器的条目。然而，它对于监控它们随时间的演变（关闭等）仍然有用。<br />
+         <span class="text-danger">如果邮件服务器不合规</span><br />
+         - 相关用户的所有订阅/订阅均被暂停。<br />
+         - 一条私人消息被发送给相关用户。如果他们在 60 天内未回复此消息，他们将无法再连接到该网站。
+         </p>
+         <p>界面：该命令启动对前 40 个用户的检查，然后单击继续或选中复选框以自动处理剩余批次。</p>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - 管理手册</span></p>
       </div>
    </body>

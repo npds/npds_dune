@@ -54,6 +54,15 @@
 
          <h4>Extraction de l'annuaire</h4>
          <p>En cliquant sur Ok, vous obtenez un zip du fichier contenant les informations sur l'ensemble des utilisateurs. Le zip contient un fichier au format csv.</p>
+
+         <h4>Fonctions</h4>
+         <h5>Contr&ocirc;ler les serveurs de mail de tous les utilisateurs</h5>
+         <p>Cette fonction permet de contr&ocirc;ler la validit&eacute; des serveurs de mail. Elle est particuli&egrave;rement utile pour des donn&eacute;es utilisateur anciennes renseign&eacute;es dans des versions de npds inf&eacute;rieure &agrave; 16.0, depuis un contr&ocirc;le syst&eacute;matique rejette les entr&eacute;es de serveurs mail non conformes. Cependant elle reste utile pour contr&ocirc;ler leur &eacute;volution dans le temps (fermeture ...).<br />
+         <span class="text-danger">En cas de serveur mail non conforme</span><br />
+         - Toutes les souscriptions/abonnements de l'utilisateur concern&eacute; sont suspendues.<br />
+         - Un message priv&eacute; est envoy&eacute; &agrave; l'utilisateur concern&eacute;. Sans r&eacute;ponse &agrave; ce message sous 60 jours il ne pourra plus se connecter au site.
+         </p>
+         <p>Interface : la commande lance le contr&ocirc;le pour les 40 premiers utilisateurs, ensuite cliquer sur continuer ou cocher la case &agrave; cocher pour un traitement automatique des lots restants.</p>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Manuel administration</span></p>
       </div>
    </body>
