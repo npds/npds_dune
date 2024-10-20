@@ -782,6 +782,7 @@ function adm_translate($phrase) {
   case "Pour les pages HTML générées, activer les tags avancés de gestion du cache": $tmp="Control de la memoria tampon : ¿Activar los tags avanzados (pragma ...)?"; break;
   case "Pour prévisualiser le contenu dans son environnement d'exploitation.": $tmp="Para prévisualizar el contenido en su zona de explotación."; break;
   case "Pour supprimer votre abonnement à notre Lettre, suivez ce lien": $tmp="Para suprimir su suscripción a nuestra Newsletter, sigua este vÌnculo"; break;
+  case "Pour un passage automatique au contrôle du (des) prochain(s) lot : cocher.": $tmp="Para el paso automático al control del(los) siguiente(s) lote(s): comprobar."; break;
   case "Précédent": $tmp="Precedente"; break;
   case "Préférences": $tmp="Preferencias"; break;
   case "Prévisualiser l'Article": $tmp="previsualizar el articulo"; break;

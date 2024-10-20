@@ -782,6 +782,7 @@ function adm_translate($phrase) {
   case "Pour les pages HTML générées, activer les tags avancés de gestion du cache": $tmp="Cache Control : Activate the advanced cache tags (pragma ...)?"; break;
   case "Pour prévisualiser le contenu dans son environnement d'exploitation.": $tmp="在产品空间中预览结果（内容）"; break;
   case "Pour supprimer votre abonnement à notre Lettre, suivez ce lien": $tmp="要取消您在本站的预定，请点击这里。"; break;
+  case "Pour un passage automatique au contrôle du (des) prochain(s) lot : cocher.": $tmp="对于自动通过以控制下一批：检查。"; break;
   case "Précédent": $tmp="上一页"; break;
   case "Préférences": $tmp="参数"; break;
   case "Prévisualiser l'Article": $tmp="预览"; break;

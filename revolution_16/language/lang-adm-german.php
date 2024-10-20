@@ -782,6 +782,7 @@ function adm_translate($phrase) {
   case "Pour les pages HTML générées, activer les tags avancés de gestion du cache": $tmp="Cache Control : Activate the advanced cache tags (pragma ...)"; break;
   case "Pour prévisualiser le contenu dans son environnement d'exploitation.": $tmp="Preview the result in production' area."; break;
   case "Pour supprimer votre abonnement à notre Lettre, suivez ce lien": $tmp="For Unsubscribe, please goto here"; break;
+  case "Pour un passage automatique au contrôle du (des) prochain(s) lot : cocher.": $tmp="Für den automatischen Übergang zur Steuerung der nächsten(n) Charge(n): prüfen."; break;
   case "Précédent": $tmp="Vorherige"; break;
   case "Préférences": $tmp="Einstellungen"; break;
   case "Prévisualiser l'Article": $tmp="Preview Story"; break;
