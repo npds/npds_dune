@@ -1,5 +1,5 @@
 ################################################################################
-changelog-rev16.8 [ révision : 54 - jpb /27-09-2024 ]
+changelog-rev16.8 [ révision : 56 - jpb /23-10-2024 ]
 (non exhaustif...)
 pour des informations complètes et détaillées visitez la page de comparaison entre cette version et la précédente : https://github.com/npds/npds_dune/compare/v.16.4...v.16.8
 Cette version est la première compatible avec php8 et mysql8.
@@ -14,7 +14,7 @@ Cette version est la première compatible avec php8 et mysql8.
    typage argument dans mktime()
    optymysql.php : correction de l'envoi d'une valeur (vide) pour un type decimal non null dans la table
    remplacement de nombreux settype() incorrects ...
-   remplacement de la fonction formatTimestamp() dans le mainfile.php par la fonction formatTimes() et donc des ses appels dans de nombreux fichiers et métamot. Cette fonction est soutenue par une deuxième fonction de traitement des dates getPartOfTime() (dans le mainfile.php) qui va permettre de manipuler encore plus finement les dates. Ces modifications ont été nécessaires à cause de l'évolution des fonctions de date de PHP. Elles permettent aussi la suppression de formatTimestampShort() dans modules/links/links.php.
+   remplacement de la fonction formatTimestamp() dans le mainfile.php par la fonction formatTimes() et donc des ses appels dans de nombreux fichiers et métamot. Cette fonction est soutenue par une deuxième fonction de traitement des dates getPartOfTime() (dans le mainfile.php) qui va permettre de manipuler encore plus finement les dates. Ces modifications ont été nécessaires à cause de l'évolution des fonctions de date de PHP. Elles permettent aussi la suppression de plusieurs fonctions : formatTimestampShort() dans modules/links/links.php ,.
 - update dépendances :
    version (licence du core) GNU 2 ==> 3
    bootstrap 5.3.3
@@ -39,6 +39,7 @@ Cette version est la première compatible avec php8 et mysql8.
    searchbb.php amélioration interface avatar dans tableau, ajout des critères (et non des valeurs par défaut) dans le formulaire après sa soumission
    reviews.php : rajout d'un tri par ID ...
    mainfile.php : prototype de blocage des robots irrespectueux .. limitant à 3 connexions simultanées par robots ...
+   administration LNL : amélioration interface (select au lieu d'input) et contrôle des entrées, ajout tooltips explicatifs 
 - bug track :
    nombreuses corrections : var $NPDS-PREFIX manquante, non globalisée ou globalisée inutilement. Ces erreurs impactaient surtout les sites à tables préfixée (requêtes sql défaillantes) 
    missing globalisation var $NPDS-PREFIX dans réseaux sociaux.
@@ -62,6 +63,7 @@ Cette version est la première compatible avec php8 et mysql8.
    correction (searchbb.php) fonctionnement chaotique entrainant des constructions de requêtes sql non conformes
    correction (mainfile.php) fonction req_stat() surincrémentation du compteur + libération mysqli après les requêtes
    correction (reply.php, replyH.php, viewtopicH.php) erreur quand $userdata non défini (user non connecté...)
+   correction lnl bug sur le "each déguisé" (php8) et remplisage d'un tableau non défini.. qui affectait l'envoi vers groupe
 - thèmes
    ajout d'un attribut data-bs-theme à la balise body (themes-dynamic/header.php)
    ajout d'une variable dans le thème permettant le choix de l'apparence du thème (light or dark) ainsi le theme sera affiché avec la version dark ou light de la css de bootstrap (default ou skin xxx) ...
@@ -74,6 +76,7 @@ Cette version est la première compatible avec php8 et mysql8.
    suppression/nettoyage (global, paramètre, config) de la variable $site_font
    condition simple en écriture ternaire
    corrections, suppressions ou ajouts de sql_free_result() quand nécessaire ...
+   désimplémentation de la constante cur_charset ...
 - inside archive
    suppression de fichiers images non utilisés
 
