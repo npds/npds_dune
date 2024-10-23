@@ -22,14 +22,21 @@ admindroits($aid,$f_meta_nom);
 global $language, $NPDS_Prefix;
 $hlpfile = "manuels/$language/lnl.html";
 
-function error_handler($ibid) {
-   echo "<p align=\"center\"><span class=\"rouge\">".adm_translate("Merci d'entrer l'information en fonction des spécifications")."<br /><br />";
-   echo "$ibid</span><br /><a href=\"index.php\" class=\"noir\">".adm_translate("Retour en arrière")."</a></p>";
-}
+$rowH = array();
+$result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' ORDER BY ref ");
+while ($row=sql_fetch_assoc($result)) {$rowH[] = $row;}
+sql_free_result($result);
+$rowB = array();
+$result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_body ORDER BY ref ");
+while ($row=sql_fetch_assoc($result)) {$rowB[] = $row;}
+sql_free_result($result);
+$rowF = array();
+$result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' ORDER BY ref ");
+while ($row=sql_fetch_assoc($result)) {$rowF[] = $row;}
+sql_free_result($result);
 
 function ShowHeader() {
-   global $NPDS_Prefix;
-   $result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' ORDER BY ref ");
+   global $rowH;
    echo '
    <table data-toggle="table" class="table-no-bordered">
       <thead class="d-none">
@@ -41,17 +48,17 @@ function ShowHeader() {
          </tr>
       </thead>
       <tbody>';
-   while (list($ref, $text, $html) = sql_fetch_row($result)) {
-      $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
+   foreach($rowH as $row) {
+      $text=nl2br(htmlspecialchars($row['text'],ENT_COMPAT|ENT_HTML401,cur_charset));
       if (strlen($text)>100) 
          $text=substr($text,0,100).'<span class="text-danger"> .....</span>';
-      if ($html==1) $html='html'; else $html='txt';
+      $html = ($row['html']==1) ? 'html' : 'txt' ;
       echo '
          <tr>
-            <td>'.$ref.'</td>
+            <td>'.$row['ref'].'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$ref.'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$row['ref'].'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -70,10 +77,9 @@ function Detail_Header_Footer($ibid, $type) {
    echo '
    <hr />
    <h3 class="mb-2">';
-   if ($type=="HED")
-      echo adm_translate("Message d'entête");
-   else
-      echo adm_translate("Message de pied de page");
+   echo ($type=="HED") ?
+      adm_translate("Message d'entête") :
+      adm_translate("Message de pied de page");
    echo ' - '.adm_translate("Prévisualiser");
    if ($tmp[1]==1)
       echo '<code> HTML</code></h3>
@@ -95,12 +101,11 @@ function Detail_Header_Footer($ibid, $type) {
       $tiny_mce_relurl='false';
       echo aff_editeur('xtext', '');
    }
-   if ($type=='HED')
-      echo '
-      <input type="hidden" name="op" value="lnl_Add_Header_Mod" />';
-   else
-      echo '
-      <input type="hidden" name="op" value="lnl_Add_Footer_Mod" />';
+   echo ($type=='HED') ?
+      '
+      <input type="hidden" name="op" value="lnl_Add_Header_Mod" />' :
+      '
+      <input type="hidden" name="op" value="lnl_Add_Footer_Mod" />' ;
    echo '
       <input type="hidden" name="ref" value="'.$ibid.'" />
       <div class="mb-3 row">
@@ -114,8 +119,7 @@ function Detail_Header_Footer($ibid, $type) {
 }
 
 function ShowBody() {
-   global $NPDS_Prefix;
-   $result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_body ORDER BY ref ");
+   global $rowB;
    echo '
    <table data-toggle="table" class="table-no-bordered">
       <thead class="d-none">
@@ -127,17 +131,17 @@ function ShowBody() {
          </tr>
       </thead>
       <tbody>';
-   while (list($ref, $text, $html) = sql_fetch_row($result)) {
-      $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
+   foreach($rowB as $row) {
+      $text=nl2br(htmlspecialchars($row['text'],ENT_COMPAT|ENT_HTML401,'UTF-8'));
       if (strlen($text)>200) 
          $text=substr($text,0,200).'<span class="text-danger"> .....</span>';
-      if ($html==1) $html='html'; else $html='txt';
+      $html = ($row['html']==1) ? 'html' : 'txt' ;
       echo '
       <tr>
-         <td>'.$ref.'</td>
+         <td>'.$row['ref'].'</td>
          <td>'.$text.'</td>
          <td><code>'.$html.'</code></td>
-         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$ref.'"><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
+         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$row['ref'].'"><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
       </tr>';
    }
    echo '
@@ -166,7 +170,7 @@ function Detail_Body($ibid) {
       <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Corps de message").'</label>
          <div class="col-sm-12">
-            <textarea class="tin form-control" rows="30" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
+            <textarea class="tin form-control" rows="30" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,'UTF-8').'</textarea>
          </div>
       </div>';
    if ($tmp[1]==1) {
@@ -243,8 +247,7 @@ Function Add_Body_Submit($Ytext, $Yhtml) {
 }
 
 function ShowFooter() {
-   global $NPDS_Prefix;
-   $result = sql_query("SELECT ref, text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' ORDER BY ref ");
+   global $rowF;
    echo '
    <table data-toggle="table" class="table-no-bordered">
       <thead class="d-none">
@@ -256,17 +259,17 @@ function ShowFooter() {
          </tr>
       </thead>
       <tbody>';
-   while (list($ref, $text, $html) = sql_fetch_row($result)) {
-      $text=nl2br(htmlspecialchars($text,ENT_COMPAT|ENT_HTML401,cur_charset));
+   foreach($rowF as $row) {
+      $text=nl2br(htmlspecialchars($row['text'],ENT_COMPAT|ENT_HTML401,'UTF-8'));
       if (strlen($text)>100) 
          $text=substr($text,0,100).'<span class="text-danger"> .....</span>';
-      if ($html==1) $html='html'; else $html='txt';
+      $html = ($row['html']==1) ? 'html' : 'txt' ;
       echo '
          <tr>
-            <td>'.$ref.'</td>
+            <td>'.$row['ref'].'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$ref.'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$ref.'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$row['ref'].'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -341,7 +344,7 @@ Function Add_Header_Footer_Submit($ibid, $xtext, $xhtml) {
 }
 
 function main() {
-   global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $f_meta_nom, $f_titre, $adminimg, $rowH, $rowB, $rowF;
    include ("header.php");
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
@@ -356,36 +359,48 @@ function main() {
          <a class="nav-link active" href="admin.php?op=lnl_User_List">'.adm_translate("Afficher la liste des prospects").'</a>
       </li>
    </ul>
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Message d'entête").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Header" ><i class="fa fa-plus-square me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="'.adm_translate("Ajouter").' '.adm_translate("Message d'entête").'"></i></a>'.adm_translate("Message d'entête").'</h4>';
       ShowHeader();
    echo '
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Corps de message").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Body" ><i class="fa fa-plus-square me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="'.adm_translate("Ajouter").' '.adm_translate("Corps de message").'"></i></a>'.adm_translate("Corps de message").'</h4>';
       ShowBody();
       echo '
-   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square me-2"></i></a>'.adm_translate("Message de pied de page").'</h4>';
+   <h4 class="my-3"><a href="admin.php?op=lnl_Add_Footer"><i class="fa fa-plus-square me-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="'.adm_translate("Ajouter").' '.adm_translate("Message de pied de page").'"></i></a>'.adm_translate("Message de pied de page").'</h4>';
       ShowFooter();
    echo '
    <hr />
    <h4>'.adm_translate("Assembler une lettre et la tester").'</h4>
    <form id="ltesto" action="admin.php" method="post">
-      <div class="row">
-         <div class="col-sm-4">
-            <div class="form-floating mb-3">
-               <input class="form-control" type="number" name="Xheader" id="testXheader"min="0" />
-               <label for="testXheader">'.adm_translate("Entête").'</label>
-            </div>
+      <div class="row g-2">
+         <div class="col-sm-4 mb-3">
+            <select class="form-select form-select-sm" name="Xheader" id="testXheader" aria-label="select_'.adm_translate("Entête").' ">
+               <option selected="selected">'.adm_translate("Entête").'</option>';
+   foreach($rowH as $row) {
+      echo '
+               <option value="'.$row['ref'].'">'.$row['ref'].'  '.substr($row['text'],0,30).'</option>';
+   }
+   echo '
+            </select>
          </div>
-         <div class="col-sm-4">
-            <div class="form-floating mb-3">
-               <input class="form-control" type="number" name="Xbody" id="testXbody" maxlength="11" />
-               <label for="testXbody">'.adm_translate("Corps").'</label>
-            </div>
+         <div class="col-sm-4 mb-3">
+            <select class="form-select form-select-sm" name="Xbody" id="testXbody" aria-label="select_'.adm_translate("Corps").' ">
+               <option selected="selected">'.adm_translate("Corps").'</option>';
+   foreach($rowB as $row) {
+      echo '
+               <option value="'.$row['ref'].'">'.$row['ref'].'  '.substr($row['text'],0,30).'</option>';
+   }
+   echo '
+            </select>
          </div>
-         <div class="col-sm-4">
-            <div class="form-floating mb-3">
-               <input class="form-control" type="number" name="Xfooter" id="testXfooter" min="0" />
-               <label for="testXfooter">'.adm_translate("Pied").'</label>
-            </div>
+         <div class="col-sm-4 mb-3">
+            <select class="form-select form-select-sm" name="Xfooter" id="testXfooter" aria-label="select_'.adm_translate("Pied").' ">
+               <option selected="selected">'.adm_translate("Pied").'</option>';
+   foreach($rowF as $row) {
+      echo '
+               <option value="'.$row['ref'].'">'.$row['ref'].'  '.substr($row['text'],0,30).'</option>';
+   }
+   echo '
+            </select>
          </div>
          <div class="mb-3 col-sm-12">
             <input type="hidden" name="op" value="lnl_Test" />
@@ -396,28 +411,40 @@ function main() {
    <hr />
    <h4>'.adm_translate("Envoyer La Lettre").'</h4>
    <form id="lsendo" action="admin.php" method="post">
-      <div class="row">
-         <div class="col-sm-4">
-            <div class="form-floating mb-3">
-               <input class="form-control" type="number" name="Xheader" id="Xheader" />
-               <label for="Xheader">'.adm_translate("Entête").'</label>
-            </div>
+      <div class="row g-2">
+         <div class="col-sm-4 mb-3">
+            <select class="form-select form-select-sm" name="Xheader" id="Xheader" aria-label="select_'.adm_translate("Entête").' ">
+               <option selected="selected">'.adm_translate("Entête").'</option>';
+   foreach($rowH as $row) {
+      echo '
+               <option value="'.$row['ref'].'">'.$row['ref'].'  '.substr($row['text'],0,30).'</option>';
+   }
+   echo '
+            </select>
          </div>
-         <div class="col-sm-4">
-            <div class="form-floating mb-3">
-               <input class="form-control" type="number" name="Xbody" id="Xbody" min="0" />
-               <label for="Xbody">'.adm_translate("Corps").'</label>
-            </div>
+         <div class="col-sm-4 mb-3">
+            <select class="form-select form-select-sm" name="Xbody" id="Xbody" aria-label="select_'.adm_translate("Corps").' ">
+               <option selected="selected">'.adm_translate("Corps").'</option>';
+   foreach($rowB as $row) {
+      echo '
+               <option value="'.$row['ref'].'">'.$row['ref'].'  '.substr($row['text'],0,30).'</option>';
+   }
+   echo '
+            </select>
          </div>
-         <div class="col-sm-4">
-            <div class="form-floating mb-3">
-               <input class="form-control" type="number" name="Xfooter" id="Xfooter" />
-               <label for="Xfooter">'.adm_translate("Pied").'</label>
-            </div>
+         <div class="col-sm-4 mb-3">
+            <select class="form-select form-select-sm" name="Xfooter" id="Xfooter" aria-label="select_'.adm_translate("Pied").' ">
+               <option selected="selected">'.adm_translate("Pied").'</option>';
+   foreach($rowF as $row) {
+      echo '
+               <option value="'.$row['ref'].'">'.$row['ref'].'  '.substr($row['text'],0,30).'</option>';
+   }
+   echo '
+            </select>
          </div>
          <div class="col-sm-12">
             <div class="form-floating mb-3">
-               <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" />
+               <input class="form-control" type="text" maxlength="255" id="Xsubject" name="Xsubject" required="required"/>
                <label for="Xsubject">'.adm_translate("Sujet").'</label>
                <span class="help-block text-end"><span id="countcar_Xsubject"></span></span>
             </div>
@@ -455,7 +482,7 @@ function main() {
       </div>
       </form>';
       $fv_parametres='
-        Xbody: {
+      Xbody: {
          validators: {
              regexp: {
                regexp:/^\d{1,11}$/,
@@ -463,7 +490,24 @@ function main() {
              }
          }
       },
-      ';
+      Xheader: {
+         validators: {
+             regexp: {
+               regexp:/^\d{1,11}$/,
+               message: "0 | 1"
+             }
+         }
+      },
+      Xfooter: {
+         validators: {
+             regexp: {
+               regexp:/^\d{1,11}$/,
+               message: "0 | 1"
+             }
+         }
+      },
+     ';
+
       $arg1='
       var formulid = ["ltesto","lsendo"];
       inpandfieldlen("Xsubject",255);
@@ -554,7 +598,7 @@ function lnl_list() {
             <td>'.$footer.'</td>
             <td>'.$number_send.'</td>
             <td>'.$type_send.'</td>
-            <td>'.$date.'</td>';
+            <td>'.formatTimes($date, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</td>';
          if ($status=="NOK") {
             echo '
             <td class="text-danger">'.$status.'</td>';
@@ -577,9 +621,10 @@ function lnl_user_list() {
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    $result = sql_query("SELECT email, date, status FROM ".$NPDS_Prefix."lnl_outside_users ORDER BY date");
+   $nb_prospect = $result ? sql_num_rows($result) : '';
    echo '
    <hr />
-   <h3 class="mb-2">'.adm_translate("Liste des prospects").'</h3>
+   <h3 class="mb-2">'.adm_translate("Liste des prospects").'<span class="badge bg-secondary float-end">'.$nb_prospect.'</span></h3>
    <table id="tad_prospect" data-toggle="table" data-search="true" data-striped="true" data-mobile-responsive="true" data-show-export="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
@@ -594,7 +639,7 @@ function lnl_user_list() {
       echo '
          <tr>
             <td>'.$email.'</td>
-            <td>'.$date.'</td>';
+            <td>'.formatTimes($date, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</td>';
       if ($status=="NOK")
          echo '
             <td class="text-danger">'.$status.'</td>';
@@ -605,6 +650,7 @@ function lnl_user_list() {
             <td><a href="admin.php?op=lnl_Sup_User&amp;lnl_user_email='.$email.'" class="text-danger"><i class="fas fa-trash fa-lg text-danger" data-bs-toggle="tooltip" title="'.adm_translate("Effacer").'"></i></a></td>
          </tr>';
    }
+   sql_free_result($result);
    echo '
       </tbody>
    </table>
@@ -669,16 +715,16 @@ switch ($op) {
    break;
 
    case "Add_Footer":
-         Add_Header_Footer("FOT");
-         break;
-         case "Add_Footer_Submit":
-           Add_Header_Footer_Submit("FOT", $xtext, $html);
-           header("location: admin.php?op=lnl");
-           break;
-         case "Add_Footer_Mod":
-            sql_query("UPDATE ".$NPDS_Prefix."lnl_head_foot SET text='$xtext' WHERE ref='$ref'");
-            header("location: admin.php?op=lnl_Shw_Footer&Footerid=$ref");
-            break;
+      Add_Header_Footer("FOT");
+   break;
+   case "Add_Footer_Submit":
+      Add_Header_Footer_Submit("FOT", $xtext, $html);
+      header("location: admin.php?op=lnl");
+   break;
+   case "Add_Footer_Mod":
+      sql_query("UPDATE ".$NPDS_Prefix."lnl_head_foot SET text='$xtext' WHERE ref='$ref'");
+      header("location: admin.php?op=lnl_Shw_Footer&Footerid=$ref");
+   break;
 
    case "Test":
       Test($Xheader, $Xbody, $Xfooter);
@@ -696,115 +742,116 @@ switch ($op) {
    break;
 
    case "Send":
-         $deb=0;
-         $limit=50; // nombre de messages envoyé par boucle.
-         if (!isset($debut)) $debut=0;
-         if (!isset($number_send)) $number_send=0;
-
-         global $nuke_url;
-         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' AND ref='$Xheader'");
-         $Yheader=sql_fetch_row($result);
-         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_body WHERE html='$Yheader[1]' AND ref='$Xbody'");
-         $Ybody=sql_fetch_row($result);
-         $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' AND html='$Yheader[1]' AND ref='$Xfooter'");
-         $Yfooter=sql_fetch_row($result);
-
-         $subject=stripslashes($Xsubject);
-         $message =$Yheader[0].$Ybody[0].$Yfooter[0];
-
-         global $sitename;
-         $Xmime = $Yheader[1]==1 ? 'html-nobr' : 'text';
-         if ($Xtype=="All") {
-            $Xtype="Out";
-            $OXtype="All";
+      $deb=0;
+      $limit=50; // nombre de messages envoyé par boucle.
+      if (!isset($debut)) $debut=0;
+      if (!isset($number_send)) $number_send=0;
+   
+      global $nuke_url;
+      $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' AND ref='$Xheader'");
+      $Yheader=sql_fetch_row($result);
+      $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_body WHERE html='$Yheader[1]' AND ref='$Xbody'");
+      $Ybody=sql_fetch_row($result);
+      $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' AND html='$Yheader[1]' AND ref='$Xfooter'");
+      $Yfooter=sql_fetch_row($result);
+   
+      $subject=stripslashes($Xsubject);
+      $message =$Yheader[0].$Ybody[0].$Yfooter[0];
+      global $sitename;
+      $Xmime = $Yheader[1]==1 ? 'html-nobr' : 'text';
+      if ($Xtype=="All") {
+         $Xtype="Out";
+         $OXtype="All";
+      }
+   
+      // Outside Users
+      if ($Xtype=="Out") {
+         $mysql_result=sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE status='OK'");
+         $nrows=sql_num_rows($mysql_result);
+         $result = sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE status='OK' ORDER BY email limit $debut,$limit");
+         while (list($email) = sql_fetch_row($result)) {
+            if (($email!="Anonyme") or ($email!="Anonymous")) {
+               if ($email!='') {
+                  if (($message!='') and ($subject!='')) {
+                     if ($Xmime=="html-nobr") {
+                        $Xmessage=$message."<br /><br /><hr />";
+                        $Xmessage.= adm_translate("Pour supprimer votre abonnement à notre Lettre, suivez ce lien")." : <a href=\"$nuke_url/lnl.php?op=unsubscribe&email=$email\">".adm_translate("Modifier")."</a>";
+                     } else {
+                        $Xmessage=$message."\n\n------------------------------------------------------------------\n";
+                        $Xmessage.= adm_translate("Pour supprimer votre abonnement à notre Lettre, suivez ce lien")." : $nuke_url/lnl.php?op=unsubscribe&email=$email";
+                     }
+                     send_email($email, $subject, meta_lang($Xmessage), "", true, $Xmime, '');
+                     $number_send++;
+                  }
+               }
+            }
          }
-
-         // Outside Users
-         if ($Xtype=="Out") {
-            $mysql_result=sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE status='OK'");
+      }
+      // NPDS Users
+      if ($Xtype=='Mbr') {
+         if ($Xgroupe!='') {
+            $result='';
+            $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1'");
             $nrows=sql_num_rows($mysql_result);
-            $result = sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE status='OK' ORDER BY email limit $debut,$limit");
-            while (list($email) = sql_fetch_row($result)) {
+            $resultGP = sql_query("SELECT u.email, u.uid, s.groupe FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1' ORDER BY u.email LIMIT $debut,$limit");
+            while(list($email, $uid, $groupe) = sql_fetch_row($resultGP)) {
+               $tab_groupe=explode(',',$groupe);
+               if ($tab_groupe) {
+                  $result = array();
+                  foreach($tab_groupe as $groupevalue) {
+                     if ($groupevalue==$Xgroupe)
+                        $result[]=$email;
+                  }
+               }
+            }
+            $boucle = is_array($result) ? true : false ;
+         } else {
+            $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND u.user_lnl='1'");
+            $nrows=sql_num_rows($mysql_result);
+            $query = sql_query("SELECT u.uid, u.email FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.user_lnl='1' ORDER BY email LIMIT $debut,$limit");
+            $result = array();
+            while(list($uid,$email) = sql_fetch_row($query)) {$result[]=$email;}
+            $boucle=true;
+         }
+         if ($boucle) {
+            foreach($result as $email) {
                if (($email!="Anonyme") or ($email!="Anonymous")) {
                   if ($email!='') {
                      if (($message!='') and ($subject!='')) {
-                        if ($Xmime=="html-nobr") {
-                           $Xmessage=$message."<br /><br /><hr noshade>";
-                           $Xmessage.= adm_translate("Pour supprimer votre abonnement à notre Lettre, suivez ce lien")." : <a href=\"$nuke_url/lnl.php?op=unsubscribe&email=$email\">".adm_translate("Modifier")."</a>";
-                        } else {
-                           $Xmessage=$message."\n\n------------------------------------------------------------------\n";
-                           $Xmessage.= adm_translate("Pour supprimer votre abonnement à notre Lettre, suivez ce lien")." : $nuke_url/lnl.php?op=unsubscribe&email=$email";
-                        }
-                        send_email($email, $subject, meta_lang($Xmessage), "", true, $Xmime, '');
+                        send_email($email, $subject, meta_lang($message), "", true, $Xmime, '');
                         $number_send++;
                      }
                   }
                }
             }
          }
-         // NPDS Users
-         if ($Xtype=='Mbr') {
-            if ($Xgroupe!='') {
-               $result='';
-               $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1'");
-               $nrows=sql_num_rows($mysql_result);
-               $resultGP = sql_query("SELECT u.email, u.uid, s.groupe FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1' ORDER BY u.email LIMIT $debut,$limit");
-               while(list($email, $uid, $groupe) = sql_fetch_row($resultGP)) {
-                  $tab_groupe=explode(',',$groupe);
-                  if ($tab_groupe)
-                     foreach($tab_groupe as $groupevalue) {
-                        if ($groupevalue==$Xgroupe)
-                           $result[]=$email;
-                     }
-               }
-               $fonction="each";///???gloups
-               if (is_array($result)) $boucle=true; else $boucle=false;
-            } else {
-               $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND u.user_lnl='1'");
-               $nrows=sql_num_rows($mysql_result);
-               $result = sql_query("SELECT u.uid, u.email FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.user_lnl='1' ORDER BY email LIMIT $debut,$limit");
-               $fonction="sql_fetch_row";
-               $boucle=true;
+      }
+      $deb=$debut+$limit;
+      $chartmp='';
+      settype($OXtype, 'string');
+      if ($deb>=$nrows) {
+         if ((($OXtype=="All") and ($Xtype=="Mbr")) OR ($OXtype=="")) {
+            if (($message!='') and ($subject!='')) {
+               $timeX=getPartOfTime(time(), 'yyyy-MM-dd H:mm:ss');
+               if ($OXtype=="All") $Xtype="All";
+               if (($Xtype=="Mbr") and ($Xgroupe!="")) $Xtype=$Xgroupe;
+               sql_query("INSERT INTO ".$NPDS_Prefix."lnl_send VALUES ('0', '$Xheader', '$Xbody', '$Xfooter', '$number_send', '$Xtype', '$timeX', 'OK')");
             }
-            if ($boucle) {
-               while (list($bidon, $email) = $fonction($result)) {///???gloups réinterprété comme each .. ???
-                  if (($email!="Anonyme") or ($email!="Anonymous")) {
-                     if ($email!='') {
-                        if (($message!='') and ($subject!='')) {
-                           send_email($email, $subject, meta_lang($message), "", true, $Xmime, '');
-                           $number_send++;
-                        }
-                     }
-                  }
-               }
-            }
+            header("location: admin.php?op=lnl");
+            break;
+         } else {
+           if ($OXtype=="All") {
+              $chartmp="$Xtype : $nrows / $nrows";
+              $deb=0;
+              $Xtype="Mbr";
+              $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' and u.uid=s.uid and u.email!='' and u.user_lnl='1'");
+              $nrows=sql_num_rows($mysql_result);
+           }
          }
-         $deb=$debut+$limit;
-         $chartmp='';
-         settype($OXtype, 'string');
-         if ($deb>=$nrows) {
-            if ((($OXtype=="All") and ($Xtype=="Mbr")) OR ($OXtype=="")) {
-               if (($message!='') and ($subject!='')) {
-                  $timeX=date("Y-m-d H:m:s",time());
-                  if ($OXtype=="All") {$Xtype="All";}
-                  if (($Xtype=="Mbr") and ($Xgroupe!="")) {$Xtype=$Xgroupe;}
-                  sql_query("INSERT INTO ".$NPDS_Prefix."lnl_send VALUES ('0', '$Xheader', '$Xbody', '$Xfooter', '$number_send', '$Xtype', '$timeX', 'OK')");
-               }
-               header("location: admin.php?op=lnl");
-               break;
-            } else {
-              if ($OXtype=="All") {
-                 $chartmp="$Xtype : $nrows / $nrows";
-                 $deb=0;
-                 $Xtype="Mbr";
-                 $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' and u.uid=s.uid and u.email!='' and u.user_lnl='1'");
-                 $nrows=sql_num_rows($mysql_result);
-              }
-            }
-         }
-         if ($chartmp=='') $chartmp="$Xtype : $deb / $nrows";
-         include("meta/meta.php");
-         echo "<script type=\"text/javascript\">
+      }
+      if ($chartmp=='') $chartmp="$Xtype : $deb / $nrows";
+      include("meta/meta.php");
+      echo "<script type=\"text/javascript\">
                //<![CDATA[
                function redirect() {
                   window.location=\"admin.php?op=lnl_Send&debut=".$deb."&OXtype=$OXtype&Xtype=$Xtype&Xgroupe=$Xgroupe&Xheader=".$Xheader."&Xbody=".$Xbody."&Xfooter=".$Xfooter."&number_send=".$number_send."&Xsubject=".$Xsubject."\";
@@ -812,7 +859,7 @@ switch ($op) {
                setTimeout(\"redirect()\",10000);
                //]]>
                </script>";
-         echo '
+      echo '
          <link href="'.$nuke_url.'/themes/npds-boost_sk/style/style.css" title="default" rel="stylesheet" type="text/css" media="all">
          <link id="bsth" rel="stylesheet" href="'.$nuke_url.'/themes/_skins/default/bootstrap.min.css">
          </head>
@@ -829,7 +876,7 @@ switch ($op) {
                </div>
             </body>
          </html>';
-         break;
+   break;
 
    default:
       main();
