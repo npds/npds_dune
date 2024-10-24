@@ -6,7 +6,7 @@
 /* Manage other configuration and customisation files                   */
 /* by Hotfirenet 2004                                                   */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2023 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -128,7 +128,7 @@ function ConfigFiles($contents, $files) {
       <h3 class="my-3">'.adm_translate("Modification de").' : <span class="text-body-secondary">'.$files.'</span></h3>
       <form action="admin.php?op=ConfigFiles_save" method="post">
          <code><textarea class="form-control" name="Xtxt" rows="20" cols="70">';
-      echo htmlspecialchars($contents,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,cur_charset);
+      echo htmlspecialchars($contents,ENT_COMPAT|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8');
       echo '</textarea></code>
          <input type="hidden" name="Xfiles" value="'.$files.'" />
          <div class="mb-3 mt-3">

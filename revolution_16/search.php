@@ -26,7 +26,7 @@
       $limit=" LIMIT 0, $limit_full_search";
    } else {
       $query_title=removeHack(stripslashes(urldecode($query))); // electrobug
-      $query_body=removeHack(stripslashes(htmlentities(urldecode($query),ENT_NOQUOTES,cur_charset))); // electrobug
+      $query_body=removeHack(stripslashes(htmlentities(urldecode($query),ENT_NOQUOTES,'UTF-8'))); // electrobug
       $query=$query_body;
       $limit='';
    }

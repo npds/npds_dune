@@ -415,19 +415,19 @@ function Configure() {
    <legend><a class="tog" id="show_mes_ppage" title="'.adm_translate("Replier la liste").'"><i id="i_mes_ppage" class="fa fa-caret-down fa-lg text-primary" ></i></a>&nbsp;'.adm_translate("Message de pied de page").'</legend>
       <div id="mes_ppage" class="adminsidefield card card-body mb-3" style="display:none;">
          <div class="form-floating mb-3">
-            <textarea class="form-control" id="xfoot1" name="xfoot1" style="height:100px;">'.htmlentities(stripslashes($foot1),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
+            <textarea class="form-control" id="xfoot1" name="xfoot1" style="height:100px;">'.htmlentities(stripslashes($foot1),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8').'</textarea>
             <label for="xfoot1">'.adm_translate("Ligne 1").'</label>
          </div>
          <div class="form-floating mb-3">
-            <textarea class="form-control" id="xfoot2" name="xfoot2" style="height:100px;">'.htmlentities(stripslashes($foot2),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
+            <textarea class="form-control" id="xfoot2" name="xfoot2" style="height:100px;">'.htmlentities(stripslashes($foot2),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8').'</textarea>
             <label for="xfoot2">'.adm_translate("Ligne 2").'</label>
          </div>
          <div class="form-floating mb-3">
-            <textarea class="form-control col-sm-12" id="xfoot3" name="xfoot3" style="height:100px;">'.htmlentities(stripslashes($foot3),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
+            <textarea class="form-control col-sm-12" id="xfoot3" name="xfoot3" style="height:100px;">'.htmlentities(stripslashes($foot3),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8').'</textarea>
             <label for="xfoot3">'.adm_translate("Ligne 3").'</label>
          </div>
          <div class="form-floating mb-3">
-            <textarea class="form-control" id="xfoot4" name="xfoot4" style="height:100px;">'.htmlentities(stripslashes($foot4),ENT_QUOTES|ENT_SUBSTITUTE,cur_charset).'</textarea>
+            <textarea class="form-control" id="xfoot4" name="xfoot4" style="height:100px;">'.htmlentities(stripslashes($foot4),ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8').'</textarea>
             <label for="xfoot4">'.adm_translate("Ligne 4").'</label>
          </div>
       </div>

@@ -333,9 +333,9 @@ data-mobile-responsive="true" data-buttons-class="outline-secondary" data-icons-
 
 function main() {
    global $dcategory, $sortby, $sortorder, $sitename;
-   $dcategory  = removeHack(stripslashes(htmlspecialchars(urldecode($dcategory),ENT_QUOTES,cur_charset))); // electrobug
+   $dcategory  = removeHack(stripslashes(htmlspecialchars(urldecode($dcategory),ENT_QUOTES,'UTF-8'))); // electrobug
    $dcategory=str_replace("&#039;","\'",$dcategory);
-   $sortby  = removeHack(stripslashes(htmlspecialchars(urldecode($sortby),ENT_QUOTES,cur_charset))); // electrobug
+   $sortby  = removeHack(stripslashes(htmlspecialchars(urldecode($sortby),ENT_QUOTES,'UTF-8'))); // electrobug
 
    include("header.php");
    echo '
@@ -395,7 +395,7 @@ function broken($did) {
          settype ($did, "integer");
          $message=$nuke_url."\n".translate("Téléchargements")." ID : $did\n".translate("Auteur")." $cookie[1] / IP : ".getip()."\n\n";
          include 'signat.php';
-         send_email($notify_email, html_entity_decode(translate("Rapporter un lien rompu"),ENT_COMPAT | ENT_HTML401,cur_charset), nl2br($message), $notify_from , false, "html", '');
+         send_email($notify_email, html_entity_decode(translate("Rapporter un lien rompu"),ENT_COMPAT | ENT_HTML401,'UTF-8'), nl2br($message), $notify_from , false, "html", '');
          include("header.php");
          echo '
         <div class="alert alert-success">

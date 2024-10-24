@@ -101,7 +101,7 @@ if (isset($submitS)) {
       }
 /*
       if ($allow_html == 0 || isset($html))
-         $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
+         $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,'UTF-8');
 */
       if (isset($sig) && $userdata['uid'] != 1 && $myrow['forum_type']!=6 && $myrow['forum_type']!=5)
          $message .= " [addsig]";

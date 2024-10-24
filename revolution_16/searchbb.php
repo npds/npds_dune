@@ -40,7 +40,7 @@ function ancre($forum_id,$topic_id,$post_id,$posts_per_page) {
 
 include('header.php');
 settype($term,'string');
-   $term = removeHack(stripslashes(htmlspecialchars(urldecode($term),ENT_QUOTES,cur_charset))); // electrobug
+   $term = removeHack(stripslashes(htmlspecialchars(urldecode($term),ENT_QUOTES,'UTF-8'))); // electrobug
    $ck_solved = (isset($only_solved) and $only_solved=='ON') ? 'checked="checked"' : '';
    $ck_addterm_all = (isset($addterm) and $addterm=='all') ? 'checked="checked"' : '';
 
@@ -160,7 +160,7 @@ settype($term,'string');
    }
 
    if (isset($username) && $username!='') {
-      $username = removeHack(stripslashes(htmlspecialchars(urldecode($username),ENT_QUOTES,cur_charset))); // electrobug
+      $username = removeHack(stripslashes(htmlspecialchars(urldecode($username),ENT_QUOTES,'UTF-8'))); // electrobug
       if (!$result = sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$username'"))
          forumerror('0001');
       list($userid) = sql_fetch_row($result);

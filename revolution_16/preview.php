@@ -24,7 +24,7 @@ switch ($acc) {
       }
 /*
       if ($allow_html == 0 || isset($html))
-         $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
+         $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,'UTF-8');
 */
 
       if (isset($sig) && $userdata['0'] != 1 && $myrow['forum_type']!=6 && $myrow['forum_type']!=5)
@@ -43,13 +43,13 @@ switch ($acc) {
       if (!isset($Mmod))
          $subject = removeHack(strip_tags($subject));
 
-      $subject = htmlspecialchars($subject,ENT_COMPAT|ENT_HTML401,cur_charset);
+      $subject = htmlspecialchars($subject,ENT_COMPAT|ENT_HTML401,'UTF-8');
    break;
 
    case 'reply':
       if (array_key_exists(1,$userdata))
          $userdata = get_userdata($userdata[1]);
-      if ($allow_html == 0 || isset($html)) $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
+      if ($allow_html == 0 || isset($html)) $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,'UTF-8');
       if (isset($sig) && $userdata['uid'] != 1) $messageP .= " [addsig]";
       if (($forum_type!='6') and ($forum_type!='5')) {
          $messageP = af_cod($messageP);
@@ -81,7 +81,7 @@ switch ($acc) {
       $forum_type = $myrow2['forum_type'];
 
       if ($allow_html == 0 || isset($html))
-         $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,cur_charset);
+         $messageP = htmlspecialchars($messageP,ENT_COMPAT|ENT_HTML401,'UTF-8');
       if (($allow_bbcode) and ($forum_type!=6) and ($forum_type!=5))
          $messageP = smile($messageP);
 

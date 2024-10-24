@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2022 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -388,7 +388,7 @@ function BannerEdit($bid) {
          <span class="help-block text-end"><span id="countcar_imageurl"></span></span>
       </div>
       <div class="form-floating mb-3">
-         <input class="form-control" type="text" id="clickurl" name="clickurl" maxlength="320" value="'.htmlentities($clickurl,ENT_QUOTES,cur_charset).'" />
+         <input class="form-control" type="text" id="clickurl" name="clickurl" maxlength="320" value="'.htmlentities($clickurl,ENT_QUOTES,'UTF-8').'" />
          <label for="clickurl">'.adm_translate("URL du clic").'</label>
          <span class="help-block text-end"><span id="countcar_clickurl"></span></span>
       </div>

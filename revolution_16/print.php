@@ -37,7 +37,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
           $aff=false;
     }
     if ($oper=='links') {
-       $DB=removeHack(stripslashes(htmlentities(urldecode($DB),ENT_NOQUOTES,cur_charset)));
+       $DB=removeHack(stripslashes(htmlentities(urldecode($DB),ENT_NOQUOTES,'UTF-8')));
        $result=sql_query("SELECT url, title, description, date FROM ".$DB."links_links WHERE lid='$sid'");
        list($url, $title, $description, $time)=sql_fetch_row($result);
        $title = stripslashes($title); $description = stripslashes($description);
@@ -52,7 +52,7 @@ function PrintPage($oper, $DB, $nl, $sid) {
              if ($DB)
                 $remp=meta_lang(aff_code(aff_langue($remp)));
              if ($nl)
-               $remp=nl2br(str_replace(' ','&nbsp;',htmlentities($remp,ENT_QUOTES,cur_charset)));
+               $remp=nl2br(str_replace(' ','&nbsp;',htmlentities($remp,ENT_QUOTES,'UTF-8')));
              $title=$sid;
           } else
              $aff=false;
@@ -63,10 +63,6 @@ function PrintPage($oper, $DB, $nl, $sid) {
     }
     if ($aff==true) {
        $Titlesitename='NPDS - '.translate("Page spéciale pour impression").' / '.$title;
-/*
-       if (isset($time))// à quoi ça sert pas utilisé ?... (datetime)
-          formatTimes($time);
-*/
        include("meta/meta.php");
        if (isset($user)) {
           if ($cookie[9]=='') $cookie[9]=$Default_Theme;

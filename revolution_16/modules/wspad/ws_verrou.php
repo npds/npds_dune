@@ -12,12 +12,11 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 include_once ('../../grab_globals.php');
-$enc = cur_charset;
 // For More security
 if (!stristr($_SERVER['HTTP_REFERER'],"modules.php?ModPath=wspad&ModStart=wspad")) die();
 settype($verrou_groupe, 'integer');
-$verrou_page=stripslashes(htmlspecialchars(urldecode($verrou_page),ENT_QUOTES,'utf-8'));//cur_charset not dispo ???
-$verrou_user=stripslashes(htmlspecialchars(urldecode($verrou_user),ENT_QUOTES,'utf-8'));//cur_charset not dispo ???
+$verrou_page=stripslashes(htmlspecialchars(urldecode($verrou_page),ENT_QUOTES,'UTF-8'));
+$verrou_user=stripslashes(htmlspecialchars(urldecode($verrou_user),ENT_QUOTES,'UTF-8'));
 // For More security
 
 // For IE cache control

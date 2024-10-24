@@ -49,7 +49,7 @@ function ShowHeader() {
       </thead>
       <tbody>';
    foreach($rowH as $row) {
-      $text=nl2br(htmlspecialchars($row['text'],ENT_COMPAT|ENT_HTML401,cur_charset));
+      $text=nl2br(htmlspecialchars($row['text'],ENT_COMPAT|ENT_HTML401,'UTF-8'));
       if (strlen($text)>100) 
          $text=substr($text,0,100).'<span class="text-danger"> .....</span>';
       $html = ($row['html']==1) ? 'html' : 'txt' ;
@@ -93,7 +93,7 @@ function Detail_Header_Footer($ibid, $type) {
       <div class="mb-3 row">
          <label class="col-form-label col-sm-12" for="xtext">'.adm_translate("Texte").'</label>
          <div class="col-sm-12">
-            <textarea class="tin form-control" cols="70" rows="20" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,cur_charset).'</textarea>
+            <textarea class="tin form-control" cols="70" rows="20" name="xtext" >'.htmlspecialchars($tmp[0],ENT_COMPAT|ENT_HTML401,'UTF-8').'</textarea>
          </div>
       </div>';
    if ($tmp[1]==1) {
