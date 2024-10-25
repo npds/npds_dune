@@ -228,7 +228,7 @@ function links_search($query, $topicL, $min, $max, $offset) {
    mainheader();
    $filen="modules/$ModPath/links.ban_02.php";
    if (file_exists($filen)) {include($filen);}
-   $query = removeHack(stripslashes(htmlspecialchars($query,ENT_QUOTES,cur_charset))); // Romano et NoSP
+   $query = removeHack(stripslashes(htmlspecialchars($query,ENT_QUOTES,'UTF-8'))); // Romano et NoSP
 
    if ($topicL!='')
       $result = sql_query("SELECT lid, url, title, description, date, hits, topicid_card, cid, sid FROM ".$links_DB."links_links WHERE topicid_card='$topicL' AND (title LIKE '%$query%' OR description LIKE '%$query%') ORDER BY lid ASC LIMIT $min,$offset");

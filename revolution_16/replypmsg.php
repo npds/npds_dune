@@ -55,7 +55,7 @@ if (isset($user)) {
       if ($message == '')
          forumerror('0019');
 
-      if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
+      if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,'UTF-8');
       if ($sig)
          $message .= '<br /><br />'.$userdata['user_sig'];
       $message = aff_code($message);
@@ -224,7 +224,7 @@ if (isset($user)) {
          <h3>'.translate("Prévisualiser").'</h3>
          <p class="lead">'.StripSlashes($subject).'</p>';
          $Xmessage=$message=StripSlashes($message);
-         if ($allow_html == 0 || isset($html)) $Xmessage = htmlspecialchars($Xmessage,ENT_COMPAT|ENT_HTML401,cur_charset);
+         if ($allow_html == 0 || isset($html)) $Xmessage = htmlspecialchars($Xmessage,ENT_COMPAT|ENT_HTML401,'UTF-8');
          if ($sig=='on')
             $Xmessage .= '<div class="n-signature">'.nl2br($userdata['user_sig']).'</div>';
 

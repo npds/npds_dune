@@ -241,7 +241,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
          eval ("\$ret=stripSlashes(\"$text\");");
       break;
       case ATT_DSP_PLAINTEXT: // display as embedded text, PRE-formatted
-         $att_contents = str_replace ("\\", "\\\\", htmlSpecialChars (join('',file ($att_path)),ENT_COMPAT|ENT_HTML401,cur_charset));
+         $att_contents = str_replace ("\\", "\\\\", htmlSpecialChars (join('',file ($att_path)),ENT_COMPAT|ENT_HTML401,'UTF-8'));
          $att_contents = word_wrap ($att_contents);
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_PLAINTEXT]);
          eval ("\$ret=\"$text\";");

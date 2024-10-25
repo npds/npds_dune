@@ -94,7 +94,7 @@ if (isset($submitS)) {
       if ($formulaire!='')
          include ("modules/comments/comments_extender.php");
 
-      if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,cur_charset);
+      if ($allow_html == 0 || isset($html)) $message = htmlspecialchars($message,ENT_COMPAT|ENT_HTML401,'UTF-8');
       if (isset($sig) && $userdata['uid'] != 1) $message .= ' [addsig]';
       $message=af_cod($message);
       $message = smile($message);
@@ -119,7 +119,7 @@ if (isset($submitS)) {
       // envoi mail alerte
       if ($notify) {
          global $notify_email, $nuke_url, $notify_from, $url_ret;
-         $csubject = html_entity_decode(translate("Nouveau commentaire"),ENT_COMPAT | ENT_HTML401,cur_charset).' ==> '. $nuke_url;
+         $csubject = html_entity_decode(translate("Nouveau commentaire"),ENT_COMPAT | ENT_HTML401,'UTF-8').' ==> '. $nuke_url;
          $cmessage = '🔔 '.translate("Nouveau commentaire").' ==> <a href="'.$nuke_url.'/'.$url_ret.'">'.$nuke_url.'/'.$url_ret.'</a>';
          send_email($notify_email, $csubject, $cmessage, $notify_from , false, "html",'');
       }

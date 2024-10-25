@@ -52,7 +52,7 @@ function push_header($operation) {
    $temp .="<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"2\">";
    $temp .="<tr>";
    $push_titre=str_replace("'","\'",$push_titre);
-   $temp .="<td width=\"100%\" align=\"center\"><span style=\"font-size: 11px;\"><b>".htmlspecialchars($push_titre,ENT_COMPAT|ENT_HTML401,cur_charset)."</b></td>";
+   $temp .="<td width=\"100%\" align=\"center\"><span style=\"font-size: 11px;\"><b>".htmlspecialchars($push_titre,ENT_COMPAT|ENT_HTML401,'UTF-8')."</b></td>";
    if ($push_logo!="") {
       $temp .="</tr><tr><td width=\"100%\" background=\"$push_logo\">";
    } else {

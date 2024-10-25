@@ -147,7 +147,7 @@ include("header.php");
 $pagesize = $show_user;
 
 if (!isset($letter) or ($letter=='')) $letter = translate("Tous");
-$letter=removeHack(stripslashes(htmlspecialchars($letter,ENT_QUOTES,cur_charset)));
+$letter=removeHack(stripslashes(htmlspecialchars($letter,ENT_QUOTES,'UTF-8')));
 if (!isset($sortby)) $sortby = 'uid DESC';
 $sortby=removeHack($sortby);
 if (!isset($page)) $page = 1;

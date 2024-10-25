@@ -77,7 +77,7 @@ function push_news() {
            list($sid, $title, $ihome, $catid) = sql_fetch_row($result);
            if (ctrl_aff($ihome, $catid)) {
               $title=str_replace("'","\'",$title);
-              echo "document.write('&nbsp;-&nbsp;<a href=javascript:onclick=register(\"npds-push\",\"op=new_show&sid=$sid&offset=$m\"); style=\"font-size: 11px;\">".htmlspecialchars(aff_langue($title),ENT_COMPAT|ENT_HTML401,cur_charset)."</a><br />');\n";
+              echo "document.write('&nbsp;-&nbsp;<a href=javascript:onclick=register(\"npds-push\",\"op=new_show&sid=$sid&offset=$m\"); style=\"font-size: 11px;\">".htmlspecialchars(aff_langue($title),ENT_COMPAT|ENT_HTML401,'UTF-8')."</a><br />');\n";
            }
        }
    }
@@ -103,7 +103,7 @@ function new_show($sid, $offset) {
 
         formatTimestamp($time);
         $topictext=str_replace("'","\'",$topictext);
-        echo "document.write('".push_translate("Posted by")." <b>$informant</b> : $datetime (".htmlspecialchars($topictext,ENT_COMPAT|ENT_HTML401,cur_charset).")');\n";
+        echo "document.write('".push_translate("Posted by")." <b>$informant</b> : $datetime (".htmlspecialchars($topictext,ENT_COMPAT|ENT_HTML401,'UTF-8').")');\n";
         echo "document.write('<br /><br />');\n";
         echo "document.write('".links(convert_nl(str_replace("'","\'",meta_lang(aff_code(aff_langue($hometext)))),"win","html"))."<br />');\n";
         if ($bodytext!="") {

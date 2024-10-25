@@ -12,7 +12,7 @@
 // Cette fonction doit être utilisée pour filtrer les arguments des requêtes SQL et est
 // automatiquement appelée par META-LANG lors de passage de paramètres
 function arg_filter($arg) {
-   $arg = removeHack(stripslashes(htmlspecialchars(urldecode($arg),ENT_QUOTES,cur_charset)));
+   $arg = removeHack(stripslashes(htmlspecialchars(urldecode($arg),ENT_QUOTES,'UTF-8')));
    return ($arg);
 }
 

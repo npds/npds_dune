@@ -65,7 +65,7 @@ if (!function_exists("Mysql_Connexion"))
                if ($metalang)
                   $remp=meta_lang(aff_code(aff_langue($remp)));
                if ($nl)
-                  $remp=nl2br(str_replace(' ','&nbsp;',htmlentities($remp,ENT_QUOTES,cur_charset)));
+                  $remp=nl2br(str_replace(' ','&nbsp;',htmlentities($remp,ENT_QUOTES,'UTF-8')));
                echo $remp;
             }
             echo '

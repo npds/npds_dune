@@ -175,7 +175,6 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    $page_uri=preg_split("#(&|\?)#",$_SERVER['REQUEST_URI']);
    $Npage_uri=count($page_uri);
    $pages_ref=basename($page_uri[0]);
-
    if ($pages_ref=="user.php")
       $pages_ref=substr($_SERVER['REQUEST_URI'],strpos($_SERVER['REQUEST_URI'],"user.php"));
    // Static page and Module can have Bloc, Title ....
@@ -313,7 +312,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords);
    global $httpref, $nuke_url, $httprefmax, $admin, $NPDS_Prefix;
    if ($httpref==1) {
-      $referer= htmlentities(strip_tags(removeHack(getenv("HTTP_REFERER"))),ENT_QUOTES,cur_charset);
+      $referer= htmlentities(strip_tags(removeHack(getenv("HTTP_REFERER"))),ENT_QUOTES,'UTF-8');
       if ($referer!='' and !strstr($referer,"unknown") and !stristr($referer,$_SERVER['SERVER_NAME']))
          sql_query("INSERT INTO ".$NPDS_Prefix."referer VALUES (NULL, '$referer')");
    }
