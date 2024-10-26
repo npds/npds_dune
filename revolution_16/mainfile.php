@@ -374,7 +374,7 @@ function send_email($email, $subject, $message, $from = "", $priority = false, $
             } 
             $mail->Port       = $smtp_port; 
          } 
-         $mail->CharSet = cur_charset; 
+         $mail->CharSet = 'UTF-8'; 
          $mail->Encoding = 'base64'; 
          if ($priority)
             $mail->Priority = 2; 
@@ -729,7 +729,7 @@ function formatTimes($time, $dateStyle = IntlDateFormatter::SHORT, $timeStyle = 
    $locale = language_iso(1, '_', 1); // Utilise la langue de l'affichage du site
    $fmt = datefmt_create($locale, $dateStyle, $timeStyle, $timezone, IntlDateFormatter::GREGORIAN);
    $timestamp = is_numeric($time) ? $time : strtotime($time);
-   $date_au_format = ucfirst(htmlentities($fmt->format($timestamp), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, cur_charset));
+   $date_au_format = ucfirst(htmlentities($fmt->format($timestamp), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8'));
    return $date_au_format;
 }
 #autodoc getPartOfTime($time) : découpe/extrait/formate et plus grâce au paramètre $format.... un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time -
@@ -738,7 +738,7 @@ function getPartOfTime($time, $format, $timezone = 'Europe/Paris') {
    $timestamp = is_numeric($time) ? $time : strtotime($time);
    $fmt = new IntlDateFormatter($locale, IntlDateFormatter::FULL, IntlDateFormatter::FULL, $timezone, IntlDateFormatter::GREGORIAN, $format);
    $date_au_format = $fmt->format($timestamp);
-   return ucfirst(htmlentities($date_au_format, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, cur_charset));
+   return ucfirst(htmlentities($date_au_format, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8'));
 }
 #autodoc formatAidHeader($aid) : Affiche URL et Email d'un auteur
 function formatAidHeader($aid) {
@@ -1350,7 +1350,7 @@ function subscribe_mail($Xtype, $Xtopic, $Xforum, $Xresume, $Xsauf) {
                $resume.=$title_topic."\n\n";
             }
          }
-         $subject = html_entity_decode(translate_ml($user_langue, "Abonnement"),ENT_COMPAT | ENT_HTML401,cur_charset)." / $sitename";
+         $subject = html_entity_decode(translate_ml($user_langue, "Abonnement"),ENT_COMPAT | ENT_HTML401,'UTF-8')." / $sitename";
          $message = $entete;
          $message .= $resume;
          $message .= $url;
@@ -1601,7 +1601,7 @@ function preview_local_langue($local_user_language,$ibid) {
 }
 #autodoc af_cod($ibid) : Analyse le contenu d'une chaîne et converti les pseudo-balises [code]...[/code] et leur contenu en html
 function change_cod($r) {
-   return '<'.$r[2].' class="language-'.$r[3].'">'.htmlentities($r[5],ENT_COMPAT|ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,cur_charset).'</'.$r[2].'>';
+   return '<'.$r[2].' class="language-'.$r[3].'">'.htmlentities($r[5],ENT_COMPAT|ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8').'</'.$r[2].'>';
 }
 function af_cod($ibid) {
    $pat='#(\[)(\w+)\s+([^\]]*)(\])(.*?)\1/\2\4#s';
@@ -2312,20 +2312,26 @@ function userblock() {
 function topdownload() {
    global $block_title;
    $title= $block_title=='' ? translate("Les plus téléchargés") : $block_title;
-   $boxstuff = '<ul>';
+   $boxstuff = '
+                              <ul>';
    $boxstuff .= topdownload_data('short','dcounter');
-   $boxstuff .= '</ul>';
-   if ($boxstuff=='<ul></ul>') $boxstuff='';
+   $boxstuff .= '
+                              </ul>
+                           ';
+   if(strpos($boxstuff,'<li') === false) $boxstuff='';
    themesidebox($title, $boxstuff);
 }
 #autodoc lastdownload() : Bloc lastdownload <br />=> syntaxe : function#lastdownload
 function lastdownload() {
    global $block_title;
    $title = $block_title=='' ? translate("Fichiers les + récents") : $block_title;
-   $boxstuff = '<ul>';
+   $boxstuff = '
+                              <ul>';
    $boxstuff .= topdownload_data('short','ddate');
-   $boxstuff .= '</ul>';
-   if ($boxstuff=='<ul></ul>') $boxstuff='';
+   $boxstuff .= '
+                              </ul>
+                           ';
+   if(strpos($boxstuff,'<li') === false) $boxstuff='';
    themesidebox($title, $boxstuff);
 }
 #autodoc topdownload_data($form, $ordre) : Bloc topdownload et lastdownload / SOUS-Fonction
@@ -2346,9 +2352,11 @@ function topdownload_data($form, $ordre) {
          if (strlen($dfilename)>$long_chain)
             $dfilename = (substr($dfilename, 0, $long_chain))." ...";
          if ($form=='short') {
-            if ($okfile) { $ibid.='<li class="list-group-item list-group-item-action d-flex justify-content-start p-2 flex-wrap">'.$lugar.' <a class="ms-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" data-bs-toggle="tooltip" >'.$dfilename.'</a><span class="badge bg-secondary ms-auto align-self-center">'.$dd.'</span></li>';}
+            if ($okfile) $ibid.='
+                                 <li class="list-group-item list-group-item-action d-flex justify-content-start p-2 flex-wrap">'.$lugar.' <a class="ms-2" href="download.php?op=geninfo&amp;did='.$did.'&amp;out_template=1" title="'.$ori_dfilename.' '.$dd.'" data-bs-toggle="tooltip" >'.$dfilename.'</a><span class="badge bg-secondary ms-auto align-self-center">'.$dd.'</span></li>';
          } else {
-            if ($okfile) { $ibid.='<li class="ms-4 my-1"><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Catégorie"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge bg-secondary float-end align-self-center">'.wrh($dcounter).'</span></li>';}
+            if ($okfile) $ibid.='
+                                 <li class="ms-4 my-1"><a href="download.php?op=mydown&amp;did='.$did.'" >'.$dfilename.'</a> ('.translate("Catégorie"). ' : '.aff_langue(stripslashes($dcategory)).')&nbsp;<span class="badge bg-secondary float-end align-self-center">'.wrh($dcounter).'</span></li>';
          }
          if ($okfile)
             $lugar++;
@@ -2406,7 +2414,7 @@ $sel =  "WHERE ihome=0";// en dur pour test
    }
    $boxstuff .='
                               </ul>';
-   if ($boxstuff=='<ul></ul>') $boxstuff='';
+   if(strpos($boxstuff,'<li') === false) $boxstuff='';
    global $block_title;
    $boxTitle = $block_title=='' ? translate("Anciens articles") : $block_title ;
    themesidebox($boxTitle, $boxstuff);

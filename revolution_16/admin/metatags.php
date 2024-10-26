@@ -103,9 +103,9 @@ function MetaTagAdmin(bool $meta_saved = false) {
          <div class="col-md-6">
             <div class="form-floating mb-3">
                <select class="form-select" id="newtagdoctype" name="newtag[doctype]">
-                  <option value="XHTML 1.0 Transitional"'.(!strcasecmp(doctype, 'XHTML 1.0 Transitional') ? $sel : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
-                  <option value="XHTML 1.0 Strict"'.(!strcasecmp(doctype, 'XHTML 1.0 Strict') ? $sel : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
-                  <option value="HTML 5.1"'.(!strcasecmp(doctype, 'HTML 5.1') ? $sel : '').'>HTML 5.1</option>
+                  <option value="XHTML 1.0 Transitional"'.(!strcasecmp($tags['doc_type'], 'XHTML 1.0 Transitional') ? $sel : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
+                  <option value="XHTML 1.0 Strict"'.(!strcasecmp($tags['doc_type'], 'XHTML 1.0 Strict') ? $sel : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
+                  <option value="HTML 5.1"'.(!strcasecmp($tags['doc_type'], 'HTML 5.1') ? $sel : '').'>HTML 5.1</option>
                </select>
                <label for="newtagdoctype">DOCTYPE</label>
             </div>
@@ -129,9 +129,14 @@ function MetaTagAdmin(bool $meta_saved = false) {
 function GetMetaTags($filename) {
    if (file_exists($filename)) {
       $temp = file($filename);
+      $tags = array();
       foreach($temp as $line) {
          $aline = trim(stripslashes($line));
-         if (preg_match("#<meta (name|http-equiv|property)=\"([^\"]*)\" content=\"([^\"]*)\"#i",$aline,$regs)) {
+         if (preg_match('#<!DOCTYPE\s+html\s+PUBLIC\s+"-//W3C//DTD\s+(XHTML\s+1\.0\s+(?:Strict|Transitional))//EN"#i', $aline, $regs))
+            $tags['doc_type'] = $regs[1];
+         if (preg_match('#<!DOCTYPE\s+html>#', $aline, $regs))
+            $tags['doc_type'] = 'HTML 5.1';
+         elseif (preg_match("#<meta (name|http-equiv|property)=\"([^\"]*)\" content=\"([^\"]*)\"#i",$aline,$regs)) {
             $regs[2] = strtolower($regs[2]);
             $tags[$regs[2]] = $regs[3];
          } elseif(preg_match("#<meta (charset)=\"([^\"]*)\"#i", $aline, $regs)) {
@@ -143,7 +148,7 @@ function GetMetaTags($filename) {
          } elseif (preg_match("#<html (lang)=\"([^\"]*)\"#i", $aline, $regs)) {
             $regs[1] = strtolower($regs[1]);
             $tags[$regs[1]] = $regs[2];
-         } elseif (preg_match("#<doctype (lang)=\"([^\"]*)\"#i", $aline, $regs)) {
+         } elseif (preg_match("#<doctype (lang)=\"([^\"]*)\"#i", $aline, $regs)) {//je pense qu'elle ne sert à rien ..et qu'elle ne doit rien trouver ...
             $regs[1] = strtolower($regs[1]);
             $tags[$regs[1]] = $regs[2];
          }
@@ -172,7 +177,6 @@ function MetaTagSave($filename, $tags) {
       $content .= "global \$nuke_url;\n";
       $content .= "\$meta_doctype = isset(\$meta_doctype) ? \$meta_doctype : '' ;\n";
       $content .= "\$nuke_url = isset(\$nuke_url) ? \$nuke_url : '' ;\n";
-      $content .= "\$meta_doctype = isset(\$meta_doctype) ? \$meta_doctype : '' ;\n";
       $content .= "\$meta_op = isset(\$meta_op) ? \$meta_op : '' ;\n";
       $content .= "\$m_description = isset(\$m_description) ? \$m_description : '' ;\n";
       $content .= "\$m_keywords = isset(\$m_keywords) ? \$m_keywords : '' ;\n";
@@ -192,24 +196,12 @@ function MetaTagSave($filename, $tags) {
       $content .= "else\n";
       $content .= "   \$l_meta=\$meta_doctype.\"\\n<html lang=\\\"\$lang\\\">\\n   <head>\\n\";\n";
       if (!empty($tags['content-type'])) {
-         $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']),ENT_COMPAT|ENT_HTML401,cur_charset);
-         $fp = fopen("meta/cur_charset.php", "w");
-         if ($fp) {
-            fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"".substr($tags['content-type'],strpos($tags['content-type'],"charset=")+8)."\");\n");
-            fwrite($fp, "if (!defined(\"doctype\"))\n   define ('doctype', \"".$tags['doctype']."\");\n?>");
-         }
-         fclose($fp);
+         $tags['content-type'] = htmlspecialchars(stripslashes($tags['content-type']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          if ($tags['doctype'] == "HTML 5.1") 
             $content .= MetaTagMakeSingleTag('utf-8', '', 'charset');
          else
             $content .= MetaTagMakeSingleTag('content-type', $tags['content-type'], 'http-equiv');
       } else {
-         $fp = fopen("meta/cur_charset.php", "w");
-         if ($fp) {
-            fwrite($fp, "<?php\nif (!defined(\"cur_charset\"))\n   define ('cur_charset', \"utf-8\");\n");
-            fwrite($fp, "if (!defined(\"doctype\"))\n   define ('doctype', \"".$tags['doctype']."\");\n?>");
-         }
-         fclose($fp);
          if ($tags['doctype'] == "XHTML 1.0 Transitional" || $tags['doctype'] == "XHTML 1.0 Strict") {
             $content .= MetaTagMakeSingleTag('content-type', 'text/html; charset=utf-8', 'http-equiv');
          } else {
@@ -225,46 +217,46 @@ function MetaTagSave($filename, $tags) {
       $content .= MetaTagMakeSingleTag('cache-control', 'no-cache', 'http-equiv');
       $content .= MetaTagMakeSingleTag('identifier-url', '$nuke_url', 'http-equiv');
       if (!empty($tags['author'])) {
-         $tags['author'] = htmlspecialchars(stripslashes($tags['author']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['author'] = htmlspecialchars(stripslashes($tags['author']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= MetaTagMakeSingleTag('author', $tags['author']);
       }
       if (!empty($tags['owner'])) {
-         $tags['owner'] = htmlspecialchars(stripslashes($tags['owner']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['owner'] = htmlspecialchars(stripslashes($tags['owner']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= MetaTagMakeSingleTag('owner', $tags['owner']);
       }
       if (!empty($tags['reply-to'])) {
-         $tags['reply-to'] = htmlspecialchars(stripslashes($tags['reply-to']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['reply-to'] = htmlspecialchars(stripslashes($tags['reply-to']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= MetaTagMakeSingleTag('reply-to', $tags['reply-to']);
       } else
          $content .= MetaTagMakeSingleTag('reply-to', $adminmail);
       if (!empty($tags['description'])) {
-         $tags['description'] = htmlspecialchars(stripslashes($tags['description']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['description'] = htmlspecialchars(stripslashes($tags['description']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= "if (\$m_description!=\"\")\n";
          $content .= "   \$l_meta.=\"      <meta name=\\\"description\\\" content=\\\"\$m_description\\\" />\\n\";\n";
          $content .= "else\n";
          $content .= "   ".MetaTagMakeSingleTag('description', $tags['description']);
       }
       if (!empty($tags['keywords'])) {
-         $tags['keywords'] = htmlspecialchars(stripslashes($tags['keywords']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['keywords'] = htmlspecialchars(stripslashes($tags['keywords']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= "if (\$m_keywords!=\"\")\n";
          $content .= "   \$l_meta.=\"      <meta name=\\\"keywords\\\" content=\\\"\$m_keywords\\\" />\\n\";\n";
          $content .= "else\n";
          $content .= "   ".MetaTagMakeSingleTag('keywords', $tags['keywords']);
       }
       if (!empty($tags['rating'])) {
-         $tags['rating'] = htmlspecialchars(stripslashes($tags['rating']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['rating'] = htmlspecialchars(stripslashes($tags['rating']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= MetaTagMakeSingleTag('rating', $tags['rating']);
       }
       if (!empty($tags['distribution'])) {
-         $tags['distribution'] = htmlspecialchars(stripslashes($tags['distribution']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['distribution'] = htmlspecialchars(stripslashes($tags['distribution']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= MetaTagMakeSingleTag('distribution', $tags['distribution']);
       }
       if (!empty($tags['copyright'])) {
-         $tags['copyright'] = htmlspecialchars(stripslashes($tags['copyright']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['copyright'] = htmlspecialchars(stripslashes($tags['copyright']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= MetaTagMakeSingleTag('copyright', $tags['copyright']);
       }
       if (!empty($tags['revisit-after'])) {
-         $tags['revisit-after'] = htmlspecialchars(stripslashes($tags['revisit-after']),ENT_COMPAT|ENT_HTML401,cur_charset);
+         $tags['revisit-after'] = htmlspecialchars(stripslashes($tags['revisit-after']),ENT_COMPAT|ENT_HTML401,'UTF-8');
          $content .= MetaTagMakeSingleTag('revisit-after', $tags['revisit-after']);
       } else
          $content .= MetaTagMakeSingleTag('revisit-after', "14 days");
@@ -298,7 +290,7 @@ function MetaTagSave($filename, $tags) {
 }
 
 if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
-include ("admin/settings_save.php");
+include ("admin/settings_save.php"); //pourquoi faire ?
 
 global $language;
 $hlpfile = "manuels/$language/metatags.html";
