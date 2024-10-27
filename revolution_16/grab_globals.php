@@ -83,9 +83,6 @@ if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) {
       $arr=addslashes($arr);
    }
 
-   // include current charset
-   if (file_exists("meta/cur_charset.php"))
-      include ("meta/cur_charset.php");
    // include url_protect Bad Words and create the filter function
    include ("modules/include/url_protect.php");
 

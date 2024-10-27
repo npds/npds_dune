@@ -112,8 +112,6 @@ switch($apli) {
       $blanc=imagecolorallocate($img, 255, 255, 255);
       $noir=imagecolorallocate($img, 0, 0, 0);
       imagecolortransparent($img, $blanc);
-      if (cur_charset=="utf-8")
-         $mot=utf8_decode($mot);
       imagestring($img, $font, 1 , 1, $mot, $noir);
       imagepng($img);
       imagedestroy($img);

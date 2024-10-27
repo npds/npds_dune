@@ -224,9 +224,9 @@ class FeedHtmlField {
          $result = "<![CDATA[".$this->rawFieldContent."]]>";
       } else {
          if ($this->truncSize and is_int($this->truncSize)) {
-            $result = FeedCreator::iTrunc(htmlspecialchars($this->rawFieldContent,ENT_COMPAT|ENT_HTML401,cur_charset),$this->truncSize);
+            $result = FeedCreator::iTrunc(htmlspecialchars($this->rawFieldContent,ENT_COMPAT|ENT_HTML401,'UTF-8'),$this->truncSize);
          } else {
-            $result = htmlspecialchars($this->rawFieldContent,ENT_COMPAT|ENT_HTML401,cur_charset);
+            $result = htmlspecialchars($this->rawFieldContent,ENT_COMPAT|ENT_HTML401,'UTF-8');
          }
       }
       return $result;
@@ -374,7 +374,7 @@ class FeedCreator extends HtmlDescribable {
     * This feed's character encoding.
     * @since 1.6.1
     **/
-   var $encoding = cur_charset;
+   var $encoding = 'utf-8';
 
    /**
     * Any additional elements to include as an assiciated array. All $key => $value pairs
