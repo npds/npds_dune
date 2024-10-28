@@ -226,9 +226,9 @@ function theindex($op, $catid, $marqeur) {
        automatednews();
 
        global $theme;
-       if (($op=='newcategory') or ($op=='newtopic') or ($op=='newindex') or ($op=='edito-newindex')) {
+       if (($op=='newcategory') or ($op=='newtopic') or ($op=='newindex') or ($op=='edito-newindex'))
           aff_news($op, $catid, $marqeur);
-       } else {
+       else {
           if (file_exists("themes/$theme/central.php"))
              include("themes/$theme/central.php");
           else {
