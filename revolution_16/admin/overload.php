@@ -21,54 +21,49 @@ global $language;
 $hlpfile = "manuels/$language/overload.html";
 
 function save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules) {
-    $line = "/************************************************************************/\n";
-    $content = "<?php\n";
-    $content .= "$line";
-    $content .= "/* DUNE by NPDS / SUPER-CACHE engine                                    */\n";
-    $content .= "/*                                                                      */\n";
-    $content .= "/* NPDS Copyright (c) 2002-2019 by Philippe Brunier                     */\n";
-    $content .= "/*                                                                      */\n";
-    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
-    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-    $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
-    $content .= "$line";
-    $content .= "#\$CACHE_TIMINGS['index.php'] = 300;  // 5 minutes\n";
-    $content .= "#\$CACHE_QUERYS['index.php']  = \"^\";  // Query_String for this page : \"\" = All\n";
-    $content .= "\n";
-    $content .= "#\$CACHE_QUERYS['leprog.php']  = \"^opc=(visite|modification|commentaire)\"\;\n";
-    $content .= "#\$CACHE_QUERYS['section.php'] = \"^offset=(10|20|30)&cat=[0-9]{1,2}\"\;\n";
-    $content .= "#\$CACHE_QUERYS['news.php']    = \"^idn=[0-9]{1,2}\"\;\n";
-    $content .= "\n";
-    $content .= "\$SuperCache = $xsupercache;\n";
-    $content .= "\n";
-    $content .= "\$CACHE_TIMINGS['index.php'] = $xt_index;\n";
-    $content .= "\$CACHE_QUERYS['index.php'] = \"^\";\n";
-    $content .= "\n";
-    $content .= "\$CACHE_TIMINGS['article.php'] = $xt_article;\n";
-    $content .= "\$CACHE_QUERYS['article.php'] = \"^\";\n";
-    $content .= "\n";
-    $content .= "\$CACHE_TIMINGS['sections.php'] = $xt_sections;\n";
-    $content .= "\$CACHE_QUERYS['sections.php'] = \"^op\";\n";
-    $content .= "\n";
-    $content .= "\$CACHE_TIMINGS['faq.php'] = $xt_faq;\n";
-    $content .= "\$CACHE_QUERYS['faq.php'] = \"^myfaq\";\n";
-    $content .= "\n";
-    $content .= "\$CACHE_TIMINGS['links.php'] = $xt_links;\n";
-    $content .= "\$CACHE_QUERYS['links.php'] = \"^\";\n";
-    $content .= "\n";
-    $content .= "\$CACHE_TIMINGS['forum.php'] = $xt_forum;\n";
-    $content .= "\$CACHE_QUERYS['forum.php'] = \"^\";\n";
-    $content .= "\n";
-    $content .= "\$CACHE_TIMINGS['memberslist.php'] = $xt_memberlist;\n";
-    $content .= "\$CACHE_QUERYS['memberslist.php'] = \"^\";\n";
-    $content .= "\n";
-    $content .= "\$CACHE_TIMINGS['modules.php'] = $xt_modules;\n";
-    $content .= "\$CACHE_QUERYS['modules.php'] = \"^\";\n";
-    $content .= "\n";
-    $content .= "?>";
-    $file = fopen("cache.timings.php", "w");
-    fwrite($file, $content);
-    fclose($file);
+   $line = "/************************************************************************/\n";
+   $content = "<?php\n";
+   $content .= "$line";
+   $content .= "/* DUNE by NPDS / SUPER-CACHE engine                                    */\n";
+   $content .= "/*                                                                      */\n";
+   $content .= "/* NPDS Copyright (c) 2002-".date("Y")." by Philippe Brunier                     */\n";
+   $content .= "/*                                                                      */\n";
+   $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
+   $content .= "/* it under the terms of the GNU General Public License as published by */\n";
+   $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
+   $content .= "$line";
+   $content .= "/* \n";
+   $content .= "Notes : \n";
+   $content .= "- les valeurs des éléments du tableau $CACHE_TIMINGS sont des integer représentant des secondes\n";
+   $content .= "- les valeurs des éléments du tableau $CACHE_QUERYS sont des chaines de caractères représentant un masque (pattern) valide d'une expression régulière (preg_match)\n";
+   $content .= "exemples :\n";
+   $content .= "#\$CACHE_TIMINGS['index.php'] = 300; //==> soit 5 minutes\n";
+   $content .= "#\$CACHE_QUERYS['index.php']  = \"^\"; //==> soit toujours vrai dans cet exemple donc /index.php suivi de n'importe quel paramètres\n\n";
+   $content .= "#\$CACHE_QUERYS['leprog.php']  = \"^opc=(visite|modification|commentaire)\"; //==> soit vrai SI le premier paramètre de /leprog.php est opc=visite ou opc=modification ou opc=commentaire (quelques soient les paramètres suivants)\n";
+   $content .= "#\$CACHE_QUERYS['section.php'] = \"^offset=(10|20|30)&cat=[0-9]{1,2}\"; //==> soit vrai SI le premier paramètre de /section.php est offset=10 ou offset=20 ou offset=30 suivi du paramètre cat ayant une valeur de 0 à 99\n";
+   $content .= "#\$CACHE_QUERYS['news.php']    = \"^idn=[0-9]{1,2}\"; //==> soit vrai SI le premier paramètre de /news.php est idn avec une valeur de 0 à 99\n\n";
+   $content .= "*/\n";
+   $content .= "\$SuperCache = $xsupercache;\n\n";
+   $content .= "\$CACHE_TIMINGS['index.php'] = $xt_index;\n";
+   $content .= "\$CACHE_QUERYS['index.php'] = \"^\";\n\n";
+   $content .= "\$CACHE_TIMINGS['article.php'] = $xt_article;\n";
+   $content .= "\$CACHE_QUERYS['article.php'] = \"^\";\n\n";
+   $content .= "\$CACHE_TIMINGS['sections.php'] = $xt_sections;\n";
+   $content .= "\$CACHE_QUERYS['sections.php'] = \"^op\";\n\n";
+   $content .= "\$CACHE_TIMINGS['faq.php'] = $xt_faq;\n";
+   $content .= "\$CACHE_QUERYS['faq.php'] = \"^myfaq\";\n\n";
+   $content .= "\$CACHE_TIMINGS['links.php'] = $xt_links;\n";
+   $content .= "\$CACHE_QUERYS['links.php'] = \"^\";\n\n";
+   $content .= "\$CACHE_TIMINGS['forum.php'] = $xt_forum;\n";
+   $content .= "\$CACHE_QUERYS['forum.php'] = \"^\";\n\n";
+   $content .= "\$CACHE_TIMINGS['memberslist.php'] = $xt_memberlist;\n";
+   $content .= "\$CACHE_QUERYS['memberslist.php'] = \"^\";\n\n";
+   $content .= "\$CACHE_TIMINGS['modules.php'] = $xt_modules;\n";
+   $content .= "\$CACHE_QUERYS['modules.php'] = \"^\";\n";
+   $content .= "?>";
+   $file = fopen("cache.timings.php", "w");
+   fwrite($file, $content);
+   fclose($file);
 }
 
 function main() {
@@ -99,15 +94,19 @@ function main() {
             </div>
          </div>
       </fieldset>';
-
-      if (($CACHE_TIMINGS['index.php']=='') or (!isset($CACHE_TIMINGS['index.php'])))             {$CACHE_TIMINGS['index.php']=300;}
-      if (($CACHE_TIMINGS['article.php']=='') or (!isset($CACHE_TIMINGS['article.php'])))         {$CACHE_TIMINGS['article.php']=60;}
-      if (($CACHE_TIMINGS['sections.php']=='') or (!isset($CACHE_TIMINGS['sections.php'])))       {$CACHE_TIMINGS['sections.php']=300;}
-      if (($CACHE_TIMINGS['faq.php']=='') or (!isset($CACHE_TIMINGS['faq.php'])))                 {$CACHE_TIMINGS['faq.php']=86400;}
-      if (($CACHE_TIMINGS['links.php']=='') or (!isset($CACHE_TIMINGS['links.php'])))             {$CACHE_TIMINGS['links.php']=28800;}
-      if (($CACHE_TIMINGS['forum.php']=='') or (!isset($CACHE_TIMINGS['forum.php'])))             {$CACHE_TIMINGS['forum.php']=3600;}
-      if (($CACHE_TIMINGS['memberslist.php']=='') or (!isset($CACHE_TIMINGS['memberslist.php']))) {$CACHE_TIMINGS['memberslist.php']=1800;}
-      if (($CACHE_TIMINGS['modules.php']=='') or (!isset($CACHE_TIMINGS['modules.php'])))         {$CACHE_TIMINGS['modules.php']=3600;}
+      $default_timings = [
+         'index.php' => 300,
+         'article.php' => 60,
+         'sections.php' => 300,
+         'faq.php' => 86400,
+         'links.php' => 28800,
+         'forum.php' => 3600,
+         'memberslist.php' => 1800,
+         'modules.php' => 3600
+      ];
+      foreach ($default_timings as $page => $time) {
+          $CACHE_TIMINGS[$page] = $CACHE_TIMINGS[$page] ?? $time;
+      }
 
       echo '
       <fieldset>
