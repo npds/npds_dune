@@ -176,7 +176,7 @@ function aff_news($op,$catid,$marqeur) {
    $transl1=translate("Page suivante");
    $transl2=translate("Home");
    global $storyhome, $cookie;
-   $storyhome = isset($cookie[3]) ? $cookie[3] : $storyhome ;
+   $storynum = isset($cookie[3]) ? $cookie[3] : $storyhome ;
    if ($op=='categories') {
       if (sizeof($news_tab)==$storynum) {
          $marqeur=$marqeur+sizeof($news_tab);
