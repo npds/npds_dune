@@ -13,7 +13,7 @@ if (secur_static("member")) { ?>
       <div class="contenair-fluid mt-5">
          <div class= "card mx-auto p-3" style="width:380px; text-align:center">
             <span style="font-size: 72px;">🚫</span>
-            <span class="text-danger h3 mb-3" style="">
+            <span class="text-danger h3 mb-3">
                Acc&egrave;s refus&eacute; ! <br />
                Access denied ! <br />
                Zugriff verweigert ! <br />
