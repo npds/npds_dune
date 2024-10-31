@@ -25,8 +25,9 @@ require 'lib/PHPMailer/src/SMTP.php';
 include("lib/mysqli.php");
 include("modules/meta-lang/adv-meta_lang.php");
 
-#autodoc Mysql_Connexion() : Connexion plus détaillée ($mysql_p=true => persistente connexion) - Attention : le type de SGBD n'a pas de lien avec le nom de cette fontion
+#autodoc Mysql_Connexion() : Connexion plus détaillée ($mysql_p=true => persistente connexion) - Attention : le type de SGBD n'a pas de lien avec le nom de cette fonction
 function Mysql_Connexion() {
+   global $mysql_error, $dbhost, $dbname;
    $ret_p=sql_connect();
    if (!$ret_p) {
       $Titlesitename="NPDS";
@@ -40,7 +41,6 @@ function Mysql_Connexion() {
 }
 /****************/
 $dblink=Mysql_Connexion();
-mysqli_set_charset($dblink,"utf8mb4");
 $mainfile=1;
 require_once("auth.inc.php");
 if (isset($user)) $cookie=cookiedecode($user);
@@ -453,7 +453,7 @@ function Ecr_Log($fic_log, $req_log, $mot_log) {
    flock($fp, 2);
    fseek($fp, filesize($logfile));
    if ($mot_log=="") $mot_log="IP=>".getip();
-   $ibid = sprintf("%-10s %-60s %-10s\r\n",date("m/d/Y H:i:s",time()),basename($_SERVER['PHP_SELF'])."=>".strip_tags(urldecode($req_log)),strip_tags(urldecode($mot_log)));//pourquoi urldecode ici ?
+   $ibid = sprintf("%-10s %-60s %-10s\r\n",date("d/m/Y H:i:s",time()),basename($_SERVER['PHP_SELF'])."=>".strip_tags(urldecode($req_log)),strip_tags(urldecode($mot_log)));//pourquoi urldecode ici ?
    fwrite($fp, $ibid);
    flock($fp, 3);
    fclose($fp);
