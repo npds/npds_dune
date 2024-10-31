@@ -22,31 +22,32 @@ $moreclass = 'col';
 switch ($pdst) {
    case '-1':
       echo '
-               </div>
-            </div>
-         </div>';
+                     </div>
+                  </div>
+               </div>';
    break;
    default:
       echo '
-         </div>
-         <div id="col_LB" class="collapse show col-lg-4">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
-               leftblocks($moreclass);
-               rightblocks($moreclass);
+               </div>
+               <div id="col_LB" class="collapse show col-lg-4">
+                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1">';
+                     leftblocks($moreclass);
+                     rightblocks($moreclass);
       echo '
-            </div>
-         </div>';
+                  </div>
+               </div>';
          colsyst('#col_LB');
       echo '
-      </div>
-   </div>';
+            </div>
+         </div>
+';
    break;
 }
 
 // ContainerGlobal permet de transmettre · Theme-Dynamic un élément de personnalisation après
 // le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
 $ContainerGlobal='
-</div>';
+            </div>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
   require_once("themes/themes-dynamic/footer.php");
