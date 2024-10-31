@@ -61,47 +61,47 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
 
    $boxtitle=translate("Liens relatifs");
    $boxstuff='
-      <ul>';
+                     <ul>';
    $result=sql_query("SELECT name, url FROM ".$NPDS_Prefix."related WHERE tid='$topic'");
    while(list($name, $url) = sql_fetch_row($result)) {
       $boxstuff .= '
-         <li><a href="'.$url.'" target="_blank"><span>'.$name.'</span></a></li>';
+                        <li><a href="'.$url.'" target="_blank"><span>'.$name.'</span></a></li>';
    }
    $boxstuff .= '
-      </ul>
-      <ul>
-         <li><a href="search.php?topic='.$topic.'" >'.translate("En savoir plus à propos de").' : </a><span class="h5"><span class="badge bg-secondary" title="'.$topicname.'<hr />'.aff_langue($topictext).'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right">'.aff_langue($topicname).'</span></span></li>
-         <li><a href="search.php?member='.$informant.'" >'.translate("Article de").' '.$informant.'</a> '.userpopover($informant,36,'').'</li>
-      </ul>
-      <div><span class="fw-semibold">'.translate("L'article le plus lu à propos de").' : </span><span class="h5"><span class="badge bg-secondary" title="'.$topicname.'<hr />'.aff_langue($topictext).'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right">'.aff_langue($topicname).'</span></span></div>';
+                     </ul>
+                     <ul>
+                        <li><a href="search.php?topic='.$topic.'" >'.translate("En savoir plus à propos de").' : </a><span class="h5"><span class="badge bg-secondary" title="'.$topicname.'<hr />'.aff_langue($topictext).'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right">'.aff_langue($topicname).'</span></span></li>
+                        <li><a href="search.php?member='.$informant.'" >'.translate("Article de").' '.$informant.'</a> '.userpopover($informant,36,'').'</li>
+                     </ul>
+                     <div><span class="fw-semibold">'.translate("L'article le plus lu à propos de").' : </span><span class="h5"><span class="badge bg-secondary" title="'.$topicname.'<hr />'.aff_langue($topictext).'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right">'.aff_langue($topicname).'</span></span></div>';
 
    $xtab=news_aff("big_story","WHERE topic=$topic",1,1);
    list($topstory, $ttitle) = $xtab[0];
    $boxstuff .= '
-      <ul>
-         <li><a href="article.php?sid='.$topstory.'" >'.aff_langue($ttitle).'</a></li>
-      </ul>
-      <div><span class="fw-semibold">'.translate("Les dernières nouvelles à propos de").' : </span><span class="h5"><span class="badge bg-secondary" title="'.$topicname.'<hr />'.aff_langue($topictext).'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right">'.aff_langue($topicname).'</span></span></div>';
+                     <ul>
+                        <li><a href="article.php?sid='.$topstory.'" >'.aff_langue($ttitle).'</a></li>
+                     </ul>
+                     <div><span class="fw-semibold">'.translate("Les dernières nouvelles à propos de").' : </span><span class="h5"><span class="badge bg-secondary" title="'.$topicname.'<hr />'.aff_langue($topictext).'" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right">'.aff_langue($topicname).'</span></span></div>';
    $xtab = (!$archive) ?
       news_aff("libre","WHERE topic=$topic AND archive='0' ORDER BY sid DESC LIMIT 0,5",0,5) :
       news_aff("archive","WHERE topic=$topic AND archive='1' ORDER BY sid DESC LIMIT 0,5",0,5) ;
 
    $story_limit=0;
    $boxstuff .='
-      <ul>';
+                     <ul>';
    while (($story_limit<5) and ($story_limit<sizeof($xtab))) {
       list($sid1,$catid1,$aid1,$title1) = $xtab[$story_limit];
       $story_limit++;
       $title1=aff_langue(addslashes($title1));
       $boxstuff.='
-         <li><a href="article.php?sid='.$sid1.'&amp;archive='.$archive.'" >'.aff_langue(stripslashes($title1)).'</a></li>';
+                        <li><a href="article.php?sid='.$sid1.'&amp;archive='.$archive.'" >'.aff_langue(stripslashes($title1)).'</a></li>';
    }
    $boxstuff .='
-      </ul>
-      <p align="center">
-         <a href="print.php?sid='.$sid.'" ><i class="fa fa-print fa-2x me-3" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip"></i></a>
-         <a href="friend.php?op=FriendSend&amp;sid='.$sid.'&amp;archive='.$archive.'"><i class="fa fa-2x fa-at" title="'.translate("Envoyer cet article à un ami").'" data-bs-toggle="tooltip"></i></a>
-      </p>';
+                     </ul>
+                     <p align="center">
+                        <a href="print.php?sid='.$sid.'" ><i class="fa fa-print fa-2x me-3" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip"></i></a>
+                        <a href="friend.php?op=FriendSend&amp;sid='.$sid.'&amp;archive='.$archive.'"><i class="fa fa-2x fa-at" title="'.translate("Envoyer cet article à un ami").'" data-bs-toggle="tooltip"></i></a>
+                     </p>';
 
    if (!$archive) {
       $previous_tab=news_aff("libre","WHERE sid<'$sid' ORDER BY sid DESC ",0,1);
