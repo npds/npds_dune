@@ -186,14 +186,28 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
           substr($_SERVER['REQUEST_URI'],strpos($_SERVER['REQUEST_URI'],"modules.php")) ;
 
    // Admin function can have all the PAGES attributs except Title
-   if ($pages_ref=="admin.php") {
-      if (array_key_exists(1,$page_uri)) {
-         if (array_key_exists($pages_ref."?".$page_uri[1],$PAGES)) {
-            if (array_key_exists('title',$PAGES[$pages_ref."?".$page_uri[1]]))
-               $pages_ref.="?".$page_uri[1];
+         if ($pages_ref=="admin.php") {
+         if (array_key_exists(1,$page_uri)) {
+            if (array_key_exists($pages_ref."?".$page_uri[1],$PAGES)) {
+               if (array_key_exists('title',$PAGES[$pages_ref."?".$page_uri[1]]))
+                  $pages_ref.="?".$page_uri[1];
+            }
          }
       }
+   /*
+   if ($pages_ref=="admin.php") {
+      $others='';
+      if (array_key_exists(1,$page_uri)) {
+         foreach($page_uri as $k => $partofurl) {
+            if ($k==1)
+               $firstPara ="?".$page_uri[$k];
+            if($k>1)
+               $others .="&".$page_uri[$k];
+         }
+      $pages_ref .= $firstPara.$others;
+      }
    }
+*/
 
    // extend usage of pages.php : blocking script with part of URI for user, admin or with the value of a VAR
    if ($Npage_uri>1) {
@@ -275,11 +289,11 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
                $tiny_mce_relurl=$PAGES[$pages_ref]['TinyMceRelurl'];
          } else {
             $tiny_mce_init=false;
-            $tiny_mce=false;
+//            $tiny_mce=false; //pourquoi la redéfinir - cela affecte le controle de son état dans les préférences
          }
       } else {
          $tiny_mce_init=false;
-         $tiny_mce=false;
+//         $tiny_mce=false;// idem sup
       }
    } else
       $tiny_mce_init=false;
@@ -308,7 +322,6 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
          $js='';
    } else
       $js='';
-
    head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_description,$m_keywords);
    global $httpref, $nuke_url, $httprefmax, $admin, $NPDS_Prefix;
    if ($httpref==1) {
