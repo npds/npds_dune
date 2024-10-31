@@ -290,8 +290,6 @@ function MetaTagSave($filename, $tags) {
 }
 
 if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
-include ("admin/settings_save.php"); //pourquoi faire ?
-
 global $language;
 $hlpfile = "manuels/$language/metatags.html";
 
