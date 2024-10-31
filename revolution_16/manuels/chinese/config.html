@@ -2,11 +2,11 @@
 <html lang="zh">
    <head>
       <meta charset="utf-8" />
-         <title>管理 - 首选项</title>
-         <meta name="viewport" content="width=device-width, initial-scale=1" />
-         <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <title>管理 - 首选项</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
-         <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
    </head>
    <body>
       <div class="container">
@@ -21,189 +21,250 @@
          <hr class="mt-n3" />
          <h3 class="mb-3">管理 - 首选项</h3>
 
-<br/><br/>
-本功能是您开始创建一个NPDS网站时最重要的部分。您可以修改您网站中的所有重要信息，尤其是您期望的外观效果。
-<br/><br/>
-您在以下的段落中将找到重要参数的解释，尤其是在NPDS中使用的新功能。
-<br/><br/><br/>
-<center><font color=Red><b>网站的简介</b></font></center>
-<br/><br/>
-<li><b>Parse algo :</b> 对于您网站上的参数，您可以选择Parse的一个或另一个功能。<br/>
-- FixQuotes 是原功能，可以将一个单引号自动变为一个双引号 (例如 : l'art 变为 l''art)<br/>
-- StripSlashes 是为了保证不影响文本本身 (例如 : l'art 仍然为 l'art) 但是可能会产生其它问题。
-</li><br/><br/>
+         <p>本功能是您开始创建一个NPDS网站时最重要的部分。您可以修改您网站中的所有重要信息，尤其是您期望的外观效果。<br />您在以下的段落中将找到重要参数的解释，尤其是在NPDS中使用的新功能。</p>
+         <h4>网站的简介</h4>
+         <h5>Parse algo</h5>
+         <p>对于您网站上的参数，您可以选择Parse的一个或另一个功能。
+            <ul>
+               <li>FixQuotes 是原功能，可以将一个单引号自动变为一个双引号 (例如 : l'art 变为 l''art)</li>
+               <li>StripSlashes 是为了保证不影响文本本身 (例如 : l'art 仍然为 l'art) 但是可能会产生其它问题。</li>
+            </ul>
+         </p>
+         <h5>OB_Gzhandler</h5>
+         <p>允许向浏览器发送压缩数据，当然，该浏览器必须支持压缩页面。<br />
+         ob_gzhandler() 在发送压缩数据前，它确定浏览器支持的编码类型 ("gzip", "deflate" 或不是其中任何一个)，然后返回有效的内容。所有浏览器都可以被涉及，因为浏览器本身会发送头文件，其中标注着该浏览器所支持的页面类型。<br />
+         仅在 Php 4.05 (或>) 下工作，且Zlib 必须为激活状态 (命令phpinfo();)，且为Apache，且mod_gzip 为激活状态。
+         </p>
+         <h5>FileManager</h5>
+         <p>激活或关闭使用FileManager （文件管理器）。请注意，仅在您需要的时候才激活该FileManager。</p>
+         <h5>cookie 的有效时效</h5>
+         <p>无注释 (1年为8760小时)</p>
+         <h5>网站名称</h5>
+         <p>您的网站的名称（当然是由您来定义）。</p>
+         <h5>Nom du site pour la balise Title :</h5>
+         <p>每个HTML页面的抬头标题 (主要为搜索引擎使用)</p>
+         <h5>网站URL地址</h5>
+         <p>http://www.xxx.com 或 http://www.xxx.xom/~homepage/...</p>
+         <h5>网站的Logo</h5>
+         <p>为gif或jpg图片文件。请将其保存在您服务器下<b>images</b>文件夹中(默认设置)，或保存在您的某个主题下 (完整路径，例如：themes/mon_theme/..../logo.jpg)。<br />
+         该图片文件仅在NPDS转印过程中使用。建议使用黑白图片。</p>
+         <h5>网站的标语Slogan</h5>
+         <p>如果您的网站有口号宣传，就在这里填写吧！</p>
+         <h5>网站启动日期</h5>
+         <p>该启动日期 (20/10/1429 或31 Décembre 2012) 将仅在统计数字中显示。</p>
+         <h5>页面Top x 的事件的数目:</h5>
+         <p>允许设置参数Top x (5, 10, 15, ...).</p>
+         <h5>在主页上显示的文章的数目</h5>
+         <p>在一个页面上显示的文章以10篇为适宜。但是这最终取决于您的网站本身的需要。请注意在NPDS中注册的会员可以修改这个数值，因此，这里定义的文章数目也仅为一个默认的初始值。</p>
+         <h5>旧文章库中的文章数目</h5>
+         <p>页面右侧的功能框之一显示的为 旧文章的列表。您可以对其中的显示的文章数目设置参数。</p>
+         <h5>激活 Export-News</h5>
+         <p>Export-News是2个文本文件，保存在您网站的隐藏目录下。默认的参数为：否。<br />
+         在这2个文本文件中 (ultramode.txt 和 net2zone.txt) 包含您的网站的10个最新消息的内容。<br />
+         该文件允许其它网站引用您的信息资源，格式简易 :<br />
+            <ul>
+               <li>ultramode.txt 文本文件中，每条新闻之间以%%间隔</li>
+               <li>net2zone.txt 为XML格式（net2zone）的文本文件<br />"Online"在线功能与 Backend 的功能是相同的。后者是RDF/XML格式，或者更好的NPDS Push Infos System功能。</li>
+            </ul>
+         </p>
+         <h5>匿名者的默认名称</h5> 
+         <p>默认的尚未注册的用户的名称。其实，匿名者本身就是很好的称呼值（当然也可以是访客等等）。在NPDS运行期间请不要修改这个参数。</p>
+         <h5>允许匿名者评论</h5>
+         <p>如果您期望匿名用户（即非注册的用户）可以发表评论，就在本项中选择 是 。</p>
+         <h5>用户的评论的最多数目 (24小时内)</h5>
+         <p>对于匿名或注册会员，本参数将限制其发表评论文章的最大数目。
+默认值为6， 99999为最大值。</p>
 
-<li><b>OB_Gzhandler : </b>允许向浏览器发送压缩数据，当然，该浏览器必须支持压缩页面。<br/>
-ob_gzhandler() 在发送压缩数据前，它确定浏览器支持的编码类型 ("gzip", "deflate" 或不是其中任何一个)，然后返回有效的内容。所有浏览器都可以被涉及，因为浏览器本身会发送头文件，其中标注着该浏览器所支持的页面类型。
-<br/><br/>
-仅在 Php 4.05 (或>) 下工作，且Zlib 必须为激活状态 (命令phpinfo();)，且为Apache，且mod_gzip 为激活状态。
-</li><br/><br/>
-<li><b>FileManager : </b>激活或关闭使用FileManager （文件管理器）。请注意，仅在您需要的时候才激活该FileManager。
-</li><br/><br/>
-<li><b>cookie 的有效时效：</b>无注释 (1年为8760小时)
-</li><br/><br/>
-<li><b>网站名称 :</b>您的网站的名称（当然是由您来定义）。
-</li><br/><br/>
-<li><b>Nom du site pour la balise Title :</b> 每个HTML页面的抬头标题 (主要为搜索引擎使用)
-</li><br/><br/>
-<li><b>网站URL地址 :</b> http://www.xxx.com 或 http://www.xxx.xom/~homepage/...
-</li><br/><br/>
-<li><b>网站的Logo :</b> 为gif或jpg图片文件。请将其保存在您服务器下<b>images</b>文件夹中(默认设置)，或保存在您的某个主题下 (完整路径，例如：themes/mon_theme/..../logo.jpg)。<br/>
-该图片文件仅在NPDS转印过程中使用。建议使用黑白图片。
-</li><br/><br/>
-<li><b>网站的标语Slogan :</b> 如果您的网站有口号宣传，就在这里填写吧！
-</li><br/><br/>
-<li><b>网站启动日期 :</b> 该启动日期 (20/10/1429 或31 Décembre 2012) 将仅在统计数字中显示。
-</li><br/><br/>
-<li><b>页面Top x 的事件的数目:</b> 允许设置参数Top x (5, 10, 15, ...).
-</li><br/><br/>
-<li><b>在主页上显示的文章的数目 : </b>在一个页面上显示的文章以10篇为适宜。但是这最终取决于您的网站本身的需要。请注意在NPDS中注册的会员可以修改这个数值，因此，这里定义的文章数目也仅为一个默认的初始值。
-</li><br/><br/>
-<li><b>旧文章库中的文章数目 : </b>页面右侧的功能框之一显示的为 旧文章的列表。您可以对其中的显示的文章数目设置参数。
-</li><br/><br/>
-<li><b>激活 Export-News :</b> Export-News是2个文本文件，保存在您网站的隐藏目录下。默认的参数为：否。<br/>
-在这2个文本文件中 (ultramode.txt 和 net2zone.txt) 包含您的网站的10个最新消息的内容。<br/>
-该文件允许其它网站引用您的信息资源，格式简易 :<br/>
--ultramode.txt 文本文件中，每条新闻之间以%%间隔<br/>
--net2zone.txt 为XML格式（net2zone）的文本文件<br/><br/>
+         <h5>允许创建"News"</h5>
+         <p>该功能允许 版主/管理员 限制（或不限制）来自会员的新闻的提交。<br />
+         该功能对于一个信息网站的维护很有用。</p>
+         <h5>在统计数据中，无需保存“访问最多的的作者”的信息 :</h5>
+         <p>旨在不将您的网站的维护者统计为真正的访问者。</p>
+         <h5>网站默认的显示主题</h5>
+         <p>您的网站默认选择的主题。请不要忘记：注册用户可以修改本选项 (如果有多个主题可选择...)。</p>
+         <h5>启动页面 :</h5>
+         <p>旨在设置启动页面（即您的网站的首页）的参数。系统默认的首页为index.php。但是您可以选择其它功能：<br />
+            <ul>
+               <li>links.php</li>
+               <li>faqs.php</li>
+               <li>static.php?op=npds.txt&npds=1 ... (npds的参数可以为 -1 : 无功能框, 0 : 左功能框, 1 : 左右功能框)</li>
+               <li>编辑:
+                  <ul>
+                     <li>=> 仅 index.php?op=<b>edito</b> : 显示编辑功能，及新闻系统。</li>
+                     <li>=> 仅 index.php?op=<b>edito-nonews</b> : 显示编辑功能，但是不显示新闻系统。</li>
+                     <li>=> 仅 index.php?op=<b>newindex</b></li>
+                     <li>=> 仅 index.php?op=<b>edito-newindex</b></li>
+                     <li>=> 仅 index.php?op=<b>newtopic&topic=X</b></li>
+                  </ul>
+               </li>
+            </ul>
+         </p>
+         <h5>选择网站的语言 : </h5>
+         <p>无注释。</p>
+         <h5>激活多语言功能</h5>
+         <p>允许NPDS使用多种语言，标记为 [langue]...[/langue]<br /> 请同样定义当地时间，例如：[french]fr_FR[/french] 或 [english]en_EN[/english] 或 [chinese]cn_CN[/chinese]</p>
+         <h5>当地时间</h5>
+         <p>请校准您所在的时区设置。Unix用户请看"locales"功能，通常在 /usr/share/locale 目录下。</p>
+         <h5>设置白天开始于 和 晚上开始于</h5>
+         <p>旨在规定某些功能（如编辑功能）开始于某特定时段。</p>
+         <h5>UTC</h5>
+         <p>旨在与主机所在的时区保持某个专门时差 (+或-)。</p>
 
-"Online"在线功能与 Backend 的功能是相同的。后者是RDF/XML格式，或者更好的NPDS Push Infos System功能。
-</li><br/><br/>
-<li><b>匿名者的默认名称 :</b> 默认的尚未注册的用户的名称。其实，匿名者本身就是很好的称呼值（当然也可以是访客等等）。在NPDS运行期间请不要修改这个参数。
-</li><br/><br/>
-<li><b>允许匿名者评论 : </b>如果您期望匿名用户（即非注册的用户）可以发表评论，就在本项中选择 是 。
-</li><br/><br/>
-<li><b>用户的评论的最多数目 (24小时内) : </b>对于匿名或注册会员，本参数将限制其发表评论文章的最大数目。 
-默认值为6， 99999为最大值。
-</li><br/><br/>
-<li><b>允许创建"News" : </b>该功能允许 版主/管理员 限制（或不限制）来自会员的新闻的提交。<br/>
-该功能对于一个信息网站的维护很有用。
-</li><br/><br/>
-<li><b>在统计数据中，无需保存“访问最多的的作者”的信息 :</b> 旨在不将您的网站的维护者统计为真正的访问者。
-</li><br/><br/>
-<li><b>网站默认的显示主题 : </b> 您的网站默认选择的主题。请不要忘记：注册用户可以修改本选项 (如果有多个主题可选择...)。
-</li><br/>
-<li><b>启动页面 :</b> 旨在设置启动页面（即您的网站的首页）的参数。系统默认的首页为index.php。但是您可以选择其它功能：<br/>
-- links.php<br/>
-- faqs.php<br/>
-- static.php?op=npds.txt&npds=1 ... (npds的参数可以为 -1 : 无功能框, 0 : 左功能框, 1 : 左右功能框)<br/><br/>
-- 编辑：<br/>
-=> 仅 index.php?op=<b>edito</b> : 显示编辑功能，及新闻系统。<br/>
-=> 仅 index.php?op=<b>edito-nonews</b> : 显示编辑功能，但是不显示新闻系统。<br/>
-=> 仅 index.php?op=<b>newindex</b><br/>
-=> 仅 index.php?op=<b>edito-newindex</b><br/>
-=> 仅 index.php?op=<b>newtopic&topic=X</b>
-<br/><br/>
-<li><b>选择网站的语言 : </b>无注释。
-</li><br/><br/>
-<li><b>激活多语言功能 : </b>允许NPDS使用多种语言，标记为 [langue]...[/langue]<br/>
-请同样定义当地时间，例如：[french]fr_FR[/french] 或 [english]en_EN[/english] 或 [chinese]cn_CN[/chinese]
-</li><br/><br/>
-<li><b>当地时间 : </b>请校准您所在的时区设置。Unix用户请看"locales"功能，通常在 /usr/share/locale 目录下。
-</li><br/><br/>
-<li><b>设置白天开始于 和 晚上开始于：</b>旨在规定某些功能（如编辑功能）开始于某特定时段。
-</li><br/><br/>
-<li><b>GMT : </b>旨在与主机所在的时区保持某个专门时差 (+或-)。
-</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>Banner 设置选项</b></font></center><br/>
-<li><b>激活网站上的banner条幅：</b>您可以激活或关闭网站上的banner广告。但是您首先必须定义了一个宣传活动...
-</li><br/><br/>
-<li><b>您的IP地址，目的在于避免将来自您的页面点击统计在数据中 :</b> 请尊重诚实的统计数据。作为网站的管理员，您的计算机应该排除在网站浏览量的统计对象之外。
-</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>页尾的信息</b></font></center><br/>
-<li><b>有1,2,3,4行 :</b> 您的网站的页尾部分支持HTML。如果您仅需要一行或两行内容，则保留该区域为空（直接跨过）。
-通常情况下，该页尾部分是保留给以下信息：版权，帐号，主机寄存处，等等。
-</li><br/><br/>
-<br/><br/><br/>
+         <h4>Banner 设置选项</h4>
+         <h5>激活网站上的banner条幅</h5>
+         <p>您可以激活或关闭网站上的banner广告。但是您首先必须定义了一个宣传活动...</p>
+         <h5>您的IP地址，目的在于避免将来自您的页面点击统计在数据中</h5>
+         <p>请尊重诚实的统计数据。作为网站的管理员，您的计算机应该排除在网站浏览量的统计对象之外。</p>
 
-<center><font color=Red><b>Backend信息的设置 (RDF/XML格式的信息来源)</b></font></center><br/>
+         <h4>页尾的信息</h4>
+         <h5>有1,2,3,4行</h5>
+         <p>您的网站的页尾部分支持HTML。如果您仅需要一行或两行内容，则保留该区域为空（直接跨过）。<br />
+         通常情况下，该页尾部分是保留给以下信息：版权，帐号，主机寄存处，等等。</p>
 
-<li><b>Backend的题目 : </b>无注释。您可以在题目后面加上网站标语。</li><br/><br/>
-<li><b>Backend的语言 : </b>网站本身使用的语言格式。</li><br/><br/>
-<li><b>Backend的图片的URL地址 : </b>完整路径 (http://...) 在您网站上引入一个 image/logo 图片。</li><br/><br/>
-<li><b>Backend的图片的宽度 : </b>无注释。</li><br/><br/>
-<li><b>Backend的图片的高度 : </b>无注释。</li><br/><br/>
-<br /><br /><br />
-<center><font color=Red><b>友好链接的默认设置 </b></font></center><br/>
+         <h4>Backend信息的设置 (RDF/XML格式的信息来源)</h4>
+         <h5>Backend的题目</h5>
+         <p>无注释。您可以在题目后面加上网站标语。</p>
+         <h5>Backend的语言</h5>
+         <p>网站本身使用的语言格式。</p>
+         <h5>Backend的图片的URL地址</h5>
+         <p>完整路径 (http://...) 在您网站上引入一个 image/logo 图片。</p>
+         <h5>Backend的图片的宽度</h5>
+         <p>无注释。</p>
+         <h5>Backend的图片的高度</h5>
+         <p>无注释。</p>
 
-<li><b>每页上的链接的数量：每页可显示的链接的最大数量 (友好链接的功能中)。</li><br/><br/>
-<li><b>定义升级为 热门链接 所必须的点击数：无注释。当条件满足时，在该链接右侧显示一个小星号。</li><br/><br/>
-<li><b>'新'链接的数量：Le nombre maximun de liens dans la page "Nouveau".</li><br/><br/>
-<li><b>'最佳'链接的数量：Le nombre maximun de liens dans la page "Populaire" (les liens les plus "cliqués").</li><br/><br/>
-<li><b>搜索结果中显示的链接数量：无注释。</li><br/><br/>
-<li><b>允许匿名用户推荐并张贴链接：是或否。</li><br/><br/>
-<li><b>在链接页面上显示Logo图片：是或否。</li><br/><br/>
-<li><b>激活 给某类别附加小图标 [新] [New]的功能：当某类别为新，或其中有新内容时，显示该小图标。</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>邮件系统 (Email) </b></font></center><br/>
+         <h4>友好链接的默认设置</h4>
+         <h5>每页上的链接的数量</h5>
+         <p>每页可显示的链接的最大数量 (友好链接的功能中)。</p>
+         <h5>定义升级为 热门链接 所必须的点击数</h5>
+         <p>无注释。当条件满足时，在该链接右侧显示一个小星号。</p>
+         <h5>'新'链接的数量</h5>
+         <p>Le nombre maximun de liens dans la page "Nouveau".</p>
+         <h5>'最佳'链接的数量</h5>
+         <p>Le nombre maximun de liens dans la page "Populaire" (les liens les plus "cliqués").</p>
+         <h5>搜索结果中显示的链接数量</h5>
+         <p>无注释。</p>
+         <h5>允许匿名用户推荐并张贴链接</h5>
+         <p>是或否。</p>
+         <h5>在链接页面上显示Logo图片</h5>
+         <p>是或否。</p>
+         <h5>激活 给某类别附加小图标 [新] [New]的功能</h5>
+         <p>当某类别为新，或其中有新内容时，显示该小图标。</p>
 
-<li><b>管理员的E-mail地址：当NPDS自动发送Emails时，本设置允许收信人回复给您 (真实或虚拟Email地址 / 格式要求填写完整的域名。=> 例如 : developpeur@npds.org)。</li><br/><br/>
-<li><b>所使用的邮件功能：fonction : mail => 所有Linux机器中默认使用此称谓 / fonction : email => 适用于某些寄存主机。</li><br/><br/>
-<li><b>Email信尾 : NPDS可以发送某些Email (例如密码通知)。该选项允许您设置此类Email的信尾（例如签名等）。该区域支持HTML。
-建议：在信尾提示您的地址，电话或网站的标语等。</li><br/><br/>
+         <h4>消息系统（电子邮件）</h4>
+         <h5>管理员电子邮件地址</h5>
+         <p>当 NPDS 自动发送电子邮件时使用，因此允许收件人回复您（与发送服务器关联的有效、授权电子邮件地址。=&gt; 例如：developpeur@npds.org）。</p>
+         <h5>我应该使用哪种电子邮件协议？</h5>
+         <p>使用或不使用 SMTP(S) 协议</p>
+         <h6>配置 PHPmailer SMTP(S)</h6>
+         <ul>
+            <li>发送服务器的名称</li>
+            <li>应使用的 TCP 端口。如果您使用 SMTPS 加密，则为 587 或 465（较少见且已过时）。对于 SMTP，有时为端口 25 或 2525</li>
+            <li>身份验证：如果您的服务器需要，则输入：用户名和密码。</li>
+            <li>是否在传输过程中启用邮件加密。并选择 TLS（默认）或 SSL（已过时）加密协议。请注意，SMTP 仅在传输过程中加密邮件。</li>
+         </ul>
+         <h6>DKIM</h6>
+         <p>使用 DNS DKIM 记录或门户自动生成的 DKIM 记录</p>
+         <h5>通过Email发送新文章给管理员：</h5>
+         <p>NPDS(如同 PHP-Nuke)允许系统在用户发表新文章时立刻通知管理员。</p>
+         <h5>通过E-mail提示有新文章</h5>
+         <p>是或否。</p>
+         <h5>发送通知消息时的接收E-mail地址</h5>
+         <p>无注释。</p>
+         <h5>E-mail主题</h5>
+         <p>无注释。</p>
+         <h5>E-mail的消息</h5>
+         <p>无注释。</p>
+         <h5>E-mail (来源)帐号：</h5>
+         <p>无注释。</p>
 
-<b>通过Email发送新文章给管理员：</b>NPDS(如同 PHP-Nuke)允许系统在用户发表新文章时立刻通知管理员。<br/><br/>
-<li><b>通过E-mail提示有新文章：</b>是或否。</li><br/><br/>
-<li><b>发送通知消息时的接收E-mail地址：</b>无注释。</li><br/><br/>
-<li><b>E-mail主题：</b>无注释。</li><br/><br/>
-<li><b>E-mail的消息：</b>无注释。</li><br/><br/>
-<li><b>E-mail (来源)帐号：</b>无注释。</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>对评论文章的控制 </b></font></center><br/>
-<li><b>控制的类型：</b>系统对评论的节制可以是自动的，但是请不要盲目地相信她的作用。</li><br/>
-- 管理员控制<br/>
-- 用户控制<br/>
-- 无控制</li><br/><br/>
-<li><b>对评论文章的字数的限制：</b>定义一个评论文章能拥有的最多字数，以预示出现与否 "读评论的更多内容..." 的链接。4096是一个比较理想的数值。
-</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>网上调查的设置 </b></font></center><br/>
+         <h4>对评论文章的控制</h4>
+         <h5>控制的类型</h5>
+         <p>系统对评论的节制可以是自动的，但是请不要盲目地相信她的作用。
+            <ul>
+               <li> 管理员控制</li>
+               <li> 用户控制</li>
+               <li> 无控制</li>
+            </ul>
+         <p>
+         <h5>对评论文章的字数的限制</h5>
+         <p>定义一个评论文章能拥有的最多字数，以预示出现与否 "读评论的更多内容..." 的链接。4096是一个比较理想的数值。</p>
 
-<li><b>网上调查中可选项的最多数量：</b>无注释。</li><br/><br/>
-<li><b>调查投票结果的杠形分级显示：</b>设置时，您输入一个数字，系统将乘以100倍。然后以此为基础计算将显示的分级结果（杠形图形方式）。如果您输入3，分级为300%。</li><br/><br/>
-在99,99%的情况下，采用1是较为理想的设置。
-<li><b>允许用户多次投票：</b>是或否，这取决于您的偏好。如果您定义为“是”，系统允许用户在24小时内随意投票，并在调查中张贴一个短小信息。如果您定义为“否”，则一个用户在一个调查中的投票是唯一的。</li><br/><br/>
-<li><b> 激活对网上调查的评论：</b>无注释。</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>关于图形和样式</b></font></center><br/>
-不要更改此选项，除非.... <br/><br/>
-<li><b>主题中的图片的路径：</b>通常为 /images/topics.</li><br/><br/>
-<li><b>某些图片（投票等）的路径：</b>通常为 /images/menu/.</li><br/><br/>
-<li><b>管理员菜单的图片的路径：</b>通常为 /images/admin/.</li><br/><br/>
-<li><b>激活在管理菜单中的图形：</b>是或否。选择否的情况下，页面速度提高。</li><br/><br/>
-<li><b>激活管理中的短菜单：</b>是或否。选择是的情况下，页面速度提高。</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>其它</b></font></center><br/>
-<li><b>管理模式下的文章数目：</b>无注释 (但是本数值同样用于栏目等)。</li><br/><br/>
-<li><b>用户密码设置的最少字数：</b>建议定义为8。</li><br/><br/>
-<li><b>列表中用户的数量：</b>进入下一页之前在通讯录中。</li><br/><br/>
-<li><b>激活表情符号：</b>NPDS允许在创建会员或论坛中不使用表情符号。</li><br/><br/>
-<li>个性化表情符号的最大尺寸为 (宽度*高度 / 60*80，以pixel为单位)：NPDS允许 专门定义上传的表情符号的最大尺寸。</li><br/><br/>
-<li><b>激活用户的简短描述：</b>NPDS允许一个新用户不输入其ICQ, MSN等信息。</li><br/><br/>
-<li><b>准许自动创建会员：</b>NPDS允许，在无管理员意见的情况下，不同意一个新会员的连接（目的：准许用户的登记卡的连接）。本功能对“非开放式”的网站很实用。</li><br/><br/>
-<li><b>准许用户选择自己的密码：</b>您可以准许一个新用户选择他自己期望的密码。您同样可以预先定义为不准许该功能。</li><br/><br/>
-<li><b>准许订购服务：</b>准许您的会员订购NPDS上的不同信息资料 (主题，论坛，内部消息等)。他们将通过Email接收订阅的消息 (请注意本功能可以会导致较大的系统负载)。</li><br/><br/>
-<li><b>准许会员为隐身状态：</b>准许您的会员为“隐身”：他们的标识将不显示在NPDS的各个功能中（但是管理员可以观察到隐身会员）。</li><br/><br/>
-<li><b>关闭新的注册：</b>NPDS允许临时性地关闭新会员注册功能 (static/closed.txt页面将显示)。本功能对关闭某网站很实用。</li><br/><br/>
-<li><b>激活http参照：</b>无注释。</li><br/><br/>
-<li><b>最多参照的数量限制：</b>请不要让您的数据库负载过多。</li><br/><br/>
-<li><b>会员列表：私人：</b>NPDS允许仅对注册会员显示通讯录。</li><br/><br/>
-<li><b>上传栏目：</b>选择首先出现的下载栏目（或类别），或者不做选择。</li><br/><br/>
-<li><b>简短评论：</b>将评论转化为留言本中的记录。</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>HTTP其它</b></font></center><br/>
-<li><b>在有信息外来源</b>(头条标题)的新闻站点中，激活在Port 80对某站点的核查：NPDS同样允许不对某站点核查Port 80。 这点对于Multimania和其它ISP很实用。</li><br/><br/>
-<li><b>在HTML页面，激活对缓存管理的标记语言：</b>NPDS允许使用对HTML页面的缓存管理的先进功能。某些ISP (例如Multimania) 并不允许这一点。</li><br/><br/>
-<li><b>在某些帖子</b>（如论坛中）中，激活DNS：NPDS允许“捕获”IP地址和DNS名称。请注意本选项可能导致服务器的CPU被大量占用 (甚至可能被禁止)。</li><br/><br/>
-<br/><br/><br/>
-<center><font color=Red><b>系统其它</b></font></center><br/>
-<li><b>SaveMysql的保存文件最大不</b>应超过：对dump ASCII文件在压缩前的大小的限制。</li><br/><br/>
-<li><b>SaveMysql的保存类型：</b>采用保存时文件类型选择。</li><br/><br/>
-<li><b>激活Tiny-Mce编辑器：</b>NPDS可以使用Tiny-Mce编辑器 (IE, Firefox, ...)</li><br/><br/>
+         <h4>网上调查的设置</h4>
+         <h5>网上调查中可选项的最多数量</h5>
+         <p>无注释。</p>
+         <h5>调查投票结果的杠形分级显示</h5>
+         <p>设置时，您输入一个数字，系统将乘以100倍。然后以此为基础计算将显示的分级结果（杠形图形方式）。如果您输入3，分级为300%。<br />
+         在99,99%的情况下，采用1是较为理想的设置。</p>
+         <h5>允许用户多次投票</h5>
+         <p>是或否，这取决于您的偏好。如果您定义为“是”，系统允许用户在24小时内随意投票，并在调查中张贴一个短小信息。如果您定义为“否”，则一个用户在一个调查中的投票是唯一的。</p>
+         <h5> 激活对网上调查的评论</h5>
+         <p>无注释。</p>
 
-         </div>
+         <h4>关于图形和样式</h4>
+         <p>不要更改此选项，除非.... </p>
+         <h5>主题中的图片的路径</h5>
+         <p>通常为 /images/topics.</p>
+         <h5>某些图片（投票等）的路径</h5>
+         <p>通常为 /images/menu/.</p>
+         <h5>管理员菜单的图片的路径：</h5>
+         <p>通常为 /images/admin/.</p>
+         <h5>激活在管理菜单中的图形：</h5>
+         <p>是或否。选择否的情况下，页面速度提高。</p>
+         <h5>激活管理中的短菜单</h5>
+         <p>是或否。选择是的情况下，页面速度提高。</p>
+
+         <h4>其它</h4>
+         <h5>管理模式下的文章数目</h5>
+         <p>无注释 (但是本数值同样用于栏目等)。</p>
+         <h5>用户密码设置的最少字数</h5>
+         <p>建议定义为8。</p>
+         <h5>列表中用户的数量</h5>
+         <p>进入下一页之前在通讯录中。</p>
+         <h5>激活表情符号</h5>
+         <p>NPDS允许在创建会员或论坛中不使用表情符号。</p>
+         <h5>个性化表情符号的最大尺寸为 (宽度*高度 / 60*80，以pixel为单位)：</h5>
+         <p>NPDS允许 专门定义上传的表情符号的最大尺寸。</p>
+         <h5>激活用户的简短描述</h5>
+         <p>NPDS允许一个新用户不输入其ICQ, MSN等信息。</p>
+         <h5>准许自动创建会员</h5>
+         <p>NPDS允许，在无管理员意见的情况下，不同意一个新会员的连接（目的：准许用户的登记卡的连接）。本功能对“非开放式”的网站很实用。</p>
+         <h5>准许用户选择自己的密码</h5>
+         <p>您可以准许一个新用户选择他自己期望的密码。您同样可以预先定义为不准许该功能。</p>
+         <h5>准许订购服务</h5>
+         <p>准许您的会员订购NPDS上的不同信息资料 (主题，论坛，内部消息等)。他们将通过Email接收订阅的消息 (请注意本功能可以会导致较大的系统负载)。</p>
+         <h5>准许会员为隐身状态</h5>
+         <p>准许您的会员为“隐身”：他们的标识将不显示在NPDS的各个功能中（但是管理员可以观察到隐身会员）。</p>
+         <h5>关闭新的注册</h5>
+         <p>NPDS允许临时性地关闭新会员注册功能 (static/closed.txt页面将显示)。本功能对关闭某网站很实用。</p>
+         <h5>激活http参照</h5>
+         <p>无注释。</p>
+         <h5>最多参照的数量限制</h5>
+         <p>请不要让您的数据库负载过多。</p>
+         <h5>会员列表：私人</h5>
+         <p>NPDS允许仅对注册会员显示通讯录。</p>
+         <h5>上传栏目</h5>
+         <p>选择首先出现的下载栏目（或类别），或者不做选择。</p>
+         <h5>简短评论</h5>
+         <p>将评论转化为留言本中的记录。</p>
+
+         <h4>HTTP其它</h4>
+         <h5>在有信息外来源</h5>
+         <p>(头条标题)的新闻站点中，激活在Port 80对某站点的核查：NPDS同样允许不对某站点核查Port 80。 这点对于Multimania和其它ISP很实用。</p>
+         <h5>在HTML页面，激活对缓存管理的标记语言：</h5>
+         <p>NPDS允许使用对HTML页面的缓存管理的先进功能。某些ISP (例如Multimania) 并不允许这一点。</p>
+         <h5>在某些帖子如论坛中）中，激活DNS：</h5>
+         <p>NPDS允许“捕获”IP地址和DNS名称。请注意本选项可能导致服务器的CPU被大量占用 (甚至可能被禁止)。</p>
+
+         <h4>系统其它</h4>
+         <h5>SaveMysql的保存文件最大不</h5>
+         <p>应超过：对dump ASCII文件在压缩前的大小的限制。</p>
+         <h5>SaveMysql的保存类型</h5>
+         <p>采用保存时文件类型选择。</p>
+         <h5>开启MySQL日志</h5>
+         <p>允许使用所有 mysql 查询填充日志日志 (slogs/mysql.log)，并在发生错误时进行详细的错误报告。 <span class="text-danger">请勿在生产中使用！ （否）。</span>仅在出现问题时使用以进行分析或调试。</p>
+         <h5>激活Tiny-Mce编辑器</h5>
+         <p>NPDS可以使用Tiny-Mce编辑器 (IE, Firefox, ...)</p>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - 管理手册</span></p>
       </div>
    </body>
