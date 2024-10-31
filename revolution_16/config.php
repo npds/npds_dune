@@ -23,7 +23,7 @@
 # mysql_p:     Persistent connection to MySQL Server (1) or Not (0)
 # mysql_i:     Use MySQLi PHP extension (1) do not modify
 # =======================
-# not_used1:  unused
+# debugmysql:  activate log and error report for mysql
 # not_used2:  unused
 ######################################################################
 
@@ -34,7 +34,7 @@ $dbname = "revolution";
 $mysql_p = 1;
 $mysql_i = 1;
 # =======================
-$not_used1 = '';
+$debugmysql = false;
 $not_used2 = '';
 
 /*********************************************************************/
