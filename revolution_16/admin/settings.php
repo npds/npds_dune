@@ -1357,9 +1357,9 @@ function Configure() {
     if (!$savemysql_size)
        $savemysql_size='256';
     else {
-       if ($savemysql_size=='256') $sel_size256='selected="selected"'; else $sel_size256='';
-       if ($savemysql_size=='512') $sel_size512='selected="selected"'; else $sel_size512='';
-       if ($savemysql_size=='1024') $sel_size1024='selected="selected"'; else $sel_size1024='';
+      $sel_size256  = ($savemysql_size=='256')  ? 'selected="selected"' : '' ;
+      $sel_size512  = ($savemysql_size=='512')  ? 'selected="selected"' : '' ;
+      $sel_size1024 = ($savemysql_size=='1024') ? 'selected="selected"' : '' ;
     }
    echo '
    <div class="form-floating mb-3">
@@ -1387,9 +1387,25 @@ function Configure() {
       <label class="text-primary" for="xsavemysql_mode">'.adm_translate("Type de sauvegarde SaveMysql").'</label>
    </div>
    <div class="mb-3 row">
-      <label class="col-form-label col-sm-4" for="xtiny_mce">'.adm_translate("Activer l'éditeur Tinymce").'</label>';
+      <label class="col-form-label col-sm-4" for="xdebugmysql">'.adm_translate("Activer les logs mysql").'</label>';
    $cky='';$ckn='';
-   if ($tiny_mce) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
+   if ($debugmysql) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
+   echo '
+      <div class="col-sm-8 my-2">
+         <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="xdebugmysql_y" name="xdebugmysql" value="true" '.$cky.' />
+            <label class="form-check-label" for="xdebugmysql_y">'.adm_translate("Oui").'</label>
+         </div>
+         <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="xdebugmysql_n" name="xdebugmysql" value="false" '.$ckn.' />
+            <label class="form-check-label" for="xdebugmysql_n">'.adm_translate("Non").'</label>
+         </div>
+      </div>
+   </div>
+   <div class="mb-3 row">
+      <label class="col-form-label col-sm-4" for="xtiny_mce">'.adm_translate("Activer l'éditeur Tinymce").'</label>';
+   $cky=''; $ckn='';
+   if($tiny_mce) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
    echo '
       <div class="col-sm-8 my-2">
          <div class="form-check form-check-inline">
@@ -1657,7 +1673,7 @@ switch ($op) {
    break;
    case 'ConfigSave':
       include("admin/settings_save.php");
-      ConfigSave($xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port,$xdkim_auto);
+      ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port,$xdkim_auto);
    break;
 }
 ?>
