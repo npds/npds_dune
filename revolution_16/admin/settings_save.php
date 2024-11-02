@@ -91,7 +91,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "# it under the terms of the GNU General Public License as published by\n";
    $content .= "# the Free Software Foundation; either version 3 of the License.\n";
    $content .= "$line";
-   $content .= "\n";
+   $content .= "# généré le : ".date("d-m-Y H:i:s")." \n";
    $content .= "$line";
    $content .= "# ========================\n";
    $content .= "# Database & System Config\n";
@@ -101,7 +101,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "# dbpass:      MySQL Password\n";
    $content .= "# dbname:      MySQL Database Name\n";
    $content .= "# mysql_p:     Persistent connection to MySQL Server (1) or Not (0)\n";
-   $content .= "# mysql_i:     Use MySQLi (1) instead of MySQL interface (0)\n";
+   $content .= "# mysql_i:     Use MySQLi PHP extension (1) do not modify\n";
    $content .= "# =======================\n";
    $content .= "# debugmysql:  activate log and error report for MySQL\n";
    $content .= "# not_used2:  unused\n";
