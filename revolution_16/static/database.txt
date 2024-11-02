@@ -1,22 +1,51 @@
-</head>
-<body style="background-color: #FFFFFF;">
-<br />
-<p align="center">
-   <span style="font-size: 14px; font-family: Arial; font-weight: bold; color: red;">
-      Unable to select DataBase
-      Impossible d'acc&eacute;der &aacute; la Base de Donn&eacute;es
-      &#x65E0;&#x6CD5;&#x8FDE;&#x63A5;&#x5230;&#x6570;&#x636E;&#x5E93; 
-        <br /><br />
-   Check config.php / V&eacute;rifiez le contenu de votre fichier config.php / &#x68C0;&#x67E5;config.php&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;
-        <?php
-            echo "<br />.: ".sql_error()." :.";
-         ?>    
-   </span>
+      <link id="bsth" rel="stylesheet" href="themes/_skins/default/bootstrap.min.css">
+      <link href="lib/bootstrap/dist/css/bootstrap-icons.css" rel="stylesheet" type="text/css" media="all">
+      <style>
+         .error-details {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+         }
+         .error-message {
+            font-family: monospace;
+            word-break: break-all;
+            font-size: 0.8rem;
+         }
+      </style>
+   </head>
+   <body>
    <br />
-   <br />
-   <span style="font-size: 12px; font-family: Arial; font-weight: bold; color: black;">
-      NPDS - Portal System
-   </span>
-</p>
-</body>
+        <div class="contenair-fluid mt-5">
+         <div class= "card mx-auto p-2" style="width:380px; text-align:center">
+            <span style="font-size: 72px;"><i class="bi bi-database-fill-exclamation text-danger"></i></span>
+            <span class="text-danger mb-3">
+               Impossible d'acc&eacute;der &aacute; la Base de Donn&eacute;es ! V&eacute;rifiez le contenu de votre fichier config.php<br />
+               Unable to select DataBase ! Check config.php<br />
+               Datenbank kann nicht ausgew&auml;hlt werden ! &Uuml;berpr&uuml;fen Sie den Inhalt Ihrer config.php-Datei<br />
+               No se puede seleccionar la base de datos ! Verifique el contenido de su archivo config.php<br />
+               &#x65E0;&#x6CD5;&#x8FDE;&#x63A5;&#x5230;&#x6570;&#x636E;&#x5E93; ! &#x68C0;&#x67E5;config.php&#x6587;&#x4EF6;&#x7684;&#x5185;&#x5BB9;<br />
+            </span>
+<?php if (isset($mysql_error)): ?>
+            <div class="error-details">
+                <p class="error-message"><?php echo htmlspecialchars($mysql_error); ?></p>
+            </div>
+<?php endif; ?>
+<?php if (defined('NPDS_DEBUG') && NPDS_DEBUG): ?>
+            <div class="text-start error-message">
+                <ul>
+                    <li>Host : <?php echo htmlspecialchars($dbhost); ?></li>
+                    <li>Database : <?php echo htmlspecialchars($dbname); ?></li>
+                    <li>Date/Heure : <?php echo date('Y-m-d H:i:s'); ?></li>
+                </ul>
+            </div>
+<?php endif; ?>
+            <hr />
+            <div>
+               <span class="text-body-secondary">NPDS - Portal System</span>
+               <img class="adm_img ms-2" src="/images/admin/message_npds.png" alt="icon_npds" loading="lazy" />
+            </div>
+         </div>
+      </div>
+   </body>
 </html>
