@@ -21,56 +21,53 @@ global $pdst;
 $moreclass = 'col-12';
 
 switch ($pdst) {
-   case '-1':case '3':case '5':
+   case '-1': case '3': case '5':
       echo '
-         </div>';
+            </div>';
    break;
    
-   case '1':case '2':
+   case '1': case '2':
       echo '
-         </div>';
-         echo '
-         <div id="col_RB" class="col-d">';
-           rightblocks($moreclass);
-      echo '
-         </div>';
+            </div>
+            <div id="col_RB" class="col-d">';
+      rightblocks($moreclass);
+         echo'
+            </div>';
    break;
    
    case '4':
       echo '
-      </div>';
-      echo'
-         <div id="col_LB" class="col-g">';
-            leftblocks($moreclass);
+            </div>
+            <div id="col_LB" class="col-g">';
+      leftblocks($moreclass);
       echo '
-         </div>';
-      echo'
-         <div id="col_RB" class="col-d">';
-            rightblocks($moreclass);
+            </div>
+            <div id="col_RB" class="col-d">';
+      rightblocks($moreclass);
       echo '
-         </div>';
+            </div>';
    break;
    
    case '6':
       echo '
-      </div>';
-      echo'
-      <div id="col_LB" class="col-g">';
-         leftblocks($moreclass);
+            </div>
+            <div id="col_LB" class="col-g">';
+      leftblocks($moreclass);
       echo '
-      </div>';
+            </div>';
    break;
    default:
       echo '
-   </div>';
+            </div>';
    break;
 }
-echo '</div>';
+echo '
+         </div>';
 
 // ContainerGlobal permet de transmettre · Theme-Dynamic un élément de personnalisation après
 // le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
 $ContainerGlobal='
-</div>';
+            </div>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
   require_once("themes/themes-dynamic/footer.php");

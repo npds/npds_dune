@@ -20,11 +20,11 @@ $nb_bld_actif = sql_num_rows($bld_actif);
 
 /*
  Nomination des div par l'attribut id:
- col_princ contient le contenu principal
- col_LB contient les blocs historiquement dit de gauche
- col_RB contient les blocs historiquement dit de droite
+ #col_princ contient le contenu principal
+ #col_LB contient les blocs historiquement dit de gauche
+ #col_RB contient les blocs historiquement dit de droite
 
-Dans ce thème la variable $pdst permet de gérer le nombre et la disposition théorique initiale (de gauche à droite) des colonnes.
+Dans ce thème la variable $pdst permet de gérer le nombre et la disposition initiale des colonnes (de gauche à droite  pour une largeur supérieur à 768px | de haut en bas pour une largeur inférieur à 768px).
  "-1" -> col_princ
  "0"  -> col_LB + col_princ
  "1"  -> col_LB + col_princ + col_RB
@@ -39,27 +39,27 @@ La gestion de ce paramètre s'effectue dans le fichier "pages.php" du dossier "t
 
 if ($nb_blg_actif == 0) {
    switch ($pdst) {
-   case '0': $pdst='-1'; break;
-   case '1': $pdst='2'; break;
-   case '3': $pdst='5'; break;
-   case '4': $pdst='2'; break;
-   case '6': $pdst='-1'; break;
+      case '0': $pdst='-1'; break;
+      case '1': $pdst='2'; break;
+      case '3': $pdst='5'; break;
+      case '4': $pdst='2'; break;
+      case '6': $pdst='-1'; break;
    }
 }
 if ($nb_bld_actif == 0) {
    switch ($pdst) {
-   case '1': $pdst='0'; break;
-   case '2': $pdst='-1'; break;
-   case '3': $pdst='0'; break;
-   case '4': $pdst='6'; break;
-   case '5': $pdst='-1';break;
+      case '1': $pdst='0'; break;
+      case '2': $pdst='-1'; break;
+      case '3': $pdst='0'; break;
+      case '4': $pdst='6'; break;
+      case '5': $pdst='-1';break;
    }
 }
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
 $ContainerGlobal='
-<div id="container" class="maingrid">';
+      <div id="container" class="maingrid">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
    require_once("themes/themes-dynamic/header.php");
@@ -90,56 +90,56 @@ switch ($pdst) {
 }
 
 echo '
-      <div id="corps" class="corps '.$classgrid.' px-3">';
+         <div id="corps" class="corps '.$classgrid.' px-3">';
 switch ($pdst) {
    case '-1':
       echo '
-         <div id="col_princ" class="col-princ">';
+            <div id="col_princ" class="col-princ">';
    break;
    case '1':
       echo '
-         <div id="col_LB" class="col-g">';
-            leftblocks($moreclass);
+            <div id="col_LB" class="col-g">';
+      leftblocks($moreclass);
       echo '
-         </div>
-         <div id="col_princ" class="col-princ">';
+            </div>
+            <div id="col_princ" class="col-princ">';
    break;
    case '2': case '6':
       echo '
-      <div id="col_princ" class="col-princ">';
+            <div id="col_princ" class="col-princ">';
    break;
    case '3':
       echo '
-      <div id="col_LB" class="col-g">';
-         leftblocks($moreclass);
+            <div id="col_LB" class="col-g">';
+      leftblocks($moreclass);
       echo '
-      </div>';
+            </div>';
       echo' 
-      <div id="col_RB" class="col-d">';
+            <div id="col_RB" class="col-d">';
       rightblocks($moreclass);
       echo '
-      </div>
-      <div id="col_princ" class="col-princ">';
+            </div>
+            <div id="col_princ" class="col-princ">';
    break;
    case '4':
       echo '
-         <div id="col_princ" class="col-princ">';
+            <div id="col_princ" class="col-princ">';
    break;
    case '5':
       echo '
-      <div id="col_RB" class="col-d">';
+            <div id="col_RB" class="col-d">';
       rightblocks($moreclass);
       echo '
-      </div>
-      <div id="col_princ" class="col-princ">';
+            </div>
+            <div id="col_princ" class="col-princ">';
    break;
    default:
       echo '
-         <div id="col_LB" class="col-g">';
+            <div id="col_LB" class="col-g">';
       leftblocks($moreclass);
       echo '
-         </div>
-         <div id="col_princ" class="col-princ">';
+            </div>
+            <div id="col_princ" class="col-princ">';
    break;
 }
 ?>

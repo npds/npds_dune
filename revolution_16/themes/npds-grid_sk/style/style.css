@@ -117,6 +117,23 @@ table{table-layout: fixed;}
 
 /*  ==> dynamique des colonnes et des blocs                                  */
 /*  proto avec grids à parfaire ... simplifier?                              */
+/*  as negative marge are not in bs default */
+.mt-n1 {
+  margin-top: -0.25rem !important;
+}
+.mt-n2 {
+  margin-top: -0.5rem !important;
+}
+.mt-n3 {
+  margin-top: -1rem !important;
+}
+.mt-n4 {
+  margin-top: -1.5rem !important;
+}
+.mt-n5 {
+  margin-top: -4.2rem !important;
+}
+/*  as negative marge are not in bs default */
 
 .maingrid {
   width: 100%;
@@ -126,21 +143,23 @@ table{table-layout: fixed;}
     "corps" 1fr
     "footer" auto
     / 100%;
-  grid-gap: calc(var(--th-hauteurnavbar) + 3rem);
+   row-gap: calc(var(--th-hauteurnavbar) + 0.5rem);
 }
 .header {
    grid-area: header;
 }
 .page-header {
-   margin-top: calc(var(--th-hauteurnavbar) + 1rem);
+   margin-top: calc(var(--th-hauteurnavbar) + 0.5rem);
+   padding-bottom:1rem;
+   padding-left:1rem;
+   padding-right:1rem;
 }
 
 .corps { 
    grid-area: corps;
-
    display: grid;
    grid-gap: 1rem;
-   }
+}
 .footer { grid-area: footer; }
 
 .corps0 {
@@ -199,7 +218,7 @@ table{table-layout: fixed;}
       grid-column-start: 2;
       grid-column-end: 3;
    }
- }
+}
 
 /*  <== dynamique des colonnes et des blocs                                  */
 
@@ -217,15 +236,11 @@ table{table-layout: fixed;}
 
 /* ==> adaptation menu */
 
-.page-header {
-   margin-top: calc(var(--th-hauteurnavbar) + 0.5rem);
-   padding-bottom:1rem;
-   padding-left:1rem;
-   padding-right:1rem;
-}
 
 @media (max-width: 767px) {
+/* 
   #container {margin-top:4rem;}
+ */
   nav#uppernavbar.navbar.navbar-fixed-top.navbar-light.bg-faded {padding: 2.5rem 0.5rem;}
   .navbar-divider {display:none;}
   ul.nav.navbar-nav {
