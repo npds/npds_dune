@@ -72,11 +72,12 @@ $topic_subject = stripslashes($myrow['topic_title']);
 $lock_state = $myrow['topic_status'];
 
    if (isset($user)) {
-      if ($cookie[9]=='') $cookie[9]=$Default_Theme;
+      if ($cookie[9]=='') $cookie[9] = $Default_Theme;
       if (isset($theme)) $cookie[9]=$theme;
-         $tmp_theme=$cookie[9];
-      if (!$file=@opendir("themes/$cookie[9]"))
-         $tmp_theme=$Default_Theme;
+      $cookie[9] = explode('+', urldecode($cookie[9]));
+      $tmp_theme = $cookie[9][0];
+      if (!$file = @opendir("themes/$cookie[9][0]"))
+         $tmp_theme = $Default_Theme;
    } else
       $tmp_theme=$Default_Theme;
    $post_aff = $Mmod ? ' ' : " AND post_aff='1' " ;
@@ -109,9 +110,9 @@ $lock_state = $myrow['topic_status'];
          <div>';
    $pos = strpos($site_logo, '/');
    if ($pos)
-      echo '<img class="img-fluid d-block mx-auto" src="'.$site_logo.'" alt="website logo" />';
+      echo '<img class="img-fluid d-block mx-auto" src="'.$site_logo.'" alt="website logo" loading="lazy" />';
    else
-      echo '<img class="img-fluid d-block mx-auto" src="images/'.$site_logo.'" alt="website logo" />';
+      echo '<img class="img-fluid d-block mx-auto" src="images/'.$site_logo.'" alt="website logo" loading="lazy" />';
 
    echo '
    <div class="row mt-4">
@@ -139,7 +140,7 @@ $lock_state = $myrow['topic_status'];
          <p class="">'.translate("Forum").'&nbsp;&raquo;&nbsp;&raquo;&nbsp;'.stripslashes($forum_name).'&nbsp;&raquo;&nbsp;&raquo;&nbsp;<strong>'.$topic_subject.'</strong></p>
          <hr />
          <p class="text-end">
-         <small>'.translate("Posté : ").convertdate($myrow['post_time']).'</small> ';
+         <small>'.translate("Posté : ").formatTimes($myrow['post_time'], IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).'</small> ';
 
    if ($myrow['image'] != '') {
       if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
@@ -155,9 +156,9 @@ $lock_state = $myrow['topic_status'];
       $message = str_replace('[/video_yt]','',$message);
    }
 
-   if (stristr($message,'<a href'))
-      $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
-   $message=split_string_without_space($message, 80);
+//   if (stristr($message,'<a href'))
+//      $message=preg_replace('#_blank(")#i','_blank\1 class=\1\1',$message);
+//   $message=split_string_without_space($message, 80);// fonction génère erreur !!
    if (($forum_type=='6') or ($forum_type=='5'))
       highlight_string(stripslashes($myrow['post_text'])).'<br /><br />';
    else
