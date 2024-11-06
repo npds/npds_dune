@@ -98,7 +98,7 @@ function alerte_update() {
       $id = $_POST['id'];
       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fid=".$id."");
       $row = sql_fetch_assoc($result);
-      $newlecture = $aid.'|'.$row[fdroits1_descr];
+      $newlecture = $aid.'|'.$row['fdroits1_descr'];
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fdroits1_descr='".$newlecture."' WHERE fid=".$id."");
    }
    header('Location: '.$_SERVER['HTTP_REFERER']);
