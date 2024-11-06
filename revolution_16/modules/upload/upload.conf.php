@@ -14,7 +14,7 @@
 /************************************************************************/
 
 // Taille maxi des fichiers en octets
-$max_size = 15680000;
+$max_size = 15728640;
 
 // Si votre variable $DOCUMENT_ROOT n'est pas bonne (notamment en cas de redirection)
 // vous pouvez en spécifier une ici (c'est le chemin physique d'accès à la racine de votre site en partant de / ou C:\)
@@ -22,7 +22,7 @@ $max_size = 15680000;
 $DOCUMENTROOT = '';
 
 // Autorise l'upload DANS le répertoire personnel du membre (true ou false)
-$autorise_upload_p = "true";
+$autorise_upload_p = 'true';
 
 // Sous répertoire : n'utiliser que si votre NPDS n'est pas directement dans la racine de votre site
 // par exemple si : www.mon_site/npds/.... alors $racine="/npds" (avec le / DEVANT) sinon $racine="";
@@ -65,17 +65,17 @@ $url_upload_css = '/lib/bootstrap/dist/css/bootstrap.min.css';
 // - 2ième position : afficher les images de !mime
 // - 3ième position : afficher les images de la racine du répertoire (celles qui seront téléchargées)
 // - 4ième position : afficher les documents
-$ed_profil="1111";
+$ed_profil = '1111';
 
 // Nombre d'image par ligne dans l'afficheur d'image de l'editeur HTML
-$ed_nb_images=10;
+$ed_nb_images = 10;
 
 // suffix des fichiers autorisés (séparé par un espace)
-$extension_autorise='doc xls pps ppt sxw xls sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf';
+$extension_autorise = 'doc docx gif jpeg jpg mpeg mp3 mp4 pdf png ppt pptx rtf svg swf sxd sxi sxw tar tgz txt xls xlsx zip';
 
 // Taille maxi en affichage des images dans les banques de l'Editeur HTML
-$width_max=50;
-$height_max=50;
+$width_max = 50;
+$height_max = 50;
 
 // Limite de l'espace disque alloué pour l'upload (en octects)
 $quota=733999999;
