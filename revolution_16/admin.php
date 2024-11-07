@@ -115,7 +115,6 @@ function GraphicAdmin($hlpfile) {
    while ($SQM=sql_fetch_assoc($QM)) {
       $f_mes[]=$SQM['fretour_h'];
    }
-
    //==> recuperation
    $messagerie_npds= file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
    $messages_npds = explode("\n", $messagerie_npds);
@@ -126,9 +125,7 @@ function GraphicAdmin($hlpfile) {
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
    else
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-bs-toggle=\"modal\" data-bs-target=\"#versusModal\"', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
-
    $mess=array_slice($messages_npds, 1);
-
    if(empty($mess)) {
       //si pas de message on nettoie la base
       sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
@@ -146,13 +143,12 @@ function GraphicAdmin($hlpfile) {
          $o++;
       }
    }
-
   // si message on compare avec la base
    if ($mess) {
       $fico ='';
       for ($i=0;$i<count($mess);$i++) {
          $ibid = explode('|',$mess[$i]);
-         $fico = $ibid[0] != 'Note'? 'message_a':'message_i';
+         $fico = $ibid[0] != 'Note'? 'message_a' : 'message_i';
          //si on trouve le contenu du fichier dans la requete
          if (in_array($ibid[1],$f_mes,true)) {
             $k=(array_search ($ibid[1], $f_mes));
@@ -163,8 +159,16 @@ function GraphicAdmin($hlpfile) {
                if ($alertinfo['fnom_affich'] != $ibid[2])
                   sql_query('UPDATE '.$NPDS_Prefix.'fonctions SET fdroits1_descr="", fnom_affich="'.addslashes($ibid[2]).'" WHERE fnom="mes_npds_'.$i.'"');
             }
-         } else
-            sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$ibid[1].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1", fnom_affich="'.addslashes($ibid[2]).'", furlscript="data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\"",fdroits1_descr=""');
+         }
+//original defaut//
+//         else
+//         sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$ibid[1].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1", fnom_affich="'.addslashes($ibid[2]).'", furlscript="data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\"",fdroits1_descr="vide"');
+
+/* debug not work too cette requête est bien étrange
+         $sql ="REPLACE ".$NPDS_Prefix."fonctions SET fnom='mes_npds_".$i."', fretour_h='".$ibid[1]."', fcategorie='9', fcategorie_nom='Alerte', ficone='".$fico."', fetat='1', finterface='1', fnom_affich='".addslashes($ibid[2])."', furlscript='data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\"', fdroits1_descr='vide'";
+         var_dump($sql);
+         sql_query($sql);
+*/
       }
       if(count ($f_mes)!==0) {
          foreach ( $f_mes as $v ) {
