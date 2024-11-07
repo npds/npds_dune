@@ -21,6 +21,14 @@
 define("NEW_VERSION","v.16.8");
 include_once('lib/mysqli.php');
 
+#autodoc Mysql_Connexion() : Connexion plus détaillée ($mysql_p=true => persistente connexion) - Attention : le type de SGBD n'a pas de lien avec le nom de cette fonction
+function Mysql_Connexion() {
+   global $mysql_error, $dbhost, $dbname;
+   $ret_p=sql_connect();
+   return ($ret_p);
+}
+/****************/
+
 $langue = isset($langue) ? $langue : 'fr';
 if($langue) {
    if(file_exists($fichier_lang = 'install/languages/install-'.language_iso(1,0,0).'.php')) {
@@ -56,7 +64,7 @@ function verif_php() {
 // ==> renvoi la version sql // à revoir dispo que quand on a établi une connection !
 function verif_sql() {
    global $sqlver;
-   $sqlgetver = (mysqli_get_server_version(sql_connect()))/10000;
+   $sqlgetver = (mysqli_get_server_version(Mysql_Connexion()))/10000;
    $mainversion = intval($sqlgetver);
    $subversion = ($sqlgetver-$mainversion)*10000/100;
    $sqlver = "$mainversion.$subversion";

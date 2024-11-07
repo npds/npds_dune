@@ -367,9 +367,9 @@ INSERT INTO forum_read VALUES (1, 2, 2, 2, 1383416155, 1);
 INSERT INTO forum_read VALUES (2, 1, 1, 2, 1383418761, 1);
 
 CREATE TABLE groupes (
-  groupe_id int(3) DEFAULT NULL,
+  groupe_id int(3) DEFAULT '0',
   groupe_name varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  groupe_description text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  groupe_description text COLLATE utf8mb4_unicode_ci NOT NULL,
   groupe_forum int(1) unsigned NOT NULL DEFAULT '0',
   groupe_mns int(1) unsigned NOT NULL DEFAULT '0',
   groupe_chat int(1) unsigned NOT NULL DEFAULT '0',

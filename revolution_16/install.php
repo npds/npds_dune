@@ -259,7 +259,7 @@ if($stage == 6) {
          settype($out,'string');
          require('install/sql/build_sql-create.php');
          build_sql_create($NPDS_Prefix);
-         sql_connect();
+         Mysql_Connexion();
          require('install/sql/sql-create.php');
          write_database();
          if($stage6_ok == 1) {

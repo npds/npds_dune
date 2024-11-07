@@ -28,7 +28,7 @@ fclose ($handle);
 $sql_com='';
 $list_tab='';
 $content='';
-$sql_com.='sql_query("SET character_set_results = \'utf8\', character_set_client = \'utf8\', character_set_connection = \'utf8\', character_set_database = \'utf8\', character_set_server = \'utf8\'");';
+//$sql_com.='sql_query("SET character_set_results = \'utf8\', character_set_client = \'utf8\', character_set_connection = \'utf8\', character_set_database = \'utf8\', character_set_server = \'utf8\'");';
 
 preg_match_all("#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)\s[^;]*[^\r|\n]*(;)#m", $sql_contents, $reg);
 /*ou
