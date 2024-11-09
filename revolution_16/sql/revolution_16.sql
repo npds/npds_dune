@@ -732,7 +732,7 @@ CREATE TABLE posts (
   topic_id int(10) NOT NULL DEFAULT '0',
   forum_id int(10) NOT NULL DEFAULT '0',
   poster_id int(10) DEFAULT NULL,
-  post_text text COLLATE utf8mb4_unicode_ci,
+  post_text mediumtext COLLATE utf8mb4_unicode_ci,
   post_time varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   poster_ip varchar(54) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   poster_dns text COLLATE utf8mb4_unicode_ci,
