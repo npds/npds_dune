@@ -1803,18 +1803,60 @@ function Q_spambot() {
       if (function_exists("imagepng"))
          $aff=str_replace($tab[$al1],html_entity_decode(translate($tab[$al1]), ENT_QUOTES | ENT_HTML401, 'UTF-8'),$aff);
       else
-         $aff=str_replace($tab[$al1],translate($tab[$al1]),$aff);
+         $aff=str_replace($tab[$al1],html_entity_decode(translate($tab[$al1]), ENT_QUOTES | ENT_HTML401, 'UTF-8'),$aff);
+
+##################################################################
+/* infernal ....
+après de nombreux essai ... avec ISO-8859-1 ou UTF-8
+$aff=str_replace($tab[$al1],html_entity_decode(translate($tab[$al1]), ENT_QUOTES | ENT_HTML401, 'ISO-8859-1'),$aff);
+
+encrypt puis decrypt renvoient un résultats corrects stable
+mais parfois la fonction encrypt peut renvoyer une chaine 
+- se terminant par == ou /
+- contenant de + des / 
+dans ces cas là le résultat de rawurldecode(decrypt()) est corrompu !
+
+dans les autres cas le résultat de rawurldecode(decrypt()) traité dans cette page est correct
+MAIS PAS quand ça repasse par le serveur et traité dans getfile.php (et je ne comprends pas pourquoi)
+
+donc pour l'instant on garde UTF-8 et on redécode dans getfile.php
+mais dans tout les cas le captcha en chinois est faux
+*/
+/*
+var_dump('sortie de trad en utf-8 ou iso ==>'.$aff.'<br />');/////////
+
+$encryt_aff = encrypt($aff." = ");/////
+var_dump("fonction encrypt ==> ".$encryt_aff.'<br />');/////
+$decryt_aff = decrypt($encryt_aff." = ");/////
+var_dump("fonction decrypt ==> ".$decryt_aff.'<br />');/////
+
+$rawurlencode= rawurlencode($encryt_aff);/////
+var_dump("fonction rawurlencode ==> ".$rawurlencode.'<br />');/////
+$rawurldecode= rawurldecode($rawurlencode);/////
+var_dump("fonction rawurldecode ==> ".$rawurldecode.'<br />');/////
+
+$b = rawurldecode(decrypt($rawurlencode));
+var_dump('fonction rawurldecode (decrypt()) ==> '.$b.'<br />');////
+
+function mb_rawurlencode($url){
+$encoded='';
+$length=mb_strlen($url);
+for($i=0;$i<$length;$i++){
+$encoded.='%'.wordwrap(bin2hex(mb_substr($url,$i,1)),2,'%',true);
+}
+return $encoded;
+}
+*/
+##################################################################
       // mis en majuscule
       if ($asb_index%2)
          $aff = ucfirst($aff);
    // END ALEA
-
    //Captcha - si GD
    if (function_exists("imagepng"))
       $aff="<img src=\"getfile.php?att_id=".rawurlencode(encrypt($aff." = "))."&amp;apli=captcha\" style=\"vertical-align: middle;\" />";
    else
-      $aff="".anti_spam($aff." = ",0)."";
-
+      $aff= anti_spam($aff." = ",0);
    $tmp='';
    if ($user=='') {
       $tmp='

@@ -104,7 +104,11 @@ switch($apli) {
    break;
 
    case 'captcha':
-      $mot=rawurldecode(decrypt($att_id));
+      $mot=decrypt($att_id);//////
+      $mot=rawurldecode($mot);/////
+//      $mot=rawurldecode(decrypt($att_id));
+      $mot=mb_convert_encoding($mot, 'ISO-8859-1', 'UTF-8'); ////utf-8 >> iso
+//      $mot=mb_convert_encoding($mot, 'UTF-8', 'ISO-8859-1'); ////iso >> utf-8
       $font=16;
       $width=imagefontwidth($font)* strlen($mot);
       $height=imagefontheight($font);
