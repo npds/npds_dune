@@ -19,11 +19,11 @@
 #autodoc geoloc_refip : contrôle si l'ip est déjà dans la base et incrémentation du compteur de visite de l'ip <br /> ou choisi un fournisseur en fonction du protocol du site et des clefs disponibles et complète la table ip_loc. 
 
 $file_path = array(
-'https://ipapi.co/'.urldecode($ip).'/json/',
-'https://api.ipdata.co/'.urldecode($ip).'?api-key='.$api_key_ipdata,
-'https://extreme-ip-lookup.com/json/'.urldecode($ip).'?key='.$key_lookup,
-'http://ip-api.com/json/'.urldecode($ip),
-'http://extreme-ip-lookup.com/json/'.urldecode($ip).'?key='.$key_lookup
+'https://ipapi.co/'.$ip.'/json/',
+'https://api.ipdata.co/'.$ip.'?api-key='.$api_key_ipdata,
+'https://extreme-ip-lookup.com/json/'.$ip.'?key='.$key_lookup,
+'http://ip-api.com/json/'.$ip,
+'http://extreme-ip-lookup.com/json/'.$ip.'?key='.$key_lookup
 );
 $ousursit='';
 $resultat=sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"$ip\"");
