@@ -8,7 +8,7 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
    $lepath = dirname($_SERVER['PHP_SELF']);
@@ -117,7 +117,7 @@
                   <div class="col-md-4 mb-3">
                      <h1><?php echo ucfirst($skinametitre); ?></h1>
                      <p class="lead">Nice skin for NPDS Cms</p>
-                      <img class="img-fluid" src="../../../../themes/npds-boost_sk/images/header.png" alt="npds" />
+                      <img class="img-fluid" src="../../../../themes/default/images/logo.png" alt="logo npds" loading="lazy" />
                   </div>
                   <div class="col-md-4 mb-3"></div>
                   <div class="col-md-4">
