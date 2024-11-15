@@ -956,7 +956,7 @@ while ($obj->NextFile()) {
          <td class="text-end"><small>'.$obj->FieldPerms.'</small></td>'; else $files.="<td><small>#NA#</small></td>";
       // Traitements
       $obj->FieldName=rawurlencode($obj->FieldName);
-      $cmd_ibid='';
+      $cmd_ibid='&nbsp;';
       if ($ficcmd_fma[1])
          $cmd_ibid.='<a href="modules.php?ModPath='.$ModPath.'&amp;ModStart='.$ModStart.'&amp;FmaRep='.$FmaRep.'&amp;browse='.$cur_nav_encrypt.'&amp;op=renamefile&amp;att_name='.$obj->FieldName.'"><i class="bi bi-pencil-fill ms-3 fs-4" title="'.$renaM.'" data-bs-toggle="tooltip"></i></a>';
       if ($ficcmd_fma[4]) {
