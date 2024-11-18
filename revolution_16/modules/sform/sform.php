@@ -471,7 +471,7 @@ class form_handler {
                   $first_radio=true;
                   $str.='
                <div class="mb-3 row">
-                  <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
+                  <label class="col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                   <div class="col-sm-8">';
                   foreach($this->form_fields[$i]['value'] as $key => $val) {
                      $str.='
