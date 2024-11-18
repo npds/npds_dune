@@ -202,14 +202,14 @@ if ($FmaRep) {
 } else
    Access_Error();
 
-if ($browse!='') {
+if(isset($browse) and $browse!='') {
    $ibid=rawurldecode(decrypt($browse));
    if (substr(@php_uname(),0,7) == "Windows")
       $ibid=preg_replace('#[\*\?"<>|]#i','', $ibid);
    else
       $ibid=preg_replace('#[\:\*\?"<>|]#i','', $ibid);
    $ibid=str_replace('..','',$ibid);
-   // contraint à rester dans la zone de repertoire définie
+   // contraint à rester dans la zone de répertoire définie
    $ibid=$basedir_fma.substr($ibid,strlen($basedir_fma));
    $base=$ibid;
 } else
@@ -291,7 +291,8 @@ $fp=@file("pic-manager.txt");
       $refresh=3600;
 $rep_cache=$racine_fma.'/cache/';
 $rep_cache_encrypt=rawurlencode(encrypt($rep_cache));
-$cache_prefix=$cookie[1].md5(str_replace('/','.',str_replace($racine_fma.'/','',$cur_nav)));
+$cook = isset($cookie[1]) ? $cookie[1] : '' ;
+$cache_prefix=$cook.md5(str_replace('/','.',str_replace($racine_fma.'/','',$cur_nav)));
 
 if ($Max_thumb>0) {
    $files='<div id="photo" class="mt-3 d-flex flex-wrap justify-content-center justify-content-md-between">';
@@ -409,6 +410,7 @@ else
    echo "html/modules/f-manager/pic-manager.html manquant / not find !";
 
 if ($inclusion) {
+   $browse = isset($browse) ? $browse : '';
    $Xcontent=join('',file($inclusion));
    $Xcontent=str_replace('_nuke',$nuke_url,$Xcontent);
    $Xcontent=str_replace('_back',extend_ascii($cur_nav_href_back),$Xcontent);
