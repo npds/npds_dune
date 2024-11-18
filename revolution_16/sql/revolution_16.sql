@@ -1028,7 +1028,7 @@ CREATE TABLE users (
   mns tinyint(1) unsigned NOT NULL DEFAULT '0',
   user_langue varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   user_lastvisit varchar(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  user_lnl tinyint(1) unsigned NOT NULL DEFAULT '1',
+  user_lnl tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (uid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
