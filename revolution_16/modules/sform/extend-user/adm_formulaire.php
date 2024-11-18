@@ -95,7 +95,6 @@ $les_groupes=explode(',',$groupe);
 $mX=liste_group();
 $nbg=0;
    foreach($mX as $groupe_id => $groupe_name) {
-//   while (list($groupe_id, $groupe_name)=each($mX)) {
       $tmp_groupe[$groupe_id]['en']=$groupe_name;
       $selectionne=0;
       if ($les_groupes) {
@@ -116,10 +115,14 @@ if ($mns) {$checked=true;} else {$checked=false;}
 $m->add_checkbox('add_mns',adm_translate("Activer son MiniSite"), 1, false, $checked);
 
 // LNL
-if ($user_lnl) $checked=true; else $checked=false;
-$m->add_checkbox('user_lnl',translate("S'inscrire à la liste de diffusion du site"), 1, false, $checked);
+$cky = $user_lnl==1 ? true : false;
+$ckn = $user_lnl==0 ? true : false;
+$tmp = array(
+   "1"=>array('en'=>adm_translate("Oui"), 'checked'=>$cky),
+   "0"=>array('en'=>adm_translate("Non"), 'checked'=>$ckn),
+);
+$m->add_radio('user_lnl', translate("S'inscrire à la liste de diffusion du site"), $tmp, false);
 // LNL
-
 if ($chng_user_viewemail) $checked=true; else $checked=false;
 $m->add_checkbox('add_user_viewemail',adm_translate("Autoriser les autres utilisateurs à voir son adresse E-mail"), 1, false, $checked);
 
