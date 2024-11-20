@@ -3,3 +3,4 @@ Security|Patch de sécurité 2022 !|<span class="text-danger">Niveau critique ap
 Note|Les messages de npds|<br /> Ce système nous permet d'envoyer des messages concernant l'actualité de npds et de son développement à tous les webmaster directement dans leur portail.<br /> Il monitore également la version utilisée et emet une alerte quand une nouvelle version de npds est disponible. Du côté de l'interface admin ces messages peuvent être marqués comme lus par chaque admin et donc ne sont plus affichés jusqu'à leur modification ou leur suppression par npds.org.<br /> [@nico2 @jpb].
 Note|🌶 Migration du portail NPDS|Celle-ci devrait être effective avant le 31/12/2024.
 Note|Note de test|4dev voici une note de test modifiée<br /><img src="images/favicon-180.png" />
+Security|Security|Security
