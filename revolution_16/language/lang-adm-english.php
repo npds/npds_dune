@@ -277,6 +277,7 @@ function adm_translate($phrase) {
   case "Clics": $tmp="Clicks"; break;
   case "Cliquer ici pour proposer une Critique.": $tmp="Click here to write a review."; break;
   case "Cliquez pour éditer": $tmp="Click to Edit"; break;
+  case "Cliquez pour télécharger.": $tmp="Click to download."; break;
   case "Cliquez sur \"Etape suivante\" pour continuer.": $tmp="Click on \"Following stage\" to continue."; break;
   case "Combien de référants au maximum": $tmp="How Many Referers you want as Maximum"; break;
   case "comme modérateur du forum": $tmp="as forum moderator"; break;
@@ -964,6 +965,7 @@ function adm_translate($phrase) {
   case "Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :": $tmp="An error arose during the run of the SQL script. Mysql answered:"; break;
   case "Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :": $tmp="An error arose during the configuration of (the) block(s). Mysql answered:"; break;
   case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="Once that you will have validated this publication, it will be integrated in temporary base, and the administrator will be warned. He will aim this publication. It is normal than for the moment, this publication does not appear in the tree structure."; break;
+  case "Une nouvelle version NPDS est disponible !": $tmp="A new NPDS version is available!"; break;
   case "Upload": $tmp="Upload"; break;
   case "URL : ": $tmp="URL: "; break;
   case "URL de l'image du backend": $tmp="Backend Image URL"; break;
@@ -985,6 +987,7 @@ function adm_translate($phrase) {
   case "Validation de votre publication": $tmp="Validation of your publication"; break;
   case "Valider": $tmp="Submit"; break;
   case "Version": $tmp="Version"; break;
+  case "Version NPDS": $tmp="NPDS Version"; break;
   case "Veuillez choisir un type de META-MOT": $tmp="Please choose a type of META-MOT"; break;
   case "Veuillez configurer manuellement le(s) bloc(s).": $tmp="Please configure manually the block(s)."; break;
   case "Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.": $tmp="Please edit this file manually or retry by trying to make an automatic chmod on the file(s) concerned."; break;

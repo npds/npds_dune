@@ -277,7 +277,8 @@ function adm_translate($phrase) {
   case "Clics": $tmp="点击次数"; break;
   case "Cliquer ici pour proposer une Critique.": $tmp="点击这里以发表一篇评论"; break;
   case "Cliquez pour éditer": $tmp="点击以进行编辑 "; break;
-  case "Cliquez sur \"Etape suivante\" pour continuer.": $tmp="Click on \"Following stage\" to continue."; break;
+  case "Cliquez pour télécharger.": $tmp="点击下载。"; break;
+  case "Cliquez sur \"Etape suivante\" pour continuer.": $tmp="单击“下一步”继续。"; break;
   case "Combien de référants au maximum": $tmp="您希望最多记录多少来访路径？"; break;
   case "comme modérateur du forum": $tmp="as forum moderator"; break;
   case "Commentaire": $tmp="评论"; break;
@@ -290,7 +291,7 @@ function adm_translate($phrase) {
   case "Configuration des infos en Backend & Réseaux Sociaux": $tmp="Configuration for Backend & Social Networks"; break;
   case "Configuration Forums": $tmp="Forums Configuration"; break;
   case "Configuration par défaut des Liens Web": $tmp="链接的默认设置"; break;
-  case "Configurer MySql (Recommandé)": $tmp="Configure MySql (Recommended)"; break;
+  case "Configurer MySql (Recommandé)": $tmp="配置MySql（推荐）"; break;
   case "Confirmer la lecture": $tmp="确认阅读内容"; break;
   case "Connexion": $tmp="Login"; break;
   case "Contacter l'administration du site.": $tmp="联系网站的管理部门。"; break;
@@ -964,6 +965,7 @@ function adm_translate($phrase) {
   case "Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :": $tmp="An error arose during the run of the SQL script. Mysql answered:"; break;
   case "Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :": $tmp="An error arose during the configuration of (the) block(s). Mysql answered:"; break;
   case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais. Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="一旦您使本发表文章确认生效，它将被保存在临时数据库中，系统同时通知管理员。管理员将浏览您的文章并尽快将其在线生效。<br/>因此，您当前在树型结构中还不能看到它。"; break;
+  case "Une nouvelle version NPDS est disponible !": $tmp="新的 NPDS 版本现已推出！"; break;
   case "Upload": $tmp="Upload"; break;
   case "URL : ": $tmp="URL地址:"; break;
   case "URL de l'image du backend": $tmp="Backend图片的地址"; break;
@@ -985,6 +987,7 @@ function adm_translate($phrase) {
   case "Validation de votre publication": $tmp=" 对你的发表文章进行确认生效"; break;
   case "Valider": $tmp="确定"; break;
   case "Version": $tmp="版本"; break;
+  case "Version NPDS": $tmp="NPDS版本"; break;
   case "Veuillez choisir un type de META-MOT": $tmp="Please choose a type of META-MOT"; break;
   case "Veuillez configurer manuellement le(s) bloc(s).": $tmp="Please configure manually the block(s)."; break;
   case "Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.": $tmp="Please edit this file manually or retry by trying to make an automatic chmod on the file(s) concerned."; break;

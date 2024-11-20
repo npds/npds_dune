@@ -109,46 +109,44 @@ function GraphicAdmin($hlpfile) {
    if($newauto) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1',fretour='".$newauto."',fretour_h='".adm_translate("Articles programmés pour la publication.")."' WHERE fid=37"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0',fretour='0',fretour_h='' WHERE fid=37");
    //etat filemanager
    if ($filemanager) sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1' WHERE fid='27'"); else sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='0' WHERE fid='27'");
-//==> recuperation traitement des messages de NPDS
+//==> récuperation traitement des messages de NPDS
    $QM=sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
    settype($f_mes, 'array');
    while ($SQM=sql_fetch_assoc($QM)) {
       $f_mes[]=$SQM['fretour_h'];
    }
-   //==> recuperation
+   //==> récuperation
    $messagerie_npds= file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
    $messages_npds = explode("\n", $messagerie_npds);
    array_pop($messages_npds);
-   // traitement specifique car message permanent versus
+   // traitement spécifique car message de version permanent "Versus"
    $versus_info = explode('|', $messages_npds[0]);
    if($versus_info[1] == $Version_Sub and $versus_info[2] == $Version_Num)
-      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='Version NPDS ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='".adm_translate("Version NPDS")." ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
    else
-      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-bs-toggle=\"modal\" data-bs-target=\"#versusModal\"', fretour_h='Une nouvelle version NPDS est disponible !<br />".$versus_info[1]." ".$versus_info[2]."<br />Cliquez pour télécharger.' WHERE fid='36'"); 
-   $mess=array_slice($messages_npds, 1);
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-bs-toggle=\"modal\" data-bs-target=\"#versusModal\"', fretour_h='".adm_translate("Une nouvelle version NPDS est disponible !")."<br />".$versus_info[1]." ".$versus_info[2]."<br />".adm_translate("Cliquez pour télécharger.")."' WHERE fid='36'"); 
+   $mess=array_slice($messages_npds, 1);//on enleve le message de version
+   //si pas de message on nettoie la table
    if(empty($mess)) {
-      //si pas de message on nettoie la base
       sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom REGEXP'mes_npds_[[:digit:]]'");
       sql_query("ALTER TABLE ".$NPDS_Prefix."fonctions AUTO_INCREMENT = (SELECT MAX(fid)+1 FROM ".$NPDS_Prefix."fonctions)");
    }
    else {
-      $fico='';
       $o=0;
       foreach($mess as $v) {
          $ibid = explode('|',$v);
-         $fico = $ibid[0] != 'Note'? 'message_npds_a':'message_npds_i';
+         $fico = $ibid[0] != 'Note' ? 'message_npds_a' : 'message_npds_i' ;
          $QM=sql_num_rows(sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fnom='mes_npds_".$o."'"));
-         if($QM===false)
-            sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface,fnom_affich,furlscript) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1','".addslashes($ibid[2])."','data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\");\n");
+         if($QM==0)
+            sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fnom,fretour_h,fcategorie,fcategorie_nom,ficone,fetat,finterface,fnom_affich,furlscript) VALUES ('mes_npds_".$o."','".addslashes($ibid[1])."','9','Alerte','".$fico."','1','1','".addslashes($ibid[2])."','data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\"');\n");
          $o++;
       }
    }
   // si message on compare avec la base
    if ($mess) {
-      $fico ='';
       for ($i=0;$i<count($mess);$i++) {
          $ibid = explode('|',$mess[$i]);
-         $fico = $ibid[0] != 'Note'? 'message_a' : 'message_i';
+         $fico = $ibid[0] != 'Note'? 'message_npds_a' : 'message_npds_i';
          //si on trouve le contenu du fichier dans la requete
          if (in_array($ibid[1],$f_mes,true)) {
             $k=(array_search ($ibid[1], $f_mes));
@@ -160,15 +158,6 @@ function GraphicAdmin($hlpfile) {
                   sql_query('UPDATE '.$NPDS_Prefix.'fonctions SET fdroits1_descr="", fnom_affich="'.addslashes($ibid[2]).'" WHERE fnom="mes_npds_'.$i.'"');
             }
          }
-//original defaut//
-//         else
-//         sql_query('REPLACE '.$NPDS_Prefix.'fonctions SET fnom="mes_npds_'.$i.'",fretour_h="'.$ibid[1].'",fcategorie="9", fcategorie_nom="Alerte", ficone="'.$fico.'",fetat="1", finterface="1", fnom_affich="'.addslashes($ibid[2]).'", furlscript="data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\"",fdroits1_descr="vide"');
-
-/* debug not work too cette requête est bien étrange
-         $sql ="REPLACE ".$NPDS_Prefix."fonctions SET fnom='mes_npds_".$i."', fretour_h='".$ibid[1]."', fcategorie='9', fcategorie_nom='Alerte', ficone='".$fico."', fetat='1', finterface='1', fnom_affich='".addslashes($ibid[2])."', furlscript='data-bs-toggle=\"modal\" data-bs-target=\"#messageModal\"', fdroits1_descr='vide'";
-         var_dump($sql);
-         sql_query($sql);
-*/
       }
       if(count ($f_mes)!==0) {
          foreach ( $f_mes as $v ) {

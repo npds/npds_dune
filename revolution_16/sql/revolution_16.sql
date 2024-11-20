@@ -233,7 +233,7 @@ CREATE TABLE fonctions (
   furlscript varchar(4000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'attribut et contenu  de balise A : href="xxx", onclick="xxx"  etc',
   fcategorie tinyint(3) unsigned NOT NULL,
   fcategorie_nom varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  fordre tinyint(2) unsigned NOT NULL,
+  fordre tinyint(2) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (fid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Dune_proto';
 
