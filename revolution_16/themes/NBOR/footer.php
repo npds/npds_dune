@@ -11,7 +11,7 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
-global $pdst;
+global $pdst, $theme_darkness;
 $moreclass = 'col-12 mb-3';
 
 switch ($pdst)
@@ -67,7 +67,24 @@ default :
 break;
 
 }
-$ContainerGlobal='</div>';
+$ContainerGlobal='
+</div>';
+// pilotage du mode dark/light du thème ...
+echo '
+   <script type="text/javascript">
+   //<![CDATA[
+      (() => {
+        "use strict"
+         const theme = localStorage.setItem("theme", "'.$theme_darkness.'");
+         var getStoredTheme = localStorage.getItem("theme");
+         if (getStoredTheme === "auto") {
+            document.querySelector("body").setAttribute("data-bs-theme", (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"))
+          } else {
+            document.querySelector("body").setAttribute("data-bs-theme", "'.$theme_darkness.'");
+          }
+      })()
+   //]]>
+   </script>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
   require_once("themes/themes-dynamic/footer.php");

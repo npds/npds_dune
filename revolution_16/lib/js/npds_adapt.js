@@ -49,15 +49,6 @@
                $('[data-bs-toggle="popover"]').popover();
             });
          });
-
-         // adaptation du mode du theme au choix fait dans le media ...
-         function updateDarkness() {
-            const colorMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            document.querySelector("body").setAttribute("data-bs-theme", colorMode);
-         }
-         updateDarkness()
-         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateDarkness);
-
          // un autre moyen d'initialiser le tootip
          (function(t) {
             "use strict";

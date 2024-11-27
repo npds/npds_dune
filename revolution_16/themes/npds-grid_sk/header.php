@@ -15,8 +15,10 @@ global $NPDS_Prefix, $pdst;
 $moreclass = 'col';
 $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1'");
 $nb_blg_actif = sql_num_rows($blg_actif);
+sql_free_result($blg_actif);
 $bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1'");
 $nb_bld_actif = sql_num_rows($bld_actif);
+sql_free_result($bld_actif);
 
 /*
  Nomination des div par l'attribut id:

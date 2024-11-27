@@ -15,8 +15,10 @@ $pdst='2';
 
 $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1' AND member ='0'");
 $nb_blg_actif = sql_num_rows($blg_actif);
+sql_free_result($blg_actif);
 $bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1' AND member ='0'");
 $nb_bld_actif = sql_num_rows($bld_actif);
+sql_free_result($bld_actif);
 
 /*
 La variable $pdst permet de gérer le nombre et la disposition des colonnes
@@ -38,9 +40,9 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
 */
 
 if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
-    switch ($pdst) {
-    case '2': $pdst='-1'; break;
-    }
+   switch ($pdst) {
+      case '2': $pdst='-1'; break;
+   }
 }
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant

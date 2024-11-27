@@ -17,15 +17,16 @@ $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1'")
 $nb_blg_actif = sql_num_rows($blg_actif);
 $bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1'");
 $nb_bld_actif = sql_num_rows($bld_actif);
-
-   $listblocs_g='';
-    while (list(,$title_g)=sql_fetch_row($blg_actif)) {
-       $listblocs_g.= $title_g.'<br />';
-    }
-   $listblocs_d='';
-    while (list(,$title_d)=sql_fetch_row($bld_actif)) {
-       $listblocs_d.= $title_d.'<br />';
-    }
+$listblocs_g='';
+while (list(,$title_g)=sql_fetch_row($blg_actif)) {
+   $listblocs_g.= $title_g.'<br />';
+}
+sql_free_result($blg_actif);
+$listblocs_d='';
+while (list(,$title_d)=sql_fetch_row($bld_actif)) {
+   $listblocs_d.= $title_d.'<br />';
+}
+sql_free_result($bld_actif);
 
 /*
 Ce thème dispose donc les blocs en ligne en bas du corps, la variable $pdst permet 5 affichages de contenu différents
