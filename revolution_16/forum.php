@@ -20,7 +20,7 @@ if (!function_exists("Mysql_Connexion"))
    if ($op=="maj_subscribe") {
       if ($user) {
          settype($cookie[0],"integer");
-         $result = sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$cookie[0]' AND forumid!='NULL'");
+         $result = sql_query("DELETE FROM ".$NPDS_Prefix."subscribe WHERE uid='$cookie[0]' AND forumid IS NOT NULL");
          $result = sql_query("SELECT forum_id FROM ".$NPDS_Prefix."forums ORDER BY forum_index,forum_id");
          while(list($forumid) = sql_fetch_row($result)) {
             if (is_array($Subforumid)) {
