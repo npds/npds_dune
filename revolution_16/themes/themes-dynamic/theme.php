@@ -271,7 +271,7 @@ function userpopover($who,$dim,$avpop) {
                <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                   <img class=" btn-outline-primary img-fluid n-ava-'.$dim.' me-0" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" />
                </a>
-               <ul class="dropdown-menu bg-light">
+               <ul class="dropdown-menu" data-bs-theme="light" >
                   <li><span class="dropdown-item-text text-center py-0 my-0">'.userpopover($who,64,1).'</span></li>
                   <li><h6 class="dropdown-header text-center py-0 my-0">'.$who.'</h6></li>
                   <li><hr class="dropdown-divider"></li>
