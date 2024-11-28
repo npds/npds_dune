@@ -432,6 +432,6 @@ echo '
       <li class="list-group-item d-flex justify-content-start align-items-center"><i class="fa fa-cogs fa-2x text-body-secondary me-1"></i>Version Sub <span class="badge bg-danger ms-auto">'.$Version_Sub.'</span></li>
    </ul>
    <br />
-   <p class="text-center"><a href="http://www.npds.org" >http://www.npds.org</a> - French Portal Generator Gnu/Gpl Licence</p><br />';
+   <p class="text-center"><a href="https://www.npds.org" >https://www.npds.org</a> - French Portal Generator Gnu/Gpl Licence</p><br />';
 include("footer.php");
 ?>
