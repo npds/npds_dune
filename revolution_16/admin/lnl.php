@@ -578,27 +578,42 @@ function lnl_list() {
    <table data-toggle="table" data-search="true" data-show-toggle="true" data-mobile-responsive="true" data-icons="icons" data-icons-prefix="fa">
       <thead>
          <tr>
-            <th class="n-t-col-xs-1" data-halign="center" data-align="right">ID</th>
+            <th class="n-t-col-xs-1" data-sortable="true" data-halign="center" data-align="right">ID</th>
             <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.adm_translate("Entête").'</th>
             <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.adm_translate("Corps").'</th>
             <th class="n-t-col-xs-1" data-halign="center" data-align="right">'.adm_translate("Pied").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Nbre d'envois effectués").'</th>
             <th data-halign="center" data-align="center">'.adm_translate("Type").'</th>
-            <th data-halign="center" data-align="right">'.adm_translate("Date").'</th>
+            <th data-halign="center" data-sortable="true" data-align="right">'.adm_translate("Date").'</th>
             <th data-halign="center" data-align="center">'.adm_translate("Etat").'</th>
          </tr>
       </thead>
       <tbody>';
    while (list($ref, $header, $body, $footer, $number_send, $type_send, $date, $status) = sql_fetch_row($result)) {
-      echo '
+      $ico='';
+      switch($type_send) {
+         case 'Mbr':
+            $ico = '<i class="fa fa-user fa-lg me-2"></i>';
+         break;
+         case 'Out':
+            $ico = '<i class="fa fa-user fa-lg me-2 text-body-tertiary"></i>';
+         break;
+         case 'All':
+            $ico = '<i class="fa fa-users fa-lg me-2"></i>';
+         break;
+         default :
+            $ico = '<i class="fa fa-users fa-lg me-3"></i>';
+         break;
+      }
+   echo '
          <tr>
             <td>'.$ref.'</td>
             <td>'.$header.'</td>
             <td>'.$body.'</td>
             <td>'.$footer.'</td>
             <td>'.$number_send.'</td>
-            <td>'.$type_send.'</td>
-            <td>'.formatTimes($date, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</td>';
+            <td>'.$ico.$type_send.'</td>
+            <td class="small">'.formatTimes($date, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT).'</td>';
          if ($status=="NOK") {
             echo '
             <td class="text-danger">'.$status.'</td>';
@@ -746,7 +761,7 @@ switch ($op) {
       $limit=50; // nombre de messages envoyé par boucle.
       if (!isset($debut)) $debut=0;
       if (!isset($number_send)) $number_send=0;
-   
+
       global $nuke_url;
       $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='HED' AND ref='$Xheader'");
       $Yheader=sql_fetch_row($result);
@@ -754,8 +769,11 @@ switch ($op) {
       $Ybody=sql_fetch_row($result);
       $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' AND html='$Yheader[1]' AND ref='$Xfooter'");
       $Yfooter=sql_fetch_row($result);
-   
       $subject=stripslashes($Xsubject);
+      if(!isset($Yheader[0]) or !isset($Ybody[0]) or !isset($Yfooter[0]) ) {
+         header("location: admin.php?op=lnl&lnlerror=true");
+         exit();
+      }
       $message =$Yheader[0].$Ybody[0].$Yfooter[0];
       global $sitename;
       $Xmime = $Yheader[1]==1 ? 'html-nobr' : 'text';
@@ -763,7 +781,7 @@ switch ($op) {
          $Xtype="Out";
          $OXtype="All";
       }
-   
+
       // Outside Users
       if ($Xtype=="Out") {
          $mysql_result=sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE status='OK'");
@@ -790,28 +808,23 @@ switch ($op) {
       // NPDS Users
       if ($Xtype=='Mbr') {
          if ($Xgroupe!='') {
-            $result='';
             $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1'");
             $nrows=sql_num_rows($mysql_result);
             $resultGP = sql_query("SELECT u.email, u.uid, s.groupe FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND (s.groupe LIKE '%$Xgroupe,%' OR s.groupe LIKE '%,$Xgroupe' OR s.groupe='$Xgroupe') AND u.user_lnl='1' ORDER BY u.email LIMIT $debut,$limit");
+            $result = array();
             while(list($email, $uid, $groupe) = sql_fetch_row($resultGP)) {
-               $tab_groupe=explode(',',$groupe);
-               if ($tab_groupe) {
-                  $result = array();
-                  foreach($tab_groupe as $groupevalue) {
-                     if ($groupevalue==$Xgroupe)
-                        $result[]=$email;
-                  }
-               }
+               $re = "#^$Xgroupe{1}|,$Xgroupe,{1}|,$Xgroupe$#";
+               if(preg_match($re, $groupe))
+                  $result[] = $email;
             }
-            $boucle = is_array($result) ? true : false ;
+            $boucle = true;
          } else {
             $mysql_result=sql_query("SELECT u.uid FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.email!='' AND u.user_lnl='1'");
             $nrows=sql_num_rows($mysql_result);
             $query = sql_query("SELECT u.uid, u.email FROM ".$NPDS_Prefix."users u, ".$NPDS_Prefix."users_status s WHERE s.open='1' AND u.uid=s.uid AND u.user_lnl='1' ORDER BY email LIMIT $debut,$limit");
             $result = array();
             while(list($uid,$email) = sql_fetch_row($query)) {$result[]=$email;}
-            $boucle=true;
+            $boucle = true;
          }
          if ($boucle) {
             foreach($result as $email) {
@@ -858,7 +871,7 @@ switch ($op) {
                }
                setTimeout(\"redirect()\",10000);
                //]]>
-               </script>";
+            </script>";
       echo '
          <link href="'.$nuke_url.'/themes/npds-boost_sk/style/style.css" title="default" rel="stylesheet" type="text/css" media="all">
          <link id="bsth" rel="stylesheet" href="'.$nuke_url.'/themes/_skins/default/bootstrap.min.css">
