@@ -77,18 +77,17 @@ function session_manage() {
 
 //==> proto en test badbotcontrol ...
    // bad robot limited at x connections ...
-   $gulty_robots = array('facebookexternalhit','Amazonbot','ClaudeBot','bingbot','Applebot','AhrefsBot'); // to be defined in config.php ...
+   $gulty_robots = array('facebookexternalhit','Amazonbot','ClaudeBot','bingbot','Applebot','AhrefsBot','SemrushBot'); // to be defined in config.php ...
    foreach($gulty_robots as $robot) {
       if(!empty($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], $robot) !== false) {
          $result = sql_query("SELECT agent FROM ".$NPDS_Prefix."session WHERE agent REGEXP '".$robot."'");
-         if(sql_num_rows($result)>3) {
+         if(sql_num_rows($result)>5) {
             header($_SERVER["SERVER_PROTOCOL"] . ' 429 Too Many Requests');
             echo 'Too Many Requests';
             die;
          }
       }
    }
-
 //<== proto
 
    $result = sql_query("SELECT time FROM ".$NPDS_Prefix."session WHERE username='$username'");
