@@ -519,7 +519,7 @@ function BannerClientChange($cid, $name, $contact, $email, $extrainfo, $login, $
 
 switch ($op) {
    case 'BannersAdd':
-      BannersAdd($name, $cid, $imptotal, $imageurl, $clickurl, $userlevel);
+      BannersAdd($cid, $imptotal, $imageurl, $clickurl, $userlevel);
    break;
    case 'BannerAddClient':
       BannerAddClient($name, $contact, $email, $login, $passwd, $extrainfo);
