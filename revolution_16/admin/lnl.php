@@ -41,10 +41,10 @@ function ShowHeader() {
    <table data-toggle="table" class="table-no-bordered">
       <thead class="d-none">
          <tr>
-            <th class="n-t-col-xs-1" data-align="">ID</th>
-            <th class="n-t-col-xs-8" data-align="">'.adm_translate("Entête").'</th>
-            <th class="n-t-col-xs-1" data-align="">Type</th>
-            <th class="n-t-col-xs-2" data-align="right">'.adm_translate("Fonctions").'</th>
+            <th class="n-t-col-xs-1" data-align="center">ID</th>
+            <th class="n-t-col-xs-8">'.adm_translate("Entête").'</th>
+            <th class="n-t-col-xs-1" data-align="center">Type</th>
+            <th class="n-t-col-xs-2" data-align="center">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -58,7 +58,7 @@ function ShowHeader() {
             <td>'.$row['ref'].'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$row['ref'].'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Header&amp;Headerid='.$row['ref'].'" ><i class="fa fa-edit fa-lg me-3" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Header&amp;Headerid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -73,7 +73,8 @@ function Detail_Header_Footer($ibid, $type) {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    // $type = HED or FOT
    $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='$type' AND ref='$ibid'");
-   $tmp=sql_fetch_row($result);
+   $tmp = sql_fetch_row($result);
+   sql_free_result($result);
    echo '
    <hr />
    <h3 class="mb-2">';
@@ -83,7 +84,7 @@ function Detail_Header_Footer($ibid, $type) {
    echo ' - '.adm_translate("Prévisualiser");
    if ($tmp[1]==1)
       echo '<code> HTML</code></h3>
-      <div class="card card-body">'.$tmp[0].'</div>';
+      <div class="card card-body">'.meta_lang($tmp[0]).'</div>';
    else
       echo '<code>'.adm_translate("TEXTE").'</code></h3>
       <div class="card card-body">'.nl2br($tmp[0]).'</div>';
@@ -124,10 +125,10 @@ function ShowBody() {
    <table data-toggle="table" class="table-no-bordered">
       <thead class="d-none">
          <tr>
-            <th class="n-t-col-xs-1" data-align="">ID</th>
-            <th class="n-t-col-xs-8" data-align="">'.adm_translate("Corps de message").'</th>
-            <th class="n-t-col-xs-1" data-align="">Type</th>
-            <th class="n-t-col-xs-2" data-align="right">'.adm_translate("Fonctions").'</th>
+            <th class="n-t-col-xs-1" data-align="center">ID</th>
+            <th class="n-t-col-xs-8">'.adm_translate("Corps de message").'</th>
+            <th class="n-t-col-xs-1" data-align="center">Type</th>
+            <th class="n-t-col-xs-2" data-align="center">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -141,7 +142,7 @@ function ShowBody() {
          <td>'.$row['ref'].'</td>
          <td>'.$text.'</td>
          <td><code>'.$html.'</code></td>
-         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$row['ref'].'"><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
+         <td><a href="admin.php?op=lnl_Shw_Body&amp;Bodyid='.$row['ref'].'"><i class="fa fa-edit fa-lg me-3" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Body&amp;Bodyid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
       </tr>';
    }
    echo '
@@ -161,7 +162,7 @@ function Detail_Body($ibid) {
    $tmp=sql_fetch_row($result);
    if ($tmp[1]==1)
       echo adm_translate("Prévisualiser").' <code>HTML</code></h3>
-      <div class="card card-body">'.$tmp[0].'</div>';
+      <div class="card card-body">'.meta_lang($tmp[0]).'</div>';
    else
       echo adm_translate("Prévisualiser").' <code>'.adm_translate("TEXTE").'</code></h3>
       <div class="card card-body">'.nl2br($tmp[0]).'</div>';
@@ -252,10 +253,10 @@ function ShowFooter() {
    <table data-toggle="table" class="table-no-bordered">
       <thead class="d-none">
          <tr>
-            <th class="n-t-col-xs-1" data-align="">ID</th>
-            <th class="n-t-col-xs-8" data-align="">'.adm_translate("Pied").'</th>
-            <th class="n-t-col-xs-1" data-align="">Type</th>
-            <th class="n-t-col-xs-2" data-align="right">'.adm_translate("Fonctions").'</th>
+            <th class="n-t-col-xs-1" data-align="center">ID</th>
+            <th class="n-t-col-xs-8">'.adm_translate("Pied").'</th>
+            <th class="n-t-col-xs-1" data-align="center">Type</th>
+            <th class="n-t-col-xs-2" data-align="center">'.adm_translate("Fonctions").'</th>
          </tr>
       </thead>
       <tbody>';
@@ -269,7 +270,7 @@ function ShowFooter() {
             <td>'.$row['ref'].'</td>
             <td>'.$text.'</td>
             <td><code>'.$html.'</code></td>
-            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$row['ref'].'" ><i class="fa fa-edit fa-lg me-2" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
+            <td><a href="admin.php?op=lnl_Shw_Footer&amp;Footerid='.$row['ref'].'" ><i class="fa fa-edit fa-lg me-3" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a><a href="admin.php?op=lnl_Sup_Footer&amp;Footerid='.$row['ref'].'" class="text-danger"><i class="fas fa-trash fa-lg" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a></td>
          </tr>';
    }
    echo '
@@ -540,8 +541,10 @@ function Test($Yheader, $Ybody, $Yfooter) {
    $result = sql_query("SELECT text, html FROM ".$NPDS_Prefix."lnl_head_foot WHERE type='FOT' AND html='$Xheader[1]' AND ref='$Yfooter'");
    $Xfooter=sql_fetch_row($result);
    // For Meta-Lang
-//   global $cookie; // a quoi ca sert
-//   $uid=$cookie[0]; // a quoi ca sert
+/* celà génère une erreur dans certains cas
+   global $cookie;
+   $uid=$cookie[0];
+*/
    if ($Xheader[1]==1) {
       echo '
       <hr />
@@ -553,11 +556,11 @@ function Test($Yheader, $Ybody, $Yfooter) {
       <hr />
       <h3 class="mb-3">'.adm_translate("Prévisualiser").' '.adm_translate("TEXTE").'</h3>';
       $Xmime='text';
-      $message=meta_lang(nl2br($Xheader[0]).nl2br($Xbody[0]).nl2br($Xfooter[0]));
+      $message=$Xheader[0]."\n".$Xbody[0]."\n".$Xfooter[0];
    }
    echo '
    <div class="card card-body">
-   '.$message.'
+   '.nl2br($message).'
    </div>
    <a class="btn btn-secondary my-3" href="javascript:history.go(-1)" >'.adm_translate("Retour en arrière").'</a>';
    global $adminmail;
@@ -774,9 +777,11 @@ switch ($op) {
          header("location: admin.php?op=lnl&lnlerror=true");
          exit();
       }
-      $message =$Yheader[0].$Ybody[0].$Yfooter[0];
+      $message = $Yheader[0]."\n".$Ybody[0]."\n".$Yfooter[0];
       global $sitename;
       $Xmime = $Yheader[1]==1 ? 'html-nobr' : 'text';
+      $message = ($Xmime=='html-nobr') ? meta_lang($message) : $message; 
+
       if ($Xtype=="All") {
          $Xtype="Out";
          $OXtype="All";
@@ -798,7 +803,7 @@ switch ($op) {
                         $Xmessage=$message."\n\n------------------------------------------------------------------\n";
                         $Xmessage.= adm_translate("Pour supprimer votre abonnement à notre Lettre, suivez ce lien")." : $nuke_url/lnl.php?op=unsubscribe&email=$email";
                      }
-                     send_email($email, $subject, meta_lang($Xmessage), "", true, $Xmime, '');
+                     send_email($email, $subject, $Xmessage, '', true, $Xmime, '');
                      $number_send++;
                   }
                }
@@ -831,7 +836,7 @@ switch ($op) {
                if (($email!="Anonyme") or ($email!="Anonymous")) {
                   if ($email!='') {
                      if (($message!='') and ($subject!='')) {
-                        send_email($email, $subject, meta_lang($message), "", true, $Xmime, '');
+                        send_email($email, $subject, $message, '', true, $Xmime, '');
                         $number_send++;
                      }
                   }

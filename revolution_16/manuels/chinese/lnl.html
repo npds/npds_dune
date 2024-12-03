@@ -1,15 +1,57 @@
-<html>
-<head>
-<title>LNL - 短信息- NPDS V</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-</head>
-<body bgcolor=FFFFFF text=000000>
-<font face=STFangsong,Verdana,Arial,Helvetica size=3>
-<center><b>LNL - 短信息</b></center>
-<br /><br /> 本模块允许您管理您的网站上的短信息LNL。  <br /><br /> 其中的主要功能如下：<br /> &nbsp; - 对短信的3个主体的管理：信头，信文本，信尾，<br /> &nbsp; - 可以对短信息进行文本格式或HTML格式的编制，<br /> &nbsp; - 发送给注册会员，潜在目标客户，或者两者皆可，<br /> &nbsp; - 短信息发送后的跟踪报告，和以往发送对象的记录列表。<br /> <br /> 本功能采用典型的短信工作模式：<br /> &nbsp; - 创建信头 (文本格式 或 Html),<br /> &nbsp; - 编写信主体文本 (文本格式 或Html),<br /> &nbsp; - 创建信尾 (文本格式 或Html),<br /> &nbsp; - 测试该短信息 (输入相应的数字),<br /> &nbsp;&nbsp;&nbsp;本测试使您的短信可以被对方回复, <br /> &nbsp; - 发送该LNL短信息 (输入目标对象)。<br /> <br /><br /> 您可以（根据实际需要）添加，修改或者删除您的短信中的各个“组成部分”。 <br /><br /> 您可以观测到所发送的短信息的一些特征，如下：<br /> 
-&nbsp;- All => 短信发送给注册会员和潜在目标客户,<br /> &nbsp;- Mbr => 仅发送给会员,<br /> &nbsp;- Out => 仅发送给潜在目标客户,<br /> 同样的，您可以持有一个目标客户的列表 (OK => 用户期望收到信息；NOK =>用户不希望接收信息)。<br /> <br /> 请注意，要使用本短信息功能，您的服务器上的邮件(Mail 或 Email)功能必须是激活的。 <br /><br /> 在拥有50个注册会员上时，LNL短信息系统将每10秒钟发送信息给50个会员。 此举目的在于避免服务器工作超负载。
-
-         </div>
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>LNL - 短信息</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_com.html">沟通</a></li>
+               <li class="breadcrumb-item active">LNL - 短信息</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">LNL - 短信息</h3>
+         <p> 本模块允许您管理您的网站上的短信息LNL。</p>
+         <p> 其中的主要功能如下：
+            <ul>
+               <li>对短信的3个主体的管理：信头，信文本，信尾，</li>
+               <li>可以对短信息进行文本格式或HTML格式的编制，</li>
+               <li>发送给注册会员，潜在目标客户，或者两者皆可，</li>
+               <li>短信息发送后的跟踪报告，和以往发送对象的记录列表。</li>
+            </ul>
+         </p>
+         <p>本功能采用典型的短信工作模式：
+            <ul>
+               <li>创建信头 (文本格式 或 Html),</li>
+               <li>编写信主体文本 (文本格式 或Html),</li>
+               <li>创建信尾 (文本格式 或Html),</li>
+               <li>测试此消息（选择信件的元素），<br />
+               本测试使您的短信可以被对方回复,</li>
+               <li>>发送该LNL短信息 (输入目标对象)。</li>
+            </ul>
+            <span class="text-danger">注意：组装信件时要小心（在测试发送功能和直接发送功能中），信件的不同部分、页眉、页面正文和页脚必须采用相同的格式（html 或文本）！</span>
+         </p>
+         <p> 您可以（根据实际需要）添加，修改或者删除您的短信中的各个“组成部分”。</p>
+         <p>您可以观测到所发送的短信息的一些特征，如下：
+            <ul>
+               <li>All => 短信发送给注册会员和潜在目标客户,</li>
+               <li>Mbr => 仅发送给会员,</li>
+               <li>Out => 仅发送给潜在目标客户,</li>
+               <li>2 到 126 之间的数字（= 群组 ID）=> 仅适用于群组成员</li>
+            </ul>
+            同样的，您可以持有一个目标客户的列表 (OK => 用户期望收到信息；NOK =>用户不希望接收信息)。
+         </p>
+         <p>请注意，要使用本短信息功能，您的服务器上的邮件(Mail 或 Email)功能必须是激活的。</p>
+         <p>在拥有50个注册会员上时，LNL短信息系统将每10秒钟发送信息给50个会员。 此举目的在于避免服务器工作超负载。</p>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - 管理手册</span></p>
       </div>
    </body>

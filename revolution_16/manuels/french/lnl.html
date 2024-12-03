@@ -34,10 +34,11 @@
                <li>Cr&eacute;ation d'un Ent&ecirc;te (Texte ou Html)</li>
                <li>Cr&eacute;ation d'un Corps (Texte ou Html)</li>
                <li>Cr&eacute;ation d'un Pied (Texte ou Html)</li>
-               <li>Test de la LNL (saisir le num&eacute;ro pour chacun des &eacute;l&eacute;ments)<br />
-               Ce test vous permet de valider le rendu de votre LNL<br /></li>
-               <li>Envoi de la LNL (saisir L'objet et les destinataires).</li>
+               <li>Test de la LNL (choisir pour chacun des &eacute;l&eacute;ments)<br />
+               Ce test vous permet de valider le rendu de votre LNL et de l'envoyer par email à l'administrateur.<br /></li>
+               <li>Envoi de la LNL (saisir L'objet (obligatoire) et les destinataires).</li>
             </ul>
+            <span class="text-danger">NB :  attention lors de l'assemblage d'une lettre (dans la fonction de test d'envoi et dans la fonction d'envoi direct)  les différentes parties de la lettre l'entête le corps de page et le pied doivent être de même format (html ou texte) !</span>
          </p>
          <p>Vous pouvez rajouter, modifier ou supprimer les "composants" de votre LNL.</p>
          <p>Vous disposez d'un &eacute;tat des LNL envoy&eacute;es avec un certain nombre d'informations et notamment le Type :
@@ -45,7 +46,7 @@
                <li>All => LNL envoy&eacute;e &agrave; tous les membres et &agrave; tous les prospects,</li>
                <li>Mbr => uniquement aux membres</li>
                <li>Out => uniquement aux prospects</li>
-               <li>un chiffre de 2 à 127 ( = id du groupe) => uniquement aux membres du groupe</li>
+               <li>un chiffre de 2 à 126 ( = id du groupe) => uniquement aux membres du groupe</li>
             </ul>
             ainsi que de la liste des prospects (Status OK => L'utilisateur souhaite recevoir la Lettre, NOK, il ne le souhaite pas).</p>
          <p>Bien &eacute;videmment, la fonction Mail (ou Email) doit &ecirc;tre active chez votre h&eacute;bergeur pour pouvoir utiliser cette fonctionnalit&eacute;.</p>

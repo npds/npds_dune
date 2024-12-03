@@ -185,7 +185,7 @@ $PAGES['stats.php']['sitemap']="0.5";
 $PAGES['admin.php']['title']=""; // obligatoirement à vide
 $PAGES['admin.php']['blocs']="0";
 $PAGES['admin.php']['run']="yes";
-$PAGES['admin.php']['css']=array("admin.css+");
+$PAGES['admin.php']['css']=array($nuke_url."/themes/default/style/admin.css+");
 /*
 $PAGES['admin.php']['TinyMce']=1;
 $PAGES['admin.php']['TinyMce-theme']="full";
@@ -201,14 +201,14 @@ if(isset($_POST['op'])){
    }
 }
 // page nécessitant tiny appelée par l'url admin.php + variable op transmise dans l'url
-$adm_op_url = array('adminStory','DisplayStory','PreviewAgain','EditStory','autoEdit','Edito_load','sections','sectionedit','new_rub_section','rubriquedit','secartedit','secartupdate','DownloadAdmin','DownloadEdit','email_user','FaqCatGo','lnl_Shw_Body','links','LinksModLink','Add_Footer');
+$adm_op_url = array('adminStory','DisplayStory','PreviewAgain','EditStory','autoEdit','Edito_load','sections','sectionedit','new_rub_section','rubriquedit','secartedit','secartupdate','DownloadAdmin','DownloadEdit','email_user','FaqCatGo','lnl_Shw_Body','lnl_Shw_Footer','lnl_Shw_Header','links','LinksModLink','Add_Footer');
 foreach($adm_op_url as $v){
    $PAGES['admin.php?op='.$v]['title']=""; // obligatoirement à vide
    $PAGES['admin.php?op='.$v]['blocs']="0";
    $PAGES['admin.php?op='.$v]['run']="yes";
    $PAGES['admin.php?op='.$v]['TinyMce']=1;
    $PAGES['admin.php?op='.$v]['TinyMce-theme']="full";
-   $PAGES['admin.php?op='.$v]['css']=array("admin.css+");
+   $PAGES['admin.php?op='.$v]['css']=array($nuke_url."/themes/default/style/admin.css+");
    $PAGES['admin.php?op='.$v]['TinyMceRelurl']="false";
 }
 // <== éviter un chargement de tiny à toutes les pages admin //
@@ -341,7 +341,7 @@ $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['run']="yes";
 $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['blocs']="0";
 $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['TinyMce']=1;
 $PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['TinyMce-theme']="short";
-$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['css']=array($nuke_url.'/modules/npds_galerie/css/galerie.css+');
+$PAGES['modules.php?ModPath=npds_galerie&ModStart=gal*']['css']=array($nuke_url.'/modules/npds_galerie/css/galerie.css+',$nuke_url."/lib/bootstrap/dist/css/bootstrap-icons.css+");
 
 $PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['title']="[french]Localisation[/french][english]Geolocation[/english][spanish]Geolocalizaci&oacute;n[/spanish][german]Geolocation[/german][chinese]&#22320;&#29702;&#20301;&#32622;[/chinese]+|$title+";
 $PAGES['modules.php?ModPath=geoloc&ModStart=geoloc*']['run']="yes";

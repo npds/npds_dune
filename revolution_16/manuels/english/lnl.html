@@ -34,10 +34,11 @@
                <li>Creating a Header (Text or Html)</li>
                <li>Creating a Body (Text or Html)</li>
                <li>Creating a Footer (Text or Html)</li>
-               <li>LNL test (enter the number for each element)<br />
-               This test allows you to validate the rendering of your LNL<br /></li>
-               <li>Sending the LNL (enter the subject and recipients).</li>
+               <li>LNL test (choose for each element)<br />
+               This test allows you to validate the rendering of your LNL letter and send it by email to the administrator.<br /></li>
+               <li>Sending the LNL (enter the subject (required) and recipients).</li>
             </ul>
+            <span class="text-danger">NB: be careful when assembling a letter (in the test sending function and in the direct sending function) the different parts of the letter, the header, the body of the page and the footer must be in the same format (html or text)!</span>
          </p>
          <p>You can add, modify or delete the "components" of your LNL.</p>
          <p>You have a status of the LNLs sent with a certain amount of information and in particular the Type:
@@ -45,11 +46,13 @@
                <li>All => LNL sent to all members and all prospects,</li>
                <li>Mbr => members only</li>
                <li>Out => only to prospects</li>
+               <li>a number from 2 to 126 (= group id) => only for group members</li>
             </ul>
          as well as the list of prospects (Status OK => The user wishes to receive the Letter, NOK, he does not wish).
          </p>
          <p>Of course, the email function must be active with your host to be able to use this functionality.</p>
          <p>Above 50 members, the LNL will be sent in "packets" of 50 every 10 seconds, thus avoiding saturating your mail server.</p>
-         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Administration manual</span></p>      </div>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Administration manual</span></p>
+      </div>
    </body>
 </html>
