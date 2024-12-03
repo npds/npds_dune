@@ -70,7 +70,6 @@ class cacheManager{
 
    function startCachingPage() {
       global $CACHE_TIMINGS, $CACHE_CONFIG, $CACHE_QUERYS;
-      // if ($CACHE_TIMINGS[$this->php_self] > 0 and ($this->query_string == '' or ereg($CACHE_QUERYS[$this->php_self], $this->query_string)) ) {
       if ($CACHE_TIMINGS[$this->php_self] > 0 and ($this->query_string == '' or preg_match("#".$CACHE_QUERYS[$this->php_self]."#", $this->query_string)) ) {
          $cached_page = $this->checkCache($this->request_uri,$CACHE_TIMINGS[$this->php_self]);
          if ($cached_page != '') {
