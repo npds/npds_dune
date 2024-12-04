@@ -589,14 +589,15 @@ function userinfo($uname) {
       list($sid, $catid, $aid, $title,$time) = $xtab[$story_limit];
       $story_limit++;
       echo '
-      <div class="d-flex">
+      <div class="d-flex border-bottom">
         <div class="p-2"><a href="article.php?sid='.$sid.'">'.aff_langue($title).'</a></div>
-        <div class="ms-auto p-2">'.$time.'</div>
+        <div class="ms-auto p-2">'.formatTimes($time,IntlDateFormatter::SHORT, IntlDateFormatter::MEDIUM).'</div>
       </div>';
    }
    echo '
    </div>
-   <h4 class="my-3">'.translate("Les dernières contributions de").' '.$uname.'</h4>';
+   <h4 class="my-3">'.translate("Les dernières contributions de").' '.$uname.'</h4>
+   <div id="last_posts_by" class="card card-body mb-3">';
    $nbp = 10;
    $content ='';
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."posts WHERE forum_id > 0 AND poster_id=$uid ORDER BY post_time DESC LIMIT 0,50");
@@ -636,7 +637,7 @@ function userinfo($uname) {
             else
                $image = '<a title="'.translate("Lu").'" data-bs-toggle="tooltip"><i class="far fa-file-alt fa-lg text-primary"></i></a>';
          $content .='
-         <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start" >
+         <p class="mb-0 list-group-item list-group-item-action flex-column align-items-start border-bottom pb-1" >
             <span class="d-flex w-100 mt-1">
             <span>'.formatTimes($post_time,IntlDateFormatter::SHORT, IntlDateFormatter::MEDIUM).'</span>
             <span class="ms-auto">
@@ -648,8 +649,8 @@ function userinfo($uname) {
          $j++;
       }
    }
-   echo $content;
-   echo'
+   echo $content.'
+   </div>
    <hr />';
    if($posterdata['attachsig']==1)
       echo'
