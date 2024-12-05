@@ -1820,6 +1820,7 @@ MAIS PAS quand ça repasse par le serveur et traité dans getfile.php (et je ne 
 
 donc pour l'instant on garde UTF-8 et on redécode dans getfile.php
 mais dans tout les cas le captcha en chinois est faux
+//je pense qu' il faut plutôt utiliser imagettftext dans le captcha (adapté à utf-8) !
 */
 /*
 var_dump('sortie de trad en utf-8 ou iso ==>'.$aff.'<br />');/////////
@@ -2494,8 +2495,8 @@ function category() {
             $res = sql_query("SELECT time FROM ".$NPDS_Prefix."stories WHERE catid='$catid' ORDER BY sid DESC LIMIT 0,1");
             list($time) = sql_fetch_row($res);
             $boxstuff .= $cat == $catid ?
-               '<li><strong>'.aff_langue($title).'</strong></li>' :
-               '<li class="list-group-item list-group-item-action hyphenate"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernière contribution").' <br />'.formatTimes($time).' ">'.aff_langue($title).'</a></li>' ;
+               '<li class="my-2"><strong>'.aff_langue($title).'</strong></li>' :
+               '<li class="list-group-item list-group-item-action hyphenate my-2"><a href="index.php?op=newcategory&amp;catid='.$catid.'" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" title="'.translate("Dernière contribution").' <br />'.formatTimes($time).' ">'.aff_langue($title).'</a></li>' ;
          }
       }
       $boxstuff .= '</ul>';
