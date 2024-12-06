@@ -218,7 +218,7 @@ function instant_members_message() {
             $N = $ibid[$i]['username'];
             $M = (strlen($N)>$long_chain) ? substr($N,0,$long_chain).'.' : $N ;
             $boxstuff .='
-                                 <li>'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip" >'.$M.'</a><span class="float-end">'.$icon.'</span></li>';
+                                 <li class="my-2">'.$timex.'&nbsp;<a href="powerpack.php?op=instant_message&amp;to_userid='.$N.'" title="'.translate("Envoyer un message interne").'" data-bs-toggle="tooltip" >'.$M.'</a><span class="float-end">'.$icon.'</span></li>';
          }//suppression temporaire ... rank  '.$tmpR.'
       }
       $boxstuff .='
