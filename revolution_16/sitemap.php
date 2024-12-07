@@ -96,7 +96,7 @@ function sitemapdown($prio) {
     $result = sql_query("SELECT did, ddate FROM ".$NPDS_Prefix."downloads WHERE perms='0' ORDER BY did");
     while (list($did, $ddate) = sql_fetch_row($result)) {
        $tmp .= "<url>\n";
-       $tmp .= "<loc>$nuke_url/download.php?op=geninfo&amp;did=$did</loc>\n";
+       $tmp .= "<loc>$nuke_url/download.php?op=geninfo&amp;did=$did&amp;out_template=1</loc>\n";
        $tmp .= "<lastmod>$ddate</lastmod>\n";
        $tmp .= "<changefreq>weekly</changefreq>\n";
        $tmp .= "<priority>$prio</priority>\n";
