@@ -21,17 +21,10 @@ echo '
             <script type="text/javascript" src="lib/js/js.cookie.js" async="async"></script>
             <script type="text/javascript" src="lib/js/jquery-ui.min.js" ></script>
             <script type="text/javascript" src="lib/js/bootbox.min.js" async="async"></script>
-            <script type="text/javascript" src="lib/js/prism.js"></script>
-            <script type="text/javascript">
-               //<![CDATA[
-                  (tarteaucitron.job = tarteaucitron.job || []).push("vimeo");
-                  (tarteaucitron.job = tarteaucitron.job || []).push("youtube");
-                  (tarteaucitron.job = tarteaucitron.job || []).push("dailymotion");
-                  //tarteaucitron.user.gtagUa = ""; /*uncomment the line and add your gtag*/
-                  //tarteaucitron.user.gtagMore = function () { /* uncomment the line add here your optionnal gtag() */ };
-                  //(tarteaucitron.job = tarteaucitron.job || []).push("gtag");
-               //]]
-            </script>';
+            <script type="text/javascript" src="lib/js/prism.js"></script>';
+echo defined('CITRON') ?
+            '
+            <script type="text/javascript" src="lib/js/npds_tarteaucitron_service.js"></script>' : '' ;
 // <== core
 
 // ==> page-time pseudo-module : If you want to show the time used to generate each page uncomment those lines

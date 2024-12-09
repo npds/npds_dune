@@ -329,27 +329,8 @@ function convert_ressources ($Xcontent) {
          if(defined('CITRON')){
             echo '
             <script type="text/javascript"> var tarteaucitronForceLanguage = "'.language_iso(1,'','').'"; </script>
-            <script type="text/javascript" src="lib/tarteaucitron/tarteaucitron.js"></script>
-            <script type="text/javascript">
-               //<![CDATA[
-               tarteaucitron.init({
-                  "privacyUrl": "", /* Privacy policy url */
-                  "hashtag": "#tarteaucitron", /* Ouverture automatique du panel avec le hashtag */
-                  "cookieName": "tartaucitron", /* Cookie name */
-                  "orientation": "top", /* le bandeau doit être en haut (top) ou en bas (bottom) ? */
-                  "showAlertSmall": true, /* afficher le petit bandeau en bas à droite ? */
-                  "cookieslist": true, /* Afficher la liste des cookies installés ? */
-                  "adblocker": false, /* Afficher un message si un adblocker est détecté */
-                  "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
-                  "highPrivacy": false, /* désactiver le consentement implicite (en naviguant) ? */
-                  "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
-                  "removeCredit": true, /* supprimer le lien vers la source ? */
-                  "moreInfoLink": true, /* Show more info link */
-                  "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
-                  "cookieDomain": "" /* Nom de domaine sur lequel sera posé le cookie - pour les multisites / sous-domaines - Facultatif */
-               });
-               //]]
-            </script>';
+            <script type="text/javascript" src="lib/tarteaucitron/tarteaucitron.min.js"></script>
+            <script type="text/javascript" src="lib/js/npds_tarteaucitron.js"></script>';
          }
          $Xcontent= '
          </head>
@@ -441,18 +422,8 @@ function convert_ressources ($Xcontent) {
                      });
                   //]]>
                </script>';
-         if(defined('CITRON'))
-            echo '
-               <script type="text/javascript">
-                  //<![CDATA[
-                     (tarteaucitron.job = tarteaucitron.job || []).push("vimeo");
-                     (tarteaucitron.job = tarteaucitron.job || []).push("youtube");
-                     (tarteaucitron.job = tarteaucitron.job || []).push("dailymotion");
-                     //tarteaucitron.user.gtagUa = ""; /*uncomment the line and add your gtag*/
-                     //tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
-                     //(tarteaucitron.job = tarteaucitron.job || []).push("gtag");/*uncomment the line*/
-                  //]]
-               </script>';
+         echo (defined('CITRON')) ? '
+               <script type="text/javascript" src="lib/js/npds_tarteaucitron_service.js"></script>' : '' ;
          echo '
                <script type="text/javascript" src="lib/js/npds_adapt.js"></script>
             </body>
