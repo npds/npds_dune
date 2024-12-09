@@ -85,7 +85,7 @@ function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $in
    $size = empty ($size) ? filesize($path) : $size;
    $type = empty ($type) ? "application/octet-stream" : $type;
    $stamp = time();
-   $sql = "INSERT INTO $upload_table VALUES ('', '$IdPost', '$IdTopic','$IdForum', '$stamp', '$name', '$type', '$size', '$path', '1', '$apli', '0', '$visible_forum')";
+   $sql = "INSERT INTO $upload_table VALUES (0, '$IdPost', '$IdTopic','$IdForum', '$stamp', '$name', '$type', '$size', '$path', '1', '$apli', '0', '$visible_forum')";
    $ret = sql_query($sql);
    if (!$ret)
       return -1;
