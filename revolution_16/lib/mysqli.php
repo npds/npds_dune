@@ -12,6 +12,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
+global $debugmysql; 
 define('NPDS_DEBUG', $debugmysql);
 $sql_nbREQ=0;
 
