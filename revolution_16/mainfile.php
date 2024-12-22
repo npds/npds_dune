@@ -2611,7 +2611,7 @@ function headlines($hid='', $block=true) {
    }
 }
 #autodoc PollNewest() : Bloc Sondage <br />=> syntaxe : <br />function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
-function PollNewest(int $id=null) : void {
+function PollNewest($id=0) {
    global $NPDS_Prefix;
    // snipe : multi-poll evolution
    if ($id!=0) {
@@ -2954,7 +2954,7 @@ function fab_groupes_bloc($user,$im) {
             $content .= '<div class="text-end small"><a href="user.php?op=askforgroupe&amp;askedgroup='.$groupe_id.'" title="'.translate('Envoi une demande aux administrateurs pour rejoindre ce groupe. Un message privé vous informera du résultat de votre demande.').'" data-bs-toggle="tooltip">'.translate('Rejoindre ce groupe').'</a></div>';
       $content .= '</li>';
    }
-   $content .= '
+   $content .= '//
          </ul>';
    if (autorisation(-127))
       $content.='
