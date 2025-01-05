@@ -27,5 +27,6 @@ Suivre l'installation automatique ...
 
 ## Communauté
 
-- Besoin d'aide le [forum Npds](http://www.npds.org/forum.php)
+- Besoin d'aide le [forum Npds](https://www.npds.org/forum.php)
+- Besoin de documentation le [dokuwiki de npds](https://bible.npds.org)
 
