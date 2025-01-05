@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Admin DUNE Prototype                                                 */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -53,7 +53,7 @@ function hreferer($filter) {
       </tr>
    </thead>
    <tbody>';
-   $hresult = sql_query("SELECT url, COUNT(url) AS TheCount, substring(url,1,$filter) AS filter FROM ".$NPDS_Prefix."referer GROUP BY filter ORDER BY TheCount DESC");
+   $hresult = sql_query("SELECT url, COUNT(url) AS TheCount, substring(url,1,$filter) AS filter FROM ".$NPDS_Prefix."referer GROUP BY url, filter ORDER BY TheCount DESC");
    while(list($url, $TheCount) = sql_fetch_row($hresult)) {
       echo '
       <tr>
