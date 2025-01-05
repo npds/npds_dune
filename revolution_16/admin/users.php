@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -281,7 +281,7 @@ function nonallowedUsers() {
          <tr>
             <th data-halign="center" data-align="center" class="n-t-col-xs-1" ><i class="fa fa-user-o fa-lg me-1 align-middle"></i>ID</th>
             <th data-halign="center" data-sortable="true">'.adm_translate("Identifiant").'</th>
-            <th data-halign="center" data-align="left" data-sortable="true">'.adm_translate("Name").'</th>
+            <th data-halign="center" data-align="left" data-sortable="true">'.adm_translate("Nom").'</th>
             <th data-halign="center" data-align="right">'.adm_translate("Date").'</th>
             <th data-halign="center" data-align="center" class="n-t-col-xs-2" >'.adm_translate("Fonctions").'</th>
          </tr>
@@ -295,7 +295,8 @@ function nonallowedUsers() {
             <td>'.$unallowed_users['name'].'</td>
             <td>'.date('d/m/Y @ h:m',$unallowed_users['user_regdate']).'</td>
             <td>
-               <a class="me-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.translate("Edit").'" data-bs-toggle="tooltip"></i></a>
+               <a class="me-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip"></i></a>
+               <a class="me-3" href="admin.php?op=delUser&chng_uid='.$unallowed_users['uid'].'" ><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"></i></a>
             </td>
          </tr>';
    }
