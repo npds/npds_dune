@@ -367,6 +367,7 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
    
    if ($SuperCache) {
       $cache_clef="forum-jump-to";
+      global $CACHE_TIMINGS;
       $CACHE_TIMINGS[$cache_clef]=3600;
       $cache_obj->startCachingBlock($cache_clef);
    }
@@ -395,10 +396,10 @@ elseif ( ($Forum_passwd == $myrow['forum_pass']) or ($adminforum==1) ) {
          </div>
       </div>
    </form>';
-      include("footer.php");
    }
    if ($SuperCache)
       $cache_obj->endCachingBlock($cache_clef);
+   include("footer.php");
 } else
    header("location: forum.php");
 ?>
