@@ -303,8 +303,8 @@ function makeChatBox($pour) {
 }
 
 #autodoc RecentForumPosts($title, $maxforums, $maxtopics, $dposter, $topicmaxchars,$hr,$decoration) : Bloc Forums <br />=> syntaxe :<br />function#RecentForumPosts<br />params#titre, nb_max_forum (O=tous), nb_max_topic, affiche_l'emetteur(true / false), topic_nb_max_char, affiche_HR(true / false),
-function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, $topicmaxchars=15,$hr=false, $decoration) {
-   $boxstuff=RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr,$decoration);
+function RecentForumPosts($title, $maxforums, $maxtopics, $displayposter=false, $topicmaxchars=15,$hr=false, $decoration='') {
+   $boxstuff=RecentForumPosts_fab($title, $maxforums, $maxtopics, $displayposter, $topicmaxchars, $hr, $decoration);
    global $block_title;
    if ($title=='')
       $title = $block_title=='' ? translate("Forums infos") : $block_title ;
