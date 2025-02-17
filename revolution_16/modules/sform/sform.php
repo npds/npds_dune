@@ -271,7 +271,7 @@ class form_handler {
    /**************************************************************************************/
    // add upload field (only for design, no upload mechanism is inside sform)
    // public void
-   function add_upload($name, $en, $size='50', $file_size) {
+   function add_upload($name, $en, $size='50', $file_size=0) {
       $this->form_fields[count($this->form_fields)]=array(
          'name'=>$name,
          'en'=>$en,
