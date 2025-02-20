@@ -318,7 +318,7 @@ class form_handler {
                   $str.='
                <div class="mb-3 row">
                   <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
-                  $this->form_fields[$i]['value']=str_replace('\'','&#039;',$this->form_fields[$i]['value']);
+                  $this->form_fields[$i]['value'] = $this->form_fields[$i]['value'] ? str_replace('\'','&#039;',$this->form_fields[$i]['value']) : '';
                   $requi='';
                   if ($this->form_fields[$i]['obligation']){
                      $requi= 'required="required"';

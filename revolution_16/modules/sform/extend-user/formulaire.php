@@ -43,15 +43,15 @@ if ($smilies) {
 }
 // ---- AVATAR
 
-$m->add_field('user_from', translate("Votre situation géographique"),StripSlashes($user_from),'text',false,100,'','');
+$m->add_field('user_from', translate("Votre situation géographique"),StripSlashes($user_from ?? ''),'text',false,100,'','');
 $m->add_extender('user_from', '', '<span class="help-block"><span class="float-end" id="countcar_user_from"></span></span>');
 
-$m->add_field('user_occ', translate("Votre activité"),StripSlashes($user_occ),'text',false,100,'','');
+$m->add_field('user_occ', translate("Votre activité"),StripSlashes($user_occ ?? ''),'text',false,100,'','');
 $m->add_extender('user_occ', '', '<span class="help-block"><span class="float-end" id="countcar_user_occ"></span></span>');
-$m->add_field('user_intrest', translate("Vos centres d'intérêt"),StripSlashes($user_intrest),'text',false,150,'','');
+$m->add_field('user_intrest', translate("Vos centres d'intérêt"),StripSlashes($user_intrest ?? ''),'text',false,150,'','');
 $m->add_extender('user_intrest', '', '<span class="help-block"><span class="float-end" id="countcar_user_intrest"></span></span>');
 
-$m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig),'textarea',false,255,'7','');
+$m->add_field('user_sig', translate("Signature"),StripSlashes($user_sig ?? ''),'textarea',false,255,'7','');
 $m->add_extender('user_sig', '', '<span class="help-block">'.translate("(255 characters max. Type your signature with HTML coding)").'<span class="float-end" id="countcar_user_sig"></span></span>');
 
 // --- MEMBER-PASS
