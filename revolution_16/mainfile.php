@@ -1509,16 +1509,17 @@ function aff_langue($ibid) {
       $pasfin=true; $pos_deb=false; $abs_pos_deb=false; $pos_fin=false;
       while ($pasfin) {
          // tags [langue] et [/langue]
-         $pos_deb=strpos($ibid,"[$lang]",0);
-         $pos_fin=strpos($ibid,"[/$lang]",0);
-         if ($pos_deb===false) {$pos_deb=-1;}
-         if ($pos_fin===false) {$pos_fin=-1;}
+         $pos_deb=strpos($ibid ?? '',"[$lang]",0);
+         $pos_fin=strpos($ibid ?? '',"[/$lang]",0);
+         if ($pos_deb===false) $pos_deb=-1;
+         if ($pos_fin===false) $pos_fin=-1;
          // tags [!langue]
-         $abs_pos_deb=strpos($ibid,"[!$lang]",0);
+         $abs_pos_deb=strpos($ibid ?? '',"[!$lang]",0);
          if ($abs_pos_deb!==false) {
             $ibid=str_replace("[!$lang]", "[$lang]", $ibid);
             $pos_deb=$abs_pos_deb;
-            if ($lang!=$language) {$trouve_language=true;}
+            if ($lang!=$language) 
+               $trouve_language=true;
          }
          $decal=strlen($lang)+2;
          if (($pos_deb>=0) and ($pos_fin>=0)) {
