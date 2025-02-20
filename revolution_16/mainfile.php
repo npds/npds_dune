@@ -2159,7 +2159,9 @@ function adminblock() {
          sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f WHERE f.finterface =1 AND f.fetat != '0' ORDER BY f.fcategorie") :
          sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions f LEFT JOIN ".$NPDS_Prefix."droits d ON f.fdroits1 = d.d_fon_fid LEFT JOIN ".$NPDS_Prefix."authors a ON d.d_aut_aid =a.aid WHERE f.finterface =1 AND fetat!=0 AND d.d_aut_aid='$aid' AND d.d_droits REGEXP'^1' ORDER BY f.fcategorie");
       while($SAQ=sql_fetch_assoc($R)) {
-         $arraylecture = explode('|', $SAQ['fdroits1_descr']);
+         $arraylecture = array();
+         if (isset($SAQ['fdroits1_descr']) && is_string($SAQ['fdroits1_descr']))
+            $arraylecture = explode('|', $SAQ['fdroits1_descr']);
          $cat[]=$SAQ['fcategorie'];
          $cat_n[]=$SAQ['fcategorie_nom'];
          $fid_ar[]=$SAQ['fid'];
