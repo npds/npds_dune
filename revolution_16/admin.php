@@ -235,8 +235,7 @@ function GraphicAdmin($hlpfile) {
       $cat[]=$SAQ['fcategorie'];
       $cat_n[]=$SAQ['fcategorie_nom'];
       $fid_ar[]=$SAQ['fid'];
-      $adm_lecture = explode('|',$SAQ['fdroits1_descr']);
-
+      $adm_lecture = explode('|',$SAQ['fdroits1_descr'] ?? '');
       if ($SAQ['fcategorie'] == 6 or ($SAQ['fcategorie'] == 9 and strstr($SAQ['furlscript'],"op=Extend-Admin-SubModule"))) {
          if (file_exists('modules/'.$SAQ['fnom'].'/'.$SAQ['ficone'].'.'.$admf_ext)) 
             $adminico='modules/'.$SAQ['fnom'].'/'.$SAQ['ficone'].'.'.$admf_ext;
