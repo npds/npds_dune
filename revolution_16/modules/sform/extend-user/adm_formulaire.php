@@ -78,35 +78,23 @@ list($rank1,$rank2,$rank3,$rank4,$rank5) = sql_fetch_row($r);
 
 $tmp_tempo[0]['en']='-> '.adm_translate("Supprimer").'/'.adm_translate("Choisir un rôle").' <-';
 if (($chng_rank=='') or ($chng_rank=='0')) $tmp_tempo[0]['selected']=true; else $tmp_tempo[0]['selected']=false;
-/*
-$tmp_tempo[1]['en']=aff_langue($rank1);
-if ($chng_rank==1) $tmp_tempo[1]['selected']=true; else $tmp_tempo[1]['selected']=false;
-$tmp_tempo[2]['en']=aff_langue($rank2);
-if ($chng_rank==2) $tmp_tempo[2]['selected']=true; else $tmp_tempo[2]['selected']=false;
-$tmp_tempo[3]['en']=aff_langue($rank3);
-if ($chng_rank==3) $tmp_tempo[3]['selected']=true; else $tmp_tempo[3]['selected']=false;
-$tmp_tempo[4]['en']=aff_langue($rank4);
-if ($chng_rank==4) $tmp_tempo[4]['selected']=true; else $tmp_tempo[4]['selected']=false;
-$tmp_tempo[5]['en']=aff_langue($rank5);
-if ($chng_rank==5) $tmp_tempo[5]['selected']=true; else $tmp_tempo[5]['selected']=false;
-*/
 if (!is_null($rank1) {
    $tmp_tempo[1]['en']=aff_langue($rank1);
    $tmp_tempo[1]['selected'] = $chng_rank==1 ? true : false ;
 }
-if (!is_null($rank1) {
+if (!is_null($rank2) {
    $tmp_tempo[2]['en']=aff_langue($rank2);
    $tmp_tempo[2]['selected'] = $chng_rank==2 ? true : false ;
 }
-if (!is_null($rank1) {
+if (!is_null($rank3) {
    $tmp_tempo[3]['en']=aff_langue($rank3);
    $tmp_tempo[3]['selected'] = $chng_rank==3 ? true : false ;
 }
-if (!is_null($rank1) {
+if (!is_null($rank4) {
    $tmp_tempo[4]['en']=aff_langue($rank4);
    $tmp_tempo[4]['selected'] = $chng_rank==4 ? true : false ;
 }
-if (!is_null($rank1) {
+if (!is_null($rank5) {
    $tmp_tempo[5]['en']=aff_langue($rank5);
    $tmp_tempo[5]['selected'] = $chng_rank==5 ? true : false ;
 }
