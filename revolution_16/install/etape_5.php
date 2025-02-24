@@ -33,7 +33,7 @@ function etape_5() {
                   <div class="form-floating mb-3">
                      <input class="form-control" type="url" name="new_nuke_url" id="new_nuke_url" maxlength="80" value="'.$nuke_url.'" required="required" data-fv-uri___allow-local="true" />
                      <label class="col-form-label" for="new_nuke_url">'.ins_translate('Adresse (URL) de votre site').'</label>
-                     <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Exemples :').' http://www.monsite.com | http://www.monsite.com/npds | http://127.0.0.1/</div><div class="ms-auto" id="countcar_new_nuke_url"></div></div>
+                     <div class="d-flex justify-content-start w-100 small text-help py-1"><div>'.ins_translate('Exemples :').' http://www.monsite.com | http://www.monsite.com/npds | http://127.0.0.1</div><div class="ms-auto" id="countcar_new_nuke_url"></div></div>
                   </div>
                   <div class="form-floating mb-3">
                      <input class="form-control" type="text" name="new_sitename" id="new_sitename" maxlength="80" value="'.$sitename.'" required="required" />
