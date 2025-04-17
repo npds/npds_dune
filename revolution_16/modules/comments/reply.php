@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Based on Parts of phpBB                                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -321,19 +321,20 @@ if (isset($submitS)) {
             echo '
             <div class="card my-3">
                <div class="card-header">';
-            if ($smilies) echo userpopover($posterdata['uname'],'48',2);
-            echo $posterdata['uname'];
+            if ($smilies)
+               echo $posterdata['uid'] != 1 ? userpopover($posterdata['uname'],'48',2) : '<img class=" btn-outline-primary img-fluid n-ava-48 me-0" src="images/forum/avatar/blank.gif" alt="KellyP" loading="lazy">';
+            echo $posterdata['uid'] != 1 ? $posterdata['uname'] : $anonymous ;
             echo '<span class="float-end text-body-secondary small">'.translate("Posté : ").formatTimes($myrow['post_time'], IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT).'</span>
                </div>
                <div class="card-body">';
-            $posts = $posterdata['posts'];
             $message = stripslashes($myrow['post_text']);
             if ($allow_bbcode)
                $message = smilie($message);
             // <a href in the message
             if (stristr($message,'<a href'))
                $message=preg_replace('#_blank(")#i','_blank\1 class=\1 \1',$message);
-            $message = str_replace('[addsig]', '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
+            if($posterdata['uid'] != 1)
+               $message = str_replace('[addsig]', '<div class="n-signature">'.nl2br($posterdata['user_sig']).'</div>', $message);
             echo $message.'<br />
                </div>
             </div>';
