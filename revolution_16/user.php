@@ -13,6 +13,11 @@
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
    include ("mainfile.php");
+if (!function_exists('utf8_decode')) {
+    function utf8_decode($string) {
+        return mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8');
+    }
+}
 function message_error($ibid,$op) {
    include("header.php");
    echo '

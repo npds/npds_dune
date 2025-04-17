@@ -11,6 +11,11 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
+if (!function_exists('utf8_decode')) {
+    function utf8_decode($string) {
+        return mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8');
+    }
+}
 
 function Admin_alert($motif) {
    global $admin;
