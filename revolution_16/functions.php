@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2025 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Based on PhpNuke 4.x and PhpBB integration source code               */
@@ -454,7 +454,7 @@ function member_qualif($poster, $posts, $rank) {
       if ($posts>=300 and $posts<1000) $nux=4;
       if ($posts>=1000) $nux=5;
       for ($i=0; $i<$nux; $i++) {
-         $tmp.='<i class="fa fa-star-o text-success me-1"></i>';
+         $tmp.='<i class="far fa-star text-success"></i>';
       }
       if ($rank) {
          if ($ibid=theme_image("forum/rank/".$rank.".gif") or $ibid=theme_image("forum/rank/".$rank.".png")) $imgtmpA=$ibid; else $imgtmpA="images/forum/rank/".$rank.".png";
