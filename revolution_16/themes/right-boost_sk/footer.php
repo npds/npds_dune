@@ -17,7 +17,7 @@
 /* Fermeture : div > div"#corps"> $ContainerGlobal>                     */
 /*                    ouverts dans le Header.php                        */
 /* =====================================================================*/ 
-global $pdst $theme_darkness;
+global $pdst, $theme_darkness;
 $moreclass = 'col';
 switch ($pdst) {
    case '-1':
