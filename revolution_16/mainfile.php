@@ -2614,7 +2614,7 @@ function headlines($hid='', $block=true) {
    }
 }
 #autodoc PollNewest() : Bloc Sondage <br />=> syntaxe : <br />function#pollnewest<br />params#ID_du_sondage OU vide (dernier sondage créé)
-function PollNewest(int $id=null) : void {
+function PollNewest(?int $id=null) : void {
    global $NPDS_Prefix;
    // snipe : multi-poll evolution
    if ($id!=0) {
