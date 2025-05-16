@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -56,7 +56,7 @@ function alpha() {
          <label class="col-form-label col-sm-3" for="mblst_search">'.translate("Recherche").'</label>
          <div class="col-sm-9">
             <input class="form-control" type="input" id="mblst_search" name="letter" />
-            <input type="hidden" name="list" value="'.urldecode($list).'" />
+            <input type="hidden" name="list" value="'.urldecode($list ?? '').'" />
             <input type="hidden" name="gr_from_ws" value="'.$gr_from_ws.'" />
          </div>
       </div>
