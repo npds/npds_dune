@@ -34,8 +34,8 @@ function save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt
    $content .= "$line";
    $content .= "/* \n";
    $content .= "Notes : \n";
-   $content .= "- les valeurs des éléments du tableau $CACHE_TIMINGS sont des integer représentant des secondes\n";
-   $content .= "- les valeurs des éléments du tableau $CACHE_QUERYS sont des chaines de caractères représentant un masque (pattern) valide d'une expression régulière (preg_match)\n";
+   $content .= "- les valeurs des éléments du tableau \$CACHE_TIMINGS sont des integer représentant des secondes\n";
+   $content .= "- les valeurs des éléments du tableau \$CACHE_QUERYS sont des chaines de caractères représentant un masque (pattern) valide d'une expression régulière (preg_match)\n";
    $content .= "exemples :\n";
    $content .= "#\$CACHE_TIMINGS['index.php'] = 300; //==> soit 5 minutes\n";
    $content .= "#\$CACHE_QUERYS['index.php']  = \"^\"; //==> soit toujours vrai dans cet exemple donc /index.php suivi de n'importe quel paramètres\n\n";
