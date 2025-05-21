@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -758,7 +758,6 @@ function ForgetPassword() {
    $arg1 ='
       var formulid = ["forgetpassword"];';
    adminfoot('fv',$fv_parametres,$arg1,'foo');
-   include ('footer.php');
 }
 
 function mail_password($uname, $code) {
@@ -896,8 +895,9 @@ function login($uname, $pass) {
          return;
       }
       $dbpass = $setinfo['pass'];
-      $pass = utf8_decode($pass);
-
+      $pass = (PHP_VERSION_ID >= 80200) ? 
+         mb_convert_encoding($pass, 'ISO-8859-1', 'UTF-8') :
+         utf8_decode($pass) ;
       if ( password_verify($pass, $dbpass) or (strcmp($dbpass, $pass)==0)) {
          if(!$setinfo['hashkey']) {
             $AlgoCrypt = PASSWORD_BCRYPT;
