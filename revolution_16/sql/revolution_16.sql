@@ -387,9 +387,8 @@ CREATE TABLE headlines (
   PRIMARY KEY (hid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO headlines VALUES (1, 'NPDS', 'http://www.npds.org', 'http://www.npds.org/backend.php', 0);
-INSERT INTO headlines VALUES (2, 'Modules', 'http://modules.npds.org', 'http://modules.npds.org/backend.php', 0);
-INSERT INTO headlines VALUES (3, 'Styles', 'http://styles.npds.org', 'http://styles.npds.org/backend.php', 0);
+INSERT INTO headlines VALUES (1, 'NPDS', 'https://www.npds.org', 'https://www.npds.org/backend.php', 0);
+INSERT INTO headlines VALUES (2, 'Github', 'https://github.com/npds/npds_dune', 'https://github.com/npds/npds_dune/commits/master.atom', 0);
 
 CREATE TABLE lblocks (
   id tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
