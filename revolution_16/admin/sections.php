@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Major changes from ALAT 2004-2005                                    */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -782,14 +782,14 @@ function sectionchange($secid, $secname, $image, $members, $Mmembers, $rubref, $
 function secartedit($artid) {
    global $radminsuper, $hlpfile, $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg;
    $result2 = sql_query("SELECT author, artid, secid, title, content, userlevel FROM ".$NPDS_Prefix."seccont WHERE artid='$artid'");
-   list($author, $artid, $secid, $title, $content, $userlevel) = sql_fetch_row($result2);
+   list($author, $artid, $secid, $arttitle, $content, $userlevel) = sql_fetch_row($result2);
    if (!$artid)
       Header("Location: admin.php?op=sections");
 
    include("header.php");
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
-   $title = stripslashes($title);
+   $arttitle = stripslashes($arttitle);
    $content = stripslashes(dataimagetofileurl($content,'cache/s'));
 
    echo '
@@ -821,7 +821,7 @@ function secartedit($artid) {
          <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="title">'.adm_translate("Titre").'</label>
             <div class="col-sm-12">
-               <textarea class="form-control" id="title" name="title" rows="2">'.$title.'</textarea>
+               <textarea class="form-control" id="title" name="title" rows="2">'.$arttitle.'</textarea>
             </div>
          </div>
          <div class="mb-3 row">
