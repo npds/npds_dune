@@ -37,9 +37,11 @@ if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
       if (sql_num_rows($result)==1) {
          $setinfo = sql_fetch_assoc($result);
          $dbpass = $setinfo['pwd'];
-         $pwd = utf8_decode($pwd);
+         $pwd = (PHP_VERSION_ID >= 80200) ? 
+         mb_convert_encoding($pwd, 'ISO-8859-1', 'UTF-8') :
+         utf8_decode($pwd) ;
          $scryptPass = null;
-         
+
          if ( password_verify($pwd, $dbpass) or (strcmp($dbpass, $pwd)==0)) {
             if(!$setinfo['hashkey']) {
                $AlgoCrypt = PASSWORD_BCRYPT;
