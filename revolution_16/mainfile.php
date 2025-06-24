@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -1117,12 +1117,8 @@ function fab_block($title, $member, $content, $Xcache) {
                      // si le token contient *
                      if (substr($RRR_uri,0,strpos($RRR_uri,"="))==substr($tab_pref[$idx],0,strpos($tab_pref[$idx],"=")))
                         $R_content=true;
-                  } else {
-                     if ($RRR_uri!=$tab_pref[$idx])
-                        $R_content=false;
-                     else
-                        $R_content=true;
-                  }
+                  } else 
+                     $R_content = array_key_exists($RRR_uri, $tab_pref) ? false : true ;
                }
             }
             if ($R_content==true) break;
@@ -1986,17 +1982,25 @@ function encrypt($txt) {
 }
 #autodoc encryptK($txt, $C_key) : retourne une chaine encryptée en utilisant la clef : $C_key
 function encryptK($txt, $C_key) {
-   srand( (double)microtime()*1000000);
-   $encrypt_key = md5(rand(0,32000) );
-   $ctr=0;
+   // Génération de la graine de manière compatible
+   $microtime = microtime(true) * 1000000;
+   // Pour PHP 8.1+ qui est strict sur les conversions de types
+   if (PHP_VERSION_ID >= 80100) {
+       srand((int)round($microtime));
+   } else {
+      // Pour les versions antérieures à PHP 8.1
+      srand((double)$microtime);
+   }
+   $encrypt_key = md5(rand(0,32000));
+   $ctr = 0;
    $tmp = '';
-   for ($i=0;$i<strlen($txt);$i++) {
-       if ($ctr==strlen($encrypt_key) ) $ctr=0;
-       $tmp.= substr($encrypt_key,$ctr,1) .
-       (substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1) );
+   for ($i = 0; $i < strlen($txt); $i++) {
+       if ($ctr == strlen($encrypt_key)) $ctr = 0;
+       $tmp .= substr($encrypt_key, $ctr, 1) . 
+               (substr($txt, $i, 1) ^ substr($encrypt_key, $ctr, 1));
        $ctr++;
    }
-   return base64_encode(keyED($tmp,$C_key));
+   return base64_encode(keyED($tmp, $C_key));
 }
 #autodoc decrypt($txt) : retourne une chaine décryptée en utilisant la valeur de $NPDS_Key
 function decrypt($txt) {
@@ -2107,8 +2111,6 @@ function online() {
 function lnlbox() {
    global $block_title;
    $title= $block_title=='' ? translate("La lettre") : $block_title;
-   $arg1='
-      var formulid = ["lnlblock"]';
    $boxstuff = '
          <form id="lnlblock" action="lnl.php" method="get">
             <div class="mb-3">
@@ -2118,13 +2120,12 @@ function lnlbox() {
                </select>
             </div>
             <div class="form-floating mb-3">
-               <input type="email" id="email_block" name="email" maxlength="254" class="form-control" required="required"/>
+               <input type="email" id="email_block" name="email" maxlength="254" class="form-control" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required="required"/>
                <label for="email_block">'.translate("Votre adresse Email").'</label>
                <span class="help-block">'.translate("Recevez par mail les nouveautés du site.").'</span>
             </div>
             <button type="submit" class="btn btn-outline-primary btn-block btn-sm"><i class ="fa fa-check fa-lg me-2"></i>'.translate("Valider").'</button>
-         </form>'
-         .adminfoot('','',$arg1,'0');
+         </form>';
    themesidebox($title, $boxstuff);
 }
 #autodoc searchbox() : Bloc Search-engine <br />=> syntaxe : function#searchbox
