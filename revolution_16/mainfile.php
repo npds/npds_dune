@@ -2124,7 +2124,7 @@ function lnlbox() {
             </div>
             <button type="submit" class="btn btn-outline-primary btn-block btn-sm"><i class ="fa fa-check fa-lg me-2"></i>'.translate("Valider").'</button>
          </form>'
-         .adminfoot('fv','',$arg1,'0');
+         .adminfoot('','',$arg1,'0');
    themesidebox($title, $boxstuff);
 }
 #autodoc searchbox() : Bloc Search-engine <br />=> syntaxe : function#searchbox
