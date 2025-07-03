@@ -1,9 +1,9 @@
 {
-  "version": "5.3.3",
+  "version": "5.3.7",
   "skins": [
     {
       "name": "Default",
-      "description": "A calm blue sky",
+      "description": "Bootstrap original",
       "thumbnail": "themes/_skins/default/thumbnail.png",
       "preview": "themes/_skins/default/",
       "css": "themes/_skins/default/bootstrap.css",
@@ -11,6 +11,17 @@
       "cssxtra": "themes/_skins/default/extra.css",
       "scss": "themes/_skins/default/_bootswatch.scss",
       "scssVariables": "themes/_skins/default/_variables.scss"
+    },
+    {
+      "name": "Brite",
+      "description": "Neobrutalist form",
+      "thumbnail": "themes/_skins/brite/thumbnail.png",
+      "preview": "themes/_skins/brite/",
+      "css": "themes/_skins/brite/bootstrap.css",
+      "cssMin": "themes/_skins/brite/bootstrap.min.css",
+      "cssxtra": "themes/_skins/brite/extra.css",
+      "scss": "themes/_skins/brite/_bootswatch.scss",
+      "scssVariables": "themes/_skins/brite/_variables.scss"
     },
     {
       "name": "Cerulean",
@@ -165,17 +176,6 @@
       "cssxtra": "themes/_skins/quartz/extra.css",
       "scss": "themes/_skins/quartz/_bootswatch.scss",
       "scssVariables": "themes/_skins/quartz/_variables.scss"
-    },
-    {
-      "name": "Regent",
-      "description": "Solid and staid",
-      "thumbnail": "themes/_skins/regent/thumbnail.png",
-      "preview": "themes/_skins//regent/",
-      "css": "themes/_skins/regent/bootstrap.css",
-      "cssMin": "themes/_skins/regent/bootstrap.min.css",
-      "cssxtra": "themes/_skins/regent/extra.css",
-      "scss": "themes/_skins//regent/_bootswatch.scss",
-      "scssVariables": "themes/_skins/regent/_variables.scss"
     },
     {
       "name": "Sandstone",
