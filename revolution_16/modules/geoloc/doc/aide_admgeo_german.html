@@ -43,25 +43,19 @@
          <p>Dieser Schl&uuml;ssel ist optional und erm&ouml;glicht Ihnen die Nutzung von Daten von ipdata.co. Sie k&ouml;nnen ihn hier erhalten:<br />
          <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
          </p>
-         
+
          <h4>Kartenschnittstelle</h4>
-         <h5>Bing Maps-API-Schl&uuml;ssel</h5>
-         <p>Mit dieser Taste k&ouml;nnen Sie Daten von Bing Maps verwenden. Wenn Sie diese Daten verwenden m&ouml;chten, gehen Sie zu https://www.bingmapsportal.com und folgen Sie dem Vorgang (Erstellen eines Kontos, dann Erhalten eines Schl&uuml;ssels) ... und f&uuml;llen Sie das Feld aus.</p>
+         <h5>Azure Maps-API-Schl&uuml;ssel</h5>
+         <p>Mit diesem Schlüssel können Sie Azure Maps-Daten verwenden. Wenn Sie diese Daten verwenden möchten, rufen Sie <a href="https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app" target="_blank">https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app</a> auf, folgen Sie den Schritten (Konto erstellen, Schlüssel anfordern) und füllen Sie das Feld aus.</p>
          <h5>Mapbox-API-Schl&uuml;ssel</h5>
          <p>Mit diesem Schl&uuml;ssel (optional) k&ouml;nnen Sie Mapbox-Daten verwenden. Wenn Sie diese Daten verwenden m&ouml;chten, gehen Sie zu https://www.mapbox.com und folgen Sie dem Vorgang (Erstellen eines Kontos, dann Erhalten eines Schl&uuml;ssels) ... und f&uuml;llen Sie das Feld aus.</p>
          <h5>Kartentyp</h5>
          <p>Sie k&ouml;nnen hier die Standard-Grundkarte definieren, abh&auml;ngig von den Ihnen zur Verf&uuml;gung stehenden Anbietern und den API-Schl&uuml;sseln, die Sie erhalten haben</p>
+         <p>Hinweis: Der Stadia Maps-Anbieter benötigt mindestens die Erstellung eines Kontos und die Angabe Ihres Domänennamens zur Authentifizierung. Sie können den Vorgang hier abschließen: <a href="https://docs.stadiamaps.com/authentication/" target="_blank">https://docs.stadiamaps.com/authentication/</a></p>
          <ul>
             <li>OpenStreetMap
                <ul>
                   <li>Karte (OpenStreetMap)</li>
-               </ul>
-            </li>
-            <li>Staubblatt
-               <ul>
-                  <li>Schwarz und Wei&szlig; (Stamen)</li>
-                  <li>Zeichnung (Stamen)</li>
-                  <li>Relief (Stamen)</li>
                </ul>
             </li>
             <li>Mapbox <span class="text-danger"><== API-Schl&uuml;ssel erforderlich</span>
@@ -70,11 +64,11 @@
                   <li>Karte (Mapbox)</li>
                </ul>
             </li>
-            <li>Bing Maps <span class="text-danger"><== API-Schl&uuml;ssel erforderlich</span>
+            <li>Azure Maps <span class="text-danger"><== API-Schl&uuml;ssel erforderlich</span>
                <ul>
-                  <li>Karte (Bing-Karten)</li>
-                  <li>Satellit (Bing-Karten)</li>
-                  <li>Satellit und Label (Bing Maps)</li>
+                  <li>Karte (Azure Maps)</li>
+                  <li>Satellit (Azure Maps)</li>
+                  <li>Dark (Azure Maps)</li>
                </ul>
             </li>
             <li>Google Maps
@@ -82,8 +76,15 @@
                   <li>Satellit (Google Maps)</li>
                </ul>
             </li>
+            <li>Stadia Maps <span class="text-danger"><== Autorisierung erforderlich</span>
+               <ul>
+                  <li>Karte (Stadia Maps)</li>
+                  <li>Zeichnung (Stadia Maps)</li>
+                  <li>Helle Karte (Stadia Maps)</li>
+                  <li>Dunkle Karte (Stadia Maps)</li>
+               </ul>
+            </li>
          </ul>
-          
          <h5>Koordinateneinheit</h5>
          <p>Erm&ouml;glicht Ihnen, die Standardanzeige von Koordinaten zu definieren</p>
             <ul>
@@ -99,7 +100,8 @@
             </ul>
             Hinweis: Die Symbole f&uuml;r IPs k&ouml;nnen nicht konfiguriert werden.<br />
          </p>
-         <p><b>1. Bilder im PNG-, GIF- (animiertes GIF nicht unterst&uuml;tzt), JPEG-Format.</b><br />
+         <p>
+         <b>1. Bilder im PNG-, GIF- (animiertes GIF nicht unterst&uuml;tzt), JPEG-Format.</b><br />
             Diese werden an der in den Bildpfadparametern (oben) definierten Adresse gespeichert. Sie k&ouml;nnen die gew&uuml;nschten Bilder ausw&auml;hlen und deren endg&uuml;ltige Anzeigegr&ouml;&szlig;e auf der Karte in den Feldern Breite und H&ouml;he anpassen.<br />
          </p>
          <p class="bg-light p-3">Standard:
@@ -107,7 +109,8 @@
             <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="member icon" loading="lazy" />
             <img class="me-2" src="/modules/geoloc/images/acg.png" alt="anonymes Symbol" loading="lazy" />
          </p>
-         <p><b>2. Des webfont (fontawesome).</b><br />
+         <p>
+         <b>2. Des webfont (fontawesome).</b><br />
             Sie k&ouml;nnen daher aus der vorgeschlagenen Liste ausw&auml;hlen...
             <ul class="text-body-secondary">
                <li><span class="fa fa-lg align-center fa-fw">&#xf007;</span> <span>Benutzer</span></li>

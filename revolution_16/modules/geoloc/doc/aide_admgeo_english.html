@@ -40,29 +40,22 @@
          All these providers have a free usage limit or their number to be able to ensure continuous operation remaining free...<br />
          </p>
          <h5>Ipdata API key</h5>
-         <p>
-         This key is optional it allows you to use data from ipdata.co you can obtain it here:<br />
+         <p>This key is optional it allows you to use data from ipdata.co you can obtain it here:<br />
          <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
          </p>
-         
+
          <h4>Card interface</h4>
-         <h5>Bing maps API key</h5>
-         <p>This key allows you to use data from Bing maps. If you wish to use this data go to https://www.bingmapsportal.com and follow the process (creating an account then obtaining a key)... and fill in the field.</p>
+         <h5>Azure Maps API key</h5>
+         <p>This key allows you to use Azure Maps data. If you want to use this data, go to <a href="https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app" target="_blank">https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app</a> and follow the process (creating an account then obtaining a key)... and fill in the field.</p>
          <h5>Mapbox API key</h5>
          <p>This key (optional) allows you to use Mapbox data. If you wish to use this data go to https://www.mapbox.com and follow the process (creating an account then obtaining a key)... and fill in the field.</p>
          <h5>Card type</h5>
          <p>You can define the default basemap here, depending on the providers available to you and the API keys you have obtained</p>
+         <p>NB: The Stadia Maps provider requires at least the creation of an account and the designation of your domain name for authentication. You can complete the process here: <a href="https://docs.stadiamaps.com/authentication/" target="_blank">https://docs.stadiamaps.com/authentication/</a></p>
          <ul>
             <li>OpenStreetMap
                <ul>
                   <li>Map (OpenStreetMap)</li>
-               </ul>
-            </li>
-            <li>Stamen
-               <ul>
-                  <li>Black and white (Stamen)</li>
-                  <li>Drawing (Stamen)</li>
-                  <li>Relief (Stamen)</li>
                </ul>
             </li>
             <li>Mapbox <span class="text-danger"><== API key required</span>
@@ -71,16 +64,24 @@
                   <li>Map (Mapbox)</li>
                </ul>
             </li>
-            <li>Bing maps <span class="text-danger"><== API key required</span>
+            <li>Azure Maps <span class="text-danger"><== API key required</span>
                <ul>
-                  <li>Map (Bing maps)</li>
-                  <li>Satellite (Bing maps)</li>
-                  <li>Satellite and label (Bing maps)</li>
+                  <li>Map (Azure Maps)</li>
+                  <li>Satellite (Azure Maps)</li>
+                  <li>Dark (Azure Maps)</li>
                </ul>
             </li>
             <li>Google maps
                <ul>
                   <li>Satellite (Google maps)</li>
+               </ul>
+            </li>
+            <li>Stadia Maps <span class="text-danger"><== autorisation requise</span>
+               <ul>
+                  <li>Plan (Stadia Maps)</li>
+                  <li>Draw (Stadia Maps)</li>
+                  <li>Plan light (Stadia Maps)</li>
+                  <li>Plan dark (Stadia Maps)</li>
                </ul>
             </li>
          </ul>

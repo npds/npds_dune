@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.1                                            */
-/* geoloc_bloc.php file 2008-2022 by Jean Pierre Barbary (jpb)          */
+/* module geoloc version 4.2                                            */
+/* geoloc_bloc.php file 2008-2025 by Jean Pierre Barbary (jpb)          */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 $ModPath='geoloc';
@@ -21,33 +21,32 @@ $content = '';
 include('modules/'.$ModPath.'/geoloc.conf');
 $source_fond='';
 switch ($cartyp_b) {
-   case 'OSM':
-      $source_fond='new ol.source.OSM()';
-   break;
    case 'sat-google':
-      $source_fond=' new ol.source.XYZ({
-      url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-      attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>",
-      crossOrigin: "Anonymous",
+      $source_fond='
+      new ol.source.XYZ({
+         url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+         attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>",
+         crossOrigin: "Anonymous",
       })';
    break;
-   case 'Road':case 'Aerial':case 'AerialWithLabels':
-      $source_fond='new ol.source.BingMaps({
-      key: "'.$api_key_bing.'",
-      imagerySet: "'.$cartyp_b.'"
+   case 'microsoft.base.road': case 'microsoft.imagery': case 'microsoft.base.darkgrey':
+      $source_fond='
+      new ol.source.ImageTile({
+         url: `https://atlas.microsoft.com/map/tile?subscription-key='.$api_key_azure.'&api-version=2.0&tilesetId='.$cartyp_b.'&zoom={z}&x={x}&y={y}&tileSize=256&language=EN`,
+         crossOrigin: "Anonymous",
+         attributions: `© ${new Date().getFullYear()} TomTom, Microsoft`
       })';
    break;
    case 'natural-earth-hypso-bathy': case 'geography-class':
-      $source_fond=' new ol.source.TileJSON({
-      url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'",
-      crossOrigin: "Anonymous",
+      $source_fond='
+      new ol.source.TileJSON({
+         url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'",
+         crossOrigin: "Anonymous",
       })';
    break;
-   case 'terrain':case 'toner':case 'watercolor':
-      $source_fond='new ol.source.Stamen({layer:"'.$cartyp_b.'"})';
-   break;
-   case 'World_Imagery':case 'World_Shaded_Relief':case 'World_Physical_Map':case 'World_Topo_Map':
-      $source_fond='new ol.source.XYZ({
+   case 'World_Imagery': case 'World_Shaded_Relief': case 'World_Physical_Map': case 'World_Topo_Map':
+      $source_fond='
+      new ol.source.XYZ({
          attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
          url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp_b.'/MapServer/tile/{z}/{y}/{x}",
          crossOrigin: "Anonymous",
@@ -55,6 +54,10 @@ switch ($cartyp_b) {
      })';
       $max_r='40000';
       $min_r='0';
+   break;
+   case 'stamen_terrain': case 'stamen_watercolor': case 'alidade_smooth': case "stamen_toner":
+      $source_fond='
+      new ol.source.StadiaMaps({layer:"'.$cartyp_b.'"})';
    break;
    default:
    $source_fond='new ol.source.OSM()';

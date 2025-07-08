@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.1                                            */
-/* geoloc.lang-german.php file 2008-2024                                */
+/* module geoloc version 4.2                                            */
+/* geoloc.lang-german.php file 2008-2025                                */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 

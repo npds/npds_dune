@@ -1,7 +1,7 @@
-<html lang="fr">
+<html lang="zh">
    <head>
       <meta charset="utf-8">
-      <title>Administration - Geoloc</title>
+      <title>管理 - 地理定位</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css" />
@@ -10,151 +10,149 @@
       <div class="container">
          <nav class="my-3">
             <ol class="breadcrumb bg-transparent">
-               <li><a href="/manuels/french/admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
-               <li class="breadcrumb-item"> <a href="/manuels/french/men_gen.html">Menu</a></li>
-               <li class="breadcrumb-item"><a href="/manuels/french/men_modules.html">Menu modules</a></li>
-               <li class="breadcrumb-item active" aria-current="page" >Geoloc</li>
+               <li><a href="/manuels/chinese/admin.html"><img class="me-3 ms-n3" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"> <a href="/manuels/chinese/men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="/manuels/chinese/men_modules.html">模块菜单</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >地理定位</li>
             </ol>
          </nav>
          <hr class="mt-n3" />
-         <h3>Administration - Geoloc</h3>
+         <h3>管理 - 地理定位</h3>
 
-         <h4>Paramètres système</h4>
-         <h5>Champ de table pour latitude et longitude</h5>
-         <p>Présentent les champs disponibles dans la base de données pour le stockage des latitudes et longitudes des membres du site. </p>
-         <h5>Géolocalisation des IP</h5>
+         <h4>系统设置</h4>
+         <h5>经纬度表字段</h5>
+         <p>显示数据库中可用于存储网站成员经纬度的字段。</p>
+         <h5>IP地理定位</h5>
          <p>
-         Cette option permet d'activer ou de désactiver :<br />
-          - le stockage dans la base de donnée des IP des visiteurs anonymes,leur géolocalisation le nombre de visites et leur position de visite sur le site<br />
-          - l'affichage de ces données dans l'interface<br />
-          NB : cette option peut ralentir considérablement l'affichage de la carte (si vous êtes connecté administrateur et que votre base contient beaucoup de ligne (> à 10 000 IP)) et stocker au fil du temps beaucoup de données dans la base. Vous pouvez à tout moment vider la base.<br />
+         此选项允许启用或禁用：<br />
+          - 在数据库中存储匿名访客的IP、其地理定位、访问次数及访问位置<br />
+          - 在界面中显示这些数据<br />
+         注意：此选项可能会显著减慢地图的显示速度（如果您以管理员身份登录且数据库包含大量记录（> 10,000 IP）），并会随时间积累大量数据。您可以随时清空数据库。<br />
          </p>
          <p>
-         <b>Comment ça marche :</b><br />
-         Le géoréférencement de l'ip est fourni par différents fournisseurs et vient compléter la base de données du site. <br />
-         On utilise 4 fournisseurs de geolocalisation d'ip :<br />
-         <a href="https://ipapi.co" target="_blank">https://ipapi.co</a> ==> max 1000 requêtes par jour, 30 000 par mois<br />
-         <a href="https://api.ipdata.co" target="_blank">https://api.ipdata.co</a> => necessite une clef d'api  ==> max 1 500 requêtes par jour<br />
-         <a href="https://extreme-ip-lookup.com" target="_blank">https://extreme-ip-lookup.com</a> ==> max 20 requêtes par minute, 50 000 par mois<br />
-         <a href="http://ip-api.com" target="_blank">http://ip-api.com</a> ==> max 150 requêtes par minute (banissement)<br />
-         Tous ces fournisseurs ont une limite d'utilisation gratuite d'ou leur nombre pour pouvoir assurer un fonctionnement continu restant dans la gratuité...<br />
+         <b>工作原理：</b><br />
+         IP的地理定位由不同供应商提供，用于补充网站数据库。<br />
+         我们使用4个IP地理定位供应商：<br />
+         <a href="https://ipapi.co" target="_blank">https://ipapi.co</a> ==> 每天最多1,000次请求，每月30,000次<br />
+         <a href="https://api.ipdata.co" target="_blank">https://api.ipdata.co</a> => 需要API密钥 ==> 每天最多1,500次请求<br />
+         <a href="https://extreme-ip-lookup.com" target="_blank">https://extreme-ip-lookup.com</a> ==> 每分钟最多20次请求，每月50,000次<br />
+         <a href="http://ip-api.com" target="_blank">http://ip-api.com</a> ==> 每分钟最多150次请求（否则会被封禁）<br />
+         这些供应商都有免费使用限制，因此需要多个供应商以确保在免费范围内持续运行...<br />
          </p>
-          
-         <h5>Clef d'API Ipdata</h5>
-         <p>
-         Cette clef est facultative elle permet d'utiliser les données de ipdata.co vous pouvez l'obtenir ici :<br />
+         <h5>Ipdata API密钥</h5>
+         <p>此密钥是可选的，用于使用ipdata.co的数据。您可以在此处获取：<br />
          <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
          </p>
-          
-         <h4>Interface carte</h4>
-         <h5>Clef d'API Bing maps</h5>
-         <p>Cette clef permet d'utiliser les données de Bing maps. Si vous souhaiter utiliser ces données aller à https://www.bingmapsportal.com et suivre le procédé (création d'un compte puis obtention d'une clef)... et remplissez le champ.</p>
-         <h5>Clef d'API Mapbox</h5>
-         <p>Cette clef (facultative) permet d'utiliser les données de Mapbox. Si vous souhaiter utiliser ces données aller à https://www.mapbox.com et suivre le procédé (création d'un compte puis obtention d'une clef) ... et remplissez le champ.</p>
-         <h5>Type de carte</h5>
-         <p>Vous pouvez définir ici le fond de carte par défaut, en fonction des fournisseurs à votre disposition et des clef d'API que vous aurez obtenu</p>
+
+         <h4>地图界面</h4>
+         <h5>Azure Maps API密钥</h5>
+         <p>此密钥用于使用Azure Maps的数据。如需使用这些数据，请访问 <a href="https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app" target="_blank">https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app</a> 并按照流程操作（创建账户并获取密钥）...然后填写此字段。</p>
+         <h5>Mapbox API密钥</h5>
+         <p>此密钥（可选）用于使用Mapbox的数据。如需使用这些数据，请访问 https://www.mapbox.com 并按照流程操作（创建账户并获取密钥）...然后填写此字段。</p>
+         <h5>地图类型</h5>
+         <p>您可以在此处根据可用的供应商及获取的API密钥或授权设置默认地图背景。</p>
+         <p>注意：Stadia Maps供应商至少需要创建一个账户并指定您的域名进行认证。您可以在此处完成流程：<a href="https://docs.stadiamaps.com/authentication/" target="_blank">https://docs.stadiamaps.com/authentication/</a></p> 
          <ul>
             <li>OpenStreetMap
                <ul>
-                  <li>Plan (OpenStreetMap)</li>
+                  <li>平面图（OpenStreetMap）</li>
                </ul>
             </li>
-            <li>Stamen
+            <li>Mapbox  <span class="text-danger"><== 需要API密钥</span>
                <ul>
-                  <li>Noir et blanc (Stamen)</li>
-                  <li>Dessin (Stamen)</li>
-                  <li>Relief (Stamen)</li>
+                  <li>地形图（Mapbox）</li>
+                  <li>地图（Mapbox）</li>
                </ul>
             </li>
-            <li>Mapbox  <span class="text-danger"><== clef d'API requise</span>
+            <li>Azure Maps  <span class="text-danger"><== 需要API密钥</span>
                <ul>
-                  <li>Relief (Mapbox)</li>
-                  <li>Carte (Mapbox)</li>
+                  <li>平面图（Azure Maps）</li>
+                  <li>卫星图（Azure Maps）</li>
+                  <li>深色模式（Azure Maps）</li>
                </ul>
             </li>
-            <li>Bing maps  <span class="text-danger"><== clef d'API requise</span>
+            <li>Google地图
                <ul>
-                  <li>Plan (Bing maps)</li>
-                  <li>Satellite (Bing maps)</li>
-                  <li>Satellite et label (Bing maps)</li>
+                  <li>卫星图（Google地图）</li>
                </ul>
             </li>
-            <li>Google maps
+            <li>Stadia Maps <span class="text-danger"><== 需要授权</span>
                <ul>
-                  <li>Satellite(Google maps)</li>
+                  <li>平面图（Stadia Maps）</li>
+                  <li>素描图（Stadia Maps）</li>
+                  <li>亮色平面图（Stadia Maps）</li>
+                  <li>深色平面图（Stadia Maps）</li>
                </ul>
             </li>
          </ul>
-
-         <h5>Unité des coordonnées</h5>
-         <p>Permet de définir l'affichage par défaut des coordonées</p>
+         <h5>坐标单位</h5>
+         <p>用于定义坐标的默认显示方式</p>
             <ul>
-               <li>dms : degrés minutes secondes (ex : 52°28' 58" S | 9°29' 32" E)</li>
-               <li>dd : degrés décimaux (ex : 63.391522 | 146.953125) </li>
+               <li>dms：度分秒（例如：52°28' 58" S | 9°29' 32" E）</li>
+               <li>dd：十进制度数（例如：63.391522 | 146.953125）</li>
             </ul>
-         <h5>Type de marqueur</h5>
-         <p>
-         Vous pouvez choisir entre deux types d'icônes qui représenteront :
+         <h5>标记类型</h5>
+         <p>您可以选择两种类型的图标来表示：
          <ul> 
-            <li>les membres du site non connecté</li>
-            <li>les membres du site connecté</li>
-            <li>les anonymes connecté</li> 
+            <li>未登录的网站成员</li>
+            <li>已登录的网站成员</li>
+            <li>已登录的匿名用户</li> 
          </ul>
-         NB : les icônes pour les IP ne sont pas paramétrables.<br />
+         注意：IP的图标不可配置。<br />
          </p>
          <p>
-            <b>1. Des images au format png, gif (gif animé non supporté), jpeg.</b><br />
-            Celles ci sont stockées à l'adresse défini dans le chemin des images les paramètres (supra). Vous pouvez choisir les images que vous souhaitez et ajuster leur dimension finale d'affichage sur la carte dans les champs largeur et hauteur.<br />
+         <b>1. PNG、GIF（不支持动画GIF）、JPEG格式的图像。</b><br />
+            这些图像存储在参数中定义的路径下（见上文）。您可以选择所需的图像，并在地图上调整其显示的最终宽度和高度。<br />
          </p>
-         <p class="bg-light p-3">Par défaut : 
-            <img class="me-2" src="/modules/geoloc/images/mbg.png" alt="icon membre en ligne" loading="lazy" />
-            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="icon membre" loading="lazy" />
-            <img class="me-2" src="/modules/geoloc/images/acg.png" alt="icon anonyme" loading="lazy" />
+         <p class="bg-light p-3">默认： 
+            <img class="me-2" src="/modules/geoloc/images/mbg.png" alt="在线成员图标" loading="lazy" />
+            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="成员图标" loading="lazy" />
+            <img class="me-2" src="/modules/geoloc/images/acg.png" alt="匿名用户图标" loading="lazy" />
          </p>
          <p>
-            <b>2. Des webfont (fontawesome).</b><br />
-            Vous pouvez donc choisir dans la liste proposée...
+            <b>2. 网页字体（FontAwesome）。</b><br />
+            您可以从以下列表中选择...
             <ul class="text-body-secondary">
-               <li><span class="fa fa-lg align-center fa-fw">&#xf007;</span> <span>Utilisateur</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf2bd;</span> <span>Utilisateur en cercle</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf0c0;</span> <span>Utilisateurs</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf004;</span> <span>Coeur</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf08d;</span> <span>Punaise</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf111;</span> <span>Cercle</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf030;</span> <span>Appareil photo</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf13d;</span> <span>Ancre</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf041;</span> <span>Marqueur carte</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf072;</span> <span>Avion</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf005;</span> <span>Etoile</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf015;</span> <span>Maison</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf024;</span> <span>Drapeau</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf05b;</span> <span>Croix</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf069;</span> <span>Astérisque</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf06d;</span> <span>Flamme</span></li>
-               <li><span class="fa fa-lg align-center fa-fw">&#xf075;</span> <span>Commentaire</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf007;</span> <span>用户</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf2bd;</span> <span>圆形用户</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf0c0;</span> <span>用户组</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf004;</span> <span>心形</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf08d;</span> <span>图钉</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf111;</span> <span>圆形</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf030;</span> <span>相机</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf13d;</span> <span>锚</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf041;</span> <span>地图标记</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf072;</span> <span>飞机</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf005;</span> <span>星星</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf015;</span> <span>房屋</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf024;</span> <span>旗帜</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf05b;</span> <span>十字</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf069;</span> <span>星号</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf06d;</span> <span>火焰</span></li>
+               <li><span class="fa fa-lg align-center fa-fw">&#xf075;</span> <span>评论</span></li>
             </ul>
-            ... et ajuster la couleur, l'opacité du fond et des traits, et la dimension finale d'affichage sur la carte dans les champs largeur et hauteur.
+            ...并调整颜色、背景和线条的透明度，以及在地图上显示的最终宽度和高度。
          </p>
          <p class="bg-light p-3">
-            Par défaut : 
+            默认： 
             <span style="color:rgba(225, 29, 75, 0.87);" class="fa fa-lg align-center fa-fw me-2">&#xf007;</span>
             <span style="color:rgba(237, 68, 151, 0.89);" class="fa fa-lg align-center fa-fw me-2">&#xf007;</span>
             <span style="color:rgba(32, 32, 26, 0.89);" class="fa fa-lg align-center fa-fw">&#xf007;</span>
          </p>
 
-         <h4>Interface bloc</h4>
-         <p>Vous pouvez définir ici pour le bloc :
+         <h4>区块界面</h4>
+         <p>您可以在此处为区块定义：
             <ul> 
-               <li>le fond de carte (cf supra dans Interface carte)</li> 
-               <li>l'icone , (adresse définie dans le chemin des images (cf supra dans Paramètres)), et ses dimensions</li>
-               <li>la hauteur du bloc</li>
-               <li>le facteur de zoom</li>
+               <li>地图背景（见上文“地图界面”）</li> 
+               <li>图标（路径定义在图像路径中，见上文“系统设置”）及其尺寸</li>
+               <li>区块高度</li>
+               <li>缩放比例</li>
             </ul>
          </p>
-         <p class="bg-light p-3">Par défaut : 
-            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="icon membre" loading="lazy" />
+         <p class="bg-light p-3">默认： 
+            <img class="me-2" src="/modules/geoloc/images/mbcg.png" alt="成员图标" loading="lazy" />
          </p>
-         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Geoloc Manuel administration</span></p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32px" height="32px" src="/images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - 地理定位管理手册</span></p>
       </div>
    </body>
 </html>

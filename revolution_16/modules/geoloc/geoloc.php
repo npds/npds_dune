@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.1                                            */
-/* geoloc_geoloc.php file 2008-2024 by Jean Pierre Barbary (jpb)        */
+/* module geoloc version 4.2                                            */
+/* geoloc_geoloc.php file 2008-2025 by Jean Pierre Barbary (jpb)        */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
@@ -235,7 +235,7 @@ $total_connect = sql_num_rows($result_con);
 $result = sql_query ('SELECT * FROM '.$NPDS_Prefix.'session s
 LEFT JOIN '.$NPDS_Prefix.'users u ON s.username = u.uname
 LEFT JOIN '.$NPDS_Prefix.'users_extend ue ON u.uid = ue.uid');
-$krs=0; $mb_con_g='#######'; $ano_o_conn='const ano_features=['; /*$mbr_geo_on='const mbrOn_features=[';*/ $mbr_geo_on_v ='';
+$krs=0; $mb_con_g='#######'; $ano_o_conn='const ano_features=['; $mbr_geo_on_v ='';
 $sidebaronline = '';   $i=0;
 
 while ($row = sql_fetch_array($result)) {
@@ -244,7 +244,7 @@ while ($row = sql_fetch_array($result)) {
    $session_host_addr = $row['host_addr'];
    $users_name = $row['name'];
    $users_uname = $row['uname'];
-   $users_user_avatar = $row['user_avatar'];
+   $users_user_avatar = isset($users_user_avatar) ? $row['user_avatar'] : '';
    $session_user_name = $row['username'];
    $user_lat = $row[''.$ch_lat.''];
    $user_long = $row[''.$ch_lon.''];
@@ -476,18 +476,22 @@ $fond_provider = array(
    ['modisterra', geoloc_translate("Satellite").' (NASA)'],
    ['natural-earth-hypso-bathy', geoloc_translate("Relief").' (mapbox)'],
    ['geography-class', geoloc_translate("Carte").' (mapbox)'],
-   ['Road', geoloc_translate("Plan").' (Bing maps)'],
-   ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
-   ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
+   ['microsoft.base.road', geoloc_translate("Plan").' (Azure maps)'],
+   ['microsoft.imagery', geoloc_translate("Satellite").' (Azure maps)'],
+   ['microsoft.base.darkgrey', geoloc_translate("Sombre").' (Azure maps)'],
    ['sat-google', geoloc_translate("Satellite").' (Google maps)'],
    ['World_Imagery', geoloc_translate("Satellite").' (ESRI)'],
    ['World_Shaded_Relief', geoloc_translate("Relief").' (ESRI)'],
    ['World_Physical_Map', geoloc_translate("Physique").' (ESRI)'],
-   ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)']
+   ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)'],
+   ['stamen_terrain', geoloc_translate("Plan").' (Stadia maps)'],
+   ['stamen_watercolor', geoloc_translate("Dessin").' (Stadia maps)'],
+   ['alidade_smooth', geoloc_translate("Plan clair").' (Stadia maps)'],
+   ['stamen_toner', geoloc_translate("Plan sombre").' (Stadia maps)'],
 );
-if($api_key_bing=='' and $api_key_mapbox=='')
+if($api_key_azure=='' and $api_key_mapbox=='')
    unset($fond_provider[2],$fond_provider[3],$fond_provider[4],$fond_provider[5],$fond_provider[6]);
-elseif($api_key_bing=='')
+elseif($api_key_azure=='')
    unset($fond_provider[4],$fond_provider[5],$fond_provider[6]);
 elseif($api_key_mapbox=='')
    unset($fond_provider[2],$fond_provider[3]);
@@ -502,16 +506,19 @@ foreach ($fond_provider as $k => $v) {
       case '2': $optcart .= '
                            <optgroup label="Mapbox">';break;
       case '4': $optcart .= '
-                           <optgroup label="Bing maps">'; break;
+                           <optgroup label="Azure Maps">'; break;
       case '7': $optcart .= '
                            <optgroup label="Google">'; break;
       case '8': $optcart .= '
                            <optgroup label="ESRI">';break;
+      case '12': $optcart .= '
+                           <optgroup label="Stadia Maps">';break;
+
    }
    $optcart .= '
                               <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
    switch($k){
-      case '0': case '1': case '3': case '6': case '7': case '11': $optcart .= '
+      case '0': case '1': case '3': case '6': case '7': case '11': case '15': $optcart .= '
                            </optgroup>'; break;
    }
 }
@@ -529,10 +536,11 @@ switch ($cartyp) {
       $min_r='0';
       $layer_id= $cartyp;
    break;
-   case 'Road': case 'Aerial': case 'AerialWithLabels':
+   case 'microsoft.base.road': case 'microsoft.imagery': case 'microsoft.base.darkgrey':
       $source_fond='
-      new ol.source.BingMaps({
-         key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"
+      new ol.source.ImageTile({
+         url: `https://atlas.microsoft.com/map/tile?subscription-key='.$api_key_azure.'&api-version=2.0&tilesetId='.$cartyp.'&zoom={z}&x={x}&y={y}&tileSize=256&language=EN`,
+         attributions: `© ${new Date().getFullYear()} TomTom, Microsoft`
       })';
       $max_r='40000';
       $min_r='0';
@@ -548,21 +556,19 @@ switch ($cartyp) {
       $min_r='2000';
       $layer_id= $cartyp;
    break;
-   case 'modisterra':
-      $source_fond=
-      'new ol.source.XYZ({
-         url: "https://gibs-{a-c}.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/2013-06-15/GoogleMapsCompatible_Level13/{z}/{y}/{x}.jpg"
-      })';
-      $max_r='40000';
-      $min_r='0';
-      $layer_id= $cartyp;
-   break;
    case 'World_Imagery':case 'World_Shaded_Relief':case 'World_Physical_Map':case 'World_Topo_Map':
       $source_fond='new ol.source.XYZ({
          attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
          url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp.'/MapServer/tile/{z}/{y}/{x}",
          maxZoom: 23
      })';
+      $max_r='40000';
+      $min_r='0';
+      $layer_id= $cartyp;
+   break;
+   case 'stamen_terrain': case 'stamen_watercolor': case 'alidade_smooth': case "stamen_toner":
+      $source_fond='
+      new ol.source.StadiaMaps({})';
       $max_r='40000';
       $min_r='0';
       $layer_id= $cartyp;
@@ -1174,23 +1180,26 @@ $ecr_scr .='
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
             map.getLayers().item(0).setProperties({"id":cartyp});
-//            fond_carte.setMinResolution(1);
          break;
          case "sat-google":
             fond_carte.setSource(new ol.source.XYZ({
-               url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous",
+               url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+               crossOrigin: "Anonymous",
                attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>",
                maxZoom: 19,
             }));
             map.getLayers().item(0).setProperties({"id":cartyp});
          break;
-         case "Road":case "Aerial":case "AerialWithLabels":
-            fond_carte.setSource(new ol.source.BingMaps({
-               key: "'.$api_key_bing.'",imagerySet: cartyp
+         case "microsoft.base.road": case "microsoft.imagery": case "microsoft.base.darkgrey":
+            fond_carte.setSource(new ol.source.ImageTile({
+               url: `https://atlas.microsoft.com/map/tile?subscription-key='.$api_key_azure.'&api-version=2.0&tilesetId=`+cartyp+`&zoom={z}&x={x}&y={y}&tileSize=256&language=EN`,
+               crossOrigin: "anonymous",
+               attributions: `© ${new Date().getFullYear()} TomTom, Microsoft`,
             }));
             map.getLayers().item(0).setProperties({"id":cartyp});
             fond_carte.setMinResolution(1);
          break;
+
          case "natural-earth-hypso-bathy": case "geography-class":
             fond_carte.setSource(new ol.source.TileJSON({
                url: "https://api.tiles.mapbox.com/v4/mapbox."+cartyp+".json?access_token='.$api_key_mapbox.'",
@@ -1200,12 +1209,12 @@ $ecr_scr .='
             fond_carte.setMaxResolution(40000);
             map.getLayers().item(0).setProperties({"id":cartyp});
          break;
-         case "terrain": case "toner": case "watercolor":
-            fond_carte.setSource(new ol.source.Stamen({layer:cartyp}));
-            fond_carte.setMinResolution(0);
-            fond_carte.setMaxResolution(40000);
+
+         case "stamen_terrain": case "stamen_watercolor": case "alidade_smooth": case "stamen_toner":
+            fond_carte.setSource(new ol.source.StadiaMaps({layer:cartyp}));
             map.getLayers().item(0).setProperties({"id":cartyp});
          break;
+         
          case "modisterra":
             $("#dayslider").addClass("show");
             var datejour="'.$date_jour.'";
@@ -1621,7 +1630,7 @@ $affi .= '
          </h5>
          <div class="mb-3 row">
             <div class="col-sm-12">
-               <input type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="'.geoloc_translate('Filtrer les résultats').'" />
+               <input id="filtreur" type="text" class="mb-3 form-control form-control-sm n_filtrbox" placeholder="'.geoloc_translate('Filtrer les résultats').'" />
             </div>
          </div>
          <div class="n-filtrable row mx-0">

@@ -5,14 +5,14 @@
 /*                                                                      */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
+/* the Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
-/* module geoloc version 4.1                                            */
-/* geoloc_set.php file 2007-2024 by Jean Pierre Barbary (jpb)           */
+/* module geoloc version 4.2                                            */
+/* geoloc_set.php file 2007-2025 by Jean Pierre Barbary (jpb)           */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
 
@@ -33,7 +33,7 @@ $f_titre= geoloc_translate("Configuration du module Geoloc");
    $ch_lat         = isset($ch_lat) ? $ch_lat : '' ;
    $ch_lon         = isset($ch_lon) ? $ch_lon : '' ;
    $api_key_ipdata = isset($api_key_ipdata) ? $api_key_ipdata : '';
-   $key_lookup = isset($key_lookup) ? $key_lookup : '';
+   $key_lookup     = isset($key_lookup) ? $key_lookup : '';
 
 function vidip(){
    global $NPDS_Prefix;
@@ -82,18 +82,22 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       ['OSM', geoloc_translate("Plan").' (OpenStreetMap)'],
       ['natural-earth-hypso-bathy', geoloc_translate("Relief").' (mapbox)'],
       ['geography-class', geoloc_translate("Carte").' (mapbox)'],
-      ['Road', geoloc_translate("Plan").' (Bing maps)'],
-      ['Aerial', geoloc_translate("Satellite").' (Bing maps)'],
-      ['AerialWithLabels', geoloc_translate("Satellite").' et label (Bing maps)'],
+      ['microsoft.base.road', geoloc_translate("Plan").' (Azure maps)'],
+      ['microsoft.imagery', geoloc_translate("Satellite").' (Azure maps)'],
+      ['microsoft.base.darkgrey', geoloc_translate("Sombre").' (Azure maps)'],
       ['sat-google', geoloc_translate("Satellite").' (Google maps)'],
       ['World_Imagery', geoloc_translate("Satellite").' (ESRI)'],
       ['World_Shaded_Relief', geoloc_translate("Relief").' (ESRI)'],
       ['World_Physical_Map', geoloc_translate("Physique").' (ESRI)'],
-      ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)']
+      ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)'],
+      ['stamen_terrain', geoloc_translate("Plan").' (Stadia maps)'],
+      ['stamen_watercolor', geoloc_translate("Dessin").' (Stadia maps)'],
+      ['alidade_smooth', geoloc_translate("Plan clair").' (Stadia maps)'],
+      ['stamen_toner', geoloc_translate("Plan sombre").' (Stadia maps)'],
    );
-   if($api_key_bing=='' and $api_key_mapbox=='')
+   if($api_key_azure=='' and $api_key_mapbox=='')
       unset($fond_provider[1],$fond_provider[2],$fond_provider[3],$fond_provider[4],$fond_provider[5]);
-   elseif($api_key_bing=='')
+   elseif($api_key_azure=='')
       unset($fond_provider[3],$fond_provider[4],$fond_provider[5]);
    elseif($api_key_mapbox=='')
       unset($fond_provider[1],$fond_provider[2]);
@@ -176,10 +180,10 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       <h4 class="my-3" >'.geoloc_translate('Interface carte').'</h4>
 
       <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="api_key_bing">'.geoloc_translate("Clef d'API").' Bing maps</label>
+         <label class="col-form-label col-sm-4" for="api_key_azure">'.geoloc_translate("Clef d'API").' Azure maps</label>
          <div class="col-sm-8">
-            <input type="text" class="form-control" name="api_key_bing" id="api_key_bing" placeholder="" value="'.$api_key_bing.'" />
-            <span class="help-block small muted">'.$api_key_bing.'</span>
+            <input type="text" class="form-control" name="api_key_azure" id="api_key_azure" placeholder="" value="'.$api_key_azure.'" />
+            <span class="help-block small muted">'.$api_key_azure.'</span>
          </div>
       </div>
       <div class="mb-3 row">
@@ -202,14 +206,15 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       switch($k){
          case '0': $aff .= '<optgroup label="OpenStreetMap">';break;
          case '1': $aff .= '<optgroup label="Mapbox">';break;
-         case '4': $aff .= '<optgroup label="Bing maps">';break;
+         case '3': $aff .= '<optgroup label="Azure maps">';break;
          case '6': $aff .= '<optgroup label="Google">';break;
          case '7': $aff .= '<optgroup label="ESRI">';break;
+         case '11': $aff .= '<optgroup label="Stadia Maps">';break;
       }
       $aff .= '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($k) {
-         case '0': case '2': case '5': case '6': case '10': $aff .= '</optgroup>'; break;
+         case '0': case '2': case '5': case '6': case '10': case '14': $aff .= '</optgroup>'; break;
       }
    }
    $aff .= '
@@ -495,14 +500,15 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       switch($k){
          case '0': $aff .= '<optgroup label="OpenStreetMap">';break;
          case '1': $aff .= '<optgroup label="Mapbox">';break;
-         case '4': $aff .= '<optgroup label="Bing maps">';break;
+         case '3': $aff .= '<optgroup label="Azure maps">';break;
          case '6': $aff .= '<optgroup label="Google">';break;
          case '7': $aff .= '<optgroup label="ESRI">';break;
+         case '11': $aff .= '<optgroup label="Stadia Maps">';break;
       }
       $aff .= '
                            <option '.$sel.' value="'.$v[0].'">'.$v[1].'</option>';
       switch($k){
-         case '0': case '2': case '5': case '6': case '10': $aff .= '</optgroup>'; break;
+         case '0': case '2': case '5': case '6': case '10': case '14': $aff .= '</optgroup>'; break;
       }
    }
    $aff .= '
@@ -580,7 +586,6 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
    <div id="map_conf" lang="'.language_iso(1,0,0).'"></div>
        Icônes en service
    </div>
-
 </div>';
 $source_fond='';
 switch ($cartyp) {
@@ -590,26 +595,31 @@ switch ($cartyp) {
    case 'sat-google':
       $source_fond=' new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"})';
    break;
-   case 'Road':case 'Aerial':case 'AerialWithLabels':
-      $source_fond='new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: "'.$cartyp.'"})';
+   case 'microsoft.base.road': case 'microsoft.imagery': case 'microsoft.base.darkgrey':
+      $source_fond='new ol.source.ImageTile({
+         url: `https://atlas.microsoft.com/map/tile?subscription-key='.$api_key_azure.'&api-version=2.0&tilesetId=`+cartyp+`&zoom={z}&x={x}&y={y}&tileSize=256&language=EN`,
+         crossOrigin: "anonymous",
+         attributions: `© ${new Date().getFullYear()} TomTom, Microsoft`
+         })';
    break;
    case 'natural-earth-hypso-bathy': case 'geography-class':
-      $source_fond=' new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'"})';
+      $source_fond=' new ol.source.TileJSON({
+         url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'"
+      })';
    break;
-   case 'terrain':case 'toner':case 'watercolor':
-      $source_fond='new ol.source.Stamen({layer:"'.$cartyp.'"})';
-   break;
-   case 'World_Imagery':case 'World_Shaded_Relief':case 'World_Physical_Map':case 'World_Topo_Map':
+   case 'World_Imagery': case 'World_Shaded_Relief': case 'World_Physical_Map': case 'World_Topo_Map':
       $source_fond='new ol.source.XYZ({
          attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
          attributionsCollapsible: true,
          url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp.'/MapServer/tile/{z}/{y}/{x}",
          maxZoom: 23
-     })';
-/*
+      })';
+      $layer_id= $cartyp;
+   break;
+   case "stamen_terrain": case "stamen_watercolor": case "alidade_smooth": case "stamen_toner":
+      $source_fond='new ol.source.StadiaMaps({})';
       $max_r='40000';
       $min_r='0';
-*/
       $layer_id= $cartyp;
    break;
 
@@ -767,15 +777,6 @@ $(function() {
          zoom: 3
       })
    });
-
-   /*
-   "Je suis le marker (image au format .gif .jpg .png) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9;.");
-   "Je suis le marker (image au format .gif .jpg .png) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9; actuellement connecté sur le site.");
-   "Je suis le marker (image au format .gif .jpg .png) symbolisant un visiteur actuellement connecté sur le site géolocalisé par son adresse IP");
-   "Je suis le marker (image au format SVG) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9;");
-   "Je suis le marker (image au format SVG) symbolisant un membre du site g&#xE9;or&#xE9;f&#xE9;renc&#xE9; actuellement connecté sur le site.");
-   "Je suis le marker (image au format SVG) symbolisant un visiteur actuellement connecté sur le site géolocalisé par son adresse IP.");
-   */
 
 // size dont work à revoir
    $( "#w_ico, #h_ico, #ch_img, #nm_img_mbg, #nm_img_mbcg, #nm_img_acg" ).change(function() {
@@ -941,14 +942,15 @@ $(function() {
          case "OSM":
             fond_carte.setSource(new ol.source.OSM());
          break;
-         case "Road":case "Aerial":case "AerialWithLabels":
-            fond_carte.setSource(new ol.source.BingMaps({key: "'.$api_key_bing.'",imagerySet: cartyp }));
+         case "microsoft.base.road": case "microsoft.imagery": case "microsoft.base.darkgrey":
+            fond_carte.setSource(new ol.source.XYZ({
+               url: `https://atlas.microsoft.com/map/tile?subscription-key='.$api_key_azure.'&api-version=2.0&tilesetId=`+cartyp+`&zoom={z}&x={x}&y={y}&tileSize=256&language=EN`,
+               crossOrigin: "anonymous",
+               attributions: `© ${new Date().getFullYear()} TomTom, Microsoft`
+            }));
          break;
          case "natural-earth-hypso-bathy": case "geography-class":
             fond_carte.setSource(new ol.source.TileJSON({url: "https://api.tiles.mapbox.com/v4/mapbox."+cartyp+".json?access_token='.$api_key_mapbox.'"}));
-         break;
-         case "terrain": case "toner": case "watercolor":
-            fond_carte.setSource(new ol.source.Stamen({layer:cartyp}));
          break;
          case "sat-google":
             fond_carte.setSource(new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"}));
@@ -961,6 +963,10 @@ $(function() {
                maxZoom: 23
            }));
          break;
+         case "stamen_terrain": case "stamen_watercolor": case "alidade_smooth": case "stamen_toner":
+            fond_carte.setSource(new ol.source.StadiaMaps({layer:cartyp}));
+         break;
+
       }
    };';
 
@@ -978,8 +984,6 @@ $scri .='
    $("#map_conf .ol-rotate-reset, #map_conf .ol-attribution button[title], #map_conf .ol-full-screen button[title]").tooltip({placement: "left", container: "#map_conf",});
 //});
 ';
-
-
 $scri .= '
 });
 
@@ -990,7 +994,7 @@ adminfoot('','','','');
 
 }
 
-function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
+function SaveSetgeoloc($api_key_azure, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
 
 //==> modifie le fichier de configuration
    $file_conf = fopen("modules/geoloc/geoloc.conf", "w+");
@@ -1005,13 +1009,13 @@ function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp
    $content .= "/*                                                                      */\n";
    $content .= "/* This program is free software. You can redistribute it and/or modify */\n";
    $content .= "/* it under the terms of the GNU General Public License as published by */\n";
-   $content .= "/* the Free Software Foundation; either version 2 of the License.       */\n";
+   $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
    $content .= "/*                                                                      */\n";
-   $content .= "/* module geoloc version 4.1                                            */\n";
+   $content .= "/* module geoloc version 4.2                                            */\n";
    $content .= "/* geoloc.conf file 2008-".date('Y')." by Jean Pierre Barbary (jpb)              */\n";
    $content .= "/* dev team : Philippe Revilliod (Phr), A.NICOL                         */\n";
    $content .= "/************************************************************************/\n";
-   $content .= "\$api_key_bing = \"$api_key_bing\"; // clef api bing maps \n";
+   $content .= "\$api_key_azure = \"$api_key_azure\"; // clef api Azure maps \n";
    $content .= "\$api_key_mapbox = \"$api_key_mapbox\"; // clef api mapbox \n";
    $content .= "\$ch_lat = \"$ch_lat\"; // Champ lat dans sql \n";
    $content .= "\$ch_lon = \"$ch_lon\"; // Champ long dans sql \n";
@@ -1064,11 +1068,11 @@ function SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp
 if ($admin) {
    switch ($subop) {
       case 'vidip':
-          vidip();
-          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup);
+         vidip();
+         Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup);
       break;
       case 'SaveSetgeoloc':
-         SaveSetgeoloc($api_key_bing, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);
+         SaveSetgeoloc($api_key_azure, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b,$z_b, $ModPath, $ModStart);
          Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup);
       break;
       default:

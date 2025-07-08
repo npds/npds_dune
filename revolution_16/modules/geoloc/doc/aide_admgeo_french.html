@@ -39,31 +39,23 @@
          <a href="http://ip-api.com" target="_blank">http://ip-api.com</a> ==> max 150 requ&ecirc;tes par minute (banissement)<br />
          Tous ces fournisseurs ont une limite d'utilisation gratuite d'ou leur nombre pour pouvoir assurer un fonctionnement continu restant dans la gratuit&eacute;...<br />
          </p>
-          
          <h5>Clef d'API Ipdata</h5>
-         <p>
-         Cette clef est facultative elle permet d'utiliser les donn&eacute;es de ipdata.co vous pouvez l'obtenir ici :<br />
+         <p>Cette clef est facultative elle permet d'utiliser les donn&eacute;es de ipdata.co vous pouvez l'obtenir ici :<br />
          <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
          </p>
-          
+
          <h4>Interface carte</h4>
-         <h5>Clef d'API Bing maps</h5>
-         <p>Cette clef permet d'utiliser les donn&eacute;es de Bing maps. Si vous souhaiter utiliser ces donn&eacute;es aller &agrave; https://www.bingmapsportal.com et suivre le proc&eacute;d&eacute; (cr&eacute;ation d'un compte puis obtention d'une clef)... et remplissez le champ.</p>
+         <h5>Clef d'API Azure Maps</h5>
+         <p>Cette clef permet d'utiliser les donn&eacute;es de Azure Maps. Si vous souhaiter utiliser ces donn&eacute;es aller &agrave; <a href="https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app" target="_blank">https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app</a> et suivre le proc&eacute;d&eacute; (cr&eacute;ation d'un compte puis obtention d'une clef)... et remplissez le champ.</p>
          <h5>Clef d'API Mapbox</h5>
          <p>Cette clef (facultative) permet d'utiliser les donn&eacute;es de Mapbox. Si vous souhaiter utiliser ces donn&eacute;es aller &agrave; https://www.mapbox.com et suivre le proc&eacute;d&eacute; (cr&eacute;ation d'un compte puis obtention d'une clef) ... et remplissez le champ.</p>
          <h5>Type de carte</h5>
-         <p>Vous pouvez d&eacute;finir ici le fond de carte par d&eacute;faut, en fonction des fournisseurs &agrave; votre disposition et des clef d'API que vous aurez obtenu</p>
+         <p>Vous pouvez d&eacute;finir ici le fond de carte par d&eacute;faut, en fonction des fournisseurs &agrave; votre disposition et des clef d'API ou autorisation que vous aurez obtenu.</p>
+         <p>NB: le fournissseur Stadia Maps nécessite au minimum la création d'un compte et la désignation de votre nom de domaine pour l'autentification.Vous pouvez effectuer le process ici : <a href="https://docs.stadiamaps.com/authentication/" target="_blank">https://docs.stadiamaps.com/authentication/</a></p> 
          <ul>
             <li>OpenStreetMap
                <ul>
                   <li>Plan (OpenStreetMap)</li>
-               </ul>
-            </li>
-            <li>Stamen
-               <ul>
-                  <li>Noir et blanc (Stamen)</li>
-                  <li>Dessin (Stamen)</li>
-                  <li>Relief (Stamen)</li>
                </ul>
             </li>
             <li>Mapbox  <span class="text-danger"><== clef d'API requise</span>
@@ -72,11 +64,11 @@
                   <li>Carte (Mapbox)</li>
                </ul>
             </li>
-            <li>Bing maps  <span class="text-danger"><== clef d'API requise</span>
+            <li>Azure Maps  <span class="text-danger"><== clef d'API requise</span>
                <ul>
-                  <li>Plan (Bing maps)</li>
-                  <li>Satellite (Bing maps)</li>
-                  <li>Satellite et label (Bing maps)</li>
+                  <li>Plan (Azure Maps)</li>
+                  <li>Satellite (Azure Maps)</li>
+                  <li>Sombre (Azure Maps)</li>
                </ul>
             </li>
             <li>Google maps
@@ -84,8 +76,15 @@
                   <li>Satellite(Google maps)</li>
                </ul>
             </li>
+            <li>Stadia Maps <span class="text-danger"><== autorisation requise</span>
+               <ul>
+                  <li>Plan (Stadia Maps)</li>
+                  <li>Dessin (Stadia Maps)</li>
+                  <li>Plan clair (Stadia Maps)</li>
+                  <li>Plan sombre (Stadia Maps)</li>
+               </ul>
+            </li>
          </ul>
-
          <h5>Unit&eacute; des coordonn&eacute;es</h5>
          <p>Permet de d&eacute;finir l'affichage par d&eacute;faut des coordonn&eacute;es</p>
             <ul>
@@ -93,8 +92,7 @@
                <li>dd : degr&eacute;s d&eacute;cimaux (ex : 63.391522 | 146.953125) </li>
             </ul>
          <h5>Type de marqueur</h5>
-         <p>
-         Vous pouvez choisir entre deux types d'ic&ocirc;nes qui repr&eacute;senteront :
+         <p>Vous pouvez choisir entre deux types d'ic&ocirc;nes qui repr&eacute;senteront :
          <ul> 
             <li>les membres du site non connect&eacute;</li>
             <li>les membres du site connect&eacute;</li>
@@ -103,7 +101,7 @@
          NB : les ic&ocirc;nes pour les IP ne sont pas param&eacute;trables.<br />
          </p>
          <p>
-            <b>1. Des images au format png, gif (gif anim&eacute; non support&eacute;), jpeg.</b><br />
+         <b>1. Des images au format png, gif (gif anim&eacute; non support&eacute;), jpeg.</b><br />
             Celles ci sont stock&eacute;es &agrave; l'adresse d&eacute;fini dans le chemin des images les param&egrave;tres (supra). Vous pouvez choisir les images que vous souhaitez et ajuster leur dimension finale d'affichage sur la carte dans les champs largeur et hauteur.<br />
          </p>
          <p class="bg-light p-3">Par d&eacute;faut : 

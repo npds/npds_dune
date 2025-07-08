@@ -39,31 +39,23 @@
          <a href="http://ip-api.com" target="_blank">http://ip-api.com</a> ==> máximo 150 solicitudes por minuto (prohibición)<br />
          Todos estos proveedores tienen un límite de uso gratuito o su número para poder garantizar un funcionamiento continuo siendo gratuitos...<br />
          </p>
-         
          <h5>Clave API de IPdata</h5>
-         <p>
-         Esta clave es opcional y le permite utilizar datos de ipdata.co, puede obtenerla aquí:<br />
+         <p>Esta clave es opcional y le permite utilizar datos de ipdata.co, puede obtenerla aquí:<br />
          <a href="https://ipdata.co/sign-up.html" target="_blank">https://ipdata.co/sign-up.html</a>
          </p>
-          
+
          <h4>Interfaz de tarjeta</h4>
-         <h5>Clave API de mapas de Bing</h5>
-         <p>Esta clave le permite utilizar datos de mapas de Bing. Si desea utilizar estos datos, vaya a https://www.bingmapsportal.com y siga el proceso (crear una cuenta y luego obtener una clave)... y complete el campo.</p>
+         <h5>Clave API de mapas Azure Maps</h5>
+         <p>Esta clave te permite usar datos de Azure Maps. Si quieres usar estos datos, ve a <a href="https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app" target="_blank">https://learn.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app</a> y sigue los pasos (crea una cuenta y luego obtén una clave)... y completa el campo.</p>
          <h5>Clave API de Mapbox</h5>
          <p>Esta clave (opcional) le permite utilizar datos de Mapbox. Si desea utilizar estos datos, vaya a https://www.mapbox.com y siga el proceso (crear una cuenta y luego obtener una clave)... y complete el campo.</p>
          <h5>Tipo de tarjeta</h5>
-         <p>Puedes definir el mapa base predeterminado aquí, dependiendo de los proveedores disponibles y las claves API que hayas obtenido</p>
+         <p>Aquí puedes configurar el mapa base predeterminado según los proveedores disponibles y las claves API o autorizaciones que hayas obtenido.
+         <p>Nota: El proveedor de Stadia Maps requiere, como mínimo, la creación de una cuenta y la designación de tu nombre de dominio para la autenticación. Puedes completar el proceso aquí: <a href="https://docs.stadiamaps.com/authentication/" target="_blank">https://docs.stadiamaps.com/authentication/</a></p>
          <ul>
             <li>OpenStreetMap
                <ul>
                   <li>Mapa (OpenStreetMap)</li>
-               </ul>
-            </li>
-            <li>Stamen
-               <ul>
-                  <li>Blanco y negro (Stamen)</li>
-                  <li>Dibujo (Stamen)</li>
-                  <li>Relieve (Stamen)</li>
                </ul>
             </li>
             <li>Mapbox <span class="text-danger"><== Se requiere clave API</span>
@@ -72,11 +64,11 @@
                   <li>Mapa (Mapbox)</li>
                </ul>
             </li>
-            <li>Mapas de Bing <span class="text-danger"><== Se requiere clave API</span>
+            <li>Mapas de Azure Maps <span class="text-danger"><== Se requiere clave API</span>
                <ul>
-                  <li>Mapa (mapas de Bing)</li>
-                  <li>Satélite (mapas de Bing)</li>
-                  <li>Satélite y etiqueta (mapas de Bing)</li>
+                  <li>Mapa (mapas de Azure Maps)</li>
+                  <li>Satélite (mapas de Azure Maps)</li>
+                  <li>Oscuro (mapas de Azure Maps)</li>
                </ul>
             </li>
             <li>Mapas de Google
@@ -84,8 +76,15 @@
                   <li>Satélite (Google Maps)</li>
                </ul>
             </li>
+            <li>Stadia Maps <span class="text-danger"><== autorisation requise</span>
+               <ul>
+                  <li>Mapa (Stadia Maps)</li>
+                  <li>Dibujo (Stadia Maps)</li>
+                  <li>Mapa claro (Stadia Maps)</li>
+                  <li>Mapa oscuro (Stadia Maps)</li>
+               </ul>
+            </li>
          </ul>
-
          <h5>Unidad de coordenadas</h5>
          <p>Le permite definir la visualización predeterminada de coordenadas</p>
             <ul>
@@ -93,8 +92,7 @@
                <li>dd: grados decimales (ej: 63.391522 | 146.953125) </li>
             </ul>
          <h5>Tipo de marcador</h5>
-         <p>
-         Podrás elegir entre dos tipos de iconos que representarán:
+         <p>Podrás elegir entre dos tipos de iconos que representarán:
          <ul>
             <li>los miembros del sitio no han iniciado sesión</li>
             <li>miembros conectados del sitio</li>
