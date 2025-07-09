@@ -170,8 +170,8 @@ function themesidebox($title, $content) {
    }
    $npds_METALANG_words=array(
    "'!B_title!'i"=>$title,
-   "'!B_class_title!'i"=>$B_class_title,
-   "'!B_class_content!'i"=>$B_class_content,
+   "'!B_class_title!'i" => isset($B_class_title) && $B_class_title !== '' ? $B_class_title : 'noclass',
+   "'!B_class_content!'i" => isset($B_class_content) && $B_class_content !== '' ? $B_class_content : 'noclass',
    "'!B_content!'i"=>$content
    );
    echo $htvar;// modif ji fantôme block
