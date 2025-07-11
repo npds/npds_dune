@@ -45,9 +45,9 @@ Attention : MiniSite ne gère pas les sous-répertoires !
 
 ---------------------------------------------------------------------------------------------------
 Vous pouvez voir le résultat (et communiquer cette adresse à votre entourage) via le lien suivant :
-=> http://www.lesite.org/minisite.php?op=votre-identifiant-NPDS
+=> https://www.lesite.org/minisite.php?op=votre-identifiant-NPDS
 
- Par exemple => http://www.npds.org/minisite.php?op=developpeur
+ Par exemple => https://www.npds.org/minisite.php?op=developpeur
 ---------------------------------------------------------------------------------------------------
 
 ---------------------

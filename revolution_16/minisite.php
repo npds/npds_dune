@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -272,7 +272,7 @@ function convert_ressources ($Xcontent) {
          if (dirname($op)!='groupe') {
             // single user
             $userdata=get_userdata($op);
-            if ($userdata['mns']==true) {
+            if (array_key_exists('mns', $userdata) and $userdata['mns']==true) {
                $affich=true;
                if (stristr($userdata['user_avatar'],"users_private"))
                   $direktori='';
@@ -429,5 +429,7 @@ function convert_ressources ($Xcontent) {
             </body>
          </html>';
       }
-   }
+   } 
+   else 
+      include("admin/die.php");
 ?>

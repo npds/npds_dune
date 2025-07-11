@@ -46,9 +46,9 @@ Warning: Minisite does not support subdirectories!
 
 ---------------------------------------------------------------------------------------------------
 You can see the result (and communicate this address to your friends) via the following link:
-=> Http://www.lesite.org/minisite.php?op=votre-identifiant-NPDS
+=> https://www.lesite.org/minisite.php?op=votre-identifiant-NPDS
 
-  For example => http://www.npds.org/minisite.php?op=developpeur
+  For example => https://www.npds.org/minisite.php?op=developpeur
 ---------------------------------------------------------------------------------------------------
 
 ---------------------
