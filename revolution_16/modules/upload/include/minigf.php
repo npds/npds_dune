@@ -117,7 +117,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -137,47 +137,47 @@
             <input type="hidden" name="IdTopic" value="'.$IdTopic.'" />
             <input type="hidden" name="apli" value="'.$apli.'" />';
 
-   $tsz=0;
-   $att=getAttachments ($apli,$IdPost,0 ,$Mmod);
-   $visible_list='';
-   $vizut='';
+   $tsz = 0;
+   $att = getAttachments ($apli,$IdPost,0 ,$Mmod);
+   $visible_list = '';
+   $vizut = '';
 
    if (is_array($att)) {
-      $att_count=count($att);
-      $display_att=true;
+      $att_count = count($att);
+      $display_att = true;
       if ($Mmod)
-         $vizut='<th data-width="15" data-width-unit="%" data-halign="right" data-align="right">'.upload_translate("Visibilité").'</th>';
+         $vizut = '<th data-width="15" data-width-unit="%" data-halign="right" data-align="right">'.upload_translate('Visibilité').'</th>';
       $att_table='
             <table data-toggle="table" data-classes="table table-sm table-no-bordered table-hover table-striped" data-mobile-responsive="true">
                <thead>
                   <tr>
                      <th data-width="5" data-width-unit="%"><i class="fas fa-trash fa-lg text-danger"></i></th>
-                     <th data-width="40" data-width-unit="%" data-halign="center" data-align="center" data-sortable="true">'.upload_translate("Fichier").'</th>
-                     <th data-width="15" data-width-unit="%" data-halign="center" data-align="center" data-sortable="true">'.upload_translate("Type").'</th>
-                     <th data-width="10" data-width-unit="%" data-halign="center" data-align="right">'.upload_translate("Taille").'</th>
-                     <th data-width="15" data-width-unit="%" data-halign="center" data-align="center">'.upload_translate("Affichage intégré").'</th>
+                     <th data-width="40" data-width-unit="%" data-halign="center" data-align="center" data-sortable="true">'.upload_translate('Fichier').'</th>
+                     <th data-width="15" data-width-unit="%" data-halign="center" data-align="center" data-sortable="true">'.upload_translate('Type').'</th>
+                     <th data-width="10" data-width-unit="%" data-halign="center" data-align="right">'.upload_translate('Taille').'</th>
+                     <th data-width="15" data-width-unit="%" data-halign="center" data-align="center">'.upload_translate('Affichage intégré').'</th>
                   '.$vizut.'
                   </tr>
                </thead>
                <tbody>';
       $Fichier = new FileManagement;
-      $visu='';
-      for ($i=0; $i<$att_count; $i++) {
-         $id=$att[$i]['att_id'];
-         $tsz+=$att[$i]['att_size'];
+      $visu = '';
+      for ($i = 0; $i < $att_count; $i++) {
+         $id = $att[$i]['att_id'];
+         $tsz += $att[$i]['att_size'];
 
          $sz = $Fichier->file_size_format($att[$i]['att_size'],2);
          if (getAttDisplayMode ($att[$i]['att_type'], 'A') == ATT_DSP_LINK) {
             // This mime-type can't be displayed inline
             echo '<input type="hidden" name="inline_att['.$id.']" value="0" />';
-            $inline_box='--';
+            $inline_box = '--';
          } else
-            $inline_box=getListBox("inline_att[$id]", $inline_list, $att[$i]["inline"]);
+            $inline_box = getListBox("inline_att[$id]", $inline_list, $att[$i]['inline']);
          if ($Mmod) {
-            $visu='<td>'.getCheckBox ("visible_att[]", $id, ($att[$i]["visible"]==1)?$id:-1, '', '').'</td>';
-            $visible_list.=$id.',';
+            $visu = '<td>'.getCheckBox ("visible_att[]", $id, ($att[$i]['visible'] == 1) ? $id : -1, '', '').'</td>';
+            $visible_list .= $id.',';
          }
-         $att_table.='
+         $att_table .= '
                   <tr>
                      <td>'.getCheckBox("del_att[]", $id, 0, '', ' is-invalid').'</td>
                      <td>'.$att[$i]['att_name'].'</td>
@@ -188,15 +188,15 @@
                   </tr>';
       }
       $total_sz = $Fichier->file_size_format($tsz,1);
-      $visu_button='';
+      $visu_button = '';
       echo '<input type="hidden" name="visible_list" value="'.$visible_list.'" />';
-      $att_inline_button='<button class="btn btn-primary btn-sm" onclick="InlineType(this.form);">'.upload_translate("Adapter").'<span class="d-sm-none d-xl-inline"> '.upload_translate("Affichage intégré").'</span></button>';
+      $att_inline_button = '<button class="btn btn-primary btn-sm" onclick="InlineType(this.form);">'.upload_translate('Adapter').'<span class="d-sm-none d-xl-inline"> '.upload_translate('Affichage intégré').'</span></button>';
       if ($Mmod)
-         $visu_button='<button class="btn btn-primary btn-sm" onclick="visibleFile(this.form);">'.upload_translate("Adapter").'<span class="d-sm-none d-xl-inline"> '.upload_translate("Visibilité").'</span></button>';
+         $visu_button = '<button class="btn btn-primary btn-sm" onclick="visibleFile(this.form);">'.upload_translate('Adapter').'<span class="d-sm-none d-xl-inline"> '.upload_translate('Visibilité').'</span></button>';
 
-      $att_table.='
+      $att_table .= '
                   <tr class="mt-2">
-                     <td colspan="2"><i class="fas fa-level-up-alt fa-2x fa-flip-horizontal text-danger me-1"></i><a class="text-danger" href="#" onclick="deleteFile(document.form0); return false;"><span class="d-sm-none" title="'.upload_translate("Supprimer les fichiers sélectionnés").'" data-bs-toggle="tooltip" data-bs-placement="right" ><i class="fas fa-trash fa-2x ms-1"></i></span><span class="d-none d-sm-inline">'.upload_translate("Supprimer les fichiers sélectionnés").'</span></a></td>
+                     <td colspan="2"><i class="fas fa-level-up-alt fa-2x fa-flip-horizontal text-danger me-1"></i><a class="text-danger" href="#" onclick="deleteFile(document.form0); return false;"><span class="d-sm-none" title="'.upload_translate('Supprimer les fichiers sélectionnés').'" data-bs-toggle="tooltip" data-bs-placement="right" ><i class="fas fa-trash fa-2x ms-1"></i></span><span class="d-none d-sm-inline">'.upload_translate('Supprimer les fichiers sélectionnés').'</span></a></td>
                      <td></td>
                      <td  class="text-end"><strong> '.$total_sz.'</strong></td>
                      <td class="text-end">'.$att_inline_button.'</td>
@@ -206,11 +206,11 @@
             </table>';
    }
    $tf = new FileManagement;
-   $oo= $tf->file_size_format($MAX_FILE_SIZE,1);
-   $att_upload_table='
+   $oo = $tf->file_size_format($MAX_FILE_SIZE,1);
+   $att_upload_table = '
    <div class="card card-body my-2">
       <div class="mb-2 row">
-         <label class="col-form-label col-sm-3" for="pcfile">'.upload_translate("Fichier joint").'</label>
+         <label class="col-form-label col-sm-3" for="pcfile">'.upload_translate('Fichier joint').'</label>
          <div class="col-sm-9">
             <div class="input-group mb-2 me-sm-2">
                <button class="btn btn-secondary" type="button" onclick="reset2($(\'#pcfile\'),\'\');"><i class="bi bi-arrow-clockwise"></i></button>
@@ -221,19 +221,19 @@
       </div>
       <div class="mb-3 row">
          <div class="col-sm-9 ms-sm-auto">
-            <button type="button" class="btn btn-primary" onclick="uploadFile(this.form);">'.upload_translate("Joindre").'</button>
+            <button type="button" class="btn btn-primary" onclick="uploadFile(this.form);">'.upload_translate('Joindre').'</button>
          </div>
       </div>
-      <p class="mb-0">'.upload_translate("Taille maxi du fichier").' : '.$oo.'</p>
-      <p class="mb-0">'.upload_translate("Extensions autorisées").' : <small class="text-success">'.$bn_allowed_extensions.'</small></p>
+      <p class="mb-0">'.upload_translate('Taille maxi du fichier').' : '.$oo.'</p>
+      <p class="mb-0">'.upload_translate('Extensions autorisées').' : <small class="text-success">'.$bn_allowed_extensions.'</small></p>
    </div>';
-   $att_form ='
+   $att_form = '
          <div class="container-fluid p-3">
             <div class="text-end">
                <button class="btn btn-close btn-sm" onclick="self.close()"></button>
             </div>
          '.$thanks_msg;
-   $att_form.=$att_upload_table.$att_table;
+   $att_form .= $att_upload_table.$att_table;
    echo $att_form.'
          </div>
          </form>

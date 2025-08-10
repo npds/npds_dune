@@ -5,33 +5,33 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion"))
-   include ("mainfile.php");
+if (!function_exists('Mysql_Connexion'))
+   include 'mainfile.php';
 
    settype($op,'string');
-   if ($op!="maj_subscribe") {
-      include("header.php");
-      $inclusion=false;
-      if (file_exists("themes/$theme/html/topics.html"))
-         $inclusion="themes/$theme/html/topics.html";
-      elseif (file_exists("themes/default/html/topics.html"))
-         $inclusion="themes/default/html/topics.html";
+   if ($op != 'maj_subscribe') {
+      include 'header.php';
+      $inclusion = false;
+      if (file_exists('themes/'.$theme.'/html/topics.html'))
+         $inclusion = 'themes/'.$theme.'/html/topics.html';
+      elseif (file_exists('themes/default/html/topics.html'))
+         $inclusion = 'themes/default/html/topics.html';
       else
          echo 'html/topics.html / not find !<br />';
       if ($inclusion) {
          ob_start();
          include($inclusion);
-         $Xcontent=ob_get_contents();
+         $Xcontent = ob_get_contents();
          ob_end_clean();
          echo meta_lang(aff_langue($Xcontent));
       }
-      include("footer.php");
+      include 'footer.php';
    } else {
       if ($subscribe) {
          if ($user) {
@@ -40,13 +40,13 @@ if (!function_exists("Mysql_Connexion"))
             while(list($topicid) = sql_fetch_row($selection)) {
                if (isset($Subtopicid)) {
                   if (array_key_exists($topicid,$Subtopicid)) {
-                     if ($Subtopicid[$topicid]=="on") {
+                     if ($Subtopicid[$topicid] == 'on') {
                         $resultX = sql_query("INSERT INTO ".$NPDS_Prefix."subscribe (topicid, uid) VALUES ('$topicid','$cookie[0]')");
                      }
                   }
                }
             }
-            redirect_url("topics.php");
+            redirect_url('topics.php');
          }
       }
    }

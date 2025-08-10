@@ -5,19 +5,19 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025  by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
-   include ("mainfile.php");
+   include 'mainfile.php';
 
 function SuserCheck($email) {
    global $NPDS_Prefix, $stop;
    include_once('functions.php');
-   $stop='';
+   $stop = '';
    if ((!$email) || ($email=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$email))) 
       $stop = translate("Erreur : Email invalide");
    if (strrpos($email,' ') > 0) 
@@ -27,7 +27,7 @@ function SuserCheck($email) {
    if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."users WHERE email='$email'")) > 0)
       $stop = translate("Erreur : adresse Email déjà utilisée");
    if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'")) > 0) {
-      if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email' AND status='NOK'")) >0)
+      if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email' AND status='NOK'")) > 0)
          sql_query("DELETE FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$email'");
       else
          $stop = translate("Erreur : adresse Email déjà utilisée");
@@ -45,8 +45,8 @@ function error_handler($ibid) {
 }
 
 function subscribe($var) {
-   if ($var!='') {
-      include("header.php");
+   if ($var != '') {
+     include 'header.php';;
       echo '
       <h2>'.translate("La lettre").'</h2>
       <hr />
@@ -58,20 +58,20 @@ function subscribe($var) {
          <input type="submit" class="btn btn-outline-primary me-2" value="'.translate("Valider").'" />
          <a href="index.php" class="btn btn-outline-secondary">'.translate("Retour en arrière").'</a>
       </form>';
-      include("footer.php");
+      include 'footer.php';
    } else
-      header("location: index.php");
+      header('Location: index.php');
 }
 
 function subscribe_ok($xemail) {
    global $NPDS_Prefix, $stop;
 
-   include("header.php");
-   if ($xemail!='') {
+   include 'header.php';
+   if ($xemail != '') {
       SuserCheck($xemail);
-      if ($stop=='') {
-         $host_name=getip();
-         $timeX=date("Y-m-d H:m:s",time());
+      if ($stop == '') {
+         $host_name = getip();
+         $timeX = date("Y-m-d H:m:s",time());
          // Troll Control
          list($troll) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."lnl_outside_users WHERE (host_name='$host_name') AND (to_days(now()) - to_days(date) < 3)"));
          if ($troll < 6) {
@@ -80,44 +80,44 @@ function subscribe_ok($xemail) {
             global $sitename, $nuke_url;
             $subject = html_entity_decode(translate("La lettre"),ENT_COMPAT | ENT_HTML401,'UTF-8').' / '.$sitename;
             $message = translate("Merci d'avoir consacré du temps pour vous enregistrer.").'<br /><br />'.translate("Pour supprimer votre abonnement à notre lettre, merci d'utiliser").' : <br />'.$nuke_url.'/lnl.php?op=unsubscribe&email='.$xemail.'<br /><br />';
-            include("signat.php");
+            include 'signat.php';
             send_email($xemail, $subject, $message, '', true, 'html', '');
             echo '
             <div class="alert alert-success">'.translate("Merci d'avoir consacré du temps pour vous enregistrer.").'</div>
             <a href="index.php">'.translate("Retour en arrière").'</a>';
         } else {
-            $stop=translate("Compte ou adresse IP désactivée. Cet émetteur a participé plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage.")."<br />";
+            $stop = translate("Compte ou adresse IP désactivée. Cet émetteur a participé plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage.")."<br />";
             error_handler($stop);
         }
       } else
          error_handler($stop);
    } else
      error_handler(translate("Cette donnée ne doit pas être vide.")."<br />");
-   include("footer.php");
+   include 'footer.php';
 }
 
 function unsubscribe($xemail) {
    global $NPDS_Prefix;
 
-   if ($xemail!='') {
-      if ((!$xemail) || ($xemail=='') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$xemail))) header("location: index.php");
-      if (strrpos($xemail,' ') > 0) header("location: index.php");
+   if ($xemail != '') {
+      if ((!$xemail) || ($xemail == '') || (!preg_match('#^[_\.0-9a-z-]+@[0-9a-z-\.]+\.+[a-z]{2,4}$#i',$xemail))) header("Location: index.php");
+      if (strrpos($xemail,' ') > 0) header('Location: index.php');
       if (sql_num_rows(sql_query("SELECT email FROM ".$NPDS_Prefix."lnl_outside_users WHERE email='$xemail'")) > 0) {
-         $host_name=getip();
+         $host_name = getip();
          // Troll Control
          list($troll) = sql_fetch_row(sql_query("SELECT COUNT(*) FROM ".$NPDS_Prefix."lnl_outside_users WHERE (host_name='$host_name') AND (to_days(now()) - to_days(date) < 3)"));
          if ($troll < 6) {
             sql_query("UPDATE ".$NPDS_Prefix."lnl_outside_users SET status='NOK' WHERE email='$xemail'");
-            include("header.php");
+            include 'header.php';
             echo '
             <div class="alert alert-success">'.translate("Merci").'</div>
             <a href="index.php">'.translate("Retour en arrière").'</a>';
-            include("footer.php");
+            include 'footer.php';
          } else {
-            include("header.php");
-            $stop=translate("Compte ou adresse IP désactivée. Cet émetteur a participé plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage.")."<br />";
+            include 'header.php';
+            $stop = translate("Compte ou adresse IP désactivée. Cet émetteur a participé plus de x fois dans les dernières heures, merci de contacter le webmaster pour déblocage.").'<br />';
             error_handler($stop);
-            include("footer.php");
+            include 'footer.php';
          }
       } else
          redirect_url("index.php");
@@ -132,7 +132,7 @@ switch ($op) {
    break;
    case 'subscribeOK':
       //anti_spambot
-      if (!R_spambot($asb_question, $asb_reponse,"")) {
+      if (!R_spambot($asb_question, $asb_reponse,'')) {
          Ecr_Log("security", "LNL Anti-Spam : email=".$email, "");
          redirect_url("index.php");
          die();

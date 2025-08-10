@@ -3,21 +3,21 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
-if (!function_exists("Mysql_Connexion"))
-   include ("mainfile.php");
+if (!function_exists('Mysql_Connexion'))
+   include 'mainfile.php';
 // chatbox avec salon privatif - on utilise id pour filtrer les messages -> id = l'id du groupe au sens autorisation de NPDS (-127,-1,0,1,2...126))
 
 settype ($id,'integer');
-if ($id==='' || unserialize(decrypt($auto))!=$id) die();
+if ($id === '' || unserialize(decrypt($auto)) != $id) die();
 
-if (!function_exists("makeChatBox")) include ("powerpack_f.php");
-include("functions.php");
+if (!function_exists('makeChatBox')) include 'powerpack_f.php';
+include 'functions.php';
 
    // Savoir si le 'connecté' a le droit à ce chat ?
    // le problème c'est que tous les groupes qui existent on le droit au chat ... donc il faut trouver une solution pour pouvoir l'interdire
@@ -26,27 +26,27 @@ include("functions.php");
 
    if (!autorisation($id)) die();
    global $Default_Theme, $Default_Skin, $user;
-   if (isset($user) and $user!='') {
+   if (isset($user) and $user != '') {
       global $cookie;
-      if($cookie[9] !='') {
-         $ibix=explode('+', urldecode($cookie[9]));
-         if (array_key_exists(0, $ibix)) $theme=$ibix[0]; else $theme=$Default_Theme;
-         if (array_key_exists(1, $ibix)) $skin=$ibix[1]; else $skin=$Default_Skin; 
-         $tmp_theme=$theme;
-         if (!$file=@opendir("themes/$theme")) $tmp_theme=$Default_Theme;
+      if($cookie[9] != '') {
+         $ibix = explode('+', urldecode($cookie[9]));
+         if (array_key_exists(0, $ibix)) $theme = $ibix[0]; else $theme = $Default_Theme;
+         if (array_key_exists(1, $ibix)) $skin = $ibix[1]; else $skin = $Default_Skin;
+         $tmp_theme = $theme;
+         if (!$file = @opendir('themes/'.$theme)) $tmp_theme = $Default_Theme;
       } else 
-         $tmp_theme=$Default_Theme;
+         $tmp_theme = $Default_Theme;
    } else {
-      $theme=$Default_Theme;
-      $skin=$Default_Skin;
-      $tmp_theme=$theme;
+      $theme = $Default_Theme;
+      $skin = $Default_Skin;
+      $tmp_theme = $theme;
    }
-   $skin = $skin =='' ? 'default' : $skin ;
+   $skin = $skin == '' ? 'default' : $skin ;
 
-   $Titlesitename='NPDS';
-   include("meta/meta.php");
+   $Titlesitename = 'NPDS';
+   include 'meta/meta.php';
    echo import_css($tmp_theme, $language, $skin, basename($_SERVER['PHP_SELF']), '');
-   include("lib/formhelp.java.php");
+   include 'lib/formhelp.java.php';
    echo '</head>';
 
    // cookie chat_info (1 par groupe)
@@ -69,7 +69,7 @@ include("functions.php");
       $pseudo = $cookie[1];
    $xJava = 'name="message" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="storeForm(this)"';
 
-   echo translate("Vous êtes connecté en tant que :").' <strong>'.$pseudo.'</strong>&nbsp;';
+   echo translate('Vous êtes connecté en tant que :').' <strong>'.$pseudo.'</strong>&nbsp;';
    echo '
          <input type="hidden" name="name" value="'.$pseudo.'" />
          <textarea id="chatarea" class="form-control my-3" type="text" rows="2" '.$xJava.' placeholder="🖋"></textarea>
@@ -77,7 +77,7 @@ include("functions.php");
          putitems("chatarea");
    echo '
          </div>
-         <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate("Valider").'" />
+         <input class="btn btn-primary btn-sm" type="submit" tabindex="1" value="'.translate('Valider').'" />
          </form>
          <script src="lib/js/npds_adapt.js"></script>
          <script type="text/javascript">

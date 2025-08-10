@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -18,9 +18,9 @@
 /************************************************************************/
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
-include ('config.php');
-   $pre_tab='';
-   if($NPDS_Prefix!='') 
+include 'config.php';
+   $pre_tab = '';
+   if($NPDS_Prefix != '') 
       $pre_tab = ins_translate('Tables préfixées avec : ').'(<code class="code mx-1">'.$NPDS_Prefix.'</code>).';
 
 function etape_6() {

@@ -3,7 +3,7 @@
 # # DUNE by NPDS : Net Portal Dynamic System
 # ===================================================
 #
-# This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier
+# This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier
 #
 # This module is to configure the Sections 
 #
@@ -11,5 +11,5 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3 of the License.
 
-$sections_chemin=1;
+$sections_chemin = 1;
 ?>

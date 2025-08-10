@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* Kill the Ereg by JPB on 24-01-2011                                   */
-/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,8 +13,8 @@
 
 function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port,$xdkim_auto) {
 
-   include ("config.php");
-   if ($xparse==0) {
+   include 'config.php';
+   if ($xparse == 0) {
       $xsitename =  FixQuotes($xsitename);
       $xTitlesitename = FixQuotes($xTitlesitename);
    } else {
@@ -25,7 +25,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $xnuke_url = FixQuotes($xnuke_url);
    $xsite_logo = FixQuotes($xsite_logo);
 
-   if ($xparse==0) {
+   if ($xparse == 0) {
       $xslogan = FixQuotes($xslogan);
       $xstartdate = FixQuotes($xstartdate);
    } else {
@@ -34,22 +34,22 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    }
    // Theme
    $xDefault_Theme = FixQuotes($xDefault_Theme);
-   if ($xDefault_Theme!=$Default_Theme) {
-      include("cache.config.php");
+   if ($xDefault_Theme != $Default_Theme) {
+      include 'cache.config.php';
       $dh = opendir($CACHE_CONFIG['data_dir']);
-      while(false!==($filename = readdir($dh))) {
+      while(false !== ($filename = readdir($dh))) {
          if ($filename === '.' OR $filename === '..' OR $filename === 'ultramode.txt' OR $filename === 'net2zone.txt' OR $filename === 'sql') continue;
             unlink($CACHE_CONFIG['data_dir'].$filename);
       }
    }
    $xmyIP = FixQuotes($xmyIP);
 
-   $xfoot1=str_replace(chr(13).chr(10),"\n",$xfoot1);
-   $xfoot2=str_replace(chr(13).chr(10),"\n",$xfoot2);
-   $xfoot3=str_replace(chr(13).chr(10),"\n",$xfoot3);
-   $xfoot4=str_replace(chr(13).chr(10),"\n",$xfoot4);
+   $xfoot1 = str_replace(chr(13).chr(10),"\n",$xfoot1);
+   $xfoot2 = str_replace(chr(13).chr(10),"\n",$xfoot2);
+   $xfoot3 = str_replace(chr(13).chr(10),"\n",$xfoot3);
+   $xfoot4 = str_replace(chr(13).chr(10),"\n",$xfoot4);
 
-   if ($xparse==0)
+   if ($xparse == 0)
       $xbackend_title = FixQuotes($xbackend_title);
    else
       $xbackend_title = stripslashes($xbackend_title);
@@ -62,21 +62,21 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $xlocale = FixQuotes($xlocale);
    $xnotify_email = FixQuotes($xnotify_email);
 
-   if ($xparse==0) {
+   if ($xparse == 0) {
       $xnotify_subject = FixQuotes($xnotify_subject);
       $xdownload_cat = FixQuotes($xdownload_cat);
    } else {
       $xnotify_subject = stripslashes($xnotify_subject);
       $xdownload_cat = stripslashes($xdownload_cat);
    }
-   $xnotify_message=str_replace(chr(13).chr(10),"\n",$xnotify_message);
+   $xnotify_message = str_replace(chr(13).chr(10),"\n",$xnotify_message);
 
    $xnotify_from = FixQuotes($xnotify_from);
    $xanonymous = FixQuotes($xanonymous);
    $xtipath = FixQuotes($xtipath);
    $xuserimg = FixQuotes($xuserimg);
    $xadminimg = FixQuotes($xadminimg);
-   $file = fopen("config.php", "w");
+   $file = fopen('config.php', 'w');
    $line = "######################################################################\n";
    $content = "<?php\n";
    $content .= "$line";
@@ -111,9 +111,9 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "\$dbuname = \"$dbuname\";\n";
    $content .= "\$dbpass = \"$dbpass\";\n";
    $content .= "\$dbname = \"$dbname\";\n";
-   if (!isset($mysql_p)) $mysql_p=1;
+   if (!isset($mysql_p)) $mysql_p = 1;
    $content .= "\$mysql_p = $mysql_p;\n";
-   if (!isset($mysql_i)) $mysql_i=0;
+   if (!isset($mysql_i)) $mysql_i = 0;
    $content .= "\$mysql_i = $mysql_i;\n";
    $content .= "# =======================\n";
    $content .= "\$debugmysql = $xdebugmysql;\n";
@@ -176,13 +176,13 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "\$slogan = \"$xslogan\";\n";
    $content .= "\$startdate = \"$xstartdate\";\n";
    $content .= "\$anonpost = $xanonpost;\n";
-   if (!$xtroll_limit) $xtroll_limit=6;
+   if (!$xtroll_limit) $xtroll_limit = 6;
    $content .= "\$troll_limit = $xtroll_limit;\n";
    $content .= "\$moderate = $xmoderate;\n";
    $content .= "\$mod_admin_news = $xmod_admin_news;\n";
    $content .= "\$not_admin_count = $xnot_admin_count;\n";
    $content .= "\$Default_Theme = \"$xDefault_Theme\";\n";
-   if (substr($xDefault_Theme,-3)!="_sk") $xDefault_Skin='';
+   if (substr($xDefault_Theme,-3) != "_sk") $xDefault_Skin = '';
    $content .= "\$Default_Skin = \"$xDefault_Skin\";\n";
    $content .= "\$Start_Page = \"$xstart_page\";\n";
    $content .= "\$foot1 = \"$xfoot1\";\n";
@@ -202,11 +202,11 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "# \$oldnum:    How many stories in Old Articles Box?\n";
    $content .= "$line";
    $content .= "\n";
-   if (!$xtop) $xtop=10;
+   if (!$xtop) $xtop = 10;
    $content .= "\$top = $xtop;\n";
-   if (!$xstoryhome) $xstoryhome=10;
+   if (!$xstoryhome) $xstoryhome = 10;
    $content .= "\$storyhome = $xstoryhome;\n";
-   if (!$xoldnum) $xoldnum=10;
+   if (!$xoldnum) $xoldnum = 10;
    $content .= "\$oldnum = $xoldnum;\n";
    $content .= "\n";
    $content .= "$line";
@@ -238,9 +238,9 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "\$backend_width = \"$xbackend_width\";\n";
    $content .= "\$backend_height = \"$xbackend_height\";\n";
    $content .= "\$ultramode = $xultramode;\n";
-   if (!$xnpds_twi) $xnpds_twi=0;
+   if (!$xnpds_twi) $xnpds_twi = 0;
    $content .= "\$npds_twi = $xnpds_twi;\n";
-   if (!$xnpds_fcb) $xnpds_fcb=0;
+   if (!$xnpds_fcb) $xnpds_fcb = 0;
    $content .= "\$npds_fcb = $xnpds_fcb;\n";
    $content .= "\n";
    $content .= "$line";
@@ -332,7 +332,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "\$adminimg = \"$xadminimg\";\n";
    $content .= "\$short_menu_admin = $xshort_menu_admin;\n";
    $content .= "\$admingraphic = $xadmingraphic;\n";
-   if (!$xadmf_ext) {$xadmf_ext="gif";}
+   if (!$xadmf_ext) {$xadmf_ext = "gif";}
    $content .= "\$admf_ext = \"$xadmf_ext\";\n";
    $content .= "\$admart = $xadmart;\n";
    $content .= "\n";
@@ -403,7 +403,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "$line";
    $content .= "\n";
    $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
-   if ($NPDS_Key=='') $NPDS_Key=uniqid("");
+   if ($NPDS_Key == '') $NPDS_Key = uniqid('');
    $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
    $content .= "\$Version_Num = \"v.16.8\";\n";
    $content .= "\$Version_Id = \"NPDS\";\n";
@@ -413,7 +413,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    fwrite($file, $content);
    fclose($file);
 
-   $file = fopen("filemanager.conf", "w");
+   $file = fopen('filemanager.conf', 'w');
    $content = "<?php\n";
    $content .= "# ========================================\n";
    $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
@@ -423,8 +423,8 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    fwrite($file, $content);
    fclose($file);
 
-   $xEmailFooter=str_replace(chr(13).chr(10),"\n",$xEmailFooter);
-   $file = fopen("signat.php", "w");
+   $xEmailFooter = str_replace(chr(13).chr(10),"\n",$xEmailFooter);
+   $file = fopen('signat.php', 'w');
    $content = "<?php\n";
    $content .= "$line";
    $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
@@ -440,12 +440,11 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "$line";
    $content .= "\n";
    $content .= "\$message .= \"$xEmailFooter\";\n";
-
    $content .= "?>";
    fwrite($file, $content);
    fclose($file);
 
-   $file = fopen("lib/PHPMailer/PHPmailer.conf.php", "w");
+   $file = fopen('lib/PHPMailer/PHPmailer.conf.php', 'w');
    $content = "<?php\n";
    $content .= "$line";
    $content .= "# DUNE by NPDS : Net Portal Dynamic System\n";
@@ -480,10 +479,10 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    fwrite($file, $content);
    fclose($file);
 
-   global $aid; Ecr_Log("security", "ConfigSave() by AID : $aid", "");
+   global $aid; Ecr_Log('security', "ConfigSave() by AID : $aid", '');
 
    SC_Clean();
 
-   Header("Location: admin.php?op=AdminMain");
+   header('Location: admin.php?op=AdminMain');
 }
 ?>

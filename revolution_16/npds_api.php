@@ -4,14 +4,14 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* api NPDS proto 02                                                    */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
-if (!stristr($_SERVER['PHP_SELF'],'admin.php')) include('admin/die.php');
+if (!stristr($_SERVER['PHP_SELF'],'admin.php')) include 'admin/die.php';
 
 /*
 function stripslashes_deep($value) {
@@ -81,7 +81,7 @@ function alerte_api() {
       $id = $_POST['id'];
       $result = sql_query("SELECT * FROM ".$NPDS_Prefix."fonctions WHERE fid='$id'");
       if(isset($result)){
-         $row=sql_fetch_assoc($result);
+         $row = sql_fetch_assoc($result);
          if (count($row) > 0)
             $data = $row;
       }
@@ -119,10 +119,10 @@ switch ($op) {
      api_getdownload();
    break;
 */
-   case "alerte_api":
+   case 'alerte_api':
       alerte_api();
    break;
-   case "alerte_update":
+   case 'alerte_update':
       alerte_update();
    break;
 }

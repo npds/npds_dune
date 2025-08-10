@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Reseaux-sociaux Add-On ... ver. 1.0                                  */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -20,10 +20,10 @@
 // Do not change if you dont know what you do ;-)
 // $rs=[['rs name','rs url',rs class fontawesome for rs icon],[...]]
 $rs = [
-['facebook','https://facebook.com/','facebook'],
-['twitter','https://twitter.com/','twitter'],
-['snapchat','https://www.snapchat.com/','snapchat'],
-['linkedin','https://www.linkedin.com/in/','linkedin'],
-['github','https://github.com/','github']
+   ['facebook','https://facebook.com/','facebook'],
+   ['twitter','https://twitter.com/','twitter'],
+   ['snapchat','https://www.snapchat.com/','snapchat'],
+   ['linkedin','https://www.linkedin.com/in/','linkedin'],
+   ['github','https://github.com/','github']
 ];
 ?>

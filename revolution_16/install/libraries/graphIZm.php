@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -57,7 +57,7 @@ function entete() {
          <div class="row">
             <div class="col-sm-2 d-none d-md-inline-block"><img class="img-fluid" src="install/images/header.png" alt="NPDS logo" /></div>
             <div id="logo_header" class="col my-auto ps-3 ps-md-0">
-               <h1 class="display-4">NPDS<br /><small class="text-body-secondary">'.ins_translate("Installation automatique").' <em> '.NEW_VERSION.'</em></small></h1>
+               <h1 class="display-4">NPDS<br /><small class="text-body-secondary">'.ins_translate('Installation automatique').' <em> '.NEW_VERSION.'</em></small></h1>
             </div>
             <div class="col-sm-3 text-end small my-auto">
                <ul class="list-group list-group-flush">
@@ -94,8 +94,8 @@ function page_message($chaine) {
 
 function menu() {
    global $menu, $langue, $colorst1, $colorst2, $colorst3, $colorst4, $colorst5, $colorst6, $colorst7, $colorst8, $colorst9, $colorst10;
-   $menu='';
-   $menu.= '
+   $menu = '';
+   $menu .= '
          <div class="row px-3 g-3">
             <div class="col-md-3">
                <ul class="list-group mb-3 small text-md-end">

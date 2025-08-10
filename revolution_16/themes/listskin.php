@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -15,20 +15,20 @@
    $rech = '#(.*\/)(themes\/_skins)\/(.*)#';
    preg_match_all($rech, $lepath, $result);
 
-   $optskins=array('');
-   $handle=opendir('../../../themes/_skins');
-   while (false!==($file = readdir($handle))) {
+   $optskins = array('');
+   $handle = opendir('../../../themes/_skins');
+   while (false !== ($file = readdir($handle))) {
       if ( (!strstr($file,'.')) and (!strstr($file,'bower_components')) and (!strstr($file,'assets')) and (!strstr($file,'fonts')) ) {
          $optskins[] = '<a class="dropdown-item" href="../'.$file.'">'.ucfirst ($file).'</a> ';
       }
    }
    closedir($handle);
    natcasesort($optskins);
-   $optskins=implode(' ',$optskins);
+   $optskins = implode(' ',$optskins);
    $skinpath = dirname($_SERVER['PHP_SELF']);
    $parts = explode('/', $skinpath);
    $skinametitre = end($parts);
-   $headerclasses ='navbar navbar-expand-md bg-primary fixed-top';
+   $headerclasses = 'navbar navbar-expand-md bg-primary fixed-top';
 ?>
 <!DOCTYPE html>
 <html lang="en">

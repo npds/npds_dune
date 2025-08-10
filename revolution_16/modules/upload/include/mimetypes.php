@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -12,13 +12,13 @@
 /************************************************************************/
 
 // display mode if displayed inline
-define   ('ATT_DSP_LINK', '1');        // displays as link (icon)
-define   ('ATT_DSP_IMG', '2');         // display inline as a picture, using <img> tag.
-define   ('ATT_DSP_HTML', '3');        // display inline as HTML, e.g. banned tags are stripped.
-define   ('ATT_DSP_PLAINTEXT', '4');   // display inline as text, using <pre> tag.
-define   ('ATT_DSP_SWF', '5');         // Embedded Macromedia Shockwave Flash
-define   ('ATT_DSP_VIDEO', '6');       // video display inline in a video html5 tag 
-define   ('ATT_DSP_AUDIO', '7');       // audio display inline in a audio html5 tag
+define('ATT_DSP_LINK', '1');        // displays as link (icon)
+define('ATT_DSP_IMG', '2');         // display inline as a picture, using <img> tag.
+define('ATT_DSP_HTML', '3');        // display inline as HTML, e.g. banned tags are stripped.
+define('ATT_DSP_PLAINTEXT', '4');   // display inline as text, using <pre> tag.
+define('ATT_DSP_SWF', '5');         // Embedded Macromedia Shockwave Flash
+define('ATT_DSP_VIDEO', '6');       // video display inline in a video html5 tag 
+define('ATT_DSP_AUDIO', '7');       // audio display inline in a audio html5 tag
 
 $mimetypes = array (
   'avi'   => 'video/x-msvideo',
@@ -138,22 +138,22 @@ $mime_renderers[ATT_DSP_AUDIO]    = "
 // iconographie des extension de fichiers
 $extensions = ['asf', 'avi', 'bmp', 'box', 'cfg', 'cfm', 'conf', 'crypt', 'css', 'dia', 'dir', 'doc', 'dot', 'dwg', 'excel', 'exe', 'filebsd', 'filelinux', 'fla', 'flash', 'gif', 'gz', 'gzip', 'hlp', 'htaccess', 'htm', 'html', 'ico', 'image', 'img', 'indd', 'index', 'ini', 'iso', 'java', 'jpg', 'js', 'json', 'kml', 'lyx', 'mdb', 'mid', 'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'php', 'php3', 'php4', 'phps', 'png', 'pot', 'ppt', 'ps', 'psd', 'psp', 'ra', 'rar', 'rpm', 'rtf', 'search', 'sit', 'svg', 'swf', 'sxc', 'sxd', 'sxi', 'sys', 'tar', 'tgz', 'ttf', 'txt', 'unknown', 'vsd', 'wav', 'wbk', 'wma', 'wmf', 'wmv', 'word', 'xls', 'xml', 'xsl', 'zip'];
 foreach ($extensions as $extens) {
-   $att_icons[$extens]='
+   $att_icons[$extens] = '
       <span class="fa-stack">
         <i class="bi bi-file-earmark-fill fa-stack-2x text-body-secondary"></i>
         <span class="fa-stack-1x filetype-text small ">'.$extens.'</span>
       </span>';
 }
-$att_icon_default='
+$att_icon_default = '
       <span class="fa-stack">
         <i class="bi bi-file-earmark-fill fa-stack-2x text-body-secondary"></i>
         <span class="fa-stack-1x filetype-text ">?</span>
       </span>';
-$att_icon_multiple='
+$att_icon_multiple = '
       <span class="fa-stack">
         <i class="bi bi-file-earmark-fill fa-stack-2x text-body-secondary"></i>
         <span class="fa-stack-1x filetype-text ">...</span>
       </span>';
-$att_icon_dir='<i class="bi bi-folder fs-3"></i>';
+$att_icon_dir = '<i class="bi bi-folder fs-3"></i>';
 
 ?>

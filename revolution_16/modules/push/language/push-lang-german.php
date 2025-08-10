@@ -6,30 +6,29 @@
 /* Avantgo and others support as limited HTML set.                      */
 //* ===========================                                         */
 /*                                                                      */
-/* File Copyright (c) 2001 - 2024 by Philippe Brunier                   */
+/* File Copyright (c) 2001 - 2025 by Philippe Brunier                   */
 /*                                                                      */
 /************************************************************************/
 
 function push_translate($phrase) {
-   $tmp=push_translate_pass1($phrase);
+   $tmp = push_translate_pass1($phrase);
    return ($tmp);
 }
 
 function push_translate_pass1($phrase) {
- switch($phrase) {
-   case "Latest Poll Results": $tmp = "Letzte Umfrage Ergebnisse"; break;
-   case "Latest Articles": $tmp = "Letzte Artikel"; break;
-   case "Total Votes:": $tmp = "Stimmen total :"; break;
-   case "Poll": $tmp = "Umfrage"; break;
-   case "Home": $tmp = "Zurück"; break;
-   case "Posted by": $tmp = "Eingesendet von"; break;
-   case "Member(s)": $tmp = "Benutzer"; break;
-   case "Internal": $tmp = "Intern"; break;
-   case "Next": $tmp = "Weiter"; break;
-   case "Web links": $tmp = "Weblinks"; break;
-
-   default: $tmp = "erfordert eine Übersetzung <b>[** $phrase **]</b>"; break;
- }
- return $tmp;
+   switch($phrase) {
+      case 'Latest Poll Results': $tmp = 'Letzte Umfrage Ergebnisse'; break;
+      case 'Latest Articles': $tmp = 'Letzte Artikel'; break;
+      case 'Total Votes:': $tmp = 'Stimmen total :'; break;
+      case 'Poll': $tmp = 'Umfrage'; break;
+      case 'Home': $tmp = 'ZurÂ¸ck'; break;
+      case 'Posted by': $tmp = 'Eingesendet von'; break;
+      case 'Member(s)': $tmp = 'Benutzer'; break;
+      case 'Internal': $tmp = 'Intern'; break;
+      case 'Next': $tmp = 'Weiter'; break;
+      case 'Web links': $tmp = 'Weblinks'; break;
+      default: $tmp = 'erfordert eine â€¹bersetzung <b>[** '.$phrase.' **]</b>'; break;
+   }
+   return $tmp;
 }
 ?>

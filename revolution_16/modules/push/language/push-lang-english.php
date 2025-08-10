@@ -6,12 +6,12 @@
 /* Avantgo and others support as limited HTML set.                      */
 //* ===========================                                         */
 /*                                                                      */
-/* File Copyright (c) 2001 - 2024 by Philippe Brunier                   */
+/* File Copyright (c) 2001 - 2025 by Philippe Brunier                   */
 /*                                                                      */
 /************************************************************************/
 
 function push_translate($phrase) {
-   $tmp=push_translate_pass1($phrase);
+   $tmp = push_translate_pass1($phrase);
    return ($tmp);
 }
 

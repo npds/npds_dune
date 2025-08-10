@@ -10,10 +10,10 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
    $Titlesitename='NPDS';
-   if (!function_exists("Mysql_Connexion"))
-      include "mainfile.php";
-   if (file_exists("meta/meta.php"))
-      include ("meta/meta.php");
+   if (!function_exists('Mysql_Connexion'))
+      include 'mainfile.php';
+   if (file_exists('meta/meta.php'))
+      include 'meta/meta.php';
    echo '
    <link id="bsth" rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
    </head>

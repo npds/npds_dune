@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -13,9 +13,9 @@
 if (preg_match("#upload\.func\.forum\.php#", $_SERVER['PHP_SELF'])) die();
 
 if (!isset($upload_conf)) {
-   include_once("modules/upload/lang/upload.lang-$language.php");
-   include_once("modules/upload/include_forum/upload.conf.forum.php");
-   include_once("lib/file.class.php");
+   include_once 'modules/upload/lang/upload.lang-'.$language.'.php');
+   include_once 'modules/upload/include_forum/upload.conf.forum.php';
+   include_once 'lib/file.class.php';
 }
 /************************************************************************/
 /* Fonction pour charger en mémoire les mimetypes                       */
@@ -24,47 +24,47 @@ function load_mimetypes () {
    global $mimetypes, $mimetype_default, $mime_dspinl, $mime_dspfmt, $mime_renderers, $att_icons, $att_icon_default, $att_icon_multiple;
    if (defined ('ATT_DSP_LINK'))
       return;
-   if (file_exists("modules/upload/include/mimetypes.php") )
-      include ("modules/upload/include/mimetypes.php");
+   if (file_exists('modules/upload/include/mimetypes.php') )
+      include 'modules/upload/include/mimetypes.php';
 }
 /************************************************************************/
 /* Fonction qui retourne ou la liste ou l'attachement voulu             */
 /************************************************************************/
-function getAttachments ($apli, $post_id, $att_id=0, $Mmod=0 ) {
+function getAttachments ($apli, $post_id, $att_id = 0, $Mmod = 0 ) {
    global $upload_table;
    $query = "SELECT att_id, att_name, att_type, att_size, att_path, inline, compteur, visible FROM $upload_table WHERE apli='$apli' && post_id='$post_id'";
-   if ($att_id>0)
+   if ($att_id > 0)
        $query .= " AND att_id=$att_id";
    if (!$Mmod)
        $query .= " AND visible=1";
    $query .= " ORDER BY att_type,att_name";
    $result = sql_query($query);
    $i=0;
-   while ($attach=sql_fetch_assoc($result)) {
+   while ($attach = sql_fetch_assoc($result)) {
       $att[$i] = $attach;
       $i++;
    }
-   return ($i==0 ) ? '' : $att;
+   return ($i == 0 ) ? '' : $att ;
 }
 
 /************************************************************************/
 /* Fonction permettant de créer une checkbox                            */
 /************************************************************************/
-function getCheckBox ($name, $value=1, $current, $text='', $cla=' ') {
+function getCheckBox ($name, $value=1, $current, $text = '', $cla = ' ') {
    $p =  sprintf ('<input class="form-check-input '.$cla.'" type="checkbox" name="%s" value="%s"%s />%s',
          $name,
-         $value, ("$current"=="$value")? ' checked="checked"' : '',
+         $value, ("$current" == "$value") ? ' checked="checked"' : '',
          (empty ($text)) ? '' : " $text" );
    return $p;
 }
 /************************************************************************/
 /* Fonction permettant une liste de choix                               */
 /************************************************************************/
-function getListBox ($name, $items, $selected='', $multiple=0, $onChange='') {
-   $oc = empty ($onChange) ? '' : ' onchange="'.$onChange.'"';
+function getListBox ($name, $items, $selected='', $multiple = 0, $onChange = '') {
+   $oc = empty ($onChange) ? '' : ' onchange="'.$onChange.'"' ;
    $p = sprintf ('
-               <select class="form-select form-select-sm mx-auto" name="%s%s"%s%s>', $name, ($multiple == 1)?'[]':'',
-                ($multiple == 1)?' multiple':'', $oc);
+               <select class="form-select form-select-sm mx-auto" name="%s%s"%s%s>', $name, ($multiple == 1) ? '[]' : '',
+                ($multiple == 1) ? ' multiple' : '', $oc);
    if (is_array($items)) {
       foreach($items as $k => $v) {
          $p .= sprintf(' 
@@ -80,7 +80,7 @@ function getListBox ($name, $items, $selected='', $multiple=0, $onChange='') {
 /************************************************************************/
 /* Ajoute l'attachement dans la base de données                         */
 /************************************************************************/
-function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $inline="A", $size=0, $type="") {
+function insertAttachment ($apli, $IdPost, $IdTopic, $IdForum, $name, $path, $inline = 'A', $size = 0, $type = '') {
    global $upload_table, $visible_forum;
    $size = empty ($size) ? filesize($path) : $size;
    $type = empty ($type) ? "application/octet-stream" : $type;
@@ -121,7 +121,7 @@ function display_upload($apli,$post_id,$Mmod){
       <div class="list-group">
          <div class="list-group-item d-flex justify-content-start align-items-center mt-2">
             <img class="n-smil" src="images/forum/subject/07.png" alt="icon_pieces jointes" />
-            <span class="text-body-secondary p-2">'.upload_translate("Pièces jointes").'</span><a data-bs-toggle="collapse" href="#lst_pj'.$post_id.'"><i data-bs-toggle="tooltip" data-bs-placement="top" title="" class="toggle-icon fa fa-lg me-2 fa-caret-up"></i></a>
+            <span class="text-body-secondary p-2">'.upload_translate('Pièces jointes').'</span><a data-bs-toggle="collapse" href="#lst_pj'.$post_id.'"><i data-bs-toggle="tooltip" data-bs-placement="top" title="" class="toggle-icon fa fa-lg me-2 fa-caret-up"></i></a>
             <span class="badge bg-secondary ms-auto">'.$att_count.'</span>
          </div>
          <div id="lst_pj'.$post_id.'" class="collapse show">';
@@ -135,7 +135,7 @@ function display_upload($apli,$post_id,$Mmod){
          $visible       = $att[$i]["visible"];
          $att_inline    = $att[$i]["inline"];
          $marqueurV     = (!$visible) ? '@' : '' ;
-         $att_link      = getAttachmentUrl ($apli, $post_id, $att_id, "$att_path/$att_id.$apli.".$marqueurV."$att_name", $att_type, $att_size, $att_inline, $compteur, $visible, $Mmod);
+         $att_link      = getAttachmentUrl($apli, $post_id, $att_id, "$att_path/$att_id.$apli.".$marqueurV."$att_name", $att_type, $att_size, $att_inline, $compteur, $visible, $Mmod);
          $attachments .= $att_link;
          $att_list[$att_id] = $att_name;
       }
@@ -154,7 +154,7 @@ function display_upload($apli,$post_id,$Mmod){
 /* 4   display as embedded text, PRE-formatted                          */
 /* 5   display as flash animation                                       */
 /************************************************************************/
-function getAttDisplayMode ($att_type, $att_inline="A") {
+function getAttDisplayMode ($att_type, $att_inline = 'A') {
    global $mime_dspfmt, $mimetype_default, $ext;
    load_mimetypes();
    if ($att_inline)
@@ -171,7 +171,7 @@ function att_icon ($filename) {
    global $att_icons, $att_icon_default, $att_icon_multiple;
    load_mimetypes();
    $suffix = strtoLower(substr(strrchr( $filename, '.' ), 1 ));
-   return (isset($att_icons[$suffix]) ) ? $att_icons[$suffix] : $att_icon_default;
+   return (isset($att_icons[$suffix]) ) ? $att_icons[$suffix] : $att_icon_default ;
 }
 /************************************************************************/
 /* Partie Graphique                                                     */
@@ -182,8 +182,8 @@ function verifsize ($size) {
    $width_max = 500;
    $height_max = 500;
 
-   if ($size[0]==0) $size[0]=ceil($width_max/3);
-   if ($size[1]==0) $size[1]=ceil($height_max/3);
+   if ($size[0] == 0) $size[0] = ceil($width_max / 3);
+   if ($size[1] == 0) $size[1] = ceil($height_max / 3);
    $width = $size[0];
    $height = $size[1];
 
@@ -202,7 +202,7 @@ function verifsize ($size) {
 /************************************************************************/
 /* Retourne l'attachement                                               */
 /************************************************************************/
-function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_size, $att_inline=0, $compteur, $visible=0, $Mmod) {
+function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_size, $att_inline = 0, $compteur, $visible = 0, $Mmod) {
    global $icon_dir, $img_dir, $forum;
    global $mimetype_default, $mime_dspfmt, $mime_renderers;
    global $DOCUMENTROOT;
@@ -212,7 +212,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
    $att_name = substr(strstr (basename($att_name), '.'), 1);
    $att_path = $DOCUMENTROOT.$att_path;
    if (!is_file($att_path))
-      return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non trouvé").' : '.$att_name.'</span>';
+      return '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate('Fichier non trouvé').' : '.$att_name.'</span>';
 
    if ($att_inline) {
       if (isset($mime_dspfmt[$att_type]))
@@ -223,14 +223,14 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
       $display_mode = ATT_DSP_LINK;
    if ($Mmod) {
       global $userdata;
-      $marqueurM='&amp;Mmod='.substr($userdata[2],8,6);
+      $marqueurM = '&amp;Mmod='.substr($userdata[2],8,6);
    } else
-      $marqueurM='';
-   $att_url= "getfile.php?att_id=$att_id&amp;apli=$apli".$marqueurM."&amp;att_name=".rawurlencode($att_name);
+      $marqueurM = '';
+   $att_url = "getfile.php?att_id=$att_id&amp;apli=$apli".$marqueurM."&amp;att_name=".rawurlencode($att_name);
    
    settype($visible_wrn,'string');
-   if ($visible!=1) {
-      $visible_wrn = '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate("Fichier non visible").'</span>';
+   if ($visible != 1) {
+      $visible_wrn = '&nbsp;<span class="text-danger" style="font-size: .65rem;">'.upload_translate('Fichier non visible').'</span>';
    }
 
    switch ($display_mode) {
@@ -248,8 +248,8 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
       break;
       case ATT_DSP_HTML: // display as embedded HTML text
          //au choix la source ou la page
-         $att_contents = word_wrap (nl2br(scr_html (join ("", file ($att_path)))));
-         //$att_contents = removeHack (join ("", file ($att_path)));
+         $att_contents = word_wrap (nl2br(scr_html (join ('', file ($att_path)))));
+         //$att_contents = removeHack (join ('', file ($att_path)));
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_HTML]);
          eval ("\$ret=stripSlashes(\"$text\");");
       break;
@@ -267,7 +267,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
       case ATT_DSP_AUDIO: // display in a <audio> html5 tag
          $img_size = 'width="100%" height="auto" ';
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_AUDIO]);
-         eval ("\$ret=stripSlashes(\"$text\");");
+         eval ("\$ret=stripslashes(\"$text\");");
       break;
 
       default: // display as link
@@ -275,7 +275,7 @@ function getAttachmentUrl ($apli, $post_id, $att_id, $att_path, $att_type, $att_
          $att_size = $Fichier->file_size_format($att_size, 1);
          $att_icon = att_icon($att_name);
          $text = str_replace('"','\"', $mime_renderers[ATT_DSP_LINK]);
-         eval ("\$ret=stripSlashes(\"$text\");");
+         eval ("\$ret=stripslashes(\"$text\");");
          break;
    }
    return $ret;
@@ -298,12 +298,12 @@ function word_wrap ($string, $cols = 80, $prefix = '') {
             while ((strlen($thisword) + strlen($prefix)) > $cols) {
                $cur_pos = 0;
                $outlines .= $prefix;
-               for ($num=0; $num < $cols-1; $num++) {
+               for ($num=0; $num < $cols - 1; $num++) {
                   $outlines .= $thisword[$num];
                   $cur_pos++;
                }
                $outlines .= "\n";
-               $thisword = substr($thisword, $cur_pos, (strlen($thisword)-$cur_pos));
+               $thisword = substr($thisword, $cur_pos, (strlen($thisword) - $cur_pos));
             }
             if ((strlen($newline) + strlen($thisword)) > $cols) {
                $outlines .= $prefix.$newline."\n";
@@ -332,11 +332,11 @@ function scr_html ($text) {
 /*****************************************************/
 function delete($del_att){
    global $upload_table, $rep_upload_forum, $apli, $DOCUMENTROOT;
-   $rep=$DOCUMENTROOT;
-   $del_att = is_array($del_att) ? implode (',', $del_att) : $del_att;
+   $rep = $DOCUMENTROOT;
+   $del_att = is_array($del_att) ? implode (',', $del_att) : $del_att ;
    $sql = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($del_att)";
-   $result=sql_query($sql);
-   while(list($att_id, $att_name, $att_path)=sql_fetch_row($result)){
+   $result = sql_query($sql);
+   while(list($att_id, $att_name, $att_path) = sql_fetch_row($result)){
       @unlink($rep."$att_path/$att_id.$apli.$att_name");
    }
    $sql = "DELETE FROM $upload_table WHERE att_id IN ($del_att)";
@@ -348,7 +348,7 @@ function delete($del_att){
 /*****************************************************/
 function update_inline($inline_att) {
    global $upload_table;
-   if (is_array ($inline_att) ) {
+   if (is_array($inline_att)) {
       foreach($inline_att as $id => $mode) {
          $sql = "UPDATE $upload_table SET inline='$mode' WHERE att_id=$id";
          sql_query($sql);
@@ -362,14 +362,14 @@ function renomme_fichier($listeV, $listeU) {
    global $upload_table, $apli, $DOCUMENTROOT;
    $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id in ($listeV) and visible=1";
    $result = sql_query($query);
-   while ($attach=sql_fetch_assoc($result)) {
+   while ($attach = sql_fetch_assoc($result)) {
       if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'])) {
          rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name']);
       }
    }
    $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($listeU) AND visible=0";
    $result = sql_query($query);
-   while ($attach=sql_fetch_assoc($result)) {
+   while ($attach = sql_fetch_assoc($result)) {
       if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'])) {
          rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name']);
       }
@@ -377,18 +377,18 @@ function renomme_fichier($listeV, $listeU) {
 }
 function update_visibilite($visible_att,$visible_list) {
    global $upload_table;
-   if (is_array ($visible_att) ) {
+   if (is_array($visible_att)) {
       $visible = implode (',', $visible_att);
       $sql = "UPDATE $upload_table SET visible='1' WHERE att_id IN ($visible)";
       sql_query($sql);
-      $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list)-1));
-      $result=array_diff($visible_lst,$visible_att);
-      $unvisible=implode(",", $result);
+      $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list) - 1));
+      $result = array_diff($visible_lst,$visible_att);
+      $unvisible = implode(',', $result);
       $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
       sql_query($sql);
    } else {
-      $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list)-1));
-      $unvisible=implode(',', $visible_lst);
+      $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list) - 1));
+      $unvisible = implode(',', $visible_lst);
       $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
       sql_query($sql);
    }

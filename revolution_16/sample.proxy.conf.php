@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /************************************************************************/
 /* proxy.conf.php Config for Headlines                                  */
@@ -24,10 +24,10 @@
 /************************************************************************/
 
 // Def du proxy pour le grand titre du site de news dont l'ID est 998
-$proxy_url[998]="proxy-npds.org";
-$proxy_port[998]=80;
+$proxy_url[998] = 'proxy-npds.org';
+$proxy_port[998] = 80;
 
 // Def du proxy pour le grand titre du site de news dont l'ID est 999
-$proxy_url[999]="proxy-npds.org";
-$proxy_port[999]=8080;
+$proxy_url[999] = 'proxy-npds.org';
+$proxy_port[999] = 8080;
 ?>

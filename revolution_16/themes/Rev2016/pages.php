@@ -3,7 +3,7 @@
 /* Theme for NPDS / Net Portal Dynamic System                           */
 /* =====================================================================*/
 /*                                                                      */
-/* Theme : "ecolo" version 2009 par jpb/phr,jireck,canasson             */
+/* Theme : "Rev2016"                                                    */
 /* This theme use the NPDS theme-dynamic engine (DynaMot)               */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -11,15 +11,11 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 
- $PAGES['index.php']['blocs']="0";
- 
- 
- // CSS sur fichiers particuliers car n'utilisant pas header.php
-$PAGES['chatrafraich.php']['css']="chat.css-";
-$PAGES['chatinput.php']['css']="chat.css-";
-
+$PAGES['index.php']['blocs'] = '0';
 // CSS sur fichiers particuliers car n'utilisant pas header.php
-$PAGES['central.html']['css']="screen.css-";
-$PAGES['central.html']['css']="grid.css-";
-
+$PAGES['chatrafraich.php']['css'] = 'chat.css-';
+$PAGES['chatinput.php']['css' ]= 'chat.css-';
+// CSS sur fichiers particuliers car n'utilisant pas header.php
+$PAGES['central.html']['css'] = 'screen.css-';
+$PAGES['central.html']['css'] = 'grid.css-';
 ?>

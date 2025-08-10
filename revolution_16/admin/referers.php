@@ -13,31 +13,30 @@
 /************************************************************************/
 
 if (!function_exists('admindroits'))
-   include('die.php');
-$f_meta_nom ='hreferer';
-$f_titre = adm_translate("Sites Référents");
+   include 'die.php';
+$f_meta_nom = 'hreferer';
+$f_titre = adm_translate('Sites Référents');
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 global $language;
-$hlpfile = "manuels/$language/referer.html";
+$hlpfile = 'manuels/'.$language.'/referer.html';
 
 function hreferer($filter) {
    global $hlpfile, $f_meta_nom, $adminimg, $admf_ext, $f_titre, $NPDS_Prefix;
-   include ("header.php");
+   include 'header.php';
    GraphicAdmin($hlpfile);
-
-   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   adminhead($f_meta_nom, $f_titre, $adminimg);
 
    settype($filter,'integer');
-   if (!$filter) $filter=2048;
+   if (!$filter) $filter = 2048;
    echo '
    <hr />
-   <h3>'.adm_translate("Qui parle de nous ?").'</h3>
+   <h3>'.adm_translate('Qui parle de nous ?').'</h3>
    <form action="admin.php" method="post">
       <input type="hidden" name="op" value="hreferer" />
       <div class="mb-3 row">
-         <label class="col-form-label col-sm-4" for="filter">'.adm_translate("Filtre").'</label>
+         <label class="col-form-label col-sm-4" for="filter">'.adm_translate('Filtre').'</label>
          <div class="col-sm-4">
             <input type="number" class="form-control" name="filter" min="0" max="99999" value="'.$filter.'" />
          </div>
@@ -59,7 +58,7 @@ function hreferer($filter) {
       <tr>
          <td>';
       if($TheCount == 1) echo '<a href="'.$url.'" target="_blank">';
-      if ($filter!=2048)
+      if ($filter != 2048)
         echo '<span>'.substr($url,0,$filter).'</span><span class="text-body-secondary">'.substr($url,$filter).'</span>';
       else
         echo $url;
@@ -73,45 +72,39 @@ function hreferer($filter) {
    </table>
    <br />
    <ul class="nav nav-pills">
-      <li class="nav-item"><a class="text-danger nav-link" href="admin.php?op=delreferer" >'.adm_translate("Effacer les Référants").'</a></li>
-      <li class="nav-item"><a class="nav-link" href="admin.php?op=archreferer&amp;filter='.$filter.'">'.adm_translate("Archiver les Référants").'</a></li>
+      <li class="nav-item"><a class="text-danger nav-link" href="admin.php?op=delreferer" >'.adm_translate('Effacer les Référants').'</a></li>
+      <li class="nav-item"><a class="nav-link" href="admin.php?op=archreferer&amp;filter='.$filter.'">'.adm_translate('Archiver les Référants').'</a></li>
    </ul>';
    adminfoot('','','','');
 }
 
 function delreferer() {
-    global $NPDS_Prefix;
-    sql_query("DELETE FROM ".$NPDS_Prefix."referer");
-    Header("Location: admin.php?op=AdminMain");
+   global $NPDS_Prefix;
+   sql_query("DELETE FROM ".$NPDS_Prefix."referer");
+   header('Location: admin.php?op=AdminMain');
 }
 
 function archreferer($filter) {
-    global $NPDS_Prefix;
+   global $NPDS_Prefix;
 
-    $file = fopen("slogs/referers.log", "w");
-    $content = "===================================================\n";
-    $content .="Date : ".date("d-m-Y")."-/- NPDS - HTTP Referers\n";
-    $content .= "===================================================\n";
-    $result=sql_query("SELECT url FROM ".$NPDS_Prefix."referer");
-    while(list($url)= sql_fetch_row($result)) {
-       $content .= "$url\n";
-    }
-    $content .= "===================================================\n";
-    fwrite($file, $content);
-    fclose($file);
-    Header("Location: admin.php?op=hreferer&filter=$filter");
+   $file = fopen('slogs/referers.log', 'w');
+   $content = "===================================================\n";
+   $content .="Date : ".date("d-m-Y")."-/- NPDS - HTTP Referers\n";
+   $content .= "===================================================\n";
+   $result = sql_query('SELECT url FROM '.$NPDS_Prefix.'referer');
+   while(list($url) = sql_fetch_row($result)) {
+      $content .= $url."\n";
+   }
+   $content .= "===================================================\n";
+   fwrite($file, $content);
+   fclose($file);
+   header('Location: admin.php?op=hreferer&filter='.$filter);
 }
 
 settype($filter,'integer');
 switch ($op) {
-   case 'hreferer':
-      hreferer($filter);
-   break;
-   case 'archreferer':
-      archreferer($filter);
-   break;
-   case 'delreferer':
-      delreferer();
-   break;
+   case 'hreferer': hreferer($filter); break;
+   case 'archreferer': archreferer($filter); break;
+   case 'delreferer': delreferer(); break;
 }
 ?>

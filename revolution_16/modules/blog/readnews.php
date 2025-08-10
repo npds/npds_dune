@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -12,24 +12,24 @@
 function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    global $tiny_mce;
 
-   $content='';
+   $content = '';
    settype($contentT,'string');
    $blog_file=$blog_dir.'news.txt';
    if (!file_exists($blog_file)) {
-      $fp=fopen($blog_file,'w');
+      $fp = fopen($blog_file,'w');
       fclose($fp);
    }
-   $xnews=file($blog_file);
-   $xnews=array_reverse($xnews);
-   $startpage-=1;
-   $ubound=count($xnews);
-   if ($startpage<0 || $startpage>=$ubound/$perpage) $startpage=0;
-   if ($ubound>$perpage) {
-      $contentT.='
+   $xnews = file($blog_file);
+   $xnews = array_reverse($xnews);
+   $startpage -= 1;
+   $ubound = count($xnews);
+   if ($startpage < 0 || $startpage>=$ubound/$perpage) $startpage = 0;
+   if ($ubound > $perpage) {
+      $contentT .= '
       <nav>
          <ul class="pagination pagination-sm d-flex flex-wrap my-2">';
-      for ($j=1;$j<=ceil($ubound/$perpage);$j++) {
-         $contentT.= ($j==$startpage+1) ?
+      for ($j = 1; $j <= ceil($ubound / $perpage); $j++) {
+         $contentT.= ($j == $startpage + 1) ?
             '
              <li class=" page-item active"><a class="page-link" href="#">'.$j.'</a></li>' :
             '
@@ -41,107 +41,107 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    }
    if ($adminblog) {
       // Suppression
-      if (substr($action,0,1)=='D') {
+      if (substr($action,0,1) == 'D') {
          @copy ($blog_file,$blog_file.'.bak');
          $index=substr($action,1);
          unset ($xnews[$index]);
-         $xnews=array_reverse($xnews);
-         $fp=fopen($blog_file,"w");
-         for ($j=0;$j<count($xnews);$j++) {
+         $xnews = array_reverse($xnews);
+         $fp = fopen($blog_file,'w');
+         for ($j=0; $j< count($xnews); $j++) {
             fwrite($fp,$xnews[$j]);
          }
          fclose($fp);
-         redirect_url("minisite.php?op=$op");
+         redirect_url('minisite.php?op='.$op);
       }
       // Ajouter - Ecriture
-      if (substr($action,0,3)=='AOK') {
+      if (substr($action,0,3) == 'AOK') {
          global $title, $story;
          @copy ($blog_file,$blog_file.'.bak');
-         $fp=fopen($blog_file,"a");
+         $fp = fopen($blog_file,'a');
          if (!$tiny_mce) {
-            $formatted=str_replace("\r\n",'<br />',$story);
-            $formatted=str_replace('<img','<img class="img-fluid" ',$story);
-            $formatted=str_replace("\n",'<br />',$formatted);
+            $formatted = str_replace("\r\n",'<br />',$story);
+            $formatted = str_replace('<img','<img class="img-fluid" ',$story);
+            $formatted = str_replace("\n",'<br />',$formatted);
          } else {
-            $formatted=str_replace("\r\n",'',$story);
-            $formatted=str_replace("\n",'',$formatted);
+            $formatted = str_replace("\r\n",'',$story);
+            $formatted = str_replace("\n",'',$formatted);
          }
-         $newsto=date("d m Y").'!;!'.$title.'!;!'.$formatted;
+         $newsto = date("d m Y").'!;!'.$title.'!;!'.$formatted;
          $newsto = dataimagetofileurl($newsto, 'users_private/'.$op.'/mns');
-         fwrite($fp,StripSlashes($newsto)."\n");
+         fwrite($fp,stripslashes($newsto)."\n");
          fclose($fp);
-         redirect_url("minisite.php?op=$op");
+         redirect_url('minisite.php?op='.$op);
       }
       // Ajouter
-      if (substr($action,0,1)=='A') {
+      if (substr($action,0,1) == 'A') {
          $content.='
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=AOK">
             <div class="mb-3 row">
-               <label class="form-label" for="title">'.translate("Titre").'</label>
+               <label class="form-label" for="title">'.translate('Titre').'</label>
                <div class="col-sm-12">
                   <input class="form-control" type="text" name="title" />
                </div>
             </div>
             <div class="mb-3 row">
-               <label class="form-label" for="story">'.translate("Texte complet").'</label>
+               <label class="form-label" for="story">'.translate('Texte complet').'</label>
                <div class="col-sm-12">
                   <textarea class="tin form-control" name="story" rows="25"></textarea>';
-            $content.="&nbsp;!blog_editeur!";
-            $content.='
+            $content .= "&nbsp;!blog_editeur!";
+            $content .= '
                </div>
             </div>
             <div class="mb-3 row">
                <div class="col-sm-12">
-                  <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
+                  <input class="btn btn-primary" type="submit" name="submit" value="'.translate('Valider').'" />
                </div>
             </div>
          </form>';
       }
       // Modifier - Ecriture
-      if (substr($action,0,3)=='MOK') {
+      if (substr($action,0,3) == 'MOK') {
          global $title, $story, $index;
-         @copy ($blog_file,$blog_file.".bak");
+         @copy ($blog_file,$blog_file.'.bak');
          if (!$tiny_mce) {
-            $formatted=str_replace("\r\n",'<br />',$story);
-            $formatted=str_replace('<img','<img class="img-fluid" ',$story); // a revoir ??
-            $formatted=str_replace("\n",'<br />',$formatted);
+            $formatted = str_replace("\r\n",'<br />',$story);
+            $formatted = str_replace('<img','<img class="img-fluid" ',$story); // a revoir ??
+            $formatted = str_replace("\n",'<br />',$formatted);
          } else {
-            $formatted=str_replace("\r\n",'',$story);
-            $formatted=str_replace("\n",'',$formatted);
+            $formatted = str_replace("\r\n",'',$story);
+            $formatted = str_replace("\n",'',$formatted);
          }
-         $newsto=date("d m Y").'!;!'.$title.'!;!'.$formatted;
+         $newsto = date("d m Y").'!;!'.$title.'!;!'.$formatted;
          $newsto = dataimagetofileurl($newsto, 'users_private/'.$op.'/mns');
-         $xnews[$index]=StripSlashes($newsto)."\n";
-         $xnews=array_reverse($xnews);
-         $fp=fopen($blog_file,"w");
-         for ($j=0;$j<count($xnews);$j++) {
+         $xnews[$index] = stripslashes($newsto)."\n";
+         $xnews = array_reverse($xnews);
+         $fp = fopen($blog_file,'w');
+         for ($j = 0; $j < count($xnews); $j++) {
              fwrite($fp,$xnews[$j]);
          }
          fclose($fp);
-         redirect_url("minisite.php?op=$op");
+         redirect_url('minisite.php?op='.$op);
       }
       // Modifier
-      if (substr($action,0,1)=='M') {
+      if (substr($action,0,1) == 'M') {
          $index=substr($action,1);
-         $crtsplit=explode("!;!",$xnews[$index]);
-         $videoprovider=array('yt','vm','dm');
+         $crtsplit = explode("!;!",$xnews[$index]);
+         $videoprovider = array('yt','vm','dm');
          foreach($videoprovider as $v) {
-            $crtsplit[2]= preg_replace('#('.$v.')_(video)\((.*[^\)])\)#m', '[\2_\1]\3[/\2_\1]', $crtsplit[2]);
+            $crtsplit[2] = preg_replace('#('.$v.')_(video)\((.*[^\)])\)#m', '[\2_\1]\3[/\2_\1]', $crtsplit[2]);
          }
-         $content.='
+         $content .= '
          <form name="adminForm" method="post" action="minisite.php?op='.$op.'&action=MOK&index='.$index.'">
             <div class="mb-3">
-               <label class="form-label" for="title">'.translate("Titre").'</label>
+               <label class="form-label" for="title">'.translate('Titre').'</label>
                <input class="form-control" type="text" name="title" value="'.$crtsplit[1].'" />
             </div>
             <div class="mb-3">
-               <label class="form-label" for="story" >'.translate("Texte complet").'</label>
-               <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n","",$crtsplit[2]).'</textarea>';
-         $content.="&nbsp;!blog_editeur!";
-         $content.='
+               <label class="form-label" for="story" >'.translate('Texte complet').'</label>
+               <textarea class="tin form-control" name="story" rows="25">'.str_replace("\n",'',$crtsplit[2]).'</textarea>';
+         $content .= "&nbsp;!blog_editeur!";
+         $content .= '
             </div>
             <div class="mb-3">
-               <input class="btn btn-primary" type="submit" name="submit" value="'.translate("Valider").'" />
+               <input class="btn btn-primary" type="submit" name="submit" value="'.translate('Valider').'" />
             </div>
          </form>
          #v_yt#';
@@ -149,30 +149,31 @@ function readnews ($blog_dir, $op, $perpage, $startpage, $action, $adminblog) {
    }
 
    // Output
-   $new_pages=false;
-   for ($i=$startpage*$perpage;$i<$startpage*$perpage+$perpage && $i<$ubound;$i++) {
-       $crtsplit=explode('!;!',$xnews[$i]);
-       $actionM='<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate("Modifier").'" data-bs-toggle="tooltip" ><i class="fa fa-edit fa-lg me-1"></i></a>';
-       $actionD='<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate("Effacer").'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>';
-       $content.= '
+   $new_pages = false;
+   for ($i = $startpage * $perpage; $i < $startpage * $perpage + $perpage && $i < $ubound; $i++) {
+       $crtsplit = explode('!;!',$xnews[$i]);
+       $actionM = '<a class="" href="minisite.php?op='.$op.'&amp;action=M'.$i.'" title="'.translate('Modifier').'" data-bs-toggle="tooltip" ><i class="fa fa-edit fa-lg me-1"></i></a>';
+       $actionD = '<a class="" href="minisite.php?op='.$op.'&amp;action=D'.$i.'" title="'.translate('Effacer').'" data-bs-toggle="tooltip"><i class="fas fa-trash fa-lg text-danger"></i></a>';
+       $content .= '
       <div class="card mb-3">
          <div class="card-body">
             <h2 class="card-title">'.aff_langue($crtsplit[1]).'</h2>
-            <h6 class="card-subtitle text-body-secondary">'.translate("Posté le ").' '.$crtsplit[0].'</h6>
+            <h6 class="card-subtitle text-body-secondary">'.translate('Posté le ').' '.$crtsplit[0].'</h6>
          </div>
          <div class=" card-body">'.convert_ressources($crtsplit[2]).'</div>';
       if ($adminblog) {
-       $content.='
+       $content .= '
           <div class="card-footer">
             '.$actionM.'&nbsp;'.$actionD.'
          </div>';
        }
-       $content.= '
+       $content .= '
        </div>';
    }
    settype($contentT,'string');
-   if (substr($contentT,13)!='') {$content.=substr($contentT,13);};
-   $content.="\n";
+   if (substr($contentT,13) != '') 
+      $content .= substr($contentT,13);
+   $content .= "\n";
    return ($content);
 }
 ?>

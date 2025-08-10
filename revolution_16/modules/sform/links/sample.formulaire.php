@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2019 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions                           */
 /*                                                                      */
@@ -40,7 +40,7 @@ $m->add_field('email', 'Adresse de messagerie','','text',false,50,'','email');
 $m->add_field('des', 'Description','','textarea',false,400,6,'','');
 
 // Champ Combo : hauteur = 5 / option par défaut = Linux / titre 'Compétence techniques'
-$tmp=array(
+$tmp = array(
   's1'=>array('en'=>'Windows 9.x', 'selected'=>false),
   's2'=>array('en'=>'Windows NT', 'selected'=>false),
   's3'=>array('en'=>'windows 2000', 'selected'=>false),
@@ -52,7 +52,7 @@ $tmp=array(
 $m->add_select('f4', 'Comp&eacute;tences techniques',$tmp,false,5,true);
 
 // Champ Combo : hauteur = 1 / Pas d'option par défaut / titre 'Niveau de service'
-$tmp=array(
+$tmp = array(
   't1'=>array('en'=>'Installation', 'selected'=>false),
   't2'=>array('en'=>'Administration / Exploitation', 'selected'=>false),
   't3'=>array('en'=>'Maintenance', 'selected'=>false),
@@ -60,7 +60,7 @@ $tmp=array(
 $m->add_select('f5', 'Niveau de service',$tmp,false,1,false);
 
 // Champ Radio : Option par défaut = 'Hot Line' / titre 'Type d'Option''
-$tmp=array(
+$tmp = array(
   's1'=>array('en'=>'Hot Line', 'checked'=>true),
   's2'=>array('en'=>'Maintenance sur Site', 'checked'=>false)
 );

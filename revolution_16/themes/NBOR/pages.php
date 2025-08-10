@@ -26,15 +26,11 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
 
 */
 
-$PAGES['index.php']['blocs']="1";
- 
- 
- // CSS sur fichiers particuliers car n'utilisant pas header.php
-$PAGES['chatrafraich.php']['css']="chat.css-";
-$PAGES['chatinput.php']['css']="chat.css-";
-
+$PAGES['index.php']['blocs'] = '1';
 // CSS sur fichiers particuliers car n'utilisant pas header.php
-$PAGES['central.html']['css']="screen.css-";
-$PAGES['central.html']['css']="grid.css-";
-
+$PAGES['chatrafraich.php']['css'] = 'chat.css-';
+$PAGES['chatinput.php']['css'] = 'chat.css-';
+// CSS sur fichiers particuliers car n'utilisant pas header.php
+$PAGES['central.html']['css'] = 'screen.css-';
+$PAGES['central.html']['css'] = 'grid.css-';
 ?>

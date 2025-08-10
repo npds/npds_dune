@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Cluster Paradise - Manage Data-Cluster  / Mod by Tribal-Dolphin      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -50,13 +50,13 @@
 /* -------------------------------------------------------------------------------------------------------------*/
 
 // Maitre (vous) 
-$part[0]=array(
+$part[0] = array(
   "WWW"=> "www.npds.org",
   "KEY"=> "la_clef_de_npds.org",
 );
 
 // Esclave N°1
-$part[1]=array(
+$part[1] = array(
   "WWW"=> "www.esclave-un.net",
   "SUBSCRIBE"=> "NEWS",
   "OP"=> "EXPORT",

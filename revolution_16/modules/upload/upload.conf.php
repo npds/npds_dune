@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This module don't use anyone of the config.php variable for security */
 /* reasons                                                              */
@@ -44,12 +44,12 @@ $url_upload = 'http://localhost';
 
 global $cookie, $user, $Default_Theme, $theme;
 if (isset($user)) {
-   if ($cookie[9]=='') $cookie[9]=$Default_Theme;
-   if (isset($theme)) $cookie[9]=$theme;
-   $tmp_theme=$cookie[9];
-   if (!$file=@opendir("themes/$cookie[9]")) $tmp_theme=$Default_Theme;
+   if ($cookie[9] == '') $cookie[9] = $Default_Theme;
+   if (isset($theme)) $cookie[9] = $theme;
+   $tmp_theme = $cookie[9];
+   if (!$file = @opendir('themes/'.$cookie[9])) $tmp_theme = $Default_Theme;
 } else {
-   $tmp_theme=$Default_Theme;
+   $tmp_theme = $Default_Theme;
 }
 /*
 pour une css dans le theme courant utiliser :
@@ -78,5 +78,5 @@ $width_max = 50;
 $height_max = 50;
 
 // Limite de l'espace disque alloué pour l'upload (en octects)
-$quota=733999999;
+$quota = 733999999;
 ?>

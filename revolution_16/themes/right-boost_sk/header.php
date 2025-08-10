@@ -22,7 +22,7 @@
    col_LB contient les blocs historiquement dit de gauche et de droite
 */
 global $NPDS_Prefix, $pdst;
-$pdst='2'; 
+$pdst = '2'; 
 
 $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1'");
 $nb_blg_actif = sql_num_rows($blg_actif);
@@ -48,13 +48,13 @@ function colsyst($coltarget) {
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
-$ContainerGlobal='
+$ContainerGlobal = '
 <div id="container">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
-   require_once("themes/themes-dynamic/header.php");
+   require_once 'themes/themes-dynamic/header.php';
    global $powerpack;
-   if (!isset($powerpack)) {include ("powerpack.php");}
+   if (!isset($powerpack)) include 'powerpack.php';
 // Ne supprimez pas cette ligne / Don't remove this line
 
    echo '

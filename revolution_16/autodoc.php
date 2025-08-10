@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2025 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -20,17 +20,17 @@
 /* Le mainfile.php est un bon exemple (extraction des fonctions de type BLOCS)                                                   */
 /*                                                                                                                               */
 /*********************************************************************************************************************************/
-if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) include ("mainfile.php");
+if (!defined('NPDS_GRAB_GLOBALS_INCLUDED')) include 'mainfile.php';
 
 function Access_Error () {
-  include("admin/die.php");
+  include 'admin/die.php';
 }
 
 function dochead($a,$b) {
    if (file_exists("meta/meta.php")) {
       $Titlesitename="NPDS - Doc";
-      include ("meta/meta.php");
-      include ("modules/include/header_head.inc");
+      include 'meta/meta.php';
+      include 'modules/include/header_head.inc';
       echo '
    </head>
    <body class="my-3 mx-3">
@@ -48,9 +48,9 @@ function docfoot() {
 
 function autodoc($fichier, $paragraphe) {
    $fcontents = @file($fichier);
-   if ($fcontents=='') Access_Error();
-   $pasfin=false;
-   $tabdoc='';
+   if ($fcontents == '') Access_Error();
+   $pasfin = false;
+   $tabdoc = '';
    echo '
       <table class="table table-striped table-bordered table-responsive">
          <thead>

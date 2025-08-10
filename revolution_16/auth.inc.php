@@ -18,23 +18,23 @@ function Admin_alert($motif) {
    unset($admin);
 
    Ecr_Log('security', 'auth.inc.php/Admin_alert : '.$motif, '');
-   $Titlesitename='NPDS';
-   if (file_exists("meta/meta.php"))
-      include("meta/meta.php");
+   $Titlesitename = 'NPDS';
+   if (file_exists('meta/meta.php'))
+      include 'meta/meta.php';
    echo '
       </head>
       <body>
          <br /><br /><br />
-         <p style="font-size: 24px; font-family: Tahoma, Arial; color: red; text-align:center;"><strong>.: '.translate("Votre adresse Ip est enregistrée").' :.</strong></p>
+         <p style="font-size: 24px; font-family: Tahoma, Arial; color: red; text-align:center;"><strong>.: '.translate('Votre adresse Ip est enregistrée').' :.</strong></p>
       </body>
    </html>';
    die();
 }
 
 if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
-   if ($aid!='' and $pwd!='') {
+   if ($aid != '' and $pwd != '') {
       $result=sql_query("SELECT pwd, hashkey FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
-      if (sql_num_rows($result)==1) {
+      if (sql_num_rows($result) == 1) {
          $setinfo = sql_fetch_assoc($result);
          $dbpass = $setinfo['pwd'];
          $pwd = (PHP_VERSION_ID >= 80200) ? 
@@ -51,7 +51,7 @@ if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
                $pwd = crypt($pwd, $hashpass);
                sql_query("UPDATE ".$NPDS_Prefix."authors SET pwd='$pwd', hashkey='1' WHERE aid='$aid'");
                $result = sql_query("SELECT pwd, hashkey FROM ".$NPDS_Prefix."authors WHERE aid = '$aid'");
-               if (sql_num_rows($result)==1)
+               if (sql_num_rows($result) == 1)
                   $setinfo = sql_fetch_assoc($result);
                $dbpass = $setinfo['pwd'];
                $scryptPass = crypt($dbpass, $hashpass);
@@ -60,15 +60,15 @@ if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
 
          if(password_verify($pwd, $dbpass))
             $CryptpPWD = $dbpass;
-         elseif (password_verify($dbpass, $scryptPass) or strcmp($dbpass, $pwd)==0)
+         elseif (password_verify($dbpass, $scryptPass) or strcmp($dbpass, $pwd) == 0)
             $CryptpPWD = $pwd;
          else 
             Admin_Alert("Passwd not in DB#1 : $aid");
 
          $admin = base64_encode("$aid:".md5($CryptpPWD));
-         if ($admin_cook_duration<=0) 
-            $admin_cook_duration=1;
-         $timeX=time()+(3600*$admin_cook_duration);
+         if ($admin_cook_duration <= 0) 
+            $admin_cook_duration = 1;
+         $timeX = time() + (3600 * $admin_cook_duration);
          setcookie('admin',$admin,$timeX);
          setcookie('adm_exp',$timeX,$timeX);
       }
@@ -79,18 +79,18 @@ if ((isset($aid)) and (isset($pwd)) and ($op == 'login')) {
 $admintest = false;
 $super_admintest = false;
 
-if (isset($admin) and ($admin!='')) {
+if (isset($admin) and ($admin != '')) {
    $Xadmin = base64_decode($admin);
    $Xadmin = explode(':', $Xadmin);
    $aid = urlencode($Xadmin[0]);
    $AIpwd = $Xadmin[1];
-   if ($aid=='' or $AIpwd=='')
+   if ($aid == '' or $AIpwd == '')
       Admin_Alert('Null Aid or Passwd');
    $result=sql_query("SELECT pwd, radminsuper FROM ".$NPDS_Prefix."authors WHERE aid = '$aid'");
    if (!$result)
       Admin_Alert("DB not ready #2 : $aid / $AIpwd");
    else {
-     list($AIpass, $Xsuper_admintest)=sql_fetch_row($result);
+     list($AIpass, $Xsuper_admintest) = sql_fetch_row($result);
      if (md5($AIpass) == $AIpwd and $AIpass != '') {
         $admintest = true;
         $super_admintest = $Xsuper_admintest;

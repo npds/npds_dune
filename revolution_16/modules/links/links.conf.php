@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -19,11 +19,11 @@ $links_DB = '';
 $links_url=false-true;
 
 // Allow to register links with the Topic's information (true) or not (false)
-$links_topic=true;
+$links_topic = true;
 
 // Allow to limit the number of subcat showed in main page ("limit 0,0" => no subcat / "limit 0,3" => 3 subcat ... / "" => no limit )
 // You can also do a more complexe query : for exemple $subcat_limit="ASC limit 0,5" because the $subcat_limit complete the sql query !
-$subcat_limit='';
+$subcat_limit = '';
 
 // $links_anonaddlinklock
 // From config.php : Is Anonymous autorise to post new links? (0=Yes 1=No)

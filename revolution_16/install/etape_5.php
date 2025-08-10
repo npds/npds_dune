@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -25,7 +25,7 @@ function etape_5() {
    settype($sitename, 'string');
    settype($Titlesitename, 'string');
    settype($slogan, 'string');
-   include_once('config.php');
+   include_once 'config.php';
    echo '
                <h3 class="mb-3">'.ins_translate('Autres paramètres').'</h3>
                <div class="col-sm-12">
@@ -52,13 +52,13 @@ function etape_5() {
                   </div>
                   <div class="form-floating mb-3">
                      <select class="form-select" id="new_Default_Theme" name="new_Default_Theme" />';
-   include('themes/list.php');
+   include 'themes/list.php';
    $themelist = explode(' ', $themelist);
-   $sel='';
+   $sel = '';
    $themelistsize = sizeof($themelist);
    for($i = 0; $i < $themelistsize; $i++) {
       if($themelist[$i] != '') {
-         if($themelist[$i] == 'npds-boost_sk') $sel=' selected="selected"'; else $sel='' ;
+         if($themelist[$i] == 'npds-boost_sk') $sel=' selected="selected"'; else $sel='';
             echo '
                         <option value="'.$themelist[$i].'"'.$sel.'>'.$themelist[$i].'</option>';
       }

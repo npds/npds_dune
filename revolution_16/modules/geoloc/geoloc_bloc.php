@@ -15,14 +15,14 @@
 /* geoloc_bloc.php file 2008-2025 by Jean Pierre Barbary (jpb)          */
 /* dev team : Philippe Revilliod (Phr), A.NICOL                         */
 /************************************************************************/
-$ModPath='geoloc';
+$ModPath = 'geoloc';
 global $nuke_url;
 $content = '';
-include('modules/'.$ModPath.'/geoloc.conf');
-$source_fond='';
+include 'modules/'.$ModPath.'/geoloc.conf';
+$source_fond = '';
 switch ($cartyp_b) {
    case 'sat-google':
-      $source_fond='
+      $source_fond = '
       new ol.source.XYZ({
          url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
          attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>",
@@ -30,7 +30,7 @@ switch ($cartyp_b) {
       })';
    break;
    case 'microsoft.base.road': case 'microsoft.imagery': case 'microsoft.base.darkgrey':
-      $source_fond='
+      $source_fond = '
       new ol.source.ImageTile({
          url: `https://atlas.microsoft.com/map/tile?subscription-key='.$api_key_azure.'&api-version=2.0&tilesetId='.$cartyp_b.'&zoom={z}&x={x}&y={y}&tileSize=256&language=EN`,
          crossOrigin: "Anonymous",
@@ -38,37 +38,37 @@ switch ($cartyp_b) {
       })';
    break;
    case 'natural-earth-hypso-bathy': case 'geography-class':
-      $source_fond='
+      $source_fond = '
       new ol.source.TileJSON({
          url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'",
          crossOrigin: "Anonymous",
       })';
    break;
    case 'World_Imagery': case 'World_Shaded_Relief': case 'World_Physical_Map': case 'World_Topo_Map':
-      $source_fond='
+      $source_fond = '
       new ol.source.XYZ({
          attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
          url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp_b.'/MapServer/tile/{z}/{y}/{x}",
          crossOrigin: "Anonymous",
          maxZoom: 23
      })';
-      $max_r='40000';
-      $min_r='0';
+      $max_r = '40000';
+      $min_r = '0';
    break;
    case 'stamen_terrain': case 'stamen_watercolor': case 'alidade_smooth': case "stamen_toner":
-      $source_fond='
+      $source_fond = '
       new ol.source.StadiaMaps({layer:"'.$cartyp_b.'"})';
    break;
    default:
-   $source_fond='new ol.source.OSM()';
+   $source_fond = 'new ol.source.OSM()';
 }
-$content .='
+$content .= '
 <div class="mb-2" id="map_bloc_ol" tabindex="200" style=" min-height:'.$h_b.'px;" lang="'.language_iso(1,0,0).'"></div>';
 if(!defined('OL')) {
    define('OL','ol');
    $content .= '<script type="text/javascript" src="'.$nuke_url.'/lib/ol/ol.js"></script>';
 }
-$content .='
+$content .= '
 <script type="text/javascript">
 //<![CDATA[
       if (!$("link[href=\'/lib/ol/ol.css\']").length)
@@ -176,7 +176,7 @@ $content .='
       checkSize();';
 
 $content .= file_get_contents('modules/geoloc/include/ol-dico.js');
-$content .='
+$content .= '
       const targ = map.getTarget();
       const lang = targ.lang;
       for (var i in dic) {
@@ -197,7 +197,7 @@ $content .='
 //]]>
 </script>';
 
-$content .='<div class="mt-1"><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg me-1"></i>[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese][spanish]Mapa[/spanish][german]Karte[/german]</a>';
+$content .= '<div class="mt-1"><a href="modules.php?ModPath='.$ModPath.'&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg me-1"></i>[french]Carte[/french][english]Map[/english][chinese]&#x5730;&#x56FE;[/chinese][spanish]Mapa[/spanish][german]Karte[/german]</a>';
 if($admin)
    $content .= '<div class="text-end"><a class="tooltipbyclass" href="admin.php?op=Extend-Admin-SubModule&amp;ModPath=geoloc&amp;ModStart=admin/geoloc_set" title="[french]Administration[/french][english]Administration[/english][chinese]&#34892;&#25919;[/chinese][spanish]Administraci&oacute;n[/spanish][german]Verwaltung[/german]" data-bs-placement="left"><i class="fa fa-cogs fa-lg ms-1"></i></a></div>';
 $content .= '</div>';

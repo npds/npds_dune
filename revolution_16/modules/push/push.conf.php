@@ -6,7 +6,7 @@
 /* Based on PhpNuke 4.x source code                                     */
 /* Base on pda Addon by Christopher Bradford (csb@wpsf.com)             */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -27,42 +27,41 @@
 # $push_orderby       : ASCendind or DESCending orderby trigger for Web links ("ASC" or "DESC")
 # $follow_links       : Follow <a Href ... Link in this module (True or False)
 #######################################################################################################
-$push_largeur="100%";
-$push_br="";
-$push_largeur_suite="100%";
-$push_news_limit=10;
-$push_member_col=3;
-$push_member_limit=9;
-$push_titre="-: NPDS :-";
-$push_logo="modules/push/images/pushlogo.gif";
-$push_view_perpage=6;
-$push_orderby="ASC";
-$follow_links=true;
+$push_largeur = '100%';
+$push_br = '';
+$push_largeur_suite = '100%';
+$push_news_limit = 10;
+$push_member_col = 3;
+$push_member_limit = 9;
+$push_titre = '-: NPDS :-';
+$push_logo = 'modules/push/images/pushlogo.gif';
+$push_view_perpage = 6;
+$push_orderby = 'ASC';
+$follow_links = true;
 
 // For NPDS SuperCache Config (or other SuperCache implementation)
-$CACHE_TIMINGS['push.php'] = 4*3600; // default 4*3600 secondes = 4 Hours
-$CACHE_QUERYS['push.php'] = "^";  // Don't modify this line !
+$CACHE_TIMINGS['push.php'] = 4 * 3600; // default 4*3600 secondes = 4 Hours
+$CACHE_QUERYS['push.php'] = '^';  // Don't modify this line !
 
 function push_header($operation) {
    global $push_largeur, $push_largeur_suite, $push_titre, $push_logo;
-   if ($operation=="suite") {$push_largeur=$push_largeur_suite;}
+   if ($operation == 'suite') $push_largeur = $push_largeur_suite;
 
-   $temp  ="<table width=\"$push_largeur\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\">";
-   $temp .="<tr><td width=\"100%\">";
-   $temp .="<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"2\">";
-   $temp .="<tr>";
-   $push_titre=str_replace("'","\'",$push_titre);
-   $temp .="<td width=\"100%\" align=\"center\"><span style=\"font-size: 11px;\"><b>".htmlspecialchars($push_titre,ENT_COMPAT|ENT_HTML401,'UTF-8')."</b></td>";
-   if ($push_logo!="") {
+   $temp  = "<table width=\"$push_largeur\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\">";
+   $temp .= "<tr><td width=\"100%\">";
+   $temp .= "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"2\">";
+   $temp .= "<tr>";
+   $push_titre = str_replace("'","\'",$push_titre);
+   $temp .= "<td width=\"100%\" align=\"center\"><span style=\"font-size: 11px;\"><b>".htmlspecialchars($push_titre,ENT_COMPAT|ENT_HTML401,'UTF-8')."</b></td>";
+   if ($push_logo != '') 
       $temp .="</tr><tr><td width=\"100%\" background=\"$push_logo\">";
-   } else {
+   else
       $temp .="</tr><tr><td width=\"100%\">";
-   }
    echo "<script type=\"text/javascript\">\n//<![CDATA[\ndocument.write('$temp');\n//]]>\n</script>";
 }
 
 function push_footer() {
-   $temp="</td></tr></table></td></tr></table>";
+   $temp = "</td></tr></table></td></tr></table>";
    echo "document.write('$temp');\n";
 }
 ?>

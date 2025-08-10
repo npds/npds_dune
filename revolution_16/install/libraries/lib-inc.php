@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -18,13 +18,13 @@
 /************************************************************************/
 
 // ==> définition des versions requises pour la MAJ
-define("NEW_VERSION","v.16.8");
-include_once('lib/mysqli.php');
+define('NEW_VERSION','v.16.8');
+include_once 'lib/mysqli.php';
 
 #autodoc Mysql_Connexion() : Connexion plus détaillée ($mysql_p=true => persistente connexion) - Attention : le type de SGBD n'a pas de lien avec le nom de cette fonction
 function Mysql_Connexion() {
    global $mysql_error, $dbhost, $dbname;
-   $ret_p=sql_connect();
+   $ret_p = sql_connect();
    return ($ret_p);
 }
 /****************/
@@ -35,7 +35,7 @@ if($langue) {
       include_once $fichier_lang;
    }
    else
-      include_once('install/languages/install-'.$langue.'.php');
+      include_once 'install/languages/install-'.$langue.'.php';
 }
 
 #autodoc FixQuotes($what) : Quote une chaîne contenant des '
@@ -75,20 +75,20 @@ function verif_sql() {
 function verif_chmod() {
    global $stopngo, $listfich;
    $file_to_check = array('abla.log.php','cache.config.php','config.php','filemanager.conf','slogs/security.log','meta/meta.php','static/edito.txt','modules/upload/upload.conf.php');
-   $i=0; $listfich='';
+   $i = 0; $listfich = '';
    foreach ($file_to_check as $v) {
       if(file_exists($v)) {
          if(is_writeable($v))
-            $listfich .= '<li class="list-group-item">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :<span class="ms-1 text-success">'.ins_translate("corrects").' !</span></li>';
+            $listfich .= '<li class="list-group-item">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :<span class="ms-1 text-success">'.ins_translate('corrects').' !</span></li>';
          else {
-            $listfich .=  '<li class="list-group-item list-group-item-danger">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :<span class="ms-1">'.ins_translate("incorrects").' !</span><br />
+            $listfich .=  '<li class="list-group-item list-group-item-danger">'.ins_translate("Droits d'accès du fichier ").'<code class="code">'.$v.'</code> :<span class="ms-1">'.ins_translate('incorrects').' !</span><br />
             <span class="">'.ins_translate("Vous devez modifier les droits d'accès (lecture/écriture) du fichier ") .$v. ' (chmod 666)</li>';
             $stopngo = 1;
          }
       }
       else {
          $listfich .=  '
-         <li class="list-group-item list-group-item-danger">'.ins_translate("Le fichier").' '.$v.' '.ins_translate("est introuvable !").'</li>';
+         <li class="list-group-item list-group-item-danger">'.ins_translate('Le fichier').' '.$v.' '.ins_translate('est introuvable !').'</li>';
          $stopngo = 1;
       }
       $i++;
@@ -100,18 +100,18 @@ function write_parameters($new_dbhost, $new_dbuname, $new_dbpass, $new_dbname, $
    global $stage4_ok;
    $stage4_ok = 0;
 
-   $file = file("config.php");
-   $file[29] ="\$dbhost = \"$new_dbhost\";\n";
-   $file[30] ="\$dbuname = \"$new_dbuname\";\n";
-   $file[31] ="\$dbpass = \"$new_dbpass\";\n";
-   $file[32] ="\$dbname = \"$new_dbname\";\n";
-   $file[33] ="\$mysql_p = \"$new_mysql_p\";\n";
-   $file[214]="\$adminmail = \"$new_adminmail\";\n";
-   $file[319]="\$NPDS_Prefix = \"$new_NPDS_Prefix\";\n";
-   $NPDS_Key=uniqid("");
-   $file[320]="\$NPDS_Key = \"$NPDS_Key\";\n";
+   $file = file('config.php');
+   $file[29] = "\$dbhost = \"$new_dbhost\";\n";
+   $file[30] = "\$dbuname = \"$new_dbuname\";\n";
+   $file[31] = "\$dbpass = \"$new_dbpass\";\n";
+   $file[32] = "\$dbname = \"$new_dbname\";\n";
+   $file[33] = "\$mysql_p = \"$new_mysql_p\";\n";
+   $file[214] = "\$adminmail = \"$new_adminmail\";\n";
+   $file[319] = "\$NPDS_Prefix = \"$new_NPDS_Prefix\";\n";
+   $NPDS_Key = uniqid('');
+   $file[320] =  "\$NPDS_Key = \"$NPDS_Key\";\n";
 
-   $fic = fopen("config.php", "w");
+   $fic = fopen('config.php', 'w');
    foreach($file as $n => $ligne) {
       fwrite($fic, $ligne);
    }
@@ -132,15 +132,15 @@ function write_others($new_nuke_url, $new_sitename, $new_Titlesitename, $new_slo
    $new_startdate = stripslashes($new_startdate);
    $new_nuke_url = FixQuotes($new_nuke_url);
 
-   $file = file("config.php");
-   $file[90] ="\$sitename = \"$new_sitename\";\n";
-   $file[91] ="\$Titlesitename = \"$new_Titlesitename\";\n";
-   $file[92] ="\$nuke_url = \"$new_nuke_url\";\n";
-   $file[94] ="\$slogan = \"$new_slogan\";\n";
-   $file[95] ="\$startdate = \"$new_startdate\";\n";
-   $file[101] ="\$Default_Theme = \"$new_Default_Theme\";\n";
+   $file = file('config.php');
+   $file[90] = "\$sitename = \"$new_sitename\";\n";
+   $file[91] = "\$Titlesitename = \"$new_Titlesitename\";\n";
+   $file[92] = "\$nuke_url = \"$new_nuke_url\";\n";
+   $file[94] = "\$slogan = \"$new_slogan\";\n";
+   $file[95] = "\$startdate = \"$new_startdate\";\n";
+   $file[101] = "\$Default_Theme = \"$new_Default_Theme\";\n";
 
-   $fic = fopen("config.php", "w");
+   $fic = fopen('config.php', 'w');
    foreach($file as $n => $ligne) {
       fwrite($fic, $ligne);
    }
@@ -162,7 +162,7 @@ function msg_erreur($message) {
 }
 
 function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
-   include_once('config.php');
+   include_once 'config.php';
    global $minpass, $stage7_ok, $NPDS_Prefix;
    if ($adminlogin != '') {
       if($adminpass1 != $adminpass2)
@@ -176,10 +176,10 @@ function write_users($adminlogin, $adminpass1, $adminpass2, $NPDS_Prefix) {
                $min_ms = 100;
                $options = ['cost' => getOptimalBcryptCostParameter($adminpass1, $AlgoCrypt, $min_ms)];
                $hashpass = password_hash($adminpass1, $AlgoCrypt, $options);
-               $adminpwd=crypt($adminpass1, $hashpass);
+               $adminpwd = crypt($adminpass1, $hashpass);
             sql_connect();
             $result1 = sql_query("UPDATE ".$NPDS_Prefix."authors SET aid='$adminlogin', pwd='$adminpwd', hashkey='1' WHERE radminsuper='1'");
-            copy("modules/f-manager/users/modele.admin.conf.php","modules/f-manager/users/".strtolower($adminlogin).".conf.php");
+            copy('modules/f-manager/users/modele.admin.conf.php','modules/f-manager/users/'.strtolower($adminlogin).'.conf.php');
             if(!$result1)
                $stage7_ok = 0;
          }
@@ -194,7 +194,7 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
    global $langue, $nuke_url, $stage8_ok;
    $stage8_ok = 0;
 
-   $file = file("modules/upload/upload.conf.php");
+   $file = file('modules/upload/upload.conf.php');
    $file[16] = "\$max_size = $new_max_size;\n";
    $file[21] = "\$DOCUMENTROOT = \"$new_DOCUMENTROOT\";\n";
    $file[24] = "\$autorise_upload_p = \"$new_autorise_upload_p\";\n";
@@ -204,7 +204,7 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
    $file[37] = "\$rep_log = \"$new_rep_log\";\n";
    $file[40] = "\$url_upload = \"$new_url_upload\";\n";
 
-   $fic = fopen("modules/upload/upload.conf.php", "w");
+   $fic = fopen('modules/upload/upload.conf.php', 'w');
    foreach($file as $n => $ligne) {
       fwrite($fic, $ligne);
    }
@@ -216,28 +216,28 @@ function write_upload($new_max_size, $new_DOCUMENTROOT, $new_autorise_upload_p, 
 #autodoc language_iso($l,$s,$c) : renvoi le code language iso 639-1 et code pays ISO 3166-2  $l=> 0 ou 1(requis), $s, $c=> 0 ou 1 (requis)
 function language_iso($l,$s,$c) {
     global $langue;
-    $iso_lang='';$iso_country='';$ietf='';
+    $iso_lang = ''; $iso_country = ''; $ietf = '';
     switch ($langue) {
-        case "french": $iso_lang ='fr';$iso_country='FR'; break;
-        case "english":$iso_lang ='en';$iso_country='US'; break;
-        case "spanish":$iso_lang ='es';$iso_country='ES'; break;
-        case "german":$iso_lang ='de';$iso_country='DE'; break;
-        case "chinese":$iso_lang ='zh';$iso_country='CN'; break;
+        case "french": $iso_lang = 'fr'; $iso_country = 'FR'; break;
+        case "english": $iso_lang =' en'; $iso_country = 'US'; break;
+        case "spanish": $iso_lang = 'es'; $iso_country = 'ES'; break;
+        case "german": $iso_lang = 'de'; $iso_country = 'DE'; break;
+        case "chinese": $iso_lang = 'zh'; $iso_country = 'CN'; break;
         default:
         break;
     }
-    if ($c!==1) $ietf= $iso_lang;
-    if (($l==1) and ($c==1)) $ietf=$iso_lang.$s.$iso_country;
-    if (($l!==1) and ($c==1)) $ietf=$iso_country;
-    if (($l!==1) and ($c!==1)) $ietf='';
-    if (($l==1) and ($c!==1)) $ietf=$iso_lang;
+    if ($c! == 1) $ietf = $iso_lang;
+    if (($l == 1) and ($c == 1)) $ietf = $iso_lang.$s.$iso_country;
+    if (($l !== 1) and ($c == 1)) $ietf = $iso_country;
+    if (($l !== 1) and ($c !== 1)) $ietf = '';
+    if (($ l== 1) and ($c !== 1)) $ietf = $iso_lang;
     return ($ietf);
 }
 
 function formval($fv,$fv_parametres,$arg1,$foo) {
    global $minpass;
-   if ($fv=='fv') {
-      if($fv_parametres!='') $fv_parametres = explode('!###!',$fv_parametres);
+   if ($fv == 'fv') {
+      if($fv_parametres != '') $fv_parametres = explode('!###!',$fv_parametres);
       echo '
    <script type="text/javascript" src="lib/js/es6-shim.min.js"></script>
    <script type="text/javascript" src="lib/formvalidation/dist/js/FormValidation.full.min.js"></script>
@@ -264,35 +264,35 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
                if (value === value.toLowerCase()) {
                   return {
                      valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir au moins un caractère en majuscule.").'",
+                     message: "'.ins_translate('Le mot de passe doit contenir au moins un caractère en majuscule.').'",
                      meta:{score: score-1},
                   };
                }
                if (value === value.toUpperCase()) {
                   return {
                      valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir au moins un caractère en minuscule.").'",
+                     message: "'.ins_translate('Le mot de passe doit contenir au moins un caractère en minuscule.').'",
                      meta:{score: score-2},
                   };
                }
                if (value.search(/[0-9]/) < 0) {
                   return {
                      valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir au moins un chiffre.").'",
+                     message: "'.ins_translate('Le mot de passe doit contenir au moins un chiffre.').'",
                      meta:{score: score-3},
                   };
                }
                if (value.search(/[@\+\-!#$%&^~*_]/) < 0) {
                   return {
                      valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir au moins un caractère non alphanumérique.").'",
+                     message: "'.ins_translate('Le mot de passe doit contenir au moins un caractère non alphanumérique.').'",
                      meta:{score: score-4},
                   };
                }
                if (value.length < 8) {
                   return {
                      valid: false,
-                     message: "'.ins_translate("Le mot de passe doit contenir").' '.$minpass.' '.ins_translate("caractères au minimum").'",
+                     message: "'.ins_translate('Le mot de passe doit contenir').' '.$minpass.' '.ins_translate('caractères au minimum').'",
                      meta:{score: score-5},
                   };
                }
@@ -316,7 +316,7 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
                localization: FormValidation.locales.'.language_iso(1,"_",1).',
             fields: {
             ';
-   if($fv_parametres!='')
+   if($fv_parametres != '')
       echo '
             '.$fv_parametres[0];
    echo '
@@ -371,10 +371,10 @@ function formval($fv,$fv_parametres,$arg1,$foo) {
       case '' :
          echo '
       </div>';
-         include ('footer.php');
+         include 'footer.php';
       break;
       case 'foo' :
-         include ('footer.php');
+         include 'footer.php';
       break;
    }
 }

@@ -5,14 +5,14 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 if (!function_exists("Mysql_Connexion"))
-   include ("mainfile.php");
+   include 'mainfile.php';
 
 settype($sid, "integer");
 settype($archive, "integer");
@@ -30,7 +30,7 @@ if (!$aid)
    header ("Location: index.php");
 sql_query("UPDATE ".$NPDS_Prefix."stories SET counter=counter+1 WHERE sid='$sid'");
 
-include ("header.php");
+include 'header.php';
 // Include cache manager
 global $SuperCache;
 if ($SuperCache) {
@@ -124,12 +124,12 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
    // theme sans le système de commentaire en meta-mot !
    if (!function_exists("Caff_pub")) {
       if (file_exists("modules/comments/article.conf.php")) {
-         include ("modules/comments/article.conf.php");
-         include ("modules/comments/comments.php");
+         include 'modules/comments/article.conf.php';
+         include 'modules/comments/comments.php';
       }
    }
 }
 if ($SuperCache)
    $cache_obj->endCachingPage();
-include ("footer.php");
+include 'footer.php';
 ?>

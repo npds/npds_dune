@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -11,69 +11,69 @@
 /************************************************************************/
 
 if (!function_exists('admindroits'))
-   include('die.php');
-$f_meta_nom ='MetaTagAdmin';
-$f_titre = adm_translate("Administration des MétaTags");
+   include 'die.php';
+$f_meta_nom = 'MetaTagAdmin';
+$f_titre = adm_translate('Administration des MétaTags');
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 
 function MetaTagAdmin(bool $meta_saved = false) {
    global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
-   $tags = GetMetaTags("meta/meta.php");
-   include("header.php");
+   $tags = GetMetaTags('meta/meta.php');
+   include 'header.php';
    GraphicAdmin($hlpfile);
-   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   adminhead($f_meta_nom, $f_titre, $adminimg);
    $sel=' selected="selected"';
    echo '
    <hr />';
    if ($meta_saved)
       echo '
       <div class="alert alert-success">
-         '.adm_translate("Vos MétaTags ont été modifiés avec succès !").'
+         '.adm_translate('Vos MétaTags ont été modifiés avec succès !').'
          <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>';
    echo '
    <form id="metatagsadm" action="admin.php" method="post">
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagauthor" type="text" name="newtag[author]" value="'.$tags['author'].'" maxlength="100">
-         <label for="newtagauthor">'.adm_translate("Auteur(s)").'</label>
-         <span class="help-block">'.adm_translate("(Ex. : nom du webmaster)").'<span class="float-end ms-1" id="countcar_newtagauthor"></span></span>
+         <label for="newtagauthor">'.adm_translate('Auteur(s)').'</label>
+         <span class="help-block">'.adm_translate('(Ex. : nom du webmaster)').'<span class="float-end ms-1" id="countcar_newtagauthor"></span></span>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagowner" type="text" name="newtag[owner]" value="'.$tags['owner'].'" maxlength="100" />
-         <label for="newtagowner">'.adm_translate("Propriétaire").'</label>
-         <span class="help-block">'.adm_translate("(Ex. : nom de votre compagnie/service)").'<span class="float-end ms-1" id="countcar_newtagowner"></span></span>
+         <label for="newtagowner">'.adm_translate('Propriétaire').'</label>
+         <span class="help-block">'.adm_translate('(Ex. : nom de votre compagnie/service)').'<span class="float-end ms-1" id="countcar_newtagowner"></span></span>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagreplyto" type="email" name="newtag[reply-to]" value="'.$tags['reply-to'].'" maxlength="100" />
-         <label for="newtagreplyto">'.adm_translate("Adresse e-mail principale").'</label>
+         <label for="newtagreplyto">'.adm_translate('Adresse e-mail principale').'</label>
          <span class="help-block">'.adm_translate("(Ex. : l'adresse e-mail du webmaster)").'<span class="float-end ms-1" id="countcar_newtagreplyto"></span></span>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagdescription" type="text" name="newtag[description]" value="'.$tags['description'].'" maxlength="200" />
-         <label for="newtagdescription">'.adm_translate("Description").'</label>
+         <label for="newtagdescription">'.adm_translate('Description').'</label>
          <span class="help-block">'.adm_translate("(Brève description des centres d'intérêt du site. 200 caractères maxi.)").'<span class="float-end ms-1" id="countcar_newtagdescription"></span></span>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagkeywords" type="text" name="newtag[keywords]" value="'.$tags['keywords'].'" maxlength="1000" />
-         <label for="newtagkeywords">'.adm_translate("Mot(s) clé(s)").'</label>
-         <span class="help-block">'.adm_translate("(Définissez un ou plusieurs mot(s) clé(s). 1000 caractères maxi. Remarques : une lettre accentuée équivaut le plus souvent à 8 caractères. La majorité des moteurs de recherche font la distinction minuscule/majuscule. Séparez vos mots par une virgule)").'<span class="float-end ms-1" id="countcar_newtagkeywords"></span></span>
+         <label for="newtagkeywords">'.adm_translate('Mot(s) clé(s)').'</label>
+         <span class="help-block">'.adm_translate('(Définissez un ou plusieurs mot(s) clé(s). 1000 caractères maxi. Remarques : une lettre accentuée équivaut le plus souvent à 8 caractères. La majorité des moteurs de recherche font la distinction minuscule/majuscule. Séparez vos mots par une virgule)').'<span class="float-end ms-1" id="countcar_newtagkeywords"></span></span>
       </div>
       <div class="form-floating mb-3">
          <select class="form-select" id="newtagrating" name="newtag[rating]">
-            <option value="general"'.(!strcasecmp($tags['rating'], 'general') ? $sel : '').'>'.adm_translate("Tout public").'</option>
-            <option value="mature"'.(!strcasecmp($tags['rating'], 'mature') ? $sel : '').'>'.adm_translate("Adulte").'</option>
-            <option value="restricted"'.(!strcasecmp($tags['rating'], 'restricted') ? $sel : '').'>'.adm_translate("Accés restreint").'</option>
-            <option value="14 years"'.(!strcasecmp($tags['rating'], '14 years') ? $sel : '').'>'.adm_translate("14 ans").'</option>
+            <option value="general"'.(!strcasecmp($tags['rating'], 'general') ? $sel : '').'>'.adm_translate('Tout public').'</option>
+            <option value="mature"'.(!strcasecmp($tags['rating'], 'mature') ? $sel : '').'>'.adm_translate('Adulte').'</option>
+            <option value="restricted"'.(!strcasecmp($tags['rating'], 'restricted') ? $sel : '').'>'.adm_translate('Accés restreint').'</option>
+            <option value="14 years"'.(!strcasecmp($tags['rating'], '14 years') ? $sel : '').'>'.adm_translate('14 ans').'</option>
          </select>
          <label for="newtagrating">'.adm_translate("Audience").'</label>
          <span class="help-block">'.adm_translate("(Définissez le public intéressé par votre site)").'</span>
       </div>
       <div class="form-floating mb-3">
          <select class="form-select" id="newtagdistribution" name="newtag[distribution]">
-            <option value="global"'.(!strcasecmp($tags['distribution'], 'global') ? $sel : '').'>'.adm_translate("Large").'</option>
-            <option value="local"'.(!strcasecmp($tags['distribution'], 'local') ? $sel : '').'>'.adm_translate("Restreinte").'</option>
+            <option value="global"'.(!strcasecmp($tags['distribution'], 'global') ? $sel : '').'>'.adm_translate('Large').'</option>
+            <option value="local"'.(!strcasecmp($tags['distribution'], 'local') ? $sel : '').'>'.adm_translate('Restreinte').'</option>
          </select>
          <label for="newtagdistribution">'.adm_translate("Distribution").'</label>
       </div>
@@ -84,27 +84,27 @@ function MetaTagAdmin(bool $meta_saved = false) {
       </div>
       <div class="form-floating mb-3">
          <select class="form-select" id="newtagrobots" name="newtag[robots]">
-            <option value="all"'.(!strcasecmp($tags['robots'], 'all') ? $sel : '').'>'.adm_translate("Tout contenu (page/liens/etc)").'</option>
-            <option value="none"'.(!strcasecmp($tags['robots'], 'none') ? $sel : '').'>'.adm_translate("Aucune indexation").'</option>
-            <option value="index,nofollow"'.(!strcasecmp($tags['robots'], 'index,nofollow') ? $sel : '').'>'.adm_translate("Page courante sans liens locaux").'</option>
-            <option value="noindex,follow"'.(!strcasecmp($tags['robots'], 'noindex,follow') ? $sel : '').'>'.adm_translate("Liens locaux sauf page courante").'</option>
+            <option value="all"'.(!strcasecmp($tags['robots'], 'all') ? $sel : '').'>'.adm_translate('Tout contenu (page/liens/etc)').'</option>
+            <option value="none"'.(!strcasecmp($tags['robots'], 'none') ? $sel : '').'>'.adm_translate('Aucune indexation').'</option>
+            <option value="index,nofollow"'.(!strcasecmp($tags['robots'], 'index,nofollow') ? $sel : '').'>'.adm_translate('Page courante sans liens locaux').'</option>
+            <option value="noindex,follow"'.(!strcasecmp($tags['robots'], 'noindex,follow') ? $sel : '').'>'.adm_translate('Liens locaux sauf page courante').'</option>
             <option value="noarchive"'.(!strcasecmp($tags['robots'], 'noarchive') ? $sel : '').'>'.adm_translate("Pas d'affichage du cache").'</option>
             <option value="noodp,noydir"'.(!strcasecmp($tags['robots'], 'noodp,noydir') ? $sel : '').'>'.adm_translate("Pas d'utilisation des descriptions ODP ou YDIR").'</option>
          </select>
-         <label for="newtagrobots">'.adm_translate("Robots/Spiders").'</label>
+         <label for="newtagrobots">'.adm_translate('Robots/Spiders').'</label>
          <span class="help-block">'.adm_translate("(Définissez la méthode d'analyse que doivent adopter les robots des moteurs de recherche)").'</span>
       </div>
       <div class="form-floating mb-3">
          <input class="form-control" id="newtagrevisitafter" type="text" name="newtag[revisit-after]" value="'.$tags['revisit-after'].'" maxlength="30" />
-         <label for="newtagrevisitafter">'.adm_translate("Fréquence de visite des Robots/Spiders").'</label>
-         <span class="help-block">'.adm_translate("(Ex. : 16 days. Remarque : ne définissez pas de fréquence inférieure à 14 jours !)").'<span class="float-end ms-1" id="countcar_newtagrevisitafter"></span></span>
+         <label for="newtagrevisitafter">'.adm_translate('Fréquence de visite des Robots/Spiders').'</label>
+         <span class="help-block">'.adm_translate('(Ex. : 16 days. Remarque : ne définissez pas de fréquence inférieure à 14 jours !)').'<span class="float-end ms-1" id="countcar_newtagrevisitafter"></span></span>
       </div>
       <div class="row g-3">
          <div class="col-md-6">
             <div class="form-floating mb-3">
                <select class="form-select" id="newtagdoctype" name="newtag[doctype]">
-                  <option value="XHTML 1.0 Transitional"'.(!strcasecmp($tags['doc_type'], 'XHTML 1.0 Transitional') ? $sel : '').'>XHTML 1.0 '.adm_translate("Transitional").'</option>
-                  <option value="XHTML 1.0 Strict"'.(!strcasecmp($tags['doc_type'], 'XHTML 1.0 Strict') ? $sel : '').'>XHTML 1.0 '.adm_translate("Strict").'</option>
+                  <option value="XHTML 1.0 Transitional"'.(!strcasecmp($tags['doc_type'], 'XHTML 1.0 Transitional') ? $sel : '').'>XHTML 1.0 '.adm_translate('Transitional').'</option>
+                  <option value="XHTML 1.0 Strict"'.(!strcasecmp($tags['doc_type'], 'XHTML 1.0 Strict') ? $sel : '').'>XHTML 1.0 '.adm_translate('Strict').'</option>
                   <option value="HTML 5.1"'.(!strcasecmp($tags['doc_type'], 'HTML 5.1') ? $sel : '').'>HTML 5.1</option>
                </select>
                <label for="newtagdoctype">DOCTYPE</label>
@@ -112,9 +112,9 @@ function MetaTagAdmin(bool $meta_saved = false) {
          </div>
       </div>
       <input type="hidden" name="op" value="MetaTagSave" />
-      <button class="btn btn-primary my-3" type="submit">'.adm_translate("Enregistrer").'</button>
+      <button class="btn btn-primary my-3" type="submit">'.adm_translate('Enregistrer').'</button>
    </form>';
-   $arg1='
+   $arg1 = '
    var formulid = ["metatagsadm"];
    inpandfieldlen("newtagauthor",100);
    inpandfieldlen("newtagowner",100);
@@ -157,9 +157,9 @@ function GetMetaTags($filename) {
    return $tags;
 }
 
-function MetaTagMakeSingleTag($name, $content, $type='name') {
-   if ($content!="humans.txt") {
-      if ($content!="")
+function MetaTagMakeSingleTag($name, $content, $type = 'name') {
+   if ($content != 'humans.txt') {
+      if ($content != '')
          return "\$l_meta.=\"      <meta $type=\\\"".$name."\\\" content=\\\"".$content."\\\" />\\n\";\n";
       else
          return "\$l_meta.=\"      <meta $type=\\\"".$name."\\\" />\\n\";\n";
@@ -170,7 +170,7 @@ function MetaTagMakeSingleTag($name, $content, $type='name') {
 function MetaTagSave($filename, $tags) {
    if (!is_array($tags)) return false;
    global $adminmail, $Version_Id, $Version_Num, $Version_Sub;
-   $fh = fopen($filename, "w");
+   $fh = fopen($filename, 'w');
    if ($fh) {
       $content = "<?php\n/* Do not change anything in this file manually. Use the administration interface. */\n";
       $content .= "/* généré le : ".date("d-m-Y H:i:s")." */\n";
@@ -283,7 +283,7 @@ function MetaTagSave($filename, $tags) {
       $content .= "if (\$meta_op==\"\") echo \$l_meta; else \$l_meta=str_replace(\"\\n\",\"\",str_replace(\"\\\"\",\"'\",\$l_meta));\n?>";
       fwrite($fh, $content);
       fclose($fh);
-      global $aid; Ecr_Log('security', "MetaTagsave() by AID : $aid", '');
+      global $aid; Ecr_Log('security', 'MetaTagsave() by AID : '.$aid, '');
       return true;
    }
    return false;
@@ -291,13 +291,13 @@ function MetaTagSave($filename, $tags) {
 
 if (!stristr($_SERVER['PHP_SELF'],'admin.php')) Access_Error();
 global $language;
-$hlpfile = "manuels/$language/metatags.html";
+$hlpfile = 'manuels/'.$language.'/metatags.html';
 
 settype($meta_saved,'bool');
 switch ($op) {
    case 'MetaTagSave':
       $meta_saved = MetaTagSave("meta/meta.php", $newtag);
-      header("location: admin.php?op=MetaTagAdmin&meta_saved=$meta_saved");
+      header('Location: admin.php?op=MetaTagAdmin&meta_saved='.$meta_saved);
    break;
    case 'MetaTagAdmin':
       MetaTagAdmin($meta_saved);

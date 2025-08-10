@@ -17,14 +17,14 @@ $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1'")
 $nb_blg_actif = sql_num_rows($blg_actif);
 $bld_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."rblocks WHERE actif ='1'");
 $nb_bld_actif = sql_num_rows($bld_actif);
-$listblocs_g='';
-while (list(,$title_g)=sql_fetch_row($blg_actif)) {
-   $listblocs_g.= $title_g.'<br />';
+$listblocs_g = '';
+while (list(,$title_g) = sql_fetch_row($blg_actif)) {
+   $listblocs_g .= $title_g.'<br />';
 }
 sql_free_result($blg_actif);
-$listblocs_d='';
-while (list(,$title_d)=sql_fetch_row($bld_actif)) {
-   $listblocs_d.= $title_d.'<br />';
+$listblocs_d = '';
+while (list(,$title_d) = sql_fetch_row($bld_actif)) {
+   $listblocs_d .= $title_d.'<br />';
 }
 sql_free_result($bld_actif);
 
@@ -47,38 +47,38 @@ Ce thème dispose donc les blocs en ligne en bas du corps, la variable $pdst per
 
 if ($nb_blg_actif == 0) {
    switch ($pdst) {
-   case '0': $pdst='-1'; break;
+   case '0': $pdst = '-1'; break;
    case '1':
-   case '3': $pdst='2'; break;
+   case '3': $pdst = '2'; break;
    }
 }
 if ($nb_bld_actif == 0) {
    switch ($pdst) {
    case '1': 
-   case '3': $pdst='0'; break;
-   case '2': $pdst='-1'; break;
+   case '3': $pdst = '0'; break;
+   case '2': $pdst = '-1'; break;
    }
 }
 
 $listblocs='';
    switch ($pdst) {
-      case '-1': $listblocs=$listblocs; break;
-      case '0': $listblocs=$listblocs_g; break;
-      case '1': $listblocs=$listblocs_g.$listblocs_d; break;
-      case '2': $listblocs=$listblocs_d; break;
-      case '3': $listblocs=$listblocs_d.$listblocs_g; break;
-      default: $listblocs=$listblocs_g.$listblocs_d; break;
+      case '-1': $listblocs = $listblocs; break;
+      case '0': $listblocs = $listblocs_g; break;
+      case '1': $listblocs = $listblocs_g.$listblocs_d; break;
+      case '2': $listblocs = $listblocs_d; break;
+      case '3': $listblocs = $listblocs_d.$listblocs_g; break;
+      default: $listblocs = $listblocs_g.$listblocs_d; break;
    }
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par TD
-$ContainerGlobal='
+$ContainerGlobal = '
 <div id="container">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
-require_once("themes/themes-dynamic/header.php");
+require_once 'themes/themes-dynamic/header.php';
 global $powerpack;
-if (!isset($powerpack)) include ("powerpack.php");
+if (!isset($powerpack)) include 'powerpack.php';
 // Ne supprimez pas cette ligne / Don't remove this line
 
 /************************************************************************/

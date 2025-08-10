@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -17,8 +17,8 @@
 if (!function_exists('admindroits'))
    include($_SERVER['DOCUMENT_ROOT'].'/admin/die.php');
 include ('modules/'.$ModPath.'/lang/twi.lang-'.$language.'.php');
-$f_meta_nom ='npds_twi';
-$f_titre='npds_twitter';
+$f_meta_nom = 'npds_twi';
+$f_titre = 'npds_twitter';
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
@@ -47,12 +47,12 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
 
    global $f_meta_nom, $f_titre, $adminimg, $npds_twi;
    $checkarti_y='';$checkarti_n='';$checkpost_y='';$checkpost_n='';$urshort_mr='';$urshort_ft='';$urshort_c='';
-   if ($npds_twi_arti===1) $checkarti_y='checked="checked"'; else $checkarti_n='checked="checked"';
-   if ($npds_twi_post===1) $checkpost_y='checked="checked"'; else $checkpost_n='checked="checked"';
-   if ($npds_twi_urshort===1) $urshort_mr='checked="checked"';
-   if ($npds_twi_urshort===2) $urshort_ft='checked="checked"';
-   if ($npds_twi_urshort===3) $urshort_c='checked="checked"';
-   else {$checkpost_n='checked="checked"';};
+   if ($npds_twi_arti === 1) $checkarti_y='checked="checked"'; else $checkarti_n='checked="checked"';
+   if ($npds_twi_post === 1) $checkpost_y='checked="checked"'; else $checkpost_n='checked="checked"';
+   if ($npds_twi_urshort === 1) $urshort_mr='checked="checked"';
+   if ($npds_twi_urshort === 2) $urshort_ft='checked="checked"';
+   if ($npds_twi_urshort === 3) $urshort_c='checked="checked"';
+   else {$checkpost_n = 'checked="checked"';};
    //en attente implémentation pour notice
    settype($tbox_width,'integer');
    settype($tbox_height,'integer');
@@ -60,7 +60,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
    echo '<hr />';
-   if ($npds_twi!==1) 
+   if ($npds_twi !== 1) 
       echo '
    <div class="alert alert-danger">'.twi_trad("La publication de vos news sur twitter n'est pas autorisée vous devez l'activer").' <a class="alert-link" href="admin.php?op=Configure">'.twi_trad("Ici").'</a></div>';
    else 
@@ -152,7 +152,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
     </tr>
     <tr>
      <td width="30%">
-     <span class="'.$class_sty_2.'">'.twi_trad("Classe de style sous-titre").'</span>
+     <span class="'.$class_sty_2.'">'.twi_trad('Classe de style sous-titre').'</span>
      </td>
      <td>
      <input type="text" size="25" maxlength="255" name="class_sty_2" value="'.$class_sty_2.'" />
@@ -175,7 +175,7 @@ function Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti,
 function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height, $class_sty_1, $class_sty_2, $ModPath, $ModStart) {
 
    //==> modifie le fichier de configuration
-   $file_conf = fopen("modules/$ModPath/twi_conf.php", "w+");
+   $file_conf = fopen('modules/'.$ModPath.'/twi_conf.php', 'w+');
    $content = "<?php \n";
    $content .= "/************************************************************************/\n";
    $content .= "/* DUNE by NPDS                                                         */\n";
@@ -191,11 +191,11 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
    $content .= "/* twi_conf.php file 2015 by Jean Pierre Barbary (jpb)                  */\n";
    $content .= "/* dev team :                                                           */\n";
    $content .= "/************************************************************************/\n";
-   if (!$npds_twi_arti) $npds_twi_arti=0;
+   if (!$npds_twi_arti) $npds_twi_arti = 0;
    $content .= "\$npds_twi_arti = $npds_twi_arti; // activation publication auto des news sur twitter\n";
-   if (!$npds_twi_post) $npds_twi_post=0;
+   if (!$npds_twi_post) $npds_twi_post = 0;
    $content .= "\$npds_twi_post = $npds_twi_post; // activation publication auto des posts sur twitter\n";
-   if (!$npds_twi_urshort) $npds_twi_urshort=0;
+   if (!$npds_twi_urshort) $npds_twi_urshort = 0;
    $content .= "\$npds_twi_urshort = $npds_twi_urshort; // activation du raccourciceur d'url\n";
    $content .= "\$consumer_key = \"$consumer_key\"; //\n";
    $content .= "\$consumer_secret = \"$consumer_secret\"; //\n";
@@ -214,11 +214,11 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
    //<== modifie le fichier de configuration
 
   //==> modifie le fichier controleur
-  $file_controleur='';
+  $file_controleur = '';
   //     if (file_exists('modules/'.$ModPath.'/twi_conf.php'))
   //   include ('modules/'.$ModPath.'/twi_conf.php');
-  if ($npds_twi_urshort<>1) {
-     $file_controleur = fopen("s.php", "w+");
+  if ($npds_twi_urshort <> 1) {
+     $file_controleur = fopen('s.php', 'w+');
      $content = "<?php \n";
      $content .= "/************************************************************************/\n";
      $content .= "/* DUNE by NPDS                                                         */\n";
@@ -242,7 +242,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
      fwrite($file_controleur, $content);
      fclose($file_controleur);
 
-     $file_controleur = fopen("s", "w+");
+     $file_controleur = fopen('s', 'w+');
      $content = "<?php \n";
      $content .= "/************************************************************************/\n";
      $content .= "/* DUNE by NPDS                                                         */\n";
@@ -272,7 +272,7 @@ function SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer
 if ($admin) {
    settype($subop,'string');
    switch ($subop) {
-      case "SaveSettwi":
+      case 'SaveSettwi':
       SaveSettwi($npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height, $class_sty_1, $class_sty_2, $ModPath, $ModStart);
    default:
       Configuretwi($subop, $ModPath, $ModStart, $class_sty_2, $npds_twi_arti, $npds_twi_urshort, $npds_twi_post, $consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret, $tbox_width, $tbox_height);

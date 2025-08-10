@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2024 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions : Create Table            */
 /*                                                                      */
@@ -16,14 +16,14 @@ if (!stristr($_SERVER['PHP_SELF'],'modules.php')) Access_Error();
 
 global $ModPath, $ModStart, $NPDS_Prefix;
 $pos = strpos($ModPath, '/admin');
-global $links_DB; include_once('modules/'.substr($ModPath,0,$pos).'/links.conf.php');
-if ($links_DB=='')
+global $links_DB; include_once 'modules/'.substr($ModPath,0,$pos).'/links.conf.php';
+if ($links_DB == '')
    $links_DB = $NPDS_Prefix;
 
-include("header.php");
+include 'header.php';
    echo '
    <p class="text-center">Cr&eacute;ation des tables en cours pour / Tables Creation running for : <b>'.$links_DB.'</b><br /><br />.';
-   $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_categories (
+   $sql_query = "CREATE TABLE IF NOT EXISTS ".$links_DB."links_categories (
    cid int(11) NOT NULL AUTO_INCREMENT,
    title varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    cdescription text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -32,7 +32,7 @@ include("header.php");
    $result = sql_query($sql_query);
    echo '.';
 
-   $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_editorials (
+   $sql_query = "CREATE TABLE IF NOT EXISTS ".$links_DB."links_editorials (
       linkid int(11) NOT NULL DEFAULT '0',
       adminid varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
       editorialtimestamp datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
@@ -43,7 +43,7 @@ include("header.php");
    $result = sql_query($sql_query);
    echo '.';
 
-   $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_links (
+   $sql_query = "CREATE TABLE IF NOT EXISTS ".$links_DB."links_links (
       lid int(11) NOT NULL AUTO_INCREMENT,
       cid int(11) NOT NULL DEFAULT '0',
       sid int(11) NOT NULL DEFAULT '0',
@@ -64,7 +64,7 @@ include("header.php");
    $result = sql_query($sql_query);
    echo '.';
 
-   $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_modrequest (
+   $sql_query = "CREATE TABLE IF NOT EXISTS ".$links_DB."links_modrequest (
       requestid int(11) NOT NULL AUTO_INCREMENT,
       lid int(11) NOT NULL DEFAULT '0',
       cid int(11) NOT NULL DEFAULT '0',
@@ -80,7 +80,7 @@ include("header.php");
    $result = sql_query($sql_query);
    echo '.';
 
-   $sql_query="CREATE TABLE IF NOT EXISTS ".$links_DB."links_newlink (
+   $sql_query = "CREATE TABLE IF NOT EXISTS ".$links_DB."links_newlink (
       lid int(11) NOT NULL AUTO_INCREMENT,
       cid int(11) NOT NULL DEFAULT '0',
       sid int(11) NOT NULL DEFAULT '0',
@@ -108,5 +108,5 @@ include("header.php");
    <a href="modules.php?ModStart=links&amp;ModPath='.substr($ModPath,0,$pos).'" class="btn btn-secondary">'.translate("Retour en arrière").'</a>
    </p>';
 
-include("footer.php");
+include 'footer.php';
 ?>

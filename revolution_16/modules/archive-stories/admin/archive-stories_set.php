@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -31,7 +31,7 @@ $hlpfile='/manuels/'.$language.'/mod-archive-stories.html';
 function ConfigureArchive($ModPath, $ModStart, $f_meta_nom, $f_titre, $adminimg) {
    global $hlpfile;
    if (file_exists("modules/$ModPath/archive-stories.conf.php"))
-      include ("modules/$ModPath/archive-stories.conf.php");
+      include "modules/$ModPath/archive-stories.conf.php";
       GraphicAdmin($hlpfile);
       adminhead($f_meta_nom, $f_titre, $adminimg);
    echo'

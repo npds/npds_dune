@@ -67,7 +67,7 @@ echo '
 
 // ContainerGlobal permet de transmettre · Theme-Dynamic un élément de personnalisation après
 // le chargement de footer.html / Si vide alors rien de plus n'est affiché par TD
-$ContainerGlobal='
+$ContainerGlobal = '
 </div>';
 // pilotage du mode dark/light du thème ...
 echo '
@@ -87,7 +87,7 @@ echo '
    </script>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
-  require_once("themes/themes-dynamic/footer.php");
+  require_once 'themes/themes-dynamic/footer.php';
 // Ne supprimez pas cette ligne / Don't remove this line
 echo '
       <script type="text/javascript" src="lib/js/masonry.pkgd.min.js"></script>';

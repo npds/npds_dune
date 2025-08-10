@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* Copyright Snipe 2003  base sources du forum w-agora de Marc Druilhe  */
 /************************************************************************/
 /* This program is free software. You can redistribute it and/or modify */
@@ -13,7 +13,7 @@
 
 if (!isset($FILEUPLOAD)) {
    define('_FILEUPLOAD', 1);
-   $FILEUPLOAD=1;
+   $FILEUPLOAD = 1;
 
    define ('NO_FILE', -1);
    define ('FILE_TOO_BIG', -2);
@@ -57,14 +57,14 @@ if (!isset($FILEUPLOAD)) {
 
          switch ($this->errno) {
             case FILE_TOO_BIG:
-               $reason = upload_translate("La taille de ce fichier excède la taille maximum autorisée").' !</div>';
-               break;
+               $reason = upload_translate('La taille de ce fichier excède la taille maximum autorisée').' !</div>';
+            break;
             case INVALID_FILE_TYPE:
                $reason = upload_translate("Ce type de fichier n'est pas autorisé").' !</div>';
-               break;
+            break;
             default;
                $reason = sprintf(upload_translate("Le code erreur est : %s"), $this->errno);
-               break;
+            break;
          }
          /*je ne trouve pas quand et ou cette variable défini ci dessus peut etre changé donc ne comprend pas les conditions ci dessous ?*/
          if ($this->Halt_On_Error == 'report') {
@@ -72,7 +72,7 @@ if (!isset($FILEUPLOAD)) {
          } else {
             printf('<div class="alert alert-danger m-3" role="alert"> %s %s<br /><p class="mt-2 text-center"> %s </p></span>', '<h4 class="alert-heading">File management</h4>', $msg, '<strong>'.$reason.'</strong>');
          }
-         if ($this->Halt_On_Error!='report')
+         if ($this->Halt_On_Error != 'report')
             die('<div class="alert alert-danger m-3" role="alert">'.upload_translate("Session terminée.").'</div>');
       }
 
@@ -90,7 +90,7 @@ if (!isset($FILEUPLOAD)) {
          $this->errno = 0;
          # Check temporary file
          # --------------------
-         if (empty($src_file) || (strcasecmp($src_file, 'none')==0) ) {
+         if (empty($src_file) || (strcasecmp($src_file, 'none') == 0) ) {
             $this->errno = NO_FILE;
             return false;
          }
@@ -128,7 +128,7 @@ if (!isset($FILEUPLOAD)) {
          $suffix = strtoLower(substr(strrchr( $name, '.' ), 1 ));
          if (isset($mimetypes[$suffix]) )
             $type = $mimetypes[$suffix];
-         elseif ( empty($type) || ($type=='application/octet-stream') )
+         elseif ( empty($type) || ($type == 'application/octet-stream') )
             $type = $mimetype_default;
          if (! $this->isAllowedFile ($name, $type) ) {
             $this->errno = INVALID_FILE_TYPE;
@@ -140,7 +140,7 @@ if (!isset($FILEUPLOAD)) {
          global $DOCUMENTROOT;
          $rep=$DOCUMENTROOT;
          settype($log_filename,"string");
-         if ($insert_base==true) {
+         if ($insert_base == true) {
             # insert attachment reference in database
             # ---------------------------------------
             $id = insertAttachment ($this->apli, $IdPost, $IdTopic, $this->IdForum, $name, $this->upload_dir, $inline, $size, $type);
@@ -151,27 +151,27 @@ if (!isset($FILEUPLOAD)) {
             # copy temporary file to the upload directory
             # -------------------------------------------
             $dest_file = $rep.$this->upload_dir . "$id.".$this->apli.".$name";
-            $copyfunc = (function_exists('move_uploaded_file') ) ? 'move_uploaded_file' : 'copy';
+            $copyfunc = (function_exists('move_uploaded_file') ) ? 'move_uploaded_file' : 'copy' ;
             if (! $copyfunc ($src_file, $dest_file) ) {
                deleteAttachment ($this->apli, $IdPost, $rep.$this->upload_dir, $id, $name);
                $this->errno = COPY_ERROR;
                return false;
             }
             @chmod($dest_file,0766);
-            $log_filename=$dest_file;
+            $log_filename = $dest_file;
          } else {
-            if ($this->apli=="minisite") {
+            if ($this->apli == 'minisite') {
                # copy temporary file to the upload directory
                # -------------------------------------------
                global $rep_upload_minisite;
-               $copyfunc = (function_exists('move_uploaded_file') ) ? 'move_uploaded_file' : 'copy';
+               $copyfunc = (function_exists('move_uploaded_file') ) ? 'move_uploaded_file' : 'copy' ;
                if (! $copyfunc ($src_file, $rep.$rep_upload_minisite.$name) ) {
                   $this->errno = COPY_ERROR;
                   return false;
                }
                @chmod($rep.$rep_upload_minisite.$name,0766);
                $log_filename=$rep.$rep_upload_minisite.$name;
-            } elseif ($this->apli=="editeur") {
+            } elseif ($this->apli == 'editeur') {
                # copy temporary file to the upload directory
                # -------------------------------------------
                global $rep_upload_editeur;
@@ -181,7 +181,7 @@ if (!isset($FILEUPLOAD)) {
                   return false;
                }
                @chmod($rep.$rep_upload_editeur.$name,0766);
-               $log_filename=$rep.$rep_upload_editeur.$name;
+               $log_filename = $rep.$rep_upload_editeur.$name;
             } else
                return false;
          }
@@ -197,7 +197,7 @@ if (!isset($FILEUPLOAD)) {
       function getUploadedFiles ($IdPost,$IdTopic) {
          global $pcfile, $pcfile_size, $pcfile_name, $pcfile_type;
          $this->errno = 0;
-         $att_size =0;
+         $att_size = 0;
          $att_count = 0;
          if (is_string($pcfile) && !empty($pcfile) && !empty($pcfile_name) ) {
             if ($pcfile == 'none') {
@@ -213,7 +213,7 @@ if (!isset($FILEUPLOAD)) {
             }
          } elseif (is_array($pcfile)) {
             $nfiles = count($pcfile);
-            for ($i=0; $i<$nfiles; $i++) {
+            for ($i = 0; $i < $nfiles; $i++) {
                if (!empty($pcfile[$i]) && (strtolower($pcfile[$i]) != 'none')) {
                   if ($this->uploadFile ($IdPost, $IdTopic, $pcfile_name[$i], $pcfile_size[$i], $pcfile_type[$i], $pcfile[$i], DEFAULT_INLINE)   ) {
                      $att_size += $pcfile_size[$i];
@@ -229,7 +229,7 @@ if (!isset($FILEUPLOAD)) {
             return false;
          }
 
-         if ($att_size>0) {
+         if ($att_size > 0) {
             $att['att_size'] = $att_size;
             $att['att_count'] = $att_count;
             return $att;
@@ -248,8 +248,7 @@ if (!isset($FILEUPLOAD)) {
       * @throws
       */
       function isAllowedFile ($filename, $mimetype) {
-         global $bn_allowed_extensions, $bn_allowed_mimetypes;
-         global $bn_banned_extensions, $bn_banned_mimetypes;
+         global $bn_allowed_extensions, $bn_allowed_mimetypes, $bn_banned_extensions, $bn_banned_mimetypes;
          # First check allowed extensions
          # ------------------------------
          $ext = strtolower(strrchr ($filename, '.'));
@@ -293,7 +292,7 @@ if (!isset($FILEUPLOAD)) {
                foreach($allowed_mimetypes as $mt) {
                   list ($good_type, $good_subtype) = explode ('/', $mt);
                   if ($type == $good_type) {
-                     if ( ($good_subtype == '*') || ($subtype == $good_subtype) ) {
+                     if (($good_subtype == '*') || ($subtype == $good_subtype)) {
                         $found = true;
                         break;
                      }

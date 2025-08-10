@@ -11,14 +11,14 @@
 /************************************************************************/
 
 if (!function_exists('admindroits'))
-   include('die.php');
-$f_meta_nom ='supercache';
-$f_titre = adm_translate("SuperCache");
+   include 'die.php';
+$f_meta_nom = 'supercache';
+$f_titre = adm_translate('SuperCache');
 //==> controle droit
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 global $language;
-$hlpfile = "manuels/$language/overload.html";
+$hlpfile = 'manuels/'.$language.'/overload.html';
 
 function save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules) {
    $line = "/************************************************************************/\n";
@@ -61,35 +61,35 @@ function save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt
    $content .= "\$CACHE_TIMINGS['modules.php'] = $xt_modules;\n";
    $content .= "\$CACHE_QUERYS['modules.php'] = \"^\";\n";
    $content .= "?>";
-   $file = fopen("cache.timings.php", "w");
+   $file = fopen('cache.timings.php', 'w');
    fwrite($file, $content);
    fclose($file);
 }
 
 function main() {
    global $hlpfile, $radminsuper, $f_meta_nom, $f_titre, $adminimg;
-   include("header.php");
+   include 'header.php';
    GraphicAdmin($hlpfile);
-   adminhead ($f_meta_nom, $f_titre, $adminimg);
+   adminhead($f_meta_nom, $f_titre, $adminimg);
 
-   include("cache.timings.php");
+   include 'cache.timings.php';
    echo '
       <hr />
       <form id="overloadcacheadm" action="admin.php" method="post">
       <fieldset>
-      <legend>'.adm_translate("Activation").'</legend>
+      <legend>'.adm_translate('Activation').'</legend>
          <div class="mb-3">
             <div>';
-   $cky=''; $ckn='';
-   if ($SuperCache==1) {$cky='checked="checked"'; $ckn='';} else {$cky=''; $ckn='checked="checked"';}
+   $cky = ''; $ckn = '';
+   if ($SuperCache == 1) {$cky='checked="checked"'; $ckn = '';} else { $cky = ''; $ckn = 'checked="checked"';}
    echo '
                <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" id="xsupercache_y" name="xsupercache" value="true" '.$cky.' />
-                  <label class="form-check-label" for="xsupercache_y">'.adm_translate("Oui").'</label>
+                  <label class="form-check-label" for="xsupercache_y">'.adm_translate('Oui').'</label>
                </div>
                <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" id="xsupercache_n" name="xsupercache" value="false" '.$ckn.' />
-                  <label class="form-check-label" for="xsupercache_n">'.adm_translate("Non").'</label>
+                  <label class="form-check-label" for="xsupercache_n">'.adm_translate('Non').'</label>
                </div>
             </div>
          </div>
@@ -105,12 +105,12 @@ function main() {
          'modules.php' => 3600
       ];
       foreach ($default_timings as $page => $time) {
-          $CACHE_TIMINGS[$page] = $CACHE_TIMINGS[$page] ?? $time;
+          $CACHE_TIMINGS[$page] = $CACHE_TIMINGS[$page] ?? $time ;
       }
 
       echo '
       <fieldset>
-      <legend>'.adm_translate("Temps de rétention en secondes").'</legend>
+      <legend>'.adm_translate('Temps de rétention en secondes').'</legend>
       <div class="mb-3 row">
          <div class=" col-sm-4 col-12">
             <label for="xt_index"><code>index.php</code></label>
@@ -157,7 +157,7 @@ function main() {
       <div class="mb-3 row">
          <input type="hidden" name="op" value="supercache_save" />
          <div class="col-12">
-            <button class="btn btn-outline-primary col-12 text-start" type="submit"><i class="fa fa-check fa-lg">&nbsp;</i>'.adm_translate("Valider").'</button>
+            <button class="btn btn-outline-primary col-12 text-start" type="submit"><i class="fa fa-check fa-lg">&nbsp;</i>'.adm_translate('Valider').'</button>
          </div>
       </div>
       </form>
@@ -165,12 +165,12 @@ function main() {
       <form id="fad_cacheclean" action="admin.php" method="post">
          <div class="mb-3 row">
             <div class="col-12">
-               <button class="btn btn-outline-danger col-12 float-end text-end" type="submit">'.adm_translate("Vider le répertoire cache").'&nbsp;<i class="fas fa-trash fa-lg"></i></button>
+               <button class="btn btn-outline-danger col-12 float-end text-end" type="submit">'.adm_translate('Vider le répertoire cache').'&nbsp;<i class="fas fa-trash fa-lg"></i></button>
             </div>
          </div>
          <input type="hidden" name="op" value="supercache_empty" />
       </form>';
-   $fv_parametres='
+   $fv_parametres = '
       xt_index: {
          validators: {
             regexp: {
@@ -236,7 +236,7 @@ function main() {
          }
       },
    ';
-  $arg1='
+  $arg1 = '
    var formulid = ["overloadcacheadm"];
    inpandfieldlen("xt_index",6);
    inpandfieldlen("xt_article",6);
@@ -254,12 +254,12 @@ switch ($op) {
    case 'supercache_save':
       save_supercache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules);
       global $aid; Ecr_Log('security', "ChangeSuperCache($xsupercache, $xt_index, $xt_article, $xt_sections, $xt_faq, $xt_links, $xt_forum, $xt_memberlist, $xt_modules) by AID : $aid", '');
-      Header("Location: admin.php?op=supercache");
+      header('Location: admin.php?op=supercache');
    break;
    case 'supercache_empty':
       SC_clean();
-      global $aid; Ecr_Log('security', "EmptySuperCache() by AID : $aid", '');
-      Header("Location: admin.php?op=supercache");
+      global $aid; Ecr_Log('security', 'EmptySuperCache() by AID : '.$aid, '');
+      header('Location: admin.php?op=supercache');
    break;
    default:
       main();

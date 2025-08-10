@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -21,7 +21,7 @@ if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 function etape_8() {
    global $langue, $stage, $qi;
    $stage = 8;
-   include_once('modules/upload/upload.conf.php');
+   include_once 'modules/upload/upload.conf.php';
    echo '
                <h3 class="mb-3">'.ins_translate('Configuration du module UPload').'</h3>
                <div class="col-sm-12">
@@ -33,11 +33,11 @@ function etape_8() {
                      <div class="form-floating mb-3">
                         <input class="form-control" type="text" name="new_DOCUMENTROOT" id="new_DOCUMENTROOT" maxlength="60" value="'.$DOCUMENTROOT.'" />
                         <label for="new_DOCUMENTROOT">'.ins_translate("Chemin physique absolu d'accès depuis la racine de votre site").'</label>
-                        <small class="mt-1">'.ins_translate("Exemple par défaut ou SI vous ne savez pas").' : ==><br />'.ins_translate("Exemples SI redirection").' : ==> /data/www/monsite OU c:\web\monsite</small>
+                        <small class="mt-1">'.ins_translate('Exemple par défaut ou SI vous ne savez pas').' : ==><br />'.ins_translate('Exemples SI redirection').' : ==> /data/www/monsite OU c:\web\monsite</small>
                      </div>
                      <div class="form-floating mb-3">
                         <select class="form-select" id="new_autorise_upload_p" name="new_autorise_upload_p">';
-   if($autorise_upload_p == "true") {$sel1 = 'selected="selected"';$sel2 = '';}
+   if($autorise_upload_p == 'true') {$sel1 = 'selected="selected"';$sel2 = '';}
    else {$sel1 = '';$sel2 = 'selected="selected"';}
    echo '
                            <option value="true" '.$sel1.'>'.ins_translate('Oui').'</option>
@@ -47,35 +47,35 @@ function etape_8() {
                      </div>
                      <div class="form-floating mb-3">
                         <input class="form-control" type="text" name="new_racine" id="new_racine" maxlength="60" value="'.$racine.'" />
-                        <label for="new_racine">'.ins_translate("Répertoire de votre site").'</label>
+                        <label for="new_racine">'.ins_translate('Répertoire de votre site').'</label>
                         <small class="mt-1">'.ins_translate('Exemples :').'<br />www.monsite.com/ ==> <br />www.monsite.com/npds/ ==> <span class="text-success">/npds</span><br />www.monsite.com/npds/npds/ ==> <span class="text-success">/npds/npds</span></small>
                      </div>
                      <div class="form-floating mb-3">
                         <input class="form-control" type="text" name="new_rep_upload" id="new_rep_upload" maxlength="60" value="'.$rep_upload.'" />
-                        <label for="new_rep_upload">'.ins_translate("Répertoire de téléchargement").'</label>
+                        <label for="new_rep_upload">'.ins_translate('Répertoire de téléchargement').'</label>
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_upload"></div>
                      </div>
                      <div class="form-floating mb-3">
                         <input class="form-control" type="text" name="new_rep_cache" id="new_rep_cache" maxlength="60" value="'.$rep_cache.'" />
-                        <label for="new_rep_cache">'.ins_translate("Répertoire des fichiers temporaires").'</label>
+                        <label for="new_rep_cache">'.ins_translate('Répertoire des fichiers temporaires').'</label>
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_cache"></div>
                      </div>
                      <div class="form-floating mb-3">
                         <input class="form-control" type="text" name="new_rep_log" id="new_rep_log" maxlength="60" value="'.$rep_log.'" />
-                        <label for="new_rep_log">'.ins_translate("Fichier journal de sécurité").'</label>
+                        <label for="new_rep_log">'.ins_translate('Fichier journal de sécurité').'</label>
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_rep_log"></div>
                      </div>
                      <div class="form-floating mb-3">
                         <input class="form-control" type="url" name="new_url_upload" id="new_url_upload" maxlength="60" value="'.$url_upload.'" data-fv-uri___allow-local="true" />
-                        <label for="new_url_upload">'.ins_translate("URL HTTP(S) de votre site").'</label>
+                        <label for="new_url_upload">'.ins_translate('URL HTTP(S) de votre site').'</label>
                         <div class="d-flex justify-content-end w-100 small text-help py-1" id="countcar_new_url_upload"></div>
-                        <span class="d-block text-help small w-100">'.ins_translate("SI installation locale").' ==> http://127.0.0.1/</span>
+                        <span class="d-block text-help small w-100">'.ins_translate('SI installation locale').' ==> http://127.0.0.1/</span>
                      </div>
                      <input type="hidden" name="langue" value="'.$langue.'" />
                      <input type="hidden" name="stage" value="'.$stage.'" />
                      <input type="hidden" name="qi" value="'.$qi.'" />
                      <input type="hidden" name="op" value="write_upload" />
-                     <button type="submit" class="btn btn-success mb-3">'.ins_translate("Valider").'</button>
+                     <button type="submit" class="btn btn-success mb-3">'.ins_translate('Valider').'</button>
                   </form>
                </div>
             </div>';

@@ -22,6 +22,6 @@ $theme_darkness = 'light';
 $long_chain     = '15';
 
 // ne pas supprimer cette ligne / Don't remove this line
-require_once("themes/themes-dynamic/theme.php");
+require_once 'themes/themes-dynamic/theme.php';
 // ne pas supprimer cette ligne / Don't remove this line
 ?>

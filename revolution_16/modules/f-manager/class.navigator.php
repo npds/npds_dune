@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -21,11 +21,11 @@ class Navigator {
    var $Handle;
    var $Errors;
    var $Path;
-   var $OrderArrD =array();
-   var $OrderArrF =array();
+   var $OrderArrD = array();
+   var $OrderArrF = array();
    var $PointerPosD;
    var $PointerPosF;
-   var $Extension =array();
+   var $Extension = array();
    var $FieldName;
    var $FieldDate;
    var $FieldSize;
@@ -33,23 +33,23 @@ class Navigator {
    var $FieldView;
 
    // Constructor
-   function File_Navigator($parm,$sort_filed="N",$dir="ASC", $DirSize=false) {
-      if (!isset($parm)) $parm=".";
-      if (is_dir($parm)) $this->CurDir=$parm; else Access_Error();
-   
-      $this->GetDirSz=$DirSize;
-   
+   function File_Navigator($parm,$sort_filed='N',$dir='ASC', $DirSize = false) {
+      if (!isset($parm)) $parm = '.';
+      if (is_dir($parm)) $this->CurDir = $parm; else Access_Error();
+
+      $this->GetDirSz = $DirSize;
+
       if (@chdir($this->CurDir)) {
-         $this->Handle=opendir(".");
+         $this->Handle = opendir(".");
             $this->LoadList();
          closedir($this->Handle);
          $this->SortListF($sort_filed,$dir);
          $this->SortListD($sort_filed,$dir);
-         $this->PointerPosF=0;
-         $this->PointerPosD=0;
-         return (true);
+         $this->PointerPosF = 0;
+         $this->PointerPosD = 0;
+         return true;
       } else
-         return (false);
+         return false;
    }
 
    // load directories list and files list
@@ -60,9 +60,9 @@ class Navigator {
             $this->DirsList["DateM"][] = $this->LastUpdate($file);
             $this->DirsList["Size"][]  = ($this->GetDirSz) ? $this->GetDirSize($file) : '' ;
             $this->DirsList["Perms"][] = $this->PresPerms($this->GetPerms($file));
-         } elseif(@is_file($file) && $file!="." && $file!="..") {
+         } elseif(@is_file($file) && $file != '.' && $file != '..') {
             $suffix = strtoLower(substr(strrchr( $file, '.' ), 1 ));
-            if ((in_array($suffix,$this->Extension)) or ($this->Extension[0]=="*")) {
+            if ((in_array($suffix,$this->Extension)) or ($this->Extension[0] == '*')) {
                $this->FilesList["Name"][]  = $file;
                $this->FilesList["DateM"][] = $this->LastUpdate($file);
                $this->FilesList["Size"][]  = filesize($file);
@@ -76,25 +76,25 @@ class Navigator {
    // convert permission to string like -rwxr-xr-- (755)
    function GetPerms($file) {
       switch (filetype ($file)) {
-           case "dir"   ;$ret2="d"; break;
-           case "fifo"  ;$ret2="f"; break;
-           case "char"  ;$ret2="c"; break;
-           case "block" ;$ret2="b"; break;
-           case "link"  ;$ret2="l"; break;
-           case "file"  ;$ret2="-"; break;
-           default      :$ret2="-"; break;
+           case "dir"   ;$ret2 = "d"; break;
+           case "fifo"  ;$ret2 = "f"; break;
+           case "char"  ;$ret2 = "c"; break;
+           case "block" ;$ret2 = "b"; break;
+           case "link"  ;$ret2 = "l"; break;
+           case "file"  ;$ret2 = "-"; break;
+           default      :$ret2 = "-"; break;
       }
-      $perms=fileperms($file) & 0777;
-      $ret=sprintf("%b", $perms);
-      ( $ret[0]) ? ($ret2.="r") : ($ret2.="-");
-      ( $ret[1]) ? ($ret2.="w") : ($ret2.="-");
-      ( $ret[2]) ? ($ret2.="x") : ($ret2.="-");
-      ( $ret[3]) ? ($ret2.="r") : ($ret2.="-");
-      ( $ret[4]) ? ($ret2.="w") : ($ret2.="-");
-      ( $ret[5]) ? ($ret2.="x") : ($ret2.="-");
-      ( $ret[6]) ? ($ret2.="r") : ($ret2.="-");
-      ( $ret[7]) ? ($ret2.="w") : ($ret2.="-");
-      ( $ret[8]) ? ($ret2.="x") : ($ret2.="-");
+      $perms = fileperms($file) & 0777;
+      $ret = sprintf("%b", $perms);
+      ($ret[0]) ? ($ret2.="r") : ($ret2.="-");
+      ($ret[1]) ? ($ret2.="w") : ($ret2.="-");
+      ($ret[2]) ? ($ret2.="x") : ($ret2.="-");
+      ($ret[3]) ? ($ret2.="r") : ($ret2.="-");
+      ($ret[4]) ? ($ret2.="w") : ($ret2.="-");
+      ($ret[5]) ? ($ret2.="x") : ($ret2.="-");
+      ($ret[6]) ? ($ret2.="r") : ($ret2.="-");
+      ($ret[7]) ? ($ret2.="w") : ($ret2.="-");
+      ($ret[8]) ? ($ret2.="x") : ($ret2.="-");
    
       $mask = 0700;
       $Fdroits = "";
@@ -108,13 +108,13 @@ class Navigator {
          $mask = $mask >> 3;
       }
 
-      $tab[]=$Fdroits;
-      $tab[]=$ret2;
+      $tab[] = $Fdroits;
+      $tab[] = $ret2;
       return ($tab);
    }
 
    function PresPerms($ibid) {
-      if ($ibid[0]==766 or $ibid[0]==777) $ibid[0]='<span class="text-success">'.$ibid[0].'</span>';
+      if ($ibid[0] == 766 or $ibid[0] == 777) $ibid[0] = '<span class="text-success">'.$ibid[0].'</span>';
       return ("$ibid[0]&nbsp;($ibid[1])");
    }
 
@@ -139,7 +139,7 @@ class Navigator {
    }
 
    function NextDir() {
-      if ( isset($this->OrderArrD)) {
+      if (isset($this->OrderArrD)) {
          $keyz= array_keys($this->OrderArrD) ;
          if (array_key_exists($this->PointerPosD, $keyz)) {
          //if (isset($this->OrderArrD[$keyz[$this->PointerPosD]])) {
@@ -161,11 +161,11 @@ class Navigator {
          case "D" ; //Date
          $i = 0;
          reset($this->FilesList["DateM"]);
-         $ibid=count($this->FilesList["DateM"]);
+         $ibid = count($this->FilesList["DateM"]);
          while($i<$ibid) {
-            $tmp=explode(' ',$this->FilesList["DateM"][$i]);
-            $key1= explode('-', $tmp[0]);
-            $key2= explode(':', $tmp[1]);
+            $tmp = explode(' ',$this->FilesList["DateM"][$i]);
+            $key1 = explode('-', $tmp[0]);
+            $key2 = explode(':', $tmp[1]);
    
             $key=mktime ($key2[0],$key2[1],$key2[2],$key1[1],$key1[0],$key1[2]) ;
             $this->OrderArrF[$key.'.'.$i] = $i;
@@ -179,12 +179,12 @@ class Navigator {
          case "S"; //Size
          $i = 0;
          reset($this->FilesList["Size"]);
-         $ibid=count($this->FilesList["Size"]);
+         $ibid = count($this->FilesList["Size"]);
          while($i<$ibid) {
             $this->OrderArrF[$this->FilesList["Size"][$i].'.'.$i] = $i;
             $i++;
          }
-         if ($direction=="ASC"  and isset($this->OrderArrF)) ksort($this->OrderArrF) ;
+         if ($direction == "ASC" and isset($this->OrderArrF)) ksort($this->OrderArrF) ;
          elseif (isset($this->OrderArrF)) krsort($this->OrderArrF) ;
          break;
          //----------------------------------
@@ -197,7 +197,7 @@ class Navigator {
             $this->OrderArrF[strtolower($this->FilesList["Name"][$i])] = $i;
             $i++;
          }
-         if ($direction=="ASC"  and isset($this->OrderArrF)) ksort($this->OrderArrF) ;
+         if ($direction == "ASC" and isset($this->OrderArrF)) ksort($this->OrderArrF) ;
          elseif (isset($this->OrderArrF)) krsort($this->OrderArrF) ;
          break;
          //----------------------------------
@@ -205,60 +205,57 @@ class Navigator {
    }
 
    // sort the dirs list
-   function SortListD($what,$direction="ASC") {
-   
+   function SortListD($what,$direction = 'ASC') {
       unset($this->OrderArrD);
       switch($what) {
-         case "D" ; //Date
-         $i = 0;
-         reset($this->DirsList["DateM"]);
-         foreach ($this->DirsList["DateM"] as $key => $val) {
-            $tmp=explode(' ',$this->DirsList["DateM"][$i]);
-            $key1= (int) explode( '-', $tmp[0]);
-            $key2= (int) explode( ':', $tmp[1]);
-            $key=mktime ($key2[0],$key2[1],$key2[2],$key1[1],$key1[0],$key1[2]) ;
-            $this->OrderArrD[$key.'.'.$i] = $i;
-            $i++;
-         }
-         if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
-         elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
+         case 'D' ; //Date
+            $i = 0;
+            reset($this->DirsList['DateM']);
+            foreach ($this->DirsList['DateM'] as $key => $val) {
+               $tmp = explode(' ',$this->DirsList['DateM'][$i]);
+               $key1 = (int) explode( '-', $tmp[0]);
+               $key2 = (int) explode( ':', $tmp[1]);
+               $key = mktime ($key2[0],$key2[1],$key2[2],$key1[1],$key1[0],$key1[2]) ;
+               $this->OrderArrD[$key.'.'.$i] = $i;
+               $i++;
+            }
+            if ($direction == 'ASC' and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
+            elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
          break;
          //----------------------------------
-   
-         case "S"; //Size
-         $i = 0;
-         reset($this->DirsList["Size"]);
-         while($i<count($this->DirsList["Size"])){
-            $this->OrderArrD[$this->DirsList["Size"][$i].'.'.$i] = $i;
-            $i++;
-         }
-   
-         if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
-         elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
+         case 'S'; //Size
+            $i = 0;
+            reset($this->DirsList['Size']);
+            while($i < count($this->DirsList['Size'])){
+               $this->OrderArrD[$this->DirsList['Size'][$i].'.'.$i] = $i;
+               $i++;
+            }
+            if ($direction == 'ASC' and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
+            elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
          break;
          //----------------------------------
    
          default:
-         $i = 0;
-         reset($this->DirsList["Name"]);
-         while($i<count($this->DirsList["Name"])) {
-            $this->OrderArrD[strtolower($this->DirsList["Name"][$i])] = $i;
-            $i++;
-         }
-   
-         if ($direction=="ASC"  and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
-         elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
+            $i = 0;
+            reset($this->DirsList['Name']);
+            while($i < count($this->DirsList['Name'])) {
+               $this->OrderArrD[strtolower($this->DirsList['Name'][$i])] = $i;
+               $i++;
+            }
+      
+            if ($direction == 'ASC' and isset($this->OrderArrD)) ksort($this->OrderArrD) ;
+            elseif (isset($this->OrderArrD)) krsort($this->OrderArrD) ;
          break;
          //----------------------------------
       }
    }
 
    // return element's number  what: d total dirs, f: total files
-   function Count($what="") {
+   function Count($what='') {
       switch ($what) {
-         case "d": return count($this->DirsList["Name"]);break;
-         case "f": return count($this->FilesList["Name"]);break;
-         default: return  count($this->DirsList["Name"])+count($this->FilesList["Name"]);break;
+         case 'd': return count($this->DirsList['Name']); break;
+         case 'f': return count($this->FilesList['Name']); break;
+         default: return count($this->DirsList['Name']) + count($this->FilesList['Name']); break;
       }
    }
 
@@ -269,16 +266,16 @@ class Navigator {
 
    // get all directory size
    function GetDirSize($dir) {
-      $total=0;
+      $total = 0;
       if ($this->GetDirSz) {
-         $dossier=@opendir($dir);
-         while (false!==($fichier = readdir($dossier))) {
+         $dossier = @opendir($dir);
+         while (false !== ($fichier = readdir($dossier))) {
             $l = array('.', '..');
-            if (!in_array( $fichier, $l)) {
+            if (!in_array($fichier, $l)) {
                if (is_dir($dir."/".$fichier)) {
-                  $total += $this->GetDirSize($dir."/".$fichier);
+                  $total += $this->GetDirSize($dir.'/'.$fichier);
                } else {
-                  $total+=filesize($dir."/".$fichier);
+                  $total += filesize($dir.'/'.$fichier);
                }
             }
          }
@@ -289,20 +286,20 @@ class Navigator {
    // get all files in all directoies that contain $search
    function SearchFile($dir, $search) {
       $dossier=opendir($dir);
-      $list="";
+      $list = '';
       while ($fichier = readdir($dossier)) {
          $l = array('.', '..');
          if (!in_array($fichier, $l)) {
-            if (is_dir($dir."/".$fichier)) {
-               $list.=$this->SearchFile($dir."/".$fichier, $search);
+            if (is_dir($dir.'/'.$fichier)) {
+               $list .= $this->SearchFile($dir.'/'.$fichier, $search);
             } else {
-               if ($search!="") {
+               if ($search != '') {
                   $pos=strpos(strtoupper($fichier),strtoupper($search));
                   if ($pos === FALSE) {
-                     if ($search=="*")
-                        $list.=$dir."/".$fichier."|";
+                     if ($search == '*')
+                        $list .= $dir.'/'.$fichier.'|';
                   } else
-                     $list.=$dir."/".$fichier."|";
+                     $list .= $dir.'/'.$fichier.'|';
                }
             }
          }
@@ -312,14 +309,14 @@ class Navigator {
 
    // get all directory in a string separated by |
    function GetDirArbo($dir) {
-      $dossier=@opendir($dir);
-      $ibid="";
-      while (false!==($fichier = readdir($dossier))) {
+      $dossier = @opendir($dir);
+      $ibid = '';
+      while (false !== ($fichier = readdir($dossier))) {
          $l = array('.', '..');
-         if (!in_array( $fichier, $l)) {
-            if (is_dir($dir."/".$fichier)) {
-               $ibid.=$dir."/".$fichier."|";
-               $ibid.=$this->GetDirArbo($dir."/".$fichier);
+         if (!in_array($fichier, $l)) {
+            if (is_dir($dir.'/'.$fichier)) {
+               $ibid .= $dir.'/'.$fichier.'|';
+               $ibid .= $this->GetDirArbo($dir.'/'.$fichier);
             }
          }
       }
@@ -340,10 +337,10 @@ class Navigator {
    function Rename($old, $new) {
       if (file_exists($old)) {
          if (!file_exists($new)) rename($old,$new);
-         else $this->Errors=basename($new)." : ".fma_translate("Impossible de renommer");
+         else $this->Errors = basename($new).' : '.fma_translate('Impossible de renommer');
       } else
-         $this->Errors=basename($old)." : ".fma_translate("Le fichier n'existe pas");
-      if ($this->Errors!='') return false;
+         $this->Errors = basename($old).' : '.fma_translate("Le fichier n'existe pas");
+      if ($this->Errors != '') return false;
       return true;
    }
 
@@ -351,48 +348,48 @@ class Navigator {
    function Move($old, $new) {
       if (file_exists($old)) {
          if (!file_exists($new)) rename($old,$new);
-         else $this->Errors=basename($new)." : ".fma_translate("Impossible de déplacer");
+         else $this->Errors=basename($new).' : '.fma_translate('Impossible de déplacer');
       } else
-         $this->Errors=basename($old)." : ".fma_translate("Le fichier n'existe pas");
-      if ($this->Errors!='') return false;
+         $this->Errors = basename($old).' : '.fma_translate("Le fichier n'existe pas");
+      if ($this->Errors != '') return false;
       return true;
    }
 
    // copying
    function Copy($old, $new) {
       if (file_exists($old)) {
-         if (!file_exists($new)) $noerr=copy($old,$new);
+         if (!file_exists($new)) $noerr = copy($old,$new);
          else {
-            $new=str_replace(basename($new),fma_translate("Copie de ").basename($new),$new);
-            $noerr=copy ($old,$new);
+            $new = str_replace(basename($new),fma_translate('Copie de ').basename($new),$new);
+            $noerr = copy($old,$new);
          }
-         if (!$noerr) $this->Errors=basename($new)." : ".fma_translate("Impossible de copier");
+         if (!$noerr) $this->Errors = basename($new).' : '.fma_translate('Impossible de copier');
       } else
-         $this->Errors=basename($old)." : ".fma_translate("Le fichier n'existe pas");
-      if ($this->Errors!='') return false;
+         $this->Errors = basename($old).' : '.fma_translate("Le fichier n'existe pas");
+      if ($this->Errors != '') return false;
       return (true);
    }
 
    // Create file/dir
    function Create($what, $name) {
-      @umask("0000");
+      @umask('0000');
       switch ($what) {
-         case "f":
+         case 'f':
          if (!file_exists($name)) {
-            if (!$fp=fopen($name,"w")) $this->Errors=fma_translate("Impossible de créer")." : ".basename($name);
+            if (!$fp=fopen($name,'w')) $this->Errors=fma_translate('Impossible de créer').' : '.basename($name);
             else fclose($fp);
          } else
-            $this->Errors=basename($name)." : ".fma_translate("existe déjà");
+            $this->Errors = basename($name).' : '.fma_translate('existe déjà');
          break;
-   
-         case "d":
+
+         case 'd':
          if (!file_exists($name)) {
-            if (!mkdir($name, 0777)) $this->Errors=fma_translate("Impossible de créer")." : ".basename($name);
+            if (!mkdir($name, 0777)) $this->Errors=fma_translate('Impossible de créer').' : '.basename($name);
          } else
-            $this->Errors=basename($name)." : ".fma_translate("existe déjà");
+            $this->Errors = basename($name).' : '.fma_translate('existe déjà');
          break;
       }
-      if ($this->Errors!='') return false;
+      if ($this->Errors != '') return false;
       return true;
    }
 
@@ -400,20 +397,20 @@ class Navigator {
    function Remove($file) {
       if (is_file($file)) {
          if (!@unlink($file))
-            $this->Errors=fma_translate("Impossible de supprimer")." : ".basename($file);
+            $this->Errors = fma_translate('Impossible de supprimer').' : '.basename($file);
       }
-      if ($this->Errors!='') return false;
+      if ($this->Errors != '') return false;
       return true;
    }
 
    // remove directory
    function RemoveDir($dir) {
-      if ($handle=@opendir($dir)) {
+      if ($handle = @opendir($dir)) {
          closedir($handle);
          if (!@rmdir($dir))
-            $this->Errors=fma_translate("Impossible de supprimer")." : ".basename($dir);
+            $this->Errors=fma_translate('Impossible de supprimer').' : '.basename($dir);
       }
-      if ($this->Errors!='') return false;
+      if ($this->Errors != '') return false;
       return true;
    }
 

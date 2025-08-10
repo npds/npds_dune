@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -21,13 +21,13 @@
 
 function build_sql_create($NPDS_Prefix) {
 
-$filename='sql/revolution_16.sql';
-$handle=fopen($filename,'r');
-$sql_contents=fread($handle, filesize ($filename));
+$filename = 'sql/revolution_16.sql';
+$handle = fopen($filename,'r');
+$sql_contents = fread($handle, filesize($filename));
 fclose ($handle);
-$sql_com='';
-$list_tab='';
-$content='';
+$sql_com = '';
+$list_tab = '';
+$content = '';
 //$sql_com.='sql_query("SET character_set_results = \'utf8\', character_set_client = \'utf8\', character_set_connection = \'utf8\', character_set_database = \'utf8\', character_set_server = \'utf8\'");';
 
 preg_match_all("#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)\s[^;]*[^\r|\n]*(;)#m", $sql_contents, $reg);
@@ -43,19 +43,19 @@ Array $reg
     [3] => Array le ; terminant la requête
         (...
 */
-$reg[2]=array_unique($reg[2]);
+$reg[2] = array_unique($reg[2]);
 //==> construction de commande php pour sql avec prefixe des tables
-foreach ( $reg[2] as $key=>$value )
-{$sql_com.='$sql = \'DROP TABLE IF EXISTS '.$NPDS_Prefix.$value.';\';'."\n".'$result = @sql_query($sql);
-'."\n";
-$list_tab.= $value.' ';
+foreach ( $reg[2] as $key=>$value ) {
+   $sql_com .= '$sql = \'DROP TABLE IF EXISTS '.$NPDS_Prefix.$value.';\';'."\n".'$result = @sql_query($sql);'."\n";
+   $list_tab .= $value.' ';
 }
 //==> implementation commande sql avec prefixe des tables
-$cont= preg_replace ( '#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)(\s[^;]*[^\r]*;)#m', '\1'.$NPDS_Prefix.'\2\3', $reg[0] );
+$cont = preg_replace ( '#^(CREATE TABLE\s|INSERT INTO\s)(\b[^\s]*\b)(\s[^;]*[^\r]*;)#m', '\1'.$NPDS_Prefix.'\2\3', $reg[0] );
 
 //==> construction de commande php pour sql avec protect des '\" seuls
-foreach ( $cont as $key=>$value )
-{$sql_com.= '$sql=\''.addslashes ( $value) ."';\n".'$result = @sql_query($sql);'."\n";}
+foreach ( $cont as $key=>$value ) {
+   $sql_com .= '$sql=\''.addslashes ( $value) ."';\n".'$result = @sql_query($sql);'."\n";
+}
 
 //==> construction contenu fichier
 $contents = "<?php \n";
@@ -77,24 +77,24 @@ $content .= "/* it under the terms of the GNU General Public License as publishe
 $content .= "/* the Free Software Foundation; either version 3 of the License.       */\n";
 $content .= "/************************************************************************/\n";
 
-$contents.='if (stristr($_SERVER[\'PHP_SELF\'],"sql-create.php")) { die(); }'."\n";
-$contents.='function write_database()'."\n";
-$contents.=' {'."\n";
-$contents.= $sql_com;
-$contents.= "\n";
-$contents.='   global $stage6_ok;'."\n";
-$contents.='   $stage6_ok = 1;'."\n";
-$contents.='   if(!$result)'."\n";
-$contents.='    {'."\n";
-$contents.='    $stage6_ok = 0;'."\n";
-$contents.='    }'."\n";
-$contents.='    return($stage6_ok);'."\n";
-$contents.=' }'."\n";
-$contents.='?>';
+$contents .= 'if (stristr($_SERVER[\'PHP_SELF\'],"sql-create.php")) { die(); }'."\n";
+$contents .= 'function write_database()'."\n";
+$contents .= ' {'."\n";
+$contents .=  $sql_com;
+$contents .=  "\n";
+$contents .= '   global $stage6_ok;'."\n";
+$contents .= '   $stage6_ok = 1;'."\n";
+$contents .= '   if(!$result)'."\n";
+$contents .= '    {'."\n";
+$contents .= '    $stage6_ok = 0;'."\n";
+$contents .= '    }'."\n";
+$contents .= '    return($stage6_ok);'."\n";
+$contents .= ' }'."\n";
+$contents .= '?>';
 
 //==> écriture contenu fichier
-$filename='install/sql/sql-create.php';
-$handle=fopen($filename,"w+");
+$filename = 'install/sql/sql-create.php';
+$handle = fopen($filename,'w+');
 fwrite($handle,$contents);
 fclose($handle);
 }

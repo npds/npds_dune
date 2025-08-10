@@ -67,7 +67,7 @@ default :
 break;
 
 }
-$ContainerGlobal='
+$ContainerGlobal = '
 </div>';
 // pilotage du mode dark/light du thème ...
 echo '
@@ -87,6 +87,6 @@ echo '
    </script>';
 
 // Ne supprimez pas cette ligne / Don't remove this line
-  require_once("themes/themes-dynamic/footer.php");
+  require_once 'themes/themes-dynamic/footer.php';
 // Ne supprimez pas cette ligne / Don't remove this line
 ?>

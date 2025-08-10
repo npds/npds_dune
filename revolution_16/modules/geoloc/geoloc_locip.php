@@ -18,10 +18,10 @@
 
 #autodoc localiser_ip() : construit la carte pour l'ip géoréférencée ($iptoshow) à localiser
 function localiser_ip($iptoshow) {
-   include('modules/geoloc/geoloc.conf');
+   include 'modules/geoloc/geoloc.conf';
    global $NPDS_Prefix, $iptoshow;
-   $aff_location ='';
-   if($geo_ip==1) {
+   $aff_location = '';
+   if($geo_ip == 1) {
       $ip_location = sql_query("SELECT * FROM ".$NPDS_Prefix."ip_loc WHERE ip_ip LIKE \"".$iptoshow."\"");
       if (sql_num_rows($ip_location) !== 0) {
          $row = sql_fetch_assoc($ip_location);

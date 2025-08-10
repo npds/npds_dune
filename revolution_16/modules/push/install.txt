@@ -6,11 +6,11 @@
 ## Auteur: Dev sur la base de pda Addon by Christopher Bradford (csb@wpsf.com)
 ## 
 ## Description:
-## Module qui vous permet d'émettre une partie du contenu de NPDS via javascript (RSS avant l'heure) sur un autre site
+## Module qui vous permet d'Ã©mettre une partie du contenu de NPDS via javascript (RSS avant l'heure) sur un autre site
 ## 
 ## Niveau d'installation: aucune
 ## Temps d'installation: 0 minutes
-## Fichiers a éditer:  2
+## Fichiers Ã  Ã©diter:  2
 ##
 #######################################################################################
 ##

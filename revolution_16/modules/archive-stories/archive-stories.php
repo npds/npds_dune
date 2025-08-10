@@ -5,7 +5,7 @@
 /*                                                                      */
 /* From ALL STORIES Add-On ... ver. 1.4.1a                              */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,20 +13,20 @@
 /************************************************************************/
 if (strstr($ModPath,'..') || strstr($ModStart,'..') || stristr($ModPath, 'script') || stristr($ModPath, 'cookie') || stristr($ModPath, 'iframe') || stristr($ModPath, 'applet') || stristr($ModPath, 'object') || stristr($ModPath, 'meta') || stristr($ModStart, 'script') || stristr($ModStart, 'cookie') || stristr($ModStart, 'iframe') || stristr($ModStart, 'applet') || stristr($ModStart, 'object') || stristr($ModStart, 'meta'))
    die();
-if (!function_exists("Mysql_Connexion"))
-   include ("mainfile.php");
-include_once('functions.php');
-include ("modules/$ModPath/archive-stories.conf.php");
-include ("modules/$ModPath/cache.timings.php");
-if (!isset($start)) $start=0;
-include("header.php");
+if (!function_exists('Mysql_Connexion'))
+   include 'mainfile.php';
+include_once 'functions.php';
+include 'modules/'.$ModPath.'/archive-stories.conf.php';
+include 'modules/'.$ModPath.'/cache.timings.php';
+if (!isset($start)) $start = 0;
+include 'header.php';
 // Include cache manager
 if ($SuperCache) {
    $cache_obj = new cacheManager();
    $cache_obj->startCachingPage();
 } else
    $cache_obj = new SuperCacheEmpty();
-if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or (!$SuperCache)) {
+if (($cache_obj->genereting_output == 1) or ($cache_obj->genereting_output == -1) or (!$SuperCache)) {
    if ($arch_titre) 
       echo aff_langue($arch_titre);
    echo '
@@ -34,11 +34,11 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
    <table id ="lst_art_arch" data-toggle="table"  data-striped="true" data-search="true" data-show-toggle="true" data-show-columns="true" data-mobile-responsive="true" data-icons-prefix="fa" data-buttons-class="outline-secondary" data-icons="icons">
       <thead>
          <tr>
-            <th data-sortable="true" data-sorter="htmlSorter" data-halign="center" class="n-t-col-xs-4">'.translate("Articles").'</th>
-            <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">'.translate("lus").'</th>
-            <th data-halign="center" data-align="right">'.translate("Posté le").'</th>
-            <th data-sortable="true" data-halign="center" data-align="left">'.translate("Auteur").'</th>
-            <th data-halign="center" data-align="center" class="n-t-col-xs-2">'.translate("Fonctions").'</th>
+            <th data-sortable="true" data-sorter="htmlSorter" data-halign="center" class="n-t-col-xs-4">'.translate('Articles').'</th>
+            <th data-sortable="true" data-halign="center" data-align="right" class="n-t-col-xs-1">'.translate('lus').'</th>
+            <th data-halign="center" data-align="right">'.translate('Posté le').'</th>
+            <th data-sortable="true" data-halign="center" data-align="left">'.translate('Auteur').'</th>
+            <th data-halign="center" data-align="center" class="n-t-col-xs-2">'.translate('Fonctions').'</th>
          </tr>
       </thead>
       <tbody>';
@@ -46,29 +46,29 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
    if (!isset($count)) {
       global $NPDS_Prefix;
       $result0 = Q_select("SELECT COUNT(sid) AS count FROM ".$NPDS_Prefix."stories WHERE archive='$arch'",3600);
-      $count= $result0[0];
-      $count=$count['count'];
+      $count = $result0[0];
+      $count = $count['count'];
    }
 
-   $nbPages = ceil($count/$maxcount);
+   $nbPages = ceil($count / $maxcount);
    $current = 1;
    if ($start >= 1)
       $current=$start/$maxcount;
    else if ($start < 1)
-      $current=0;
+      $current = 0;
    else
       $current = $nbPages;
-   $xtab = $arch==0 ?
+   $xtab = $arch == 0 ?
       news_aff("libre", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount) :
       news_aff("archive", "WHERE archive='$arch' ORDER BY sid DESC LIMIT $start,$maxcount", $start, $maxcount) ;
 
-   $ibid=0;
-   $story_limit=0;
-   while (($story_limit<$maxcount) and ($story_limit<sizeof($xtab))) {
+   $ibid = 0;
+   $story_limit = 0;
+   while (($story_limit < $maxcount) and ($story_limit < sizeof($xtab))) {
       list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant) = $xtab[$story_limit];
       $story_limit++;
-      $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate("Page spéciale pour impression").'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a>';
-      $sendF = '<a class="ms-4" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate("Envoyer cet article à un ami").'" data-bs-toggle="tooltip" data-bs-placement="left" ></i></a>';
+      $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate('Page spéciale pour impression').'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a>';
+      $sendF = '<a class="ms-4" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate('Envoyer cet article à un ami').'" data-bs-toggle="tooltip" data-bs-placement="left" ></i></a>';
       $sid = $s_sid;
       if ($catid != 0) {
          $resultm = sql_query("SELECT title FROM ".$NPDS_Prefix."stories_cat WHERE catid='$catid'");
@@ -92,7 +92,7 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
       <div class="d-flex my-3 justify-content-between flex-wrap">
       <ul class="pagination pagination-sm">
          <li class="page-item disabled"><a class="page-link" href="#" >'.translate("Nb. d'articles").' '.$count.' </a></li>
-         <li class="page-item disabled"><a class="page-link" href="#" >'.$nbPages.' '.translate("pages").'</a></li>
+         <li class="page-item disabled"><a class="page-link" href="#" >'.$nbPages.' '.translate('pages').'</a></li>
       </ul>';
 
    echo paginate('modules.php?ModPath=archive-stories&amp;ModStart=archive-stories&amp;start=', '&amp;count='.$count, $nbPages, $current, 1, $maxcount, $start);
@@ -100,5 +100,5 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
 }
 if ($SuperCache)
    $cache_obj->endCachingPage();
-include("footer.php");
+include 'footer.php';
 ?>

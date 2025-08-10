@@ -25,7 +25,7 @@ $f_meta_nom ='geoloc';
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 include ('modules/'.$ModPath.'/lang/geoloc.lang-'.$language.'.php');
-$f_titre= geoloc_translate("Configuration du module Geoloc");
+$f_titre= geoloc_translate('Configuration du module Geoloc');
 
    $subop          = isset($subop) ? $subop : '' ;
    $geo_ip         = isset($geo_ip) ? $geo_ip : '' ;
@@ -44,22 +44,22 @@ function vidip(){
 
 function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup) {
    global $hlpfile, $language, $f_meta_nom, $f_titre, $adminimg, $dbname, $NPDS_Prefix, $subop;
-   include ('modules/'.$ModPath.'/geoloc.conf');
-   $hlpfile='modules/'.$ModPath.'/doc/aide_admgeo_'.$language.'.html';
+   include 'modules/'.$ModPath.'/geoloc.conf';
+   $hlpfile = 'modules/'.$ModPath.'/doc/aide_admgeo_'.$language.'.html';
 
-   $result=sql_query("SELECT CONCAT(ROUND(((DATA_LENGTH + INDEX_LENGTH - DATA_FREE) / 1024 / 1024), 2), ' Mo') AS TailleMo FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$dbname' AND TABLE_NAME = ".$NPDS_Prefix."'ip_loc'");
+   $result = sql_query("SELECT CONCAT(ROUND(((DATA_LENGTH + INDEX_LENGTH - DATA_FREE) / 1024 / 1024), 2), ' Mo') AS TailleMo FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$dbname' AND TABLE_NAME = ".$NPDS_Prefix."'ip_loc'");
    $row = sql_fetch_array($result);
 
-   $ar_fields=array('C3','C4','C5','C6','C7','C8');
+   $ar_fields = array('C3','C4','C5','C6','C7','C8');
    foreach($ar_fields as $k => $v){
-      $req='';
-      $req=sql_query("SELECT $v FROM users_extend WHERE $v !=''");
-      if(!sql_num_rows($req)) $dispofield[]=$v;
+      $req = '';
+      $req = sql_query("SELECT $v FROM users_extend WHERE $v !=''");
+      if(!sql_num_rows($req)) $dispofield[] = $v;
    }
 
    GraphicAdmin($hlpfile);
    adminhead ($f_meta_nom, $f_titre, $adminimg);
-   $fonts_svg=array(
+   $fonts_svg = array(
       ['user','uf007','Utilisateur'],
       ['userCircle','uf2bd','Utilisateur en cercle'],
       ['users','uf0c0','Utilisateurs'],
@@ -78,30 +78,30 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
       ['fire','uf06d','Flamme'],
       ['comment','uf075','Commentaire']
    );
-   $fond_provider=array(
-      ['OSM', geoloc_translate("Plan").' (OpenStreetMap)'],
-      ['natural-earth-hypso-bathy', geoloc_translate("Relief").' (mapbox)'],
-      ['geography-class', geoloc_translate("Carte").' (mapbox)'],
-      ['microsoft.base.road', geoloc_translate("Plan").' (Azure maps)'],
-      ['microsoft.imagery', geoloc_translate("Satellite").' (Azure maps)'],
-      ['microsoft.base.darkgrey', geoloc_translate("Sombre").' (Azure maps)'],
-      ['sat-google', geoloc_translate("Satellite").' (Google maps)'],
-      ['World_Imagery', geoloc_translate("Satellite").' (ESRI)'],
-      ['World_Shaded_Relief', geoloc_translate("Relief").' (ESRI)'],
-      ['World_Physical_Map', geoloc_translate("Physique").' (ESRI)'],
-      ['World_Topo_Map', geoloc_translate("Topo").' (ESRI)'],
-      ['stamen_terrain', geoloc_translate("Plan").' (Stadia maps)'],
-      ['stamen_watercolor', geoloc_translate("Dessin").' (Stadia maps)'],
-      ['alidade_smooth', geoloc_translate("Plan clair").' (Stadia maps)'],
-      ['stamen_toner', geoloc_translate("Plan sombre").' (Stadia maps)'],
+   $fond_provider = array(
+      ['OSM', geoloc_translate('Plan').' (OpenStreetMap)'],
+      ['natural-earth-hypso-bathy', geoloc_translate('Relief').' (mapbox)'],
+      ['geography-class', geoloc_translate('Carte').' (mapbox)'],
+      ['microsoft.base.road', geoloc_translate('Plan').' (Azure maps)'],
+      ['microsoft.imagery', geoloc_translate('Satellite').' (Azure maps)'],
+      ['microsoft.base.darkgrey', geoloc_translate('Sombre').' (Azure maps)'],
+      ['sat-google', geoloc_translate('Satellite').' (Google maps)'],
+      ['World_Imagery', geoloc_translate('Satellite').' (ESRI)'],
+      ['World_Shaded_Relief', geoloc_translate('Relief').' (ESRI)'],
+      ['World_Physical_Map', geoloc_translate('Physique').' (ESRI)'],
+      ['World_Topo_Map', geoloc_translate('Topo').' (ESRI)'],
+      ['stamen_terrain', geoloc_translate('Plan').' (Stadia maps)'],
+      ['stamen_watercolor', geoloc_translate('Dessin').' (Stadia maps)'],
+      ['alidade_smooth', geoloc_translate('Plan clair').' (Stadia maps)'],
+      ['stamen_toner', geoloc_translate('Plan sombre').' (Stadia maps)'],
    );
-   if($api_key_azure=='' and $api_key_mapbox=='')
+   if($api_key_azure == '' and $api_key_mapbox == '')
       unset($fond_provider[1],$fond_provider[2],$fond_provider[3],$fond_provider[4],$fond_provider[5]);
-   elseif($api_key_azure=='')
+   elseif($api_key_azure == '')
       unset($fond_provider[3],$fond_provider[4],$fond_provider[5]);
-   elseif($api_key_mapbox=='')
+   elseif($api_key_mapbox == '')
       unset($fond_provider[1],$fond_provider[2]);
-   $aff='';
+   $aff = '';
    $aff .= '
    <hr />
    <a href="modules.php?ModPath=geoloc&amp;ModStart=geoloc"><i class="fa fa-globe fa-lg me-2 "></i>'.geoloc_translate('Carte').'</a>
@@ -141,8 +141,8 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                <input type="text" class="form-control" name="ch_img" id="ch_img" placeholder="Chemin des images" value="'.$ch_img.'" required="required" />
             </div>
          </div>';
-   $cky_geo=''; $ckn_geo='';
-   if ($geo_ip==1) $cky_geo='checked="checked"'; else $ckn_geo='checked="checked"';
+   $cky_geo = ''; $ckn_geo = '';
+   if ($geo_ip == 1) $cky_geo='checked="checked"'; else $ckn_geo='checked="checked"';
    $aff .= '
          <div class="mb-3 row">
             <label class="col-sm-6 col-form-label" for="geo_ip">'.geoloc_translate('Géolocalisation des IP').'</label>
@@ -299,13 +299,13 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
                   <div class="input-group">';
                      $fafont='';
                foreach ($fonts_svg as $v) {
-                  if($v[0]==$f_mbg) $fafont = '&#x'.substr($v[1],1).';'; 
+                  if($v[0] == $f_mbg) $fafont = '&#x'.substr($v[1],1).';'; 
                }
                $aff .= '
                      <span id="vis_ic" class="input-group-text"><span class="fa fa-lg" id="fontchoice">'.$fafont.'</span></span>
                      <select class="form-select input-lg" name="f_mbg" id="f_mbg">';
    foreach ($fonts_svg as $v) {
-      $sel= ($v[0]==$f_mbg) ? 'selected="selected"' : '' ;
+      $sel= ($v[0] == $f_mbg) ? 'selected="selected"' : '' ;
       $aff .= '
                          <option '.$sel.' value="'.$v[0].'">'.$v[2].'</option>';
    }
@@ -496,7 +496,7 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
          <div class="col-sm-6">
             <select class="form-select" name="cartyp_b" id="cartyp_b">';
    foreach ($fond_provider as $k => $v) {
-      $sel = $v[0]==$cartyp_b ? 'selected="selected"': '';
+      $sel = $v[0] == $cartyp_b ? 'selected="selected"': '';
       switch($k){
          case '0': $aff .= '<optgroup label="OpenStreetMap">';break;
          case '1': $aff .= '<optgroup label="Mapbox">';break;
@@ -587,44 +587,44 @@ function Configuregeoloc($subop, $ModPath, $ModStart, $ch_lat, $ch_lon, $cartyp,
        Icônes en service
    </div>
 </div>';
-$source_fond='';
+$source_fond = '';
 switch ($cartyp) {
    case 'OSM':
-      $source_fond='new ol.source.OSM()';
+      $source_fond = 'new ol.source.OSM()';
    break;
    case 'sat-google':
-      $source_fond=' new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"})';
+      $source_fond = 'new ol.source.XYZ({url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",crossOrigin: "Anonymous", attributions: " &middot; <a href=\"https://www.google.at/permissions/geoguidelines/attr-guide.html\">Map data ©2015 Google</a>"})';
    break;
    case 'microsoft.base.road': case 'microsoft.imagery': case 'microsoft.base.darkgrey':
-      $source_fond='new ol.source.ImageTile({
+      $source_fond = 'new ol.source.ImageTile({
          url: `https://atlas.microsoft.com/map/tile?subscription-key='.$api_key_azure.'&api-version=2.0&tilesetId=`+cartyp+`&zoom={z}&x={x}&y={y}&tileSize=256&language=EN`,
          crossOrigin: "anonymous",
          attributions: `© ${new Date().getFullYear()} TomTom, Microsoft`
          })';
    break;
    case 'natural-earth-hypso-bathy': case 'geography-class':
-      $source_fond=' new ol.source.TileJSON({
+      $source_fond = 'new ol.source.TileJSON({
          url: "https://api.tiles.mapbox.com/v4/mapbox.'.$cartyp_b.'.json?access_token='.$api_key_mapbox.'"
       })';
    break;
    case 'World_Imagery': case 'World_Shaded_Relief': case 'World_Physical_Map': case 'World_Topo_Map':
-      $source_fond='new ol.source.XYZ({
+      $source_fond = 'new ol.source.XYZ({
          attributions: ["Powered by Esri", "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"],
          attributionsCollapsible: true,
          url: "https://services.arcgisonline.com/ArcGIS/rest/services/'.$cartyp.'/MapServer/tile/{z}/{y}/{x}",
          maxZoom: 23
       })';
-      $layer_id= $cartyp;
+      $layer_id = $cartyp;
    break;
-   case "stamen_terrain": case "stamen_watercolor": case "alidade_smooth": case "stamen_toner":
-      $source_fond='new ol.source.StadiaMaps({})';
-      $max_r='40000';
-      $min_r='0';
-      $layer_id= $cartyp;
+   case 'stamen_terrain': case 'stamen_watercolor': case 'alidade_smooth': case 'stamen_toner':
+      $source_fond = 'new ol.source.StadiaMaps({})';
+      $max_r = '40000';
+      $min_r = '0';
+      $layer_id = $cartyp;
    break;
 
    default:
-   $source_fond='new ol.source.OSM()';
+   $source_fond = 'new ol.source.OSM()';
 }
 $scri ='';
 $scri .= '
@@ -997,7 +997,7 @@ adminfoot('','','','');
 function SaveSetgeoloc($api_key_azure, $api_key_mapbox, $ch_lat, $ch_lon, $cartyp, $geo_ip, $api_key_ipdata, $key_lookup, $co_unit, $mark_typ, $ch_img, $nm_img_acg, $nm_img_mbcg, $nm_img_mbg, $w_ico, $h_ico, $f_mbg, $mbg_sc, $mbg_t_ep, $mbg_t_co, $mbg_t_op, $mbg_f_co, $mbg_f_op, $mbgc_sc, $mbgc_t_ep, $mbgc_t_co, $mbgc_t_op, $mbgc_f_co, $mbgc_f_op, $acg_sc, $acg_t_ep, $acg_t_co, $acg_t_op, $acg_f_co, $acg_f_op, $cartyp_b, $img_mbgb, $w_ico_b, $h_ico_b, $h_b, $z_b, $ModPath, $ModStart) {
 
 //==> modifie le fichier de configuration
-   $file_conf = fopen("modules/geoloc/geoloc.conf", "w+");
+   $file_conf = fopen('modules/geoloc/geoloc.conf', 'w+');
    $content = "<?php \n";
    $content .= "/************************************************************************/\n";
    $content .= "/* DUNE by NPDS                                                         */\n";

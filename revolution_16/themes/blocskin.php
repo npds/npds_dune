@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -22,11 +22,11 @@ $skinOn = '';
 if ($user) {
    $user2 = base64_decode($user);
    $cookie = explode(':', $user2);
-   $ibix=explode('+', urldecode($cookie[9]));
-   $skinOn = substr($ibix[0],-3)!='_sk' ? '' : $ibix[1];
+   $ibix = explode('+', urldecode($cookie[9]));
+   $skinOn = substr($ibix[0],-3) != '_sk' ? '' : $ibix[1] ;
 }
 else
-   $skinOn = substr($Default_Theme,-3)!='_sk' ? '' : $Default_Skin;
+   $skinOn = substr($Default_Theme,-3) != '_sk' ? '' : $Default_Skin ;
 
 $content = '';
 if($skinOn != '')
@@ -108,6 +108,6 @@ if($skinOn != '')
    //]]>
 </script>';
 else
-   $content.='<div class="alert alert-danger">Thème non skinable</div>';
+   $content .= '<div class="alert alert-danger">Thème non skinable</div>';
 $content = aff_langue($content);
 ?>

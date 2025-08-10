@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Collab WS-Pad 1.5 by Developpeur and Jpb                             */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,7 +16,7 @@
 /************************************************************************/
 
 global $surlignage, $font_size, $auteur, $groupe;
-$tmp.="
+$tmp .= "
 toolbar : 'image | npds_img npds_gperso npds_gmns npds_gupl',
 setup: function (ed) {
    ed.options.register('tiny_mce_groupe', {

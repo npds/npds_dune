@@ -2,19 +2,19 @@
 /************************************************************************/
 /* DUNE by NPDS                                                         */
 /*                                                                      */
-/* NPDS Copyright (c) 2001-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2001-2025 by Philippe Brunier                     */
 /* =========================                                            */
 /*                                                                      */
 /* Multi DataBase Support - MysqlI                                      */
 /* Copyright (c) JIRECK 2013                                            */
-/* Mise à jour 2017/2024 jpb, nicolas2                                  */
+/* Mise à jour 2017/2025 jpb, nicolas2                                  */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
-global $debugmysql; 
+global $debugmysql;
 define('NPDS_DEBUG', $debugmysql);
-$sql_nbREQ=0;
+$sql_nbREQ = 0;
 
 // Connexion
    function sql_connect() {
@@ -35,7 +35,7 @@ $sql_nbREQ=0;
          $mysql_error = $e->getMessage();
          error_log("Erreur de connexion SQL : " . $mysql_error);
          if (defined('NPDS_DEBUG') && NPDS_DEBUG)
-            Ecr_Log('mysql', "Erreur de connexion SQL :" . $mysql_error, ""); 
+            Ecr_Log('mysql', 'Erreur de connexion SQL :' . $mysql_error, ''); 
          return false;
        }
    }
@@ -43,11 +43,11 @@ $sql_nbREQ=0;
    function sql_error() {
       global $dblink;
       if (!$dblink)
-        return "Pas de connexion à la base de données";
+        return 'Pas de connexion à la base de données';
       $error = mysqli_error($dblink);
       if ($error) {
         // Log l'erreur pour le debugging
-        error_log("Erreur SQL : " . $error);
+        error_log('Erreur SQL : ' . $error);
       }
       return $error;
    }
@@ -64,8 +64,8 @@ $sql_nbREQ=0;
          $value = mysqli_real_escape_string($dblink, $value);
          // Debug
          if (defined('NPDS_DEBUG') && NPDS_DEBUG) {
-            error_log("Valeur avant échappement : " . $value);
-            error_log("Valeur après échappement : " . $value);
+            error_log('Valeur avant échappement : ' . $value);
+            error_log('Valeur après échappement : ' . $value);
          }
          return $value;
       };
@@ -186,9 +186,8 @@ $sql_nbREQ=0;
    function sql_select_db() {
       global $dbname, $dblink;
       if (!mysqli_select_db($dblink, $dbname))
-         return (false);
-      else
-         return (true);
+         return false;
+      return true;
    }
 // Libère toute la mémoire et les ressources utilisées par la requête $query_id
    function sql_free_result($q_id) {

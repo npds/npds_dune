@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -19,7 +19,7 @@
 if (!stristr($_SERVER['PHP_SELF'],'install.php')) die();
 
 function etape_7() {
-   include_once ('config.php');
+   include_once 'config.php';
    global $langue, $stage, $minpass, $NPDS_Prefix, $qi;
    $stage = 7;
    echo '
@@ -41,7 +41,7 @@ function etape_7() {
                      </div>
                      <div class="form-floating mb-3">
                         <input class="form-control" type="password" name="adminpass2" id="adminpass2" minlength="'.$minpass.'" maxlength="20" required="required" />
-                        <label for="adminpass2">'.ins_translate('Mot de passe').'... '.ins_translate("Une seconde fois").'</label>
+                        <label for="adminpass2">'.ins_translate('Mot de passe').'... '.ins_translate('Une seconde fois').'</label>
                         <div class="d-flex justify-content-start w-100 small text-help py-1"><div class="ms-auto" id="countcar_adminpass2"></div></div>
                      </div>
                      <input type="hidden" name="langue" value="'.$langue.'" />
@@ -62,7 +62,7 @@ function etape_7() {
                   compare: function() {
                      return admin_password.querySelector(\'[name="adminpass1"]\').value;
                   },
-               message: "'.ins_translate("Les deux mots de passe ne sont pas identiques.").'"
+               message: "'.ins_translate('Les deux mots de passe ne sont pas identiques.').'"
                }
             }
          }

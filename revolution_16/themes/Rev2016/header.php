@@ -11,7 +11,7 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 global $NPDS_Prefix, $pdst;
-$pdst='2'; 
+$pdst = '2'; 
 
 $blg_actif = sql_query("SELECT * FROM ".$NPDS_Prefix."lblocks WHERE actif ='1' AND member ='0'");
 $nb_blg_actif = sql_num_rows($blg_actif);
@@ -41,19 +41,19 @@ La variable $pdst permet de gérer le nombre et la disposition des colonnes
 
 if (($nb_blg_actif == 0) and ($nb_bld_actif == 0)){
    switch ($pdst) {
-      case '2': $pdst='-1'; break;
+      case '2': $pdst = '-1'; break;
    }
 }
 
 // ContainerGlobal permet de transmettre à Theme-Dynamic un élément de personnalisation avant
 // le chargement de header.html / Si vide alors la class body est chargée par défaut par Theme dynamique
-$ContainerGlobal='
+$ContainerGlobal = '
 <div id="container">';
 
 // Ne supprimez pas cette ligne / Don't remove this line
-   require_once("themes/themes-dynamic/header.php");
+   require_once 'themes/themes-dynamic/header.php';
    global $powerpack;
-   if (!isset($powerpack)) {include ("powerpack.php");}
+   if (!isset($powerpack)) include 'powerpack.php';
 
 /************************************************************************/
 /*     Le corps de page de votre Site - En dessous du Header            */

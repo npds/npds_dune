@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2024 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
 /* IZ-Xinstall version : 1.3                                            */
 /*                                                                      */
 /* Auteurs : v.0.1.0 EBH (plan.net@free.fr)                             */
@@ -28,7 +28,7 @@ function etape_9() {
             <input type="hidden" name="langue" value="'.$langue.'" />
             <input type="hidden" name="stage" value="'.$stage.'" />
             <input type="hidden" name="op" value="write_ok" />
-            <button type="submit" class="btn btn-success">'.ins_translate("Quitter").'</button>
+            <button type="submit" class="btn btn-success">'.ins_translate('Quitter').'</button>
          </form>
       </div>';
 }
