@@ -107,6 +107,7 @@ function defaultDisplay() {
       </div>
    </form>';
    include 'footer.php';
+}
 
 function PreviewStory($name, $subject, $story, $bodytext, $topic, $dd_pub, $fd_pub, $dh_pub, $fh_pub, $epur) {
    global $tipath, $NPDS_Prefix, $topicimage;
@@ -243,7 +244,7 @@ function submitStory($subject, $story, $bodytext, $topic, $date_debval, $date_fi
 settype($op,'string');
 switch ($op) {
    case 'Prévisualiser':
-   case translate("Prévisualiser"):
+   case translate('Prévisualiser'):
       if ($user) {
          $userinfo = getusrinfo($user);
          $name = $userinfo['uname'];

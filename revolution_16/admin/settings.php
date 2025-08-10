@@ -479,7 +479,7 @@ function Configure() {
             <label class="col-form-label col-sm-4" for="xultramode">'.adm_translate('Activer export-news').'</label>
             <div class="col-sm-8 my-2">';
    $cky = ''; $ckn = '';
-   if ($ultramode == 1) {$cky = 'checked="checked"'; $ckn = '';} else {$cky = ''; $ck n= 'checked="checked"';}
+   if ($ultramode == 1) {$cky = 'checked="checked"'; $ckn = '';} else {$cky = ''; $ckn = 'checked="checked"';}
    echo '
                <div class="form-check form-check-inline">
                   <input type="radio" class="form-check-input" id="xultramode_y" name="xultramode" value="1" '.$cky.' />
