@@ -226,11 +226,11 @@ function language_iso($l,$s,$c) {
         default:
         break;
     }
-    if ($c! == 1) $ietf = $iso_lang;
+    if ($c !== 1) $ietf = $iso_lang;
     if (($l == 1) and ($c == 1)) $ietf = $iso_lang.$s.$iso_country;
     if (($l !== 1) and ($c == 1)) $ietf = $iso_country;
     if (($l !== 1) and ($c !== 1)) $ietf = '';
-    if (($ l== 1) and ($c !== 1)) $ietf = $iso_lang;
+    if (($l == 1) and ($c !== 1)) $ietf = $iso_lang;
     return ($ietf);
 }
 

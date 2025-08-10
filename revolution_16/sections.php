@@ -86,7 +86,7 @@ function listsections($rubric) {
                <a href="#" class="arrow-toggle text-primary" data-bs-toggle="collapse" data-bs-target="#sec'.$secid.'" aria-expanded="true" aria-controls="sec'.$secid.'"><i class="toggle-icon fa fa-caret-up"></i></a>&nbsp;';
                   $aff1 = aff_langue($secname).'<span class=" float-end">#NEW#<span class="badge bg-secondary" title="'.translate('Articles').'" data-bs-toggle="tooltip" data-bs-placement="left">'.$nb_art.'</span></span>';
                   if ($image != '') {
-                     if (file_exists('images/sections/'.$image)) $imgtmp = 'images/sections/.'$image; else $imgtmp = $image;
+                     if (file_exists('images/sections/'.$image)) $imgtmp = 'images/sections/'.$image; else $imgtmp = $image;
                      $suffix = strtoLower(substr(strrchr(basename($image), '.'), 1 ));
                      $aff1 .= '<img class="img-fluid" src="'.$imgtmp.'" alt="'.aff_langue($secname).'" /><br />';
                   }

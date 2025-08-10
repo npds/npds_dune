@@ -18,7 +18,7 @@
 /************************************************************************/
 
 // Bloque le lancement de l'install si IZ-Xinstall.ok existe
-if (file_exists('IZ-Xinstall.ok')) include'admin/die.php');
+if (file_exists('IZ-Xinstall.ok')) include'admin/die.php';
 
 /*
 # Inclusions des lib et contrôle versions
@@ -190,7 +190,7 @@ if($stage == 4) {
 */
 if($stage == 5) {
    $out = '';
-   for($i = 1 ;$ i<= 5; $i++) {
+   for($i = 1 ; $i <= 5; $i++) {
       ${"colorst".$i} = '-success';
    }
    $colorst6 = ' active';

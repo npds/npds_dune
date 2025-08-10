@@ -23,7 +23,7 @@ function etape_2() {
    $stage = 2;
    if(file_exists('install/languages/licence-'.language_iso(1,0,0).'.txt')) {
       $licence_file = 'install/languages/licence-'.language_iso(1,0,0).'.txt';
-      $myfile = @fopen($licence_file,"r");
+      $myfile = @fopen($licence_file,'r');
       $licence_text = fread($myfile, filesize($licence_file));
       fclose($myfile);
       $nohalt = true;
