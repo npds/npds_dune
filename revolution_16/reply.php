@@ -25,7 +25,7 @@ settype($cancel,'string');
 if ($cancel)
    header('Location: viewtopic.php?topic='.$topic.'&forum='.$forum);
 
-$rowQ1=Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
+$rowQ1 = Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
    forumerror('0001');
 $myrow = $rowQ1[0];
@@ -115,7 +115,7 @@ if ($submitS) {
       }
       $image_subject = removeHack($image_subject);
       $message = addslashes($message);
-      $time = date("Y-m-d H:i:s",time() + ((integer)$gmt * 3600));
+      $time = date('Y-m-d H:i:s',time() + ((integer)$gmt * 3600));
 
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (post_idH, topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('0', '$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
       if (!$result = sql_query($sql))
@@ -144,7 +144,7 @@ if ($submitS) {
          include_once 'language/lang-multi.php';
          $resultZ = sql_query("SELECT topic_title FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'");
          list($title_topic) = sql_fetch_row($resultZ);
-         $subject = strip_tags($forum_name)."/".$title_topic." : ".html_entity_decode(translate_ml($m['user_langue'], "Une réponse à votre dernier Commentaire a été posté."),ENT_COMPAT | ENT_HTML401,'UTF-8');
+         $subject = strip_tags($forum_name).'/'.$title_topic.' : '.html_entity_decode(translate_ml($m['user_langue'], 'Une réponse à votre dernier Commentaire a été posté.'),ENT_COMPAT | ENT_HTML401,'UTF-8');
          $message = $m['uname']."\n\n";
          $message .= translate_ml($m['user_langue'], "Vous recevez ce Mail car vous avez demandé à être informé lors de la publication d'une réponse.")."\n";
          $message .= translate_ml($m['user_langue'], "Pour lire la réponse")." : ";
@@ -166,7 +166,7 @@ if ($submitS) {
          redirect_url("viewtopic.php?forum=$forum&topic=$topic&start=9999#lastpost");
          die();
       }
-      redirect_url('viewforum.php?forum'.$forum);
+      redirect_url('viewforum.php?forum='.$forum);
    } else {
       echo '
    <h4 class="my-3">'.translate('Poster une réponse dans le sujet').'</h4>
@@ -189,14 +189,14 @@ if ($submitS) {
    if ($smilies) {
       if(isset($user)) {
          if ($posterdata['user_avatar'] != '') {
-            if (stristr($posterdata['user_avatar'],"users_private"))
+            if (stristr($posterdata['user_avatar'],'users_private'))
                $imgava = $posterdata['user_avatar'];
             else
-               if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgava=$ibid;} else {$imgava="images/forum/avatar/".$posterdata['user_avatar'];}
+               $imgava = theme_image('forum/avatar/'.$posterdata['user_avatar']) ?: 'images/forum/avatar/'.$posterdata['user_avatar'];
          }
       }
       else
-         if ($ibid=theme_image("forum/avatar/blank.gif")) {$imgava=$ibid;} else {$imgava="images/forum/avatar/blank.gif";}
+         $imgava = theme_image('forum/avatar/blank.gif') ?: 'images/forum/avatar/blank.gif' ;
    }
 
    $moderator = get_moderator($mod);
@@ -216,10 +216,11 @@ if ($submitS) {
       if ($modera['user_avatar'] != '') {
          if (stristr($modera['user_avatar'],'users_private'))
             $imgtmp = $modera['user_avatar'];
-         else {
-            if ($ibid=theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-         }
+         else
+            $imgtmp = theme_image('forum/avatar/'.$modera['user_avatar']) ?: 'images/forum/avatar/'.$modera['user_avatar'] ;
       }
+      else
+         $imgtmp = theme_image('forum/avatar/blank.gif') ?: 'images/forum/avatar/blank.gif' ;
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava me-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
       if (isset($user))
          if (($userdata[1] == $moderator[$i])) $Mmod = true;
@@ -456,11 +457,10 @@ if ($submitS) {
          if ($smilies) {
             if($myrow['poster_id'] !== '0') {
                if ($posterdata['user_avatar'] != '') {
-                  if (stristr($posterdata['user_avatar'],"users_private"))
-                     $imgtmp=$posterdata['user_avatar'];
-                  else {
-                     if ($ibid=theme_image("forum/avatar/".$posterdata['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$posterdata['user_avatar'];}
-                  }
+                  if (stristr($posterdata['user_avatar'],'users_private'))
+                     $imgtmp = $posterdata['user_avatar'];
+                  else
+                     $imgtmp = theme_image('forum/avatar/'.$posterdata['user_avatar']) ?: 'images/forum/avatar/'.$posterdata['user_avatar'];
                }
 
                echo '
@@ -479,9 +479,10 @@ if ($submitS) {
          echo '
                   <span class="float-end">';
          if ($myrow['image'] != '') {
-            if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
+            $imgtmp = theme_image('forum/subject/'.$myrow['image']) ?: 'images/forum/subject/'.$myrow['image'];
             echo '<img class="n-smil" src="'.$imgtmp.'"  alt="" />';
-         } 
+         }
+         // à revoir le else ... probablement pas nécessaire et il faudrait changer l'image 
          else {
             if ($ibid=theme_image("forum/subject/icons/posticon.gif")) {$imgtmp=$ibid;} else {$imgtmp="images/forum/icons/posticon.gif";}
             echo '<img class="n-smil" src="'.$imgtmp.'" alt="" />';

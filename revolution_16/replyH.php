@@ -22,7 +22,7 @@ global $NPDS_Prefix;
 
 settype($cancel,'string');
 if ($cancel)
-   header('Location: viewtopicH.php?topic='$topic.'&forum='.$forum);
+   header('Location: viewtopicH.php?topic='.$topic.'&forum='.$forum);
 
 $rowQ1 = Q_Select ("SELECT forum_name, forum_moderator, forum_type, forum_pass, forum_access, arbre FROM ".$NPDS_Prefix."forums WHERE forum_id = '$forum'", 3600);
 if (!$rowQ1)
@@ -39,7 +39,7 @@ if ($forum_access == 9)
    header('Location: forum.php');
 if (is_locked($topic))
    forumerror('0025');
-if (!does_exists($forum, "forum") || !does_exists($topic, "topic"))
+if (!does_exists($forum, 'forum') || !does_exists($topic, 'topic'))
    forumerror('0026');
 
 settype($submitS,'string');
@@ -48,7 +48,7 @@ if ($submitS) {
    if ($message == '') $stop = 1;
    if (!isset($user)) {
       if ($forum_access == 0) {
-         $userdata = array("uid" => 1);
+         $userdata = array('uid' => 1);
          $modo = '';
          include 'header.php';
       } else {
@@ -80,7 +80,7 @@ if ($submitS) {
       }
       else
          $userdata[0] = 0;
-      $modo=user_is_moderator($userdata[0],$userdata[2],$forum_access);
+      $modo = user_is_moderator($userdata[0],$userdata[2],$forum_access);
       if ($forum_access == 2) {
          if (!$modo)
             forumerror('0027');
@@ -138,13 +138,13 @@ if ($submitS) {
       $m = sql_fetch_assoc($result);
       $sauf = '';
       if (($m['topic_notify'] == 1) && ($m['uname'] != $userdata['uname'])) {
-         include_once("language/lang-multi.php");
+         include_once 'language/lang-multi.php';
          $resultZ = sql_query("SELECT topic_title FROM ".$NPDS_Prefix."forumtopics WHERE topic_id='$topic'");
          list($title_topic) = sql_fetch_row($resultZ);
-         $subject = strip_tags($forum_name)."/".$title_topic." : ".html_entity_decode(translate_ml($m['user_langue'], "Une réponse à votre dernier Commentaire a été posté."),ENT_COMPAT | ENT_HTML401,'UTF-8');
+         $subject = strip_tags($forum_name).'/'.$title_topic.' : '.html_entity_decode(translate_ml($m['user_langue'], 'Une réponse à votre dernier Commentaire a été posté.'),ENT_COMPAT | ENT_HTML401,'UTF-8');
          $message = $m['uname']."\n\n";
          $message .= translate_ml($m['user_langue'], "Vous recevez ce Mail car vous avez demandé à être informé lors de la publication d'une réponse.")."\n";
-         $message .= translate_ml($m['user_langue'], "Pour lire la réponse")." : ";
+         $message .= translate_ml($m['user_langue'], 'Pour lire la réponse').' : ';
          $message .= "<a href=\"$nuke_url/viewtopicH.php?topic=$topic&forum=$forum\">$nuke_url/viewtopicH.php?topic=$topic&forum=$forum</a>\n\n";
          include 'signat.php';
          send_email($m['email'], $subject, $message, '', true, 'html', '');
@@ -152,9 +152,8 @@ if ($submitS) {
       }
       global $subscribe;
       if ($subscribe) {
-         if (subscribe_query($userdata['uid'],"forum",$forum)) {
+         if (subscribe_query($userdata['uid'],'forum',$forum))
             $sauf = $userdata['uid'];
-         }
          subscribe_mail('forum',$topic,$forum,'',$sauf);
       }
       if (isset($upload)) {
@@ -188,16 +187,17 @@ if ($submitS) {
    </p>
    <div class="card">
       <div class="card-block-small">
-            '.translate("Modéré par : ");
+            '.translate('Modéré par : ');
    for ($i = 0; $i < count($moderator); $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
-         if (stristr($modera['user_avatar'],"users_private")) {
+         if (stristr($modera['user_avatar'],'users_private'))
             $imgtmp = $modera['user_avatar'];
-         } else {
-            if ($ibid = theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-         }
+         else
+            $imgtmp = theme_image('forum/avatar/'.$modera['user_avatar']) ?: 'images/forum/avatar/'.$modera['user_avatar'] ;
       }
+      else
+         $imgtmp = theme_image('forum/avatar/blank.gif') ?: 'images/forum/avatar/blank.gif' ;
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img width="48" height="48" class=" img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
       if (isset($user))
          if ($userdata[1] == $moderator[$i]) $Mmod = true;
@@ -220,13 +220,12 @@ if ($submitS) {
    if ($forum_access == 0)
       $allow_to_reply = true;
    elseif ($forum_access == 1) {
-      if (isset($user)) {
+      if (isset($user))
          $allow_to_reply = true;
-      }
-   } elseif ($forum_access == 2) {
-      if (user_is_moderator($userdata[0],$userdata[2],$forum_access)) {
+   } 
+   elseif ($forum_access == 2) {
+      if (user_is_moderator($userdata[0],$userdata[2],$forum_access))
          $allow_to_reply = true;
-      }
    }
    if ($topic_status != 0)
       $allow_to_reply = false;
@@ -267,10 +266,9 @@ if ($submitS) {
    putitems('ta_replyh');
    echo '
                   </div>';
-   if ($allow_html == 1)
-      echo '<span class="text-success float-end mt-2" title="HTML '.translate('Activé').'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add();
-   else
-      echo '<span class="text-danger float-end mt-2" title="HTML '.translate('Désactivé').'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>';
+   echo $allow_html == 1 ?
+      '<span class="text-success float-end mt-2" title="HTML '.translate('Activé').'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>'.HTML_Add() :
+      '<span class="text-danger float-end mt-2" title="HTML '.translate('Désactivé').'" data-bs-toggle="tooltip"><i class="fa fa-code fa-lg"></i></span>' ;
    echo '
                </div>
             <div class="card-body">';
@@ -301,16 +299,16 @@ if ($submitS) {
                </div>
                <div class="card-footer p-0">
                   <span class="d-block">
-                     <button class="btn btn-link" type="submit" value="'.translate("Prévisualiser").'" name="submitP" title="'.translate('Prévisualiser').'" data-bs-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
+                     <button class="btn btn-link" type="submit" value="'.translate('Prévisualiser').'" name="submitP" title="'.translate('Prévisualiser').'" data-bs-toggle="tooltip" ><i class="fa fa-eye fa-lg"></i></button>
                   </span>
                </div>
             </div>
          </div>
       </div>
       <div class="mb-3 row">
-         <label class="form-label">'.translate("Options").'</label>';
+         <label class="form-label">'.translate('Options').'</label>';
       if (($allow_html == 1) and ($forum_type != '6') and ($forum_type != '5')) {
-         $checkhtml = (isset($html)) ? 'checked="checked"' : '';
+         $checkhtml = (isset($html)) ? 'checked="checked"' : '' ;
          echo '
          <div class="col-sm-12">
             <div class="checkbox">
