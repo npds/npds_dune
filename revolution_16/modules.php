@@ -27,8 +27,8 @@ function filtre_module($strtmp) {
 if (filtre_module($ModPath) and filtre_module($ModStart)) {
    if (!function_exists('Mysql_Connexion'))
       include 'mainfile.php';
-   if (file_exists('modules/'.$ModPath.'/'.$ModStart.'php')) {
-      include 'modules/'.$ModPath.'/'.$ModStart.'php');
+   if (file_exists('modules/'.$ModPath.'/'.$ModStart.'.php')) {
+      include 'modules/'.$ModPath.'/'.$ModStart.'.php');
       die();
    } else
       Access_Error();
