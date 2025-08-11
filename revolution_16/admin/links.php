@@ -346,7 +346,7 @@ function links() {
       <tbody>';
    global $rupture,$deja_affiches;
    settype ($deja_affiches, "integer");
-   if ($deja_affiches < 0) $sens =- 1; else $sens =+ 1;}
+   if ($deja_affiches < 0) $sens =- 1; else $sens =+ 1;
    $deja_affiches = abs($deja_affiches);
    $result = sql_query("SELECT lid, title, url FROM ".$NPDS_Prefix."links_links ORDER BY lid ASC LIMIT $deja_affiches,$rupture");
    while (list($lid, $title, $url) = sql_fetch_row($result)) {

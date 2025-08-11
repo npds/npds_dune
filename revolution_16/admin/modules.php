@@ -39,7 +39,7 @@ $handle = opendir('modules');
 $modlist = '';
 while (false !== ($file = readdir($handle))) {
    if (!@file_exists('modules/'.$file.'/kernel')) {
-     if (is_dir('modules/.'$file) and ($file != '.') and ($file != '..'))
+     if (is_dir('modules/'.$file) and ($file != '.') and ($file != '..'))
         $modlist .= $file.' ';
    }
 }

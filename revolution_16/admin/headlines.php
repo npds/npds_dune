@@ -51,7 +51,6 @@ function HeadlinesAdmin() {
       $status = ($status == 1) ? 
       '<span class="text-success">'.adm_translate('Actif(s)').'</span>' :
       '<span class="text-danger">'.adm_translate('Inactif(s)').'</span>' ;
-      }
       echo '
             <td>'.$status.'</td>
             <td>

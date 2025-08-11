@@ -637,7 +637,7 @@ function ultramode() {
    global $NPDS_Prefix, $nuke_url, $storyhome;
    $ultra = 'cache/ultramode.txt';
    $netTOzone = 'cache/net2zone.txt';
-   $file = fopen('$ultra', 'w');
+   $file = fopen($ultra, 'w');
    $file2 = fopen($netTOzone, 'w');
    fwrite($file, "General purpose self-explanatory file with news headlines\n");
    $storynum = $storyhome;

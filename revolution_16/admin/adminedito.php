@@ -52,11 +52,11 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
          $contentJ=substr($contents,strpos($contents,'[jour]') + 6,strpos($contents,'[/jour]') - 6);
          $contentN=substr($contents,strpos($contents,'[nuit]') + 6,strpos($contents,'[/nuit]') - 19 - strlen($contentJ));
       }
-      if (!$contentJ and !$contentN and !strpos($contents,'[/jour]')) $contentJ=$contents;
+      if (!$contentJ and !$contentN and !strpos($contents,'[/jour]')) $contentJ = $contents;
       echo '
       <form id="admineditomod" action="admin.php" method="post" name="adminForm">
          <fieldset>
-         <legend>'.adm_translate("Edito").' :'.$edito_typeL.'</legend>
+         <legend>'.adm_translate('Edito').' :'.$edito_typeL.'</legend>
          <div class="mb-3 row">
             <label class="col-form-label col-sm-12" for="XeditoJ">'.adm_translate('Le jour').'</label>
             <div class="col-sm-12">
@@ -132,7 +132,7 @@ function edito($edito_type, $contents, $Xaff_jours, $Xaff_jour, $Xaff_nuit) {
 function edito_mod_save($edito_type, $XeditoJ, $XeditoN, $aff_jours, $aff_jour, $aff_nuit) {
    if ($aff_jours <= 0) $aff_jours = '999';
    if ($edito_type == 'G') {
-      $f p= fopen('static/edito.txt','w');
+      $fp = fopen('static/edito.txt','w');
       fputs($fp,'[jour]'.str_replace('&quot;','"',stripslashes($XeditoJ)).'[/jour][nuit]'.str_replace('&quot;','"',stripslashes($XeditoN)).'[/nuit]');
       fputs($fp,'aff_jours='.$aff_jours);
       fputs($fp,'&aff_jour='.$aff_jour);
@@ -148,7 +148,7 @@ function edito_mod_save($edito_type, $XeditoJ, $XeditoN, $aff_jours, $aff_jour, 
       fputs($fp,'&aff_date='.time());
       fclose($fp);
    }
-   global $aid; Ecr_Log('security', "editoSave () by AID : $aid", '');
+   global $aid; Ecr_Log('security', 'editoSave () by AID : '.$aid, '');
 
    redirect_url('admin.php?op=Edito');
 }
@@ -168,7 +168,7 @@ switch ($op) {
       } elseif ($edito_type == 'M') {
          if (file_exists('static/edito_membres.txt')) {
             $fp = fopen('static/edito_membres.txt','r');
-            if (filesize('static/edito_membres.txt')>0)
+            if (filesize('static/edito_membres.txt') > 0)
                $Xcontents = fread($fp,filesize('static/edito_membres.txt'));
             fclose($fp);
          }
@@ -177,11 +177,11 @@ switch ($op) {
       if ($Xcontents == '')
          $Xcontents = 'Edito ...';
       else {
-         $ibid=  strstr($Xcontents,'aff_jours');
+         $ibid = strstr($Xcontents,'aff_jours');
          parse_str($ibid,$Xibidout);
       }
       if ($Xibidout['aff_jours'])
-         $Xcontents=substr($Xcontents,0,strpos($Xcontents,'aff_jours'));
+         $Xcontents = substr($Xcontents,0,strpos($Xcontents,'aff_jours'));
       else {
          $Xibidout['aff_jours'] = 20;
          $Xibidout['aff_jour'] = 'checked="checked"';

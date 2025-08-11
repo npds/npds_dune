@@ -439,7 +439,7 @@ class form_handler {
                break;
 
                case 'select':
-                  $str. = '
+                  $str .= '
                 <div class="mb-3 row">
                    <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'].'</label>
                    <div class="col-sm-8">
@@ -455,7 +455,7 @@ class form_handler {
                         <option value="'.$key.'"';
                      if(array_key_exists('selected', $val) and $val['selected']) 
                         $str .= ' selected="selected" >';
-                     else $str .=' >';
+                     else $str .= ' >';
                      $str .= str_replace('\'','&#039;',$val['en']).'</option>';
                    }
                    $str .= '
@@ -481,11 +481,11 @@ class form_handler {
                         $first_radio = false;
                      }
                      $str .= 'name="'.$this->form_fields[$i]['name'].'" value="'.$key.'"';
-                     $str .= ($val['checked']) ? ' checked="checked" />&nbsp;' : ' />&nbsp;';
+                     $str .= ($val['checked']) ? ' checked="checked" />&nbsp;' : ' />&nbsp;' ;
                      
                      $str .= $val['en'].'&nbsp;&nbsp;';
                   }
-                  if ($num_extender!='no')
+                  if ($num_extender != 'no')
                      $str .= $this->form_fields[$num_extender]['html'];
                   $str .= '
                   </div>
@@ -530,7 +530,7 @@ class form_handler {
 
                case 'date':
                   if ($this->form_fields[$i]['value'] == '') $this->form_fields[$i]['value'] = date($this->form_fields[$i]['model']);
-                  $str.='
+                  $str .= '
                 <div class="mb-3 row">
                   <label class="col-form-label col-sm-4" for="'.$this->form_fields[$i]['name'].'">'.$this->form_fields[$i]['en'];
                   if ($this->form_fields[$i]['obligation']){
