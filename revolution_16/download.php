@@ -38,16 +38,16 @@ function geninfo($did,$out_template) {
       if ($out_template == 1) {
          include 'header.php';
          echo '
-         <h2 class="mb-3">'.translate("Chargement de fichiers").'</h2>
+         <h2 class="mb-3">'.translate('Chargement de fichiers').'</h2>
          <div class="card">
             <div class="card-header"><h4>'.$dfilename.'<span class="ms-3 text-body-secondary small">@'.$durl.'</h4></div>
             <div class="card-body">';
       }
       echo '
-               <p><strong>'.translate("Taille du fichier").' : </strong>';
+               <p><strong>'.translate('Taille du fichier').' : </strong>';
       $Fichier = new File($durl);
       $objZF = new FileManagement;
-      echo ($dfilesize !=0 ) ? $objZF->file_size_format($dfilesize, 1) : $objZF->file_size_auto($durl, 2) ;
+      echo ($dfilesize != 0 ) ? $objZF->file_size_format($dfilesize, 1) : $objZF->file_size_auto($durl, 2) ;
       echo '</p>
                <p><strong>'.translate('Version').'&nbsp;:</strong>&nbsp;'.$dver.'</p>
                <p><strong>'.translate('Date de chargement sur le serveur').'&nbsp;:</strong>&nbsp;'.formatTimes($ddate, IntlDateFormatter::SHORT, IntlDateFormatter::NONE).'</p>
@@ -207,7 +207,7 @@ function listdownloads ($dcategory, $sortby, $sortorder) {
       $sortorder = 'ASC';
    echo '
 <p class="lead">';
-   echo translate("Affichage filtré pour")."&nbsp;<i>";
+   echo translate('Affichage filtré pour')."&nbsp;<i>";
    if ($dcategory == translate('Tous'))
       echo '<b>'.translate('Tous').'</b>';
    else
@@ -392,8 +392,8 @@ function broken($did) {
    if ($user) {
       if ($did) {
          global $notify_email, $notify_message, $notify_from, $nuke_url;
-         settype ($did, "integer");
-         $message = $nuke_url."\n".translate("Téléchargements")." ID : $did\n".translate("Auteur")." $cookie[1] / IP : ".getip()."\n\n";
+         settype ($did, 'integer');
+         $message = $nuke_url."\n".translate('Téléchargements')." ID : $did\n".translate('Auteur')." $cookie[1] / IP : ".getip()."\n\n";
          include 'signat.php';
          send_email($notify_email, html_entity_decode(translate('Rapporter un lien rompu'),ENT_COMPAT | ENT_HTML401,'UTF-8'), nl2br($message), $notify_from , false, 'html', '');
          include 'header.php';
