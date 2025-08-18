@@ -805,7 +805,7 @@ function sub_forum_folder($forum) {
    $result = sql_query("SELECT COUNT(DISTINCT topicid) AS total FROM ".$NPDS_Prefix."forum_read WHERE uid='$userR[0]' AND topicid>'0' AND status!='0' AND forum_id='$forum'");
    list($totalF) = sql_fetch_row($result);
 
-   if ($ibid = theme_image('forum/icons/red_sub_folder.gif')) {$imgtmpR = $ibid;} else $imgtmpR = 'images/forum/icons/red_sub_folder.gif';}
+   if ($ibid = theme_image('forum/icons/red_sub_folder.gif')) {$imgtmpR = $ibid;} else { $imgtmpR = 'images/forum/icons/red_sub_folder.gif';}
    if ($ibid = theme_image('forum/icons/sub_folder.gif')) {$imgtmp = $ibid;} else {$imgtmp = "images/forum/icons/sub_folder.gif";}
 
    if (($totalT-$totalF) > 0)
