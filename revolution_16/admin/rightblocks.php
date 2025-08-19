@@ -78,7 +78,7 @@ function deleterblock($id) {
    global $NPDS_Prefix;
 
    sql_query("DELETE FROM ".$NPDS_Prefix."rblocks WHERE id='$id'");
-   global $aid; Ecr_Log('security', 'DeleteRightBlock('.$id.') by AID : '$aid, '');
+   global $aid; Ecr_Log('security', 'DeleteRightBlock('.$id.') by AID : ', $aid, '');
    header('Location: admin.php?op=blocks');
 }
 
