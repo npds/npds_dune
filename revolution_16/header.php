@@ -213,7 +213,7 @@ function head($tiny_mce_init, $css_pages_ref, $css, $tmp_theme, $skin, $js, $m_d
    if ($Npage_uri > 1) {
       for ($uri = 1; $uri < $Npage_uri; $uri++) {
          if (array_key_exists($page_uri[$uri],$PAGES)) {
-            if (!$$PAGES[$page_uri[$uri]]['run']) {
+            if (!$PAGES[$page_uri[$uri]]['run']) {
                header('Location: '.$PAGES[$page_uri[$uri]]['title']);
                die();
             }
