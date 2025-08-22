@@ -1082,7 +1082,7 @@ CREATE TABLE wspad (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE ip_loc (
-  ip_id smallint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  ip_id mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   ip_long float NOT NULL DEFAULT '0',
   ip_lat float NOT NULL DEFAULT '0',
   ip_visi_pag varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
