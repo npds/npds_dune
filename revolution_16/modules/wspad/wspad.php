@@ -59,7 +59,7 @@ $surlignage = $couleur[hexfromchr($auteur)];
 $ThisFile = "modules.php?ModPath=$ModPath&amp;ModStart=$ModStart";
 
 function Liste_Page() {
-   global $NPDS_Prefix, $ModPath, $ModStart, $ThisFile, $gmt, $auteur, $groupe, $couleur;
+   global $NPDS_Prefix, $ModPath, $ModStart, $ThisFile, $auteur, $groupe, $couleur;
    echo '
    <script type="text/javascript">
    //<![CDATA[
@@ -238,7 +238,7 @@ function Liste_Page() {
 }
 
 function Page($page, $ranq) {
-   global $NPDS_Prefix, $ModPath, $ModStart, $gmt, $auteur, $groupe, $mess;
+   global $NPDS_Prefix, $ModPath, $ModStart, $auteur, $groupe, $mess;
    $tmp = "
    <script type='text/javascript'>
       //<![CDATA[
