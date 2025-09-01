@@ -23,7 +23,7 @@ global $language;
 $hlpfile = 'manuels/'.$language.'/submissions.html';
 
 function submissions() {
-   global $hlpfile, $NPDS_Prefix, $aid, $radminsuper, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $NPDS_Prefix, $aid, $radminsuper, $f_meta_nom, $f_titre, $adminimg, $anonymous;
    $dummy = 0;
    include 'header.php';
    GraphicAdmin($hlpfile);
@@ -61,14 +61,15 @@ function submissions() {
                if (trim($topicadminX[$i]) == $aid) $affiche = true;
             }
          }
+         $avatar_anonyme = '<img class="me-1" src="images/forum/avatar/blank.gif" height="24" width="24" alt="avatar anonyme" loading="lazy" />';
          echo '
          <tr>
-            <td>'.userpopover($uname,'40',2).' '.$uname.'</td>
+            <td>'.($uname != $anonymous ? userpopover($uname,'40',2) : $avatar_anonyme).' '.$uname.'</td>
             <td>';
          if ($subject == '') $subject = adm_translate('Aucun Sujet');
          $subject = aff_langue($subject);
          if ($affiche)
-            echo '<img class=" " src="images/topics/'.$topicimage.'" height="30" width="30" alt="avatar" />&nbsp;<a href="admin.php?op=topicedit&amp;topicid='.$topic.'" class="adm_tooltip">'.aff_langue($topictext).'</a></td>
+            echo '<img class="me-1" src="images/topics/'.$topicimage.'" height="30" width="30" alt="logo-sujet" /><a href="admin.php?op=topicedit&amp;topicid='.$topic.'" class="adm_tooltip">'.aff_langue($topictext).'</a></td>
              <td align="left"><a href="admin.php?op=DisplayStory&amp;qid='.$qid.'">'.ucfirst($subject).'</a></td>';
          else
             echo aff_langue($topictext).'</td>
