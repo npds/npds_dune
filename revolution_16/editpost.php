@@ -68,7 +68,7 @@ if ($submitS) {
       $message .= "\n\n".translate('Message édité par')." : ".$userdata['uname']." / ".formatTimes(time(),IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
    $message = addslashes($message);
 
-   if ($subject == '') $subject = translate("Sans titre");
+   if ($subject == '') $subject = translate('Sans titre');
 
    // Forum ARBRE
    $hrefX = ($arbre) ? 'viewtopicH.php' : 'viewtopic.php' ;
@@ -81,7 +81,7 @@ if ($submitS) {
       if (!$r = sql_query($sql))
          forumerror('0001');
 
-      $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_title = '$subject', topic_time = '".date('Y-m-d H:i:s',time() + ((integer)$gmt * 3600))."', current_poster='".$userdata['uid']."' WHERE topic_id = '".$row['topic_id']."'";
+      $sql = "UPDATE ".$NPDS_Prefix."forumtopics SET topic_title = '$subject', topic_time = '".(new DateTime())->format('Y-m-d H:i:s')."', current_poster='".$userdata['uid']."' WHERE topic_id = '".$row['topic_id']."'";
       if (!$result = sql_query($sql))
          forumerror('0020');
       redirect_url($hrefX.'?topic='.$row['topic_id'].'&forum='.$forum);

@@ -444,7 +444,7 @@ function member_qualif($poster, $posts, $rank) {
    global $anonymous;
    $tmp = '';
    if ($ibid = theme_image('forum/rank/post.gif')) $imgtmpP = $ibid; else $imgtmpP='images/forum/rank/post.gif';
-   $tmp='<img class="n-smil" src="'.$imgtmpP.'" alt="" loading="lazy" />'.$posts.'&nbsp;';
+   $tmp = '<img class="n-smil" src="'.$imgtmpP.'" alt="" loading="lazy" />'.$posts.'&nbsp;';
    if ($poster != $anonymous) {
       $nux=0;
       if ($posts >= 10 and $posts < 30) $nux = 1;
@@ -538,10 +538,10 @@ function forumerror($e_code) {
    if (!isset($header))
       include 'header.php';
    echo '
-   <div class="alert alert-danger"><strong>'.$sitename.'<br />'.translate("Erreur du forum").'</strong><br />';
+   <div class="alert alert-danger"><strong>'.$sitename.'<br />'.translate('Erreur du forum').'</strong><br />';
    echo translate("Code d'erreur :").' '.$e_code.'<br /><br />';
    echo $error_msg.'<br /><br />';
-   echo '<a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate("Retour en arrière").'</a><br /></div>';
+   echo '<a href="javascript:history.go(-1)" class="btn btn-secondary">'.translate('Retour en arrière').'</a><br /></div>';
    include 'footer.php';
    die('');
 }
@@ -592,7 +592,7 @@ function autorize() {
    return ($Mmod);
 }
 
-function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
+function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX) {
    // anti_flood : nb de post dans les 90 puis 30 dernières minutes / les modérateurs echappent à cette règle
    // security.log est utilisée pour enregistrer les tentatives
    global $NPDS_Prefix, $anonymous;
@@ -602,13 +602,13 @@ function anti_flood ($modoX, $paramAFX, $poster_ipX, $userdataX, $gmtX) {
       $sql2 = $userdataX['uid'] !=1 ?
          "' AND (poster_ip='$poster_ipX' OR poster_id='".$userdataX['uid']."')" :
          "' AND poster_ip='$poster_ipX'" ;
-      $timebase = date('Y-m-d H:i',time() + ($gmtX * 3600) - 5400);
+      $timebase = date('Y-m-d H:i',time() - 5400);
       list($time90) = sql_fetch_row(sql_query ($sql.$timebase.$sql2));
       if ($time90 > ($paramAFX * 2)) {
-         Ecr_Log("security", "Forum Anti-Flood : ".$compte, '');
+         Ecr_Log('security', 'Forum Anti-Flood : '.$compte, '');
          forumerror(translate("Vous n'êtes pas autorisé à participer à ce forum"));
       } else {
-         $timebase = date('Y-m-d H:i',time() + ($gmtX * 3600) - 1800);
+         $timebase = date('Y-m-d H:i',time() - 1800);
          list($time30) = sql_fetch_row(sql_query($sql.$timebase.$sql2));
          if ($time30 > $paramAFX) {
             Ecr_Log('security', 'Forum Anti-Flood : '.$compte, '');
@@ -804,14 +804,11 @@ function sub_forum_folder($forum) {
 
    $result = sql_query("SELECT COUNT(DISTINCT topicid) AS total FROM ".$NPDS_Prefix."forum_read WHERE uid='$userR[0]' AND topicid>'0' AND status!='0' AND forum_id='$forum'");
    list($totalF) = sql_fetch_row($result);
-
-   if ($ibid = theme_image('forum/icons/red_sub_folder.gif')) $imgtmpR = $ibid; else $imgtmpR = 'images/forum/icons/red_sub_folder.gif';
-   if ($ibid = theme_image('forum/icons/sub_folder.gif')) $imgtmp = $ibid; else $imgtmp = "images/forum/icons/sub_folder.gif";
-
-   if (($totalT-$totalF) > 0)
-      $ibid = '<img src="'.$imgtmpR.'" alt="" loading="lazy" />';
-   else
-      $ibid = '<img src="'.$imgtmp.'" alt="" loading="lazy" />';
+   $imgtmpR = theme_image('forum/icons/red_sub_folder.gif') ?: 'images/forum/icons/red_sub_folder.gif' ;
+   $imgtmp = theme_image('forum/icons/sub_folder.gif') ?: 'images/forum/icons/sub_folder.gif' ;
+   $ibid = (($totalT-$totalF) > 0) ?
+      '<img src="'.$imgtmpR.'" alt="" loading="lazy" />' :
+      '<img src="'.$imgtmp.'" alt="" loading="lazy" />' ;
    return ($ibid);
 }
 
@@ -827,10 +824,10 @@ function paginate_single($url, $urlmore, $total, $current, $adj, $topics_per_pag
          <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 2)
          $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
+            <li class="page-item"><a class="page-link" href="'.$url.$urlmore.'" title="'.translate('Page précédente').'" data-bs-toggle="tooltip">◄</a></li>';
       elseif ($current > 2)
          $pagination .= '
-            <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
+            <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate('Page précédente').'" data-bs-toggle="tooltip">◄</a></li>';
       else
          $pagination .= '
             <li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
@@ -929,10 +926,10 @@ function paginate($url, $urlmore, $total, $current, $adj, $topics_per_page, $sta
       <ul class="pagination pagination-sm d-flex flex-wrap">';
       if ($current == 1)
          $pagination .= '
-         <li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
+         <li class="page-item"><a class="page-link" href="'.$url.'0'.$urlmore.'" title="'.translate('Page précédente').'" data-bs-toggle="tooltip">◄</a></li>';
       elseif ($current > 1)
          $pagination .= '
-         <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate("Page précédente").'" data-bs-toggle="tooltip">◄</a></li>';
+         <li class="page-item"><a class="page-link" href="'.$url.$prev.$urlmore.'" title="'.translate('Page précédente').'" data-bs-toggle="tooltip">◄</a></li>';
       else
          $pagination .= '
          <li class="page-item disabled"><a class="page-link" href="#">◄</a></li>';
@@ -1072,7 +1069,7 @@ function member_menu($mns,$qui) {
       <li class="nav-item"><a class="nav-link '.$cl_cht.'" href="user.php?op=chgtheme" title="'.translate('Changer le thème').'"  data-bs-toggle="tooltip" ><i class="fas fa-paint-brush fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate('Thème').'</span></a></li>
       <li class="nav-item"><a class="nav-link '.$cl_rs.'" href="modules.php?ModPath=reseaux-sociaux&amp;ModStart=reseaux-sociaux" title="'.translate('Réseaux sociaux').'"  data-bs-toggle="tooltip" ><i class="fas fa-share-alt-square fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate('Réseaux sociaux').'</span></a></li>
       <li class="nav-item"><a class="nav-link '.$cl_pm.'" href="viewpmsg.php" title="'.translate('Message personnel').'"  data-bs-toggle="tooltip" ><i class="far fa-envelope fa-2x d-xl-none"></i><span class="d-none d-xl-inline">&nbsp;'.translate('Message').'</span></a></li>
-      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate('Déconnexion').'" data-bs-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate("Déconnexion").'</span></a></li>
+      <li class="nav-item"><a class="nav-link " href="user.php?op=logout" title="'.translate('Déconnexion').'" data-bs-toggle="tooltip" ><i class="fas fa-sign-out-alt fa-2x text-danger d-xl-none"></i><span class="d-none d-xl-inline text-danger">&nbsp;'.translate('Déconnexion').'</span></a></li>
    </ul>
    <div class="mt-3"></div>';
 }

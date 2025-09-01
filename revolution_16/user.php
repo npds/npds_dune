@@ -211,7 +211,7 @@ function confirmNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fr
 }
 
 function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_from, $user_intrest, $user_sig, $user_viewemail, $pass,$user_lnl, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1) {
-   global $NPDS_Prefix, $makepass, $adminmail, $sitename, $AutoRegUser, $memberpass, $gmt, $NPDS_Key, $nuke_url;
+   global $NPDS_Prefix, $makepass, $adminmail, $sitename, $AutoRegUser, $memberpass, $NPDS_Key, $nuke_url;
 
    if(!isset($_SERVER['HTTP_REFERER'])) {
       Ecr_Log('security','Ghost form in user.php registration. => NO REFERER','');
@@ -221,11 +221,11 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
    }
    else if ($_SERVER['HTTP_REFERER'].$NPDS_Key !== $nuke_url.'/user.php'.$NPDS_Key) {
       Ecr_Log('security','Ghost form in user.php registration. => '.$_SERVER["HTTP_REFERER"],'');
-      L_spambot('',"false");
+      L_spambot('','false');
       include 'admin/die.php';
       die();
    }
-   $user_regdate = time() + ((integer)$gmt * 3600);
+   $user_regdate = (new DateTime())->getTimestamp();
    $stop = userCheck($uname, $email);
    if (!$stop) {
       include 'header.php';
@@ -251,7 +251,7 @@ function finishNewUser($uname, $name, $email, $user_avatar, $user_occ, $user_fro
       if ($result) {
          if($memberpass) {
             echo '
-            <h2>'.translate("Utilisateur").'</h2>
+            <h2>'.translate('Utilisateur').'</h2>
             <hr />
             <h2><i class="fa fa-user me-2"></i>'.translate('Inscription').'</h2>
             <p class="lead">'.translate('Votre mot de passe est : ').'<strong>'.$makepass.'</strong></p>

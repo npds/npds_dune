@@ -405,7 +405,7 @@ echo '
 
    // Forum Read
    if (isset($user)) {
-      $time_actu = time() + ((integer)$gmt * 3600);
+      $time_actu = (new DateTime())->getTimestamp();
       $sqlR = "SELECT last_read FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
       $result_LR = sql_query($sqlR);
       $last_read = '';

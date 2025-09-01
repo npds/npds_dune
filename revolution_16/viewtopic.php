@@ -183,11 +183,10 @@ include 'header.php';
       $contri = get_userdata_from_id($contributeurs[$i]);
       if($contributeurs[$i] !== '0') {
          if ($contri['user_avatar'] != '') {
-            if (stristr($contri['user_avatar'],"users_private")) {
+            if (stristr($contri['user_avatar'],'users_private'))
                $imgtmp = $contri['user_avatar'];
-            } else {
-               if ($ibid=theme_image("forum/avatar/".$contri['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$contri['user_avatar'];}
-            }
+            else
+               $imgtmp = theme_image('forum/avatar/'.$contri['user_avatar']) ?: 'images/forum/avatar/'.$contri['user_avatar'] ;
          }
          echo '<img class="img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$contri['uname'].'" title="'.$contri['uname'].'" data-bs-toggle="tooltip" />';
       }
@@ -205,11 +204,10 @@ include 'header.php';
    for ($i = 0; $i < $ibidcountmod; $i++) {
       $modera = get_userdata($moderator[$i]);
       if ($modera['user_avatar'] != '') {
-         if (stristr($modera['user_avatar'],"users_private"))
-          $imgtmp = $modera['user_avatar'];
-         else {
-          if ($ibid = theme_image("forum/avatar/".$modera['user_avatar'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/avatar/".$modera['user_avatar'];}
-         }
+         if (stristr($modera['user_avatar'],'users_private'))
+            $imgtmp = $modera['user_avatar'];
+         else
+            $imgtmp = theme_image('forum/avatar/'.$modera['user_avatar']) ?: 'images/forum/avatar/'.$modera['user_avatar'] ;
       }
       echo '<a href="user.php?op=userinfo&amp;uname='.$moderator[$i].'"><img class=" img-thumbnail img-fluid n-ava-small mb-1" src="'.$imgtmp.'" alt="'.$modera['uname'].'" title="'.translate('Modéré par : ').' '.$modera['uname'].'" data-bs-toggle="tooltip" /></a>';
    }
@@ -271,7 +269,7 @@ include 'header.php';
    }
    // Forum Read
    if (isset($user)) {
-      $time_actu = time() + ((integer)$gmt * 3600);
+      $time_actu = (new DateTime())->getTimestamp();
       $sqlR = "SELECT last_read FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userdata[0]' AND topicid='$topic'";
       $result_LR = sql_query($sqlR);
       $last_read = '';
@@ -284,10 +282,9 @@ include 'header.php';
          $resultR = sql_query($sqlR);
       }
    }
-
-   if ($ibid=theme_image('forum/rank/post.gif')) {$imgtmpP=$ibid;} else {$imgtmpP='images/forum/rank/post.gif';}
-   if ($ibid=theme_image("forum/icons/posticon.gif")) {$imgtmpPI=$ibid;} else {$imgtmpPI="images/forum/icons/posticon.gif";}
-   if ($ibid=theme_image("forum/icons/new.gif")) {$imgtmpNE=$ibid;} else {$imgtmpNE="images/forum/icons/new.gif";}
+   $imgtmpP = theme_image('forum/rank/post.gif') ?: 'images/forum/rank/post.gif' ;
+   $imgtmpPI = theme_image("forum/icons/posticon.gif") ?: 'images/forum/icons/posticon.gif' ;
+   $imgtmpNE = theme_image("forum/icons/new.gif") ?: 'images/forum/icons/new.gif' ;
    do {
       $posterdata = get_userdata_from_id($myrow['poster_id']);
       if($myrow['poster_id'] !== '0') {
@@ -352,9 +349,8 @@ include 'header.php';
             if ($posterdata['user_avatar'] != '') {
                if (stristr($posterdata['user_avatar'],'users_private'))
                   $imgtmp = $posterdata['user_avatar'];
-               else {
-                  if ($ibid = theme_image('forum/avatar/'.$posterdata['user_avatar'])) {$imgtmp = $ibid;} else {$imgtmp='images/forum/avatar/'.$posterdata['user_avatar'];}
-               }
+               else
+                  $imgtmp = theme_image('forum/avatar/'.$posterdata['user_avatar']) ?: 'images/forum/avatar/'.$posterdata['user_avatar'] ;
             }
             echo '
           <a style="position:absolute; top:0.5rem;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-title="'.$posterdata['uname'].'" data-bs-content=\'<div class="my-2 border rounded p-2">'.member_qualif($posterdata['uname'], $posts,$posterdata['rang']).'</div><div class="list-group mb-3 text-center">'.$useroutils.'</div><div class="mx-auto text-center" style="max-width:170px;">'.$my_rs.'</div> \'><img class=" btn-outline-primary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$posterdata['uname'].'" /></a>
@@ -370,10 +366,10 @@ include 'header.php';
       }
       echo '<span class="float-end">';
       if ($myrow['image'] != '') {
-         if ($ibid=theme_image("forum/subject/".$myrow['image'])) {$imgtmp=$ibid;} else {$imgtmp="images/forum/subject/".$myrow['image'];}
-         echo '<img class="n-smil" src="'.$imgtmp.'" alt="icon_post" />';
+         $imgtmp = theme_image("forum/subject/".$myrow['image']) ?: 'images/forum/subject/'.$myrow['image'] ;
+         echo '<img class="n-smil" src="'.$imgtmp.'" alt="icon_post" loading="lazy" />';
       } else
-         echo '<img class="n-smil" src="'.$imgtmpPI.'" alt="icon_post" />';
+         echo '<img class="n-smil" src="'.$imgtmpPI.'" alt="icon_post" loading="lazy" />';
       echo '</span>
             </div>';
       $message = stripslashes($myrow['post_text']);

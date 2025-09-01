@@ -87,7 +87,7 @@ if (isset($submitS)) {
       $poster_ip = getip();
       $hostname = ($dns_verif) ? gethostbyaddr($poster_ip) : '' ;
      // anti flood
-      anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);
+      anti_flood ($modo, $anti_flood, $poster_ip, $userdata);
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, $message)) {
          Ecr_Log('security', 'Forum Anti-Spam : forum='.$forum.' / topic_title='.$subject, '');
@@ -119,7 +119,7 @@ if (isset($submitS)) {
          $subject = removeHack(strip_tags($subject));
 
       $Msubject = $subject;
-      $time = date('Y-m-d H:i',time() + ((integer)$gmt * 3600));
+      $time = (new DateTime())->format('Y-m-d H:i');
       $sql = "INSERT INTO ".$NPDS_Prefix."forumtopics (topic_title, topic_poster, current_poster, forum_id, topic_time, topic_notify) VALUES ('$subject', '".$userdata['uid']."', '".$userdata['uid']."', '$forum', '$time'";
       $sql .= (isset($notify2) && $userdata['uid'] != 1) ? ", '1'" : ", '0'" ;
       $sql .= ')';

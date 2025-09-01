@@ -94,7 +94,7 @@ if ($submitS) {
       $poster_ip =  getip();
       $hostname = ($dns_verif) ? gethostbyaddr($poster_ip) : '' ;
       // anti flood
-      anti_flood ($modo, $anti_flood, $poster_ip, $userdata, $gmt);
+      anti_flood ($modo, $anti_flood, $poster_ip, $userdata);
       //anti_spambot
       if (!R_spambot($asb_question, $asb_reponse, $message)) {
          Ecr_Log('security', 'Forum Anti-Spam : forum='.$forum.' / topic='.$topic, '');
@@ -116,7 +116,7 @@ if ($submitS) {
       }
       $image_subject = removeHack($image_subject);
       $message = addslashes($message);
-      $time = date('Y-m-d H:i:s',time() + ((integer)$gmt * 3600));
+      $time = (new DateTime())->format('Y-m-d H:i:s');
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns, post_idH) VALUES ('$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname', $post)";
       if (!$result = sql_query($sql))
          forumerror('0020');
@@ -222,7 +222,7 @@ if ($submitS) {
    elseif ($forum_access == 1) {
       if (isset($user))
          $allow_to_reply = true;
-   } 
+   }
    elseif ($forum_access == 2) {
       if (user_is_moderator($userdata[0],$userdata[2],$forum_access))
          $allow_to_reply = true;

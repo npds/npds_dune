@@ -10,15 +10,58 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
+function gmt_to_timezone($gmt) {
+    $gmt = str_replace('+', '', $gmt); // Normalise "+2" en "2"
+    $map = [
+        '-12' => 'Pacific/Kwajalein',
+        '-11' => 'Pacific/Midway',
+        '-10' => 'Pacific/Honolulu',
+        '-9'  => 'America/Anchorage',
+        '-8'  => 'America/Los_Angeles',
+        '-7'  => 'America/Denver',
+        '-6'  => 'America/Chicago',
+        '-5'  => 'America/New_York',
+        '-4'  => 'America/Halifax',
+        '-3.5'=> 'America/St_Johns',
+        '-3'  => 'America/Argentina/Buenos_Aires',
+        '-2'  => 'Atlantic/South_Georgia',
+        '-1'  => 'Atlantic/Azores',
+        '0'   => 'Europe/London',
+        '1'   => 'Europe/Paris',    // Correspond à GMT+1 (heure d'hiver)
+        '2'   => 'Europe/Helsinki', // GMT+2 (heure d'été Paris = GMT+2)
+        '3'   => 'Europe/Moscow',
+        '3.5' => 'Asia/Tehran',
+        '4'   => 'Asia/Dubai',
+        '4.5' => 'Asia/Kabul',
+        '5'   => 'Asia/Karachi',
+        '5.5' => 'Asia/Kolkata',
+        '5.75'=> 'Asia/Kathmandu',
+        '6'   => 'Asia/Dhaka',
+        '6.5' => 'Asia/Rangoon',
+        '7'   => 'Asia/Bangkok',
+        '8'   => 'Asia/Singapore',
+        '8.75'=> 'Australia/Eucla',
+        '9'   => 'Asia/Tokyo',
+        '9.5' => 'Australia/Adelaide',
+        '10'  => 'Australia/Sydney',
+        '10.5'=> 'Australia/Lord_Howe',
+        '11'  => 'Pacific/Noumea',
+        '12'  => 'Pacific/Auckland',
+        '12.75'=> 'Pacific/Chatham',
+        '13'  => 'Pacific/Tongatapu',
+        '14'  => 'Pacific/Kiritimati'
+    ];
+    return $map[$gmt] ?? 'UTC'; // Fallback à UTC si non trouvé
+}
 
 function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslogan,$xstartdate,$xadminmail,$xtop,$xstoryhome,$xoldnum,$xultramode,$xanonpost,$xDefault_Theme,$xbanners,$xmyIP,$xfoot1,$xfoot2,$xfoot3,$xfoot4,$xbackend_title,$xbackend_language,$xbackend_image,$xbackend_width,$xbackend_height,$xlanguage,$xlocale,$xperpage,$xpopular,$xnewlinks,$xtoplinks,$xlinksresults,$xlinks_anonaddlinklock,$xnotify,$xnotify_email,$xnotify_subject,$xnotify_message,$xnotify_from,$xmoderate,$xanonymous,$xmaxOptions,$xsetCookies,$xtipath,$xuserimg,$xadminimg,$xadmingraphic,$xadmart,$xminpass,$xhttpref,$xhttprefmax,$xpollcomm,$xlinkmainlogo,$xstart_page,$xsmilies,$xOnCatNewLink,$xEmailFooter,$xshort_user,$xgzhandler,$xrss_host_verif,$xcache_verif,$xmember_list,$xdownload_cat,$xmod_admin_news,$xgmt,$xAutoRegUser,$xTitlesitename,$xfilemanager,$xshort_review,$xnot_admin_count,$xadmin_cook_duration,$xuser_cook_duration,$xtroll_limit,$xsubscribe,$xCloseRegUser,$xshort_menu_admin,$xmail_fonction,$xmemberpass,$xshow_user,$xdns_verif,$xmember_invisible,$xavatar_size,$xlever,$xcoucher,$xmulti_langue,$xadmf_ext,$xsavemysql_size,$xsavemysql_mode,$xtiny_mce,$xnpds_twi,$xnpds_fcb,$xDefault_Skin,$xsmtp_host,$xsmtp_auth,$xsmtp_username,$xsmtp_password,$xsmtp_secure,$xsmtp_crypt,$xsmtp_port,$xdkim_auto) {
-
    include 'config.php';
+   $xgmt = gmt_to_timezone($xgmt);
    if ($xparse == 0) {
-      $xsitename =  FixQuotes($xsitename);
+      $xsitename = FixQuotes($xsitename);
       $xTitlesitename = FixQuotes($xTitlesitename);
    } else {
-      $xsitename =  stripslashes($xsitename);
+      $xsitename = stripslashes($xsitename);
       $xTitlesitename = stripslashes($xTitlesitename);
    }
 
@@ -38,7 +81,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
       include 'cache.config.php';
       $dh = opendir($CACHE_CONFIG['data_dir']);
       while(false !== ($filename = readdir($dh))) {
-         if ($filename === '.' OR $filename === '..' OR $filename === 'ultramode.txt' OR $filename === 'net2zone.txt' OR $filename === 'sql') continue;
+         if ($filename === '.' or $filename === '..' or $filename === 'ultramode.txt' or $filename === 'net2zone.txt' or $filename === 'sql') continue;
             unlink($CACHE_CONFIG['data_dir'].$filename);
       }
    }

@@ -39,7 +39,7 @@ if (($op == 'mark') and ($forum)) {
       $userX = base64_decode($user);
       $userR = explode(':', $userX);
       $resultT = sql_query("SELECT topic_id FROM ".$NPDS_Prefix."forumtopics WHERE forum_id='$forum' ORDER BY topic_id ASC");
-      $time_actu = time() + ((integer)$gmt * 3600);
+      $time_actu = (new DateTime())->getTimestamp();
       while (list($topic_id)=sql_fetch_row($resultT)) {
          $r = sql_query("SELECT rid FROM ".$NPDS_Prefix."forum_read WHERE forum_id='$forum' AND uid='$userR[0]' AND topicid='$topic_id'");
          if ($r) {

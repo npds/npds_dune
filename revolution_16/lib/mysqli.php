@@ -24,7 +24,7 @@ $sql_nbREQ = 0;
          $host = ($mysql_p || !isset($mysql_p)) ? 'p:'.$dbhost : $dbhost;
          $dblink = mysqli_init();
          $dblink->options(MYSQLI_OPT_CONNECT_TIMEOUT, 10);
-         $dblink->options(MYSQLI_INIT_COMMAND, "SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'");
+         $dblink->options(MYSQLI_INIT_COMMAND, "SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci', time_zone = '".(new DateTime())->format('P')."'");
          $dblink->options(MYSQLI_SET_CHARSET_NAME, "utf8mb4");
          if (!$dblink->real_connect($host, $dbuname, $dbpass, $dbname)) {
             throw new mysqli_sql_exception('Impossible de se connecter à la base de données');

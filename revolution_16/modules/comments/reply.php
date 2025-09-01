@@ -81,12 +81,12 @@ if (isset($submitS)) {
       $poster_ip =  getip();
       $hostname = $dns_verif ? gethostbyaddr($poster_ip) : $poster_ip ;
       // anti flood
-      anti_flood ($Mmod, $anti_flood, $poster_ip, $userdata, $gmt);
+      anti_flood ($Mmod, $anti_flood, $poster_ip, $userdata);
       //anti_spambot
       if (isset($asb_question) and isset($asb_reponse)) {
          if (!R_spambot($asb_question, $asb_reponse, $message)) {
             Ecr_Log('security', "Forum Anti-Spam : forum=".$forum." / topic=".$topic, '');
-            redirect_url("$url_ret");
+            redirect_url($url_ret);
             die();
          }
       }
@@ -102,7 +102,7 @@ if (isset($submitS)) {
       $message = removeHack($message);
       $image_subject = '';
       $message = addslashes(dataimagetofileurl($message,'modules/upload/upload/co'));
-      $time = date("Y-m-d H:i:s",time() + ((integer)$gmt * 3600));
+      $time = date("Y-m-d H:i:s", time());
       $sql = "INSERT INTO ".$NPDS_Prefix."posts (post_idH, topic_id, image, forum_id, poster_id, post_text, post_time, poster_ip, poster_dns) VALUES ('0', '$topic', '$image_subject', '$forum', '".$userdata['uid']."', '$message', '$time', '$poster_ip', '$hostname')";
       if (!$result = sql_query($sql))
          forumerror('0020');
@@ -123,7 +123,7 @@ if (isset($submitS)) {
          $cmessage = '🔔 '.translate("Nouveau commentaire").' ==> <a href="'.$nuke_url.'/'.$url_ret.'">'.$nuke_url.'/'.$url_ret.'</a>';
          send_email($notify_email, $csubject, $cmessage, $notify_from , false, "html",'');
       }
-      redirect_url("$url_ret");
+      redirect_url($url_ret);
    } else {
       echo '
    <h2><i class="far fa-comment text-body-secondary fa-lg me-2"></i>'.translate('Commentaire').'</h2>
@@ -170,11 +170,10 @@ if (isset($submitS)) {
                <div class="card-header">';
          if ($smilies) {
             if ($theposterdata['user_avatar'] != '') {
-               if (stristr($theposterdata['user_avatar'],"users_private"))
+               if (stristr($theposterdata['user_avatar'],'users_private'))
                   $imgtmp = $theposterdata['user_avatar'];
-               else {
-                  if ($ibid = theme_image("forum/avatar/".$theposterdata['user_avatar'])) $imgtmp=$ibid; else $imgtmp="images/forum/avatar/".$theposterdata['user_avatar'];
-               }
+               else
+                  $imgtmp = theme_image('forum/avatar/'.$theposterdata['user_avatar'])) ?: 'images/forum/avatar/'.$theposterdata['user_avatar'] ;
                echo '
                    <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-html="true" data-bs-title="'.$theposterdata['uname'].'" data-bs-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rang']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
             }

@@ -25,6 +25,9 @@ require 'lib/PHPMailer/src/SMTP.php';
 include 'lib/mysqli.php';
 include 'modules/meta-lang/adv-meta_lang.php';
 
+global $gmt;
+date_default_timezone_set($gmt);
+
 #autodoc Mysql_Connexion() : Connexion plus détaillée ($mysql_p=true => persistente connexion) - Attention : le type de SGBD n'a pas de lien avec le nom de cette fonction
 function Mysql_Connexion() {
    global $mysql_error, $dbhost, $dbname;
@@ -48,7 +51,6 @@ session_manage();
 $tab_langue = make_tab_langue();
 global $meta_glossaire;
 $meta_glossaire = charg_metalang();
-date_default_timezone_set('Europe/Paris');
 /****************/
 
 #autodoc file_contents_exist() : Controle de réponse// c'est pas encore assez fin not work with https probably
@@ -95,8 +97,7 @@ function session_manage() {
       if ($row['time'] < (time() - 30)) {
          sql_query("UPDATE ".$NPDS_Prefix."session SET username='$username', time='".time()."', host_addr='$ip', guest='$guest', uri='$REQUEST_URI', agent='".getenv("HTTP_USER_AGENT")."' WHERE username='$username'");
          if ($guest == 0) {
-            global $gmt;
-            sql_query("UPDATE ".$NPDS_Prefix."users SET user_lastvisit='".(time()+(integer)$gmt*3600)."' WHERE uname='$username'");
+            sql_query("UPDATE ".$NPDS_Prefix."users SET user_lastvisit='".time()."' WHERE uname='$username'");
          }
       }
    } else
@@ -457,15 +458,38 @@ function Ecr_Log($fic_log, $req_log, $mot_log) {
    flock($fp, 3);
    fclose($fp);
 }
-#autodoc redirect_url($urlx) : Permet une redirection javascript / en lieu et place de header("Location: ...");
-function redirect_url($urlx) {
-   echo '
-   <script type="text/javascript">
-      //<![CDATA[
-         document.location.href="'.$urlx.'";
-      //]]>
-   </script>';
-}
+
+#autodoc redirect_url($urlx, $delay = 0) : Permet une redirection javascript temporisée ; 
+function redirect_url($urlx, $delay = 0) {
+   $url_js = json_encode($urlx);
+   $delay_ms = intval($delay);
+   echo <<<JS
+      <script>
+      (function(){
+          try {
+              var target = ("top" in window) ? window.top : window;
+              var url = $url_js; // Utilisation directe de la variable JS
+              var start = Date.now();
+              var timer = setInterval(function(){
+                  if (Date.now() - start >= $delay_ms) {
+                      clearInterval(timer);
+                      target.location.href = url;
+                  }
+              }, 100);
+          } catch(e) {
+              console.error("Redirection error:", e);
+              window.location.href = $url_js; // Fallback simple
+          }
+      })();
+      </script>
+      JS;
+    // Gestion du buffer pour tous les serveurs
+   if (!headers_sent()) 
+      header("Cache-Control: no-store");
+   @ob_end_flush();
+   flush();
+} 
+
 #autodoc SC_infos() : Indique le status de SuperCache
 function SC_infos() {
    global $SuperCache, $npds_sc;
@@ -719,17 +743,21 @@ function FixQuotes($what = '') {
    }
    return $what;
 }
-#autodoc formatTimes($time) : Formate un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time - le décalage $gmt défini dans les préférences n'est pas appliqué
-function formatTimes($time, $dateStyle = IntlDateFormatter::SHORT, $timeStyle = IntlDateFormatter::NONE, $timezone = 'Europe/Paris') {
+#autodoc formatTimes($time) : Formate un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time - le décalage $gmt défini dans les préférences est pas appliqué
+function formatTimes($time, $dateStyle = IntlDateFormatter::SHORT, $timeStyle = IntlDateFormatter::NONE, $timezone = null) {
+   global $gmt;
    $locale = language_iso(1, '_', 1); // Utilise la langue de l'affichage du site
+   $timezone = $timezone ?? $gmt; // Utilise $gmt si $timezone null
    $fmt = datefmt_create($locale, $dateStyle, $timeStyle, $timezone, IntlDateFormatter::GREGORIAN);
    $timestamp = is_numeric($time) ? $time : strtotime($time);
    $date_au_format = ucfirst(htmlentities($fmt->format($timestamp), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8'));
    return $date_au_format;
 }
 #autodoc getPartOfTime($time) : découpe/extrait/formate et plus grâce au paramètre $format.... un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time -
-function getPartOfTime($time, $format, $timezone = 'Europe/Paris') {
+function getPartOfTime($time, $format, $timezone = null) {
+   global $gmt;
    $locale = language_iso(1, '_', 1);
+   $timezone = $timezone ?? $gmt; // Utilise $gmt si $timezone null
    $timestamp = is_numeric($time) ? $time : strtotime($time);
    $fmt = new IntlDateFormatter($locale, IntlDateFormatter::FULL, IntlDateFormatter::FULL, $timezone, IntlDateFormatter::GREGORIAN, $format);
    $date_au_format = $fmt->format($timestamp);
@@ -2280,10 +2308,10 @@ function adminblock() {
 }
 #autodoc ephemblock() : Bloc ephemerid <br />=> syntaxe : function#ephemblock
 function ephemblock() {
-   global $NPDS_Prefix, $gmt;
+   global $NPDS_Prefix;
    $cnt = 0;
-   $eday = date("d",time() + ((integer)$gmt * 3600));
-   $emonth = date("m",time() + ((integer)$gmt * 3600));
+   $eday = date('d');
+   $emonth = date('m');
    $result = sql_query("SELECT yid, content FROM ".$NPDS_Prefix."ephem WHERE did='$eday' AND mid='$emonth' ORDER BY yid ASC");
    $boxstuff = '<div>'.translate('En ce jour...').'</div>';
    while (list($yid, $content) = sql_fetch_row($result)) {
