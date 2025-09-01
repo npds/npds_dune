@@ -345,6 +345,7 @@ function YesDelCategory($catid) {
     global $aid; Ecr_Log('security', "YesDelCategory($catid) by AID : $aid", '');
     header('Location: admin.php');
 }
+
 function NoMoveCategory($catid, $newcat) {
    global $NPDS_Prefix, $f_meta_nom, $f_titre, $adminimg, $aid;
    $f_meta_nom ='adminStory';
@@ -400,7 +401,7 @@ function NoMoveCategory($catid, $newcat) {
 }
 
 // NEWS
-function displayStory ($qid) {
+function displayStory($qid) {
    global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper, $adminimg;
    $f_meta_nom = 'adminStory';
    $f_titre = adm_translate('Articles');
@@ -725,7 +726,7 @@ function postStory($type_pub, $qid, $uid, $author, $subject, $hometext, $bodytex
    redirect_url('admin.php?');
 }
 
-function editStory ($sid) {
+function editStory($sid) {
    global $NPDS_Prefix, $tipath, $hlpfile, $language, $aid, $radminsuper, $adminimg;
    $f_meta_nom = 'adminStory';
    $f_titre = adm_translate('Editer un Article');
@@ -754,7 +755,7 @@ function editStory ($sid) {
    else {
       $topicadminX=explode(',',$topicadmin);
       for ($i = 0; $i < count($topicadminX); $i++) {
-         if (trim($topicadminX[$i])==$aid) $affiche=true;
+         if (trim($topicadminX[$i]) == $aid) $affiche = true;
       }
    }
    if (!$affiche) header('Location: admin.php');
@@ -919,7 +920,7 @@ function deleteStory($qid) {
    global $aid; Ecr_Log('security', "deleteStoryfromQueue($qid) by AID : $aid", '');
 }
 
-function removeStory ($sid, $ok = 0) {
+function removeStory($sid, $ok = 0) {
    if ($sid == '' || $sid == '0')
       header('Location: admin.php');
    global $NPDS_Prefix, $ultramode, $aid, $radminsuper;
@@ -1010,7 +1011,7 @@ function changeStory($sid, $subject, $hometext, $bodytext, $topic, $notes, $cati
 
 function adminStory() {
    global $NPDS_Prefix, $hlpfile, $language, $aid, $radminsuper, $adminimg;
-   $f_meta_nom ='adminStory';
+   $f_meta_nom = 'adminStory';
    $f_titre = adm_translate('Nouvel Article');
    //==> controle droit
    admindroits($aid,$f_meta_nom);
@@ -1305,14 +1306,13 @@ switch ($op) {
       settype($date_debval,'string');
       settype($date_finval,'string');
       settype($qid,'integer');
+      settype($uid,'string');
 
-      settype($uid,'string');//
-      
-      if (!$date_debval) 
+      if (!$date_debval)
          $date_debval = $dd_pub.' '.$dh_pub.':01';
-      if (!$date_finval) 
+      if (!$date_finval)
          $date_finval = $fd_pub.' '.$fh_pub.':01';
-      if ($date_finval < $date_debval) 
+      if ($date_finval < $date_debval)
          $date_finval = $date_debval;
       $temp_new = mktime(substr($date_debval,11,2), substr($date_debval,14,2),0,substr($date_debval,5,2),substr($date_debval,8,2),substr($date_debval,0,4));
       $temp = time();
