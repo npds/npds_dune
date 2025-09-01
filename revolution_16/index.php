@@ -51,9 +51,8 @@ function select_start_page($op) {
       header('Location: '.$Start_Page);
 }
 
-function automatednews() {
+/*function automatednews() { // original fonction ...
    global $gmt, $NPDS_Prefix;
-
    $today = getdate(time() + ((integer)$gmt * 3600));
    $day = $today['mday'];
    if ($day < 10)
@@ -107,6 +106,58 @@ function automatednews() {
          }
       }
    }
+}*/
+
+function automatednews() {
+   global $NPDS_Prefix;
+   // Date/heure actuelle (utilise le timezone déjà défini dans mainfile.php)
+   $current_timestamp = (new DateTime())->getTimestamp();
+   $current_month = getPartOfTime($current_timestamp, 'yyyy-MM');
+   // publication automatique
+   $result = sql_query("SELECT anid, date_debval FROM ".$NPDS_Prefix."autonews WHERE date_debval LIKE '$current_month%'");
+   while(list($anid, $date_debval) = sql_fetch_row($result)) {
+      // Convertir la date de publication en timestamp
+      $pub_timestamp = strtotime($date_debval);
+      // Si la date de publication est passée
+      if ($pub_timestamp <= $current_timestamp) {
+         $result2 = sql_query("SELECT catid, aid, title, hometext, bodytext, topic, informant, notes, ihome, date_finval, auto_epur FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
+         while (list($catid, $aid, $title, $hometext, $bodytext, $topic, $author, $notes, $ihome, $date_finval, $epur) = sql_fetch_row($result2)) {
+            $subject = stripslashes(FixQuotes($title));
+            $hometext = stripslashes(FixQuotes($hometext));
+            $bodytext = stripslashes(FixQuotes($bodytext));
+            $notes = stripslashes(FixQuotes($notes));
+            sql_query("INSERT INTO ".$NPDS_Prefix."stories VALUES (NULL, '$catid', '$aid', '$subject', now(), '$hometext', '$bodytext', '0', '0', '$topic', '$author', '$notes', '$ihome', '0', '$date_finval', '$epur')");
+            sql_query("DELETE FROM ".$NPDS_Prefix."autonews WHERE anid='$anid'");
+            global $subscribe;
+            if ($subscribe)
+               subscribe_mail('topic',$topic,'',$subject,'');
+            // Réseaux sociaux
+            if (file_exists('modules/npds_twi/npds_to_twi.php')) 
+               include 'modules/npds_twi/npds_to_twi.php';
+            if (file_exists('modules/npds_fbk/npds_to_fbk.php')) 
+               include 'modules/npds_twi/npds_to_fbk.php';
+         }
+      }
+   }
+   // Purge automatique
+   $result = sql_query("SELECT sid, date_finval, auto_epur FROM ".$NPDS_Prefix."stories WHERE date_finval LIKE '$current_month%'");
+   while(list($sid, $date_finval, $epur) = sql_fetch_row($result)) {
+      $expiry_timestamp = strtotime($date_finval);
+      if ($expiry_timestamp <= $current_timestamp) {
+         if ($epur == 1) {
+            // Suppression définitive
+            sql_query("DELETE FROM ".$NPDS_Prefix."stories WHERE sid='$sid'");
+            // Purge des commentaires associés si le module existe
+            if (file_exists('modules/comments/article.conf.php')) {
+                include 'modules/comments/article.conf.php';
+                sql_query("DELETE FROM ".$NPDS_Prefix."posts WHERE forum_id='$forum' AND topic_id='$topic'");
+            }
+            Ecr_Log('security', "removeStory ($sid, epur) by automated epur : system", '');
+        } else
+            // Archivage
+            sql_query("UPDATE ".$NPDS_Prefix."stories SET archive='1' WHERE sid='$sid'");
+      }
+   }
 }
 
 function aff_edito() {
@@ -150,7 +201,7 @@ function aff_news($op,$catid,$marqeur) {
       $op = 'categories';
    $news_tab = prepa_aff_news($op,$catid,$marqeur);
    $story_limit = 0;
-   
+
    // si le tableau $news_tab est vide alors return 
    if(is_null($news_tab)) return;
 
