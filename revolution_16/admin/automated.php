@@ -117,7 +117,7 @@ function SelectCategory($cat) {
 }
 
 function autoStory() {
-   global $hlpfile, $aid, $NPDS_Prefix, $radminsuper, $gmt, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $aid, $NPDS_Prefix, $radminsuper, $f_meta_nom, $f_titre, $adminimg;
    include 'header.php';
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
@@ -355,6 +355,7 @@ switch ($op) {
    case 'autoDelete': autodelete($anid); break;
    case 'autoEdit': autoEdit($anid); break;
    case 'autoSaveEdit':
+      $notes = isset($notes) ? $notes : '' ;
       $date_debval = !isset($date_debval) ? $dd_pub.' '.$dh_pub.':01' : $date_debval ;
       $date_finval = !isset($date_finval) ? $fd_pub.' '.$fh_pub.':01' : $date_finval ;
       if ($date_finval < $date_debval)
