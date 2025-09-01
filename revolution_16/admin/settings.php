@@ -214,7 +214,7 @@ function Configure() {
       if($themelist[$i] != '') {
          echo '
                      <option value="'.$themelist[$i].'" ';
-             if($themelist[$i]==$Default_Theme) echo 'selected="selected"';
+             if($themelist[$i] == $Default_Theme) echo 'selected="selected"';
              echo '>'.$themelist[$i].'</option>';
       }
    }
