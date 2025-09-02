@@ -53,7 +53,7 @@ if (($cache_obj->genereting_output == 1) or ($cache_obj->genereting_output == -1
    $nbPages = ceil($count / $maxcount);
    $current = 1;
    if ($start >= 1)
-      $current=$start/$maxcount;
+      $current = $start/$maxcount;
    else if ($start < 1)
       $current = 0;
    else
@@ -67,7 +67,7 @@ if (($cache_obj->genereting_output == 1) or ($cache_obj->genereting_output == -1
    while (($story_limit < $maxcount) and ($story_limit < sizeof($xtab))) {
       list($s_sid, $catid, $aid, $title, $time, $hometext, $bodytext, $comments, $counter, $topic, $informant) = $xtab[$story_limit];
       $story_limit++;
-      $printP = '<a href="print.php?sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-print fa-lg" title="'.translate('Page spéciale pour impression').'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a>';
+      $printP = '<a href="print.php?sid='.$s_sid.'"><i class="fa fa-print fa-lg" title="'.translate('Page spéciale pour impression').'" data-bs-toggle="tooltip" data-bs-placement="left"></i></a>';
       $sendF = '<a class="ms-4" href="friend.php?op=FriendSend&amp;sid='.$s_sid.'&amp;archive='.$arch.'"><i class="fa fa-at fa-lg" title="'.translate('Envoyer cet article à un ami').'" data-bs-toggle="tooltip" data-bs-placement="left" ></i></a>';
       $sid = $s_sid;
       if ($catid != 0) {
