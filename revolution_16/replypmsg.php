@@ -178,7 +178,7 @@ if (isset($user)) {
          $tmp_theme = $Default_Theme;
       $skin = ($skin == '') ? 'default' : $skin ;
 
-      include 'themes/'.$tmp_theme.'/theme.php');
+      include 'themes/'.$tmp_theme.'/theme.php';
       include 'meta/meta.php';
       include 'modules/include/header_before.inc';
       include 'modules/include/header_head.inc';
