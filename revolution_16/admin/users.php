@@ -95,7 +95,7 @@ function extractUserCSV() {
       $line .= $crlf;
    }
    send_file($line,'annuaire','csv',$MSos);
-   global $aid; Ecr_Log('security', "ExtractUserCSV() by AID : $aid", '');
+   global $aid; Ecr_Log('security', 'ExtractUserCSV() by AID : '. $aid, '');
 }
 
 function modifyUser($chng_user) {
@@ -173,7 +173,7 @@ function Minisites($chng_mns,$chng_uname) {
       }
       closedir($handle);
       unset ($filelist);
-      global $aid; Ecr_Log('security', "CreateMiniSite($chng_uname) by AID : $aid", '');
+      global $aid; Ecr_Log('security', 'CreateMiniSite('.$chng_uname.') by AID : '.$aid, '');
    }
 }
 
@@ -201,13 +201,13 @@ function updateUser($chng_uid, $chng_uname, $chng_name, $chng_url, $chng_email, 
       }
       $tmp = 1;
    }
-   include_once('functions.php');
+   include_once 'functions.php';
    if(checkdnsmail($chng_email) === false) { 
-      global $hlpfile,$f_meta_nom, $f_titre, $adminimg;
+      global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
       include 'header.php';
       GraphicAdmin($hlpfile);
       adminhead($f_meta_nom, $f_titre, $adminimg);
-      echo error_handler(adm_translate("Erreur : DNS ou serveur de mail incorrect").'<br />');
+      echo error_handler(adm_translate('Erreur : DNS ou serveur de mail incorrect').'<br />');
       adminfoot('','','','');
       return;
    }
@@ -295,8 +295,8 @@ function nonallowedUsers() {
             <td>'.$unallowed_users['name'].'</td>
             <td>'.date('d/m/Y @ h:m',$unallowed_users['user_regdate']).'</td>
             <td>
-               <a class="me-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.adm_translate("Editer").'" data-bs-toggle="tooltip"></i></a>
-               <a class="me-3" href="admin.php?op=delUser&chng_uid='.$unallowed_users['uid'].'" ><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate("Effacer").'" data-bs-toggle="tooltip"></i></a>
+               <a class="me-3" href="admin.php?chng_uid='.$unallowed_users['uid'].'&amp;op=modifyUser#add_open_user" ><i class="fa fa-edit fa-lg" title="'.adm_translate('Editer').'" data-bs-toggle="tooltip"></i></a>
+               <a class="me-3" href="admin.php?op=delUser&chng_uid='.$unallowed_users['uid'].'" ><i class="fas fa-trash fa-lg text-danger" title="'.adm_translate('Effacer').'" data-bs-toggle="tooltip"></i></a>
             </td>
          </tr>';
    }
@@ -599,8 +599,8 @@ switch ($op) {
          adminfoot('','','','');
          return;
       }
-      include_once('functions.php');
-      if(checkdnsmail($add_email) === false) { 
+      include_once 'functions.php';
+      if (checkdnsmail($add_email) === false) { 
          global $hlpfile,$f_meta_nom, $f_titre, $adminimg;
          include 'header.php';
          GraphicAdmin($hlpfile);
@@ -619,19 +619,15 @@ switch ($op) {
          $add_is_visible = '1';
       else
          $add_is_visible = '0';
-
-      $user_regdate = time() + ((integer)$gmt * 3600);
+      $user_regdate = (new DateTime())->getTimestamp();
       $sql = 'INSERT INTO '.$NPDS_Prefix.'users ';
-      $sql .= "(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,hashkey,send_email,is_visible,mns,theme) ";
+      $sql .= '(uid,name,uname,email,femail,url,user_regdate,user_from,user_occ,user_intrest,user_viewemail,user_avatar,user_sig,bio,pass,hashkey,send_email,is_visible,mns,theme) ';
       $sql .= "VALUES (NULL,'$add_name','$add_uname','$add_email','$add_femail','$add_url','$user_regdate','$add_user_from','$add_user_occ','$add_user_intrest','$add_user_viewemail','$add_avatar','$add_user_sig','$add_bio','$add_pass','1','$add_send_email','$add_is_visible','$add_mns','$Default_Theme+$Default_Skin')";
       $result = sql_query($sql);
       list($usr_id) = sql_fetch_row(sql_query("SELECT uid FROM ".$NPDS_Prefix."users WHERE uname='$add_uname'"));
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_extend VALUES ('$usr_id','$C1','$C2','$C3','$C4','$C5','$C6','$C7','$C8','$M1','$M2','$T1','$T2', '$B1')");
-      if ($add_user_viewemail)
-         $attach = 1;
-      else
-         $attach = 0;
-      if (isset($add_group)) $add_group=implode(',',$add_group); else $add_group='';
+      $attach = $add_user_viewemail ? 1 : 0 ;
+      if (isset($add_group)) $add_group = implode(',',$add_group); else $add_group = '';
       $result = sql_query("INSERT INTO ".$NPDS_Prefix."users_status VALUES ('$usr_id','0','$attach','$chng_rank','$add_level','1','$add_group')");
 
       Minisites($add_mns,$add_uname);
