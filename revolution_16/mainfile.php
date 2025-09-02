@@ -743,7 +743,7 @@ function FixQuotes($what = '') {
    }
    return $what;
 }
-#autodoc formatTimes($time) : Formate un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time - le décalage $gmt défini dans les préférences est pas appliqué
+#autodoc formatTimes($time) : Formate un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time - le décalage $gmt défini dans les préférences est appliqué
 function formatTimes($time, $dateStyle = IntlDateFormatter::SHORT, $timeStyle = IntlDateFormatter::NONE, $timezone = null) {
    global $gmt;
    $locale = language_iso(1, '_', 1); // Utilise la langue de l'affichage du site
