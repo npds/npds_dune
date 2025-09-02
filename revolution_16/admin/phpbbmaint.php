@@ -44,7 +44,7 @@ function ForumMaintMarkTopics() {
       forumerror('0001');
    else {
       $resultF = sql_query('SELECT forum_id FROM '.$NPDS_Prefix.'forums ORDER BY forum_id ASC');
-      $time_actu = time() + ((integer)$gmt * 3600);
+      $time_actu = time();
       while (list($forum_id) = sql_fetch_row($resultF)) {
          echo '
          <tr>
@@ -220,7 +220,7 @@ function MergeForum() {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr/>
-   <h3 class="mb-3">'.adm_translate("Fusionner des forums").'</h3>
+   <h3 class="mb-3">'.adm_translate('Fusionner des forums').'</h3>
    <form id="fad_mergeforum" action="admin.php" method="post">
       <fieldset>
          <div class="mb-3 row">
