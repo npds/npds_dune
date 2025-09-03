@@ -66,7 +66,9 @@ function reviews() {
    <hr />';
    $result = sql_query("SELECT * FROM ".$NPDS_Prefix."reviews_add ORDER BY id");
    $numrows = sql_num_rows($result);
-   echo '<h3>'.adm_translate("Critiques en attente de validation").'<span class="badge bg-danger float-end">'.$numrows.'</span></h3>';
+   echo '
+   <a name="valider_critique"></a>
+   <h3>'.adm_translate("Critiques en attente de validation").'<span class="badge bg-danger float-end">'.$numrows.'</span></h3>';
    $jsfvc = ''; $jsfvf = '';
    if ($numrows > 0) {
       while(list($id, $date, $title, $text, $reviewer, $email, $score, $url, $url_title) = sql_fetch_row($result)) {
@@ -95,7 +97,7 @@ function reviews() {
       <div class="mb-3 row">
          <label class="col-form-label col-sm-4 " for="text'.$id.'">'.adm_translate('Texte').'</label>
          <div class="col-sm-8">
-            <textarea class="form-control" id="text'.$id.' name="text" rows="6">'.$text.'</textarea>
+            <textarea class="form-control" id="text'.$id.'" name="text" rows="6">'.$text.'</textarea>
          </div>
       </div>
       <div class="mb-3 row">
@@ -217,6 +219,8 @@ switch ($op){
       reviews();
    break;
    case 'add_review':
+      $url = isset($url) ?: '';
+      $url_title = isset($url_title) ?: '';
       add_review($id, $date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title);
    break;
    case 'mod_main':

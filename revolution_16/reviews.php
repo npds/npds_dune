@@ -296,9 +296,13 @@ function send_review($date, $title, $text, $reviewer, $email, $score, $cover, $u
       echo translate('Nous allons vérifier votre contribution. Elle devrait bientôt être disponible !');
    }
    echo '
-   </div>
-   <a class="btn btn-secondary" href="reviews.php" title="'.translate("Retour à l'index des critiques").'">'.translate("Retour à l'index des critiques").'</a>';
+      <div class="d-flex align-items-center mt-2">
+         <div><a class="alert-link" href="reviews.php">'.translate("Retour à l'index des critiques").'</a> 6 '.translate('Seconde(s)').'</div>
+         <div class="spinner-border ms-auto text-success" aria-hidden="true"></div>
+      </div>
+   </div>';
    include 'footer.php';
+   redirect_url('reviews.php',6000);
 }
 
 function reviews($field, $order) {
@@ -620,8 +624,7 @@ function mod_review($id) {
 
 function del_review($id_del) {
    global $admin, $NPDS_Prefix;
-
-   settype($id_del,"integer");
+   settype($id_del,'integer');
    if ($admin) {
       sql_query("DELETE FROM ".$NPDS_Prefix."reviews WHERE id='$id_del'");
       // commentaires
@@ -641,29 +644,13 @@ settype($asb_question,'string');
 settype($asb_reponse,'string');
 
 switch ($op) {
-   case 'showcontent':
-      showcontent($id);
-   break;
-   case 'write_review':
-      write_review();
-   break;
-   case 'preview_review':
-      preview_review($title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id);
-   break;
-   case 'add_reviews':
-      send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse);
-   break;
-   case 'del_review':
-      del_review($id_del);
-   break;
-   case 'mod_review':
-      mod_review($id);
-   break;
-   case 'sort':
-      reviews($field,$order);
-   break;
-   default:
-      reviews('date','DESC');
-   break;
+   case 'showcontent': showcontent($id); break;
+   case 'write_review': write_review(); break;
+   case 'preview_review': preview_review($title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id); break;
+   case 'add_reviews': send_review($date, $title, $text, $reviewer, $email, $score, $cover, $url, $url_title, $hits, $id, $asb_question, $asb_reponse); break;
+   case 'del_review': del_review($id_del); break;
+   case 'mod_review': mod_review($id); break;
+   case 'sort': reviews($field,$order); break;
+   default: reviews('date','DESC'); break;
 }
 ?>

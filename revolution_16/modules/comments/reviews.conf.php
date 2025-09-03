@@ -19,10 +19,10 @@ $file_name = 'reviews';
 $forum = -3;
 
 // $topic : permet d'allouer un numéro UNIQUE pour chaque publication sur laquelle un commentaire peut être réalisé (article numéro X, sondage numéro Y, ...)
-$topic = isset($id) ? $id : '' ;
+$topic = isset($id) ? $id : (isset($topic) ? $topic : '');
 
 // $url_ret : URL de retour lorsque la soumission du commentaire est OK
-$url_ret = "reviews.php?op=showcontent&id=$topic";
+$url_ret = 'reviews.php?op=showcontent&id='.$topic;
 
 // $formulaire : Formulaire SFORM si vous souhaitez avoir une grille de saisie en lieu et place de l'interface standard de saisie - sinon ""
 $formulaire = 'reviews.form.php';
