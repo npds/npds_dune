@@ -173,9 +173,9 @@ if (isset($submitS)) {
                if (stristr($theposterdata['user_avatar'],'users_private'))
                   $imgtmp = $theposterdata['user_avatar'];
                else
-                  $imgtmp = theme_image('forum/avatar/'.$theposterdata['user_avatar'])) ?: 'images/forum/avatar/'.$theposterdata['user_avatar'] ;
+                  $imgtmp = theme_image('forum/avatar/'.$theposterdata['user_avatar']) ?: 'images/forum/avatar/'.$theposterdata['user_avatar'] ;
                echo '
-                   <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-html="true" data-bs-title="'.$theposterdata['uname'].'" data-bs-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rang']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" /></a>';
+                   <a style="position:absolute; top:1rem;" tabindex="0" data-bs-toggle="popover" data-bs-html="true" data-bs-title="'.$theposterdata['uname'].'" data-bs-content=\''.member_qualif($theposterdata['uname'], $theposterdata['posts'],$theposterdata['rang']).'\'><img class=" btn-secondary img-thumbnail img-fluid n-ava" src="'.$imgtmp.'" alt="'.$theposterdata['uname'].'" loading="lazy" /></a>';
             }
          }
          echo'
