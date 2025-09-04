@@ -543,20 +543,18 @@ function Mess_Check_Mail($username) {
 #autodoc Mess_Check_Mail_interface($username, $class) : Affiche le groupe check_mail (theme principal de NPDS)
 function Mess_Check_Mail_interface($username, $class) {
    global $anonymous;
-   if ($ibid=theme_image("fle_b.gif")) {$imgtmp=$ibid;} else {$imgtmp=false;}
-   if ($class != '') $class = "class=\"$class\"";
+   $imgtmp = theme_image('fle_b.gif') ?: false ;
+   if ($class != '') $class = 'class="'.$class.'"';
    if ($username == $anonymous) {
-      if ($imgtmp) {
-         echo "<img alt=\"\" src=\"$imgtmp\" align=\"center\" />$username - <a href=\"user.php\" $class>".translate("Votre compte")."</a>";
-      } else {
-         echo "[$username - <a href=\"user.php\" $class>".translate("Votre compte")."</a>]";
-      }
+      if ($imgtmp)
+         echo '<img alt="" src="'.$imgtmp.'" align="center" />'.$username.' - <a href="user.php" '.$class.'>'.translate('Votre compte').'</a>';
+      else
+         echo '['.$username.' - <a href="user.php" '.$class.'>'.translate('Votre compte').'</a>]';
    } else {
-      if ($imgtmp) {
-         echo "<a href=\"user.php\" $class><img alt=\"\" src=\"$imgtmp\" align=\"center\" />".translate("Votre compte")."</a>&nbsp;".Mess_Check_Mail_Sub($username,$class);
-      } else {
-         echo "[<a href=\"user.php\" $class>".translate("Votre compte")."</a>&nbsp;&middot;&nbsp;".Mess_Check_Mail_Sub($username,$class)."]";
-      }
+      if ($imgtmp) 
+         echo '<a href="user.php" '.$class.'><img alt="" src="'.$imgtmp.'" align="center" />'.translate('Votre compte').'</a>&nbsp;'.Mess_Check_Mail_Sub($username,$class);
+      else
+         echo '[<a href="user.php" '.$class.'>'.translate('Votre compte').'</a>&nbsp;&middot;&nbsp;'.Mess_Check_Mail_Sub($username,$class).']';
    }
 }
 #autodoc Mess_Check_Mail_Sub($username, $class) : Affiche le groupe check_mail (theme principal de NPDS) / SOUS-Fonction
@@ -567,29 +565,25 @@ function Mess_Check_Mail_Sub($username, $class) {
       $total_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND type_msg='0'"));
       $new_messages = sql_num_rows(sql_query("SELECT msg_id FROM ".$NPDS_Prefix."priv_msgs WHERE to_userid = '$userdata[0]' AND read_msg='0' AND type_msg='0'"));
       if ($total_messages > 0) {
-         if ($new_messages > 0) {
-            $Xcheck_Nmail = $new_messages;
-         } else {
-            $Xcheck_Nmail = '0';
-         }
+         $Xcheck_Nmail = $new_messages > 0 ? $new_messages : '0' ;
          $Xcheck_mail = $total_messages;
       } else {
          $Xcheck_Nmail = '0';
          $Xcheck_mail = '0';
       }
    }
-   $YNmail = "$Xcheck_Nmail";
-   $Ymail = "$Xcheck_mail";
-   $Mel = "<a href=\"viewpmsg.php\" $class>Mel</a>";
+   $YNmail = $Xcheck_Nmail;
+   $Ymail = $Xcheck_mail;
+   $Mel = '<a href="viewpmsg.php" '.$class.'>Mel</a>';
    if ($Xcheck_Nmail > 0) {
-      $YNmail = "<a href=\"viewpmsg.php\" $class>$Xcheck_Nmail</a>";
+      $YNmail = '<a href="viewpmsg.php" '.$class.'>'.$Xcheck_Nmail.'</a>';
       $Mel = 'Mel';
    }
    if ($Xcheck_mail > 0) {
-      $Ymail = "<a href=\"viewpmsg.php\" $class>$Xcheck_mail</a>";
+      $Ymail = '<a href="viewpmsg.php" '.$class.'>'.$Xcheck_mail.'</a>';
       $Mel = 'Mel';
    }
-   return ("$Mel : $YNmail / $Ymail");
+   return ($Mel.' : '.$YNmail.' / '.$Ymail);
 }
 #autodoc Who_Online() : Qui est en ligne ? + message de bienvenue
 function Who_Online() {
@@ -599,13 +593,11 @@ function Who_Online() {
 #autodoc Who_Online() : Qui est en ligne ? + message de bienvenue / SOUS-Fonction / Utilise Site_Load
 function Who_Online_Sub() {
    global $user, $cookie;
-   list($member_online_num, $guest_online_num)=site_load();
+   list($member_online_num, $guest_online_num) = site_load();
    $content1 = "$guest_online_num ".translate('visiteur(s) et')." $member_online_num ".translate('membre(s) en ligne.');
-   if ($user) {
-      $content2 = translate('Vous êtes connecté en tant que').' <b>'.$cookie[1].'</b>';
-   } else {
-      $content2 = translate('Devenez membre privilégié en cliquant').' <a href="user.php?op=only_newuser">'.translate('ici').'</a>';
-   }
+   $content2 = $user ? 
+      translate('Vous êtes connecté en tant que').' <b>'.$cookie[1].'</b>' :
+      translate('Devenez membre privilégié en cliquant').' <a href="user.php?op=only_newuser">'.translate('ici').'</a>' ;
    return array($content1, $content2);
 }
 #autodoc Site_Load() : Maintient les informations de NB connexion (membre, anonyme) - globalise la variable $who_online_num et maintient le fichier cache/site_load.log &agrave; jour<br />Indispensable pour la gestion de la 'clean_limit' de SuperCache
@@ -638,15 +630,12 @@ function AutoReg() {
          if (!$test) {
             setcookie('user','',0);
             return false;
-         } else {
+         } else
             return true;
-         }
-      } else {
+      } else
          return true;
-      }
-   } else {
+   } else
       return true;
-   }
 }
 #autodoc secur_static($sec_type) : Pour savoir si le visiteur est un : membre ou admin (static.php et banners.php par exemple)
 function secur_static($sec_type) {
@@ -684,10 +673,10 @@ function cookiedecode($user) {
    global $NPDS_Prefix, $language;
    $stop = false;
 
-   if (array_key_exists("user",$_GET)) {
+   if (array_key_exists('user',$_GET)) {
       if ($_GET['user'] != '') { $stop = true; $user = 'BAD-GET';}
    } else if (isset($HTTP_GET_VARS)) {
-      if (array_key_exists("user",$HTTP_GET_VARS) and ($HTTP_GET_VAR['user']!='')) { $stop = true; $user = 'BAD-GET';}
+      if (array_key_exists('user',$HTTP_GET_VARS) and ($HTTP_GET_VAR['user'] != '')) { $stop = true; $user = 'BAD-GET';}
    }
    if ($user) {
       $cookie = explode(':', base64_decode($user));
@@ -697,19 +686,15 @@ function cookiedecode($user) {
          if (sql_num_rows($result) == 1) {
             list($pass, $user_langue) = sql_fetch_row($result);
             if (($cookie[2] == md5($pass)) and ($pass != '')) {
-               if ($language != $user_langue) {
+               if ($language != $user_langue)
                   sql_query("UPDATE ".$NPDS_Prefix."users SET user_langue='$language' WHERE uname='$cookie[1]'");
-               }
                return $cookie;
-            } else {
+            } else
                $stop = true;
-            }
-         } else {
+         } else
             $stop = true;
-         }
-      } else {
+      } else
          $stop = true;
-      }
       if ($stop) {
          setcookie('user','',0);
          unset($user);
@@ -769,13 +754,12 @@ function formatAidHeader($aid) {
    $holder = sql_query("SELECT url, email FROM ".$NPDS_Prefix."authors WHERE aid='$aid'");
    if ($holder) {
       list($url, $email) = sql_fetch_row($holder);
-      if (isset($url)) {
+      if (isset($url)) 
          echo '<a href="'.$url.'" >'.$aid.'</a>';
-      } elseif (isset($email)) {
+      elseif (isset($email))
          echo '<a href="mailto:'.$email.'" >'.$aid.'</a>';
-      } else {
+      else
          echo $aid;
-      }
    }
 }
 #autodoc ctrl_aff($ihome, $catid) : Gestion + fine des destinataires (-1, 0, 1, 2 -> 127, -127)
@@ -864,7 +848,7 @@ function news_aff($type_req, $sel, $storynum, $oldnum) { // pas stabilisé ...!
          sql_free_result($result2);
       }
    }
-   @sql_free_result($result);
+   sql_free_result($result);
    return ($tab);
 }
 #autodoc themepreview($title, $hometext, $bodytext, $notes) : Permet de prévisualiser la présentation d'un NEW
@@ -1019,7 +1003,7 @@ function block_fonction($title, $contentX) {
          $params = substr($contentY,$pos+7);
          $prm = explode(',',$params);
          // Remplace le param "False" par la valeur false (idem pour True)
-         for ($i = 0; $i <= count($prm)-1; $i++) {
+         for ($i = 0; $i <= count($prm) - 1; $i++) {
             if ($prm[$i] == 'false') $prm[$i] = false;
             if ($prm[$i] == 'true') $prm[$i] = true;
          }
@@ -1103,12 +1087,12 @@ function fab_block($title, $member, $content, $Xcache) {
          $tmp = explode("\n",$content);
          $content = '';
          foreach($tmp as $id => $class) {
-            $temp = explode("#",$class);
-            if ($temp[0] == "class-title")
-               $B_class_title = str_replace("\r","",$temp[1]);
-            else if ($temp[0] == "class-content")
-               $B_class_content=str_replace("\r","",$temp[1]);
-            else if ($temp[0] == "uri")
+            $temp = explode('#',$class);
+            if ($temp[0] == 'class-title')
+               $B_class_title = str_replace("\r",'',$temp[1]);
+            else if ($temp[0] == 'class-content')
+               $B_class_content=str_replace("\r",'',$temp[1]);
+            else if ($temp[0] == 'uri')
                $R_uri = str_replace("\r",'',$temp[1]);
             else {
                if ($content != '') $content .= "\n ";
