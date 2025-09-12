@@ -6,7 +6,7 @@
 **⚠️ IMPORTANT :** Téléchargez le fichier **à la RACINE de votre domaine/sous-domaine** :
 
 #### Option 1 : Lien de téléchargement automatique :
-[📦 Télécharger npds_deployer.php](https://github.com/npds/npds_dune/raw/master/revolution_16/lib/deployer/npds_deployer.php)
+[📦 Télécharger npds_deployer.php](https://github.com/npds/npds_dune/raw/master/revolution_16/lib/deployer/npds_deployer.php?download=true)
 
 #### Option 2 : Commandes terminal :
 

@@ -30,7 +30,7 @@ Suivre l'installation automatique ...
 ### Méthode rapide en 3 étapes :
 
 1. **Téléchargez** le déployeur
-📥 Télécharger le [déployeur](https://github.com/npds/npds_dune/raw/master/revolution_16/lib/deployer/npds_deployer.php)
+📥 Télécharger le [déployeur](https://github.com/npds/npds_dune/raw/master/revolution_16/lib/deployer/npds_deployer.php?download=true)
 
 2. **Placez** le fichier à la racine de votre domaine et accédez à :
 
