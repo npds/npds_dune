@@ -7,10 +7,10 @@
 
 ```bash
 # Via wget (recommandé)
-wget -O npds_deployer.php https://raw.githubusercontent.com/npds/npds_dune/master/lib/deployer/npds_deployer.php
+wget -O npds_deployer.php https://raw.githubusercontent.com/npds/npds_dune/master/revolution_16/lib/deployer/npds_deployer.php
 
 # Ou via curl
-curl -o npds_deployer.php https://raw.githubusercontent.com/npds/npds_dune/master/lib/deployer/npds_deployer.php
+curl -o npds_deployer.php https://raw.githubusercontent.com/npds/npds_dune/master/revolution_16/lib/deployer/npds_deployer.php
 ```
 
 ### Étape 2 : Placez-le au bon endroit

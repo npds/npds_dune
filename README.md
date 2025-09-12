@@ -31,14 +31,14 @@ Suivre l'installation automatique ...
 
 1. **Téléchargez** le déployeur à la racine
 ```
-https://raw.githubusercontent.com/npds/npds_dune/master/lib/deployer/npds_deployer.php
+https://raw.githubusercontent.com/npds/npds_dune/master/revolution_16/lib/deployer/npds_deployer.php
 ```
 2. **Accédez** à l'URL dans votre navigateur :
 ```
 https://votre-domaine.com/npds_deployer.php
 ```
 3. **Suivez** l'interface de déploiement et d'installation automatique  
-📖 [Documentation détaillée du déployeur](https://raw.githubusercontent.com/npds/npds_dune/master/lib/deployer/README.md)
+📖 [Documentation détaillée du déployeur](https://raw.githubusercontent.com/npds/npds_dune/master/revolution_16/lib/deployer/README.md)
 
 ### 🔒 Sécurité
 
