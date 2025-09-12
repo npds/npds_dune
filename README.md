@@ -25,6 +25,29 @@ Uploader sur votre serveur (local ou distant)
 Aller /index.php   
 Suivre l'installation automatique ...
 
+## Déploiement automatique et Installation (recommandé)
+
+### Méthode rapide en 3 étapes :
+
+1. **Téléchargez** le déployeur à la racine
+```
+https://raw.githubusercontent.com/npds/npds_dune/master/lib/deployer/npds_deployer.php
+```
+2. **Accédez** à l'URL dans votre navigateur :
+```
+https://votre-domaine.com/npds_deployer.php
+```
+3. **Suivez** l'interface de déploiement et d'installation automatique
+📖 [Documentation détaillée du déployeur](https://raw.githubusercontent.com/npds/npds_dune/master/lib/deployer/README.md)
+
+### 🔒 Sécurité
+
+- Le déployeur sera **auto-détruit** après l'installation réussie
+- Une copie de sécurité sera conservée dans `votre-site.com/npds/lib/deployer/npds_deployer.php` pour usage futur
+- **Ne renommez pas** le fichier - gardez `npds_deployer.php`
+- **Ne fonctionne que pour les nouvelles installations** (bloqué si `IZ-Xinstall.ok` existe)
+
+
 ## Communauté
 
 - Besoin d'aide le [forum Npds](https://www.npds.org/forum.php)
