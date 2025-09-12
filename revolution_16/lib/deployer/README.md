@@ -5,10 +5,7 @@
 ### Étape 1 : Téléchargez le déployeur
 **⚠️ IMPORTANT :** Téléchargez le fichier **à la RACINE de votre domaine/sous-domaine** :
 
-#### Option 1 : Lien de téléchargement automatique :
-[📦 Télécharger npds_deployer.php](https://github.com/npds/npds_dune/raw/master/revolution_16/lib/deployer/npds_deployer.php?download=true)
-
-#### Option 2 : Commandes terminal :
+#### Option 1 : Commandes terminal :
 
 ```bash
 # Via wget (recommandé)
@@ -18,7 +15,7 @@ wget -O npds_deployer.php https://raw.githubusercontent.com/npds/npds_dune/maste
 curl -o npds_deployer.php https://raw.githubusercontent.com/npds/npds_dune/master/revolution_16/lib/deployer/npds_deployer.php
 ```
 
-#### Option 3 : Copier-coller manuel :
+#### Option 2 : Copier-coller manuel :
 
 1. Cliquez droit sur ce [lien](https://github.com/npds/npds_dune/raw/master/revolution_16/lib/deployer/npds_deployer.php)
 2. "Enregistrer le lien sous..."

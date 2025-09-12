@@ -30,9 +30,24 @@ Suivre l'installation automatique ...
 ### Méthode rapide en 3 étapes :
 
 1. **Téléchargez** le déployeur
-📥 Télécharger le [déployeur](https://github.com/npds/npds_dune/raw/master/revolution_16/lib/deployer/npds_deployer.php?download=true)
 
-2. **Placez** le fichier à la racine de votre domaine et accédez à :
+- Option 1 : Commandes terminal :
+
+```bash
+# Via wget (recommandé)
+wget -O npds_deployer.php https://raw.githubusercontent.com/npds/npds_dune/master/revolution_16/lib/deployer/npds_deployer.php
+
+# Ou via curl
+curl -o npds_deployer.php https://raw.githubusercontent.com/npds/npds_dune/master/revolution_16/lib/deployer/npds_deployer.php
+```
+
+- Option 2 : Copier-coller manuel :
+
+  Cliquez droit sur ce [lien](https://github.com/npds/npds_dune/raw/master/revolution_16/lib/deployer/npds_deployer.php)  
+  "Enregistrer le lien sous..."  
+  Nommez le fichier npds_deployer.php  
+
+2. **Placez** le fichier à la racine de votre domaine !
 
 3. **Accédez** à l'URL dans votre navigateur :
 ```
