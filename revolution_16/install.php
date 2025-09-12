@@ -451,28 +451,31 @@ if($stage == 9) {
          $fp = fopen('IZ-Xinstall.ok', 'w');
          fclose($fp);
 
-         // La suppression de l'installation
-         function icare_delete_Dir($rep) {
-            $dir = opendir($rep);
-            chdir($rep);
-            while($nom = readdir($dir)) {
-               if ($nom != '.' && $nom != '..' && $nom != '') {
-                  if (is_dir($nom)) {
-                     $archive[$nom] = icare_delete_Dir($nom);
-                     rmdir($nom);
-                  } elseif (is_file($nom))
-                     @unlink($nom);
-               }
+         function deleteDirectory($dir) {
+            if (!is_dir($dir)) return false;
+            $files = array_diff(scandir($dir), ['.', '..']);
+            foreach ($files as $file) {
+               $path = $dir . '/' . $file;
+               is_dir($path) ? deleteDirectory($path) : @unlink($path);
             }
-            chdir('..');
-            closedir($dir);
+            return @rmdir($dir);
          }
-         if (file_exists('IZ-Xinstall.ok'))
-            if (file_exists('install.php') or is_dir('install')) {
-               icare_delete_Dir('install');
-               @rmdir ('install');
+
+         if (file_exists('IZ-Xinstall.ok')) {
+            // Suppression de l'installation NPDS
+            if (is_dir('install'))
+               deleteDirectory('install');
+            if (file_exists('install.php'))
                @unlink('install.php');
-            }
+            // Suppression du déployeur initial
+            $initialDeployer = __DIR__ . '/npds_deployer.php';
+            if (file_exists($initialDeployer))
+               @unlink($initialDeployer);
+            // Suppression du dossier temporaire
+            $tempDir = __DIR__ . '/npds_deployer_temp';
+            if (is_dir($tempDir))
+               deleteDirectory($tempDir);
+         }
          echo '<script type="text/javascript">'."\n".'//<![CDATA['."\n".'document.location.href=\'index.php\';'."\n".'//]]>'."\n".'</script>';
       break;
 
