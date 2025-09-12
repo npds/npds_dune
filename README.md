@@ -37,7 +37,7 @@ https://raw.githubusercontent.com/npds/npds_dune/master/lib/deployer/npds_deploy
 ```
 https://votre-domaine.com/npds_deployer.php
 ```
-3. **Suivez** l'interface de déploiement et d'installation automatique
+3. **Suivez** l'interface de déploiement et d'installation automatique  
 📖 [Documentation détaillée du déployeur](https://raw.githubusercontent.com/npds/npds_dune/master/lib/deployer/README.md)
 
 ### 🔒 Sécurité
