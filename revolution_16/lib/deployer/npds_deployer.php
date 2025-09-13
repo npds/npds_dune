@@ -383,7 +383,7 @@ private function copyDirectoryContentsFlat(string $source, string $destination):
         if ($fileCount % 50 === 0) {
             $percent = round(($fileCount / $totalFiles) * 100);
             echo '<script>document.getElementById("progress").innerHTML = "📁 Copie: '.$percent.'% ('.$fileCount.'/'.$totalFiles.')";</script>';
-            echo str_repeat(' ', 1024);
+            echo str_repeat(' ', 4096);
             
             if (ob_get_level() > 0) {
                 ob_flush();
