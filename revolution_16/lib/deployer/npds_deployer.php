@@ -367,24 +367,22 @@ private function copyDirectoryContentsFlat(string $source, string $destination):
 
     $dirIterator = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
     $iterator = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
-    
-    // ⚡ CALCUL DU NOMBRE TOTAL DE FICHIERS
+
     $totalFiles = iterator_count($iterator);
     if ($totalFiles === 0) {
         throw new Exception("Aucun fichier à copier dans: $source");
     }
-    
+
     $fileCount = 0;
-    
+
     foreach ($iterator as $item) {
         $fileCount++;
-        
+
         // ⚡ OUTPUT TOUS LES 50 FICHIERS
         if ($fileCount % 50 === 0) {
             $percent = round(($fileCount / $totalFiles) * 100);
             echo '<script>document.getElementById("progress").innerHTML = "📁 Copie: '.$percent.'% ('.$fileCount.'/'.$totalFiles.')";</script>';
-            echo str_repeat(' ', 4096);
-            
+            echo str_repeat(' ', 32768);
             if (ob_get_level() > 0) {
                 ob_flush();
             }
@@ -392,7 +390,7 @@ private function copyDirectoryContentsFlat(string $source, string $destination):
         }
 
         $targetPath = $destination . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
-        
+
         if ($item->isDir()) {
             if (!is_dir($targetPath))
                 mkdir($targetPath, 0755);
@@ -410,9 +408,9 @@ private function copyDirectoryContentsFlat(string $source, string $destination):
         ob_flush();
     }
     flush();
-    
     error_log("✅ copyDirectoryContentsFlat terminée: $fileCount fichiers");
 }
+
     /**
     * Supprime récursivement un répertoire
     */
@@ -582,9 +580,9 @@ function deployNPDS($version = null, $installPath = null) {
         echo "<div class='success'>";
         echo "<h2>🎉 DÉPLOIEMENT RÉUSSI !</h2>";
         // Log final détaillé
-        $this->logToInstallLog("Déploiement NPDS terminé avec succès", 'SUCCESS');
-        $this->logToInstallLog("Version: " . ($result['data']['version'] ?? 'inconnue'), 'INFO');
-        $this->logToInstallLog("Dossier cible: " . $installPath, 'INFO');
+        $deployer->logToInstallLog("Déploiement NPDS terminé avec succès", 'SUCCESS');
+        $deployer->logToInstallLog("Version: " . ($result['data']['version'] ?? 'inconnue'), 'INFO');
+        $deployer->logToInstallLog("Dossier cible: " . $installPath, 'INFO');
         $sizeInMB = $deployer->getDeployedSize($installPath);
         echo "<p>📦 " . $sizeInMB . " déployés</p>";
         $fileCount = 0;
@@ -612,11 +610,9 @@ function deployNPDS($version = null, $installPath = null) {
 
         echo "<h3>🌐 URL d'accès :</h3>";
         echo "<p><a href='" . $baseUrl . "' target='_blank'>" . $baseUrl . "</a></p>";
-        
         echo "<h3>⏭️ Pour terminer l'installation :</h3>";
         echo "<p><a href='" . $baseUrl . "/index.php' target='_blank' style='background: #007bff; color: white; padding: 10px 15px; border-radius: 4px; display: inline-block;'>";
         echo "📋 Lancer l'installation de NPDS</a></p>";
-        
         echo "</div>";
     } else {
         echo "<div class='error'>";
