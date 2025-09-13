@@ -379,10 +379,11 @@ private function copyDirectoryContentsFlat(string $source, string $destination):
         $fileCount++;
 
         // ⚡ OUTPUT TOUS LES 50 FICHIERS
-        if ($fileCount % 50 === 0) {
+        if ($fileCount % 25 === 0) {
             $percent = round(($fileCount / $totalFiles) * 100);
             echo '<script>document.getElementById("progress").innerHTML = "📁 Copie: '.$percent.'% ('.$fileCount.'/'.$totalFiles.')";</script>';
-            echo str_repeat(' ', 32768);
+            echo '<div style="display:none">Progression: ' . $percent . '%</div>';
+            echo str_repeat(' ', 262144);
             if (ob_get_level() > 0) {
                 ob_flush();
             }
@@ -632,27 +633,25 @@ $operation = $_GET['op'] ?? 'menu';
 
 switch ($operation) {
     case 'deploy':
-        if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes') {
+        if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
             die("❌ Sécurité : Confirmez avec &confirm=yes");
-        }
         deployNPDS();
-        break;
-        
+    break;
+
     case 'clean':
-        if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes') {
+        if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
             die("❌ Confirmez le nettoyage avec &confirm=yes");
-        }
         header('Content-Type: text/html; charset=utf-8');
         $deployer = new GithubDeployer();
         $tempDir = $deployer->getTempDir();
         $result = $deployer->cleanupDirectory($tempDir);
         echo $result['success'] ? "✅ " : "❌ ";
         echo $result['message'];
-        break;
+    break;
         
     case 'info':
         phpinfo();
-        break;
+    break;
         
     case 'menu':
     default:
@@ -681,13 +680,13 @@ switch ($operation) {
         echo '<li><a href="?op=deploy&version=master&confirm=yes" onclick="return confirm(\'🚨 DANGER : Déployer MASTER à la RACINE ?\')">Déployer MASTER à la racine</a></li>';
         echo '</ul>';
         echo '<p>⚠️ <strong>Master</strong> : Version de développement, peut être instable - Ne pas utiliser en production!</p>';
-        
+
         echo '<h2>🧹 Maintenance :</h2>';
         echo '<ul>';
         echo '<li><a href="?op=clean&confirm=yes" onclick="return confirm(\'Nettoyer les fichiers temporaires ?\')">Nettoyer fichiers temporaires</a></li>';
         echo '<li><a href="?op=info">Info système</a></li>';
         echo '</ul>';
-        
+
         echo '<h2>⚙️ Options avancées :</h2>';
         echo '<form method="GET" style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">';
         echo '<input type="hidden" name="op" value="deploy" />';
@@ -696,8 +695,8 @@ switch ($operation) {
         echo '<button type="submit" onclick="return confirm(\'⚠️ Confirmer le déploiement ?\')" class="btn">Déployer</button>';
         echo '<input type="hidden" name="confirm" value="yes" />';
         echo '</form>';
-        
+
         echo '</div></body></html>';
-        break;
+    break;
 }
 ?>
