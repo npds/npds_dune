@@ -356,52 +356,63 @@ class GithubDeployer {
         return $baseUrl . '/' . urlencode($version) . '.' . $extension;
     }
 
-    private function copyDirectoryContentsFlat(string $source, string $destination): void {
-       error_log("🔄 copyDirectoryContentsFlat démarrée");
-       error_log('   📁 Source: '. str_replace('//', '/', $source));
-       error_log("   📁 Destination: $destination");
-       // ⚡ OUTPUT VISIBLE IMMÉDIAT ⚡
-       echo '<div class="progress">📂 Début de la copie des fichiers...</div>';
-       flush();
-       ob_flush();
-       
-       if (!is_dir($destination))
-           mkdir($destination, 0755, true);
+private function copyDirectoryContentsFlat(string $source, string $destination): void {
+    error_log("🔄 copyDirectoryContentsFlat démarrée");
+    
+    echo '<div class="progress">📂 Début de la copie des fichiers...</div>';
+    flush();
 
-       $dirIterator = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
-       $iterator = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
-       $fileCount = 0;
-       foreach ($iterator as $item) {
-           $fileCount++;
+    if (!is_dir($destination))
+        mkdir($destination, 0755, true);
 
-           // ⚡ OUTPUT TOUS LES 50 FICHIERS ⚡
-           if ($fileCount % 50 === 0) {
-               $percent = round(($fileCount / $totalFiles) * 100);
-               echo '<script>document.getElementById("progress").innerHTML = "📁 Copie: '.$percent.'% ('.$fileCount.'/'.$totalFiles.')";</script>';
-               echo str_repeat(' ', 1024);
-               flush();
-               ob_flush();
-           }
-           // ← AJOUTEZ ICI : Keep-alive tous les 100 fichiers
-           //if ($fileCount % 100 === 0)
-               //$this->keepAlive("Copie de $fileCount fichiers...");
-           $targetPath = $destination . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
-           if ($item->isDir()) {
-               if (!is_dir($targetPath))
-                   mkdir($targetPath, 0755);
-           } else {
-               // Créer le dossier parent si nécessaire
-               $parentDir = dirname($targetPath);
-               if (!is_dir($parentDir))
-                   mkdir($parentDir, 0755, true);
-               if (!copy($item->getRealPath(), $targetPath))
-                   throw new Exception("Impossible de copier: " . $item->getFilename());
-           }
-       }
-       error_log("✅ copyDirectoryContentsFlat terminée avec succès");
-//       $this->keepAlive("Copie terminée: $fileCount fichiers");
+    $dirIterator = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
+    $iterator = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
+    
+    // ⚡ CALCUL DU NOMBRE TOTAL DE FICHIERS
+    $totalFiles = iterator_count($iterator);
+    if ($totalFiles === 0) {
+        throw new Exception("Aucun fichier à copier dans: $source");
     }
+    
+    $fileCount = 0;
+    
+    foreach ($iterator as $item) {
+        $fileCount++;
+        
+        // ⚡ OUTPUT TOUS LES 50 FICHIERS
+        if ($fileCount % 50 === 0) {
+            $percent = round(($fileCount / $totalFiles) * 100);
+            echo '<script>document.getElementById("progress").innerHTML = "📁 Copie: '.$percent.'% ('.$fileCount.'/'.$totalFiles.')";</script>';
+            echo str_repeat(' ', 1024);
+            
+            if (ob_get_level() > 0) {
+                ob_flush();
+            }
+            flush();
+        }
 
+        $targetPath = $destination . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
+        
+        if ($item->isDir()) {
+            if (!is_dir($targetPath))
+                mkdir($targetPath, 0755);
+        } else {
+            $parentDir = dirname($targetPath);
+            if (!is_dir($parentDir))
+                mkdir($parentDir, 0755, true);
+            if (!copy($item->getRealPath(), $targetPath))
+                throw new Exception("Impossible de copier: " . $item->getFilename());
+        }
+    }
+    
+    echo '<div class="progress">✅ Copie terminée: '.$fileCount.' fichiers</div>';
+    if (ob_get_level() > 0) {
+        ob_flush();
+    }
+    flush();
+    
+    error_log("✅ copyDirectoryContentsFlat terminée: $fileCount fichiers");
+}
     /**
     * Supprime récursivement un répertoire
     */
