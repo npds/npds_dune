@@ -360,7 +360,11 @@ class GithubDeployer {
        error_log("🔄 copyDirectoryContentsFlat démarrée");
        error_log('   📁 Source: '. str_replace('//', '/', $source));
        error_log("   📁 Destination: $destination");
-
+       // ⚡ OUTPUT VISIBLE IMMÉDIAT ⚡
+       echo '<div class="progress">📂 Début de la copie des fichiers...</div>';
+       flush();
+       ob_flush();
+       
        if (!is_dir($destination))
            mkdir($destination, 0755, true);
 
@@ -369,9 +373,18 @@ class GithubDeployer {
        $fileCount = 0;
        foreach ($iterator as $item) {
            $fileCount++;
+
+           // ⚡ OUTPUT TOUS LES 50 FICHIERS ⚡
+           if ($fileCount % 50 === 0) {
+               $percent = round(($fileCount / $totalFiles) * 100);
+               echo '<script>document.getElementById("progress").innerHTML = "📁 Copie: '.$percent.'% ('.$fileCount.'/'.$totalFiles.')";</script>';
+               echo str_repeat(' ', 1024);
+               flush();
+               ob_flush();
+           }
            // ← AJOUTEZ ICI : Keep-alive tous les 100 fichiers
-           if ($fileCount % 100 === 0)
-               $this->keepAlive("Copie de $fileCount fichiers...");
+           //if ($fileCount % 100 === 0)
+               //$this->keepAlive("Copie de $fileCount fichiers...");
            $targetPath = $destination . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
            if ($item->isDir()) {
                if (!is_dir($targetPath))
@@ -438,15 +451,28 @@ class GithubDeployer {
     }
 
     /**
-    * Crée un résultat standardisé
+    * Crée un résultat standardisé et log
     */
     private function createResult(bool $success, string $message, array $data = []): array {
-        return [
+        $result = [
             'success' => $success,
             'message' => $message,
             'data' => $data,
             'timestamp' => time()
         ];
+        // Loguer le résultat
+         $logType = $success ? 'SUCCESS' : 'ERROR';
+         $logMessage = $success ? "Déploiement réussi" : "Échec déploiement: $message";
+         $this->logToInstallLog($logMessage, $logType);
+          // Loguer les détails supplémentaires si disponibles
+          if (!empty($data['version'])) {
+              $this->logToInstallLog("Version: " . $data['version'], 'INFO');
+          }
+          if (!empty($data['size'])) {
+              $sizeMB = round($data['size'] / 1024 / 1024, 2);
+              $this->logToInstallLog("Taille: " . $sizeMB . " MB", 'INFO');
+          }
+        return $result;
     }
     
     /**
@@ -467,6 +493,26 @@ class GithubDeployer {
     public function getDeployedSize($path): string {
        return $this->getDirectorySize($path);
     }
+
+    private function formatNpdsTimestamp(): string {
+       date_default_timezone_set('Europe/Paris');
+       $date = date('d/m/y');
+       $time = date('H:i:s'); 
+       return $date . '  ' . $time;
+    }
+
+    private function logToInstallLog($message, $type = 'INFO'): void {
+       $logFile = 'slogs/install.log';
+       $timestamp = date('d/m/y  H:i:s'); // Format avec zéros
+       $logEntry = "$timestamp : $type : $message\n";
+       // Créer le dossier slogs s'il n'existe pas
+       if (!is_dir('slogs')) {
+           @mkdir('slogs', 0755, true);
+       }
+       // Ajouter au fichier log
+       @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX);
+    }
+
 }
 
 /**
@@ -524,6 +570,10 @@ function deployNPDS($version = null, $installPath = null) {
     if ($result['success']) {
         echo "<div class='success'>";
         echo "<h2>🎉 DÉPLOIEMENT RÉUSSI !</h2>";
+        // Log final détaillé
+        $this->logToInstallLog("Déploiement NPDS terminé avec succès", 'SUCCESS');
+        $this->logToInstallLog("Version: " . ($result['data']['version'] ?? 'inconnue'), 'INFO');
+        $this->logToInstallLog("Dossier cible: " . $installPath, 'INFO');
         $sizeInMB = $deployer->getDeployedSize($installPath);
         echo "<p>📦 " . $sizeInMB . " déployés</p>";
         $fileCount = 0;
