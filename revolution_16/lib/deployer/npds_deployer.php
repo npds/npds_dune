@@ -399,7 +399,7 @@ class GithubDeployer {
            }
        }
        error_log("✅ copyDirectoryContentsFlat terminée avec succès");
-       $this->keepAlive("Copie terminée: $fileCount fichiers");
+//       $this->keepAlive("Copie terminée: $fileCount fichiers");
     }
 
     /**
