@@ -510,7 +510,7 @@ private function copyDirectoryContentsFlat(string $source, string $destination):
        return $date . '  ' . $time;
     }
 
-    private function logToInstallLog($message, $type = 'INFO'): void {
+    public function logToInstallLog($message, $type = 'INFO'): void {
        $logFile = 'slogs/install.log';
        $timestamp = date('d/m/y  H:i:s'); // Format avec zéros
        $logEntry = "$timestamp : $type : $message\n";
