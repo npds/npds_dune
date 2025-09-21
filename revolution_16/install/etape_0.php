@@ -30,25 +30,25 @@ function etape_0() {
                   <div class="mb-3">
                      <div class="form-check">
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" id="langue_fr" name="langue" value="french" checked="checked" />
+                           <input class="form-check-input" type="radio" id="langue_fr" name="langue" value="fr" checked="checked" />
                            <label class="form-check-label" for="langue_fr">Fran&#231;ais</label>
                         </div>
                      </div>
                      <div class="form-check">
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" id="langue_en" name="langue" value="english" />
+                           <input class="form-check-input" type="radio" id="langue_en" name="langue" value="en" />
                            <label class="form-check-label" for="langue_en">English</label>
                         </div>
                      </div>
                      <div class="form-check">
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" id="langue_de" name="langue" value="german" />
+                           <input class="form-check-input" type="radio" id="langue_de" name="langue" value="de" />
                            <label class="form-check-label" for="langue_de">Deutsch</label>
                         </div>
                      </div>
                      <div class="form-check">
                         <div class="form-check">
-                           <input class="form-check-input" type="radio" id="langue_sp" name="langue" value="spanish" />
+                           <input class="form-check-input" type="radio" id="langue_sp" name="langue" value="es" />
                            <label class="form-check-label" for="langue_sp">Espa&#241;ol</label>
                         </div>
                      </div>
