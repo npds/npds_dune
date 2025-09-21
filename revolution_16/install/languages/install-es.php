@@ -76,7 +76,7 @@ function ins_translate($phrase) {
       case "Le fichier 'static/edito_membres.txt' est introuvable !": $tmp = "El archivo 'static/edito_membres.txt' no encontrado'"; break;
       case "Le fichier 'static/edito.txt' est introuvable !": $tmp = "El archivo 'static/edito.txt' no encontrado"; break;
       case 'Le fichier de configuration a été écrit avec succès !': $tmp = 'El archivo de configuración se ha escrito correctamente!'; break;
-      case "Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.": $tmp = 'El archivo de configuración no puede ser modificado. Compruebe los derechos de acceso al archivo 'config.php', y luego vuelve a intentarlo.'; break;
+      case "Le fichier de configuration n'a pas pu être modifié. Vérifiez les droits d'accès au fichier 'config.php', puis réessayez à nouveau.": $tmp = 'El archivo de configuración no puede ser modificado. Compruebe los derechos de acceso al archivo config.php, y luego vuelve a intentarlo.'; break;
       case 'Le fichier': $tmp = 'Archivo'; break;
       case 'Le mot de passe doit contenir au moins un caractère en majuscule.': $tmp = 'La contraseña debe contener al menos un carácter en mayúsculas.'; break;
       case 'Le mot de passe doit contenir au moins un caractère en minuscule.': $tmp = 'La contraseña debe contener al menos un carácter en minúscula.'; break;
