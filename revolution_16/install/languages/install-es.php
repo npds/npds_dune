@@ -98,7 +98,7 @@ function ins_translate($phrase) {
       case 'Module UPload': $tmp = 'Módulo UPload'; break;
       case 'Mot de passe': $tmp = 'Contraseña'; break;
       case "n'existait pas ce script tentera de la créer pour vous.": $tmp = 'No existe esta secuencia de comandos intentará crear para usted.'; break;
-      case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = 'Recuerde que debe eliminar, con su cliente FTP, el directorio 'install/' y el 'install.php' archivo!'; break;
+      case "N'oubliez pas de supprimer depuis votre client FTP le répertoire 'install/' ainsi que le fichier 'install.php' !": $tmp = 'Recuerde que debe eliminar, con su cliente FTP, el directorio "install/" y el "install.php" archivo!'; break;
       case "Nom d'hôte du serveur mySQL": $tmp = 'Nombre de host del servidor MySQL'; break;
       case "Nom d'utilisateur (identifiant)": $tmp = 'Nombre de usuario (identificador)'; break;
       case 'Nom de la base de données': $tmp = 'Nombre de la base de datos'; break;
