@@ -60,6 +60,13 @@ if($stage == 0) {
 #   => install/languages
 */
 if($stage == 1) {
+   switch ($langue) {
+      case 'fr': $langue = 'french'; break;
+      case 'en': $langue = 'english'; break;
+      case 'de': $langue = 'german'; break;
+      case 'es': $langue = 'spanish'; break;
+      default : $langue = 'french';
+   }
    $file = file('config.php');
    $file[173] ="\$language = \"$langue\";\n";
    $fic = fopen('config.php', 'w');
