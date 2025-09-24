@@ -52,6 +52,12 @@ function etape_0() {
                            <label class="form-check-label" for="langue_sp">Espa&#241;ol</label>
                         </div>
                      </div>
+                     <div class="form-check">
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" id="langue_zh" name="langue" value="zh" />
+                           <label class="form-check-label" for="langue_zh">&#x4E2D;&#x6587;</label>
+                        </div>
+                     </div>
                   </div>
                   <div class="mb-3 ms-4">
                      <input type="hidden" name="stage" value="1" />
