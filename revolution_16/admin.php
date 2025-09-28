@@ -1174,6 +1174,10 @@ if ($admintest) {
       case 'alerte_update':
          include 'npds_api.php';
       break;
+      // NPDS-mise-à-jour
+      case 'maj':
+         include 'admin/maj_npds.php';
+      break;
       // NPDS-Admin-Main
       case 'suite_articles':
          adminMain($deja_affiches);

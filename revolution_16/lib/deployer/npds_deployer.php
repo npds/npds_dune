@@ -569,13 +569,13 @@ class GithubDeployer {
       // ==================== FIN VERROUILLAGE ====================
 
       // ==================== LOGS DE DÉBOGAGE ====================
-      error_log("=== DÉPLOIEMENT DÉMARRÉ ===");
-      error_log("Version: $version, Cible: " . ($targetDir ?? 'racine'));
+      error_log('=== ' . t('deployment_started',$lang) . ' ===');
+      error_log(t('version',$lang) . ": $version | " . t('path',$lang) . ": " . ($targetDir ?? 'racine'));
       error_log("URL: " . $this->buildVersionUrl($baseUrl, $version, $format));
       error_log("Lock file: " . str_replace('//', '/', $lockFile));
       error_log("Temp dir: " . str_replace('//', '/', $this->tempDir));
-      $this->logToInstallLog("=== DÉPLOIEMENT DÉMARRÉ ===", 'INFO', $targetDir);
-      $this->logToInstallLog("Version: $version | Cible: " . ($targetDir ?? 'racine'), 'INFO', $targetDir);
+      $this->logToInstallLog('=== ' . t('deployment_started',$lang) . ' ===', 'INFO', $targetDir);
+      $this->logToInstallLog(t('version',$lang) . ": $version | " . t('path',$lang) . ": " . ($targetDir ?? 'racine'), 'INFO', $targetDir);
       $this->logToInstallLog("URL: " . $this->buildVersionUrl($baseUrl, $version, $format), 'INFO', $targetDir);
       // ==================== FIN LOGS DE DÉBOGAGE ====================
 
@@ -1098,7 +1098,7 @@ function deployNPDS($version = null, $installPath = null) {
             else $dirCount++;
          }
       }
-      echo '<li>📁 ' . ($fileCount + $dirCount) . ' ' . t('items_installed', $GLOBALS['lang']) . ' (' . $fileCount . ' ' . t('files', $GLOBALS['lang']) . ', ' . $dirCount . ' ' . t('folders', $GLOBALS['lang']) . ')</li>';
+      echo '<li>📁 ' . ($fileCount + $dirCount) . ' ' . t('items_installed', $lang) . ' (' . $fileCount . ' ' . t('files', $lang) . ', ' . $dirCount . ' ' . t('folders', $lang) . ')</li>';
       $relativePath = str_replace(__DIR__, '', $installPath);
       if ($relativePath === '')
          $relativePath = '';
@@ -1106,7 +1106,7 @@ function deployNPDS($version = null, $installPath = null) {
          $relativePath = '/' . trim($relativePath, '/');
       $baseUrl = 'https://' . $_SERVER['HTTP_HOST'] . $relativePath;
       echo '
-         <p><a class="btn btn-success" style="color:white;" href="' . $baseUrl . '/index.php" target="_blank" >' . t('launch_installation', $GLOBALS['lang']) . '</a></p>
+         <p><a class="btn btn-success" style="color:white;" href="' . $baseUrl . '/install.php?langue='.$lang.'&amp;stage=1" target="_blank" >' . t('launch_installation', $GLOBALS['lang']) . '</a></p>
       </div>';
    } else {
       echo '
