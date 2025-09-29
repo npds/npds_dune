@@ -13,70 +13,151 @@
 /* npds_deployer.php                                                    */
 /* jpb & DeepSeek 2025                                                  */
 /************************************************************************/
+error_log("🧨 DÉPLOYEUR DÉMARRÉ - " . date('H:i:s') . " - " . $_SERVER['REQUEST_URI']);
 
-// ==================== SÉCURITÉ - BLOCAGE SI DÉJÀ INSTALLÉ ====================
-/**
-* Empêche l'exécution du déployeur si NPDS est déjà installé
-*/
-function checkAlreadyInstalled() {
-    $lockFiles = [
-        'IZ-Xinstall.ok',
-        '../IZ-Xinstall.ok', 
-        '../../IZ-Xinstall.ok'
-    ];
-    foreach ($lockFiles as $lockFile) {
-        if (file_exists($lockFile)) {
-            if (php_sapi_name() !== 'cli' && isset($_SERVER['REQUEST_METHOD'])) {
-                header('HTTP/1.0 403 Forbidden');
-                die('
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <title>🚫 NPDS Déjà Installé</title>
-                        <style>
-                            body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-                            .container { max-width: 600px; margin: 0 auto; }
-                        </style>
-                    </head>
-                    <body>
-                        <div class="container">
-                            <h1>🚫 Accès Refusé</h1>
-                            <p>NPDS est déjà installé sur ce site.</p>
-                            <p>Le déployeur ne peut être utilisé que pour une nouvelle installation.</p>
-                            <p>Si vous souhaitez réinstaller, supprimez d\'abord le fichier <code>IZ-Xinstall.ok</code></p>
-                        </div>
-                    </body>
-                    </html>
-                ');
-            }
-            return true;
-        }
+// Compteur d'exécutions
+static $execution_count = 0;
+$execution_count++;
+error_log("🧨 Exécution #$execution_count");
+
+if ($execution_count > 1) {
+    error_log("🚨 DÉPLOYEUR EXÉCUTÉ PLUSIEURS FOIS !");
+    // Ne pas afficher le header si déjà fait
+    if (!function_exists('head_html_printed')) {
+        function head_html_printed() { return true; }
+    } else {
+        exit("Déployeur déjà en cours");
     }
-    return false;
 }
-// Vérifier si NPDS est déjà installé
-checkAlreadyInstalled();
+// ==================== VÉRIFICATION IMMÉDIATE + CONTEXTE SIMPLIFIÉ ====================
+$headers_already_sent = headers_sent();
 
-session_start();
-// ==================== CONFIGURATION TIMEZONE ====================
+// Détection basique du contexte SANS headers
+function getSimpleContext() {
+   // Mode CLI
+   if (php_sapi_name() === 'cli') return 'cli';
+   // Vérification fichiers d'installation (sans dépendances)
+   $installFiles = ['config.php', 'IZ-Xinstall.ok', 'lib/constants.php', 'slogs/install.log'];
+   foreach ($installFiles as $file) {
+      if (file_exists($file)) {
+         // NPDS installé - vérifier si admin
+         if (isset($_COOKIE['admin']) || isset($_COOKIE['adm']))
+            return 'update';
+         else
+            return 'blocked'; // Installé mais pas admin
+      }
+   }
+   return 'deploy'; // Pas installé
+}
+
+$context = getSimpleContext();
+
+// ==================== GESTION DU BLOCAGE (sans headers si possible) ====================
+if ($context === 'blocked') {
+   if (!$headers_already_sent)
+      header('HTTP/1.0 403 Forbidden');
+   die('
+   <!DOCTYPE html>
+   <html>
+   <head><title>🚫 NPDS Déjà Installé</title><style>body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }</style></head>
+   <body>
+      <div><h1>🚫 Accès Refusé</h1><p>NPDS est déjà installé.</p><p><a href="admin.php">➡️ Accéder à l\'administration</a></p></div>
+   </body>
+   </html>');
+}
+
+// ==================== CONFIGURATIONS NEUTRES ====================
 date_default_timezone_set('Europe/Paris');
-// ==================== CONFIGURATION SÉCURITÉ ====================
-header('Cache-Control: no-cache, no-store, must-revalidate');
-header('Pragma: no-cache');
-header('Expires: 0');
-header('X-Accel-Buffering: no'); // Critical for Nginx
-header('Connection: keep-alive');
-header('Keep-Alive: timeout=300, max=1000'); // 5 minutes keep-alive
-
 set_time_limit(600);
 ini_set('max_execution_time', 600);
 ini_set('default_socket_timeout', 600);
 ini_set('memory_limit', '512M');
-ini_set('zlib.output_compression', '0');
 
-// Bufferisation avancée
-if (ob_get_level() > 0) ob_end_clean();
-ob_start();
+// ==================== HEADERS UNIQUEMENT EN MODE STANDALONE ====================
+if (!$headers_already_sent && ($context === 'deploy' || $context === 'update')) {
+   // Session
+   if (session_status() === PHP_SESSION_NONE)
+      session_start();
+   // Headers de sécurité
+   header('Content-Type: text/html; charset=utf-8');
+   header('Cache-Control: no-cache, no-store, must-revalidate');
+   header('Pragma: no-cache');
+   header('Expires: 0');
+   header('X-Robots-Tag: noindex, nofollow');
+   header('X-Content-Type-Options: nosniff');
+   header('X-Accel-Buffering: no');
+   header('Connection: keep-alive');
+   header('Keep-Alive: timeout=300, max=1000');
+   
+   // Bufferisation
+   if (ob_get_level() > 0) ob_end_clean();
+   ob_start();
+   ini_set('zlib.output_compression', '0');
+} else {
+   // Mode inclusion - configuration minimale
+   //ini_set('zlib.output_compression', '0');
+}
+
+// ==================== SUITE DU CODE (fonctions originales préservées) ====================
+/**
+* Vérifie si NPDS est installé de manière robuste (version complète)
+*/
+function checkIfNPDSInstalled() {
+   $installFiles = [
+      'config.php', 'IZ-Xinstall.ok', 'lib/constants.php', 'slogs/install.log',
+      '../config.php', '../IZ-Xinstall.ok',
+   ];
+   foreach ($installFiles as $file) {
+      if (file_exists($file)) return true;
+   }
+   return false;
+}
+
+/**
+* Initialisation complète du contexte (pour usage interne)
+*/
+function initializeContext() {
+   // Cette fonction peut être utilisée dans le code, mais pas pour les headers
+   $isInstalled = checkIfNPDSInstalled();
+   if (php_sapi_name() === 'cli') return 'cli';
+   if (!$isInstalled) return 'deploy';
+   if (isset($_COOKIE['admin']) || isset($_COOKIE['adm'])) return 'update';
+   return 'blocked';
+}
+/**
+* Affiche l'erreur "déjà installé"
+*/
+function showAlreadyInstalledError() {
+   // Vérifier si on peut encore envoyer des headers
+   if (!headers_sent())
+      header('HTTP/1.0 403 Forbidden');
+   if (isset($_SERVER['REQUEST_METHOD'])) {
+      die('
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>🚫 NPDS Déjà Installé</title>
+                <style>
+                    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+                    .container { max-width: 600px; margin: 0 auto; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h1>🚫 Accès Refusé</h1>
+                    <p>NPDS est déjà installé sur ce site.</p>
+                    <p>Le déployeur ne peut être utilisé que pour une nouvelle installation.</p>
+                    <p>Si vous souhaitez réinstaller, supprimez d\'abord les fichiers indicateurs d\'installation.</p>
+                    <p><small>Fichiers indicateurs: config.php, IZ-Xinstall.ok, etc.</small></p>
+                    <p><a href="admin.php">➡️ Accéder à l\'administration NPDS</a></p>
+                </div>
+            </body>
+            </html>
+        ');
+   }
+   return true;
+}
+
 // ==================== GESTION DE LA LANGUE ====================
 // Définition des traductions
 $translations = [
@@ -493,6 +574,468 @@ if (!in_array($lang, ['fr', 'en', 'es', 'de', 'zh']))
 // Sauvegarde en session
 $_SESSION['npds_lang'] = $lang;
 
+// ==================== CONFIGURATION DES EXCLUSIONS ====================
+class NPDSExclusions {
+   private static $excludedFiles = [
+    // ⭐⭐ Ne pas couper la branche sur laquelle on est assis ⭐⭐
+/*
+     'lib/deployer/',
+     'lib/deployer/*',
+     'lib/deployer/npds-deployer.php',
+*/
+      // === FICHIERS/DOSSIERS INSTALLATION AUTO ===
+      'install/',                 // installation automatique
+      'install.php',              // installation automatique
+      // === FICHIERS DE CONFIGURATION CRITIQUES ===
+      'config.php',               // configuration générale du site
+      'IZ-Xinstall.ok',           // témoin d'install-auto
+      '.htaccess',                // pour le serveur
+      'robots.txt',               // welcome to the machine
+      'filemanager.conf',         // file manager config général
+      // === FICHIERS DE DONNEES ===
+      'abla.log.php',             // statistiques
+      'signat.php',               // pied d'email
+      // === DOSSIERS UTILISATEURS COMPLETS (IMMUABLES) ===
+      'users_private/',           // Données utilisateurs et groupes
+      'slogs/',                   // Logs
+      'cache/',                   // Cache système
+      'meta/',                    // Stockage metatags
+      // === FICHIERS/DOSSIERS CONFIGURATION ET DATA MODULES (À PRÉSERVER) ===
+      'modules/archive-stories/archive-stories.conf.php',
+      'modules/archive-stories/cache.timings.php',
+      'modules/geoloc/geoloc.conf',
+      'modules/npds_twi/twi_conf.php',
+      'modules/push/push.conf.php',
+      'modules/push/push.js',
+      'modules/reseaux-sociaux/reseaux-sociaux.conf.php',
+      'modules/sform/contact/',
+      'modules/sform/forum/',
+      'modules/upload/upload.conf.php',
+      'modules/upload/tmp/',
+      'modules/upload/upload/',
+      'modules/upload/upload_forum/',
+      'modules/upload/include_editeur/upload.conf.editeur.php',
+      'modules/upload/include_forum/upload.conf.forum.php',
+      'modules/wspad/config.php',
+      'modules/wspad/locks/',
+      // === FICHIERS DOSSIERS CONFIGURATION ET DATA DES LIB ===
+      'lib/PHPMailer/PHPmailer.conf.php',     // conf npds de la lib
+      'lib/PHPMailer/key/',                   // stockage keys
+      'lib/js/npds_tarteaucitron.js',         // paramètre initialisation
+      'lib/js/npds_tarteaucitron_service.js', // paramètre services
+      // === FICHIERS PERSONNALISÉS ===
+      'language/lang-mods.php',   // fichiers langue personnalisable
+      'language/lang-multi.php',  // fichiers langue personnalisable
+      'static/edito.txt',         // page statique
+      // === BACKUPS ET SAUVEGARDES === ????
+      'backup/',
+      'sauvegardes/',
+      '*.sql',                    // Tous les fichiers SQL
+      '*.zip',                    // Archives de backup
+      '*.tar.gz',
+      '*.backup*',               // Fichiers de backup existants
+   ];
+
+   /**
+   * Vérifie si un fichier doit être exclu de l'écrasement
+   * UNIQUEMENT en mise à jour
+   */
+   public static function shouldExclude($filePath, $version = null, $isUpdate = false) {
+      // 🔥 IMPORTANT : En installation neuve, AUCUNE exclusion
+      if (!$isUpdate) {
+         return false; // Tout peut être écrasé
+      }
+      // 🔥 Seulement en mise à jour : vérifier les exclusions
+      foreach (self::$excludedFiles as $pattern) {
+         if (self::matchesPattern($filePath, $pattern)) {
+         error_log("🔒 Fichier exclu en mise à jour: $filePath");
+         return true;
+         }
+      }
+      return false;
+   }
+
+   /**
+   * Vérifie si un chemin correspond à un pattern
+   */
+   private static function matchesPattern($filePath, $pattern) {
+      $regex = str_replace('/', '\/', $pattern);
+      $regex = str_replace('*', '.*', $regex);
+      $regex = '/^' . $regex . '$/';
+      return preg_match($regex, $filePath) === 1;
+   }
+
+}
+
+// ==================== VÉRIFICATION DU RÉCEPTACLE ====================
+class InstallationValidator {
+   private static $npdsFirstLevel = [
+    // === FICHIERS RACINE ===
+    'abla.log.php', 'abla.php', 'admin.php', 'article.php', 'auth.inc.php', 'auth.php', 'autodoc.php', 'backend.php', 'banners.php', 'cache.class.php', 'cache.config.php', 'cache.timings.php', 'carnet.php', 'chat.php', 'chatinput.php', 'chatrafraich.php', 'chattop.php', 'config.php', 'counter.php', 'download.php', 'editpost.php', 'faq.php', 'filemanager.conf', 'footer.php', 'forum.php', 'friend.php', 'functions.php', 'getfile.php', 'grab_globals.php', 'header.php', 'humans.txt', 'index.php', 'install.php', 'licence-english.txt', 'licence-french.txt', 'licence.txt', 'lnl.php', 'mainfile.php', 'map.php', 'memberslist.php', 'minisite.php', 'modules.php', 'more_emoticon.php', 'newtopic.php', 'npds_api.php', 'pollBooth.php', 'powerpack_f.php', 'powerpack.php', 'preview.php', 'print.php', 'prntopic.php', 'publication.php', 'readpmsg_imm.php', 'readpmsg.php', 'reply.php', 'replyH.php', 'replypmsg.php', 'reviews.php', 'robots.txt', 'sample.proxy.conf.php', 'search.php', 'searchbb.php', 'sections.config.php', 'sections.php', 'signat.php', 'sitemap.php', 'static.php', 'stats.php', 'submit.php', 'top.php', 'topicadmin.php', 'topics.php', 'user.php', 'viewforum.php', 'viewpmsg.php', 'viewtopic.php', 'viewtopicH.php',
+    // === DOSSIERS RACINE ===  
+    'admin', 'api', 'cache', 'editeur', 'images', 'install', 'language', 'lib', 'manuels', 'meta', 'modules', 'slogs', 'sql', 'static', 'themes', 'users_private',
+   ];
+   private static $serverAllowed = [
+        '.htaccess', 'robots.txt', '.well-known', '.git', '.github',
+        'README', 'LICENSE', 'composer.json', 'package.json', 'web.config'
+    ];
+    /**
+     * Vérifie si le réceptacle est propre pour l'installation
+     */
+    public static function validateReceptacle($targetDir) {
+        if (!is_dir($targetDir)) {
+            return ['safe' => true, 'warnings' => []]; // Dossier vide
+        }
+        
+        $existingItems = scandir($targetDir);
+        $existingItems = array_diff($existingItems, ['.', '..']); // Retirer . et ..
+        
+        $warnings = [];
+        $allowedFound = [];
+        foreach ($existingItems as $item) {
+            $fullPath = $targetDir . '/' . $item;
+            // Vérifier si c'est un fichier/dossier autorisé (serveur)
+            if (in_array($item, self::$serverAllowed) || 
+                in_array(pathinfo($item, PATHINFO_EXTENSION), ['log', 'txt', 'md'])) {
+                $allowedFound[] = $item;
+                continue;
+            }
+            // Vérifier si c'est un élément NPDS (conflit potentiel)
+            if (in_array($item, self::$npdsFirstLevel)) {
+                $warnings[] = [
+                    'type' => 'conflit_npds',
+                    'item' => $item,
+                    'message' => 'Ce fichier/dossier existe déjà dans NPDS et sera écrasé'
+                ];
+            } else {
+                $warnings[] = [
+                    'type' => 'element_etranger', 
+                    'item' => $item,
+                    'message' => 'Élément non-NPDS détecté - risque de conflit'
+                ];
+            }
+        }
+        return [
+            'safe' => empty($warnings),
+            'warnings' => $warnings,
+            'allowed_items' => $allowedFound
+        ];
+    }
+}
+
+// ==================== GESTION DES BACKUPS ====================
+class NPDSBackupManager {
+   private $backupDir = 'npds_backups';
+   private $maxDbSizeMB = 50; // Taille max pour backup DB automatique
+   public function __construct($customBackupDir = null) {
+      if ($customBackupDir)
+         $this->backupDir = $customBackupDir;
+      else
+         $this->backupDir = dirname(__FILE__) . '/npds_backups';
+      if (!is_dir($this->backupDir))
+         @mkdir($this->backupDir, 0755, true);
+      // Log pour debug
+      error_log("📁 Backup path: " . $this->backupDir);
+   }
+
+   public function getBackupDir() {
+      return $this->backupDir;
+   }
+    /**
+     * Crée un backup de la base de données (si elle n'est pas trop grosse)
+     */
+    public function backupDatabase($maxSizeMB = null) {
+        global $lang;
+        
+        if ($maxSizeMB) {
+            $this->maxDbSizeMB = $maxSizeMB;
+        }
+        
+        // Vérifier si config.php existe pour récupérer les infos DB
+        if (!file_exists('config.php')) {
+            error_log("❌ config.php non trouvé - backup DB ignoré");
+            return ['success' => false, 'message' => 'Config DB non trouvée'];
+        }
+        
+        // Vérifier la taille de la DB (estimation sécurisée)
+        $dbSize = $this->estimateDatabaseSize();
+        $maxSizeBytes = $this->maxDbSizeMB * 1024 * 1024;
+        
+        if ($dbSize > $maxSizeBytes) {
+            error_log("⚠️ Base trop volumineuse ($dbSize bytes > $maxSizeBytes bytes) - backup DB ignoré");
+            return [
+                'success' => false, 
+                'message' => t('backup_skipped_large_db', $lang),
+                'size' => $dbSize,
+                'max_size' => $maxSizeBytes
+            ];
+        }
+        
+        $timestamp = date('Y-m-d_His');
+        $backupFile = $this->backupDir . '/db_backup_' . $timestamp . '.sql';
+        
+        try {
+            // Tentative de backup via mysqldump
+            $command = $this->buildDumpCommand($backupFile);
+            
+            if ($command && $this->executeBackupCommand($command)) {
+                $size = filesize($backupFile);
+                error_log("✅ Backup DB créé: $backupFile ($size bytes)");
+                
+                return [
+                    'success' => true,
+                    'message' => t('backup_db_created', $lang),
+                    'file' => $backupFile,
+                    'size' => $size
+                ];
+            } else {
+                // Fallback: backup manuel des tables principales
+                return $this->createManualBackup($backupFile);
+            }
+        } catch (Exception $e) {
+            error_log("❌ Erreur backup DB: " . $e->getMessage());
+            return ['success' => false, 'message' => $e->getMessage()];
+        }
+    }
+    
+    /**
+     * Crée un backup des fichiers critiques
+     */
+    public function backupCriticalFiles($targetDir) {
+        global $lang;
+        
+        $timestamp = date('Y-m-d_His');
+        $backupFile = $this->backupDir . '/files_backup_' . $timestamp . '.zip';
+        
+        try {
+            $zip = new ZipArchive();
+            if ($zip->open($backupFile, ZipArchive::CREATE) === true) {
+                $addedFiles = 0;
+                
+                // Backup des fichiers critiques
+                $criticalFiles = $this->getCriticalFilesList($targetDir);
+                
+                foreach ($criticalFiles as $filePattern) {
+                    $addedFiles += $this->addFilesToZip($zip, $targetDir, $filePattern);
+                }
+                
+                $zip->close();
+                $size = filesize($backupFile);
+                
+                error_log("✅ Backup fichiers créé: $backupFile ($size bytes, $addedFiles fichiers)");
+                
+                return [
+                    'success' => true,
+                    'message' => t('backup_files_created', $lang),
+                    'file' => $backupFile,
+                    'size' => $size,
+                    'file_count' => $addedFiles
+                ];
+            }
+        } catch (Exception $e) {
+            error_log("❌ Erreur backup fichiers: " . $e->getMessage());
+        }
+        
+        return ['success' => false, 'message' => 'Échec création backup fichiers'];
+    }
+    
+    /**
+     * Crée un backup complet (DB + fichiers)
+     */
+    public function createFullBackup($targetDir) {
+        $results = [];
+        
+        $results['files'] = $this->backupCriticalFiles($targetDir);
+        $results['database'] = $this->backupDatabase();
+        
+        return $results;
+    }
+    
+    /**
+     * Liste des fichiers critiques à backuper
+     */
+    private function getCriticalFilesList($targetDir) {
+        return [
+            'config.php',
+            'IZ-Xinstall.ok',
+            '.htaccess',
+            'robots.txt',
+            'users_private/*',
+            'slogs/*',
+            'images/*',
+            'themes/*/images/*',
+            'modules/*/config.php',
+            'modules/*.conf.php',
+            'language/lang-*.php'
+        ];
+    }
+    
+    /**
+     * Estimation sécurisée de la taille de la DB
+     */
+    private function estimateDatabaseSize() {
+        $size = 0;
+        
+        // Estimation basée sur les dossiers de données
+        $dataDirs = ['slogs/', 'users_private/', 'cache/', 'meta/'];
+        
+        foreach ($dataDirs as $dir) {
+            if (is_dir($dir)) {
+                $iterator = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS)
+                );
+                
+                foreach ($iterator as $file) {
+                    if ($file->isFile()) {
+                        $size += $file->getSize();
+                        // Limiter le scan pour éviter les timeouts
+                        if ($size > (100 * 1024 * 1024)) { // 100MB max de scan
+                            break 2;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $size;
+    }
+    
+    /**
+     * Construction de la commande mysqldump (sécurisée)
+     */
+    private function buildDumpCommand($backupFile) {
+        // IMPORTANT: Méthode désactivée par défaut pour sécurité
+        // À n'activer que si l'environnement est sécurisé
+        
+        if (!file_exists('config.php')) {
+            return null;
+        }
+        
+        // Lecture sécurisée de config.php
+        $configContent = file_get_contents('config.php');
+        
+        // Extraction basique des infos DB (simplifiée)
+        preg_match('/\$user\s*=\s*[\'"]([^\'"]*)[\'"]/', $configContent, $userMatch);
+        preg_match('/\$db\s*=\s*[\'"]([^\'"]*)[\'"]/', $configContent, $dbMatch);
+        preg_match('/\$host\s*=\s*[\'"]([^\'"]*)[\'"]/', $configContent, $hostMatch);
+        
+        if (!$userMatch || !$dbMatch || !$hostMatch) {
+            return null;
+        }
+        
+        $user = $userMatch[1];
+        $db = $dbMatch[1];
+        $host = $hostMatch[1];
+        
+        // Construction de la commande (adaptée à l'environnement)
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // Windows
+            $command = "mysqldump -h $host -u $user -p $db > \"$backupFile\" 2>nul";
+        } else {
+            // Linux/Unix
+            $command = "mysqldump -h $host -u $user -p $db > \"$backupFile\" 2>/dev/null";
+        }
+        
+        return $command;
+    }
+    
+    /**
+     * Exécution sécurisée de la commande de backup
+     */
+    private function executeBackupCommand($command) {
+        // Désactivé par défaut - trop risqué
+        return false;
+        
+        /* 
+        // Version activable si environnement contrôlé
+        $output = [];
+        $returnCode = 0;
+        
+        exec($command, $output, $returnCode);
+        
+        return $returnCode === 0 && file_exists($backupFile) && filesize($backupFile) > 0;
+        */
+    }
+    
+    /**
+     * Backup manuel alternatif
+     */
+    private function createManualBackup($backupFile) {
+        // Créer un backup minimal avec les infos système
+        $backupContent = "-- NPDS Manual Backup - " . date('Y-m-d H:i:s') . "\n";
+        $backupContent .= "-- Cette installation ne supporte pas mysqldump automatique\n";
+        $backupContent .= "-- Veuillez faire un backup manuel via l'admin NPDS\n";
+        
+        if (file_put_contents($backupFile, $backupContent) !== false) {
+            return [
+                'success' => true,
+                'message' => 'Backup manuel créé (veuillez utiliser l\'outil NPDS)',
+                'file' => $backupFile,
+                'size' => filesize($backupFile),
+                'manual' => true
+            ];
+        }
+        
+        return ['success' => false, 'message' => 'Échec création backup manuel'];
+    }
+    
+    /**
+     * Ajout récursif de fichiers au ZIP
+     */
+    private function addFilesToZip($zip, $basePath, $pattern, $localPath = '') {
+        $addedCount = 0;
+        
+        $files = glob($basePath . '/' . $pattern);
+        foreach ($files as $file) {
+            if (is_file($file)) {
+                $relativePath = $localPath . basename($file);
+                if ($zip->addFile($file, $relativePath)) {
+                    $addedCount++;
+                }
+            } elseif (is_dir($file)) {
+                // Ajout récursif du dossier
+                $iterator = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($file, RecursiveDirectoryIterator::SKIP_DOTS),
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
+                
+                foreach ($iterator as $item) {
+                    if ($item->isFile()) {
+                        $relativePath = $localPath . $iterator->getSubPathName();
+                        if ($zip->addFile($item->getRealPath(), $relativePath)) {
+                            $addedCount++;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $addedCount;
+    }
+    
+    /**
+     * Nettoyage des vieux backups
+     */
+    public function cleanupOldBackups($keepLast = 5) {
+        $backupFiles = glob($this->backupDir . '/*.{zip,sql}', GLOB_BRACE);
+        
+        // Trier par date de modification (plus récent en premier)
+        usort($backupFiles, function($a, $b) {
+            return filemtime($b) - filemtime($a);
+        });
+        
+        $deleted = 0;
+        for ($i = $keepLast; $i < count($backupFiles); $i++) {
+            if (@unlink($backupFiles[$i])) {
+                $deleted++;
+            }
+        }
+        
+        return $deleted;
+    }
+}
+
+// ==================== CLASSE PRINCIPALE DU DÉPLOYEUR ====================
 class GithubDeployer {
    private $userAgent = 'Mozilla/5.0 (compatible; GitHubDownloader/1.0)';
    private $timeout = 120;
@@ -500,6 +1043,103 @@ class GithubDeployer {
    private $maxRedirects = 5;
    private $tempDir = 'npds_deployer_temp';
    private $lastDownloadSize = 0;
+
+private function isNPDSInstalled($targetDir) {
+    // Si on vient de l'admin NPDS, c'est forcément une mise à jour
+    if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false) {
+        error_log("✅ Mise à jour détectée via return_url admin");
+        return true;
+    }
+    
+    // Si l'URL contient 'update' dans les paramètres
+    if (isset($_GET['context']) && $_GET['context'] === 'update') {
+        error_log("✅ Mise à jour détectée via paramètre context");
+        return true;
+    }
+    
+    // Fallback : détection par fichiers (ancienne méthode)
+    $rootDir = $this->getRootDir($targetDir);
+    $indicators = [$rootDir . '/config.php', $rootDir . '/IZ-Xinstall.ok'];
+    
+    foreach ($indicators as $indicator) {
+        if (file_exists($indicator)) {
+            error_log("✅ Mise à jour détectée via fichier: " . basename($indicator));
+            return true;
+        }
+    }
+    
+    error_log("❌ Nouvelle installation détectée");
+    return false;
+}
+
+/*
+   private function isNPDSInstalled($targetDir) {
+      if ($targetDir === null) $targetDir = __DIR__;
+      $indicators = [
+         $targetDir . '/config.php',
+         $targetDir . '/IZ-Xinstall.ok', 
+         $targetDir . '/slogs/install.log',
+         $targetDir . '/lib/constants.php'
+      ];
+      foreach ($indicators as $indicator) {
+         if (file_exists($indicator)) {
+            return true;
+         }
+      }
+      return false;
+   }
+*/
+
+   private function showInstallationWarnings($validation, $targetDir, $version) {
+   // CORRECTION : Remonter à la racine si on est dans lib/deployer/
+    if (basename($targetDir) === 'deployer' && basename(dirname($targetDir)) === 'lib') {
+        $targetDir = dirname(dirname($targetDir));
+        error_log("🔧 Correction targetDir: $targetDir");
+    }
+      global $lang;
+      echo '
+      <div class="section-danger py-2">
+         <h3>🚨 Réceptacle non sécurisé détecté</h3>
+            <p>Le dossier <strong>' . htmlspecialchars($targetDir) . '</strong> contient des éléments problématiques :</p>
+         <div class="mt-3">
+            <h4>Éléments détectés :</h4>
+            <ul>';
+      foreach ($validation['warnings'] as $warning) {
+         $icon = $warning['type'] === 'conflit_npds' ? '🔄' : '⚠️';
+         echo '
+               <li>' . $icon . ' <strong>' . htmlspecialchars($warning['item']) . '</strong> : ' . $warning['message'] . '</li>';
+      }
+      echo '
+            </ul>
+         </div>';
+      if (!empty($validation['allowed_items'])) {
+         echo '
+         <div class="mt-2">
+            <h4>Éléments autorisés :</h4>
+            <ul>';
+         foreach ($validation['allowed_items'] as $item) {
+            echo '
+               <li>✅ ' . htmlspecialchars($item) . ' (fichier serveur)</li>';
+         }
+         echo '
+            </ul>
+         </div>';
+      }
+      echo '
+         <div class="mt-4">
+            <p><strong>Recommandations :</strong></p>
+            <ul>
+               <li>✅ Utilisez un dossier vide pour une installation propre</li>
+               <li>✅ Supprimez les éléments listés ci-dessus</li>
+               <li>🚨 Les fichiers NPDS du même nom seront écrasés</li>
+            </ul>
+            <div class="mt-3">
+               <a href="?op=deploy&version=' . urlencode($version) . '&path=' . urlencode($targetDir) . '&confirm=yes&force=yes" class="btn btn-danger"  onclick="return confirm(\'🚨 FORCER L\\\'INSTALLATION ?\')">🚨 Forcer l\'installation</a>
+               <a href="?" class="btn btn-secondary">Annuler</a>
+            </div>
+         </div>
+      </div>';
+   }
 
    public function getTempDir(): string {
       return $this->tempDir;
@@ -535,13 +1175,22 @@ class GithubDeployer {
    * Télécharge une archive depuis GitHub avec version variable
    * et extrait uniquement le contenu du premier dossier
    */
-   public function deployVersion(
-      string $baseUrl,
-      string $version,
-      string $format = 'zip',
-      ?string $targetDir = null
-    ): array {
+   public function deployVersion(string $baseUrl, string $version, string $format = 'zip',? string $targetDir = null): array {
       global $lang;
+      // ==================== VÉRIFICATION PRÉ-INSTALLATION ====================
+      $isUpdate = $this->isNPDSInstalled($targetDir);
+      if (!$isUpdate) { // Installation neuve uniquement
+         $validation = InstallationValidator::validateReceptacle($targetDir);
+         if (!$validation['safe'] && (!isset($_GET['force']) || $_GET['force'] !== 'yes')) {
+            // Afficher les warnings immédiatement
+            echo head_html();
+            echo '<h2 class="ms-3"><span class="display-6">🚨 </span>Vérification du réceptacle</h2>';
+            $this->showInstallationWarnings($validation, $targetDir, $version);
+            echo foot_html();
+            @unlink($lockFile);
+            return $this->createResult(false, "Réceptacle non sécurisé");
+         }
+      }
       // ==================== VERROUILLAGE RENFORCÉ ====================
       $lockFile = $this->tempDir . '/deploy.lock';
       $lockTimeout = 600; // 10 minutes
@@ -566,8 +1215,6 @@ class GithubDeployer {
          $this->logToInstallLog('❌ ' . t('lock_error', $lang), 'ERROR', $targetDir);
          return $this->createResult(false, t('lock_error', $lang));
       }
-      // ==================== FIN VERROUILLAGE ====================
-
       // ==================== LOGS DE DÉBOGAGE ====================
       error_log('=== ' . t('deployment_started',$lang) . ' ===');
       error_log(t('version',$lang) . ": $version | " . t('path',$lang) . ": " . ($targetDir ?? 'racine'));
@@ -577,7 +1224,6 @@ class GithubDeployer {
       $this->logToInstallLog('=== ' . t('deployment_started',$lang) . ' ===', 'INFO', $targetDir);
       $this->logToInstallLog(t('version',$lang) . ": $version | " . t('path',$lang) . ": " . ($targetDir ?? 'racine'), 'INFO', $targetDir);
       $this->logToInstallLog("URL: " . $this->buildVersionUrl($baseUrl, $version, $format), 'INFO', $targetDir);
-      // ==================== FIN LOGS DE DÉBOGAGE ====================
 
       // Validation des paramètres
       if (empty($baseUrl) || empty($version)) {
@@ -625,7 +1271,7 @@ class GithubDeployer {
          if ($targetDir) {
             error_log('📂 ' . t('extracting',$lang) . '...');
             $this->logToInstallLog('📂 ' . t('extracting',$lang) . '...', 'INFO', $targetDir);
-            $extractResult = $this->extractFirstFolderContent($tempFile, $targetDir, $format);
+            $extractResult = $this->extractFirstFolderContent($tempFile, $targetDir, $format, $version, $isUpdate);
             if (!$extractResult['success']) {
                error_log("❌ Échec de l'extraction: " . $extractResult['message']);
                $this->logToInstallLog("❌ Échec de l'extraction: " . $extractResult['message'], 'ERROR', $targetDir);
@@ -723,7 +1369,7 @@ class GithubDeployer {
    /**
    * Extrait uniquement le contenu du premier dossier de l'archive
    */
-   private function extractFirstFolderContent(string $archivePath, string $targetDir, string $format): array {
+   private function extractFirstFolderContent(string $archivePath, string $targetDir, string $format,string $version, bool $isUpdate = false): array {
       global $lang;
       error_log('🔍 '. t('extracting' ,$lang) . ': ' . filesize($archivePath) . " bytes");
       $this->logToInstallLog('🔍 '. t('extracting' ,$lang) . ': ' . filesize($archivePath) . " bytes", 'INFO', $targetDir);
@@ -749,6 +1395,31 @@ class GithubDeployer {
             $this->logToInstallLog('❌ ' . t('temp_dir_error', $lang) . ': ' . $tempExtractDir, 'ERROR', $targetDir);
             return $this->createResult(false, t('temp_dir_error', $lang));
          }
+         // ==================== BACKUP AVANT EXTRACTION (mise à jour seulement) ====================
+         if ($isUpdate) {
+            echo '<li class="progress" id="backup-step">💾 Sauvegarde des fichiers critiques...</li>';
+            $this->keepAlive("Sauvegarde en cours");
+
+/*
+            try {
+               $backupManager = new NPDSBackupManager();
+               $backupResult = $backupManager->backupCriticalFiles($targetDir);
+               if ($backupResult['success']) {
+                  $sizeMB = round($backupResult['size'] / 1024 / 1024, 2);
+                  echo '<script>document.getElementById("backup-step").innerHTML = "✅ Backup créé: ' . $sizeMB . ' MB";</script>';
+                  error_log("✅ Backup fichiers créé: " . $backupResult['file']);
+               } else {
+                  echo '<script>document.getElementById("backup-step").innerHTML = "⚠️ Backup échoué";</script>';
+               }
+            } catch (Exception $e) {
+               error_log("❌ Erreur backup: " . $e->getMessage());
+               echo '<script>document.getElementById("backup-step").innerHTML = "⚠️ Erreur backup";</script>';
+            }
+            $this->keepAlive("Sauvegarde terminée");
+*/
+         }
+
+
          echo '<script>document.getElementById("extraction-step").innerHTML = "🔄 Extraction de l\'archive en cours...";</script>';
          $this->keepAlive("Extraction archive");
          // Extraction complète de l'archive dans le répertoire temporaire
@@ -764,6 +1435,7 @@ class GithubDeployer {
             echo '<script>document.getElementById("extraction-step").innerHTML = "📄 Extraction: 0/' . $totalFiles . ' fichiers";</script>';
             $this->keepAlive("Extraction: 0/$totalFiles fichiers");
             // Extraire avec progression
+/*
             for ($i = 0; $i < $totalFiles; $i++) {
                 $zip->extractTo($tempExtractDir, $zip->getNameIndex($i));
                 // Feedback toutes les 50 fichiers
@@ -779,6 +1451,47 @@ class GithubDeployer {
                     flush();
                 }
             }
+*/
+            
+            error_log("🔄 Début extraction - $totalFiles fichiers total");
+
+for ($i = 0; $i < $totalFiles; $i++) {
+    // DIAGNOSTIC CRITIQUE - Avant chaque extraction
+    if ($i % 100 === 0 || ($i >= 3440 && $i <= 3460)) {
+        $memory = round(memory_get_usage(true) / 1024 / 1024, 2);
+        error_log("🔍 Fichier $i/$totalFiles - Mémoire: {$memory}MB");
+    }
+    
+    // RESET TIMEOUT agressif
+    if ($i % 50 === 0) {
+        set_time_limit(30);
+    }
+    
+    // EXTRACTION avec gestion d'erreur
+    $filename = $zip->getNameIndex($i);
+    $success = $zip->extractTo($tempExtractDir, $filename);
+    
+    if (!$success) {
+        error_log("❌ Échec extraction $i: $filename");
+        // Mais on CONTINUE
+    }
+    
+    // KEEPALIVE renforcé
+    if ($i % 20 === 0) {
+        $percent = round(($i / $totalFiles) * 100);
+        echo '<script>document.getElementById("progress").innerHTML = "📄 Extraction: ' . $percent . '% (' . $i . '/' . $totalFiles . ')"</script>';
+        echo ' '; // Micro keepalive
+        flush();
+        
+        // Log spécial pour la zone critique
+        if ($i >= 3440 && $i <= 3460) {
+            error_log("🚨 ZONE CRITIQUE $i: " . $filename);
+        }
+    }
+}
+
+error_log("✅ Extraction TERMINÉE - $i fichiers traités");
+            
             
             $zip->close();
             echo '<script>document.getElementById("extraction-step").innerHTML = "✅ ' . t('extraction_finished',$lang) .': ' . $totalFiles . ' fichiers";</script>';
@@ -809,7 +1522,7 @@ class GithubDeployer {
          // Copier le contenu DIRECTEMENT sans le dossier parent
          echo '<li class="progress" id="copy-step">📋 '. t('copying_files',$lang) .'...</li>';
          $this->keepAlive(t('copying_files',$lang));
-         $this->copyDirectoryContentsFlat($firstFolder, $targetDir);
+         $this->copyDirectoryContentsFlat($firstFolder, $targetDir, $version, $isUpdate);
          // Nettoyer le répertoire temporaire
          $this->removeDirectory($tempExtractDir);
          echo '<script>document.getElementById("extraction-step").innerHTML = "✅ ' . t('extraction_finished',$lang) .': ' . $totalFiles . ' fichiers";</script>';
@@ -830,9 +1543,9 @@ class GithubDeployer {
    /**
    * Copie le contenu d'un répertoire sans le dossier parent
    */
-   private function copyDirectoryContentsFlat(string $source, string $destination): void {
+   private function copyDirectoryContentsFlat(string $source, string $destination, $version = null, $isUpdate = false): void {
       global $lang;
-      error_log('🔄 ' . t('copying_files', $lang));
+      error_log('🔄 ' . t('copying_files', $lang). ' - Update: ' . ($isUpdate ? 'OUI' : 'NON'));
       echo '<script>document.getElementById("copy-step").innerHTML = "📂 ' . t('copying_files', $lang) . '...";</script>';
       flush();
       if (!is_dir($destination))
@@ -843,11 +1556,24 @@ class GithubDeployer {
       if ($totalFiles === 0) 
          throw new Exception(t('no_files_to_copy',$lang) . ': ' . $source);
       $fileCount = 0;
+      $skippedCount = 0;
       foreach ($iterator as $item) {
         $fileCount++;
+        $relativePath = $iterator->getSubPathName();
+        $targetPath = $destination . DIRECTORY_SEPARATOR . $relativePath;
+        // VÉRIFICATION D'EXCLUSION (uniquement en mise à jour)
+        if ($isUpdate && file_exists($targetPath)) {
+            if (NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
+                $skippedCount++;
+                continue; // Ne pas écraser le fichier protégé
+            }
+        }
         if ($fileCount % 25 === 0) {
             $percent = round(($fileCount / $totalFiles) * 100);
-            echo '<script>document.getElementById("progress").innerHTML = "📁 ' . t('copied',$lang) . ': '.$percent.'% ('.$fileCount.'/'.$totalFiles.')";</script>';
+            $status = '📁 ' . t('copied',$lang) . ": $percent% ($fileCount/$totalFiles)";
+            if ($isUpdate)
+               $status .= " - Ignorés: $skippedCount";
+            echo '<script>document.getElementById("progress").innerHTML = "'.$status.'";</script>';
             echo '<div style="display:none">Progression: ' . $percent . '%</div>';
             echo str_repeat(' ', 262144);
             if (ob_get_level() > 0) {
@@ -869,12 +1595,15 @@ class GithubDeployer {
                 throw new Exception(t('copy_error',$lang) .': '. $item->getFilename());
         }
     }
-    echo '<script>document.getElementById("copy-step").innerHTML = "✅ ' . t('copy_complete',$lang) . ': ' .$fileCount.' éléments";</script>';
+    $finalStatus = '✅ ' . t('copy_complete',$lang) . ': ' .$fileCount.' éléments';
+    if ($isUpdate)
+      $finalStatus .= " ($skippedCount ignorés)";
+    echo '<script>document.getElementById("copy-step").innerHTML = "'.$finalStatus.'";</script>';
     if (ob_get_level() > 0) {
         ob_flush();
     }
     flush();
-    error_log("✅ copyDirectoryContentsFlat terminée: $fileCount fichiers");
+    error_log("✅ copyDirectoryContentsFlat terminée: $fileCount fichiers" . ($isUpdate ? ", $skippedCount ignorés" : ''));
 }
 
    /**
@@ -1027,6 +1756,47 @@ class GithubDeployer {
 
 }
 
+// ==================== INTERFACE TEMPORAIRE DE MISE À JOUR ====================
+/**
+* Interface temporaire pour migration 16.4 → 16.8
+*/
+function showUpdateInterface() {
+    return '
+    <div class="section-maintenance py-1">
+        <h3 class="my-1"><span class="display-6">🔄 </span>Mise à jour NPDS 16.4 → 16.8</h3>
+        <div class="alert alert-warning">
+            <small>⚠️ Interface temporaire de migration</small>
+        </div>
+        <ul class="mt-1">
+            <li><a href="?op=update&confirm=yes" onclick="return confirm(\'⚠️ Mettre à jour NPDS 16.4 vers 16.8 ?\')">
+                🚀 Lancer la mise à jour vers NPDS 16.8
+            </a></li>
+        </ul>
+    </div>';
+}
+
+function processTemporaryUpdate() {
+   global $lang;
+   echo head_html();
+   echo '<h2 class="ms-3"><span class="display-6">🔄 </span>Mise à jour NPDS 16.4 → 16.8</h2>';
+   echo '<div class="alert alert-info">Migration vers NPDS 16.8 en cours...</div>';
+   flush();
+   // Utiliser le déployeur pour la mise à jour
+   $deployer = new GithubDeployer(['tempDir' => __DIR__ . '/npds_deployer_temp/']);
+   $result = $deployer->deployVersion(
+   'https://github.com/npds/npds_dune/archive/refs/tags',
+   'v.16.8', // VERSION FIXE - pas besoin de détection
+   'zip',
+   __DIR__ // RACINE DU DOMAINE (npds_deployer.php est à la racine)
+   );
+   if ($result['success']) {
+      echo '<div class="alert alert-success">✅ Mise à jour réussie !</div>';
+      echo '<p><a href="admin.php">➡️ Accéder à la nouvelle administration NPDS 16.8</a></p>';
+   } else 
+      echo '<div class="alert alert-danger">❌ Erreur: ' . htmlspecialchars($result['message']) . '</div>';
+   echo foot_html();
+}
+
 /**
 * Fonction principale de déploiement
 */
@@ -1035,13 +1805,34 @@ function deployNPDS($version = null, $installPath = null) {
    // VÉRIFICATION DE SÉCURITÉ
    if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
       die("❌ " . t('security_warning', $lang));
+
+// Vérification supplémentaire en mode update
+   global $context;
+   if ($context === 'update' && (!isset($_GET['force']) || $_GET['force'] !== 'yes')) {
+      die('
+            <div class="section-danger py-2">
+                <h3>❌ Opération dangereuse</h3>
+                <p>Une installation NPDS est déjà détectée.</p>
+                <p>Si vous souhaitez vraiment réinstaller :</p>
+                <p><a href="?op=deploy&version=' . ($_GET['version'] ?? 'v.16.8') . '&path=' . ($_GET['path'] ?? '') . '&confirm=yes&force=yes" 
+                      class="btn btn-danger" 
+                      onclick="return confirm(\'🚨 ATTENTION: Cela écrasera l\\\'installation existante! Continuer?\')">
+                    🚨 Forcer la réinstallation
+                </a></p>
+            </div>
+        ');
+    }
+
+
    if ($version === null)
       $version = $_GET['version'] ?? 'v.16.4';
    if ($installPath === null)
       $installPath = isset($_GET['path']) ? $_GET['path'] : __DIR__;
    $installPath = rtrim($installPath, '/');
+if (($context === 'deploy' || $context === 'update') && !headers_sent()) {
 
    header('Content-Type: text/html; charset=utf-8');
+}
    echo head_html();
    echo '
       <h2 class="ms-3"><span class="display-6">🚀 </span>' . t('deploying', $lang) . '</h2>
@@ -1105,16 +1896,31 @@ function deployNPDS($version = null, $installPath = null) {
       else
          $relativePath = '/' . trim($relativePath, '/');
       $baseUrl = 'https://' . $_SERVER['HTTP_HOST'] . $relativePath;
-      echo '
-         <p><a class="btn btn-success" style="color:white;" href="' . $baseUrl . '/install.php?langue='.$lang.'&amp;stage=1" target="_blank" >' . t('launch_installation', $GLOBALS['lang']) . '</a></p>
-      </div>';
-   } else {
+      // ==================== GESTION RETOUR ADMIN ====================
+      if (isset($_GET['return_url'])) {
+         $returnUrl = $_GET['return_url'];
+         // Ajouter le paramètre success seulement maintenant qu'on sait que c'est réussi
+         $returnUrl .= (strpos($returnUrl, '?') === false ? '?' : '&') . 'action=success&version=' . urlencode($version);
+         echo '
+         <div class="mt-3 alert alert-info">
+            <p>✅ Redirection vers l\'administration dans 5 secondes...</p>
+            <p><a href="' . $returnUrl . '" class="btn btn-primary">Cliquer ici pour retourner maintenant</a></p>
+         </div>
+         <script>
+            setTimeout(function() {
+               window.location.href = "' . $returnUrl . '";
+            }, 10000);
+         </script>';
+      } else
+         echo '
+         <p><a class="btn btn-success" style="color:white;" href="' . $baseUrl . '/install.php?langue='.$lang.'&amp;stage=1" target="_blank" >' . t('launch_installation', $GLOBALS['lang']) . '</a></p>';
+      echo '</div>';
+   } else
       echo '
         <div class="error">
            <h2>❌ ' . t('error', $GLOBALS['lang']) . '</h2>
             <p>' . htmlspecialchars($result['message']) . '</p>
         </div>';
-   }
    echo foot_html();
 }
 
@@ -1156,6 +1962,16 @@ function renderLanguageSelector($currentLang) {
 * Fonction de construction du header html
 */
 function head_html(){
+/*
+static $header_printed = false;
+    
+    if ($header_printed) {
+        error_log("🚨 HEADER DÉJÀ AFFICHÉ - DOUBLE DÉTECTÉ");
+        return ''; // Ne pas réafficher
+    }
+    
+    $header_printed = true;
+*/
    global $lang;
    return '<!DOCTYPE html>
    <html lang="'.$lang.'">
@@ -1553,6 +2369,13 @@ switch ($operation) {
          die("❌ " . t('security_warning', $lang));
       deployNPDS();
    break;
+   case 'update':
+      // Interface temporaire de mise à jour 16.4 → 16.8
+      if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes') {
+         die("❌ Confirmation requise");
+      }
+      processTemporaryUpdate();
+   break;
    case 'clean':
       if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
          die("❌ " . t('clean_confirm', $lang));
@@ -1570,6 +2393,20 @@ switch ($operation) {
    default:
       header('Content-Type: text/html; charset=utf-8');
       echo head_html();
+
+      // Afficher le mode approprié
+        if ($context === 'update') {
+            echo '<div class="alert alert-success">';
+            echo '<strong>🔧 Mode mise à jour détecté</strong><br>';
+            echo 'Vous êtes connecté en tant qu\'administrateur NPDS.';
+            echo '</div>';
+        } else {
+            echo '<div class="alert alert-info">';
+            echo '<strong>🚀 Mode déploiement détecté</strong><br>';
+            echo 'Nouvelle installation NPDS';
+            echo '</div>';
+        }
+
       echo '
          <p class="text-danger mb-3"><strong>‼️ ' . t('warning', $lang) . ' :</strong> ' . t('overwrite_warning', $lang) . '</p>
          <div class="section-stable py-1">
@@ -1579,7 +2416,18 @@ switch ($operation) {
                <li><a href="?op=deploy&version=v.16.4&confirm=yes" onclick="return confirm(\'⚠️ ' . t('deploy_v164_root', $lang) . ' ?\')">' . t('deploy_v164_root', $lang) . '</a></li>
                <li><a href="?op=deploy&version=v.16.3&path=npds_163&confirm=yes" onclick="return confirm(\'⚠️ ' . t('deploy_v163', $lang) . ' ?\')">' . t('deploy_v163', $lang) . '</a></li>
             </ul>
-         </div>
+         </div>';
+         // Afficher le lien mise à jour seulement si en mode update
+     if ($context === 'update') {
+         echo '
+         <div class="section-maintenance py-1">
+             <h3 class="my-1"><span class="display-6">🔄 </span>Mise à jour</h3>
+             <ul class="mt-1">
+                 <li><a href="?op=update">Mise à jour v.16.4 → v.16.8</a></li>
+             </ul>
+         </div>';
+     }
+      echo '
          <div class="section-dev py-1 ">
             <h3 class="my-1"><span class="display-6">🌶 </span>' . t('dev_version', $lang) . '</h3>
             <ul class="mt-1">

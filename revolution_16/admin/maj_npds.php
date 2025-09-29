@@ -220,6 +220,7 @@ function maj_main() {
       </form>
       </div>
    </div>';
+   include 'footer.php';
 }
 
 function maj_preupdate() {
@@ -247,8 +248,8 @@ function maj_preupdate() {
       <p><strong>Sauvegarde automatique :</strong> ' . ($backup === 'true' ? '✅ Activée' : '❌ Désactivée') . '</p>
    </div>
    <div class="mt-4">
-      <a href="admin.php?op=maj&action=update&version=' . urlencode($version) . '&backup=' . $backup . '" class="btn btn-success" onclick="return confirm(\'⚠️ Lancer la mise à jour vers ' . htmlspecialchars($version) . ' ?\')">
-      🚀 Lancer la mise à jour
+      <a href="admin.php?op=maj&action=update&version=' . urlencode($version) . '&backup=' . $backup . '&path=' . urlencode(realpath(__DIR__ . '/..')) . '" class="btn btn-success" onclick="return confirm(\'⚠️ Lancer la mise à jour vers ' . htmlspecialchars($version) . ' ?\')">
+         🚀 Lancer la mise à jour
       </a>
       <a href="admin.php?op=maj" class="btn btn-secondary">Retour</a>
    </div>';
@@ -314,8 +315,10 @@ function maj_preupdate() {
 
 function maj_update() {
    $version = $_GET['version'] ?? getlatestRelease();
-   $deployerUrl = "/lib/deployer/npds_deployer.php?op=deploy&version=$version&confirm=yes&return_url=" . urlencode("admin.php?op=maj&version=" . urlencode($version));
-   header("Location: $deployerUrl");
+   $targetPath = $_GET['path'] ?? realpath(__DIR__ . '/..');
+   $deployerUrl = "/lib/deployer/npds_deployer.php?op=deploy&version=$version&confirm=yes&path=" . 
+                   urlencode($targetPath) . "&return_url=" . 
+                   urlencode("admin.php?op=maj");   header("Location: $deployerUrl");
    exit;
 }
 
@@ -368,25 +371,15 @@ function maj_success() {
             </div>
         </div>
     </div>';
-    include 'footer.php';
+   include 'footer.php';
 }
 
 // Routeur du module
 $action = $_GET['action'] ?? 'main';
-
 switch ($action) {
-    case 'preupdate':
-        maj_preupdate();
-        break;
-    case 'update':
-        maj_update();
-        break;
-    case 'success':
-        maj_success();
-        break;
-    default:
-        maj_main();
-        include 'footer.php';
-        break;
+   case 'preupdate': maj_preupdate(); break;
+   case 'update': maj_update(); break;
+   case 'success': maj_success(); break;
+   default: maj_main(); break;
 }
 ?>
