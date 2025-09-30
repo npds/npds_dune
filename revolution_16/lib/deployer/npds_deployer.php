@@ -13,6 +13,7 @@
 /* npds_deployer.php                                                    */
 /* jpb & DeepSeek 2025                                                  */
 /************************************************************************/
+date_default_timezone_set('Europe/Paris');
 error_log("🧨 DÉPLOYEUR DÉMARRÉ - " . date('H:i:s') . " - " . $_SERVER['REQUEST_URI']);
 
 // Compteur d'exécutions
@@ -67,8 +68,7 @@ if ($context === 'blocked') {
 }
 
 // ==================== CONFIGURATIONS NEUTRES ====================
-date_default_timezone_set('Europe/Paris');
-set_time_limit(600);
+set_time_limit(0);
 ini_set('max_execution_time', 600);
 ini_set('default_socket_timeout', 600);
 ini_set('memory_limit', '512M');
@@ -98,7 +98,6 @@ if (!$headers_already_sent && ($context === 'deploy' || $context === 'update')) 
    //ini_set('zlib.output_compression', '0');
 }
 
-// ==================== SUITE DU CODE (fonctions originales préservées) ====================
 /**
 * Vérifie si NPDS est installé de manière robuste (version complète)
 */
@@ -642,14 +641,13 @@ class NPDSExclusions {
    */
    public static function shouldExclude($filePath, $version = null, $isUpdate = false) {
       // 🔥 IMPORTANT : En installation neuve, AUCUNE exclusion
-      if (!$isUpdate) {
+      if (!$isUpdate)
          return false; // Tout peut être écrasé
-      }
       // 🔥 Seulement en mise à jour : vérifier les exclusions
       foreach (self::$excludedFiles as $pattern) {
          if (self::matchesPattern($filePath, $pattern)) {
-         error_log("🔒 Fichier exclu en mise à jour: $filePath");
-         return true;
+            error_log("🔒 Fichier exclu en mise à jour: $filePath");
+            return true;
          }
       }
       return false;
@@ -672,61 +670,59 @@ class InstallationValidator {
    private static $npdsFirstLevel = [
     // === FICHIERS RACINE ===
     'abla.log.php', 'abla.php', 'admin.php', 'article.php', 'auth.inc.php', 'auth.php', 'autodoc.php', 'backend.php', 'banners.php', 'cache.class.php', 'cache.config.php', 'cache.timings.php', 'carnet.php', 'chat.php', 'chatinput.php', 'chatrafraich.php', 'chattop.php', 'config.php', 'counter.php', 'download.php', 'editpost.php', 'faq.php', 'filemanager.conf', 'footer.php', 'forum.php', 'friend.php', 'functions.php', 'getfile.php', 'grab_globals.php', 'header.php', 'humans.txt', 'index.php', 'install.php', 'licence-english.txt', 'licence-french.txt', 'licence.txt', 'lnl.php', 'mainfile.php', 'map.php', 'memberslist.php', 'minisite.php', 'modules.php', 'more_emoticon.php', 'newtopic.php', 'npds_api.php', 'pollBooth.php', 'powerpack_f.php', 'powerpack.php', 'preview.php', 'print.php', 'prntopic.php', 'publication.php', 'readpmsg_imm.php', 'readpmsg.php', 'reply.php', 'replyH.php', 'replypmsg.php', 'reviews.php', 'robots.txt', 'sample.proxy.conf.php', 'search.php', 'searchbb.php', 'sections.config.php', 'sections.php', 'signat.php', 'sitemap.php', 'static.php', 'stats.php', 'submit.php', 'top.php', 'topicadmin.php', 'topics.php', 'user.php', 'viewforum.php', 'viewpmsg.php', 'viewtopic.php', 'viewtopicH.php',
-    // === DOSSIERS RACINE ===  
+    // === DOSSIERS RACINE ===
     'admin', 'api', 'cache', 'editeur', 'images', 'install', 'language', 'lib', 'manuels', 'meta', 'modules', 'slogs', 'sql', 'static', 'themes', 'users_private',
    ];
    private static $serverAllowed = [
         '.htaccess', 'robots.txt', '.well-known', '.git', '.github',
         'README', 'LICENSE', 'composer.json', 'package.json', 'web.config'
-    ];
-    /**
-     * Vérifie si le réceptacle est propre pour l'installation
-     */
-    public static function validateReceptacle($targetDir) {
-        if (!is_dir($targetDir)) {
-            return ['safe' => true, 'warnings' => []]; // Dossier vide
-        }
-        
-        $existingItems = scandir($targetDir);
-        $existingItems = array_diff($existingItems, ['.', '..']); // Retirer . et ..
-        
-        $warnings = [];
-        $allowedFound = [];
-        foreach ($existingItems as $item) {
-            $fullPath = $targetDir . '/' . $item;
-            // Vérifier si c'est un fichier/dossier autorisé (serveur)
-            if (in_array($item, self::$serverAllowed) || 
+   ];
+
+   /**
+   * Vérifie si le réceptacle est propre pour l'installation
+   */
+   public static function validateReceptacle($targetDir) {
+      if (!is_dir($targetDir)) 
+         return ['safe' => true, 'warnings' => []]; // Dossier vide
+      $existingItems = scandir($targetDir);
+      $existingItems = array_diff($existingItems, ['.', '..']); // Retirer . et ..
+      $warnings = [];
+      $allowedFound = [];
+      foreach ($existingItems as $item) {
+         $fullPath = $targetDir . '/' . $item;
+         // Vérifier si c'est un fichier/dossier autorisé (serveur)
+         if (in_array($item, self::$serverAllowed) || 
                 in_array(pathinfo($item, PATHINFO_EXTENSION), ['log', 'txt', 'md'])) {
                 $allowedFound[] = $item;
                 continue;
-            }
-            // Vérifier si c'est un élément NPDS (conflit potentiel)
-            if (in_array($item, self::$npdsFirstLevel)) {
-                $warnings[] = [
-                    'type' => 'conflit_npds',
-                    'item' => $item,
-                    'message' => 'Ce fichier/dossier existe déjà dans NPDS et sera écrasé'
-                ];
-            } else {
-                $warnings[] = [
-                    'type' => 'element_etranger', 
-                    'item' => $item,
-                    'message' => 'Élément non-NPDS détecté - risque de conflit'
-                ];
-            }
-        }
-        return [
-            'safe' => empty($warnings),
-            'warnings' => $warnings,
-            'allowed_items' => $allowedFound
-        ];
-    }
+         }
+         // Vérifier si c'est un élément NPDS (conflit potentiel)
+         if (in_array($item, self::$npdsFirstLevel))
+            $warnings[] = [
+               'type' => 'conflit_npds',
+               'item' => $item,
+               'message' => 'Ce fichier/dossier existe déjà dans NPDS et sera écrasé'
+            ];
+         else
+            $warnings[] = [
+               'type' => 'element_etranger', 
+               'item' => $item,
+               'message' => 'Élément non-NPDS détecté - risque de conflit'
+            ];
+      }
+      return [
+         'safe' => empty($warnings),
+         'warnings' => $warnings,
+         'allowed_items' => $allowedFound
+      ];
+   }
 }
 
 // ==================== GESTION DES BACKUPS ====================
 class NPDSBackupManager {
    private $backupDir = 'npds_backups';
    private $maxDbSizeMB = 50; // Taille max pour backup DB automatique
+
    public function __construct($customBackupDir = null) {
       if ($customBackupDir)
          $this->backupDir = $customBackupDir;
@@ -738,12 +734,40 @@ class NPDSBackupManager {
       error_log("📁 Backup path: " . $this->backupDir);
    }
 
+   /**
+   * Estime le nombre total de fichiers à backuper
+   */
+   private function estimateTotalBackupFiles($targetDir) {
+      $criticalFiles = $this->getCriticalFilesList($targetDir);
+      $totalEstimate = 0;
+      foreach ($criticalFiles as $filePattern) {
+         $files = glob($targetDir . '/' . $filePattern);
+         foreach ($files as $file) {
+            if (is_file($file))
+               $totalEstimate++;
+            elseif (is_dir($file)) {
+               try {
+               $iterator = new RecursiveIteratorIterator(
+                  new RecursiveDirectoryIterator($file, RecursiveDirectoryIterator::SKIP_DOTS)
+               );
+               $totalEstimate += iterator_count($iterator);
+               } catch (Exception $e) {
+                  error_log("⚠️ Impossible de compter les fichiers dans: $file - " . $e->getMessage());
+                  $totalEstimate += 10; // Estimation de secours
+               }
+            }
+         }
+      }
+       return max($totalEstimate, 1); // Au moins 1 pour éviter division par zéro
+   }
+
    public function getBackupDir() {
       return $this->backupDir;
    }
-    /**
-     * Crée un backup de la base de données (si elle n'est pas trop grosse)
-     */
+
+   /**
+   * Crée un backup de la base de données (si elle n'est pas trop grosse)
+   */
     public function backupDatabase($maxSizeMB = null) {
         global $lang;
         
@@ -797,33 +821,37 @@ class NPDSBackupManager {
             return ['success' => false, 'message' => $e->getMessage()];
         }
     }
-    
-    /**
-     * Crée un backup des fichiers critiques
-     */
-    public function backupCriticalFiles($targetDir) {
+
+   /**
+   * Crée un backup des fichiers critiques
+   */
+/*    public function backupCriticalFiles($targetDir) {
         global $lang;
-        
         $timestamp = date('Y-m-d_His');
         $backupFile = $this->backupDir . '/files_backup_' . $timestamp . '.zip';
-        
         try {
             $zip = new ZipArchive();
             if ($zip->open($backupFile, ZipArchive::CREATE) === true) {
                 $addedFiles = 0;
-                
+                $fileCount = 0;
                 // Backup des fichiers critiques
                 $criticalFiles = $this->getCriticalFilesList($targetDir);
-                
                 foreach ($criticalFiles as $filePattern) {
-                    $addedFiles += $this->addFilesToZip($zip, $targetDir, $filePattern);
-                }
-                
+                  $files = glob($targetDir . '/' . $filePattern);
+                  foreach ($files as $file) {
+                     $fileCount++;
+                     // KeepAlive toutes les 50 fichiers
+                     if ($fileCount % 50 === 0) {
+                        echo '<script>console.log("💾 Backup: ' . $fileCount . ' fichiers");</script>';
+                        flush();
+                        error_log("💾 Backup: ' . $fileCount . ' fichiers");
+                     }
+                  }
+                     $addedFiles += $this->addFilesToZip($zip, $targetDir, $filePattern);
+               }
                 $zip->close();
                 $size = filesize($backupFile);
-                
                 error_log("✅ Backup fichiers créé: $backupFile ($size bytes, $addedFiles fichiers)");
-                
                 return [
                     'success' => true,
                     'message' => t('backup_files_created', $lang),
@@ -835,13 +863,88 @@ class NPDSBackupManager {
         } catch (Exception $e) {
             error_log("❌ Erreur backup fichiers: " . $e->getMessage());
         }
-        
         return ['success' => false, 'message' => 'Échec création backup fichiers'];
-    }
-    
-    /**
-     * Crée un backup complet (DB + fichiers)
-     */
+   } */
+   public function backupCriticalFiles($targetDir) {
+      global $lang;
+      $timestamp = date('Y-m-d_His');
+      $backupFile = $this->backupDir . '/files_backup_' . $timestamp . '.zip';
+      try {
+         $zip = new ZipArchive();
+         if ($zip->open($backupFile, ZipArchive::CREATE) === true) {
+            $addedFiles = 0;
+            $fileCount = 0;
+            $totalEstimate = $this->estimateTotalBackupFiles($targetDir);
+            // Backup des fichiers critiques
+            $criticalFiles = $this->getCriticalFilesList($targetDir);
+            foreach ($criticalFiles as $filePattern) {
+               $files = glob($targetDir . '/' . $filePattern);
+               foreach ($files as $file) {
+                  $fileCount++;
+                  // KeepAlive avec progression interface
+                  if ($fileCount % 50 === 0) {
+                     $percent = round(($fileCount / $totalEstimate) * 100);
+                     echo '<script>document.getElementById("progress").innerHTML = "💾 Backup: ' . $percent . '% (' . $fileCount . '/' . $totalEstimate . ' fichiers)";</script>';
+                     echo ' ';
+                     flush();
+                  }
+                  // Ajout au ZIP...
+                  if (is_file($file)) {
+                     $relativePath = str_replace($targetDir . '/', '', $file);
+                     if ($zip->addFile($file, $relativePath))
+                        $addedFiles++;
+                  } elseif (is_dir($file)) {
+                     // Ajout récursif du dossier
+                     $iterator = new RecursiveIteratorIterator(
+                        new RecursiveDirectoryIterator($file, RecursiveDirectoryIterator::SKIP_DOTS),
+                        RecursiveIteratorIterator::SELF_FIRST
+                     );
+
+                     foreach ($iterator as $item) {
+                        if ($item->isFile()) {
+                           $fileCount++;
+                           $relativePath = str_replace($targetDir . '/', '', $item->getRealPath());
+                           if ($zip->addFile($item->getRealPath(), $relativePath))
+                              $addedFiles++;
+                           // KeepAlive aussi dans les sous-dossiers
+                           if ($fileCount % 50 === 0) {
+                              $percent = round(($fileCount / $totalEstimate) * 100);
+                              echo '<script>document.getElementById("progress").innerHTML = "💾 Backup: ' . $percent . '% (' . $fileCount . '/' . $totalEstimate . ' fichiers)";</script>';
+                              echo ' ';
+                              flush();
+                           }
+                        }
+                     }
+                 }
+             }
+         }
+         // Message final
+         echo '<script>document.getElementById("progress").innerHTML = "💾 Backup terminé: ' . $addedFiles . ' fichiers";</script>';
+         flush();
+         
+         $zip->close();
+         $size = filesize($backupFile);
+            
+         error_log("✅ Backup fichiers créé: $backupFile ($size bytes, $addedFiles fichiers)");
+            
+         return [
+             'success' => true,
+             'message' => t('backup_files_created', $lang),
+             'file' => $backupFile,
+             'size' => $size,
+             'file_count' => $addedFiles
+         ];
+      }
+   } catch (Exception $e) {
+        error_log("❌ Erreur backup fichiers: " . $e->getMessage());
+   }
+
+   return ['success' => false, 'message' => 'Échec création backup fichiers'];
+}
+
+   /**
+   * Crée un backup complet (DB + fichiers)
+   */
     public function createFullBackup($targetDir) {
         $results = [];
         
@@ -851,9 +954,9 @@ class NPDSBackupManager {
         return $results;
     }
     
-    /**
-     * Liste des fichiers critiques à backuper
-     */
+   /**
+   * Liste des fichiers critiques à backuper
+   */
     private function getCriticalFilesList($targetDir) {
         return [
             'config.php',
@@ -1044,58 +1147,36 @@ class GithubDeployer {
    private $tempDir = 'npds_deployer_temp';
    private $lastDownloadSize = 0;
 
-private function isNPDSInstalled($targetDir) {
-    // Si on vient de l'admin NPDS, c'est forcément une mise à jour
-    if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false) {
-        error_log("✅ Mise à jour détectée via return_url admin");
-        return true;
-    }
-    
-    // Si l'URL contient 'update' dans les paramètres
-    if (isset($_GET['context']) && $_GET['context'] === 'update') {
-        error_log("✅ Mise à jour détectée via paramètre context");
-        return true;
-    }
-    
-    // Fallback : détection par fichiers (ancienne méthode)
-    $rootDir = $this->getRootDir($targetDir);
-    $indicators = [$rootDir . '/config.php', $rootDir . '/IZ-Xinstall.ok'];
-    
-    foreach ($indicators as $indicator) {
-        if (file_exists($indicator)) {
-            error_log("✅ Mise à jour détectée via fichier: " . basename($indicator));
-            return true;
-        }
-    }
-    
-    error_log("❌ Nouvelle installation détectée");
-    return false;
-}
-
-/*
    private function isNPDSInstalled($targetDir) {
-      if ($targetDir === null) $targetDir = __DIR__;
-      $indicators = [
-         $targetDir . '/config.php',
-         $targetDir . '/IZ-Xinstall.ok', 
-         $targetDir . '/slogs/install.log',
-         $targetDir . '/lib/constants.php'
-      ];
+      // Si on vient de l'admin NPDS, c'est forcément une mise à jour
+      if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false) {
+         error_log("✅ Mise à jour détectée via return_url admin");
+         return true;
+      }
+      // Si l'URL contient 'update' dans les paramètres
+      if (isset($_GET['context']) && $_GET['context'] === 'update') {
+         error_log("✅ Mise à jour détectée via paramètre context");
+         return true;
+      }
+      // Fallback : détection par fichiers (ancienne méthode)
+      $rootDir = $this->getRootDir($targetDir);
+      $indicators = [$rootDir . '/config.php', $rootDir . '/IZ-Xinstall.ok'];
       foreach ($indicators as $indicator) {
          if (file_exists($indicator)) {
+            error_log("✅ Mise à jour détectée via fichier: " . basename($indicator));
             return true;
          }
       }
+      error_log("❌ Nouvelle installation détectée");
       return false;
    }
-*/
 
    private function showInstallationWarnings($validation, $targetDir, $version) {
-   // CORRECTION : Remonter à la racine si on est dans lib/deployer/
-    if (basename($targetDir) === 'deployer' && basename(dirname($targetDir)) === 'lib') {
-        $targetDir = dirname(dirname($targetDir));
-        error_log("🔧 Correction targetDir: $targetDir");
-    }
+      // CORRECTION : Remonter à la racine si on est dans lib/deployer/
+      if (basename($targetDir) === 'deployer' && basename(dirname($targetDir)) === 'lib') {
+         $targetDir = dirname(dirname($targetDir));
+         error_log("🔧 Correction targetDir: $targetDir");
+      }
       global $lang;
       echo '
       <div class="section-danger py-2">
@@ -1179,6 +1260,30 @@ private function isNPDSInstalled($targetDir) {
       global $lang;
       // ==================== VÉRIFICATION PRÉ-INSTALLATION ====================
       $isUpdate = $this->isNPDSInstalled($targetDir);
+
+      if ($isUpdate) {
+         echo '<li class="progress" id="backup-step">💾 Sauvegarde de sécurité...</li>';
+         flush();
+         error_log("💾 Backup immédiat avant tout traitement...");
+         try {
+            $backupManager = new NPDSBackupManager();
+            $backupResult = $backupManager->backupCriticalFiles($targetDir);
+            if ($backupResult['success']) {
+               $sizeMB = round($backupResult['size'] / 1024 / 1024, 2);
+               echo '<script>document.getElementById("backup-step").innerHTML = "✅ Backup créé: ' . $sizeMB . ' MB";</script>';
+               flush();
+               error_log("✅ Backup réussi: " . $backupResult['file']);
+            } else {
+                error_log("❌ Backup échoué - arrêt du déploiement");
+                @unlink($lockFile);
+                return $this->createResult(false, "Échec du backup - déploiement annulé pour sécurité");
+            }
+         } catch (Exception $e) {
+            error_log("💥 Exception backup: " . $e->getMessage());
+            @unlink($lockFile);
+            return $this->createResult(false, "Erreur lors du backup: " . $e->getMessage());
+         }
+      }
       if (!$isUpdate) { // Installation neuve uniquement
          $validation = InstallationValidator::validateReceptacle($targetDir);
          if (!$validation['safe'] && (!isset($_GET['force']) || $_GET['force'] !== 'yes')) {
@@ -1342,15 +1447,14 @@ private function isNPDSInstalled($targetDir) {
          exit(0);
       }
       // Commentaire HTML minimal pour maintenir la connexion
-      echo " " . str_repeat(' ', 1024) . "\n"; // Buffer de maintien
+      echo " " . str_repeat(' ', 1024*4) . "\n"; // Buffer de maintien
       echo "<!-- keep-alive: " . date('H:i:s') . " " . htmlspecialchars($message) . " -->\n";
       // Envoyer effectivement les données au navigateur
-      if (ob_get_level() > 0) {
+      if (ob_get_level() > 0)
          ob_flush();
-      }
       flush();
       // Petite pause pour éviter la surcharge CPU
-      usleep(10000); // 10ms
+      usleep(20000); // 10ms
    }
 
    /**
@@ -1395,31 +1499,6 @@ private function isNPDSInstalled($targetDir) {
             $this->logToInstallLog('❌ ' . t('temp_dir_error', $lang) . ': ' . $tempExtractDir, 'ERROR', $targetDir);
             return $this->createResult(false, t('temp_dir_error', $lang));
          }
-         // ==================== BACKUP AVANT EXTRACTION (mise à jour seulement) ====================
-         if ($isUpdate) {
-            echo '<li class="progress" id="backup-step">💾 Sauvegarde des fichiers critiques...</li>';
-            $this->keepAlive("Sauvegarde en cours");
-
-/*
-            try {
-               $backupManager = new NPDSBackupManager();
-               $backupResult = $backupManager->backupCriticalFiles($targetDir);
-               if ($backupResult['success']) {
-                  $sizeMB = round($backupResult['size'] / 1024 / 1024, 2);
-                  echo '<script>document.getElementById("backup-step").innerHTML = "✅ Backup créé: ' . $sizeMB . ' MB";</script>';
-                  error_log("✅ Backup fichiers créé: " . $backupResult['file']);
-               } else {
-                  echo '<script>document.getElementById("backup-step").innerHTML = "⚠️ Backup échoué";</script>';
-               }
-            } catch (Exception $e) {
-               error_log("❌ Erreur backup: " . $e->getMessage());
-               echo '<script>document.getElementById("backup-step").innerHTML = "⚠️ Erreur backup";</script>';
-            }
-            $this->keepAlive("Sauvegarde terminée");
-*/
-         }
-
-
          echo '<script>document.getElementById("extraction-step").innerHTML = "🔄 Extraction de l\'archive en cours...";</script>';
          $this->keepAlive("Extraction archive");
          // Extraction complète de l'archive dans le répertoire temporaire
@@ -1435,64 +1514,45 @@ private function isNPDSInstalled($targetDir) {
             echo '<script>document.getElementById("extraction-step").innerHTML = "📄 Extraction: 0/' . $totalFiles . ' fichiers";</script>';
             $this->keepAlive("Extraction: 0/$totalFiles fichiers");
             // Extraire avec progression
-/*
+
             for ($i = 0; $i < $totalFiles; $i++) {
-                $zip->extractTo($tempExtractDir, $zip->getNameIndex($i));
-                // Feedback toutes les 50 fichiers
-                if ($i % 50 === 0) {
-                    $percent = round(($i / $totalFiles) * 100);
-                    echo '<script>document.getElementById("progress").innerHTML = "📄 Extraction: ' . $percent . '% (' . $i . '/' . $totalFiles . ')"</script>';
-                    echo '<!-- progression: ' . $percent . '% -->';
-                    $this->keepAlive("Extraction: $i/$totalFiles fichiers");
-                    
-                    if (ob_get_level() > 0) {
-                        ob_flush();
-                    }
-                    flush();
+               $zip->extractTo($tempExtractDir, $zip->getNameIndex($i));
+               // Feedback toutes les 50 fichiers
+               if ($i % 50 === 0) {
+                  $percent = round(($i / $totalFiles) * 100);
+                  echo '<script>document.getElementById("progress").innerHTML = "📄 Extraction: ' . $percent . '% (' . $i . '/' . $totalFiles . ')"</script>';
+                  echo '<!-- progression: ' . $percent . '% -->';
+                  $this->keepAlive("Extraction: $i/$totalFiles fichiers");
+                 if (ob_get_level() > 0)
+                     ob_flush();
+                 flush();
                 }
             }
-*/
-            
             error_log("🔄 Début extraction - $totalFiles fichiers total");
 
-for ($i = 0; $i < $totalFiles; $i++) {
-    // DIAGNOSTIC CRITIQUE - Avant chaque extraction
-    if ($i % 100 === 0 || ($i >= 3440 && $i <= 3460)) {
-        $memory = round(memory_get_usage(true) / 1024 / 1024, 2);
-        error_log("🔍 Fichier $i/$totalFiles - Mémoire: {$memory}MB");
-    }
-    
-    // RESET TIMEOUT agressif
-    if ($i % 50 === 0) {
-        set_time_limit(30);
-    }
-    
-    // EXTRACTION avec gestion d'erreur
-    $filename = $zip->getNameIndex($i);
-    $success = $zip->extractTo($tempExtractDir, $filename);
-    
-    if (!$success) {
-        error_log("❌ Échec extraction $i: $filename");
-        // Mais on CONTINUE
-    }
-    
-    // KEEPALIVE renforcé
-    if ($i % 20 === 0) {
-        $percent = round(($i / $totalFiles) * 100);
-        echo '<script>document.getElementById("progress").innerHTML = "📄 Extraction: ' . $percent . '% (' . $i . '/' . $totalFiles . ')"</script>';
-        echo ' '; // Micro keepalive
-        flush();
-        
-        // Log spécial pour la zone critique
-        if ($i >= 3440 && $i <= 3460) {
-            error_log("🚨 ZONE CRITIQUE $i: " . $filename);
-        }
-    }
-}
-
-error_log("✅ Extraction TERMINÉE - $i fichiers traités");
-            
-            
+            for ($i = 0; $i < $totalFiles; $i++) {
+               // DIAGNOSTIC CRITIQUE - Avant chaque extraction
+               if ($i % 100 === 0 || ($i >= 3440 && $i <= 3460)) {
+                  $memory = round(memory_get_usage(true) / 1024 / 1024, 2);
+                  error_log("🔍 Fichier $i/$totalFiles - Mémoire: {$memory}MB");
+               }
+               // RESET TIMEOUT agressif
+               if ($i % 100 === 0)
+                  set_time_limit(300);
+               // EXTRACTION avec gestion d'erreur
+               $filename = $zip->getNameIndex($i);
+               $success = $zip->extractTo($tempExtractDir, $filename);
+               if (!$success)
+                  error_log("❌ Échec extraction $i: $filename"); // Mais on CONTINUE
+               // KEEPALIVE renforcé
+               if ($i % 20 === 0) {
+                  $percent = round(($i / $totalFiles) * 100);
+                  echo '<script>document.getElementById("progress").innerHTML = "📄 Extraction: ' . $percent . '% (' . $i . '/' . $totalFiles . ')"</script>';
+                  echo ' '; // Micro keepalive
+                  flush();
+               }
+            }
+            error_log("✅ Extraction TERMINÉE - $i fichiers traités");
             $zip->close();
             echo '<script>document.getElementById("extraction-step").innerHTML = "✅ ' . t('extraction_finished',$lang) .': ' . $totalFiles . ' fichiers";</script>';
          } else {
@@ -1576,35 +1636,33 @@ error_log("✅ Extraction TERMINÉE - $i fichiers traités");
             echo '<script>document.getElementById("progress").innerHTML = "'.$status.'";</script>';
             echo '<div style="display:none">Progression: ' . $percent . '%</div>';
             echo str_repeat(' ', 262144);
-            if (ob_get_level() > 0) {
+            if (ob_get_level() > 0)
                 ob_flush();
-            }
             flush();
-        }
+         }
 
-        $targetPath = $destination . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
+         $targetPath = $destination . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
 
-        if ($item->isDir()) {
+         if ($item->isDir()) {
             if (!is_dir($targetPath))
-                mkdir($targetPath, 0755);
-        } else {
+               mkdir($targetPath, 0755);
+         } else {
             $parentDir = dirname($targetPath);
             if (!is_dir($parentDir))
-                mkdir($parentDir, 0755, true);
+               mkdir($parentDir, 0755, true);
             if (!copy($item->getRealPath(), $targetPath))
-                throw new Exception(t('copy_error',$lang) .': '. $item->getFilename());
-        }
-    }
-    $finalStatus = '✅ ' . t('copy_complete',$lang) . ': ' .$fileCount.' éléments';
-    if ($isUpdate)
-      $finalStatus .= " ($skippedCount ignorés)";
-    echo '<script>document.getElementById("copy-step").innerHTML = "'.$finalStatus.'";</script>';
-    if (ob_get_level() > 0) {
-        ob_flush();
-    }
-    flush();
-    error_log("✅ copyDirectoryContentsFlat terminée: $fileCount fichiers" . ($isUpdate ? ", $skippedCount ignorés" : ''));
-}
+               throw new Exception(t('copy_error',$lang) .': '. $item->getFilename());
+         }
+      }
+      $finalStatus = '✅ ' . t('copy_complete',$lang) . ': ' .$fileCount.' éléments';
+      if ($isUpdate)
+         $finalStatus .= " ($skippedCount ignorés)";
+      echo '<script>document.getElementById("copy-step").innerHTML = "'.$finalStatus.'";</script>';
+      if (ob_get_level() > 0)
+         ob_flush();
+      flush();
+      error_log("✅ copyDirectoryContentsFlat terminée: $fileCount fichiers" . ($isUpdate ? ", $skippedCount ignorés" : ''));
+   }
 
    /**
    * Trouve le premier dossier dans un répertoire
@@ -1615,7 +1673,7 @@ error_log("✅ Extraction TERMINÉE - $i fichiers traités");
          if ($item !== '.' && $item !== '..' && is_dir($directory . '/' . $item))
             return $directory . '/' . $item;
       }
-       return null;
+      return null;
    }
 
    /**
@@ -1806,7 +1864,7 @@ function deployNPDS($version = null, $installPath = null) {
    if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
       die("❌ " . t('security_warning', $lang));
 
-// Vérification supplémentaire en mode update
+   // Vérification supplémentaire en mode update
    global $context;
    if ($context === 'update' && (!isset($_GET['force']) || $_GET['force'] !== 'yes')) {
       die('
@@ -1822,17 +1880,13 @@ function deployNPDS($version = null, $installPath = null) {
             </div>
         ');
     }
-
-
    if ($version === null)
       $version = $_GET['version'] ?? 'v.16.4';
    if ($installPath === null)
       $installPath = isset($_GET['path']) ? $_GET['path'] : __DIR__;
    $installPath = rtrim($installPath, '/');
-if (($context === 'deploy' || $context === 'update') && !headers_sent()) {
-
-   header('Content-Type: text/html; charset=utf-8');
-}
+   if (($context === 'deploy' || $context === 'update') && !headers_sent())
+      header('Content-Type: text/html; charset=utf-8');
    echo head_html();
    echo '
       <h2 class="ms-3"><span class="display-6">🚀 </span>' . t('deploying', $lang) . '</h2>
