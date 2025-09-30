@@ -1627,16 +1627,14 @@ class GithubDeployer {
       $fileCount = 0;
       $skippedCount = 0;
       foreach ($iterator as $item) {
-        $fileCount++;
-        $relativePath = $iterator->getSubPathName();
-        $targetPath = $destination . DIRECTORY_SEPARATOR . $relativePath;
-        // VÉRIFICATION D'EXCLUSION (uniquement en mise à jour)
-        if ($isUpdate && file_exists($targetPath)) {
-            if (NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
-                $skippedCount++;
-                continue; // Ne pas écraser le fichier protégé
-            }
-        }
+         $fileCount++;
+         $relativePath = $iterator->getSubPathName();
+         $targetPath = $destination . DIRECTORY_SEPARATOR . $relativePath;
+         // VÉRIFICATION D'EXCLUSION (uniquement en mise à jour)
+         if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
+         $skippedCount++;
+         continue; // Exclure même si le fichier n'existe pas encore
+         }
         if ($fileCount % 25 === 0) {
             $percent = round(($fileCount / $totalFiles) * 100);
             $status = '📁 ' . t('copied',$lang) . ": $percent% ($fileCount/$totalFiles)";
