@@ -13,9 +13,13 @@
 /* npds_deployer.php                                                    */
 /* jpb & DeepSeek 2025                                                  */
 /************************************************************************/
-// ==================== VERROU ANTI-PARALLÈLE ====================
-$globalLockFile = __DIR__ . '/npds_deployer_temp/global_deploy.lock';
-$lockTimeout = 600; // 10 minutes
+date_default_timezone_set('Europe/Paris');
+
+// ==================== VERROU SIMPLE DANS LE DOSSIER COURANT ====================
+$globalLockFile = __DIR__ . '/global_deploy.lock';  // Fichier dans le même dossier
+$lockTimeout = 600;
+
+error_log("🔍 Lock file: " . $globalLockFile);
 
 if (file_exists($globalLockFile)) {
     $lockTime = filemtime($globalLockFile);
@@ -23,21 +27,17 @@ if (file_exists($globalLockFile)) {
     
     if ($elapsed < $lockTimeout) {
         error_log("🚨 DÉPLOYEUR BLOQUÉ - Déjà en cours depuis $elapsed secondes");
-        http_response_code(423); // Locked
-        die("🚨 Un déploiement est déjà en cours (débuté il y a " . $elapsed . " secondes). Veuillez patienter.");
+        die("🚨 Un déploiement est déjà en cours. Veuillez patienter.");
     } else {
-        @unlink($globalLockFile); // Lock expiré
-        error_log("🔓 Verrou global expiré et supprimé");
+        @unlink($globalLockFile);
     }
 }
 
-// Créer le verrou global
 if (!@touch($globalLockFile)) {
-    error_log("🚨 IMPOSSIBLE DE CRÉER LE VERROU GLOBAL");
-    die("🚨 Erreur de sécurité - déploiement impossible");
+    error_log("🚨 IMPOSSIBLE DE CRÉER LE VERROU DANS " . __DIR__);
+    die("🚨 Erreur de permissions - vérifiez les droits en écriture");
 }
-
-date_default_timezone_set('Europe/Paris');
+error_log("✅ Verrou créé: " . $globalLockFile);
 error_log("🧨 DÉPLOYEUR DÉMARRÉ - " . date('H:i:s') . " - " . $_SERVER['REQUEST_URI']);
 error_log("🔍 CONFIGURATION SERVEUR:");
 error_log("Server software: " . ($_SERVER['SERVER_SOFTWARE'] ?? 'Inconnu'));
@@ -621,6 +621,7 @@ class NPDSExclusions {
      'lib/deployer/npds-deployer.php',
 */
       // === FICHIERS/DOSSIERS INSTALLATION AUTO ===
+      'install',
       'install/',                 // installation automatique
       'install.php',              // installation automatique
       // === FICHIERS DE CONFIGURATION CRITIQUES ===
