@@ -1158,15 +1158,6 @@ class GithubDeployer {
          error_log("✅ Mise à jour détectée via paramètre context");
          return true;
       }
-      // Fallback : détection par fichiers (ancienne méthode)
-      $rootDir = $this->getRootDir($targetDir);
-      $indicators = [$rootDir . '/config.php', $rootDir . '/IZ-Xinstall.ok'];
-      foreach ($indicators as $indicator) {
-         if (file_exists($indicator)) {
-            error_log("✅ Mise à jour détectée via fichier: " . basename($indicator));
-            return true;
-         }
-      }
       error_log("❌ Nouvelle installation détectée");
       return false;
    }
@@ -1866,20 +1857,7 @@ function deployNPDS($version = null, $installPath = null) {
 
    // Vérification supplémentaire en mode update
    global $context;
-   if ($context === 'update' && (!isset($_GET['force']) || $_GET['force'] !== 'yes')) {
-      die('
-            <div class="section-danger py-2">
-                <h3>❌ Opération dangereuse</h3>
-                <p>Une installation NPDS est déjà détectée.</p>
-                <p>Si vous souhaitez vraiment réinstaller :</p>
-                <p><a href="?op=deploy&version=' . ($_GET['version'] ?? 'v.16.8') . '&path=' . ($_GET['path'] ?? '') . '&confirm=yes&force=yes" 
-                      class="btn btn-danger" 
-                      onclick="return confirm(\'🚨 ATTENTION: Cela écrasera l\\\'installation existante! Continuer?\')">
-                    🚨 Forcer la réinstallation
-                </a></p>
-            </div>
-        ');
-    }
+
    if ($version === null)
       $version = $_GET['version'] ?? 'v.16.4';
    if ($installPath === null)
