@@ -13,6 +13,30 @@
 /* npds_deployer.php                                                    */
 /* jpb & DeepSeek 2025                                                  */
 /************************************************************************/
+// ==================== VERROU ANTI-PARALLÈLE ====================
+$globalLockFile = __DIR__ . '/npds_deployer_temp/global_deploy.lock';
+$lockTimeout = 600; // 10 minutes
+
+if (file_exists($globalLockFile)) {
+    $lockTime = filemtime($globalLockFile);
+    $elapsed = time() - $lockTime;
+    
+    if ($elapsed < $lockTimeout) {
+        error_log("🚨 DÉPLOYEUR BLOQUÉ - Déjà en cours depuis $elapsed secondes");
+        http_response_code(423); // Locked
+        die("🚨 Un déploiement est déjà en cours (débuté il y a " . $elapsed . " secondes). Veuillez patienter.");
+    } else {
+        @unlink($globalLockFile); // Lock expiré
+        error_log("🔓 Verrou global expiré et supprimé");
+    }
+}
+
+// Créer le verrou global
+if (!@touch($globalLockFile)) {
+    error_log("🚨 IMPOSSIBLE DE CRÉER LE VERROU GLOBAL");
+    die("🚨 Erreur de sécurité - déploiement impossible");
+}
+
 date_default_timezone_set('Europe/Paris');
 error_log("🧨 DÉPLOYEUR DÉMARRÉ - " . date('H:i:s') . " - " . $_SERVER['REQUEST_URI']);
 error_log("🔍 CONFIGURATION SERVEUR:");
@@ -2517,5 +2541,10 @@ switch ($operation) {
       </div>';
       echo foot_html();
    break;
+}
+// ==================== LIBÉRATION DU VERROU ====================
+if (file_exists($globalLockFile)) {
+   @unlink($globalLockFile);
+   error_log("🔓 Verrou global libéré");
 }
 ?>
