@@ -15,6 +15,9 @@
 /************************************************************************/
 date_default_timezone_set('Europe/Paris');
 error_log("🧨 DÉPLOYEUR DÉMARRÉ - " . date('H:i:s') . " - " . $_SERVER['REQUEST_URI']);
+error_log("🔍 CONFIGURATION SERVEUR:");
+error_log("Server software: " . ($_SERVER['SERVER_SOFTWARE'] ?? 'Inconnu'));
+error_log("PHP SAPI: " . php_sapi_name());
 
 // Compteur d'exécutions
 static $execution_count = 0;
@@ -73,6 +76,17 @@ ini_set('max_execution_time', 600);
 ini_set('default_socket_timeout', 600);
 ini_set('memory_limit', '512M');
 
+// ==================== DIAGNOSTIC SAFE MODE ====================
+if (ini_get('safe_mode')) {
+    error_log("🚨 SAFE MODE ACTIVÉ - les ini_set() peuvent être ignorés!");
+} else {
+    error_log("✅ Safe mode désactivé - limites PHP modifiables");
+}
+// Vérification que les limites sont bien appliquées
+error_log("🔍 LIMITES APPLIQUÉES:");
+error_log("memory_limit: " . ini_get('memory_limit'));
+error_log("max_execution_time: " . ini_get('max_execution_time'));
+error_log("default_socket_timeout: " . ini_get('default_socket_timeout'));
 // ==================== HEADERS UNIQUEMENT EN MODE STANDALONE ====================
 if (!$headers_already_sent && ($context === 'deploy' || $context === 'update')) {
    // Session
@@ -1438,14 +1452,14 @@ class GithubDeployer {
          exit(0);
       }
       // Commentaire HTML minimal pour maintenir la connexion
-      echo " " . str_repeat(' ', 1024*4) . "\n"; // Buffer de maintien
+      echo " " . str_repeat(' ', 1024*8) . "\n"; // Buffer de maintien
       echo "<!-- keep-alive: " . date('H:i:s') . " " . htmlspecialchars($message) . " -->\n";
       // Envoyer effectivement les données au navigateur
       if (ob_get_level() > 0)
          ob_flush();
       flush();
       // Petite pause pour éviter la surcharge CPU
-      usleep(20000); // 10ms
+      usleep(50000); // 50ms
    }
 
    /**
@@ -1523,7 +1537,7 @@ class GithubDeployer {
 
             for ($i = 0; $i < $totalFiles; $i++) {
                // DIAGNOSTIC CRITIQUE - Avant chaque extraction
-               if ($i % 100 === 0 || ($i >= 3440 && $i <= 3460)) {
+               if ($i % 100 === 0) {
                   $memory = round(memory_get_usage(true) / 1024 / 1024, 2);
                   error_log("🔍 Fichier $i/$totalFiles - Mémoire: {$memory}MB");
                }
@@ -1541,6 +1555,10 @@ class GithubDeployer {
                   echo '<script>document.getElementById("progress").innerHTML = "📄 Extraction: ' . $percent . '% (' . $i . '/' . $totalFiles . ')"</script>';
                   echo ' '; // Micro keepalive
                   flush();
+               }
+               // KeepAlive fréquent
+               if ($i % 10 === 0) {
+               $this->keepAlive("Extraction $i/$totalFiles");
                }
             }
             error_log("✅ Extraction TERMINÉE - $i fichiers traités");
