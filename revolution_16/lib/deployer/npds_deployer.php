@@ -1655,11 +1655,33 @@ class GithubDeployer {
          $fileCount++;
          $relativePath = $iterator->getSubPathName();
          $targetPath = $destination . DIRECTORY_SEPARATOR . $relativePath;
+         
+         // ⭐⭐ DEBUG AGGRESSIF POUR INSTALL ⭐⭐
+    $isInstallRelated = (strpos($relativePath, 'install') === 0);
+    if ($isInstallRelated) {
+        error_log("🎯 INSTALL DETECTÉ - relativePath: '$relativePath'");
+        error_log("🎯 INSTALL DETECTÉ - targetPath: '$targetPath'");
+        error_log("🎯 INSTALL DETECTÉ - isDir: " . ($item->isDir() ? 'YES' : 'NO'));
+        error_log("🎯 INSTALL DETECTÉ - fileExists: " . (file_exists($targetPath) ? 'YES' : 'NO'));
+        
+        // Test d'exclusion manuel
+        $excluded = NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate);
+        error_log("🎯 INSTALL DETECTÉ - shouldExclude: " . ($excluded ? 'EXCLU' : 'PAS EXCLU'));
+    }
+    
+    if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
+        $skippedCount++;
+        error_log("🔒 DOSSIER EXCLU: $relativePath");
+        continue;
+    }
+         
          // VÉRIFICATION D'EXCLUSION (uniquement en mise à jour)
+/*
          if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
          $skippedCount++;
          continue; // Exclure même si le fichier n'existe pas encore
          }
+*/
         if ($fileCount % 25 === 0) {
             $percent = round(($fileCount / $totalFiles) * 100);
             $status = '📁 ' . t('copied',$lang) . ": $percent% ($fileCount/$totalFiles)";
