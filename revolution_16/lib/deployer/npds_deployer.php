@@ -621,9 +621,7 @@ class NPDSExclusions {
      'lib/deployer/npds-deployer.php',
 */
       // === FICHIERS/DOSSIERS INSTALLATION AUTO ===
-      'install',
-      'install/',                 // installation automatique
-      'install.php',              // installation automatique
+      'install', 'install/', 'install/*', 'install.php',
       // === FICHIERS DE CONFIGURATION CRITIQUES ===
       'config.php',               // configuration générale du site
       'IZ-Xinstall.ok',           // témoin d'install-auto
