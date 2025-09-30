@@ -48,83 +48,6 @@ function getUpdateOptions($currentVersion) {
    return $options;
 }
 
-/*function executeDeployer($version) {
-   $deployerFile = 'lib/deployer/npds_deployer.php';
-   $targetPath = realpath(__DIR__ . '/..'); // Racine de NPDS
-   
-   // Inclure et exécuter le déployeur directement
-   if (file_exists($deployerFile)) {
-      // Capturer la sortie du déployeur
-      ob_start();
-      $_GET['op'] = 'deploy';
-      $_GET['version'] = $version;
-      $_GET['confirm'] = 'yes';
-      $_GET['path'] = $targetPath;
-      
-      include $deployerFile;
-      
-      $output = ob_get_clean();
-      return ['success' => true, 'output' => $output];
-   } else {
-      return ['success' => false, 'message' => 'Déployeur non trouvé'];
-   }
-}*/
-/*function executeDeployer($version) {
-   $deployerFile = 'lib/deployer/npds_deployer.php';
-   $targetPath = realpath(__DIR__ . '/..');
-   
-   // Nettoyer tous les buffers
-   while (ob_get_level() > 0) {
-      ob_end_clean();
-   }
-   
-   // Configurer pour le streaming
-//   ini_set('output_buffering', '0');
-//   ini_set('zlib.output_compression', '0');
-   
-   echo '<div style="font-family: monospace; background: #f5f5f5; padding: 10px; border: 1px solid #ddd;">';
-   echo "<strong>🚀 Déploiement NPDS en cours...</strong><br>";
-   echo "Version: $version<br>";
-   echo "Cible: $targetPath<br><br>";
-   flush();
-   
-   if (!file_exists($deployerFile)) {
-      echo "❌ <strong>Erreur:</strong> Fichier déployeur introuvable: $deployerFile";
-      flush();
-      return ['success' => false, 'message' => 'Déployeur non trouvé'];
-   }
-   
-   // Simuler l'appel direct au déployeur
-   $_GET['op'] = 'deploy';
-   $_GET['version'] = $version;
-   $_GET['confirm'] = 'yes';
-   $_GET['path'] = $targetPath;
-   
-   try {
-      include $deployerFile;
-      return ['success' => true];
-   } catch (Exception $e) {
-      echo "❌ <strong>Erreur lors du déploiement:</strong> " . $e->getMessage();
-      flush();
-      return ['success' => false, 'message' => $e->getMessage()];
-   }
-}*/
-function executeDeployer($version) {
-   $deployerUrl = "/lib/deployer/npds_deployer.php?op=deploy&version=$version&confirm=yes&return_url=" . urlencode($_SERVER['REQUEST_URI']);
-   echo '
-    <div style="text-align: center; padding: 20px;">
-        <h3>🚀 Déploiement NPDS en cours</h3>
-        <p>Redirection vers l\'interface de déploiement...</p>
-        <div class="spinner-border" role="status"></div>
-        <script>
-            setTimeout(function() {
-                window.location.href = "' . $deployerUrl . '";
-            }, 4000);
-        </script>
-    </div>';
-    return ['success' => true];
-}
-
 function getUpdateLog() {
    $logFile = 'slogs/install.log';
    if (file_exists($logFile)) {
@@ -256,69 +179,13 @@ function maj_preupdate() {
    include 'footer.php';
 }
 
-/*function maj_update() {
-   global $Version_Num, $hlpfile, $f_meta_nom, $f_titre, $adminimg;
-   include 'header.php';
-   GraphicAdmin($hlpfile);
-   adminhead($f_meta_nom, $f_titre, $adminimg);
-   $version = $_GET['version'] ?? getlatestRelease();
-   
-   echo '
-    <h3 class="mb-3"><i class="fa fa-sync-alt fa-lg"></i> Mise à jour en cours</h3>
-    <div class="card">
-        <div class="card-body">
-            <h4>🔧 Mise à jour NPDS vers ' . htmlspecialchars($version) . '</h4>
-            <div class="progress mb-3">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" 
-                     role="progressbar" style="width: 100%">En cours...</div>
-            </div>
-            <div style="height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background: #f8f9fa;">';
-   
-   // Flush pour afficher l'en-tête immédiatement
-   ob_flush();
-   flush();
-   
-   // Exécuter le déployeur
-   $result = executeDeployer($version);
-   
-   if ($result['success']) {
-      if (isset($result['output']))
-          echo $result['output'];
-      else
-          echo "✅ Déploiement terminé avec succès";
-
-      echo '
-            </div>
-            <div class="alert alert-success mt-3">
-                <h5>✅ Mise à jour terminée avec succès</h5>
-                <p>Redirection vers la page de confirmation...</p>
-            </div>
-            <script>
-                setTimeout(function() {
-                    window.location.href = "admin.php?op=maj&action=success&version=' . urlencode($version) . '";
-                }, 3000);
-            </script>';
-   } else {
-      echo '
-            <div class="alert alert-danger mt-3">
-                <h5>❌ Erreur lors de la mise à jour</h5>
-                <p>' . htmlspecialchars($result['message']) . '</p>
-                <a href="admin.php?op=maj" class="btn btn-secondary">Retour</a>
-            </div>';
-   }
-   
-   echo '
-        </div>
-    </div>';
-    include 'footer.php';
-}*/
-
 function maj_update() {
    $version = $_GET['version'] ?? getlatestRelease();
    $targetPath = $_GET['path'] ?? realpath(__DIR__ . '/..');
    $deployerUrl = "/lib/deployer/npds_deployer.php?op=deploy&version=$version&confirm=yes&path=" . 
                    urlencode($targetPath) . "&return_url=" . 
-                   urlencode("admin.php?op=maj");   header("Location: $deployerUrl");
+                   urlencode("admin.php?op=maj");
+   header("Location: $deployerUrl");
    exit;
 }
 
@@ -329,15 +196,14 @@ function maj_success() {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    $newVersion = $_GET['version'] ?? '16.8.0';
 
-    echo '
-    <h3 class="mb-3"><i class="fa fa-check-circle fa-lg"></i> Mise à jour terminée</h3>
+   echo '
+    <h3 class="mb-3">Mise à jour terminée</h3>
     <div class="card">
         <div class="card-body">
             <div class="alert alert-success">
                 <h4>✅ Mise à jour réussie</h4>
                 <p>La mise à jour de NPDS a été effectuée avec succès.</p>
-                <p><strong>Ancienne version :</strong> ' . $Version_Num . '</p>
-                <p><strong>Nouvelle version :</strong> ' . htmlspecialchars($newVersion) . '</p>
+                <p><strong>Ancienne version :</strong> ' . $Version_Num . ' ==> <strong>Nouvelle version :</strong> ' . htmlspecialchars($newVersion) . '</p>
             </div>
             <div class="mt-4">
                 <h5>📋 Prochaines étapes recommandées :</h5>
@@ -349,24 +215,17 @@ function maj_success() {
                 </ol>
             </div>
             <div class="mt-4">
-                <a href="../index.php" class="btn btn-primary" target="_blank">👀 Voir le site</a>
-                <a href="admin.php?op=maintenance" class="btn btn-warning">🔧 Vérification maintenance</a>
-                <a href="admin.php" class="btn btn-secondary">⚙️ Retour à l\'administration</a>
-            </div>
-            <div class="mt-4">
                 <h5>📊 Logs de mise à jour :</h5>
                 <div style="height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background: #f8f9fa;">';
     
-    $logLines = getUpdateLog();
-    if (!empty($logLines)) {
-        foreach ($logLines as $line) {
-            echo htmlspecialchars($line) . '<br>';
-        }
-    } else {
-        echo '<em>Aucun log disponible</em>';
-    }
-    
-    echo '
+   $logLines = getUpdateLog();
+   if (!empty($logLines))
+      foreach ($logLines as $line) {
+         echo htmlspecialchars($line) . '<br />';
+      }
+   else 
+      echo '<em>Aucun log disponible</em>';
+   echo '
                 </div>
             </div>
         </div>

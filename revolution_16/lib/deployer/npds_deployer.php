@@ -1916,12 +1916,11 @@ function deployNPDS($version = null, $installPath = null) {
       $baseUrl = 'https://' . $_SERVER['HTTP_HOST'] . $relativePath;
       // ==================== GESTION RETOUR ADMIN ====================
       if (isset($_GET['return_url'])) {
-         $returnUrl = $_GET['return_url'];
-         // Ajouter le paramètre success seulement maintenant qu'on sait que c'est réussi
+         $returnUrl = str_replace('/lib/deployer', '', $_GET['return_url']);
          $returnUrl .= (strpos($returnUrl, '?') === false ? '?' : '&') . 'action=success&version=' . urlencode($version);
          echo '
-         <div class="mt-3 alert alert-info">
-            <p>✅ Redirection vers l\'administration dans 5 secondes...</p>
+         <div class="mt-3 alert alert-success">
+            <p>✅ Redirection vers l\'administration dans 10 secondes...</p>
             <p><a href="' . $returnUrl . '" class="btn btn-primary">Cliquer ici pour retourner maintenant</a></p>
          </div>
          <script>
