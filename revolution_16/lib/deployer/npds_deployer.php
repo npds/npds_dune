@@ -922,9 +922,10 @@ class NPDSBackupManager {
                   if ($fileCount % 50 === 0) {
                      $percent = round(($fileCount / $totalEstimate) * 100);
                      echo '<script>document.getElementById("progress").innerHTML = "💾 Backup: ' . $percent . '% (' . $fileCount . '/' . $totalEstimate . ' fichiers)";</script>';
-                     echo ' ';
-                     flush();
-                  }
+                     echo str_repeat(' ', 16384); // ⭐⭐ 16KB buffer
+                   if (ob_get_level() > 0) ob_flush();
+                      flush();
+                      }
                   // Ajout au ZIP...
                   if (is_file($file)) {
                      $relativePath = str_replace($targetDir . '/', '', $file);
@@ -947,9 +948,10 @@ class NPDSBackupManager {
                            if ($fileCount % 50 === 0) {
                               $percent = round(($fileCount / $totalEstimate) * 100);
                               echo '<script>document.getElementById("progress").innerHTML = "💾 Backup: ' . $percent . '% (' . $fileCount . '/' . $totalEstimate . ' fichiers)";</script>';
-                              echo ' ';
-                              flush();
-                           }
+                              echo str_repeat(' ', 16384); // ⭐⭐ 16KB buffer
+                                  if (ob_get_level() > 0) ob_flush();
+                                  flush();
+                            }
                         }
                      }
                  }
@@ -1475,14 +1477,14 @@ class GithubDeployer {
          exit(0);
       }
       // Commentaire HTML minimal pour maintenir la connexion
-      echo " " . str_repeat(' ', 1024*8) . "\n"; // Buffer de maintien
+      echo " " . str_repeat(' ', 16384) . "\n"; // Buffer de maintien
       echo "<!-- keep-alive: " . date('H:i:s') . " " . htmlspecialchars($message) . " -->\n";
       // Envoyer effectivement les données au navigateur
       if (ob_get_level() > 0)
          ob_flush();
       flush();
       // Petite pause pour éviter la surcharge CPU
-      usleep(50000); // 50ms
+      usleep(10000); // 10ms
    }
 
    /**
@@ -1653,33 +1655,12 @@ class GithubDeployer {
          $fileCount++;
          $relativePath = $iterator->getSubPathName();
          $targetPath = $destination . DIRECTORY_SEPARATOR . $relativePath;
-         
-         // ⭐⭐ DEBUG AGGRESSIF POUR INSTALL ⭐⭐
-    $isInstallRelated = (strpos($relativePath, 'install') === 0);
-    if ($isInstallRelated) {
-        error_log("🎯 INSTALL DETECTÉ - relativePath: '$relativePath'");
-        error_log("🎯 INSTALL DETECTÉ - targetPath: '$targetPath'");
-        error_log("🎯 INSTALL DETECTÉ - isDir: " . ($item->isDir() ? 'YES' : 'NO'));
-        error_log("🎯 INSTALL DETECTÉ - fileExists: " . (file_exists($targetPath) ? 'YES' : 'NO'));
-        
-        // Test d'exclusion manuel
-        $excluded = NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate);
-        error_log("🎯 INSTALL DETECTÉ - shouldExclude: " . ($excluded ? 'EXCLU' : 'PAS EXCLU'));
-    }
-    
-    if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
-        $skippedCount++;
-        error_log("🔒 DOSSIER EXCLU: $relativePath");
-        continue;
-    }
-         
-         // VÉRIFICATION D'EXCLUSION (uniquement en mise à jour)
-/*
          if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
-         $skippedCount++;
-         continue; // Exclure même si le fichier n'existe pas encore
+            $skippedCount++;
+            error_log("🔒 DOSSIER EXCLU: $relativePath");
+            continue;
          }
-*/
+         
         if ($fileCount % 25 === 0) {
             $percent = round(($fileCount / $totalFiles) * 100);
             $status = '📁 ' . t('copied',$lang) . ": $percent% ($fileCount/$totalFiles)";
