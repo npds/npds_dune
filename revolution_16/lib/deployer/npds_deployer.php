@@ -614,12 +614,6 @@ $_SESSION['npds_lang'] = $lang;
 // ==================== CONFIGURATION DES EXCLUSIONS ====================
 class NPDSExclusions {
    private static $excludedFiles = [
-    // ⭐⭐ Ne pas couper la branche sur laquelle on est assis ⭐⭐
-/*
-     'lib/deployer/',
-     'lib/deployer/*',
-     'lib/deployer/npds-deployer.php',
-*/
       // === FICHIERS/DOSSIERS INSTALLATION AUTO ===
       'install', 'install/', 'install/*', 'install.php',
       // === FICHIERS DE CONFIGURATION CRITIQUES ===
@@ -682,10 +676,8 @@ class NPDSExclusions {
          return false; // Tout peut être écrasé
       // 🔥 Seulement en mise à jour : vérifier les exclusions
       foreach (self::$excludedFiles as $pattern) {
-         if (self::matchesPattern($filePath, $pattern)) {
-            error_log("🔒 Fichier exclu en mise à jour: $filePath");
+         if (self::matchesPattern($filePath, $pattern)) 
             return true;
-         }
       }
       return false;
    }
@@ -862,46 +854,6 @@ class NPDSBackupManager {
    /**
    * Crée un backup des fichiers critiques
    */
-/*    public function backupCriticalFiles($targetDir) {
-        global $lang;
-        $timestamp = date('Y-m-d_His');
-        $backupFile = $this->backupDir . '/files_backup_' . $timestamp . '.zip';
-        try {
-            $zip = new ZipArchive();
-            if ($zip->open($backupFile, ZipArchive::CREATE) === true) {
-                $addedFiles = 0;
-                $fileCount = 0;
-                // Backup des fichiers critiques
-                $criticalFiles = $this->getCriticalFilesList($targetDir);
-                foreach ($criticalFiles as $filePattern) {
-                  $files = glob($targetDir . '/' . $filePattern);
-                  foreach ($files as $file) {
-                     $fileCount++;
-                     // KeepAlive toutes les 50 fichiers
-                     if ($fileCount % 50 === 0) {
-                        echo '<script>console.log("💾 Backup: ' . $fileCount . ' fichiers");</script>';
-                        flush();
-                        error_log("💾 Backup: ' . $fileCount . ' fichiers");
-                     }
-                  }
-                     $addedFiles += $this->addFilesToZip($zip, $targetDir, $filePattern);
-               }
-                $zip->close();
-                $size = filesize($backupFile);
-                error_log("✅ Backup fichiers créé: $backupFile ($size bytes, $addedFiles fichiers)");
-                return [
-                    'success' => true,
-                    'message' => t('backup_files_created', $lang),
-                    'file' => $backupFile,
-                    'size' => $size,
-                    'file_count' => $addedFiles
-                ];
-            }
-        } catch (Exception $e) {
-            error_log("❌ Erreur backup fichiers: " . $e->getMessage());
-        }
-        return ['success' => false, 'message' => 'Échec création backup fichiers'];
-   } */
    public function backupCriticalFiles($targetDir) {
       global $lang;
       $timestamp = date('Y-m-d_His');
@@ -923,9 +875,9 @@ class NPDSBackupManager {
                      $percent = round(($fileCount / $totalEstimate) * 100);
                      echo '<script>document.getElementById("progress").innerHTML = "💾 Backup: ' . $percent . '% (' . $fileCount . '/' . $totalEstimate . ' fichiers)";</script>';
                      echo str_repeat(' ', 16384); // ⭐⭐ 16KB buffer
-                   if (ob_get_level() > 0) ob_flush();
-                      flush();
-                      }
+                     if (ob_get_level() > 0) ob_flush();
+                        flush();
+                  }
                   // Ajout au ZIP...
                   if (is_file($file)) {
                      $relativePath = str_replace($targetDir . '/', '', $file);
@@ -944,14 +896,6 @@ class NPDSBackupManager {
                            $relativePath = str_replace($targetDir . '/', '', $item->getRealPath());
                            if ($zip->addFile($item->getRealPath(), $relativePath))
                               $addedFiles++;
-                           // KeepAlive aussi dans les sous-dossiers
-                           if ($fileCount % 50 === 0) {
-                              $percent = round(($fileCount / $totalEstimate) * 100);
-                              echo '<script>document.getElementById("progress").innerHTML = "💾 Backup: ' . $percent . '% (' . $fileCount . '/' . $totalEstimate . ' fichiers)";</script>';
-                              echo str_repeat(' ', 16384); // ⭐⭐ 16KB buffer
-                                  if (ob_get_level() > 0) ob_flush();
-                                  flush();
-                            }
                         }
                      }
                  }
@@ -1657,7 +1601,7 @@ class GithubDeployer {
          $targetPath = $destination . DIRECTORY_SEPARATOR . $relativePath;
          if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
             $skippedCount++;
-            error_log("🔒 DOSSIER EXCLU: $relativePath");
+//            error_log("🔒 DOSSIER EXCLU: $relativePath");
             continue;
          }
          
