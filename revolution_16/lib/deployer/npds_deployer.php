@@ -1865,7 +1865,7 @@ function processMessageQueue() {
 }
 
 function checkLogs() {
-    fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target=<?php echo urlencode($targetDir); ?>&lang=<?php echo $lang; ?>&t=" + Date.now())
+    fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
         .then(response => {
             if (!response.ok) throw new Error("HTTP " + response.status);
             return response.json();
