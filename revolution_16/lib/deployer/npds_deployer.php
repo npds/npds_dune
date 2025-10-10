@@ -1466,7 +1466,8 @@ function head_html_deploy($title = 'Déploiement en cours') {
       }
 
          body {font-family: Arial, sans-serif; margin: 0; color:var(--bs-body-color);}
-         .container { max-width: 800px; margin: 1.5rem auto; background: var(--bs-light); padding: 1rem; border-radius: 8px; }
+         #page {min-height:100vh; display:flex; flex-direction:column;}
+         .container { max-width: 800px; margin: 1.5rem auto; background: var(--bs-light); padding: 1rem; border-radius: 8px; flex-grow:1;}
          .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
          .status { text-align: center; font-size: 18px; margin: 20px 0; color: #333; }
@@ -1496,98 +1497,100 @@ function head_html_deploy($title = 'Déploiement en cours') {
       </style>
    </head>
    <body>
-      <div class="d-flex align-items-center bg-light">
-         <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
-      </div>
-      <div class="container">
-         <div class="progress-container">
-            <div class="progress-bar">
-               <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-            </div>
-            <div class="progress-text" id="progressText">0%</div>
-            <div class="process-label" id="processLabel"></div>
+      <div id="page">
+         <div class="d-flex align-items-center bg-light">
+            <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
          </div>
-         <div class="spinner"></div>
-         <div class="status" id="status">Initialisation...</div>
-         <div class="logs" id="logs"></div>
-         <div id="result" style="display: none;"></div>
-         <script>
-            function updateStatus(message) {
-               console.log("📨 updateStatus appelé avec:", message);
-               const cleanMessage = message.replace(/[\r\n]+/g, " • ").trim();
-               if (message.startsWith("PROCESS:")) {
-                  console.log("🎯 PROCESS détecté:", message);
-                  const processName = message.split(":")[1];
-                  changeProcess(processName);
-                  return;
+         <div class="container">
+            <div class="progress-container">
+               <div class="progress-bar">
+                  <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+               </div>
+               <div class="progress-text" id="progressText">0%</div>
+               <div class="process-label" id="processLabel"></div>
+            </div>
+            <div class="spinner"></div>
+            <div class="status" id="status">Initialisation...</div>
+            <div class="logs" id="logs"></div>
+            <div id="result" style="display: none;"></div>
+            <script>
+               function updateStatus(message) {
+                  console.log("📨 updateStatus appelé avec:", message);
+                  const cleanMessage = message.replace(/[\r\n]+/g, " • ").trim();
+                  if (message.startsWith("PROCESS:")) {
+                     console.log("🎯 PROCESS détecté:", message);
+                     const processName = message.split(":")[1];
+                     changeProcess(processName);
+                     return;
+                  }
+                  if (message.startsWith("PROGRESS:")) {
+                     console.log("📊 PROGRESS détecté:", message);
+                     const percent = parseInt(message.split(":")[1]);
+                     updateProgressBar(percent);
+                     return;
+                  }
+                  document.getElementById("status").textContent = cleanMessage;
+                  addLog("> " + cleanMessage);
                }
-               if (message.startsWith("PROGRESS:")) {
-                  console.log("📊 PROGRESS détecté:", message);
-                  const percent = parseInt(message.split(":")[1]);
-                  updateProgressBar(percent);
-                  return;
+   
+               function addLog(message) {
+                  const logsElement = document.getElementById("logs");
+                  const cleanMessage = message.replace(/[\r\n]+/g, " • ");
+                  logsElement.innerHTML += cleanMessage + "<br>";
+                  logsElement.scrollTop = logsElement.scrollHeight;
                }
-               document.getElementById("status").textContent = cleanMessage;
-               addLog("> " + cleanMessage);
-            }
-
-            function addLog(message) {
-               const logsElement = document.getElementById("logs");
-               const cleanMessage = message.replace(/[\r\n]+/g, " • ");
-               logsElement.innerHTML += cleanMessage + "<br>";
-               logsElement.scrollTop = logsElement.scrollHeight;
-            }
-
-            function changeProcess(processName) {
-                console.log("🔄 Changement de processus:", processName);
-                const processLabel = document.getElementById("processLabel");
-                const progressFill = document.getElementById("progressFill");
-                progressFill.style.width = "0%";
-                progressFill.style.transition = "none";
-                const colors = {
-                    "BACKUP": "linear-gradient(90deg, #FF9800, #F57C00)",
-                    "DOWNLOAD": "linear-gradient(90deg, #2196F3, #1976D2)", 
-                    "EXTRACT": "linear-gradient(90deg, #4CAF50, #388E3C)",
-                    "COPY": "linear-gradient(90deg, #9C27B0, #7B1FA2)"
-                };
-                progressFill.style.background = colors[processName] || colors["DOWNLOAD"];
-                const labels = {
-                    "BACKUP": "Sauvegarde en cours...",
-                    "DOWNLOAD": "Téléchargement en cours...",
-                    "EXTRACT": "Extraction en cours...",
-                    "COPY": "Copie finale en cours..."
-                };
-                processLabel.textContent = labels[processName] || "";
-                setTimeout(() => {
-                    progressFill.style.transition = "width 0.5s ease";
-                }, 50);
-            }
-
-            function updateProgressBar(percent) {
-               console.log("📊 Mise à jour barre:", percent + "%");
-               const progressFill = document.getElementById("progressFill");
-               const progressText = document.getElementById("progressText");
-               progressFill.style.width = percent + "%";
-               progressText.textContent = percent + "%";
-            }
-         </script>';
+   
+               function changeProcess(processName) {
+                   console.log("🔄 Changement de processus:", processName);
+                   const processLabel = document.getElementById("processLabel");
+                   const progressFill = document.getElementById("progressFill");
+                   progressFill.style.width = "0%";
+                   progressFill.style.transition = "none";
+                   const colors = {
+                       "BACKUP": "linear-gradient(90deg, #FF9800, #F57C00)",
+                       "DOWNLOAD": "linear-gradient(90deg, #2196F3, #1976D2)", 
+                       "EXTRACT": "linear-gradient(90deg, #4CAF50, #388E3C)",
+                       "COPY": "linear-gradient(90deg, #9C27B0, #7B1FA2)"
+                   };
+                   progressFill.style.background = colors[processName] || colors["DOWNLOAD"];
+                   const labels = {
+                       "BACKUP": "Sauvegarde en cours...",
+                       "DOWNLOAD": "Téléchargement en cours...",
+                       "EXTRACT": "Extraction en cours...",
+                       "COPY": "Copie finale en cours..."
+                   };
+                   processLabel.textContent = labels[processName] || "";
+                   setTimeout(() => {
+                       progressFill.style.transition = "width 0.5s ease";
+                   }, 50);
+               }
+   
+               function updateProgressBar(percent) {
+                  console.log("📊 Mise à jour barre:", percent + "%");
+                  const progressFill = document.getElementById("progressFill");
+                  const progressText = document.getElementById("progressText");
+                  progressFill.style.width = percent + "%";
+                  progressText.textContent = percent + "%";
+               }
+            </script>';
 }
 
 function foot_html_deploy() {
    global $lang;
    return '
+            </div>
+            <footer class="d-flex align-items-center bg-light">
+               <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.1</div>
+               <div class="ms-auto small px-3">
+                  <ul id="infos-system">
+                     <li class="m-0">PHP : <span class="">' .phpversion(). '</span></li>
+                     <li class="m-0">'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
+                     <li class="m-0">'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
+                     <li class="m-0">'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
+                  </ul>
+               </div>
+            </footer>
          </div>
-         <footer class="d-flex align-items-center bg-light">
-            <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.1</div>
-            <div class="ms-auto small px-3">
-               <ul id="infos-system">
-                  <li class="m-0">PHP : <span class="">' .phpversion(). '</span></li>
-                  <li class="m-0">'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
-                  <li class="m-0">'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
-                  <li class="m-0">'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
-               </ul>
-            </div
-         </footer>
       </body>
    </html>';
 }
@@ -1641,7 +1644,8 @@ function head_html(){
                --bs-border-color: #dee2e6;
             }
             body {font-family: Arial, sans-serif; margin:0; color:var(--bs-body-color);}
-            .container-sm { max-width: 800px; margin: 0 auto; padding: 20px; }
+            #page {min-height:100vh; display:flex; flex-direction:column;}
+            .container-sm { max-width: 800px; margin: 0 auto; padding: 20px; flex-grow:1;}
             .bg-light {background-color: var(--bs-light); padding: 0 1rem;}
             .section-stable, .section-dev, .section-maintenance, .section-advanced, .section-danger {
                border-radius: 0.375rem; padding: 0.1rem 1rem; margin-bottom: 1rem; border-left: 1.2rem solid;
@@ -1686,30 +1690,32 @@ function head_html(){
          </style>
       </head>
       <body>
-         <div class="d-flex align-items-center bg-light">
-            <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
-            <div class="ms-auto my-auto ps-3">
-            '.renderLanguageSelector($lang).'
+         <div id="page">
+            <div class="d-flex align-items-center bg-light">
+               <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
+               <div class="ms-auto my-auto ps-3">
+               '.renderLanguageSelector($lang).'
+               </div>
             </div>
-         </div>
-         <div class="container-sm">';
+            <div class="container-sm">';
 }
 
 function foot_html() {
    global $lang;
    return '
+            </div>
+            <footer class="d-flex align-items-center bg-light">
+               <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.1</div>
+               <div class="ms-auto small px-3">
+                  <ul id="infos-system">
+                     <li class="m-0">PHP : <span class="">' .phpversion(). '</span></li>
+                     <li class="m-0">'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
+                     <li class="m-0">'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
+                     <li class="m-0">'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
+                  </ul>
+               </div
+            </footer>
          </div>
-         <footer class="d-flex align-items-center bg-light">
-            <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.1</div>
-            <div class="ms-auto small px-3">
-               <ul id="infos-system">
-                  <li class="m-0">PHP : <span class="">' .phpversion(). '</span></li>
-                  <li class="m-0">'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
-                  <li class="m-0">'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
-                  <li class="m-0">'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
-               </ul>
-            </div
-         </footer>
       </body>
    </html>';
 }
