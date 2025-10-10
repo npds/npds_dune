@@ -1,5 +1,5 @@
 <?php
-/************************************************************************/                                                         
+/************************************************************************/
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
@@ -8,195 +8,123 @@
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 3 of the License.       */
+/* The Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
 /* npds_deployer.php                                                    */
 /* jpb & DeepSeek 2025                                                  */
 /************************************************************************/
+if (ob_get_level() > 0) ob_end_clean();
+header('X-LiteSpeed-No-Buffering: 1');
+header('X-LiteSpeed-Cache-Control: no-cache, no-store');
+header('X-Accel-Buffering: no');
+ini_set('zlib.output_compression', '0');
+ini_set('output_buffering', '0');
 date_default_timezone_set('Europe/Paris');
 
 // ==================== VERROU SIMPLE DANS LE DOSSIER COURANT ====================
-$globalLockFile = __DIR__ . '/global_deploy.lock';  // Fichier dans le même dossier
-$lockTimeout = 600;
+$globalLockFile = __DIR__ . '/global_deploy.lock';
+$apiLockFile = __DIR__ . '/api_deploy.lock';
+$lockTimeout = 420;
+$isApiCall = isset($_GET['api']) && $_GET['api'] === 'deploy';
+$isRealDeployment = $isApiCall || (isset($_GET['confirm']) && $_GET['confirm'] === 'yes');
 
-error_log("🔍 Lock file: " . $globalLockFile);
-
-if (file_exists($globalLockFile)) {
-    $lockTime = filemtime($globalLockFile);
-    $elapsed = time() - $lockTime;
-    
-    if ($elapsed < $lockTimeout) {
-        error_log("🚨 DÉPLOYEUR BLOQUÉ - Déjà en cours depuis $elapsed secondes");
-        die("🚨 Un déploiement est déjà en cours. Veuillez patienter.");
-    } else {
-        @unlink($globalLockFile);
-    }
-}
-
-if (!@touch($globalLockFile)) {
-    error_log("🚨 IMPOSSIBLE DE CRÉER LE VERROU DANS " . __DIR__);
-    die("🚨 Erreur de permissions - vérifiez les droits en écriture");
-}
-error_log("✅ Verrou créé: " . $globalLockFile);
-error_log("🧨 DÉPLOYEUR DÉMARRÉ - " . date('H:i:s') . " - " . $_SERVER['REQUEST_URI']);
-error_log("🔍 CONFIGURATION SERVEUR:");
-error_log("Server software: " . ($_SERVER['SERVER_SOFTWARE'] ?? 'Inconnu'));
-error_log("PHP SAPI: " . php_sapi_name());
-
-// Compteur d'exécutions
-static $execution_count = 0;
-$execution_count++;
-error_log("🧨 Exécution #$execution_count");
-
-if ($execution_count > 1) {
-    error_log("🚨 DÉPLOYEUR EXÉCUTÉ PLUSIEURS FOIS !");
-    // Ne pas afficher le header si déjà fait
-    if (!function_exists('head_html_printed')) {
-        function head_html_printed() { return true; }
-    } else {
-        exit("Déployeur déjà en cours");
-    }
-}
-// ==================== VÉRIFICATION IMMÉDIATE + CONTEXTE SIMPLIFIÉ ====================
-$headers_already_sent = headers_sent();
-
-// Détection basique du contexte SANS headers
-function getSimpleContext() {
-   // Mode CLI
-   if (php_sapi_name() === 'cli') return 'cli';
-   // Vérification fichiers d'installation (sans dépendances)
-   $installFiles = ['config.php', 'IZ-Xinstall.ok', 'lib/constants.php', 'slogs/install.log'];
-   foreach ($installFiles as $file) {
-      if (file_exists($file)) {
-         // NPDS installé - vérifier si admin
-         if (isset($_COOKIE['admin']) || isset($_COOKIE['adm']))
-            return 'update';
-         else
-            return 'blocked'; // Installé mais pas admin
+// ⭐⭐ VERROU GLOBAL : SEULEMENT POUR L'API (pas pour l'interface Ajax) ⭐⭐
+if ($isApiCall) {
+   error_log("🔍 Lock file: " . $globalLockFile);
+   // ⭐⭐ VERROU PLUS ROBUSTE
+   if (file_exists($globalLockFile)) {
+      $lockContent = @file_get_contents($globalLockFile);
+      $lockData = $lockContent ? json_decode($lockContent, true) : null;
+      if ($lockData && isset($lockData['timestamp'])) {
+         $elapsed = time() - $lockData['timestamp'];
+         $processId = $lockData['process_id'] ?? 'inconnu';
+         if ($elapsed < $lockTimeout) {
+            error_log("🚨 DÉPLOYEUR BLOQUÉ - Processus $processId en cours depuis $elapsed secondes");
+            error_log("🚨 URL bloquée: " . ($_SERVER['REQUEST_URI'] ?? 'inconnu'));
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success' => false,
+                'message' => "🚨 Un déploiement est déjà en cours (débuté il y a $elapsed secondes). Veuillez patienter."
+            ]);
+            exit;
+         }
       }
+      @unlink($globalLockFile);
    }
-   return 'deploy'; // Pas installé
+   // ⭐⭐ CRÉATION AVEC PLUS D'INFORMATIONS
+   $lockData = [
+      'timestamp' => time(),
+      'process_id' => getmypid() ?: 'unknown',
+      'url' => $_SERVER['REQUEST_URI'] ?? 'unknown',
+      'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'
+   ];
+   if (!@file_put_contents($globalLockFile, json_encode($lockData), LOCK_EX)) {
+      error_log("🚨 IMPOSSIBLE DE CRÉER LE VERROU DANS " . __DIR__);
+      header('Content-Type: application/json');
+      echo json_encode([
+          'success' => false, 
+          'message' => "🚨 Erreur de permissions - vérifiez les droits en écriture"
+      ]);
+      exit;
+   }
+   error_log("✅ Verrou global créé pour API: " . $globalLockFile);
 }
 
-$context = getSimpleContext();
+// error_log("🧨 DÉPLOYEUR DÉMARRÉ - " . date('H:i:s') . " - " . $_SERVER['REQUEST_URI']);
+// ⭐⭐ LOGS DIFFÉRENCIÉS - INTELLIGENTS ET UTILES
+$requestUri = $_SERVER['REQUEST_URI'] ?? 'unknown';
+$queryString = $_SERVER['QUERY_STRING'] ?? '';
+// Analyse de la requête
+$isPollingRequest = strpos($requestUri, 'api=logs') !== false;
+$isDeploymentApi = isset($_GET['api']) && $_GET['api'] === 'deploy';
+$isMainInterface = empty($queryString) || strpos($queryString, 'op=') !== false;
+$isCleanOperation = isset($_GET['op']) && $_GET['op'] === 'clean';
+$isDeployOperation = isset($_GET['op']) && $_GET['op'] === 'deploy';
+if ($isPollingRequest) {
+   // Silence pour le polling - trop bruyant
+} elseif ($isDeploymentApi)
+   error_log("🚀 DÉPLOIEMENT API - " . date('H:i:s') . " - Version: " . ($_GET['version'] ?? 'unknown'));
+elseif ($isDeployOperation && isset($_GET['confirm']) && $_GET['confirm'] === 'yes')
+   error_log("🟡 CONFIRMATION DÉPLOIEMENT - " . date('H:i:s') . " - " . ($_GET['version'] ?? 'unknown'));
+elseif ($isDeployOperation)
+   error_log("📋 PRÉPARATION DÉPLOIEMENT - " . date('H:i:s') . " - " . ($_GET['version'] ?? 'unknown'));
+elseif ($isCleanOperation)
+   error_log("🧹 NETTOYAGE - " . date('H:i:s'));
+elseif ($isMainInterface)
+   error_log("🌐 INTERFACE PRINCIPALE - " . date('H:i:s'));
+else
+   error_log("🔧 ACTION DÉPLOYEUR - " . date('H:i:s') . " - " . $requestUri);
 
-// ==================== GESTION DU BLOCAGE (sans headers si possible) ====================
-if ($context === 'blocked') {
+// ==================== GESTION DU BLOCAGE ====================
+function shouldBlockAccess() {
+   // Si admin (cookie ou return_url) → jamais bloquer
+   if (isset($_COOKIE['admin']) || isset($_GET['return_url']))
+      return false;
+   // Si NPDS installé → bloquer l'accès non-admin
+   $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
+   foreach ($installFiles as $file) {
+      if (file_exists($file))
+         return true;
+   }
+   return false;
+}
+if (shouldBlockAccess()) {
    if (!$headers_already_sent)
       header('HTTP/1.0 403 Forbidden');
    die('
    <!DOCTYPE html>
    <html>
-   <head><title>🚫 NPDS Déjà Installé</title><style>body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }</style></head>
-   <body>
-      <div><h1>🚫 Accès Refusé</h1><p>NPDS est déjà installé.</p><p><a href="admin.php">➡️ Accéder à l\'administration</a></p></div>
-   </body>
+      <head>
+         <title>🚫 NPDS Déjà Installé</title>
+         <style>body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }</style>
+      </head>
+      <body>
+         <div><h1>🚫 Accès Refusé</h1><p>NPDS est déjà installé.</p><p><a href="admin.php">➡️ Accéder à l\'administration</a></p></div>
+      </body>
    </html>');
 }
 
-// ==================== CONFIGURATIONS NEUTRES ====================
-set_time_limit(0);
-ini_set('max_execution_time', 600);
-ini_set('default_socket_timeout', 600);
-ini_set('memory_limit', '512M');
-
-// ==================== DIAGNOSTIC SAFE MODE ====================
-if (ini_get('safe_mode')) {
-    error_log("🚨 SAFE MODE ACTIVÉ - les ini_set() peuvent être ignorés!");
-} else {
-    error_log("✅ Safe mode désactivé - limites PHP modifiables");
-}
-// Vérification que les limites sont bien appliquées
-error_log("🔍 LIMITES APPLIQUÉES:");
-error_log("memory_limit: " . ini_get('memory_limit'));
-error_log("max_execution_time: " . ini_get('max_execution_time'));
-error_log("default_socket_timeout: " . ini_get('default_socket_timeout'));
-// ==================== HEADERS UNIQUEMENT EN MODE STANDALONE ====================
-if (!$headers_already_sent && ($context === 'deploy' || $context === 'update')) {
-   // Session
-   if (session_status() === PHP_SESSION_NONE)
-      session_start();
-   // Headers de sécurité
-   header('Content-Type: text/html; charset=utf-8');
-   header('Cache-Control: no-cache, no-store, must-revalidate');
-   header('Pragma: no-cache');
-   header('Expires: 0');
-   header('X-Robots-Tag: noindex, nofollow');
-   header('X-Content-Type-Options: nosniff');
-   header('X-Accel-Buffering: no');
-   header('Connection: keep-alive');
-   header('Keep-Alive: timeout=300, max=1000');
-   
-   // Bufferisation
-   if (ob_get_level() > 0) ob_end_clean();
-   ob_start();
-   ini_set('zlib.output_compression', '0');
-} else {
-   // Mode inclusion - configuration minimale
-   //ini_set('zlib.output_compression', '0');
-}
-
-/**
-* Vérifie si NPDS est installé de manière robuste (version complète)
-*/
-function checkIfNPDSInstalled() {
-   $installFiles = [
-      'config.php', 'IZ-Xinstall.ok', 'lib/constants.php', 'slogs/install.log',
-      '../config.php', '../IZ-Xinstall.ok',
-   ];
-   foreach ($installFiles as $file) {
-      if (file_exists($file)) return true;
-   }
-   return false;
-}
-
-/**
-* Initialisation complète du contexte (pour usage interne)
-*/
-function initializeContext() {
-   // Cette fonction peut être utilisée dans le code, mais pas pour les headers
-   $isInstalled = checkIfNPDSInstalled();
-   if (php_sapi_name() === 'cli') return 'cli';
-   if (!$isInstalled) return 'deploy';
-   if (isset($_COOKIE['admin']) || isset($_COOKIE['adm'])) return 'update';
-   return 'blocked';
-}
-/**
-* Affiche l'erreur "déjà installé"
-*/
-function showAlreadyInstalledError() {
-   // Vérifier si on peut encore envoyer des headers
-   if (!headers_sent())
-      header('HTTP/1.0 403 Forbidden');
-   if (isset($_SERVER['REQUEST_METHOD'])) {
-      die('
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>🚫 NPDS Déjà Installé</title>
-                <style>
-                    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-                    .container { max-width: 600px; margin: 0 auto; }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>🚫 Accès Refusé</h1>
-                    <p>NPDS est déjà installé sur ce site.</p>
-                    <p>Le déployeur ne peut être utilisé que pour une nouvelle installation.</p>
-                    <p>Si vous souhaitez réinstaller, supprimez d\'abord les fichiers indicateurs d\'installation.</p>
-                    <p><small>Fichiers indicateurs: config.php, IZ-Xinstall.ok, etc.</small></p>
-                    <p><a href="admin.php">➡️ Accéder à l\'administration NPDS</a></p>
-                </div>
-            </body>
-            </html>
-        ');
-   }
-   return true;
-}
-
-// ==================== GESTION DE LA LANGUE ====================
-// Définition des traductions
+// ==================== TRADUCTIONS ====================
 $translations = [
    'fr' => [
       'access_url' => 'URL d\'accès',
@@ -206,9 +134,13 @@ $translations = [
       'already_installed_message' => 'NPDS est déjà installé sur ce site.',
       'already_installed_reinstall' => 'Si vous souhaitez réinstaller, supprimez d\'abord le fichier',
       'already_installed_title' => '🚫 NPDS Déjà Installé',
+      'cancel' => 'Annuler',
       'clean_confirm' => 'Confirmez le nettoyage avec &confirm=yes',
+      'clean_done' => 'Les fichiers temporaires ont été supprimés.',
+      'clean_finish' => 'Nettoyage terminé',
+      'clean_message' => 'Cette action va supprimer tous les fichiers temporaires du déploiement.',
       'clean_temp' => 'Nettoyer fichiers temporaires',
-      'cleanup_error' => 'Erreur nettoyage',
+      'cleanup_error' => 'Erreur de nettoyage',
       'connection_lost' => 'Connexion client perdue',
       'copied' => 'Copie',
       'copy_complete' => 'Copie terminée',
@@ -231,7 +163,7 @@ $translations = [
       'deployment_started' => 'DÉPLOIEMENT DÉMARRÉ',
       'dev_version' => 'Version développement',
       'dev_warning' => 'La version master est une version de développement qui peut contenir des bugs, des fonctionnalités incomplètes ou être instable. Ne pas utiliser en production!',
-      'development_version' => 'VERSION DÉVELOPPEMENT',
+      'development_version' => 'Version développement',
       'download_success' => 'Téléchargement réussi',
       'downloading' => 'Téléchargement',
       'error' => 'Erreur',
@@ -239,7 +171,7 @@ $translations = [
       'extraction_complete' => 'Extraction terminée avec succès',
       'extraction_error' => 'Erreur d\'extraction',
       'extraction_finished' => 'Extraction terminée',
-      'extraction_progress' => 'Extraction de l\'archive (3-4 minutes)',
+      'extraction_progress' => 'Extraction de l\'archive (2-3 minutes)',
       'extraction_success' => 'Extraction réussie',
       'failed_download' => 'Échec du téléchargement',
       'file_download_finished' => 'Téléchargement terminé',
@@ -247,6 +179,9 @@ $translations = [
       'files' => 'fichiers',
       'finish_installation' => 'Pour terminer l\'installation',
       'folders' => 'dossiers',
+      'go_admin' => 'Accéder à l\'administration',
+      'go_back' => 'Retour',
+      'go_install' => 'Poursuivre l\'installation',
       'initializing' => 'Initialisation du téléchargement',
       'invalid_zip' => 'Le contenu n\'est pas une archive ZIP valide',
       'items_installed' => 'éléments installés',
@@ -254,11 +189,11 @@ $translations = [
       'let_emptyroot' => 'laisser vide pour racine',
       'lock_error' => 'Impossible de créer le verrou de sécurité',
       'lock_expired' => 'Verrou expiré et supprimé',
-      'lock_expired' => 'Verrou expiré supprimé',
       'maintenance' => 'Maintenance',
       'master_warning' => 'Master : Version de développement, peut être instable - Ne pas utiliser en production!',
       'max_exec_time' => 'Temps maxi d\'exécution',
       'memory_limit' => 'Mémoire limite',
+      'new_install' => 'Nouvelle installation', 
       'no_files_to_copy' => 'Aucun fichier à copier dans',
       'no_folder_in_archive' => 'Aucun dossier trouvé dans l\'archive',
       'overwrite_warning' => 'Le déploiement écrase les fichiers existants!',
@@ -273,6 +208,10 @@ $translations = [
       'target_dir_error' => 'Impossible de créer le répertoire cible',
       'target_permission_error' => 'Répertoire cible non accessible en écriture',
       'temp_dir_error' => 'Impossible de créer le répertoire temporaire',
+      'type' => 'Type',
+      'update_interface' => 'Interface de mise à jour',
+      'update_to_version' => 'Mettre à jour vers',
+      'update' => 'Mise à jour',
       'version' => 'Version',
       'warning' => 'Attention',
       'welcome' => 'Déploiement',
@@ -287,7 +226,11 @@ $translations = [
       'already_installed_message' => 'NPDS is already installed on this site.',
       'already_installed_reinstall' => 'If you want to reinstall, first delete the file',
       'already_installed_title' => '🚫 NPDS Already Installed',
+      'cancel' => 'Cancel',
       'clean_confirm' => 'Confirm cleanup with &confirm=yes',
+      'clean_done' => 'Temporary files have been deleted.',
+      'clean_finish' => 'Cleanup finished',
+      'clean_message' => 'This action will delete all temporary deployment files.',
       'clean_temp' => 'Clean temporary files',
       'cleanup_error' => 'Cleanup error',
       'connection_lost' => 'Client connection lost',
@@ -312,7 +255,7 @@ $translations = [
       'deployment_started' => 'DEPLOYMENT STARTED',
       'dev_version' => 'Development version',
       'dev_warning' => 'The master version is a development version that may contain bugs, incomplete features, or be unstable. Do not use in production!',
-      'development_version' => 'DEVELOPMENT VERSION',
+      'development_version' => 'Development version',
       'download_success' => 'Download successful',
       'downloading' => 'Downloading',
       'error' => 'Error',
@@ -320,7 +263,7 @@ $translations = [
       'extraction_complete' => 'Extraction completed successfully',
       'extraction_error' => 'Extraction error',
       'extraction_finished' => 'Extraction finished',
-      'extraction_progress' => 'Extracting archive (3-4 minutes)',
+      'extraction_progress' => 'Extracting archive (2-3 minutes)',
       'extraction_success' => 'Extraction successful',
       'failed_download' => 'Download failed',
       'file_download_finished' => 'Download finished',
@@ -328,6 +271,9 @@ $translations = [
       'files' => 'files',
       'finish_installation' => 'To finish installation',
       'folders' => 'folders',
+      'go_admin' => 'Access administration', 
+      'go_back' => 'Back',
+      'go_install' => 'Continue installation',
       'initializing' => 'Initializing download',
       'invalid_zip' => 'Content is not a valid ZIP archive',
       'items_installed' => 'items installed',
@@ -335,11 +281,11 @@ $translations = [
       'let_emptyroot' => 'leave empty for root',
       'lock_error' => 'Cannot create security lock',
       'lock_expired' => 'Lock expired and removed',
-      'lock_expired' => 'Lock expired removed',
       'maintenance' => 'Maintenance',
       'master_warning' => 'Master: Development version, may be unstable - Do not use in production!',
       'max_exec_time' => 'Max execution time',
       'memory_limit' => 'Memory limit', 
+      'new_install' => 'New installation',
       'no_files_to_copy' => 'No files to copy in',
       'no_folder_in_archive' => 'No folder found in archive',
       'overwrite_warning' => 'Deployment overwrites existing files!',
@@ -353,6 +299,10 @@ $translations = [
       'target_dir_error' => 'Cannot create target directory',
       'target_permission_error' => 'Target directory not writable',
       'temp_dir_error' => 'Cannot create temporary directory',
+      'type' => 'Type',
+      'update_interface' => 'Update interface',
+      'update_to_version' => 'Update to version',
+      'update' => 'Update',
       'version' => 'Version',
       'warning' => 'Warning',
       'welcome' => 'Deployment',
@@ -367,7 +317,11 @@ $translations = [
       'already_installed_message' => 'NPDS ya está instalado en este sitio.',
       'already_installed_reinstall' => 'Si desea reinstalar, primero elimine el archivo',
       'already_installed_title' => '🚫 NPDS Ya Instalado',
+      'cancel' => 'Cancelar',
       'clean_confirm' => 'Confirme la limpieza con &confirm=yes',
+      'clean_done' => 'Los archivos temporales han sido eliminados.',
+      'clean_finish' => 'Limpieza terminada',
+      'clean_message' => 'Esta acción eliminará todos los archivos temporales del despliegue.',
       'clean_temp' => 'Limpiar archivos temporales',
       'cleanup_error' => 'Error de limpieza',
       'connection_lost' => 'Conexión cliente perdida',
@@ -392,7 +346,7 @@ $translations = [
       'deployment_started' => 'DESPLIEGUE INICIADO',
       'dev_version' => 'Versión de desarrollo',
       'dev_warning' => 'La versión master es una versión de desarrollo que puede contener errores, características incompletas o ser inestable. ¡No usar en producción!',
-      'development_version' => 'VERSIÓN DE DESARROLLO',
+      'development_version' => 'Versión de desarrollo',
       'download_success' => 'Descarga exitosa',
       'downloading' => 'Descargando',
       'error' => 'Error',
@@ -400,7 +354,7 @@ $translations = [
       'extraction_complete' => 'Extracción completada con éxito',
       'extraction_error' => 'Error de extracción',
       'extraction_finished' => 'Extracción terminada',
-      'extraction_progress' => 'Extrayendo archivo (3-4 minutos)',
+      'extraction_progress' => 'Extrayendo archivo (2-3 minutos)',
       'extraction_success' => 'Extracción exitosa',
       'failed_download' => 'Descarga fallida',
       'file_download_finished' => 'Descarga terminada',
@@ -408,6 +362,9 @@ $translations = [
       'files' => 'archivos',
       'finish_installation' => 'Para finalizar la instalación',
       'folders' => 'carpetas',
+      'go_admin' => 'Acceder a la administración',
+      'go_back' => 'Volver', 
+      'go_install' => 'Continuar instalación',
       'initializing' => 'Inicializando descarga',
       'invalid_zip' => 'El contenido no es un archivo ZIP válido',
       'items_installed' => 'elementos instalados',
@@ -415,11 +372,11 @@ $translations = [
       'let_emptyroot' => 'dejar vacío para raíz',
       'lock_error' => 'No se puede crear el bloqueo de seguridad',
       'lock_expired' => 'Bloqueo expirado eliminado',
-      'lock_expired' => 'Bloqueo expirado y eliminado',
       'maintenance' => 'Mantenimiento',
       'master_warning' => 'Master: Versión de desarrollo, puede ser inestable - ¡No usar en producción!',
       'max_exec_time' => 'Tiempo máximo de ejecución',
       'memory_limit' => 'Límite de memoria',
+      'new_install' => 'Nueva instalación',
       'no_files_to_copy' => 'No hay archivos para copiar en',
       'no_folder_in_archive' => 'No se encontró carpeta en el archivo',
       'overwrite_warning' => '¡La implementación sobrescribe los archivos existentes!',
@@ -434,6 +391,10 @@ $translations = [
       'target_dir_error' => 'No se puede crear el directorio de destino',
       'target_permission_error' => 'Directorio de destino sin permisos de escritura',
       'temp_dir_error' => 'No se puede crear el directorio temporal',
+      'type' => 'Tipo',
+      'update_interface' => 'Interfaz de actualización',
+      'update_to_version' => 'Actualizar a versión',
+      'update' => 'Actualización',
       'version' => 'Versión',
       'warning' => 'Advertencia',
       'welcome' => 'Implementación',
@@ -448,7 +409,11 @@ $translations = [
       'already_installed_message' => 'NPDS ist bereits auf dieser Website installiert.',
       'already_installed_reinstall' => 'Wenn Sie neu installieren möchten, löschen Sie zuerst die Datei',
       'already_installed_title' => '🚫 NPDS Bereits Installiert',
+      'cancel' => 'Abbrechen',
       'clean_confirm' => 'Bereinigung mit &confirm=yes bestätigen',
+      'clean_done' => 'Die temporären Dateien wurden gelöscht.',
+      'clean_finish' => 'Bereinigung abgeschlossen',
+      'clean_message' => 'Diese Aktion löscht alle temporären Bereitstellungsdateien.',
       'clean_temp' => 'Temporäre Dateien bereinigen',
       'cleanup_error' => 'Bereinigungsfehler',
       'connection_lost' => 'Client-Verbindung verloren',
@@ -473,7 +438,7 @@ $translations = [
       'deployment_started' => 'BEREITSTELLUNG GESTARTET',
       'dev_version' => 'Entwicklungsversion',
       'dev_warning' => 'Die Master-Version ist eine Entwicklungsversion, die Fehler, unvollständige Funktionen enthalten oder instabil sein kann. Nicht in der Produktion verwenden!',
-      'development_version' => 'ENTWICKLUNGSVERSION',
+      'development_version' => 'Entwicklungsversion',
       'download_success' => 'Download erfolgreich',
       'downloading' => 'Herunterladen',
       'error' => 'Fehler',
@@ -481,7 +446,7 @@ $translations = [
       'extraction_complete' => 'Extraktion erfolgreich abgeschlossen',
       'extraction_error' => 'Extraktionsfehler',
       'extraction_finished' => 'Extraktion beendet',
-      'extraction_progress' => 'Extrahiere Archiv (3-4 Minuten)',
+      'extraction_progress' => 'Extrahiere Archiv (2-3 Minuten)',
       'extraction_success' => 'Extraktion erfolgreich',
       'failed_download' => 'Download fehlgeschlagen',
       'file_download_finished' => 'Download beendet',
@@ -489,6 +454,9 @@ $translations = [
       'files' => 'Dateien',
       'finish_installation' => 'Um die Installation abzuschließen',
       'folders' => 'Ordner',
+      'go_admin' => 'Zur Administration',
+      'go_back' => 'Zurück',
+      'go_install' => 'Installation fortsetzen',
       'initializing' => 'Initialisiere Download',
       'invalid_zip' => 'Inhalt ist kein gültiges ZIP-Archiv',
       'items_installed' => 'Elemente installiert',
@@ -496,11 +464,11 @@ $translations = [
       'let_emptyroot' => 'leer lassen für Stammverzeichnis',
       'lock_error' => 'Sicherheitssperre kann nicht erstellt werden',
       'lock_expired' => 'Sperre abgelaufen entfernt',
-      'lock_expired' => 'Sperre abgelaufen und entfernt',
       'maintenance' => 'Wartung',
       'master_warning' => 'Master: Entwicklungsversion, kann instabil sein - Nicht in der Produktion verwenden!',
       'max_exec_time' => 'Maximale Ausführungszeit',
       'memory_limit' => 'Speicherlimit',
+      'new_install' => 'Neue Installation',
       'no_files_to_copy' => 'Keine Dateien zum Kopieren in',
       'no_folder_in_archive' => 'Kein Ordner im Archiv gefunden',
       'overwrite_warning' => 'Bereitstellung überschreibt vorhandene Dateien!',
@@ -515,6 +483,10 @@ $translations = [
       'target_dir_error' => 'Zielverzeichnis kann nicht erstellt werden',
       'target_permission_error' => 'Zielverzeichnis nicht beschreibbar',
       'temp_dir_error' => 'Temporäres Verzeichnis kann nicht erstellt werden',
+      'type' => 'Typ',
+      'update_interface' => 'Update-Schnittstelle',
+      'update_to_version' => 'Aktualisieren auf Version',
+      'update' => 'Aktualisierung',
       'version' => 'Version',
       'warning' => 'Warnung',
       'welcome' => 'Bereitstellung',
@@ -529,7 +501,11 @@ $translations = [
       'already_installed_message' => 'NPDS 已在此站点上安装。',
       'already_installed_reinstall' => '如果您想重新安装，请先删除文件',
       'already_installed_title' => '🚫 NPDS 已安装',
+      'cancel' => '取消',
       'clean_confirm' => '使用 &confirm=yes 确认清理',
+      'clean_done' => '临时文件已被删除。',
+      'clean_finish' => '清理完成',
+      'clean_message' => '此操作将删除所有临时部署文件。',
       'clean_temp' => '清理临时文件',
       'cleanup_error' => '清理错误',
       'connection_lost' => '客户端连接丢失',
@@ -562,7 +538,7 @@ $translations = [
       'extraction_complete' => '提取成功完成',
       'extraction_error' => '解压错误',
       'extraction_finished' => '提取完成',
-      'extraction_progress' => '解压文件中（3-4分钟）',
+      'extraction_progress' => '解压文件中（2-3分钟）',
       'extraction_success' => '提取成功',
       'failed_download' => '下载失败',
       'file_download_finished' => '下载完成',
@@ -570,6 +546,9 @@ $translations = [
       'files' => '文件',
       'finish_installation' => '完成安装',
       'folders' => '文件夹',
+      'go_admin' => '进入管理',
+      'go_back' => '返回',
+      'go_install' => '继续安装',
       'initializing' => '初始化下载',
       'invalid_zip' => '内容不是有效的ZIP存档',
       'items_installed' => '个项目已安装',
@@ -577,11 +556,11 @@ $translations = [
       'let_emptyroot' => '留空为根目录',
       'lock_error' => '无法创建安全锁',
       'lock_expired' => '锁定已过期并删除',
-      'lock_expired' => '锁定已过期并已删除',
       'maintenance' => '维护',
       'master_warning' => 'Master：开发版本，可能不稳定 - 请勿在生产环境中使用！',
       'max_exec_time' => '最大执行时间',
       'memory_limit' => '内存限制',
+      'new_install' => '新安装',
       'no_files_to_copy' => '没有文件可复制到',
       'no_folder_in_archive' => '在存档中未找到文件夹',
       'overwrite_warning' => '部署会覆盖现有文件！',
@@ -596,6 +575,10 @@ $translations = [
       'target_dir_error' => '无法创建目标目录',
       'target_permission_error' => '目标目录不可写',
       'temp_dir_error' => '无法创建临时目录',
+      'type' => '类型',
+      'update_interface' => '更新界面',
+      'update_to_version' => '更新到版本',
+      'update' => '更新',
       'version' => '版本',
       'warning' => '警告',
       'welcome' => '部署',
@@ -603,15 +586,328 @@ $translations = [
       'zip_open_error' => '无法打开ZIP存档',
    ],
 ];
-// Défaut: français
+// Gestion de la langue
 $lang = $_GET['lang'] ?? $_SESSION['npds_lang'] ?? 'fr';
-// Validation
 if (!in_array($lang, ['fr', 'en', 'es', 'de', 'zh']))
-    $lang = 'fr';
-// Sauvegarde en session
+   $lang = 'fr';
 $_SESSION['npds_lang'] = $lang;
 
-// ==================== CONFIGURATION DES EXCLUSIONS ====================
+function t($key, $lang = 'fr') {
+   global $translations;
+   return $translations[$lang][$key] ?? $translations['fr'][$key] ?? $key;
+}
+
+// ==================== MODE API POUR DÉPLOIEMENT ====================
+if (isset($_GET['api']) && $_GET['api'] === 'deploy') {
+   header('Content-Type: application/json');
+   $lang = $_GET['lang'] ?: 'fr';
+   // ⭐⭐ VERROU API IMMÉDIAT - AVANT TOUT ⭐⭐
+   $apiLockFile = __DIR__ . '/api_deploy.lock';
+   $lockTimeout = 600; // 10 minutes
+   // Vérifier si un déploiement API est déjà en cours
+   if (file_exists($apiLockFile)) {
+      $lockContent = @file_get_contents($apiLockFile);
+      $lockData = $lockContent ? json_decode($lockContent, true) : null;
+      if ($lockData && isset($lockData['timestamp'])) {
+         $elapsed = time() - $lockData['timestamp'];
+         if ($elapsed < $lockTimeout) {
+            // Déploiement déjà en cours
+            header('Content-Type: application/json');
+            echo json_encode([
+              'success' => false,
+              'message' => "🚨 Déploiement API déjà en cours (débuté il y a $elapsed secondes)"
+            ]);
+            exit;
+         } else {
+            // Verrou expiré, le supprimer
+            @unlink($apiLockFile);
+         }
+      }
+   }
+   // Créer un NOUVEAU verrou API
+   $lockData = [
+      'timestamp' => time(),
+      'process_id' => getmypid() ?: 'unknown',
+      'url' => $_SERVER['REQUEST_URI'] ?? 'unknown',
+      'type' => 'api'
+   ];
+
+   if (!@file_put_contents($apiLockFile, json_encode($lockData), LOCK_EX)) {
+      header('Content-Type: application/json');
+      echo json_encode([
+         'success' => false, 
+         'message' => "❌ Impossible de créer le verrou API"
+      ]);
+      exit;
+   }
+
+   error_log("🔒 VERROU API CRÉÉ: $apiLockFile");
+
+   // Mode API - traitement en arrière-plan
+   // header('Content-Type: application/json');
+
+   try {
+      // Nettoyer tous les buffers
+      while (ob_get_level() > 0) ob_end_clean();
+      error_log("🎯 API DEPLOY CALLED");
+      // Vérifier les paramètres requis
+      if (!isset($_GET['version']))
+         throw new Exception("Version manquante");
+      if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
+         throw new Exception("Confirmation manquante");
+      $version = $_GET['version'];
+      $targetDir = $_GET['path'] ?? '.';
+      error_log("📋 Paramètres API: version=$version, path=$targetDir");
+      // Démarrer immédiatement le déploiement
+      $result = executeDeployment($version, $targetDir);
+      error_log("✅ API DEPLOY SUCCESS: " . $result['message']);
+      echo json_encode($result);
+      // Supprimer le verrou API
+      @unlink($apiLockFile);
+      error_log("🔓 VERROU API SUPPRIMÉ");
+      exit;
+   } catch (Exception $e) {
+      // Supprimer le verrou API en cas d'erreur
+      @unlink($apiLockFile);
+      error_log("🔓 VERROU API SUPPRIMÉ (erreur)");
+      error_log("💥 API ERROR: " . $e->getMessage());
+      echo json_encode([
+         'success' => false,
+         'message' => 'Erreur API: ' . $e->getMessage()
+      ]);
+      exit;
+   }
+}
+
+// ==================== LECTURE DES LOGS DE PROGRESSION ====================
+if (isset($_GET['api']) && $_GET['api'] === 'logs') {
+   header('Content-Type: application/json');
+   $deploymentId = $_GET['deploy_id'] ?? '';
+   $sinceTime = $_GET['since'] ?? 0;
+   $targetDir = $_GET['target'] ?? '.';
+   $lang = $_GET['lang'] ?: 'fr';
+   // ⭐⭐ DEBUG CRITIQUE
+   error_log("🔍 API LOGS APPELÉE: deploy_id=$deploymentId, since=$sinceTime, target=$targetDir");
+   // Lire le log depuis le dossier cible
+   $messages = [];
+   $targetLogFile = $targetDir . '/slogs/install.log';
+   //error_log("📁 FICHIER LOG RECHERCHÉ: $targetLogFile");
+   //error_log("📁 EXISTE: " . (file_exists($targetLogFile) ? 'OUI' : 'NON'));
+   if (!file_exists($targetLogFile)) {
+        $slogsDir = dirname($targetLogFile);
+        if (!is_dir($slogsDir))
+            @mkdir($slogsDir, 0755, true);
+        $timestamp = date('d-M-Y H:i:s');
+        $initialMessage = "[$timestamp] [$deploymentId] [INFO] Déploiement initialisé...\n";
+        file_put_contents($targetLogFile, $initialMessage);
+// ⭐⭐ AJOUT DU MESSAGE INITIAL DANS LA RÉPONSE
+        $messages[] = [
+            'timestamp' => time(),
+            'type' => 'info',
+            'message' => 'Déploiement initialisé...',
+            'time' => $timestamp
+        ];
+    }
+   
+   if (file_exists($targetLogFile)) {
+      //error_log("📖 LECTURE DU FICHIER LOG...");
+      $content = file_get_contents($targetLogFile);
+      //error_log("📄 CONTENU LOG (" . strlen($content) . " bytes): " . substr($content, 0, 200) . "...");
+      $lines = @file($targetLogFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+      //error_log("📊 LIGNES TROUVÉES: " . count($lines));
+      if ($lines) {
+         foreach ($lines as $line) {
+            if (preg_match('/^\[([^\]]+)\]\s+\[([^\]]+)\]\s+\[([^\]]+)\]\s+(.+)$/', $line, $matches)) {
+               $timestamp = strtotime($matches[1]);
+               $logDeployId = $matches[2];
+               $type = $matches[3];
+               $message = $matches[4];
+               if ($logDeployId === $deploymentId && $timestamp > $sinceTime) {
+                  //error_log("✅ MATCH EXACT - AJOUT MESSAGE");
+                  $messages[] = [
+                  'timestamp' => $timestamp,
+                  'type' => strtolower($type),
+                  'message' => $message,
+                  'time' => $matches[1]
+                  ];
+               }
+            }
+         }
+      }
+   }
+   //error_log("📤 ENVOI " . count($messages) . " MESSAGES");
+   echo json_encode([
+      'messages' => $messages,
+      'last_update' => time()
+   ]);
+   exit;
+}
+
+// ==================== DÉTECTION DU CONTEXTE AMÉLIORÉE ====================
+$headers_already_sent = headers_sent();
+
+// ==================== CONFIGURATIONS ====================
+set_time_limit(0);
+ini_set('max_execution_time', 600);
+ini_set('default_socket_timeout', 600);
+ini_set('memory_limit', '512M');
+
+// ==================== HEADERS UNIQUEMENT EN MODE STANDALONE ====================
+if (!$headers_already_sent && !isset($_GET['api'])) {
+   if (session_status() === PHP_SESSION_NONE)
+      session_start();
+   
+   header('X-LiteSpeed-No-Buffering: 1');
+   header('X-Accel-Buffering: no');
+   header('Content-Encoding: none');
+   header('Content-Type: text/html; charset=utf-8');
+   header('Cache-Control: no-cache, no-store, must-revalidate');
+   header('Pragma: no-cache');
+   header('Expires: 0');
+   header('X-Robots-Tag: noindex, nofollow');
+   header('X-Content-Type-Options: nosniff');
+   header('Connection: keep-alive');
+   header('Keep-Alive: timeout=300, max=1000');
+}
+
+// ==================== FONCTION DE DÉPLOIEMENT API ====================
+function executeDeployment($version, $targetDir) {
+   global $lang;
+   $start_time = time();
+   $apiLockFile = __DIR__ . '/api_deploy.lock';
+   $globalLockFile = __DIR__ . '/global_deploy.lock'; // ⭐⭐ AJOUT
+   $deploymentId = $_GET['deploy_id'] ?? uniqid('deploy_');
+   $deployer = new GithubDeployer();
+   $isUpdate = $deployer->isNPDSInstalled($targetDir);
+   $logMessage = function($message, $type = 'INFO') use ($targetDir, $deploymentId) {
+      $timestamp = date('d-M-Y H:i:s');
+      $logEntry = "[$timestamp] [$deploymentId] [$type] $message\n";
+      // Créer slogs/ dans la cible du déploiement
+      $targetSlogsDir = $targetDir . '/slogs';
+      if (!is_dir($targetSlogsDir))
+         @mkdir($targetSlogsDir, 0755, true);
+      $targetLogFile = $targetSlogsDir . '/install.log';
+      file_put_contents($targetLogFile, $logEntry, FILE_APPEND | LOCK_EX);
+      error_log("📢 DEPLOY: $message");
+   };
+   // Fonction helper pour supprimer le verrou
+   $removeApiLock = function() use ($apiLockFile) {
+      if (file_exists($apiLockFile)) {
+         @unlink($apiLockFile);
+         error_log("🔓 VERROU API SUPPRIMÉ");
+      }
+   };
+   try {
+      $logMessage("🚀 ".t('deployment_started',$lang)." - ".t('version',$lang)." : $version - ".t('path',$lang).": $targetDir - Type: " . ($isUpdate ? "Mise à jour" : "Nouvelle installation"));
+      error_log("🚀 DÉPLOIEMENT DÉMARRÉ - Version: $version - Cible: $targetDir - Type: " . ($isUpdate ? "Mise à jour" : "Nouvelle installation"));
+      $deployer = new GithubDeployer();
+      // Backup si mise à jour
+      if ($isUpdate) {
+         $logMessage("PROCESS:BACKUP");
+         $logMessage("PROGRESS:0");
+         error_log("💾 Création du backup...");
+         $logMessage("PROGRESS:30");  // ⭐⭐ AJOUTÉ
+         $logMessage("PROGRESS:60");  // ⭐⭐ AJOUTÉ
+         $logMessage("PROGRESS:90");  // ⭐⭐ AJOUTÉ
+         $backupManager = new NPDSBackupManager();
+         $backupResult = $backupManager->backupCriticalFiles($targetDir);
+         if (!$backupResult['success']) {
+            throw new Exception("Échec du backup: " . $backupResult['message']);
+         }
+         $logMessage("PROGRESS:100");
+
+         $logMessage("✅ Backup créé: X fichiers (Y MB)");
+         error_log("✅ Backup créé");
+      }
+      // Téléchargement
+      error_log("📦 Téléchargement de $version...");
+      $logMessage("PROCESS:DOWNLOAD");
+      $logMessage("PROGRESS:0"); // ⭐⭐ RÉINITIALISATION BARRE
+      $logMessage("PROGRESS:25");
+      $logMessage("PROGRESS:50");
+      $logMessage("PROGRESS:75");
+      $logMessage("📦 ".t('downloading', $lang)." de $version...");
+      // URLs GitHub correctes
+      if ($version === 'master')
+         $url = $deployer->buildVersionUrl('https://github.com/npds/npds_dune/archive/refs/heads/', $version, 'zip');
+      else
+         $url = $deployer->buildVersionUrl('https://github.com/npds/npds_dune/archive/refs/tags/', $version, 'zip');
+      error_log("🔗 URL: $url");
+      $tempFile = $deployer->getTempDir() . '/' . uniqid('github_') . '.zip';
+      $downloadResult = $deployer->downloadFile($url, $tempFile);
+      $logMessage("PROGRESS:100");
+
+      if (!$downloadResult['success'])
+         throw new Exception("Échec téléchargement: " . $downloadResult['message']);
+      $fileSize = filesize($tempFile);
+      error_log("✅ Téléchargement réussi: " . round($fileSize/1024/1024, 2) . " MB");
+      $logMessage("✅ " .t('download_success',$lang).": " . round($fileSize/1024/1024, 2) . " MB");
+      // Extraction
+      error_log("📂 Extraction de l'archive...");
+      $logMessage("PROCESS:EXTRACT");
+      $logMessage("PROGRESS:0"); 
+      $logMessage("📂 ".t('extraction_progress',$lang)."...");
+      $logMessage("PROGRESS:30");
+      $logMessage("PROGRESS:60");
+      $logMessage("PROGRESS:90");
+      $extractResult = $deployer->extractFirstFolderContent($tempFile, $targetDir, 'zip', $version, $isUpdate);
+
+      if (!$extractResult['success']) {
+         throw new Exception("Échec extraction: " . $extractResult['message']);
+      }
+
+      $logMessage("PROGRESS:100");
+      error_log("✅ ".t('extraction_finished',$lang));
+      $logMessage("✅ ".t('extraction_finished',$lang));
+      $logMessage("PROCESS:COPY");
+      $logMessage("PROGRESS:0");
+      $logMessage("🔧 Copie finale des fichiers...");
+      $logMessage("PROGRESS:30");
+      $logMessage("PROGRESS:60");
+      $logMessage("PROGRESS:90");
+      $logMessage("PROGRESS:100");
+      $logMessage("✅ Copie des fichiers terminée");
+
+      // Nettoyage
+      @unlink($tempFile);
+
+      $duration = time() - $start_time;
+      $completionMessage = $isUpdate ? 
+            "Mise à jour terminée avec succès" : 
+            "Nouvelle installation déployée avec succès";
+      error_log("🎉 " . $completionMessage . " en " . $duration . " secondes");
+      $logMessage("🎉 " . $completionMessage . " en $duration secondes", "SUCCESS");
+
+      // ⭐⭐ CORRECTION : SUPPRIMER LES DEUX VERROUS DIRECTEMENT
+      if (file_exists($apiLockFile)) {
+         @unlink($apiLockFile);
+         error_log("🔓 VERROU API SUPPRIMÉ");
+      }
+      if (file_exists($globalLockFile)) {
+         @unlink($globalLockFile); 
+         error_log("🔓 VERROU GLOBAL SUPPRIMÉ");
+      }
+
+      return [
+         'success' => true,
+         'message' => $completionMessage . " en " . $duration . " secondes",
+         'duration' => $duration,
+         'version' => $version,
+         'is_update' => $isUpdate
+      ];
+   } catch (Exception $e) {
+      // ⭐⭐ SUPPRIMER LE VERROU API APRÈS ERREUR ⭐⭐
+      $removeApiLock();
+      error_log("💥 ERREUR DÉPLOIEMENT: " . $e->getMessage());
+      return [
+         'success' => false,
+         'message' => $e->getMessage(),
+         'duration' => time() - $start_time
+      ];
+   }
+}
+
+// ==================== CLASSES PRINCIPALES ====================
 class NPDSExclusions {
    private static $excludedFiles = [
       // === FICHIERS/DOSSIERS INSTALLATION AUTO ===
@@ -691,66 +987,12 @@ class NPDSExclusions {
       $regex = '/^' . $regex . '$/';
       return preg_match($regex, $filePath) === 1;
    }
-
-}
-
-// ==================== VÉRIFICATION DU RÉCEPTACLE ====================
-class InstallationValidator {
-   private static $npdsFirstLevel = [
-    // === FICHIERS RACINE ===
-    'abla.log.php', 'abla.php', 'admin.php', 'article.php', 'auth.inc.php', 'auth.php', 'autodoc.php', 'backend.php', 'banners.php', 'cache.class.php', 'cache.config.php', 'cache.timings.php', 'carnet.php', 'chat.php', 'chatinput.php', 'chatrafraich.php', 'chattop.php', 'config.php', 'counter.php', 'download.php', 'editpost.php', 'faq.php', 'filemanager.conf', 'footer.php', 'forum.php', 'friend.php', 'functions.php', 'getfile.php', 'grab_globals.php', 'header.php', 'humans.txt', 'index.php', 'install.php', 'licence-english.txt', 'licence-french.txt', 'licence.txt', 'lnl.php', 'mainfile.php', 'map.php', 'memberslist.php', 'minisite.php', 'modules.php', 'more_emoticon.php', 'newtopic.php', 'npds_api.php', 'pollBooth.php', 'powerpack_f.php', 'powerpack.php', 'preview.php', 'print.php', 'prntopic.php', 'publication.php', 'readpmsg_imm.php', 'readpmsg.php', 'reply.php', 'replyH.php', 'replypmsg.php', 'reviews.php', 'robots.txt', 'sample.proxy.conf.php', 'search.php', 'searchbb.php', 'sections.config.php', 'sections.php', 'signat.php', 'sitemap.php', 'static.php', 'stats.php', 'submit.php', 'top.php', 'topicadmin.php', 'topics.php', 'user.php', 'viewforum.php', 'viewpmsg.php', 'viewtopic.php', 'viewtopicH.php',
-    // === DOSSIERS RACINE ===
-    'admin', 'api', 'cache', 'editeur', 'images', 'install', 'language', 'lib', 'manuels', 'meta', 'modules', 'slogs', 'sql', 'static', 'themes', 'users_private',
-   ];
-   private static $serverAllowed = [
-        '.htaccess', 'robots.txt', '.well-known', '.git', '.github',
-        'README', 'LICENSE', 'composer.json', 'package.json', 'web.config'
-   ];
-
-   /**
-   * Vérifie si le réceptacle est propre pour l'installation
-   */
-   public static function validateReceptacle($targetDir) {
-      if (!is_dir($targetDir)) 
-         return ['safe' => true, 'warnings' => []]; // Dossier vide
-      $existingItems = scandir($targetDir);
-      $existingItems = array_diff($existingItems, ['.', '..']); // Retirer . et ..
-      $warnings = [];
-      $allowedFound = [];
-      foreach ($existingItems as $item) {
-         $fullPath = $targetDir . '/' . $item;
-         // Vérifier si c'est un fichier/dossier autorisé (serveur)
-         if (in_array($item, self::$serverAllowed) || 
-                in_array(pathinfo($item, PATHINFO_EXTENSION), ['log', 'txt', 'md'])) {
-                $allowedFound[] = $item;
-                continue;
-         }
-         // Vérifier si c'est un élément NPDS (conflit potentiel)
-         if (in_array($item, self::$npdsFirstLevel))
-            $warnings[] = [
-               'type' => 'conflit_npds',
-               'item' => $item,
-               'message' => 'Ce fichier/dossier existe déjà dans NPDS et sera écrasé'
-            ];
-         else
-            $warnings[] = [
-               'type' => 'element_etranger', 
-               'item' => $item,
-               'message' => 'Élément non-NPDS détecté - risque de conflit'
-            ];
-      }
-      return [
-         'safe' => empty($warnings),
-         'warnings' => $warnings,
-         'allowed_items' => $allowedFound
-      ];
-   }
 }
 
 // ==================== GESTION DES BACKUPS ====================
 class NPDSBackupManager {
    private $backupDir = 'npds_backups';
-   private $maxDbSizeMB = 50; // Taille max pour backup DB automatique
+   private $maxDbSizeMB = 50;
 
    public function __construct($customBackupDir = null) {
       if ($customBackupDir)
@@ -759,132 +1001,33 @@ class NPDSBackupManager {
          $this->backupDir = dirname(__FILE__) . '/npds_backups';
       if (!is_dir($this->backupDir))
          @mkdir($this->backupDir, 0755, true);
-      // Log pour debug
       error_log("📁 Backup path: " . $this->backupDir);
    }
-
-   /**
-   * Estime le nombre total de fichiers à backuper
-   */
-   private function estimateTotalBackupFiles($targetDir) {
-      $criticalFiles = $this->getCriticalFilesList($targetDir);
-      $totalEstimate = 0;
-      foreach ($criticalFiles as $filePattern) {
-         $files = glob($targetDir . '/' . $filePattern);
-         foreach ($files as $file) {
-            if (is_file($file))
-               $totalEstimate++;
-            elseif (is_dir($file)) {
-               try {
-               $iterator = new RecursiveIteratorIterator(
-                  new RecursiveDirectoryIterator($file, RecursiveDirectoryIterator::SKIP_DOTS)
-               );
-               $totalEstimate += iterator_count($iterator);
-               } catch (Exception $e) {
-                  error_log("⚠️ Impossible de compter les fichiers dans: $file - " . $e->getMessage());
-                  $totalEstimate += 10; // Estimation de secours
-               }
-            }
-         }
-      }
-       return max($totalEstimate, 1); // Au moins 1 pour éviter division par zéro
-   }
-
-   public function getBackupDir() {
-      return $this->backupDir;
-   }
-
-   /**
-   * Crée un backup de la base de données (si elle n'est pas trop grosse)
-   */
-    public function backupDatabase($maxSizeMB = null) {
-        global $lang;
-        
-        if ($maxSizeMB) {
-            $this->maxDbSizeMB = $maxSizeMB;
-        }
-        
-        // Vérifier si config.php existe pour récupérer les infos DB
-        if (!file_exists('config.php')) {
-            error_log("❌ config.php non trouvé - backup DB ignoré");
-            return ['success' => false, 'message' => 'Config DB non trouvée'];
-        }
-        
-        // Vérifier la taille de la DB (estimation sécurisée)
-        $dbSize = $this->estimateDatabaseSize();
-        $maxSizeBytes = $this->maxDbSizeMB * 1024 * 1024;
-        
-        if ($dbSize > $maxSizeBytes) {
-            error_log("⚠️ Base trop volumineuse ($dbSize bytes > $maxSizeBytes bytes) - backup DB ignoré");
-            return [
-                'success' => false, 
-                'message' => t('backup_skipped_large_db', $lang),
-                'size' => $dbSize,
-                'max_size' => $maxSizeBytes
-            ];
-        }
-        
-        $timestamp = date('Y-m-d_His');
-        $backupFile = $this->backupDir . '/db_backup_' . $timestamp . '.sql';
-        
-        try {
-            // Tentative de backup via mysqldump
-            $command = $this->buildDumpCommand($backupFile);
-            
-            if ($command && $this->executeBackupCommand($command)) {
-                $size = filesize($backupFile);
-                error_log("✅ Backup DB créé: $backupFile ($size bytes)");
-                
-                return [
-                    'success' => true,
-                    'message' => t('backup_db_created', $lang),
-                    'file' => $backupFile,
-                    'size' => $size
-                ];
-            } else {
-                // Fallback: backup manuel des tables principales
-                return $this->createManualBackup($backupFile);
-            }
-        } catch (Exception $e) {
-            error_log("❌ Erreur backup DB: " . $e->getMessage());
-            return ['success' => false, 'message' => $e->getMessage()];
-        }
-    }
 
    /**
    * Crée un backup des fichiers critiques
    */
    public function backupCriticalFiles($targetDir) {
       global $lang;
+      error_log("💾 Démarrage du backup...");
       $timestamp = date('Y-m-d_His');
       $backupFile = $this->backupDir . '/files_backup_' . $timestamp . '.zip';
+      
       try {
          $zip = new ZipArchive();
          if ($zip->open($backupFile, ZipArchive::CREATE) === true) {
             $addedFiles = 0;
-            $fileCount = 0;
-            $totalEstimate = $this->estimateTotalBackupFiles($targetDir);
+            
             // Backup des fichiers critiques
             $criticalFiles = $this->getCriticalFilesList($targetDir);
             foreach ($criticalFiles as $filePattern) {
                $files = glob($targetDir . '/' . $filePattern);
                foreach ($files as $file) {
-                  $fileCount++;
-                  // KeepAlive avec progression interface
-                  if ($fileCount % 50 === 0) {
-                     $percent = round(($fileCount / $totalEstimate) * 100);
-                     echo '<script>document.getElementById("progress").innerHTML = "💾 Backup: ' . $percent . '% (' . $fileCount . '/' . $totalEstimate . ' fichiers)";</script>';
-                     echo str_repeat(' ', 16384); // ⭐⭐ 16KB buffer
-                     if (ob_get_level() > 0) ob_flush();
-                        flush();
-                  }
-                  // Ajout au ZIP...
                   if (is_file($file)) {
                      $relativePath = str_replace($targetDir . '/', '', $file);
                      if ($zip->addFile($file, $relativePath))
                         $addedFiles++;
                   } elseif (is_dir($file)) {
-                     // Ajout récursif du dossier
                      $iterator = new RecursiveIteratorIterator(
                         new RecursiveDirectoryIterator($file, RecursiveDirectoryIterator::SKIP_DOTS),
                         RecursiveIteratorIterator::SELF_FIRST
@@ -892,7 +1035,6 @@ class NPDSBackupManager {
 
                      foreach ($iterator as $item) {
                         if ($item->isFile()) {
-                           $fileCount++;
                            $relativePath = str_replace($targetDir . '/', '', $item->getRealPath());
                            if ($zip->addFile($item->getRealPath(), $relativePath))
                               $addedFiles++;
@@ -901,308 +1043,69 @@ class NPDSBackupManager {
                  }
              }
          }
-         // Message final
-         echo '<script>document.getElementById("progress").innerHTML = "💾 Backup terminé: ' . $addedFiles . ' fichiers";</script>';
-         flush();
          
          $zip->close();
-         $size = filesize($backupFile);
+         if (file_exists($backupFile)) {
+            $size = filesize($backupFile);
+            $size_mb = round($size/1024/1024, 2);
+            error_log("✅ Backup TERMINÉ: " . $addedFiles . " fichiers (" . $size_mb . " MB)");
             
-         error_log("✅ Backup fichiers créé: $backupFile ($size bytes, $addedFiles fichiers)");
-            
-         return [
-             'success' => true,
-             'message' => t('backup_files_created', $lang),
-             'file' => $backupFile,
-             'size' => $size,
-             'file_count' => $addedFiles
-         ];
+            return [
+                'success' => true,
+                'message' => 'Backup fichiers créé',
+                'file' => $backupFile,
+                'size' => $size,
+                'file_count' => $addedFiles
+            ];
+         }
       }
-   } catch (Exception $e) {
-        error_log("❌ Erreur backup fichiers: " . $e->getMessage());
+      } catch (Exception $e) {
+         error_log("❌ Erreur backup fichiers: " . $e->getMessage());
+      }
+      return ['success' => false, 'message' => 'Échec création backup fichiers'];
    }
 
-   return ['success' => false, 'message' => 'Échec création backup fichiers'];
-}
-
-   /**
-   * Crée un backup complet (DB + fichiers)
-   */
-    public function createFullBackup($targetDir) {
-        $results = [];
-        
-        $results['files'] = $this->backupCriticalFiles($targetDir);
-        $results['database'] = $this->backupDatabase();
-        
-        return $results;
-    }
-    
    /**
    * Liste des fichiers critiques à backuper
    */
-    private function getCriticalFilesList($targetDir) {
-        return [
-            'config.php',
-            'IZ-Xinstall.ok',
-            '.htaccess',
-            'robots.txt',
-            'users_private/*',
-            'slogs/*',
-            'images/*',
-            'themes/*/images/*',
-            'modules/*/config.php',
-            'modules/*.conf.php',
-            'language/lang-*.php'
-        ];
-    }
-    
-    /**
-     * Estimation sécurisée de la taille de la DB
-     */
-    private function estimateDatabaseSize() {
-        $size = 0;
-        
-        // Estimation basée sur les dossiers de données
-        $dataDirs = ['slogs/', 'users_private/', 'cache/', 'meta/'];
-        
-        foreach ($dataDirs as $dir) {
-            if (is_dir($dir)) {
-                $iterator = new RecursiveIteratorIterator(
-                    new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS)
-                );
-                
-                foreach ($iterator as $file) {
-                    if ($file->isFile()) {
-                        $size += $file->getSize();
-                        // Limiter le scan pour éviter les timeouts
-                        if ($size > (100 * 1024 * 1024)) { // 100MB max de scan
-                            break 2;
-                        }
-                    }
-                }
-            }
-        }
-        
-        return $size;
-    }
-    
-    /**
-     * Construction de la commande mysqldump (sécurisée)
-     */
-    private function buildDumpCommand($backupFile) {
-        // IMPORTANT: Méthode désactivée par défaut pour sécurité
-        // À n'activer que si l'environnement est sécurisé
-        
-        if (!file_exists('config.php')) {
-            return null;
-        }
-        
-        // Lecture sécurisée de config.php
-        $configContent = file_get_contents('config.php');
-        
-        // Extraction basique des infos DB (simplifiée)
-        preg_match('/\$user\s*=\s*[\'"]([^\'"]*)[\'"]/', $configContent, $userMatch);
-        preg_match('/\$db\s*=\s*[\'"]([^\'"]*)[\'"]/', $configContent, $dbMatch);
-        preg_match('/\$host\s*=\s*[\'"]([^\'"]*)[\'"]/', $configContent, $hostMatch);
-        
-        if (!$userMatch || !$dbMatch || !$hostMatch) {
-            return null;
-        }
-        
-        $user = $userMatch[1];
-        $db = $dbMatch[1];
-        $host = $hostMatch[1];
-        
-        // Construction de la commande (adaptée à l'environnement)
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            // Windows
-            $command = "mysqldump -h $host -u $user -p $db > \"$backupFile\" 2>nul";
-        } else {
-            // Linux/Unix
-            $command = "mysqldump -h $host -u $user -p $db > \"$backupFile\" 2>/dev/null";
-        }
-        
-        return $command;
-    }
-    
-    /**
-     * Exécution sécurisée de la commande de backup
-     */
-    private function executeBackupCommand($command) {
-        // Désactivé par défaut - trop risqué
-        return false;
-        
-        /* 
-        // Version activable si environnement contrôlé
-        $output = [];
-        $returnCode = 0;
-        
-        exec($command, $output, $returnCode);
-        
-        return $returnCode === 0 && file_exists($backupFile) && filesize($backupFile) > 0;
-        */
-    }
-    
-    /**
-     * Backup manuel alternatif
-     */
-    private function createManualBackup($backupFile) {
-        // Créer un backup minimal avec les infos système
-        $backupContent = "-- NPDS Manual Backup - " . date('Y-m-d H:i:s') . "\n";
-        $backupContent .= "-- Cette installation ne supporte pas mysqldump automatique\n";
-        $backupContent .= "-- Veuillez faire un backup manuel via l'admin NPDS\n";
-        
-        if (file_put_contents($backupFile, $backupContent) !== false) {
-            return [
-                'success' => true,
-                'message' => 'Backup manuel créé (veuillez utiliser l\'outil NPDS)',
-                'file' => $backupFile,
-                'size' => filesize($backupFile),
-                'manual' => true
-            ];
-        }
-        
-        return ['success' => false, 'message' => 'Échec création backup manuel'];
-    }
-    
-    /**
-     * Ajout récursif de fichiers au ZIP
-     */
-    private function addFilesToZip($zip, $basePath, $pattern, $localPath = '') {
-        $addedCount = 0;
-        
-        $files = glob($basePath . '/' . $pattern);
-        foreach ($files as $file) {
-            if (is_file($file)) {
-                $relativePath = $localPath . basename($file);
-                if ($zip->addFile($file, $relativePath)) {
-                    $addedCount++;
-                }
-            } elseif (is_dir($file)) {
-                // Ajout récursif du dossier
-                $iterator = new RecursiveIteratorIterator(
-                    new RecursiveDirectoryIterator($file, RecursiveDirectoryIterator::SKIP_DOTS),
-                    RecursiveIteratorIterator::SELF_FIRST
-                );
-                
-                foreach ($iterator as $item) {
-                    if ($item->isFile()) {
-                        $relativePath = $localPath . $iterator->getSubPathName();
-                        if ($zip->addFile($item->getRealPath(), $relativePath)) {
-                            $addedCount++;
-                        }
-                    }
-                }
-            }
-        }
-        
-        return $addedCount;
-    }
-    
-    /**
-     * Nettoyage des vieux backups
-     */
-    public function cleanupOldBackups($keepLast = 5) {
-        $backupFiles = glob($this->backupDir . '/*.{zip,sql}', GLOB_BRACE);
-        
-        // Trier par date de modification (plus récent en premier)
-        usort($backupFiles, function($a, $b) {
-            return filemtime($b) - filemtime($a);
-        });
-        
-        $deleted = 0;
-        for ($i = $keepLast; $i < count($backupFiles); $i++) {
-            if (@unlink($backupFiles[$i])) {
-                $deleted++;
-            }
-        }
-        
-        return $deleted;
-    }
+   private function getCriticalFilesList($targetDir) {
+      return [
+         'config.php',
+         'IZ-Xinstall.ok',
+         '.htaccess',
+         'robots.txt',
+         'users_private/*',
+         'slogs/*',
+         'images/*',
+         'themes/*/images/*',
+         'modules/*/config.php',
+         'modules/*.conf.php',
+         'language/lang-*.php'
+      ];
+   }
+
+   /**
+   * Nettoyage des vieux backups
+   */
+   public function cleanupOldBackups($keepLast = 5) {
+      $backupFiles = glob($this->backupDir . '/*.{zip,sql}', GLOB_BRACE);
+      usort($backupFiles, function($a, $b) {
+         return filemtime($b) - filemtime($a);
+      });
+      $deleted = 0;
+      for ($i = $keepLast; $i < count($backupFiles); $i++) {
+         if (@unlink($backupFiles[$i]))
+            $deleted++;
+      }
+      return $deleted;
+   }
 }
 
-// ==================== CLASSE PRINCIPALE DU DÉPLOYEUR ====================
 class GithubDeployer {
    private $userAgent = 'Mozilla/5.0 (compatible; GitHubDownloader/1.0)';
    private $timeout = 120;
-   private $connectTimeout = 30;
-   private $maxRedirects = 5;
    private $tempDir = 'npds_deployer_temp';
    private $lastDownloadSize = 0;
-
-   private function isNPDSInstalled($targetDir) {
-      // Si on vient de l'admin NPDS, c'est forcément une mise à jour
-      if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false) {
-         error_log("✅ Mise à jour détectée via return_url admin");
-         return true;
-      }
-      // Si l'URL contient 'update' dans les paramètres
-      if (isset($_GET['context']) && $_GET['context'] === 'update') {
-         error_log("✅ Mise à jour détectée via paramètre context");
-         return true;
-      }
-      error_log("❌ Nouvelle installation détectée");
-      return false;
-   }
-
-   private function showInstallationWarnings($validation, $targetDir, $version) {
-      // CORRECTION : Remonter à la racine si on est dans lib/deployer/
-      if (basename($targetDir) === 'deployer' && basename(dirname($targetDir)) === 'lib') {
-         $targetDir = dirname(dirname($targetDir));
-         error_log("🔧 Correction targetDir: $targetDir");
-      }
-      global $lang;
-      echo '
-      <div class="section-danger py-2">
-         <h3>🚨 Réceptacle non sécurisé détecté</h3>
-            <p>Le dossier <strong>' . htmlspecialchars($targetDir) . '</strong> contient des éléments problématiques :</p>
-         <div class="mt-3">
-            <h4>Éléments détectés :</h4>
-            <ul>';
-      foreach ($validation['warnings'] as $warning) {
-         $icon = $warning['type'] === 'conflit_npds' ? '🔄' : '⚠️';
-         echo '
-               <li>' . $icon . ' <strong>' . htmlspecialchars($warning['item']) . '</strong> : ' . $warning['message'] . '</li>';
-      }
-      echo '
-            </ul>
-         </div>';
-      if (!empty($validation['allowed_items'])) {
-         echo '
-         <div class="mt-2">
-            <h4>Éléments autorisés :</h4>
-            <ul>';
-         foreach ($validation['allowed_items'] as $item) {
-            echo '
-               <li>✅ ' . htmlspecialchars($item) . ' (fichier serveur)</li>';
-         }
-         echo '
-            </ul>
-         </div>';
-      }
-      echo '
-         <div class="mt-4">
-            <p><strong>Recommandations :</strong></p>
-            <ul>
-               <li>✅ Utilisez un dossier vide pour une installation propre</li>
-               <li>✅ Supprimez les éléments listés ci-dessus</li>
-               <li>🚨 Les fichiers NPDS du même nom seront écrasés</li>
-            </ul>
-            <div class="mt-3">
-               <a href="?op=deploy&version=' . urlencode($version) . '&path=' . urlencode($targetDir) . '&confirm=yes&force=yes" class="btn btn-danger"  onclick="return confirm(\'🚨 FORCER L\\\'INSTALLATION ?\')">🚨 Forcer l\'installation</a>
-               <a href="?" class="btn btn-secondary">Annuler</a>
-            </div>
-         </div>
-      </div>';
-   }
-
-   public function getTempDir(): string {
-      return $this->tempDir;
-   }
-
-   public function getLastDownloadSize(): int {
-      return $this->lastDownloadSize;
-   }
 
    public function __construct(array $config = []) {
       foreach ($config as $key => $value) {
@@ -1211,414 +1114,261 @@ class GithubDeployer {
       }
       if (!is_dir($this->tempDir))
          @mkdir($this->tempDir, 0755, true);
-      // Nettoyage automatique des anciens fichiers
       $this->cleanupOldFiles();
    }
 
-   public function deployMaster(?string $targetDir = null): array {
-      if ($targetDir === null)
-         $targetDir = __DIR__;
-      return $this->deployVersion(
-         'https://github.com/npds/npds_dune/archive/refs/heads',
-         'master',
-         'zip',
-         $targetDir
-      );
-   }
-
-   /**
-   * Télécharge une archive depuis GitHub avec version variable
-   * et extrait uniquement le contenu du premier dossier
-   */
-   public function deployVersion(string $baseUrl, string $version, string $format = 'zip',? string $targetDir = null): array {
+   public function deployVersion(string $baseUrl, string $version, string $format = 'zip', ?string $targetDir = null): array {
       global $lang;
-      // ==================== VÉRIFICATION PRÉ-INSTALLATION ====================
+      
       $isUpdate = $this->isNPDSInstalled($targetDir);
-
-      if ($isUpdate) {
-         echo '<li class="progress" id="backup-step">💾 Sauvegarde de sécurité...</li>';
-         flush();
-         error_log("💾 Backup immédiat avant tout traitement...");
-         try {
-            $backupManager = new NPDSBackupManager();
-            $backupResult = $backupManager->backupCriticalFiles($targetDir);
-            if ($backupResult['success']) {
-               $sizeMB = round($backupResult['size'] / 1024 / 1024, 2);
-               echo '<script>document.getElementById("backup-step").innerHTML = "✅ Backup créé: ' . $sizeMB . ' MB";</script>';
-               flush();
-               error_log("✅ Backup réussi: " . $backupResult['file']);
-            } else {
-                error_log("❌ Backup échoué - arrêt du déploiement");
-                @unlink($lockFile);
-                return $this->createResult(false, "Échec du backup - déploiement annulé pour sécurité");
-            }
-         } catch (Exception $e) {
-            error_log("💥 Exception backup: " . $e->getMessage());
-            @unlink($lockFile);
-            return $this->createResult(false, "Erreur lors du backup: " . $e->getMessage());
-         }
-      }
-      if (!$isUpdate) { // Installation neuve uniquement
-         $validation = InstallationValidator::validateReceptacle($targetDir);
-         if (!$validation['safe'] && (!isset($_GET['force']) || $_GET['force'] !== 'yes')) {
-            // Afficher les warnings immédiatement
-            echo head_html();
-            echo '<h2 class="ms-3"><span class="display-6">🚨 </span>Vérification du réceptacle</h2>';
-            $this->showInstallationWarnings($validation, $targetDir, $version);
-            echo foot_html();
-            @unlink($lockFile);
-            return $this->createResult(false, "Réceptacle non sécurisé");
-         }
-      }
-      // ==================== VERROUILLAGE RENFORCÉ ====================
       $lockFile = $this->tempDir . '/deploy.lock';
-      $lockTimeout = 600; // 10 minutes
-      // Vérifier si un déploiement est déjà en cours
-      if (file_exists($lockFile)) {
-         $lockTime = (int)file_get_contents($lockFile);
-         $elapsed = time() - $lockTime;
-         if ($elapsed < $lockTimeout) {
-            error_log('💥 '. t('deployment_in_progress', $lang) . ' ' . $elapsed . "s");
-            $this->logToInstallLog('💥 '. t('deployment_in_progress', $lang) . ' ' . $elapsed . "s)", 'WARNING', $targetDir);
-            return $this->createResult(false, t('deployment_in_progress', $lang) . " " . $elapsed . "s)");
-         } else {
-            // Lock expiré, le supprimer
-            @unlink($lockFile);
-            error_log('🔓 ' . t('lock_expired', $lang));
-            $this->logToInstallLog('🔓 ' . t('lock_expired', $lang), 'INFO', $targetDir);
-         }
-      }
-      // Créer le verrou avec timestamp actuel
-      if (!file_put_contents($lockFile, time())) {
-         error_log('❌ ' . t('lock_error', $lang));
-         $this->logToInstallLog('❌ ' . t('lock_error', $lang), 'ERROR', $targetDir);
-         return $this->createResult(false, t('lock_error', $lang));
-      }
-      // ==================== LOGS DE DÉBOGAGE ====================
-      error_log('=== ' . t('deployment_started',$lang) . ' ===');
-      error_log(t('version',$lang) . ": $version | " . t('path',$lang) . ": " . ($targetDir ?? 'racine'));
-      error_log("URL: " . $this->buildVersionUrl($baseUrl, $version, $format));
-      error_log("Lock file: " . str_replace('//', '/', $lockFile));
-      error_log("Temp dir: " . str_replace('//', '/', $this->tempDir));
-      $this->logToInstallLog('=== ' . t('deployment_started',$lang) . ' ===', 'INFO', $targetDir);
-      $this->logToInstallLog(t('version',$lang) . ": $version | " . t('path',$lang) . ": " . ($targetDir ?? 'racine'), 'INFO', $targetDir);
-      $this->logToInstallLog("URL: " . $this->buildVersionUrl($baseUrl, $version, $format), 'INFO', $targetDir);
-
-      // Validation des paramètres
-      if (empty($baseUrl) || empty($version)) {
-         error_log("❌ Paramètres manquants: baseUrl ou version vide");
-         $this->logToInstallLog("❌ Paramètres manquants: baseUrl ou version vide", 'ERROR', $targetDir);
-         return $this->createResult(false, "URL de base et version sont requis");
-      }
-      if (!in_array($format, ['zip', 'tar.gz'])) {
-         error_log("❌ Format non supporté: $format");
-         $this->logToInstallLog("❌ Format non supporté: $format", 'ERROR', $targetDir);
-         return $this->createResult(false, "Format d'archive non supporté");
-      }
-      // Construction de l'URL complète
-      $url = $this->buildVersionUrl($baseUrl, $version, $format);
-      // Téléchargement du fichier
-      $tempFile = $this->tempDir . '/' . uniqid('github_') . '.' . $format;
+      
       try {
-         error_log('📦 ' . t('initializing', $lang) . '...');
-         $this->logToInstallLog('📦 ' . t('initializing', $lang) . '...', 'INFO', $targetDir);
-         // Envoyer du feedback au navigateur
-         echo '<li class="progress">📦 ' . t('initializing', $lang) . '...</li>';
-         $this->keepAlive();
-         // Téléchargement avec suivi des redirections
+         $this->updateProgress('=== ' . t('deployment_started',$lang) . ' ===');
+         
+         // ==================== BACKUP POUR LES MISES À JOUR ====================
+         if ($isUpdate) {
+            $this->updateProgress("💾 Sauvegarde de sécurité (30s environ)...", 10);
+            
+            // Animation pendant le backup
+            echo '<script>
+              let dots = 0;
+              const backupInterval = setInterval(() => {
+                  dots = (dots + 1) % 4;
+                  document.getElementById("status").textContent = "💾 Sauvegarde de sécurité" + ".".repeat(dots);
+              }, 1000);
+            </script>';
+            echo str_repeat(' ', 1024);
+            if (ob_get_level() > 0) ob_flush();
+            flush();
+            
+            try {
+               $backupManager = new NPDSBackupManager();
+               $backupResult = $backupManager->backupCriticalFiles($targetDir);
+               if ($backupResult['success']) {
+                  $sizeMB = round($backupResult['size'] / 1024 / 1024, 2);
+                  echo '<script>clearInterval(backupInterval);</script>';
+                  $this->updateProgress("✅ Backup créé: " . $sizeMB . " MB", 20);
+               } else {
+                  echo '<script>clearInterval(backupInterval);</script>';
+                  $this->updateProgress("❌ Backup échoué - arrêt du déploiement", 20);
+                  @unlink($lockFile);
+                  return $this->createResult(false, "Échec du backup - déploiement annulé pour sécurité");
+               }
+            } catch (Exception $e) {
+               echo '<script>clearInterval(backupInterval);</script>';
+               $this->updateProgress("💥 Exception backup: " . $e->getMessage(), 20);
+               @unlink($lockFile);
+               return $this->createResult(false, "Erreur lors du backup: " . $e->getMessage());
+            }
+         }
+         
+         // Vérification pré-installation pour nouvelles installations uniquement
+         if (!$isUpdate) {
+            $validation = $this->validateReceptacle($targetDir);
+            if (!$validation['safe'] && (!isset($_GET['force']) || $_GET['force'] !== 'yes')) {
+               $this->showInstallationWarnings($validation, $targetDir, $version);
+               @unlink($lockFile);
+               return $this->createResult(false, "Réceptacle non sécurisé");
+            }
+         }
+         
+         // Verrouillage
+         if (file_exists($lockFile)) {
+            $lockTime = (int)file_get_contents($lockFile);
+            $elapsed = time() - $lockTime;
+            if ($elapsed < 600) {
+               $this->updateProgress('💥 '. t('deployment_in_progress', $lang) . ' ' . $elapsed . "s", 'ERROR');
+               return $this->createResult(false, t('deployment_in_progress', $lang) . " " . $elapsed . "s)");
+            } else {
+               @unlink($lockFile);
+            }
+         }
+         file_put_contents($lockFile, time());
+
+         // Téléchargement
+         $this->updateProgress('📦 ' . t('initializing', $lang));
+         $url = $this->buildVersionUrl($baseUrl, $version, $format);
+         $tempFile = $this->tempDir . '/' . uniqid('github_') . '.' . $format;
+         
          $downloadResult = $this->downloadFile($url, $tempFile);
          if (!$downloadResult['success']) {
-            error_log("❌ Échec du téléchargement: " . $downloadResult['message']);
-            $this->logToInstallLog("❌ Échec du téléchargement: " . $downloadResult['message'], 'ERROR', $targetDir);
             @unlink($lockFile);
             return $downloadResult;
          }
-         $this->lastDownloadSize = filesize($tempFile);
-         $sizeMB = round($this->lastDownloadSize / 1024 / 1024, 2);
-         error_log('✅ ' . t('download_success', $lang) . ': ' .$sizeMB. 'MB');
-         $this->logToInstallLog('✅ ' . t('download_success', $lang) . ': ' .$sizeMB. 'MB', 'SUCCESS', $targetDir);
-         echo '<li class="progress">✅ ' . t('download_success', $lang) . ' (' . $sizeMB . ' MB)</li>';         $this->keepAlive();
-         // Vérification du fichier téléchargé
-         if (!file_exists($tempFile) || filesize($tempFile) === 0) {
-            error_log("❌ Fichier téléchargé vide ou inexistant");
-            $this->logToInstallLog("❌ Fichier téléchargé vide ou inexistant", 'ERROR', $targetDir);
+         
+         // Extraction
+         $this->updateProgress('📂 ' . t('extracting', $lang));
+         $extractResult = $this->extractFirstFolderContent($tempFile, $targetDir, $format, $version, $isUpdate);
+         if (!$extractResult['success']) {
+            @unlink($tempFile);
             @unlink($lockFile);
-            return $this->createResult(false, "Fichier téléchargé vide ou inexistant");
+            return $extractResult;
          }
 
-         // Extraction si un répertoire cible est spécifié
-         if ($targetDir) {
-            error_log('📂 ' . t('extracting',$lang) . '...');
-            $this->logToInstallLog('📂 ' . t('extracting',$lang) . '...', 'INFO', $targetDir);
-            $extractResult = $this->extractFirstFolderContent($tempFile, $targetDir, $format, $version, $isUpdate);
-            if (!$extractResult['success']) {
-               error_log("❌ Échec de l'extraction: " . $extractResult['message']);
-               $this->logToInstallLog("❌ Échec de l'extraction: " . $extractResult['message'], 'ERROR', $targetDir);
-               @unlink($tempFile);
-               @unlink($lockFile);
-               return $extractResult;
-            }
-            error_log("✅ Extraction réussie");
-            $this->logToInstallLog("✅ Extraction réussie", 'SUCCESS', $targetDir);
-            echo '<script>document.getElementById("extraction-step").innerHTML = "✅ Extraction terminée avec succès";</script>';
-            $this->keepAlive("Extraction terminée");
-         }
-
-         // Nettoyage
+         // Succès
          @unlink($tempFile);
          @unlink($lockFile);
-         error_log('🎉 ' . t('deployment_complete', $lang) . '!');
-         $this->logToInstallLog('🎉 ' . t('deployment_complete', $lang) . '!', 'SUCCESS', $targetDir);
-         $this->logToInstallLog('=== ' . t('deployment_finished',$lang) .' ===', 'INFO', $targetDir);
-         echo '<li class="progress">🎉 ' . t('deployment_complete', $lang) . '!</li>';
+         $this->updateProgress('🎉 ' . t('deployment_complete', $lang));
+         
          return $this->createResult(true, t('success', $lang), [
             'url' => $url,
-            'temp_file' => $tempFile,
             'target_dir' => $targetDir,
-            'size' => $this->lastDownloadSize,
             'version' => $version,
-            'extracted_folder' => $extractResult['data']['extracted_folder'] ?? null
+            'is_update' => $isUpdate
          ]);
+         
       } catch (Exception $e) {
-         error_log("💥 EXCEPTION: " . $e->getMessage());
-         $this->logToInstallLog("💥 EXCEPTION: " . $e->getMessage(), 'ERROR', $targetDir);
-         $this->logToInstallLog('=== ' . t('deployment_failed',$lang) .' ===', 'ERROR', $targetDir);
-         @unlink($tempFile);
          @unlink($lockFile);
          return $this->createResult(false, t('error',$lang) . $e->getMessage());
       }
    }
 
-   /**
-   * Nettoie les anciens fichiers temporaires
-   */
-   private function cleanupOldFiles(): void {
-      if (!is_dir($this->tempDir)) return;
-         $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($this->tempDir, RecursiveDirectoryIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::CHILD_FIRST
-      );
-      $now = time();
-      foreach ($files as $file) {
-      // Supprimer tout ce qui a plus de 1 heure
-         if ($file->getMTime() < ($now - 3600)) {
-             if ($file->isDir())
-                 @rmdir($file->getRealPath());
-             else
-                 @unlink($file->getRealPath());
+   public function isNPDSInstalled($targetDir) {
+      if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false)
+         return true;
+      // Vérifier les fichiers spécifiques à npds
+      $installFiles = ['mainfile.php','config.php', 'grab_globals.php', 'IZ-Xinstall.ok'];
+      foreach ($installFiles as $file) {
+         $fullPath = $targetDir . '/' . $file;
+         error_log("🔍 Vérification: $fullPath");
+         if (file_exists($fullPath)) {
+            error_log("🔍 💥 FICHIER TROUVÉ: $fullPath - MISE À JOUR");
+            return true;
          }
       }
+      error_log("🔍 ❌ NOUVELLE INSTALLATION dans: $targetDir");
+      return false;
    }
 
-   /**
-   * Envoie du feedback au navigateur
-   */
-   private function keepAlive($message = ''): void {
-      global $lang;
-      // Vérifier si la connexion est toujours active (OPTIONNEL)
-      if (connection_aborted()) {
-         error_log('⚠️ ' . t('connection_lost',$lang));
-         exit(0);
+   private function validateReceptacle($targetDir) {
+      if (!is_dir($targetDir)) return ['safe' => true, 'warnings' => []];
+      
+      $existingItems = scandir($targetDir);
+      $existingItems = array_diff($existingItems, ['.', '..']);
+      $warnings = [];
+      
+      $npdsItems = ['index.php', 'admin.php', 'config.php', 'lib/', 'modules/', 'themes/'];
+      
+      foreach ($existingItems as $item) {
+         if (in_array($item, $npdsItems)) {
+            $warnings[] = [
+               'type' => 'conflit_npds',
+               'item' => $item,
+               'message' => 'Ce fichier/dossier existe déjà dans NPDS'
+            ];
+         }
       }
-      // Commentaire HTML minimal pour maintenir la connexion
-      echo " " . str_repeat(' ', 16384) . "\n"; // Buffer de maintien
-      echo "<!-- keep-alive: " . date('H:i:s') . " " . htmlspecialchars($message) . " -->\n";
-      // Envoyer effectivement les données au navigateur
-      if (ob_get_level() > 0)
-         ob_flush();
+      
+      return ['safe' => empty($warnings), 'warnings' => $warnings];
+   }
+
+   private function showInstallationWarnings($validation, $targetDir, $version) {
+      global $lang;
+      echo head_html();
+      echo '<h2 class="ms-3"><span class="display-6">🚨 </span>Vérification du réceptacle</h2>';
+      echo '
+      <div class="section-danger py-2">
+         <h3>🚨 Réceptacle non sécurisé détecté</h3>
+         <p>Le dossier <strong>' . htmlspecialchars($targetDir) . '</strong> contient des éléments problématiques :</p>
+         <div class="mt-3">
+            <h4>Éléments détectés :</h4>
+            <ul>';
+      foreach ($validation['warnings'] as $warning) {
+         $icon = $warning['type'] === 'conflit_npds' ? '🔄' : '⚠️';
+         echo '<li>' . $icon . ' <strong>' . htmlspecialchars($warning['item']) . '</strong> : ' . $warning['message'] . '</li>';
+      }
+      echo '
+            </ul>
+         </div>
+         <div class="mt-3">
+            <a href="?op=deploy&version=' . urlencode($version) . '&path=' . urlencode($targetDir) . '&confirm=yes&force=yes" class="btn btn-danger" onclick="return confirm(\'🚨 FORCER L\\\'INSTALLATION ?\')">🚨 Forcer l\'installation</a>
+            <a href="?" class="btn btn-secondary">Annuler</a>
+         </div>
+      </div>';
+      echo foot_html();
+   }
+
+   private function updateProgress($message, $progress = null) {
+      error_log("DEPLOY: " . $message);
+      echo '<script>if(typeof updateStatus !== "undefined") updateStatus("' . addslashes($message) . '");</script>';
+      echo ' ';
+      for ($i = 0; $i < ob_get_level(); $i++) {
+          ob_flush();
+      }
       flush();
-      // Petite pause pour éviter la surcharge CPU
-      usleep(10000); // 10ms
+      usleep(10000);
    }
 
-   /**
-   * Nettoie un répertoire (méthode publique)
-   */
-   public function cleanupDirectory(string $directory): array {
+   public function extractFirstFolderContent(string $archivePath, string $targetDir, string $format, string $version, bool $isUpdate = false): array {
       global $lang;
-      try {
-         $this->removeDirectory($directory);
-         return $this->createResult(true, "Dossier nettoyé: " . $directory);
-      } catch (Exception $e) {
-         return $this->createResult(false, t('cleanup_error', $lang) . ": " . $e->getMessage());
+      
+      $tempExtractDir = $this->tempDir . '/' . uniqid('extract_');
+      if (!@mkdir($tempExtractDir, 0755, true)) {
+         return $this->createResult(false, t('temp_dir_error', $lang));
       }
-   }
 
-   /**
-   * Extrait uniquement le contenu du premier dossier de l'archive
-   */
-   private function extractFirstFolderContent(string $archivePath, string $targetDir, string $format,string $version, bool $isUpdate = false): array {
-      global $lang;
-      error_log('🔍 '. t('extracting' ,$lang) . ': ' . filesize($archivePath) . " bytes");
-      $this->logToInstallLog('🔍 '. t('extracting' ,$lang) . ': ' . filesize($archivePath) . " bytes", 'INFO', $targetDir);
-      $this->keepAlive(t('start_extraction',$lang));
-      // Vérification du répertoire cible
-      if (!is_dir($targetDir) && !@mkdir($targetDir, 0755, true)) {
-         error_log('❌ ' . t('target_dir_error', $lang) . ': ' . $targetDir);
-         $this->logToInstallLog('❌ ' . t('target_dir_error', $lang) . ': ' . $targetDir, 'ERROR', $targetDir);
-         return $this->createResult(false, t('target_dir_error', $lang));
-      }
-      if (!is_writable($targetDir)) {
-         error_log('❌ ' . t('target_permission_error', $lang) . ': '. $targetDir);
-         $this->logToInstallLog('❌ ' . t('target_permission_error', $lang) . ': ' . $targetDir, 'ERROR', $targetDir);
-         return $this->createResult(false, t('target_permission_error', $lang));
-      }
-      echo '<li class="progress" id="extraction-step">📂 ' . t('extraction_progress', $lang) . '...</li>';
-      $this->keepAlive(t('start_extraction',$lang));
       try {
-         // Créer un répertoire temporaire pour l'extraction complète
-         $tempExtractDir = $this->tempDir . '/' . uniqid('extract_');
-         if (!@mkdir($tempExtractDir, 0755, true)) {
-            error_log('❌ ' . t('temp_dir_error', $lang) . ': ' . $tempExtractDir);
-            $this->logToInstallLog('❌ ' . t('temp_dir_error', $lang) . ': ' . $tempExtractDir, 'ERROR', $targetDir);
-            return $this->createResult(false, t('temp_dir_error', $lang));
-         }
-         echo '<script>document.getElementById("extraction-step").innerHTML = "🔄 Extraction de l\'archive en cours...";</script>';
-         $this->keepAlive("Extraction archive");
-         // Extraction complète de l'archive dans le répertoire temporaire
          if ($format === 'zip') {
             $zip = new ZipArchive();
             if ($zip->open($archivePath) !== true) {
                $this->removeDirectory($tempExtractDir);
-               error_log('❌ ' . t('zip_open_error', $lang));
-               $this->logToInstallLog('❌ ' . t('zip_open_error', $lang), 'ERROR', $targetDir);
                return $this->createResult(false, t('zip_open_error', $lang));
             }
-            $totalFiles = $zip->numFiles;
-            echo '<script>document.getElementById("extraction-step").innerHTML = "📄 Extraction: 0/' . $totalFiles . ' fichiers";</script>';
-            $this->keepAlive("Extraction: 0/$totalFiles fichiers");
-            // Extraire avec progression
-
-            for ($i = 0; $i < $totalFiles; $i++) {
-               $zip->extractTo($tempExtractDir, $zip->getNameIndex($i));
-               // Feedback toutes les 50 fichiers
-               if ($i % 50 === 0) {
-                  $percent = round(($i / $totalFiles) * 100);
-                  echo '<script>document.getElementById("progress").innerHTML = "📄 Extraction: ' . $percent . '% (' . $i . '/' . $totalFiles . ')"</script>';
-                  echo '<!-- progression: ' . $percent . '% -->';
-                  $this->keepAlive("Extraction: $i/$totalFiles fichiers");
-                 if (ob_get_level() > 0)
-                     ob_flush();
-                 flush();
-                }
-            }
-            error_log("🔄 Début extraction - $totalFiles fichiers total");
-
-            for ($i = 0; $i < $totalFiles; $i++) {
-               // DIAGNOSTIC CRITIQUE - Avant chaque extraction
-               if ($i % 100 === 0) {
-                  $memory = round(memory_get_usage(true) / 1024 / 1024, 2);
-                  error_log("🔍 Fichier $i/$totalFiles - Mémoire: {$memory}MB");
-               }
-               // RESET TIMEOUT agressif
-               if ($i % 100 === 0)
-                  set_time_limit(300);
-               // EXTRACTION avec gestion d'erreur
-               $filename = $zip->getNameIndex($i);
-               $success = $zip->extractTo($tempExtractDir, $filename);
-               if (!$success)
-                  error_log("❌ Échec extraction $i: $filename"); // Mais on CONTINUE
-               // KEEPALIVE renforcé
-               if ($i % 20 === 0) {
-                  $percent = round(($i / $totalFiles) * 100);
-                  echo '<script>document.getElementById("progress").innerHTML = "📄 Extraction: ' . $percent . '% (' . $i . '/' . $totalFiles . ')"</script>';
-                  echo ' '; // Micro keepalive
-                  flush();
-               }
-               // KeepAlive fréquent
-               if ($i % 10 === 0) {
-               $this->keepAlive("Extraction $i/$totalFiles");
-               }
-            }
-            error_log("✅ Extraction TERMINÉE - $i fichiers traités");
+            $zip->extractTo($tempExtractDir);
             $zip->close();
-            echo '<script>document.getElementById("extraction-step").innerHTML = "✅ ' . t('extraction_finished',$lang) .': ' . $totalFiles . ' fichiers";</script>';
-         } else {
-            $phar = new PharData($archivePath);
-            $phar->extractTo($tempExtractDir);
-            echo '<li class="progress">✅ Extraction TAR.GZ terminée</li>';
          }
-         $this->keepAlive(t('extraction_finished',$lang));
 
-         // Trouver le premier dossier dans l'archive extraite
          $firstFolder = $this->findFirstFolder($tempExtractDir);
          if (!$firstFolder) {
             $this->removeDirectory($tempExtractDir);
-            error_log('❌ ' . t('no_folder_in_archive', $lang));
-            $this->logToInstallLog('❌ ' . t('no_folder_in_archive', $lang), 'ERROR', $targetDir);
-            echo '<li class="progress">❌ '. t('no_folder_in_archive', $lang) .'</li>';
             return $this->createResult(false, t('no_folder_in_archive', $lang));
          }
-         // VÉRIFICATION SUPPLEMENTAIRE : Si le dossier contient revolution_16, on l'utilise
-         $revolutionPath = $firstFolder . '/revolution_16';
-         if (is_dir($revolutionPath)) {
+         // ⭐⭐ CORRECTION CRITIQUE : RECHERCHE revolution_16
+      error_log("🔍 Premier dossier trouvé: " . basename($firstFolder));
+        
+        $revolutionPath = $firstFolder . '/revolution_16';
+        if (is_dir($revolutionPath)) {
             $firstFolder = $revolutionPath;
-            error_log("✅ Dossier revolution_16 trouvé à l'intérieur");
-            echo '<script>document.getElementById("extraction-step").innerHTML = "✅ Dossier revolution_16 détecté";</script>';
-            $this->keepAlive("Dossier revolution_16 détecté");
-         }
-         // Copier le contenu DIRECTEMENT sans le dossier parent
-         echo '<li class="progress" id="copy-step">📋 '. t('copying_files',$lang) .'...</li>';
-         $this->keepAlive(t('copying_files',$lang));
-         $this->copyDirectoryContentsFlat($firstFolder, $targetDir, $version, $isUpdate);
-         // Nettoyer le répertoire temporaire
+            error_log("✅ Dossier revolution_16 trouvé - utilisation: " . $firstFolder);
+        } else {
+            error_log("❌ Dossier revolution_16 NON trouvé dans: " . $firstFolder);
+            
+            // Debug: lister le contenu du premier dossier
+            $items = scandir($firstFolder);
+            error_log("📁 Contenu du premier dossier: " . implode(', ', $items));
+        }
+
+        error_log("🚀 Copie depuis: " . $firstFolder . " vers: " . $targetDir);
+        $this->copyDirectoryContentsFlat($firstFolder, $targetDir, $version, $isUpdate);
+        $this->removeDirectory($tempExtractDir);
+
+        return $this->createResult(true, "Contenu extrait avec succès");
+        
+    } catch (Exception $e) {
          $this->removeDirectory($tempExtractDir);
-         echo '<script>document.getElementById("extraction-step").innerHTML = "✅ ' . t('extraction_finished',$lang) .': ' . $totalFiles . ' fichiers";</script>';
-         $this->keepAlive("Extraction et copie terminées");
-         return $this->createResult(true, "Contenu du premier dossier extrait avec succès", [
-             'extracted_folder' => basename($firstFolder)
-         ]);
-      } catch (Exception $e) {
-         if (isset($tempExtractDir) && is_dir($tempExtractDir))
-            $this->removeDirectory($tempExtractDir);
-         error_log('💥 ' . t('extraction_error', $lang) . ': ' . $e->getMessage());
-         $this->logToInstallLog('💥 ' . t('extraction_error', $lang) . ': ' . $e->getMessage(), 'ERROR', $targetDir);
-         echo '<li class="progress">❌ ' . t('extraction_error', $lang) .'</li>';
          return $this->createResult(false, t('extraction_error', $lang) . ': ' . $e->getMessage());
       }
    }
 
-   /**
-   * Copie le contenu d'un répertoire sans le dossier parent
-   */
    private function copyDirectoryContentsFlat(string $source, string $destination, $version = null, $isUpdate = false): void {
       global $lang;
-      error_log('🔄 ' . t('copying_files', $lang). ' - Update: ' . ($isUpdate ? 'OUI' : 'NON'));
-      echo '<script>document.getElementById("copy-step").innerHTML = "📂 ' . t('copying_files', $lang) . '...";</script>';
-      flush();
+      
       if (!is_dir($destination))
          mkdir($destination, 0755, true);
-      $dirIterator = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
-      $iterator = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
-      $totalFiles = iterator_count($iterator);
-      if ($totalFiles === 0) 
-         throw new Exception(t('no_files_to_copy',$lang) . ': ' . $source);
-      $fileCount = 0;
-      $skippedCount = 0;
+         
+      $iterator = new RecursiveIteratorIterator(
+         new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
+         RecursiveIteratorIterator::SELF_FIRST
+      );
+
       foreach ($iterator as $item) {
-         $fileCount++;
          $relativePath = $iterator->getSubPathName();
          $targetPath = $destination . DIRECTORY_SEPARATOR . $relativePath;
+
          if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
-            $skippedCount++;
-//            error_log("🔒 DOSSIER EXCLU: $relativePath");
             continue;
          }
-         
-        if ($fileCount % 25 === 0) {
-            $percent = round(($fileCount / $totalFiles) * 100);
-            $status = '📁 ' . t('copied',$lang) . ": $percent% ($fileCount/$totalFiles)";
-            if ($isUpdate)
-               $status .= " - Ignorés: $skippedCount";
-            echo '<script>document.getElementById("progress").innerHTML = "'.$status.'";</script>';
-            echo '<div style="display:none">Progression: ' . $percent . '%</div>';
-            echo str_repeat(' ', 262144);
-            if (ob_get_level() > 0)
-                ob_flush();
-            flush();
-         }
-
-         $targetPath = $destination . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
 
          if ($item->isDir()) {
             if (!is_dir($targetPath))
@@ -1627,23 +1377,11 @@ class GithubDeployer {
             $parentDir = dirname($targetPath);
             if (!is_dir($parentDir))
                mkdir($parentDir, 0755, true);
-            if (!copy($item->getRealPath(), $targetPath))
-               throw new Exception(t('copy_error',$lang) .': '. $item->getFilename());
+            copy($item->getRealPath(), $targetPath);
          }
       }
-      $finalStatus = '✅ ' . t('copy_complete',$lang) . ': ' .$fileCount.' éléments';
-      if ($isUpdate)
-         $finalStatus .= " ($skippedCount ignorés)";
-      echo '<script>document.getElementById("copy-step").innerHTML = "'.$finalStatus.'";</script>';
-      if (ob_get_level() > 0)
-         ob_flush();
-      flush();
-      error_log("✅ copyDirectoryContentsFlat terminée: $fileCount fichiers" . ($isUpdate ? ", $skippedCount ignorés" : ''));
    }
 
-   /**
-   * Trouve le premier dossier dans un répertoire
-   */
    private function findFirstFolder(string $directory): ?string {
       $items = scandir($directory);
       foreach ($items as $item) {
@@ -1653,9 +1391,31 @@ class GithubDeployer {
       return null;
    }
 
-   /**
-   * Supprime récursivement un répertoire
-   */
+   public function downloadFile(string $url, string $destination): array {
+      global $lang;
+      $context = stream_context_create([
+         'http' => ['timeout' => $this->timeout],
+         'ssl' => ['verify_peer' => false]
+      ]);
+      $source = @fopen($url, 'rb', false, $context);
+      if (!$source) {
+         return $this->createResult(false, t('failed_download', $lang));
+      }
+      $dest = @fopen($destination, 'wb');
+      if (!$dest) {
+         fclose($source);
+         return $this->createResult(false, t('write_error', $lang));
+      }
+      stream_copy_to_stream($source, $dest);
+      fclose($source);
+      fclose($dest);
+      return $this->createResult(true, t('download_success',$lang), ['size' => filesize($destination)]);
+   }
+
+   public function buildVersionUrl(string $baseUrl, string $version, string $format): string {
+      return rtrim($baseUrl, '/') . '/' . $version . '.' . $format;
+   }
+
    private function removeDirectory(string $directory): void {
       if (!is_dir($directory)) return;
       $files = new RecursiveIteratorIterator(
@@ -1671,282 +1431,148 @@ class GithubDeployer {
       @rmdir($directory);
    }
 
-   /**
-   * Construit l'URL de téléchargement
-   */
-   private function buildVersionUrl(string $baseUrl, string $version, string $format): string {
-     return rtrim($baseUrl, '/') . '/' . $version . '.' . $format;
-   }
-
-   /**
-   * Télécharge un fichier avec gestion des redirections et suivi de progression
-   */
-   private function downloadFile(string $url, string $destination,?string $targetDir = null): array {
-      global $lang;
-      error_log('📥 ' . t('file_download_start', $lang) . ": " . basename($destination));
-      $this->logToInstallLog('📥 ' . t('file_download_start', $lang) . ': ' . basename($destination), 'INFO', $targetDir);
-      $context = $this->createStreamContext();
-      $source = @fopen($url, 'rb', false, $context);
-      if (!$source) {
-         error_log("❌ Impossible d'ouvrir l'URL: $url");
-         $this->logToInstallLog("❌ Impossible d'ouvrir l'URL: $url", 'ERROR', $targetDir);
-         return $this->createResult(false, t('failed_download', $lang));
-      }
-      $dest = @fopen($destination, 'wb');
-      if (!$dest) {
-         fclose($source);
-         error_log("❌ Impossible de créer le fichier: $destination");
-         $this->logToInstallLog("❌ Impossible de créer le fichier: $destination", 'ERROR', $targetDir);
-         return $this->createResult(false, t('write_error', $lang));
-      }
-      // Copie avec feedback
-      $downloaded = 0;
-      while (!feof($source)) {
-         $data = fread($source, 8192);
-         fwrite($dest, $data);
-         $downloaded += strlen($data);
-         // Feedback toutes les 100KB
-         if ($downloaded % (100 * 1024) === 0) {
-             $mb = round($downloaded / 1024 / 1024, 2);
-             echo '<script>document.getElementById("progress").innerHTML = "📥 '.t('downloading', $lang).': ' . $mb . ' MB"</script>';
-             $this->keepAlive("Downloaded: $mb MB");
-         }
-      }
-      fclose($source);
-      fclose($dest);
-      $finalSize = filesize($destination);
-      $finalSizeMB = round($finalSize / 1024 / 1024, 2);
-      error_log('✅ ' . t('file_download_finished', $lang) . ': ' .$finalSizeMB. ' MB');
-      $this->logToInstallLog('✅ ' . t('file_download_finished', $lang) . ': ' .$finalSizeMB. ' MB', 'SUCCESS', $targetDir);
-      return $this->createResult(true, t('download_success',$lang), ['size' => $finalSize]);
-   }
-
-   /**
-   * Crée le contexte de stream pour les téléchargements
-   */
-   private function createStreamContext() {
-      $options = [
-         'http' => [
-            'method' => 'GET',
-            'header' => [
-               'User-Agent: ' . $this->userAgent,
-               'Accept: application/octet-stream',
-               'Connection: close'
-            ],
-            'timeout' => $this->timeout,
-            'ignore_errors' => true
-         ],
-         'ssl' => [
-            'verify_peer' => false,
-            'verify_peer_name' => false
-         ]
-      ];
-      return stream_context_create($options);
-   }
-
-   /**
-   * Crée un résultat standardisé et log
-   */
    private function createResult(bool $success, string $message, array $data = []): array {
-      $result = [
+      return [
          'success' => $success,
          'message' => $message,
          'data' => $data,
          'timestamp' => time()
       ];
-      return $result;
    }
 
-   /**
-   * Calcule la taille d'un dossier
-   */
-   private function getDirectorySize(string $path): string {
-      if (!is_dir($path)) return '0 bytes';
-      $size = 0;
-      $files = new RecursiveIteratorIterator(
-         new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS)
-      );
+   private function cleanupOldFiles(): void {
+      if (!is_dir($this->tempDir)) return;
+      $files = glob($this->tempDir . '/*');
+      $now = time();
       foreach ($files as $file) {
-         $size += $file->getSize();
-      }
-      return round($size / 1024 / 1024, 2) . ' Mo';
-   }
-
-   public function getDeployedSize($path): string {
-      return $this->getDirectorySize($path);
-   }
-
-   public function logToInstallLog($message, $type = 'INFO', $targetDir = null): void {
-      $baseDir = $targetDir ?? __DIR__;
-      $logDir = $baseDir . '/slogs';
-      $logFile = $logDir . '/install.log';
-      $timestamp = date('d/m/y H:i:s');
-      $logEntry = "$timestamp : $type : $message\n";
-      // Créer le dossier slogs s'il n'existe pas
-      if (!is_dir($logDir))
-         @mkdir($logDir, 0755, true);
-      // Ajouter au fichier log
-      @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX);
-   }
-
-}
-
-// ==================== INTERFACE TEMPORAIRE DE MISE À JOUR ====================
-/**
-* Interface temporaire pour migration 16.4 → 16.8
-*/
-function showUpdateInterface() {
-    return '
-    <div class="section-maintenance py-1">
-        <h3 class="my-1"><span class="display-6">🔄 </span>Mise à jour NPDS 16.4 → 16.8</h3>
-        <div class="alert alert-warning">
-            <small>⚠️ Interface temporaire de migration</small>
-        </div>
-        <ul class="mt-1">
-            <li><a href="?op=update&confirm=yes" onclick="return confirm(\'⚠️ Mettre à jour NPDS 16.4 vers 16.8 ?\')">
-                🚀 Lancer la mise à jour vers NPDS 16.8
-            </a></li>
-        </ul>
-    </div>';
-}
-
-function processTemporaryUpdate() {
-   global $lang;
-   echo head_html();
-   echo '<h2 class="ms-3"><span class="display-6">🔄 </span>Mise à jour NPDS 16.4 → 16.8</h2>';
-   echo '<div class="alert alert-info">Migration vers NPDS 16.8 en cours...</div>';
-   flush();
-   // Utiliser le déployeur pour la mise à jour
-   $deployer = new GithubDeployer(['tempDir' => __DIR__ . '/npds_deployer_temp/']);
-   $result = $deployer->deployVersion(
-   'https://github.com/npds/npds_dune/archive/refs/tags',
-   'v.16.8', // VERSION FIXE - pas besoin de détection
-   'zip',
-   __DIR__ // RACINE DU DOMAINE (npds_deployer.php est à la racine)
-   );
-   if ($result['success']) {
-      echo '<div class="alert alert-success">✅ Mise à jour réussie !</div>';
-      echo '<p><a href="admin.php">➡️ Accéder à la nouvelle administration NPDS 16.8</a></p>';
-   } else 
-      echo '<div class="alert alert-danger">❌ Erreur: ' . htmlspecialchars($result['message']) . '</div>';
-   echo foot_html();
-}
-
-/**
-* Fonction principale de déploiement
-*/
-function deployNPDS($version = null, $installPath = null) {
-   global $lang;
-   // VÉRIFICATION DE SÉCURITÉ
-   if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
-      die("❌ " . t('security_warning', $lang));
-
-   // Vérification supplémentaire en mode update
-   global $context;
-
-   if ($version === null)
-      $version = $_GET['version'] ?? 'v.16.4';
-   if ($installPath === null)
-      $installPath = isset($_GET['path']) ? $_GET['path'] : __DIR__;
-   $installPath = rtrim($installPath, '/');
-   if (($context === 'deploy' || $context === 'update') && !headers_sent())
-      header('Content-Type: text/html; charset=utf-8');
-   echo head_html();
-   echo '
-      <h2 class="ms-3"><span class="display-6">🚀 </span>' . t('deploying', $lang) . '</h2>
-      <p><strong>' . t('version', $lang) . ':</strong> ' . htmlspecialchars($version) . ' ==> <strong>' . t('path', $lang) . ':</strong> ' . htmlspecialchars($installPath) . '</p>';
-   if ($version === 'master') {
-      echo '
-        <div class="section-danger py-2">
-           <strong>‼️ ' . t('development_version', $lang) . '</strong><br />' . t('dev_warning', $lang) .'
-        </div>';
-   }
-   echo '
-    <div class="section-maintenance py-2"
-      <ul style="list-style-type: none;">
-         <li class="progress" id="progress">📦 ' . t('initializing', $lang) . '...</li>
-         <li><hr /></li>';
-   flush();
-   $deployer = new GithubDeployer(['tempDir' => __DIR__ . '/npds_deployer_temp/']);
-   if ($version === 'master')
-      $result = $deployer->deployMaster($installPath);
-   else {
-      $result = $deployer->deployVersion(
-         'https://github.com/npds/npds_dune/archive/refs/tags',
-         $version,
-         'zip',
-         $installPath
-      );
-   }
-   echo '
-       </ul>
-    </div>';
-   flush();
-
-   if ($result['success']) {
-      echo '
-        <script>document.getElementById("progress").innerHTML = "✅ ' . t('processing_result', $lang) . '";</script>
-        <div class="section-success py-2">
-           <h3><span class="display-6">🎉 </span>' . t('success', $lang) . ' !</h3>
-           <ul>';
-      // Log final détaillé
-      $deployer->logToInstallLog(t('deployment_complete',$lang), 'SUCCESS');
-      $deployer->logToInstallLog(t('version',$lang). ' : ' . ($result['data']['version'] ?? 'inconnue'), 'INFO');
-      $deployer->logToInstallLog("Dossier cible: " . $installPath, 'INFO');
-      $sizeInMB = $deployer->getDeployedSize($installPath);
-      echo '<li>📦 ' . $sizeInMB . ' ' . t('deployed_size', $lang) . '</li>';
-      $fileCount = 0;
-      $dirCount = 0;
-      if (is_dir($installPath)) {
-         $items = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($installPath, RecursiveDirectoryIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::SELF_FIRST
-         );
-         foreach ($items as $item) {
-            if ($item->isFile()) $fileCount++;
-            else $dirCount++;
+         if (filemtime($file) < ($now - 3600)) {
+            @unlink($file);
          }
       }
-      echo '<li>📁 ' . ($fileCount + $dirCount) . ' ' . t('items_installed', $lang) . ' (' . $fileCount . ' ' . t('files', $lang) . ', ' . $dirCount . ' ' . t('folders', $lang) . ')</li>';
-      $relativePath = str_replace(__DIR__, '', $installPath);
-      if ($relativePath === '')
-         $relativePath = '';
-      else
-         $relativePath = '/' . trim($relativePath, '/');
-      $baseUrl = 'https://' . $_SERVER['HTTP_HOST'] . $relativePath;
-      // ==================== GESTION RETOUR ADMIN ====================
-      if (isset($_GET['return_url'])) {
-         $returnUrl = str_replace('/lib/deployer', '', $_GET['return_url']);
-         $returnUrl .= (strpos($returnUrl, '?') === false ? '?' : '&') . 'action=success&version=' . urlencode($version);
-         echo '
-         <div class="mt-3 alert alert-success">
-            <p>✅ Redirection vers l\'administration dans 10 secondes...</p>
-            <p><a href="' . $returnUrl . '" class="btn btn-primary">Cliquer ici pour retourner maintenant</a></p>
-         </div>
-         <script>
-            setTimeout(function() {
-               window.location.href = "' . $returnUrl . '";
-            }, 10000);
-         </script>';
-      } else
-         echo '
-         <p><a class="btn btn-success" style="color:white;" href="' . $baseUrl . '/install.php?langue='.$lang.'&amp;stage=1" target="_blank" >' . t('launch_installation', $GLOBALS['lang']) . '</a></p>';
-      echo '</div>';
-   } else
-      echo '
-        <div class="error">
-           <h2>❌ ' . t('error', $GLOBALS['lang']) . '</h2>
-            <p>' . htmlspecialchars($result['message']) . '</p>
-        </div>';
-   echo foot_html();
+   }
+
+   public function cleanupDirectory(string $directory): array {
+      global $lang;
+      try {
+         $this->removeDirectory($directory);
+         return $this->createResult(true, "Dossier nettoyé: " . $directory);
+      } catch (Exception $e) {
+         return $this->createResult(false, t('cleanup_error', $lang) . ": " . $e->getMessage());
+      }
+   }
+   
+   public function getTempDir(): string {
+      return $this->tempDir;
+   }
 }
 
-/**
-* Fonction de traduction
-*/
-function t($key, $lang = 'fr') {
-   global $translations;
-   return $translations[$lang][$key] ?? $translations['fr'][$key] ?? $key;
+// ==================== FONCTIONS D'INTERFACE ====================
+function head_html_deploy($title = 'Déploiement en cours') {
+   global $lang;
+   return '<!DOCTYPE html>
+<html lang="'.$lang.'">
+   <head>
+      <meta charset="utf-8">
+      <title>' . htmlspecialchars($title) . '</title>
+      <style>
+         body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+         .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+         .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
+         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+         .status { text-align: center; font-size: 18px; margin: 20px 0; color: #333; }
+         .progress-container { margin: 20px 0; text-align: center; }
+         .progress-bar { width: 100%; height: 20px; background: #f0f0f0; border-radius: 10px; overflow: hidden; }
+         .progress-fill { height: 100%; background: linear-gradient(90deg, #2196F3, #1976D2); transition: width 1.5s ease; border-radius: 10px; }
+         .progress-text { margin-top: 5px; font-weight: bold; color: #333; }
+         .process-label { margin-top: 3px; font-size: 12px; color: #666; font-style: italic; }
+         .logs { background: #1e1e1e; color: #00ff00; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 12px; overflow-y: auto; margin-top: 20px; }
+         .success { color: green; }
+         .error { color: red; }
+         .btn { display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; margin: 10px; }
+         .bg-light {background-color: #f8f9fa!important; padding: 20px;}
+      </style>
+   </head>
+   <body>
+      <div class="bg-light">
+         <h1>NPDS<br><small>Déploiement</small></h1>
+      </div>
+      <div class="container">
+         <h2 style="text-align: center;">🚀 Déploiement NPDS</h2>
+         <div class="progress-container">
+            <div class="progress-bar">
+               <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text" id="progressText">0%</div>
+            <div class="process-label" id="processLabel"></div>
+         </div>
+         <div class="spinner"></div>
+         <div class="status" id="status">Initialisation...</div>
+         <div class="logs" id="logs"></div>
+         <div id="result" style="display: none;"></div>
+         <script>
+            function updateStatus(message) {
+               console.log("📨 updateStatus appelé avec:", message);
+               const cleanMessage = message.replace(/[\r\n]+/g, " • ").trim();
+               if (message.startsWith("PROCESS:")) {
+                  console.log("🎯 PROCESS détecté:", message);
+                  const processName = message.split(":")[1];
+                  changeProcess(processName);
+                  return;
+               }
+               if (message.startsWith("PROGRESS:")) {
+                  console.log("📊 PROGRESS détecté:", message);
+                  const percent = parseInt(message.split(":")[1]);
+                  updateProgressBar(percent);
+                  return;
+               }
+               document.getElementById("status").textContent = cleanMessage;
+               addLog("> " + cleanMessage);
+            }
+
+            function addLog(message) {
+               const logsElement = document.getElementById("logs");
+               const cleanMessage = message.replace(/[\r\n]+/g, " • ");
+               logsElement.innerHTML += cleanMessage + "<br>";
+               logsElement.scrollTop = logsElement.scrollHeight;
+            }
+
+            function changeProcess(processName) {
+                console.log("🔄 Changement de processus:", processName);
+                const processLabel = document.getElementById("processLabel");
+                const progressFill = document.getElementById("progressFill");
+                progressFill.style.width = "0%";
+                progressFill.style.transition = "none";
+                const colors = {
+                    "BACKUP": "linear-gradient(90deg, #FF9800, #F57C00)",
+                    "DOWNLOAD": "linear-gradient(90deg, #2196F3, #1976D2)", 
+                    "EXTRACT": "linear-gradient(90deg, #4CAF50, #388E3C)",
+                    "COPY": "linear-gradient(90deg, #9C27B0, #7B1FA2)"
+                };
+                progressFill.style.background = colors[processName] || colors["DOWNLOAD"];
+                const labels = {
+                    "BACKUP": "Sauvegarde en cours...",
+                    "DOWNLOAD": "Téléchargement en cours...",
+                    "EXTRACT": "Extraction en cours...",
+                    "COPY": "Copie finale en cours..."
+                };
+                processLabel.textContent = labels[processName] || "";
+                setTimeout(() => {
+                    progressFill.style.transition = "width 0.5s ease";
+                }, 50);
+            }
+
+            function updateProgressBar(percent) {
+               console.log("📊 Mise à jour barre:", percent + "%");
+               const progressFill = document.getElementById("progressFill");
+               const progressText = document.getElementById("progressText");
+               progressFill.style.width = percent + "%";
+               progressText.textContent = percent + "%";
+            }
+         </script>';
+}
+
+function foot_html_deploy() {
+    return '</body></html>';
 }
 
 /**
@@ -1962,7 +1588,7 @@ function renderLanguageSelector($currentLang) {
    ];
    $html = '
    <div class="float-end small">
-      <img width="48" height="48" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAOwAAADsAEnxA+tAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAEZ9JREFUeJztnWmUHFUVgL+ZLJMJCQQTExIUIaAQQEFZZBMGxBUBRREEl+NCVI4IakRFxD6gB2Q17gsqiOIuEOMuiyIgJAaDBoSAShRIENFkEsbMZKb9cbvs+25XdVfVe9U9M9R3Tp2pmqq+71XVq7fce999UFJSUlJSUlJSUlJSUlJSUlJSUlJSUlIynukyx73A7sC2HchLHIPAGuBvHc7HuGcKcDGwEaiOwm05cHBhd/8kZxLwKzr/klttm4GXFPQMntScTudfbtrtIaSZKglEF/AHYK/a8QCwCLivYzlymQScAbxY/e9VwLWdyc745L/Uv7BPdzgvcczErQU+2NnsjC+6gR51/K9OZaQJNk9TOpKLcUp3pzNQ0lnKAvAkp6gC0AVMK0h2SUAmFiBzJ+AepG/xS9wefLvZGngWotncFtgbyd82wCZEw3gf8E/gH8CDtf0nDUUUgE9Q71i+CNgfuKOAdCwza+ntDTwbUWnvmEPOALAK+D2igVwG3IWMQMYleohV8ZTVhXxFWuaXPGVCfB67gOcCHwZuBbYQRtkUtz0CfBU4Hpge4H5GFSELQB+ND68fqYp90PLOBxYCd8ek1Y5tAPgucDTF1KBtJ2QBuJr4h7bQU66WNZSQRrQNI237ZvP/fmAxsB+iTt4buABYb64bBO4knWHsL8C7gKme99dRQhWAmcjXoV9EtL/cL4stX8RqRIv5cmA2sNKcv4Pk/sAzgN+Z6x8E5gJ7ILaSn5l7s9ujwEcYoyOfUAXgfTQ+dH28T6A8Rts9wPuBnc21XzbX3U7rJmgacIv53U/MNVOB1wJLSa6FHgbeyhjTr4QqALpN7ke+Ri37C4HyuIJk34BDgRF17RpgVso0tgX+atI6MeHa7YCzgXXEF4Q7kaZmTBCiAPQR/7JtocjbGUyTx0kmvSGyO5Hsj/QBIhmP0DzPvcCpSJ/DFoIh4GPA5Ix5aDshCoDt/EXVvW0W8nYG0+Txbea6xTnTusjIOSvFb6YAH6KxQ1lF+iO75sxLW/AtALbztzzluZB5nIxbfa8DZuRMaxqiFYxkPUb6sf8c4Bs0FoL1wCtz5qdwfAtAq688qXYImUf79b8nRxqadxp578/4+1cBa42MEeA8Gh1xO45vAWjVzveZNPJ0BlvlcYU6vxb/cXkP8Hcl8wGyv7hZwM9x815FNIoTPPMXFJ8C0Ee6l+vbGWyWx4PN+Q9nlJ3EIiP3iBwyuoAP4OpEqsB1jCLfRp8CYBUotyMWQLvdZ647M2AedZs7iAzRQjATeELJvtpD1gk0aiaXIiOXjpO3AOxjfptleyxQHqchZt3o3Hczym3FlUr2Jvw0fUcAG3Dv5Zt0WGnkk/irPX47Ez/NYMQrcdv7KwPI1Fyl9qcCx3jIugF4KdIERpwEfNJDpjc+1iw9rBkGbkZMsklsi/vST0Fs7j5oTd2/keYmJDciQ8o5Kj2fpuBW4FhEzRw5t54G/IkwZvNc5GkC+szv0vbs83YG4/K4Fa5L++UpZWXlsyqN/9bS9eUYXHvCIB2a+pa3CbBj/S+n/N1X1P40knXtaTgC16V9iYesZixV+z3A4QFkLsHVME4Cvk16u0VQstYAPtq9vL+Ny+Nn1P82U5ynTi/uaCDU5Jku4Du49/atQLIzkbUA+Or382gG4/K4Wv3vhox5yMrPVFqrA8qdDvwZ9/58OteZydMEvFXtb0SqrizYzs4pOfKwHbCLOi66AGj5uxBO19APvBnpREd8Dqkp20LWAnAIsEAdX42MbbPwa+BedXxSjnzYDtPNGX+flVvM8UEBZd+Ga7mcDZwTUH5Tsj743cxxnqFLFbfT2J0jHweq/SHEdbtIliMjgLj0Q3A2Ys2MeCdtNCFn6QPMQKrD9cC7PdKcClxfk/OGFNfbPP5WHbdjzgHIGD5Ks4ga53W493ldAWnE4mMLaBc2j9rxwsfVLAufU2muJ7xZtwu3kFWB5wVOo4Ex5bxYYwauAumuNqW7Uu1vDewQWH4V8SzWLAqcRgNjcWLDHHO80hzPQDpSs2pbD/WoZ9Nx73kzMsYfRIw9Q0jP/FG1VRPSeQ7iPh6S65H+TORQ+lqkUDwQOB2HsdYEWPftHyA96YdxHTpDbIOIe9gy4Kfm3IUU491zsknnogLScBjtIWLmEvalhtw2Id5IVyMKskPwd/SYhATDitJ4mAJr6pBBoh4kWUvWi2j8soZ3mQRcSuPwczQzhDQXKxEFzyPIc83CUcAL1PHXcHUneRlELLA3U2vaupCpTyFs0sNIT9kOD3uRr6SIl1hFvpa/1ba1iPn2n4jTSbRVkbZ9C9Lmb0YKV+TgMQN5Fr2ItW828FSk9pld2+YC+zJGp38ZliGGuL9A+ECRS3AnQxwUSO4wYkfX/nXnBXsk6aiY/FwAXEPjlPixsD2Isj72IJ2NUKFibwHm1WT3BZC3HClIO5j/+846zspCk/7T1LmdkNqvyDgFobeLo87FZsT3/RxE1/+UDA/lZcB7zf8OQtqaE2KuX0TjkCqJQaSkRsMtO9/ukZRyQmHT2w4ZJYCoctfjunx/HWli/1N81lKxOzKaiXQYx4UQejnJJWwYcavS/+vzSOtoI2tfD1l52Nek/wpz/mxzvofRx/nU87clhCZQf5WrgE+p4278XrhltjleG1B2Gmx6Villh2ubC8xLXnSeJvgWgAm4Vqtl1JUxRWDt5P8uKJ0kbFWepakclfgqGHbGreYOpFgzprYBREO6drKplm703MZ8wCjfGsCO7e3Lvwr4hfnfeo/0dAGIJlm0kyquX79v8Ks0nIrUPL9DdBNB8S0AT0/4fz/i+vxGZJRwLvL1XIhEz8jLNmrfpyD5oNPdJvGqcJxfS+f5pPOdyIRvEzAv5n+PIy89ctQYAT5a23zRPvmbAsjLg063HVrBrRP2g+BbAJ5mjgeQaJ0rPOUmoSdTDhWURiv07KdRMbnTh9B9gHMo7uWD+8CbTUMrEl3wxqI/hYPvDcxV+yOIMahIdH47VQPodH1qgDgL6TzkHtck/GY+cGRtfyrion437sfwVzI4kPgWAD0zdxPFD8t0fkdDDZC3AOS1kL6B1h3BKhIy56tpBPo2AYNqvx3t4Yja71SsHa3rH068qjl7UJyPQxcSoygVvgVAD4mmIBaxIhkNHbAQtdAqZEpYEVQRE3UqfJuA+3FL8geAd3jKbEao9teHECORAcTlW/cBDsD1b1iMzEzuQtr+x5APbiIyHS/SQdyBGxcpUx/Al8W41q8RGi1kIblGpZXWpByaaPGIKvBDc66C+zyy0IvYNqLf3ppw3QkmjTdlTMfJo28TYI0j0ZTnI2OuDYGentUpU6uuAUJa+waA76vjA5GQ9pbT1f5GxCs6N74FIK6qmQr8COmJhkZPRO2UIUarf7NOjG3F582xDXl3JO68xCuRQpAb3wKQ1JGZgkwA/TbhplKD+8DboYePwxqkQrIC8diJOA5Z/wjkXek+whCy4rsXvgXAuirbiB8nIIXkDMKs+Kkf+Fa0XxM3EVf30Z90oQcfU/vdSK3QjcRlOECd+xbiCe1FiGGg9pJZjSyhotvGbYDLkObiDPyqbmsBbHctsDWu/iF0DQDS+dNBNw5GYh+fr/63EXE/GxXoKVMP1f63K42+gNG2AVEZx3VwWnGikdXuCSPPMumfZM5XyD8K0MxBrKr/990zcq0TbhacPIbwCbxR7c9DXsq9SBSvk2nsJ0xHAiDcieixK8CeKdOyPnlzY68qDpveuoLSWYesPxChtY8rcf0uO85+uKXzVHO+Gwl+8Afia4RoW4N0HI8nueO4gOZfYNHYGmgPc75CmBogwsYLGKLeKcxLhbB5ZAKiD0hSjmj2R16yjZkbtz2AuJSdBhxGfflXfc37QtxABs4w6c9CnEJeiEzjXk24h3sKjVHGq8BN+DmGVAhcAACuVQIHaL1ax1bI13Qt7uzkVtsa3AibS5EaaHuKVQ1PRewc31Npb0F0+s1mAuVtYk/HXfzKbsvJ7x9Y0bJCWdROxA1yuJD00UNnIAtMvwQJphznZpaWR5GJoRvUFtVOSS7kPdSHdpORPspTEBf06G/eKd9Zn+8UZO1lO8H2CuT56D7IGqQJtBHMWlEhjHuewxRcPfZvPGTtiRSgK2gMojjaN7ueYBYOQoJG69+PUA/asRsym1efHwQ+TrYCWvHIY1P0FLERZMgUghnIXPlTkYBQeimXTm6bkGhlVyC6j/0Q7+c8D/diGtv7AcSrWjMbN0JatN1P+s5hRf82pFPFYUgHJeIrFGMPWAh8UR2fgrTD85Dx82yk2p6OdJamU/fe1TEBoN48QD1+wBAyBrdbtOhTxLtpjKhSwa1e0zzfvZARkmYVMnL6Y8z1E2tpfAh3eHgN6SZ72jwGZTlu9fSMAtI4ALf0B5nhmoKXmXQPi7mmQvYaYBr15vMJ5OWkUZvvh7s8b5r1DfPmMTXHG+FFKCym4faQKwWkEccHce8tLp5vhXwPd29Euzc/Y566kY7g60lvF6lQYAHoRhZ1joQ/QfKq3T7ozlBq9ydPdJTzhxKuqVDgww1EBZXH0IEiR5BhTEQvxayJo+cetGuRZh3W3rbZY5YiIoVehTv/71jCu4ndpva3p5i+hmYW8Ex1nOSuNeYoogAMI8MiXQUuxn81T81t5rjo9XYOxu3R2/THLEXFCr4ViW0XMZ+wTcEKXJ+DQwLKjkOvDzBMcnh66yCyezHZ8UKv99Bf5OSKWYgmT/eWT8Zv2TXNTdSHYg/griASmhXAc2v7dyBTteM4FFkQI2INEigqyW+vFxkBbEDG/hHDSFyFuEDYU4G3kG/1sn2QkVpE0SutcAzukG0Dblvqw1m4Pe6iCsB2pB92duGOzX22fhoNPrsg/gChtJlHZXwWubjMJLqKMLF17NK17wogM443mXRaLRczn3CBIw9Vcl+Ba2/x3doWZHMyjV/FLfh3CrsRz5lI5o2e8pLQk1H+Rbql32cClyD6Cp/AkX3IfZ5Lc/Nwllrletr05Wt2Qty5dGZ+hL9X7+eVvGH8TMlxTMdd5zDE8q4X4j6HtchQFhqjqh5HY5j6KhLsud3ucN48D3eplyqy2vfkZj9qweFG3mmeebS83sj3nfF0npE3gDuC6TPnN9H48i9jDEcm6aPRA+gG8rs4dSPx9CNZoecL3qhkryN/jdVFY19oGHiNua6Pxheuq2+fpXZHDcfT6DixjPwuTpcYWQc0vzw1C3Db3byzcCYjfv46jyPEz6LuI/7l34e/M+io4mjc9XirSM85z3p81lP4qkB5/JSRu6D55bHMRWo4+/LfnnB9H40vfwmtfSzHJIfgTn6oIj4Ei8juS6e9ZLbgr2uYg9v+5nFxO4r6olP6/qyXj2Y+9VHDFsQE3alIKG3h2cSPmX9MtmXZrL9+WofUJC4y8uLC3ifRg7T3dti2Hgmh14qjkBFSUVPsRx0zkRu2hWAjcCbperwTcP0QtlBfBykrO+MO/e4mvc3k5bXr7b3czdha96jtdCFVf9yyb39C3LFaYZdb+zX5qs+lRs7JKX6zJ/BzGvMe9UnGwzpDbeH5JOu6lyG+BUkvdQKuT2IVmVWbhbeY3y+nueZvT8QbOk7b9xiu4aUkJRMR/7ik6WN3IZNL4+wJ++C+jM2kH1nshdvx20L82r2TkBerdQS2l/81Ghe3KMnI9ojpOG5+XBVRKH0fqRW0XcGqWh+ndX9gAY2q6gvV+R6kU3YpskZQXH6qyGiklbGoJCO7IbFwrPLIFoabkFjFkU3e9sCTquNjESOPvv4mRKH0dsQY1N8k7SpwO8VGRytBDEqfJZ1JdIT4DuW9SHCKs2p/74m5ZpB0lrdBZCa0NtmWtIEpyNe8hPCLRafZfo8ssRcy+FVJTp6KTIy4HHELK+KF/we4DrE07tiWu2oj403NuCPS698NiVO0KzJJNY3zySDiw3c/Yny5E/na76FzkckLZ7wVgCSm1bYZiJ1gB2SW8TrkC19L59YgKikpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKYz/ARJNBPiEPJuvAAAAAElFTkSuQmCC" alt="langage selector" />
+      <img width="40" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAOwAAADsAEnxA+tAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAEZ9JREFUeJztnWmUHFUVgL+ZLJMJCQQTExIUIaAQQEFZZBMGxBUBRREEl+NCVI4IakRFxD6gB2Q17gsqiOIuEOMuiyIgJAaDBoSAShRIENFkEsbMZKb9cbvs+25XdVfVe9U9M9R3Tp2pmqq+71XVq7fce999UFJSUlJSUlJSUlJSUlJSUlJSUlJSUlIynukyx73A7sC2HchLHIPAGuBvHc7HuGcKcDGwEaiOwm05cHBhd/8kZxLwKzr/klttm4GXFPQMntScTudfbtrtIaSZKglEF/AHYK/a8QCwCLivYzlymQScAbxY/e9VwLWdyc745L/Uv7BPdzgvcczErQU+2NnsjC+6gR51/K9OZaQJNk9TOpKLcUp3pzNQ0lnKAvAkp6gC0AVMK0h2SUAmFiBzJ+AepG/xS9wefLvZGngWotncFtgbyd82wCZEw3gf8E/gH8CDtf0nDUUUgE9Q71i+CNgfuKOAdCwza+ntDTwbUWnvmEPOALAK+D2igVwG3IWMQMYleohV8ZTVhXxFWuaXPGVCfB67gOcCHwZuBbYQRtkUtz0CfBU4Hpge4H5GFSELQB+ND68fqYp90PLOBxYCd8ek1Y5tAPgucDTF1KBtJ2QBuJr4h7bQU66WNZSQRrQNI237ZvP/fmAxsB+iTt4buABYb64bBO4knWHsL8C7gKme99dRQhWAmcjXoV9EtL/cL4stX8RqRIv5cmA2sNKcv4Pk/sAzgN+Z6x8E5gJ7ILaSn5l7s9ujwEcYoyOfUAXgfTQ+dH28T6A8Rts9wPuBnc21XzbX3U7rJmgacIv53U/MNVOB1wJLSa6FHgbeyhjTr4QqALpN7ke+Ri37C4HyuIJk34BDgRF17RpgVso0tgX+atI6MeHa7YCzgXXEF4Q7kaZmTBCiAPQR/7JtocjbGUyTx0kmvSGyO5Hsj/QBIhmP0DzPvcCpSJ/DFoIh4GPA5Ix5aDshCoDt/EXVvW0W8nYG0+Txbea6xTnTusjIOSvFb6YAH6KxQ1lF+iO75sxLW/AtALbztzzluZB5nIxbfa8DZuRMaxqiFYxkPUb6sf8c4Bs0FoL1wCtz5qdwfAtAq688qXYImUf79b8nRxqadxp578/4+1cBa42MEeA8Gh1xO45vAWjVzveZNPJ0BlvlcYU6vxb/cXkP8Hcl8wGyv7hZwM9x815FNIoTPPMXFJ8C0Ee6l+vbGWyWx4PN+Q9nlJ3EIiP3iBwyuoAP4OpEqsB1jCLfRp8CYBUotyMWQLvdZ647M2AedZs7iAzRQjATeELJvtpD1gk0aiaXIiOXjpO3AOxjfptleyxQHqchZt3o3Hczym3FlUr2Jvw0fUcAG3Dv5Zt0WGnkk/irPX47Ez/NYMQrcdv7KwPI1Fyl9qcCx3jIugF4KdIERpwEfNJDpjc+1iw9rBkGbkZMsklsi/vST0Fs7j5oTd2/keYmJDciQ8o5Kj2fpuBW4FhEzRw5t54G/IkwZvNc5GkC+szv0vbs83YG4/K4Fa5L++UpZWXlsyqN/9bS9eUYXHvCIB2a+pa3CbBj/S+n/N1X1P40knXtaTgC16V9iYesZixV+z3A4QFkLsHVME4Cvk16u0VQstYAPtq9vL+Ny+Nn1P82U5ynTi/uaCDU5Jku4Du49/atQLIzkbUA+Or382gG4/K4Wv3vhox5yMrPVFqrA8qdDvwZ9/58OteZydMEvFXtb0SqrizYzs4pOfKwHbCLOi66AGj5uxBO19APvBnpREd8Dqkp20LWAnAIsEAdX42MbbPwa+BedXxSjnzYDtPNGX+flVvM8UEBZd+Ga7mcDZwTUH5Tsj743cxxnqFLFbfT2J0jHweq/SHEdbtIliMjgLj0Q3A2Ys2MeCdtNCFn6QPMQKrD9cC7PdKcClxfk/OGFNfbPP5WHbdjzgHIGD5Ks4ga53W493ldAWnE4mMLaBc2j9rxwsfVLAufU2muJ7xZtwu3kFWB5wVOo4Ex5bxYYwauAumuNqW7Uu1vDewQWH4V8SzWLAqcRgNjcWLDHHO80hzPQDpSs2pbD/WoZ9Nx73kzMsYfRIw9Q0jP/FG1VRPSeQ7iPh6S65H+TORQ+lqkUDwQOB2HsdYEWPftHyA96YdxHTpDbIOIe9gy4Kfm3IUU491zsknnogLScBjtIWLmEvalhtw2Id5IVyMKskPwd/SYhATDitJ4mAJr6pBBoh4kWUvWi2j8soZ3mQRcSuPwczQzhDQXKxEFzyPIc83CUcAL1PHXcHUneRlELLA3U2vaupCpTyFs0sNIT9kOD3uRr6SIl1hFvpa/1ba1iPn2n4jTSbRVkbZ9C9Lmb0YKV+TgMQN5Fr2ItW828FSk9pld2+YC+zJGp38ZliGGuL9A+ECRS3AnQxwUSO4wYkfX/nXnBXsk6aiY/FwAXEPjlPixsD2Isj72IJ2NUKFibwHm1WT3BZC3HClIO5j/+846zspCk/7T1LmdkNqvyDgFobeLo87FZsT3/RxE1/+UDA/lZcB7zf8OQtqaE2KuX0TjkCqJQaSkRsMtO9/ukZRyQmHT2w4ZJYCoctfjunx/HWli/1N81lKxOzKaiXQYx4UQejnJJWwYcavS/+vzSOtoI2tfD1l52Nek/wpz/mxzvofRx/nU87clhCZQf5WrgE+p4278XrhltjleG1B2Gmx6Villh2ubC8xLXnSeJvgWgAm4Vqtl1JUxRWDt5P8uKJ0kbFWepakclfgqGHbGreYOpFgzprYBREO6drKplm703MZ8wCjfGsCO7e3Lvwr4hfnfeo/0dAGIJlm0kyquX79v8Ks0nIrUPL9DdBNB8S0AT0/4fz/i+vxGZJRwLvL1XIhEz8jLNmrfpyD5oNPdJvGqcJxfS+f5pPOdyIRvEzAv5n+PIy89ctQYAT5a23zRPvmbAsjLg063HVrBrRP2g+BbAJ5mjgeQaJ0rPOUmoSdTDhWURiv07KdRMbnTh9B9gHMo7uWD+8CbTUMrEl3wxqI/hYPvDcxV+yOIMahIdH47VQPodH1qgDgL6TzkHtck/GY+cGRtfyrion437sfwVzI4kPgWAD0zdxPFD8t0fkdDDZC3AOS1kL6B1h3BKhIy56tpBPo2AYNqvx3t4Yja71SsHa3rH068qjl7UJyPQxcSoygVvgVAD4mmIBaxIhkNHbAQtdAqZEpYEVQRE3UqfJuA+3FL8geAd3jKbEao9teHECORAcTlW/cBDsD1b1iMzEzuQtr+x5APbiIyHS/SQdyBGxcpUx/Al8W41q8RGi1kIblGpZXWpByaaPGIKvBDc66C+zyy0IvYNqLf3ppw3QkmjTdlTMfJo28TYI0j0ZTnI2OuDYGentUpU6uuAUJa+waA76vjA5GQ9pbT1f5GxCs6N74FIK6qmQr8COmJhkZPRO2UIUarf7NOjG3F582xDXl3JO68xCuRQpAb3wKQ1JGZgkwA/TbhplKD+8DboYePwxqkQrIC8diJOA5Z/wjkXek+whCy4rsXvgXAuirbiB8nIIXkDMKs+Kkf+Fa0XxM3EVf30Z90oQcfU/vdSK3QjcRlOECd+xbiCe1FiGGg9pJZjSyhotvGbYDLkObiDPyqbmsBbHctsDWu/iF0DQDS+dNBNw5GYh+fr/63EXE/GxXoKVMP1f63K42+gNG2AVEZx3VwWnGikdXuCSPPMumfZM5XyD8K0MxBrKr/990zcq0TbhacPIbwCbxR7c9DXsq9SBSvk2nsJ0xHAiDcieixK8CeKdOyPnlzY68qDpveuoLSWYesPxChtY8rcf0uO85+uKXzVHO+Gwl+8Afia4RoW4N0HI8nueO4gOZfYNHYGmgPc75CmBogwsYLGKLeKcxLhbB5ZAKiD0hSjmj2R16yjZkbtz2AuJSdBhxGfflXfc37QtxABs4w6c9CnEJeiEzjXk24h3sKjVHGq8BN+DmGVAhcAACuVQIHaL1ax1bI13Qt7uzkVtsa3AibS5EaaHuKVQ1PRewc31Npb0F0+s1mAuVtYk/HXfzKbsvJ7x9Y0bJCWdROxA1yuJD00UNnIAtMvwQJphznZpaWR5GJoRvUFtVOSS7kPdSHdpORPspTEBf06G/eKd9Zn+8UZO1lO8H2CuT56D7IGqQJtBHMWlEhjHuewxRcPfZvPGTtiRSgK2gMojjaN7ueYBYOQoJG69+PUA/asRsym1efHwQ+TrYCWvHIY1P0FLERZMgUghnIXPlTkYBQeimXTm6bkGhlVyC6j/0Q7+c8D/diGtv7AcSrWjMbN0JatN1P+s5hRf82pFPFYUgHJeIrFGMPWAh8UR2fgrTD85Dx82yk2p6OdJamU/fe1TEBoN48QD1+wBAyBrdbtOhTxLtpjKhSwa1e0zzfvZARkmYVMnL6Y8z1E2tpfAh3eHgN6SZ72jwGZTlu9fSMAtI4ALf0B5nhmoKXmXQPi7mmQvYaYBr15vMJ5OWkUZvvh7s8b5r1DfPmMTXHG+FFKCym4faQKwWkEccHce8tLp5vhXwPd29Euzc/Y566kY7g60lvF6lQYAHoRhZ1joQ/QfKq3T7ozlBq9ydPdJTzhxKuqVDgww1EBZXH0IEiR5BhTEQvxayJo+cetGuRZh3W3rbZY5YiIoVehTv/71jCu4ndpva3p5i+hmYW8Ex1nOSuNeYoogAMI8MiXQUuxn81T81t5rjo9XYOxu3R2/THLEXFCr4ViW0XMZ+wTcEKXJ+DQwLKjkOvDzBMcnh66yCyezHZ8UKv99Bf5OSKWYgmT/eWT8Zv2TXNTdSHYg/griASmhXAc2v7dyBTteM4FFkQI2INEigqyW+vFxkBbEDG/hHDSFyFuEDYU4G3kG/1sn2QkVpE0SutcAzukG0Dblvqw1m4Pe6iCsB2pB92duGOzX22fhoNPrsg/gChtJlHZXwWubjMJLqKMLF17NK17wogM443mXRaLRczn3CBIw9Vcl+Ba2/x3doWZHMyjV/FLfh3CrsRz5lI5o2e8pLQk1H+Rbql32cClyD6Cp/AkX3IfZ5Lc/Nwllrletr05Wt2Qty5dGZ+hL9X7+eVvGH8TMlxTMdd5zDE8q4X4j6HtchQFhqjqh5HY5j6KhLsud3ucN48D3eplyqy2vfkZj9qweFG3mmeebS83sj3nfF0npE3gDuC6TPnN9H48i9jDEcm6aPRA+gG8rs4dSPx9CNZoecL3qhkryN/jdVFY19oGHiNua6Pxheuq2+fpXZHDcfT6DixjPwuTpcYWQc0vzw1C3Db3byzcCYjfv46jyPEz6LuI/7l34e/M+io4mjc9XirSM85z3p81lP4qkB5/JSRu6D55bHMRWo4+/LfnnB9H40vfwmtfSzHJIfgTn6oIj4Ei8juS6e9ZLbgr2uYg9v+5nFxO4r6olP6/qyXj2Y+9VHDFsQE3alIKG3h2cSPmX9MtmXZrL9+WofUJC4y8uLC3ifRg7T3dti2Hgmh14qjkBFSUVPsRx0zkRu2hWAjcCbperwTcP0QtlBfBykrO+MO/e4mvc3k5bXr7b3czdha96jtdCFVf9yyb39C3LFaYZdb+zX5qs+lRs7JKX6zJ/BzGvMe9UnGwzpDbeH5JOu6lyG+BUkvdQKuT2IVmVWbhbeY3y+nueZvT8QbOk7b9xiu4aUkJRMR/7ik6WN3IZNL4+wJ++C+jM2kH1nshdvx20L82r2TkBerdQS2l/81Ghe3KMnI9ojpOG5+XBVRKH0fqRW0XcGqWh+ndX9gAY2q6gvV+R6kU3YpskZQXH6qyGiklbGoJCO7IbFwrPLIFoabkFjFkU3e9sCTquNjESOPvv4mRKH0dsQY1N8k7SpwO8VGRytBDEqfJZ1JdIT4DuW9SHCKs2p/74m5ZpB0lrdBZCa0NtmWtIEpyNe8hPCLRafZfo8ssRcy+FVJTp6KTIy4HHELK+KF/we4DrE07tiWu2oj403NuCPS698NiVO0KzJJNY3zySDiw3c/Yny5E/na76FzkckLZ7wVgCSm1bYZiJ1gB2SW8TrkC19L59YgKikpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKYz/ARJNBPiEPJuvAAAAAElFTkSuQmCC" alt="langage selector" />
          <ul id="language_selector" class="pe-3 mt-0">
     ';
    foreach ($languages as $code => $name) {
@@ -1975,20 +1601,7 @@ function renderLanguageSelector($currentLang) {
    return $html;
 }
 
-/**
-* Fonction de construction du header html
-*/
 function head_html(){
-/*
-static $header_printed = false;
-    
-    if ($header_printed) {
-        error_log("🚨 HEADER DÉJÀ AFFICHÉ - DOUBLE DÉTECTÉ");
-        return ''; // Ne pas réafficher
-    }
-    
-    $header_printed = true;
-*/
    global $lang;
    return '<!DOCTYPE html>
    <html lang="'.$lang.'">
@@ -1996,7 +1609,7 @@ static $header_printed = false;
          <meta charset="utf-8">
          <title>' . t('welcome', $lang) . '</title>
          <style>
-            :root {
+         :root {
                --bs-body-color: #212529;
                --bs-success: #198754;
                --bs-primary: #0d6efd;
@@ -2011,359 +1624,66 @@ static $header_printed = false;
                --bs-border-width: 1px;
                --bs-border-color: #dee2e6;
             }
-
-            body {font-family: Arial, sans-serif; margin:0; color:var(--bs-body-color)}
-            img, svg {vertical-align: middle;}
-            a {color: #007bff; text-decoration: none;}
-            ul {list-style-type: none; padding: 0;}
-            li {margin: 6px 0;}
-            li#progress {
-               font-size: 1.1rem;
-               color: green;
-               font-family: monospace;
+            body {font-family: Arial, sans-serif; margin:0; color:var(--bs-body-color);}
+            .container-sm { max-width: 800px; margin: 0 auto; padding: 20px; }
+            .bg-light {background-color: var(--bs-light); padding: 0 1rem;}
+            .section-stable, .section-dev, .section-maintenance, .section-advanced, .section-danger {
+               border-radius: 0.375rem; padding: 0.1rem 1rem; margin-bottom: 1rem; border-left: 1.2rem solid;
             }
+            .section-stable {border-color: #198754; background-color: #e3eed7; color: #198754; }
+            .section-dev, .section-danger {border-color: #dc3545; background-color: #f4d2d3; color: #dc3545; }
+            .section-maintenance {border-color: #6c757d; background-color:#f6f7f9; color: #6c757d;}
+            .section-advanced {border-color: #6c757d; background-color:#f6f7f9; }
+            .btn { display: inline-block; padding: 0.375rem 0.75rem; border: 1px solid; border-radius: 0.375rem; text-decoration: none; margin: 0.25rem; }
+            .btn-success { background: #198754; color: white; border-color: #198754; }
+            .btn-danger { background: #dc3545; color: white; border-color: #dc3545; }
+            .btn-secondary { background: #6c757d; color: white; border-color: #6c757d; }
+            .form-control { padding: 0.375rem; border: 1px solid #dee2e6; border-radius: 0.375rem; width: 100%; }
+            .form-select { padding: 0.375rem; border: 1px solid #dee2e6; border-radius: 0.375rem; width: 100%; }
+            .row { display: flex; flex-wrap: wrap; margin: 0 -0.5rem; }
+            .col { flex: 1; padding: 0 0.5rem; }
+            .ms-3 { margin-left: 1rem; }
+            .mt-1 { margin-top: 0.25rem; }
+            .mt-3 { margin-top: 1rem; }
+            .mb-0 {margin-bottom: 0 !important;}
+            .mb-3 {margin-bottom: 1rem !important;}
+            .mb-4 {margin-bottom: 1.5rem !important;}
+            .display-6 { font-size: 2rem; font-weight: 300; }
+            ul { list-style-type: none; padding: 0; }
+            li { margin: 6px 0; }
+            a { color: #007bff; text-decoration: none; }
+            a:hover { color: #0056b3; }
+            .d-flex {display: flex !important;}
+            .align-items-center {align-items: center !important;}
+            .ms-auto {margin-left: auto!important}
+            .small, small {font-size: .875em;}
+            .pe-3 {padding-right: 1rem!important}
+            .mt-0 {margin-top: 0 !important;}
             #language_selector a.active {color: black; font-weight: bold;}
             #language_selector a:hover{color: black;}
             #language_selector ul {padding: 0; margin-left: 0.5rem !important;}
+            .section-stable a {color:green; font-weight: bold;}
+            .section-dev a {color: #DC3545; font-weight: bold;}
 
-            .bg-light {background-color: rgba(248,249,250,1)!important;}
-            .p-0 {padding: 0 !important;}
-            .p-2 {padding: .5rem !important;}
-            .p-4 {padding: 1.5rem !important;}
-            .pe-3 {padding-right: 1rem!important}
-            .py-1 {
-               padding-top: 0.25rem !important;
-               padding-bottom: 0.25rem !important;
-            }
-            .py-2 {
-               padding-top: 0.5rem !important;
-               padding-bottom: 0.5rem !important;
-            }
-
-            .ps-0 {padding-left: 0;}
-            .ps-1 {padding-left: 0.25rem !important;}
-            .ps-3 {padding-left: 1rem!important;}
-            .ps-md-0 {padding-left: 0 !important;}
-            .ps-0 {padding-left: 0 !important;}
-            .px 0 {
-               padding-right: 0 !important;
-               padding-left: 0 !important;
-            }
-            .px-1 {
-               padding-right: 0.25rem !important;
-               padding-left: 0.25rem !important;
-            }
-            .px-2 {
-               padding-right: 0.5rem !important;
-               padding-left: 0.5rem !important;
-            }
-            .px-3 {
-                padding-right: 1.5rem!important;
-                padding-left: 1.5rem!important;
-            }
-            .mb-3 {margin-bottom: 1rem !important;}
-            .mb-4 {margin-bottom: 1.5rem !important;}
-            .mt-0 {margin-top: 0 !important;}
-            .mt-1 {margin-top: 0.25rem !important;}
-            .mt-2 {margin-top: 0.5rem !important;}
-            .mt-3 {margin-top: 1rem !important;}
-            .mt-4 {margin-top: 1.5rem !important;}
-            .mt-5 {margin-top: 3rem !important;}
-            .me-2 {margin-right: 0.5rem !important;}
-            .me-3 {margin-right: 3rem;}
-            .ms-3 {margin-left: 1rem !important;}
-            .ms-auto {margin-left: auto!important}
-            .align-items-center {align-items: center !important;}
-             g-3, .gx-3 {--bs-gutter-x: 1rem;}
-            .g-3, .gy-3 {--bs-gutter-y: 1rem;}
-            .d-flex {display: flex !important;}
-            .d-none {display: none !important;}
-            .d-md-inline-block {display: inline-block !important;}
-            .float-end {float: right !important;}
-            .text-end {text-align: right !important;}
-            .text-center {text-align: center !important;}
-            .text-danger {color: rgba( 220, 53, 69, 1) !important;}
-            .text-success {color: rgba(63, 182, 24, 1)!important}
-
-            .w-75 {width: 50%!important}
-            .my-0 {
-               margin-top: 0 !important;
-               margin-bottom: 0 !important;
-            }
-            .my-1 {
-               margin-top: 0.25rem !important;
-               margin-bottom: 0.25rem !important;
-            }
-            .my-2 {
-               margin-top: 0.5rem !important;
-               margin-bottom: 0.5rem !important;
-            }
-            .my-3 {
-               margin-top: 1rem !important;
-               margin-bottom: 1rem !important;
-            }
-            .my-4 {
-               margin-top: 1.5rem !important;
-               margin-bottom: 1.5rem !important;
-            }
-            .my-5 {
-               margin-top: 3rem !important;
-               margin-bottom: 3rem !important;
-            }
-            .my-auto {
-                margin-top: auto !important;
-                margin-bottom: auto !important;
-            }
-            .small, small {font-size: .875em;}
-            .spinner-border,.spinner-grow {
-                display: inline-block;
-                width: var(--bs-spinner-width);
-                height: var(--bs-spinner-height);
-                vertical-align: var(--bs-spinner-vertical-align);
-                border-radius: 50%;
-                animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name)
-            }
-            @keyframes spinner-border {
-                to {transform: rotate(360deg)}
-            }
-            .spinner-border {
-                --bs-spinner-width: 1.8rem;
-                --bs-spinner-height: 1.8rem;
-                --bs-spinner-vertical-align: -0.125em;
-                --bs-spinner-border-width: 0.25em;
-                --bs-spinner-animation-speed: 0.75s;
-                --bs-spinner-animation-name: spinner-border;
-                border: 0.25rem solid currentcolor;
-                border-right-color: transparent
-            }
-            .row {
-              --bs-gutter-x: 1.5rem;
-              --bs-gutter-y: 0;
-               display: flex;
-               flex-wrap: wrap;
-               margin-top: calc(-1 * 0);
-               margin-right: calc(-.5 * 1.5rem);
-               margin-left: calc(-.5 * var(--bs-gutter-x));
-            }
-            .col {flex: 1 0 0;}
-            .col-sm-2 {
-               flex: 0 0 auto;
-               width: 16.66666667%;
-            }
-            .container,
-            .container-fluid,
-            .container-xxl,
-            .container-xl,
-            .container-lg,
-            .container-md,
-            .container-sm {
-               width: 100%;
-               padding-right: calc(1.5rem * 0.5);
-               padding-left: calc(1.5rem * 0.5);
-               margin-right: auto;
-               margin-left: auto;
-            }
-            @media (min-width: 576px) {
-              .container-sm, .container {
-                max-width: 540px;
-              }
-            }
-            @media (min-width: 768px) {
-              .container-md, .container-sm, .container {
-                max-width: 720px;
-              }
-            }
-            @media (min-width: 992px) {
-              .container-lg, .container-md, .container-sm, .container {
-                max-width: 960px;
-              }
-            }
-            @media (min-width: 1200px) {
-              .container-xl, .container-lg, .container-md, .container-sm, .container {
-                max-width: 1140px;
-              }
-            }
-            @media (min-width: 1400px) {
-              .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-                max-width: 1320px;
-              }
-            }
-            .img-fluid {max-width: 100%; height: auto;}
-            .display-4 {
-               font-weight: 300;
-               line-height: 1.2;
-               font-size: calc(1.475rem + 2.7vw);
-            }
-            @media (min-width: 1200px) {
-              .display-4 {
-                font-size: 3.5rem;
-              }
-            }
-            .display-5 {
-               font-weight: 300;
-               line-height: 1.2;
-               font-size: calc(1.425rem + 2.1vw);
-            }
-            @media (min-width: 1200px) {
-               .display-5 {font-size: 3rem;}
-            }
-            .display-6 {
-               font-weight: 300;
-               line-height: 1.2;
-               font-size: calc(1.375rem + 1.5vw);
-            }
-            @media (min-width: 1200px) {
-               .display-6 {
-                  font-size: 2.5rem;
-               }
-            }
-            .form-control {
-               display: block;
-               width: 100%;
-               padding: 0.375rem 0.75rem;
-               font-size: 1rem;
-               font-weight: 400;
-               line-height: 1.5;
-               color: var(--bs-body-color);
-               -webkit-appearance: none;
-               -moz-appearance: none;
-               appearance: none;
-               background-color: var(--bs-body-bg);
-               background-clip: padding-box;
-               border: 1px solid #dee2e6;
-               border-radius: 0.375rem;
-               transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-            }
-            .form-label {margin-bottom: 0.5rem;}
-            .w-90 {width: 90% !important;}
-            .section-dev , .section-maintenance, .section-stable, .section-advanced, .section-success, .section-danger {
-               border-radius: 0.375rem;
-               padding-left: 1rem!important;
-               padding-right: 1rem!important;
-               border-left: 1.5rem solid;
-               margin-bottom : 1rem;
-               a {color:inherit; font-weight: 700;}
-               h3 {color:var(--bs-body-color);}
-               ul {margin-left: 1rem !important; list-style-type: disc;}
-            }
-            .resultats {ul {list-style-type: none;}}
-            .section-stable, .section-success {border-color: var(--bs-success);background-color: #e3eed7; color: var(--bs-success); }
-            .section-dev, .section-danger {border-color: var(--bs-danger);background-color: #f4d2d3; color: var(--bs-danger); }
-            .section-maintenance {border-color: var(--bs-secondary); background-color:#f6f7f9; color: var(--bs-secondary);}
-            .section-advanced {border-color: var(--bs-secondary); background-color:#f6f7f9; }
-            .btn {
-               --bs-btn-padding-x: 0.75rem;
-               --bs-btn-padding-y: 0.375rem;
-               --bs-btn-font-family: ;
-               --bs-btn-font-size: 1rem;
-               --bs-btn-font-weight: 400;
-               --bs-btn-line-height: 1.5;
-               --bs-btn-color: var(--bs-body-color);
-               --bs-btn-bg: transparent;
-               --bs-btn-border-width: var(--bs-border-width);
-               --bs-btn-border-color: transparent;
-               --bs-btn-border-radius: var(--bs-border-radius);
-               --bs-btn-hover-border-color: transparent;
-               --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
-               --bs-btn-disabled-opacity: 0.65;
-               --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
-               display: inline-block;
-               padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
-               font-family: var(--bs-btn-font-family);
-               font-size: var(--bs-btn-font-size);
-               font-weight: var(--bs-btn-font-weight);
-               line-height: var(--bs-btn-line-height);
-               color: var(--bs-btn-color);
-               text-align: center;
-               text-decoration: none;
-               vertical-align: middle;
-               cursor: pointer;
-               -webkit-user-select: none;
-               -moz-user-select: none;
-               user-select: none;
-               border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
-               border-radius: var(--bs-btn-border-radius);
-               background-color: var(--bs-btn-bg);
-               transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-            }
-            .btn-success {
-               --bs-btn-color: #fff;
-               --bs-btn-bg: #198754;
-               --bs-btn-border-color: #198754;
-               --bs-btn-hover-color: #fff;
-               --bs-btn-hover-bg: #157347;
-               --bs-btn-hover-border-color: #146c43;
-               --bs-btn-focus-shadow-rgb: 60, 153, 110;
-               --bs-btn-active-color: #fff;
-               --bs-btn-active-bg: #146c43;
-               --bs-btn-active-border-color: #13653f;
-               --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-               --bs-btn-disabled-color: #fff;
-               --bs-btn-disabled-bg: #198754;
-               --bs-btn-disabled-border-color: #198754;
-            }
-            .btn:hover {
-               color: var(--bs-btn-hover-color);
-               background-color: var(--bs-btn-hover-bg);
-               border-color: var(--bs-btn-hover-border-color);
-            }
-            .form-select {
-               --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 16 16\'%3e%3cpath fill=\'none\' stroke=\'%23343a40\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'m2 5 6 6 6-6\'/%3e%3c/svg%3e");
-               display: block;
-               width: 100%;
-               padding: 0.375rem 2.25rem 0.375rem 0.75rem;
-               font-size: 1rem;
-               font-weight: 400;
-               line-height: 1.5;
-               color: var(--bs-body-color);
-               -webkit-appearance: none;
-               -moz-appearance: none;
-               appearance: none;
-               background-color: var(--bs-body-bg);
-               background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
-               background-repeat: no-repeat;
-               background-position: right 0.75rem center;
-               background-size: 16px 12px;
-               border: var(--bs-border-width) solid var(--bs-border-color);
-               border-radius: var(--bs-border-radius);
-               transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-               }
-               @media (prefers-reduced-motion: reduce) {
-                 .form-select {transition: none;}
-               }
-               .form-select:focus {
-                  border-color: #86b7fe;
-                  outline: 0;
-                  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-               }
          </style>
       </head>
       <body>
          <div class="d-flex align-items-center bg-light">
-            <div class="col-sm-2 d-none d-md-inline-block">
-               <img class="img-fluid p-2 mt-4" src="data:image/png;base64,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" alt="NPDS logo" />
-            </div>
-            <div class="col my-auto ps-3">
-               <h1 class="display-5">NPDS<br /><small class="text-body-secondary">' . t('welcome', $lang) . ' </small></h1>
-            </div>
-            <div class="col-sm-2 my-auto ps-3">
+            <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
+            <div class="ms-auto my-auto ps-3">
             '.renderLanguageSelector($lang).'
             </div>
          </div>
          <div class="container-sm">';
 }
 
-/**
-* Fonction de construction du footer html
-*/
-function foot_html(){
+function foot_html() {
    global $lang;
    return '
          </div>
          <footer class="d-flex align-items-center bg-light">
             <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.0</div>
-            <div class="spinner-border ms-auto text-success" role="status" aria-hidden="true"></div>
-            <div class="small px-3">
+            <div class="ms-auto small px-3">
                <ul>
                   <li>PHP : <span class="">' .phpversion(). '</span></li>
                   <li>'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
@@ -2376,120 +1696,589 @@ function foot_html(){
    </html>';
 }
 
-// ==================== ROUTEUR PRINCIPAL ====================
-$confirm = $_GET['confirm'] ?? '';
-$result = null;
-$operation = $_GET['op'] ?? 'menu';
-switch ($operation) {
-   case 'deploy':
-      if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
-         die("❌ " . t('security_warning', $lang));
-      deployNPDS();
-   break;
-   case 'update':
-      // Interface temporaire de mise à jour 16.4 → 16.8
-      if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes') {
-         die("❌ Confirmation requise");
-      }
-      processTemporaryUpdate();
-   break;
-   case 'clean':
-      if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes')
-         die("❌ " . t('clean_confirm', $lang));
-      header('Content-Type: text/html; charset=utf-8');
-      $deployer = new GithubDeployer();
-      $tempDir = $deployer->getTempDir();
-      $result = $deployer->cleanupDirectory($tempDir);
-      echo $result['success'] ? "✅ " : "❌ ";
-      echo $result['message'];
-   break;
-   case 'info':
-      phpinfo();
-   break;
-   case 'menu':
-   default:
-      header('Content-Type: text/html; charset=utf-8');
+// ==================== GESTION DES OPÉRATIONS ====================
+function handleDeployOperation() {
+   global $lang;
+   $isFromAdmin = isset($_GET['return_url']) || isset($_COOKIE['admin']);
+   $isConfirmed = isset($_GET['confirm']) && $_GET['confirm'] === 'yes';
+   if ($isFromAdmin && $isConfirmed) {
+      showAjaxDeployInterface();
+      exit;
+   }
+   if (!$isConfirmed) {
       echo head_html();
-
-      // Afficher le mode approprié
-        if ($context === 'update') {
-            echo '<div class="alert alert-success">';
-            echo '<strong>🔧 Mode mise à jour détecté</strong><br>';
-            echo 'Vous êtes connecté en tant qu\'administrateur NPDS.';
-            echo '</div>';
-        } else {
-            echo '<div class="alert alert-info">';
-            echo '<strong>🚀 Mode déploiement détecté</strong><br>';
-            echo 'Nouvelle installation NPDS';
-            echo '</div>';
-        }
-
-      echo '
-         <p class="text-danger mb-3"><strong>‼️ ' . t('warning', $lang) . ' :</strong> ' . t('overwrite_warning', $lang) . '</p>
-         <div class="section-stable py-1">
-            <h3 class="my-1"><span class="display-6">🧪 </span>' . t('stable_versions', $lang) . '</h3>
-            <ul class="mt-1">
-               <li><a href="?op=deploy&version=v.16.4&path=npds_stable&confirm=yes" onclick="return confirm(\'⚠️ ' . t('deploy_v164_stable', $lang) . ' ?\')">' . t('deploy_v164_stable', $lang) . '</a></li>
-               <li><a href="?op=deploy&version=v.16.4&confirm=yes" onclick="return confirm(\'⚠️ ' . t('deploy_v164_root', $lang) . ' ?\')">' . t('deploy_v164_root', $lang) . '</a></li>
-               <li><a href="?op=deploy&version=v.16.3&path=npds_163&confirm=yes" onclick="return confirm(\'⚠️ ' . t('deploy_v163', $lang) . ' ?\')">' . t('deploy_v163', $lang) . '</a></li>
-            </ul>
-         </div>';
-         // Afficher le lien mise à jour seulement si en mode update
-     if ($context === 'update') {
-         echo '
-         <div class="section-maintenance py-1">
-             <h3 class="my-1"><span class="display-6">🔄 </span>Mise à jour</h3>
-             <ul class="mt-1">
-                 <li><a href="?op=update">Mise à jour v.16.4 → v.16.8</a></li>
-             </ul>
-         </div>';
-     }
-      echo '
-         <div class="section-dev py-1 ">
-            <h3 class="my-1"><span class="display-6">🌶 </span>' . t('dev_version', $lang) . '</h3>
-            <ul class="mt-1">
-               <li><a href="?op=deploy&version=master&path=npds_dev&confirm=yes" onclick="return confirm(\'⚠️ ' . t('deploy_master_dev', $lang) . ' ?\')">' . t('deploy_master_dev', $lang) . '</a></li>
-               <li><a href="?op=deploy&version=master&confirm=yes" onclick="return confirm(\'🚨 ' . t('deploy_master_root', $lang) . ' ?\')">' . t('deploy_master_root', $lang) . '</a></li>
-            </ul>
-            <p class="text-danger">‼️ ' . t('master_warning', $lang) . '</p>
-         </div>
-         <div class="section-maintenance py-1">
-            <h3 class="my-1"><span class="display-6">🛠 </span>' . t('maintenance', $lang) . '</h3>
-            <ul class="mt-1">
-               <li><a href="?op=clean&confirm=yes" onclick="return confirm(\'' . t('clean_temp', $lang) . ' ?\')">' . t('clean_temp', $lang) . '</a></li>
-               <li><a href="?op=info">' . t('system_info', $lang) . '</a></li>
-            </ul>
-         </div>
-         <div class="section-advanced py-1">
-            <h3 class="my-1"><span class="display-6">⚙️ </span>' . t('advanced_options', $lang) . '</h3>
-            <form method="GET">
-               <div class="row ps-3">
-                 <div class="col-sm-3">
-                    <select class="form-select" name="version" aria-label="version">
-                        <option selected="selected">' . t('version', $lang) . '</option>
-                        <option value="master">master</option>
-                        <option value="v.16.4">v.16.4</option>
-                        <option value="v.16.3">v.16.3</option>
-                     </select>
-                  </div>
-                  <div class="col ps-3">
-                     <input class="form-control mb-3 w-90" type="text" name="path" id="choix_path" placeholder="'.t('path',$lang).'... '.t('let_emptyroot',$lang).'" aria-label="path" />
-                  </div>
-               </div>
-               <div class="ps-1">
-                  <button class="btn btn-success mb-3" type="submit" onclick="return confirm(\'⚠️ ' . t('deploy', $lang) . ' ?\')" >' . t('deploy', $lang) . '</button>
-               </div>
-               <input type="hidden" name="confirm" value="yes" />
-               <input type="hidden" name="op" value="deploy" />
-            </form>
-         </div>
+      echo '<div class="section-danger">
+         <h2>🚨 ' . t('warning', $lang) . '</h2>
+         <p>' . t('overwrite_warning', $lang) . '</p>
+         <p>' . t('security_warning', $lang) . '</p>
+         <a href="?op=deploy&version=' . urlencode($_GET['version']) . '&path=' . urlencode($_GET['path']) . '&confirm=yes&lang=' . $lang . '" class="btn btn-danger">' . t('deploy', $lang) . '</a>
+         <a href="?" class="btn btn-secondary">' . t('cancel', $lang) . '</a>
       </div>';
       echo foot_html();
-   break;
+      return;
+   }
+   showAjaxDeployInterface();
+   exit;
 }
-// ==================== LIBÉRATION DU VERROU ====================
-if (file_exists($globalLockFile)) {
-   @unlink($globalLockFile);
-   error_log("🔓 Verrou global libéré");
+
+// ==================== FONCTION DE DÉPLOIEMENT API ====================
+
+function handleCleanOperation() {
+   global $lang;
+   if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes') {
+      echo head_html();
+      echo '<div class="section-danger">
+         <h2>🚨 ' . t('warning', $lang) . '</h2>
+         <p>Cette action va supprimer tous les fichiers temporaires du déploiement.</p>
+         <p>' . t('security_warning', $lang) . '</p>
+         <a href="?op=clean&confirm=yes" class="btn btn-danger">' . t('clean_temp', $lang) . '</a>
+         <a href="?" class="btn btn-secondary">Annuler</a>
+      </div>';
+      echo foot_html();
+      return;
+   }
+
+   $deployer = new GithubDeployer();
+   $result = $deployer->cleanupDirectory('npds_deployer_temp');
+
+   echo head_html();
+   echo '<div class="container">';
+   if ($result['success'])
+      echo '
+      <h2 style="color: green;">✅ Nettoyage terminé</h2>
+      <p>Les fichiers temporaires ont été supprimés.</p>';
+   else
+      echo '
+      <h2 style="color: red;">❌ '.t('cleanup_error',$lang).'</h2>
+      <p>' . htmlspecialchars($result['message']) . '</p>';
+   echo '
+      <p><a href="?" class="btn btn-secondary">'.t('go_back',$lang).'</a></p>
+   </div>';
+   echo foot_html();
+}
+
+// ==================== INTERFACE AVEC AJAX ====================
+/*function showAjaxDeployInterface() {
+   global $lang;
+   $version = $_GET['version'] ?? 'v.16.4';
+   $targetDir = $_GET['path'] ?? '.';
+   $deployer = new GithubDeployer();
+   $isUpdate = $deployer->isNPDSInstalled($targetDir);
+   $githubVersion = $version;
+   $deploymentId = 'deploy_' . (int)(microtime(true) * 1000);
+   if ($version !== 'master' && !str_starts_with($version, 'v.'))
+      $githubVersion = 'v.' . $version;
+   $displayVersion = $version;
+   echo '<!DOCTYPE html>
+   <html lang="'.$lang.'">
+      <head>
+         <meta charset="utf-8">
+         <title>Déploiement NPDS</title>
+         <style>
+            body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+            .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+            .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            .status { text-align: center; font-size: 18px; margin: 20px 0; color: #333; }
+            .logs { background: #1e1e1e; color: #00ff00; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 13px;  overflow-y: auto; margin-top: 20px; }
+            .success { color: green; }
+            .error { color: red; }
+            .btn { display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; margin: 10px; }
+
+.progress-bars {
+    margin: 20px 0;
+}
+
+.process-step {
+    margin: 15px 0;
+}
+
+.step-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 15px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+    border-radius: 8px;
+}
+
+#downloadProgress { background: linear-gradient(90deg, #2196F3, #1976D2); }
+#extractProgress { background: linear-gradient(90deg, #FF9800, #F57C00); }
+#installProgress { background: linear-gradient(90deg, #4CAF50, #388E3C); }
+
+.step-text {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 3px;
+}
+
+         </style>
+      </head>
+    <body>
+        <div class="container">
+            <h1 style="text-align: center;">🚀 Déploiement NPDS ' . htmlspecialchars($displayVersion) . '</h1>
+
+            <!-- ⭐⭐ NOUVELLE BARRE DE PROGRESSION -->
+            <div class="progress-container">
+               <div class="progress-bar">
+                  <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+               </div>
+               <div class="progress-text" id="progressText">0%</div>
+            </div>
+
+            <div class="spinner"></div>
+            <div class="status" id="status">Préparation du déploiement...</div>
+            <div class="logs" id="logs"></div>
+            <div id="result" style="display: none; text-align: center; margin-top: 20px;"></div>
+        </div>
+         <script>
+            const phpIsUpdate = ' . ($isUpdate ? 'true' : 'false') . ';
+            console.log("🔧 Déploiement type:", phpIsUpdate ? "MISE À JOUR" : "NOUVELLE INSTALLATION");
+            let logsElement = document.getElementById("logs");
+            let statusElement = document.getElementById("status");
+            let resultElement = document.getElementById("result");
+
+            function addLog(message) {
+               const cleanMessage = message.replace(/[\r\n]+/g, " • ");
+               logsElement.innerHTML += cleanMessage + "<br>";
+               logsElement.scrollTop = logsElement.scrollHeight;
+            }
+            function updateStatus(message) {
+               const cleanMessage = message.replace(/[\r\n]+/g, " • ").trim();
+
+// ⭐⭐ VÉRIFIER D\'ABORD si c\'est un message spécial
+    if (message.startsWith("PROCESS:")) {
+        const processName = message.split(":")[1];
+        changeProcess(processName);
+        return; // ⭐⭐ ARRÊTER - pas d\'affichage
+    }
+    
+    if (message.startsWith("PROGRESS:")) {
+        const percent = parseInt(message.split(":")[1]);
+        updateProgressBar(percent);
+        return; // ⭐⭐ ARRÊTER - pas d\'affichage
+    }
+
+               statusElement.textContent = cleanMessage;
+               addLog("> " + cleanMessage);
+               
+               
+            }
+            
+            // ⭐⭐ NOUVELLE FONCTION : Changement de processus
+function changeProcess(processName) {
+    const processLabel = document.getElementById("processLabel");
+    const progressFill = document.getElementById("progressFill");
+    
+    // Réinitialiser la barre avec effet visuel
+    progressFill.style.width = "0%";
+    progressFill.style.transition = "none"; // Pas d\'animation pour la réinitialisation
+    
+    // Changer la couleur selon le processus
+    const colors = {
+        "BACKUP": "linear-gradient(90deg, #FF9800, #F57C00)",
+        "DOWNLOAD": "linear-gradient(90deg, #2196F3, #1976D2)", 
+        "EXTRACT": "linear-gradient(90deg, #4CAF50, #388E3C)",
+        "INSTALL": "linear-gradient(90deg, #9C27B0, #7B1FA2)",
+         "COPY": "linear-gradient(90deg, #9C27B0, #7B1FA2)" // ⭐⭐ NOUVELLE COULEUR
+
+    };
+    
+    progressFill.style.background = colors[processName] || colors["DOWNLOAD"];
+    
+    // Mettre à jour le label
+    const labels = {
+        "BACKUP": "Sauvegarde en cours...",
+        "DOWNLOAD": "Téléchargement en cours...",
+        "EXTRACT": "Extraction en cours...", 
+        "COPY": "Copie finale en cours..." 
+    };
+    processLabel.textContent = labels[processName] || "";
+    
+    // Réactiver l\'animation après un court délai
+    setTimeout(() => {
+        progressFill.style.transition = "width 0.5s ease";
+    }, 50);
+}
+            
+function updateProgressBar(percent) {
+    const progressFill = document.getElementById("progressFill");
+    const progressText = document.getElementById("progressText");
+    
+    progressFill.style.width = percent + "%";
+    progressText.textContent = percent + "%";
+}            
+            
+            
+            function showResult(success, message) {
+               resultElement.style.display = "block";
+               resultElement.className = success ? "success" : "error";
+               if (success) {
+                  if (phpIsUpdate) {
+                     resultElement.innerHTML = "<h2>✅ '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
+                         "<p><a href=\"admin.php\" class=\"btn\">Accéder à l\'administration</a></p>";
+                  } else {
+                     const lang = "'.$lang.'";
+                     resultElement.innerHTML = "<h2>✅ '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
+                     "<p><a href=\"'.$targetDir.'/install.php?langue=" + lang + "&stage=1\" class=\"btn\">Poursuivre l\'installation</a></p>";
+                  }
+               } else {
+                  resultElement.innerHTML = "<h2>❌ '.t('deployment_failed',$lang).'</h2><p>" + message + "</p><p><a href=\"?\" class=\"btn\">Retour</a></p>" +
+                  "<p><a href=\"?\" class=\"btn\">Retour</a></p>";
+               }
+            }
+
+            // ⭐⭐ SYSTÈME DE PROGRESSION AVEC LOGS
+            const deploymentId = "' . $deploymentId . '";
+            let lastUpdateTime = 0;
+            let globalTimeoutId = null;
+
+            function checkLogs() {
+               console.log("🔄 checkLogs() appelé - lastUpdateTime:", lastUpdateTime);
+               fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
+                  .then(response => {
+                     if (!response.ok)
+                        throw new Error("HTTP " + response.status);
+                     return response.json();
+                  })
+                  .then(data => {
+                     //console.log("📨 Réponse logs reçue", data);
+                     if (data.messages && data.messages.length > 0) {
+                        //console.log("📝 Messages traités:", data.messages.length);
+                        data.messages.forEach(msg => {
+                           updateStatus(msg.message);
+                        });
+                        lastUpdateTime = data.last_update;
+                        const lastMessage = data.messages[data.messages.length - 1];
+                        console.log("🔍 Dernier message analysé:", lastMessage);
+                        // Détection de fin de déploiement
+                        const isSuccessEnd = lastMessage.type === "success" || 
+                                             lastMessage.message.includes("succès") || 
+                                             lastMessage.message.includes("success") ||
+                                             lastMessage.message.includes("terminé") ||
+                                             lastMessage.message.includes("completed") ||
+                                             lastMessage.message.includes("🎉");
+                        const isErrorEnd = lastMessage.type === "error" || 
+                                           lastMessage.message.includes("échec") || 
+                                           lastMessage.message.includes("failed") ||
+                                           lastMessage.message.includes("erreur") ||
+                                           lastMessage.message.includes("error") ||
+                                           lastMessage.message.includes("💥");
+
+                        if (isSuccessEnd || isErrorEnd) {
+                           console.log("🎯 FIN DÉTECTÉE - Success:", isSuccessEnd, "Update:", phpIsUpdate);
+                           showResult(isSuccessEnd, lastMessage.message);
+                           if (globalTimeoutId) {
+                              //console.log("⏹️ Timeout global cleared");
+                              clearTimeout(globalTimeoutId);
+                           }
+                           console.log("🛑 ARRÊT DU POLLING");
+                           return; // ARRÊT CRITIQUE
+                        }
+                     }
+                     // Continuer à poller même sans nouveaux messages
+                     setTimeout(checkLogs, 3000);
+                 })
+                 .catch(error => {
+                     // En cas d\'erreur, réessayer sans arrêter
+                     updateStatus("⏳ Reconnexion au serveur...");
+                     setTimeout(checkLogs, 5000);
+                 });
+            }
+
+            // Démarrer la surveillance des logs
+            updateStatus("Initialisation du déploiement...");
+            setTimeout(checkLogs, 1000);
+
+            // Timeout global de sécurité (7 minutes)
+            globalTimeoutId = setTimeout(() => {
+               updateStatus("💥 Déploiement trop long - vérifiez les logs serveur");
+               showResult(false, "Timeout après 7 minutes - Le déploiement peut continuer en arrière-plan");
+            }, 420000);
+
+            // Lancer le déploiement après un court délai
+            setTimeout(() => {
+               const apiUrl = "?api=deploy&version=' . urlencode($githubVersion) . '&path=' . urlencode($targetDir) . '&confirm=yes&deploy_id=' . $deploymentId . '&lang=' . $lang . '&nocache=" + Date.now();
+               fetch(apiUrl)
+                  .then(response => {
+                     if (!response.ok) {
+                        throw new Error("HTTP error " + response.status);
+                     }
+                     return response.json();
+                  })
+                  .then(data => {
+                     // Ne pas s\'arrêter ici - le résultat vient des logs
+                     console.log("Déploiement lancé, suivi via logs...");
+                  })
+                 .catch(error => {
+                     // Ne pas bloquer l\'interface en cas d\'erreur de lancement
+                     // Le polling continuera à vérifier les logs
+                     console.error("Erreur lancement API:", error);
+                 });
+            }, 1500);
+        </script>
+      </body>
+   </html>';
+   exit;
+}*/
+
+function showAjaxDeployInterface() {
+    global $lang;
+    $version = $_GET['version'] ?? 'v.16.4';
+    $targetDir = $_GET['path'] ?? '.';
+    $deployer = new GithubDeployer();
+    $isUpdate = $deployer->isNPDSInstalled($targetDir);
+    $githubVersion = $version;
+    $deploymentId = 'deploy_' . (int)(microtime(true) * 1000);
+    echo head_html_deploy('Déploiement NPDS ' . htmlspecialchars($version));
+    echo '
+    <script>
+        // Variables spécifiques
+        const deploymentId = "' . $deploymentId . '";
+        const phpIsUpdate = ' . ($isUpdate ? 'true' : 'false') . ';
+        let logsElement = document.getElementById("logs");
+        let statusElement = document.getElementById("status"); 
+        let resultElement = document.getElementById("result");
+        let lastUpdateTime = 0;
+        let globalTimeoutId = null;
+
+        function hideSpinner() {
+            const spinner = document.querySelector(".spinner");
+            if (spinner) {
+                spinner.style.display = "none";
+            }
+        }
+
+        function checkLogs() {
+            console.log("🔄 checkLogs() appelé - lastUpdateTime:", lastUpdateTime); 
+            fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target=' . urlencode($targetDir) . '&lang=' . $lang . '&t=" + Date.now())
+                .then(response => {
+                    console.log("📡 Status:", response.status);
+                    if (!response.ok) throw new Error("HTTP " + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("📨 Réponse reçue - Messages:", data.messages?.length || 0);
+                    if (data.messages && data.messages.length > 0) {
+                        console.log("📝 Traitement de", data.messages.length, "messages");
+                        data.messages.forEach(msg => {
+                            updateStatus(msg.message);
+                        });
+                        lastUpdateTime = data.last_update;
+                        // ⭐⭐ DÉTECTION DE LA FIN
+                        const lastMessage = data.messages[data.messages.length - 1];
+                        console.log("🔍 Dernier message analysé:", lastMessage);
+                        const isSuccessEnd = lastMessage.type === "success" || 
+                                             lastMessage.type === "SUCCESS" || 
+                                             lastMessage.message.includes("succès") || 
+                                             lastMessage.message.includes("success") ||
+                                             lastMessage.message.includes("terminé") ||
+                                             lastMessage.message.includes("completed") ||
+                                             lastMessage.message.includes("🎉");
+                        const isErrorEnd = lastMessage.type === "error" || 
+                                           lastMessage.message.includes("échec") || 
+                                           lastMessage.message.includes("failed") ||
+                                           lastMessage.message.includes("erreur") ||
+                                           lastMessage.message.includes("error") ||
+                                           lastMessage.message.includes("💥");
+                        if (isSuccessEnd || isErrorEnd) {
+                            console.log("🎯 FIN DÉTECTÉE - Success:", isSuccessEnd, "Update:", phpIsUpdate);
+                            hideSpinner();
+                            showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
+                            if (globalTimeoutId) {
+                                clearTimeout(globalTimeoutId);
+                            }
+                            return;
+                        }
+                    }
+                    // Continuer le polling
+                    //setTimeout(checkLogs, 3000);
+                    if (data.messages && data.messages.length > 0) {
+                        setTimeout(checkLogs, 1000); // ⭐⭐ 1s si activité
+                     } else {
+                        setTimeout(checkLogs, 3000); // 3s si inactif
+                     }
+                })
+                .catch(error => {
+                    console.error("💥 ERREUR:", error);
+                    updateStatus("⏳ Reconnexion au serveur...");
+                    setTimeout(checkLogs, 5000);
+                });
+        }
+
+// ⭐⭐ NOUVELLE FONCTION : Traitement séquentiel avec délai
+function processMessagesSequentially(messages) {
+    return new Promise((resolve) => {
+        console.log("🔄 Début traitement séquentiel de", messages.length, "messages");
+        let processed = 0;
+        function processNextMessage() {
+            if (processed >= messages.length) {
+                console.log("✅ Tous les messages traités");
+                resolve();
+                return;
+            }
+            const msg = messages[processed];
+            console.log("📝 Traitement message", processed + 1, "/", messages.length, ":", msg.message.substring(0, 50));
+            updateStatus(msg.message);
+            processed++;
+            // ⭐⭐ DÉLAI DE 0.8s ENTRE CHAQUE MESSAGE
+            setTimeout(processNextMessage, 800);
+        }
+        // Démarrer le traitement
+        processNextMessage();
+    });
+}
+
+
+        // ⭐⭐ FONCTION showResult COMPLÈTE
+        function showResult(success, message, isUpdate) {
+            const progressContainer = document.querySelector(".progress-container");
+            // Cacher la barre de progression
+            if (progressContainer)
+                progressContainer.style.display = "none";
+            resultElement.style.display = "block";
+            resultElement.className = success ? "success" : "error";
+            if (success) {
+                if (isUpdate) {
+                    resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
+                        "<p><a href=\"admin.php\" class=\"btn\">'.t('go_admin',$lang).'</a></p>";
+                } else {
+                    resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
+                        "<p><a href=\"'.$targetDir.'/install.php?langue='.$lang.'&stage=1\" class=\"btn\">'.t('go_install',$lang).'</a></p>";
+                }
+            } else {
+                resultElement.innerHTML = "<h2>❌ '.t('deployment_failed',$lang).'</h2><p>" + message + "</p>" +
+                    "<p><a href=\"?\" class=\"btn\">'.t('go_back',$lang).'</a></p>";
+            }
+            // Scroller vers le résultat
+            resultElement.scrollIntoView({ behavior: "smooth" });
+        }
+        // ⭐⭐ DÉMARRAGE
+        updateStatus("Initialisation du déploiement...");
+        setTimeout(checkLogs, 1000);
+
+        // Timeout global de sécurité
+        globalTimeoutId = setTimeout(() => {
+            updateStatus("💥 Déploiement trop long - vérifiez les logs serveur");
+            showResult(false, "Timeout après 7 minutes - Le déploiement peut continuer en arrière-plan");
+        }, 420000);
+
+        // Lancer le déploiement
+        setTimeout(() => {
+            const apiUrl = "?api=deploy&version=' . urlencode($githubVersion) . '&path=' . urlencode($targetDir) . '&confirm=yes&deploy_id=' . $deploymentId . '&lang=' . $lang . '&nocache=" + Date.now();
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("HTTP error " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Déploiement lancé, suivi via logs...");
+                })
+                .catch(error => {
+                    console.error("Erreur lancement API:", error);
+                });
+        }, 1500);
+    </script>
+    </body>
+    </html>';
+}
+// ==================== INTERFACE PRINCIPALE ====================
+function showMainInterface() {
+   global $lang;
+   echo head_html();
+        echo '
+     <p><strong>🆕 Mode Nouvelle Installation </strong><br />
+         Déploiement d\'une nouvelle installation NPDS.</p>';
+   echo '
+   <div class="section-stable">
+      <h3 class="mb-0 mt-0"><span class="display-6">🧪 </span>' . t('stable_versions', $lang) . '</h3>
+      <ul class="mt-0">
+         <li><a href="?op=deploy&version=v.16.4&path=npds_stable&lang=' . $lang . '">' . t('deploy_v164_stable', $lang) . '</a></li>
+         <li><a href="?op=deploy&version=v.16.4&path=.&lang=' . $lang . '">' . t('deploy_v164_root', $lang) . '</a></li>
+      </ul>
+   </div>
+   <div class="section-dev">
+      <h3 class="mb-0 mt-0"><span class="display-6">🌶 </span>' . t('development_version', $lang) . '</h3>
+      <p><small>' . t('dev_warning', $lang) . '</small></p>
+      <ul class="mt-0">
+         <li><a href="?op=deploy&version=master&path=npds_dev&lang=' . $lang . '">' . t('deploy_master_dev', $lang) . '</a></li>
+         <li><a href="?op=deploy&version=master&path=.&lang=' . $lang . '">' . t('deploy_master_root', $lang) . '</a></li>
+      </ul>
+   </div>
+   <div class="section-advanced">
+      <h3 class="mb-0 mt-0"><span class="display-6">⚙️ </span>' . t('advanced_options', $lang) . '</h3>
+      <form method="GET">
+         <div class="row ps-3">
+            <div class="col-sm-3">
+               <select class="form-select" name="version" aria-label="version">
+                  <option value="">' . t('version', $lang) . '</option>
+                  <option value="v.16.4">v.16.4</option>
+                  <option value="v.16.3">v.16.3</option>
+                  <option value="master">master</option>
+               </select>
+            </div>
+            <div class="col ps-3">
+               <input class="form-control mb-3 w-90" type="text" name="path" id="choix_path" placeholder="'.t('path',$lang).'... '.t('let_emptyroot',$lang).'" aria-label="path" />
+            </div>
+         </div>
+         <div class="ps-1">
+            <button class="btn btn-success mb-3" type="submit" >' . t('deploy', $lang) . '</button>
+         </div>
+         <input type="hidden" name="op" value="deploy" />
+      </form>
+   </div>
+   <div class="section-maintenance">
+      <h3>🔧 ' . t('maintenance', $lang) . '</h3>
+      <ul>
+         <li><a href="?op=clean">' . t('clean_temp', $lang) . '</a></li>
+      </ul>
+   </div>';
+   echo foot_html();
+}
+
+// ==================== ROUTAGE PRINCIPAL ====================
+try {
+   $operation = $_GET['op'] ?? '';
+   switch ($operation) {
+      case 'deploy':
+         handleDeployOperation();
+         break;
+      case 'clean':
+         handleCleanOperation();
+         break;
+      default:
+         showMainInterface();
+         break;
+   }
+} catch (Exception $e) {
+   error_log("ERREUR DÉPLOYEUR: " . $e->getMessage());
+   echo head_html();
+   echo '<div class="section-danger"><h2>💥 Erreur</h2><p>' . htmlspecialchars($e->getMessage()) . '</p></div>';
+   echo foot_html();
+} finally {
+   // Verrou global : le supprimer seulement pour les interfaces, PAS pour l'API
+   $isApiCall = isset($_GET['api']) && $_GET['api'] === 'deploy';
+   if (!$isApiCall && file_exists($globalLockFile)) {
+      @unlink($globalLockFile);
+      error_log("🧹 Verrou global supprimé (interface): " . $globalLockFile);
+   }
+   // Pour l'API, le verrou global reste jusqu'à la fin du déploiement
+   if ($isApiCall && file_exists($globalLockFile)) {
+      error_log("🔒 Verrou global MAINtenu (API en cours): " . $globalLockFile);
+   }
 }
 ?>
