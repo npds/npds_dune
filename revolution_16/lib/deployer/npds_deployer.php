@@ -1684,6 +1684,8 @@ function head_html(){
             .row { display: flex; flex-wrap: wrap; margin: 0 -0.5rem; }
             .col { flex: 1; padding: 0 0.5rem; }
             .ms-3 { margin-left: 1rem; }
+            .m-0 {margin: 0;}
+            .mt-0 {margin-top: 0 !important;}
             .mt-1 { margin-top: 0.25rem; }
             .mt-3 { margin-top: 1rem; }
             .mb-0 {margin-bottom: 0 !important;}
@@ -1699,7 +1701,6 @@ function head_html(){
             .ms-auto {margin-left: auto!important}
             .small, small {font-size: .875em;}
             .pe-3 {padding-right: 1rem!important}
-            .mt-0 {margin-top: 0 !important;}
             #language_selector a.active {color: black; font-weight: bold;}
             #language_selector a:hover{color: black;}
             #language_selector ul {padding: 0; margin-left: 0.5rem !important;}
@@ -1828,6 +1829,99 @@ function showAjaxDeployInterface() {
                spinner.style.display = "none";
          }
 
+let messageQueue = [];
+let isProcessingQueue = false;
+let lastProcessedTimestamp = 0;
+
+function processMessageQueue() {
+    if (isProcessingQueue || messageQueue.length === 0) return;
+    
+    isProcessingQueue = true;
+    const message = messageQueue.shift();
+    
+    console.log("📝 Traitement message:", message.message.substring(0, 50));
+    
+    // Traitement des messages spéciaux (PROCESS:, PROGRESS:)
+    if (message.message.startsWith("PROCESS:")) {
+        const processName = message.message.split(":")[1];
+        changeProcess(processName);
+    } else if (message.message.startsWith("PROGRESS:")) {
+        const percent = parseInt(message.message.split(":")[1]);
+        updateProgressBar(percent);
+    } else {
+        // Message normal
+        updateStatus(message.message);
+    }
+    
+    lastProcessedTimestamp = message.timestamp;
+    
+    // Délai de 800ms entre chaque message
+    setTimeout(() => {
+        isProcessingQueue = false;
+        if (messageQueue.length > 0) {
+            processMessageQueue();
+        }
+    }, 800);
+}
+
+function checkLogs() {
+    fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target=<?php echo urlencode($targetDir); ?>&lang=<?php echo $lang; ?>&t=" + Date.now())
+        .then(response => {
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            return response.json();
+        })
+        .then(data => {
+            if (data.messages && data.messages.length > 0) {
+                // ⭐⭐ AJOUTER LES NOUVEAUX MESSAGES À LA FILE D\'ATTENTE
+                messageQueue.push(...data.messages);
+                lastUpdateTime = data.last_update;
+                
+                // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
+                if (!isProcessingQueue) {
+                    processMessageQueue();
+                }
+                
+                // Vérifier la fin du déploiement sur le dernier message
+                const lastMessage = data.messages[data.messages.length - 1];
+                const isSuccessEnd = lastMessage.type === "success" || 
+                                     lastMessage.type === "SUCCESS" || 
+                                     lastMessage.message.includes("succès") || 
+                                     lastMessage.message.includes("success") ||
+                                     lastMessage.message.includes("terminé") ||
+                                     lastMessage.message.includes("completed") ||
+                                     lastMessage.message.includes("🎉") ||
+                                     lastMessage.message.includes("Mise à jour terminée") ||
+                                     lastMessage.message.includes("installation déployée");
+
+                const isErrorEnd = lastMessage.type === "error" || 
+                                   lastMessage.message.includes("échec") || 
+                                   lastMessage.message.includes("failed") ||
+                                   lastMessage.message.includes("erreur") ||
+                                   lastMessage.message.includes("error") ||
+                                   lastMessage.message.includes("💥") ||
+                                   lastMessage.message.includes("ERREUR");
+
+                if (isSuccessEnd || isErrorEnd) {
+                    console.log("🎯 FIN DÉTECTÉE - Arrêt du polling");
+                    hideSpinner();
+                    showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
+                    if (globalTimeoutId) clearTimeout(globalTimeoutId);
+                    return;
+                }
+            }
+            
+            // Continuer le polling
+            setTimeout(checkLogs, messageQueue.length > 0 ? 1000 : 3000);
+        })
+        .catch(error => {
+            console.error("💥 ERREUR:", error);
+            updateStatus("⏳ Reconnexion au serveur...");
+            setTimeout(checkLogs, 5000);
+        });
+}
+
+
+/*
          function checkLogs() {
             console.log("🔄 checkLogs() appelé - lastUpdateTime:", lastUpdateTime); 
             fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target=' . urlencode($targetDir) . '&lang=' . $lang . '&t=" + Date.now())
@@ -1881,29 +1975,8 @@ function showAjaxDeployInterface() {
                     setTimeout(checkLogs, 5000);
                 });
          }
+*/
 
-// ⭐⭐ NOUVELLE FONCTION : Traitement séquentiel avec délai
-function processMessagesSequentially(messages) {
-    return new Promise((resolve) => {
-        console.log("🔄 Début traitement séquentiel de", messages.length, "messages");
-        let processed = 0;
-        function processNextMessage() {
-            if (processed >= messages.length) {
-                console.log("✅ Tous les messages traités");
-                resolve();
-                return;
-            }
-            const msg = messages[processed];
-            console.log("📝 Traitement message", processed + 1, "/", messages.length, ":", msg.message.substring(0, 50));
-            updateStatus(msg.message);
-            processed++;
-            // ⭐⭐ DÉLAI DE 0.8s ENTRE CHAQUE MESSAGE
-            setTimeout(processNextMessage, 800);
-        }
-        // Démarrer le traitement
-        processNextMessage();
-    });
-}
 
          // ⭐⭐ FONCTION showResult COMPLÈTE
          function showResult(success, message, isUpdate) {
