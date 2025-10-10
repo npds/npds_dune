@@ -806,14 +806,13 @@ function executeDeployment($version, $targetDir) {
          $logMessage("PROCESS:BACKUP");
          $logMessage("PROGRESS:0");
          error_log("💾 Création du backup...");
-         $logMessage("PROGRESS:30");  // ⭐⭐ AJOUTÉ
-         $logMessage("PROGRESS:60");  // ⭐⭐ AJOUTÉ
-         $logMessage("PROGRESS:90");  // ⭐⭐ AJOUTÉ
+         $logMessage("PROGRESS:30");
+         $logMessage("PROGRESS:60");
+         $logMessage("PROGRESS:90");
          $backupManager = new NPDSBackupManager();
          $backupResult = $backupManager->backupCriticalFiles($targetDir);
-         if (!$backupResult['success']) {
+         if (!$backupResult['success'])
             throw new Exception("Échec du backup: " . $backupResult['message']);
-         }
          $logMessage("PROGRESS:100");
 
          $logMessage("✅ Backup créé: X fichiers (Y MB)");
@@ -822,7 +821,7 @@ function executeDeployment($version, $targetDir) {
       // Téléchargement
       error_log("📦 Téléchargement de $version...");
       $logMessage("PROCESS:DOWNLOAD");
-      $logMessage("PROGRESS:0"); // ⭐⭐ RÉINITIALISATION BARRE
+      $logMessage("PROGRESS:0");
       $logMessage("PROGRESS:25");
       $logMessage("PROGRESS:50");
       $logMessage("PROGRESS:75");
@@ -836,35 +835,23 @@ function executeDeployment($version, $targetDir) {
       $tempFile = $deployer->getTempDir() . '/' . uniqid('github_') . '.zip';
       $downloadResult = $deployer->downloadFile($url, $tempFile);
       $logMessage("PROGRESS:100");
-
       if (!$downloadResult['success'])
          throw new Exception("Échec téléchargement: " . $downloadResult['message']);
       $fileSize = filesize($tempFile);
-      error_log("✅ Téléchargement réussi: " . round($fileSize/1024/1024, 2) . " MB");
       $logMessage("✅ " .t('download_success',$lang).": " . round($fileSize/1024/1024, 2) . " MB");
       // Extraction
-      error_log("📂 Extraction de l'archive...");
       $logMessage("PROCESS:EXTRACT");
-      $logMessage("PROGRESS:0"); 
-      $logMessage("📂 ".t('extraction_progress',$lang)."...");
       $logMessage("PROGRESS:30");
+      $logMessage("📂 ".t('extraction_progress',$lang)."...");
       $logMessage("PROGRESS:60");
-      $logMessage("PROGRESS:90");
       $extractResult = $deployer->extractFirstFolderContent($tempFile, $targetDir, 'zip', $version, $isUpdate);
-
-      if (!$extractResult['success']) {
+      if (!$extractResult['success']) 
          throw new Exception("Échec extraction: " . $extractResult['message']);
-      }
-
-      $logMessage("PROGRESS:100");
-      error_log("✅ ".t('extraction_finished',$lang));
+      $logMessage("PROGRESS:80");
       $logMessage("✅ ".t('extraction_finished',$lang));
       $logMessage("PROCESS:COPY");
-      $logMessage("PROGRESS:0");
-      $logMessage("🔧 Copie finale des fichiers...");
-      $logMessage("PROGRESS:30");
-      $logMessage("PROGRESS:60");
       $logMessage("PROGRESS:90");
+      $logMessage("🔧 Copie finale des fichiers...");
       $logMessage("PROGRESS:100");
       $logMessage("✅ Copie des fichiers terminée");
 
@@ -1172,7 +1159,7 @@ class GithubDeployer {
                return $this->createResult(false, "Réceptacle non sécurisé");
             }
          }
-         
+
          // Verrouillage
          if (file_exists($lockFile)) {
             $lockTime = (int)file_get_contents($lockFile);
@@ -1180,9 +1167,8 @@ class GithubDeployer {
             if ($elapsed < 600) {
                $this->updateProgress('💥 '. t('deployment_in_progress', $lang) . ' ' . $elapsed . "s", 'ERROR');
                return $this->createResult(false, t('deployment_in_progress', $lang) . " " . $elapsed . "s)");
-            } else {
+            } else
                @unlink($lockFile);
-            }
          }
          file_put_contents($lockFile, time());
 
@@ -1302,12 +1288,9 @@ class GithubDeployer {
 
    public function extractFirstFolderContent(string $archivePath, string $targetDir, string $format, string $version, bool $isUpdate = false): array {
       global $lang;
-      
       $tempExtractDir = $this->tempDir . '/' . uniqid('extract_');
-      if (!@mkdir($tempExtractDir, 0755, true)) {
+      if (!@mkdir($tempExtractDir, 0755, true))
          return $this->createResult(false, t('temp_dir_error', $lang));
-      }
-
       try {
          if ($format === 'zip') {
             $zip = new ZipArchive();
@@ -1318,34 +1301,28 @@ class GithubDeployer {
             $zip->extractTo($tempExtractDir);
             $zip->close();
          }
-
          $firstFolder = $this->findFirstFolder($tempExtractDir);
          if (!$firstFolder) {
             $this->removeDirectory($tempExtractDir);
             return $this->createResult(false, t('no_folder_in_archive', $lang));
          }
-         // ⭐⭐ CORRECTION CRITIQUE : RECHERCHE revolution_16
-      error_log("🔍 Premier dossier trouvé: " . basename($firstFolder));
-        
-        $revolutionPath = $firstFolder . '/revolution_16';
-        if (is_dir($revolutionPath)) {
+         error_log("✅ " . t('extraction_finished', $lang));
+         error_log("🔍 Premier dossier trouvé: " . basename($firstFolder));
+         $revolutionPath = $firstFolder . '/revolution_16';
+         if (is_dir($revolutionPath)) {
             $firstFolder = $revolutionPath;
             error_log("✅ Dossier revolution_16 trouvé - utilisation: " . $firstFolder);
-        } else {
+         } else {
             error_log("❌ Dossier revolution_16 NON trouvé dans: " . $firstFolder);
-            
             // Debug: lister le contenu du premier dossier
             $items = scandir($firstFolder);
             error_log("📁 Contenu du premier dossier: " . implode(', ', $items));
-        }
-
+         }
         error_log("🚀 Copie depuis: " . $firstFolder . " vers: " . $targetDir);
         $this->copyDirectoryContentsFlat($firstFolder, $targetDir, $version, $isUpdate);
         $this->removeDirectory($tempExtractDir);
-
         return $this->createResult(true, "Contenu extrait avec succès");
-        
-    } catch (Exception $e) {
+      } catch (Exception $e) {
          $this->removeDirectory($tempExtractDir);
          return $this->createResult(false, t('extraction_error', $lang) . ': ' . $e->getMessage());
       }
@@ -1353,23 +1330,18 @@ class GithubDeployer {
 
    private function copyDirectoryContentsFlat(string $source, string $destination, $version = null, $isUpdate = false): void {
       global $lang;
-      
       if (!is_dir($destination))
          mkdir($destination, 0755, true);
-         
       $iterator = new RecursiveIteratorIterator(
          new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
          RecursiveIteratorIterator::SELF_FIRST
       );
-
+      $fileCount = 0;
       foreach ($iterator as $item) {
          $relativePath = $iterator->getSubPathName();
          $targetPath = $destination . DIRECTORY_SEPARATOR . $relativePath;
-
-         if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate)) {
+         if ($isUpdate && NPDSExclusions::shouldExclude($relativePath, $version, $isUpdate))
             continue;
-         }
-
          if ($item->isDir()) {
             if (!is_dir($targetPath))
                mkdir($targetPath, 0755);
@@ -1378,8 +1350,10 @@ class GithubDeployer {
             if (!is_dir($parentDir))
                mkdir($parentDir, 0755, true);
             copy($item->getRealPath(), $targetPath);
+            $fileCount++;
          }
       }
+      error_log("✅ Copie terminée: $fileCount fichiers");
    }
 
    private function findFirstFolder(string $directory): ?string {
@@ -1398,9 +1372,8 @@ class GithubDeployer {
          'ssl' => ['verify_peer' => false]
       ]);
       $source = @fopen($url, 'rb', false, $context);
-      if (!$source) {
+      if (!$source)
          return $this->createResult(false, t('failed_download', $lang));
-      }
       $dest = @fopen($destination, 'wb');
       if (!$dest) {
          fclose($source);
@@ -1409,6 +1382,7 @@ class GithubDeployer {
       stream_copy_to_stream($source, $dest);
       fclose($source);
       fclose($dest);
+      error_log("✅ Téléchargement réussi: " . round($destination/1024/1024, 2) . " MB");
       return $this->createResult(true, t('download_success',$lang), ['size' => filesize($destination)]);
    }
 
