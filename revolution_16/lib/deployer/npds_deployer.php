@@ -1860,7 +1860,7 @@ function processMessageQueue() {
                         message.message.includes("🎉") ||
                         message.message.includes("Mise à jour terminée") ||
                         message.message.includes("installation déployée");
-   const isErrorEnd = lastMessage.type === "error" || 
+   const isErrorEnd = message.message.type === "error" || 
                         message.message.includes("échec") || 
                         message.message.includes("failed") ||
                         message.message.includes("erreur") ||
