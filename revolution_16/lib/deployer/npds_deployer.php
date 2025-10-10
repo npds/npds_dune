@@ -1795,33 +1795,32 @@ function handleCleanOperation() {
 // ==================== INTERFACE AVEC AJAX ====================
 
 function showAjaxDeployInterface() {
-    global $lang;
-    $version = $_GET['version'] ?? 'v.16.4';
-    $targetDir = $_GET['path'] ?? '.';
-    $deployer = new GithubDeployer();
-    $isUpdate = $deployer->isNPDSInstalled($targetDir);
-    $githubVersion = $version;
-    $deploymentId = 'deploy_' . (int)(microtime(true) * 1000);
-    echo head_html_deploy('Déploiement NPDS ' . htmlspecialchars($version));
-    echo '
-    <script>
-        // Variables spécifiques
-        const deploymentId = "' . $deploymentId . '";
-        const phpIsUpdate = ' . ($isUpdate ? 'true' : 'false') . ';
-        let logsElement = document.getElementById("logs");
-        let statusElement = document.getElementById("status"); 
-        let resultElement = document.getElementById("result");
-        let lastUpdateTime = 0;
-        let globalTimeoutId = null;
+   global $lang;
+   $version = $_GET['version'] ?? 'v.16.4';
+   $targetDir = $_GET['path'] ?? '.';
+   $deployer = new GithubDeployer();
+   $isUpdate = $deployer->isNPDSInstalled($targetDir);
+   $githubVersion = $version;
+   $deploymentId = 'deploy_' . (int)(microtime(true) * 1000);
+   echo head_html_deploy('Déploiement NPDS ' . htmlspecialchars($version));
+   echo '
+      <script>
+         // Variables spécifiques
+         const deploymentId = "' . $deploymentId . '";
+         const phpIsUpdate = ' . ($isUpdate ? 'true' : 'false') . ';
+         let logsElement = document.getElementById("logs");
+         let statusElement = document.getElementById("status"); 
+         let resultElement = document.getElementById("result");
+         let lastUpdateTime = 0;
+         let globalTimeoutId = null;
 
-        function hideSpinner() {
+         function hideSpinner() {
             const spinner = document.querySelector(".spinner");
-            if (spinner) {
-                spinner.style.display = "none";
-            }
-        }
+            if (spinner)
+               spinner.style.display = "none";
+         }
 
-        function checkLogs() {
+         function checkLogs() {
             console.log("🔄 checkLogs() appelé - lastUpdateTime:", lastUpdateTime); 
             fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target=' . urlencode($targetDir) . '&lang=' . $lang . '&t=" + Date.now())
                 .then(response => {
@@ -1857,26 +1856,23 @@ function showAjaxDeployInterface() {
                             console.log("🎯 FIN DÉTECTÉE - Success:", isSuccessEnd, "Update:", phpIsUpdate);
                             hideSpinner();
                             showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
-                            if (globalTimeoutId) {
+                            if (globalTimeoutId)
                                 clearTimeout(globalTimeoutId);
-                            }
                             return;
                         }
                     }
                     // Continuer le polling
-                    //setTimeout(checkLogs, 3000);
-                    if (data.messages && data.messages.length > 0) {
+                    if (data.messages && data.messages.length > 0)
                         setTimeout(checkLogs, 1000); // ⭐⭐ 1s si activité
-                     } else {
+                     else
                         setTimeout(checkLogs, 3000); // 3s si inactif
-                     }
                 })
                 .catch(error => {
                     console.error("💥 ERREUR:", error);
                     updateStatus("⏳ Reconnexion au serveur...");
                     setTimeout(checkLogs, 5000);
                 });
-        }
+         }
 
 // ⭐⭐ NOUVELLE FONCTION : Traitement séquentiel avec délai
 function processMessagesSequentially(messages) {
@@ -1901,60 +1897,59 @@ function processMessagesSequentially(messages) {
     });
 }
 
-
-        // ⭐⭐ FONCTION showResult COMPLÈTE
-        function showResult(success, message, isUpdate) {
+         // ⭐⭐ FONCTION showResult COMPLÈTE
+         function showResult(success, message, isUpdate) {
             const progressContainer = document.querySelector(".progress-container");
             // Cacher la barre de progression
             if (progressContainer)
-                progressContainer.style.display = "none";
+               progressContainer.style.display = "none";
             resultElement.style.display = "block";
             resultElement.className = success ? "success" : "error";
             if (success) {
-                if (isUpdate) {
-                    resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
-                        "<p><a href=\"admin.php\" class=\"btn btn-success\">'.t('go_admin',$lang).'</a></p>";
-                } else {
-                    resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
-                        "<p><a href=\"'.$targetDir.'/install.php?langue='.$lang.'&stage=1\" class=\"btn btn-success\">'.t('go_install',$lang).'</a></p>";
-                }
+               if (isUpdate) {
+                  resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
+                  "<p><a href=\"admin.php\" class=\"btn btn-success\">'.t('go_admin',$lang).'</a></p>";
+               } else {
+                  resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
+                  "<p><a href=\"'.$targetDir.'/install.php?langue='.$lang.'&stage=1\" class=\"btn btn-success\">'.t('go_install',$lang).'</a></p>";
+               }
             } else {
-                resultElement.innerHTML = "<h2>❌ '.t('deployment_failed',$lang).'</h2><p>" + message + "</p>" +
-                    "<p><a href=\"?\" class=\"btn btn-secondary\">'.t('go_back',$lang).'</a></p>";
+               resultElement.innerHTML = "<h2>❌ '.t('deployment_failed',$lang).'</h2><p>" + message + "</p>" +
+               "<p><a href=\"?\" class=\"btn btn-secondary\">'.t('go_back',$lang).'</a></p>";
             }
             // Scroller vers le résultat
             resultElement.scrollIntoView({ behavior: "smooth" });
-        }
-        // ⭐⭐ DÉMARRAGE
-        updateStatus("Initialisation du déploiement...");
-        setTimeout(checkLogs, 1000);
+         }
+         // ⭐⭐ DÉMARRAGE
+         updateStatus("Initialisation du déploiement...");
+         setTimeout(checkLogs, 1000);
 
-        // Timeout global de sécurité
-        globalTimeoutId = setTimeout(() => {
+         // Timeout global de sécurité
+         globalTimeoutId = setTimeout(() => {
             updateStatus("💥 Déploiement trop long - vérifiez les logs serveur");
             showResult(false, "Timeout après 7 minutes - Le déploiement peut continuer en arrière-plan");
-        }, 420000);
+         }, 420000);
 
-        // Lancer le déploiement
-        setTimeout(() => {
+         // Lancer le déploiement
+         setTimeout(() => {
             const apiUrl = "?api=deploy&version=' . urlencode($githubVersion) . '&path=' . urlencode($targetDir) . '&confirm=yes&deploy_id=' . $deploymentId . '&lang=' . $lang . '&nocache=" + Date.now();
             fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("HTTP error " + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("Déploiement lancé, suivi via logs...");
-                })
-                .catch(error => {
-                    console.error("Erreur lancement API:", error);
-                });
-        }, 1500);
-    </script>
-    </body>
-    </html>';
+            .then(response => {
+               if (!response.ok)
+                  throw new Error("HTTP error " + response.status);
+               return response.json();
+            })
+            .then(data => {
+               console.log("Déploiement lancé, suivi via logs...");
+            })
+            .catch(error => {
+               console.error("Erreur lancement API:", error);
+            });
+         }, 1500);
+      </script>
+    '.foot_html_deploy().'
+   </body>
+</html>';
 }
 
 // ==================== INTERFACE PRINCIPALE ====================
