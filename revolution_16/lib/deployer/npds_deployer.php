@@ -1877,10 +1877,10 @@ function checkLogs() {
                 lastUpdateTime = data.last_update;
                 
                 // ⭐⭐ CORRECTION : Utiliser le timestamp du dernier message
-        if (data.messages.length > 0) {
-            const lastMessage = data.messages[data.messages.length - 1];
-            lastUpdateTime = lastMessage.timestamp; // ⭐⭐ TIMESTAMP DU MESSAGE
-        }
+               if (data.messages.length > 0) {
+                  const lastMessage = data.messages[data.messages.length - 1];
+                  lastUpdateTime = lastMessage.timestamp; // ⭐⭐ TIMESTAMP DU MESSAGE
+               }
                 // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
                 if (!isProcessingQueue) {
                     processMessageQueue();
