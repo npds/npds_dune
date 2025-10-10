@@ -1382,7 +1382,8 @@ class GithubDeployer {
       stream_copy_to_stream($source, $dest);
       fclose($source);
       fclose($dest);
-      error_log("✅ Téléchargement réussi: " . round($destination/1024/1024, 2) . " MB");
+      $fileSize = filesize($destination);
+      error_log("✅ Téléchargement réussi: " . round($fileSize/1024/1024, 2) . " MB");
       return $this->createResult(true, t('download_success',$lang), ['size' => filesize($destination)]);
    }
 
