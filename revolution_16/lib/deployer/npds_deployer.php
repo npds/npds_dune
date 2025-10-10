@@ -1491,7 +1491,7 @@ function head_html_deploy($title = 'Déploiement en cours') {
       }
 
          body {font-family: Arial, sans-serif; margin: 0; color:var(--bs-body-color);}
-         .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+         .container { max-width: 800px; margin: 0 auto; background: var(--bs-light); padding: 1rem; border-radius: 8px; }
          .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
          .status { text-align: center; font-size: 18px; margin: 20px 0; color: #333; }
@@ -1519,7 +1519,6 @@ function head_html_deploy($title = 'Déploiement en cours') {
          <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
       </div>
       <div class="container">
-         <h2 style="text-align: center;">🚀 Déploiement NPDS</h2>
          <div class="progress-container">
             <div class="progress-bar">
                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
