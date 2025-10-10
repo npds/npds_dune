@@ -1475,7 +1475,22 @@ function head_html_deploy($title = 'Déploiement en cours') {
       <meta charset="utf-8">
       <title>' . htmlspecialchars($title) . '</title>
       <style>
-         body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+         :root {
+         --bs-body-color: #212529;
+         --bs-success: #198754;
+         --bs-primary: #0d6efd;
+         --bs-secondary: #6c757d;
+         --bs-info: #0dcaf0;
+         --bs-warning: #ffc107;
+         --bs-danger: #dc3545;
+         --bs-light: #f8f9fa;
+         --bs-dark: #212529;
+         --bs-border-radius: 0.375rem;
+         --bs-border-width: 1px;
+         --bs-border-color: #dee2e6;
+      }
+
+         body {font-family: Arial, sans-serif; margin: 0; color:var(--bs-body-color);}
          .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
          .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -1486,15 +1501,22 @@ function head_html_deploy($title = 'Déploiement en cours') {
          .progress-text { margin-top: 5px; font-weight: bold; color: #333; }
          .process-label { margin-top: 3px; font-size: 12px; color: #666; font-style: italic; }
          .logs { background: #1e1e1e; color: #00ff00; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 12px; overflow-y: auto; margin-top: 20px; }
-         .success { color: green; }
-         .error { color: red; }
+         .success {color: var(--bs-success);}
+         .error { color: var(--bs-danger); }
          .btn { display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; margin: 10px; }
-         .bg-light {background-color: #f8f9fa!important; padding: 20px;}
+         .btn { display: inline-block; padding: 0.375rem 0.75rem; border: 1px solid; border-radius: 0.375rem; text-decoration: none; margin: 0.25rem; }
+         .btn-success { background: var(--bs-success); color: white; border-color:  var(--bs-success); }
+         .btn-danger { background: var(--bs-danger); color: white; border-color: var(--bs-danger); }
+         .btn-secondary { background: var(--bs-secondary); color: white; border-color:var(--bs-secondary); }
+         .bg-light {background-color: var(--bs-light); padding: 0 1rem;}
+         .d-flex {display: flex !important;}
+         .align-items-center {align-items: center !important;}
+         .ms-auto {margin-left: auto!important}
       </style>
    </head>
    <body>
-      <div class="bg-light">
-         <h1>NPDS<br><small>Déploiement</small></h1>
+      <div class="d-flex align-items-center bg-light">
+         <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
       </div>
       <div class="container">
          <h2 style="text-align: center;">🚀 Déploiement NPDS</h2>
@@ -1572,7 +1594,20 @@ function head_html_deploy($title = 'Déploiement en cours') {
 }
 
 function foot_html_deploy() {
-    return '</body></html>';
+    return '
+         <footer class="d-flex align-items-center bg-light">
+            <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.0</div>
+            <div class="ms-auto small px-3">
+               <ul>
+                  <li>PHP : <span class="">' .phpversion(). '</span></li>
+                  <li>'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
+                  <li>'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
+                  <li>'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
+               </ul>
+            </div
+         </footer>
+      </body>
+   </html>';
 }
 
 /**
@@ -1609,12 +1644,11 @@ function head_html(){
          <meta charset="utf-8">
          <title>' . t('welcome', $lang) . '</title>
          <style>
-         :root {
+            :root {
                --bs-body-color: #212529;
                --bs-success: #198754;
                --bs-primary: #0d6efd;
                --bs-secondary: #6c757d;
-               --bs-success: #198754;
                --bs-info: #0dcaf0;
                --bs-warning: #ffc107;
                --bs-danger: #dc3545;
@@ -1630,16 +1664,16 @@ function head_html(){
             .section-stable, .section-dev, .section-maintenance, .section-advanced, .section-danger {
                border-radius: 0.375rem; padding: 0.1rem 1rem; margin-bottom: 1rem; border-left: 1.2rem solid;
             }
-            .section-stable {border-color: #198754; background-color: #e3eed7; color: #198754; }
-            .section-dev, .section-danger {border-color: #dc3545; background-color: #f4d2d3; color: #dc3545; }
+            .section-stable {border-color: #198754; background-color: #e3eed7; color: var(--bs-success); }
+            .section-dev, .section-danger {border-color: #dc3545; background-color: #f4d2d3; color: var(--bs-danger); }
             .section-maintenance {border-color: #6c757d; background-color:#f6f7f9; color: #6c757d;}
             .section-advanced {border-color: #6c757d; background-color:#f6f7f9; }
             .btn { display: inline-block; padding: 0.375rem 0.75rem; border: 1px solid; border-radius: 0.375rem; text-decoration: none; margin: 0.25rem; }
-            .btn-success { background: #198754; color: white; border-color: #198754; }
-            .btn-danger { background: #dc3545; color: white; border-color: #dc3545; }
-            .btn-secondary { background: #6c757d; color: white; border-color: #6c757d; }
-            .form-control { padding: 0.375rem; border: 1px solid #dee2e6; border-radius: 0.375rem; width: 100%; }
-            .form-select { padding: 0.375rem; border: 1px solid #dee2e6; border-radius: 0.375rem; width: 100%; }
+            .btn-success { background: var(--bs-success); color: white; border-color:  var(--bs-success); }
+            .btn-danger { background: var(--bs-danger); color: white; border-color: var(--bs-danger); }
+            .btn-secondary { background: var(--bs-secondary); color: white; border-color:var(--bs-secondary); }
+            .form-control { padding: 0.375rem; border: 1px solid #dee2e6; border-radius: var(--bs-border-radius); width: 100%; }
+            .form-select { padding: 0.375rem; border: 1px solid #dee2e6; border-radius: var(--bs-border-radius); width: 100%; }
             .row { display: flex; flex-wrap: wrap; margin: 0 -0.5rem; }
             .col { flex: 1; padding: 0 0.5rem; }
             .ms-3 { margin-left: 1rem; }
@@ -1697,6 +1731,7 @@ function foot_html() {
 }
 
 // ==================== GESTION DES OPÉRATIONS ====================
+
 function handleDeployOperation() {
    global $lang;
    $isFromAdmin = isset($_GET['return_url']) || isset($_COOKIE['admin']);
@@ -1758,281 +1793,6 @@ function handleCleanOperation() {
 }
 
 // ==================== INTERFACE AVEC AJAX ====================
-/*function showAjaxDeployInterface() {
-   global $lang;
-   $version = $_GET['version'] ?? 'v.16.4';
-   $targetDir = $_GET['path'] ?? '.';
-   $deployer = new GithubDeployer();
-   $isUpdate = $deployer->isNPDSInstalled($targetDir);
-   $githubVersion = $version;
-   $deploymentId = 'deploy_' . (int)(microtime(true) * 1000);
-   if ($version !== 'master' && !str_starts_with($version, 'v.'))
-      $githubVersion = 'v.' . $version;
-   $displayVersion = $version;
-   echo '<!DOCTYPE html>
-   <html lang="'.$lang.'">
-      <head>
-         <meta charset="utf-8">
-         <title>Déploiement NPDS</title>
-         <style>
-            body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-            .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
-            .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
-            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-            .status { text-align: center; font-size: 18px; margin: 20px 0; color: #333; }
-            .logs { background: #1e1e1e; color: #00ff00; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 13px;  overflow-y: auto; margin-top: 20px; }
-            .success { color: green; }
-            .error { color: red; }
-            .btn { display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; margin: 10px; }
-
-.progress-bars {
-    margin: 20px 0;
-}
-
-.process-step {
-    margin: 15px 0;
-}
-
-.step-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 15px;
-    background: #f0f0f0;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    transition: width 0.5s ease;
-    border-radius: 8px;
-}
-
-#downloadProgress { background: linear-gradient(90deg, #2196F3, #1976D2); }
-#extractProgress { background: linear-gradient(90deg, #FF9800, #F57C00); }
-#installProgress { background: linear-gradient(90deg, #4CAF50, #388E3C); }
-
-.step-text {
-    text-align: center;
-    font-size: 12px;
-    color: #666;
-    margin-top: 3px;
-}
-
-         </style>
-      </head>
-    <body>
-        <div class="container">
-            <h1 style="text-align: center;">🚀 Déploiement NPDS ' . htmlspecialchars($displayVersion) . '</h1>
-
-            <!-- ⭐⭐ NOUVELLE BARRE DE PROGRESSION -->
-            <div class="progress-container">
-               <div class="progress-bar">
-                  <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-               </div>
-               <div class="progress-text" id="progressText">0%</div>
-            </div>
-
-            <div class="spinner"></div>
-            <div class="status" id="status">Préparation du déploiement...</div>
-            <div class="logs" id="logs"></div>
-            <div id="result" style="display: none; text-align: center; margin-top: 20px;"></div>
-        </div>
-         <script>
-            const phpIsUpdate = ' . ($isUpdate ? 'true' : 'false') . ';
-            console.log("🔧 Déploiement type:", phpIsUpdate ? "MISE À JOUR" : "NOUVELLE INSTALLATION");
-            let logsElement = document.getElementById("logs");
-            let statusElement = document.getElementById("status");
-            let resultElement = document.getElementById("result");
-
-            function addLog(message) {
-               const cleanMessage = message.replace(/[\r\n]+/g, " • ");
-               logsElement.innerHTML += cleanMessage + "<br>";
-               logsElement.scrollTop = logsElement.scrollHeight;
-            }
-            function updateStatus(message) {
-               const cleanMessage = message.replace(/[\r\n]+/g, " • ").trim();
-
-// ⭐⭐ VÉRIFIER D\'ABORD si c\'est un message spécial
-    if (message.startsWith("PROCESS:")) {
-        const processName = message.split(":")[1];
-        changeProcess(processName);
-        return; // ⭐⭐ ARRÊTER - pas d\'affichage
-    }
-    
-    if (message.startsWith("PROGRESS:")) {
-        const percent = parseInt(message.split(":")[1]);
-        updateProgressBar(percent);
-        return; // ⭐⭐ ARRÊTER - pas d\'affichage
-    }
-
-               statusElement.textContent = cleanMessage;
-               addLog("> " + cleanMessage);
-               
-               
-            }
-            
-            // ⭐⭐ NOUVELLE FONCTION : Changement de processus
-function changeProcess(processName) {
-    const processLabel = document.getElementById("processLabel");
-    const progressFill = document.getElementById("progressFill");
-    
-    // Réinitialiser la barre avec effet visuel
-    progressFill.style.width = "0%";
-    progressFill.style.transition = "none"; // Pas d\'animation pour la réinitialisation
-    
-    // Changer la couleur selon le processus
-    const colors = {
-        "BACKUP": "linear-gradient(90deg, #FF9800, #F57C00)",
-        "DOWNLOAD": "linear-gradient(90deg, #2196F3, #1976D2)", 
-        "EXTRACT": "linear-gradient(90deg, #4CAF50, #388E3C)",
-        "INSTALL": "linear-gradient(90deg, #9C27B0, #7B1FA2)",
-         "COPY": "linear-gradient(90deg, #9C27B0, #7B1FA2)" // ⭐⭐ NOUVELLE COULEUR
-
-    };
-    
-    progressFill.style.background = colors[processName] || colors["DOWNLOAD"];
-    
-    // Mettre à jour le label
-    const labels = {
-        "BACKUP": "Sauvegarde en cours...",
-        "DOWNLOAD": "Téléchargement en cours...",
-        "EXTRACT": "Extraction en cours...", 
-        "COPY": "Copie finale en cours..." 
-    };
-    processLabel.textContent = labels[processName] || "";
-    
-    // Réactiver l\'animation après un court délai
-    setTimeout(() => {
-        progressFill.style.transition = "width 0.5s ease";
-    }, 50);
-}
-            
-function updateProgressBar(percent) {
-    const progressFill = document.getElementById("progressFill");
-    const progressText = document.getElementById("progressText");
-    
-    progressFill.style.width = percent + "%";
-    progressText.textContent = percent + "%";
-}            
-            
-            
-            function showResult(success, message) {
-               resultElement.style.display = "block";
-               resultElement.className = success ? "success" : "error";
-               if (success) {
-                  if (phpIsUpdate) {
-                     resultElement.innerHTML = "<h2>✅ '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
-                         "<p><a href=\"admin.php\" class=\"btn\">Accéder à l\'administration</a></p>";
-                  } else {
-                     const lang = "'.$lang.'";
-                     resultElement.innerHTML = "<h2>✅ '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
-                     "<p><a href=\"'.$targetDir.'/install.php?langue=" + lang + "&stage=1\" class=\"btn\">Poursuivre l\'installation</a></p>";
-                  }
-               } else {
-                  resultElement.innerHTML = "<h2>❌ '.t('deployment_failed',$lang).'</h2><p>" + message + "</p><p><a href=\"?\" class=\"btn\">Retour</a></p>" +
-                  "<p><a href=\"?\" class=\"btn\">Retour</a></p>";
-               }
-            }
-
-            // ⭐⭐ SYSTÈME DE PROGRESSION AVEC LOGS
-            const deploymentId = "' . $deploymentId . '";
-            let lastUpdateTime = 0;
-            let globalTimeoutId = null;
-
-            function checkLogs() {
-               console.log("🔄 checkLogs() appelé - lastUpdateTime:", lastUpdateTime);
-               fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
-                  .then(response => {
-                     if (!response.ok)
-                        throw new Error("HTTP " + response.status);
-                     return response.json();
-                  })
-                  .then(data => {
-                     //console.log("📨 Réponse logs reçue", data);
-                     if (data.messages && data.messages.length > 0) {
-                        //console.log("📝 Messages traités:", data.messages.length);
-                        data.messages.forEach(msg => {
-                           updateStatus(msg.message);
-                        });
-                        lastUpdateTime = data.last_update;
-                        const lastMessage = data.messages[data.messages.length - 1];
-                        console.log("🔍 Dernier message analysé:", lastMessage);
-                        // Détection de fin de déploiement
-                        const isSuccessEnd = lastMessage.type === "success" || 
-                                             lastMessage.message.includes("succès") || 
-                                             lastMessage.message.includes("success") ||
-                                             lastMessage.message.includes("terminé") ||
-                                             lastMessage.message.includes("completed") ||
-                                             lastMessage.message.includes("🎉");
-                        const isErrorEnd = lastMessage.type === "error" || 
-                                           lastMessage.message.includes("échec") || 
-                                           lastMessage.message.includes("failed") ||
-                                           lastMessage.message.includes("erreur") ||
-                                           lastMessage.message.includes("error") ||
-                                           lastMessage.message.includes("💥");
-
-                        if (isSuccessEnd || isErrorEnd) {
-                           console.log("🎯 FIN DÉTECTÉE - Success:", isSuccessEnd, "Update:", phpIsUpdate);
-                           showResult(isSuccessEnd, lastMessage.message);
-                           if (globalTimeoutId) {
-                              //console.log("⏹️ Timeout global cleared");
-                              clearTimeout(globalTimeoutId);
-                           }
-                           console.log("🛑 ARRÊT DU POLLING");
-                           return; // ARRÊT CRITIQUE
-                        }
-                     }
-                     // Continuer à poller même sans nouveaux messages
-                     setTimeout(checkLogs, 3000);
-                 })
-                 .catch(error => {
-                     // En cas d\'erreur, réessayer sans arrêter
-                     updateStatus("⏳ Reconnexion au serveur...");
-                     setTimeout(checkLogs, 5000);
-                 });
-            }
-
-            // Démarrer la surveillance des logs
-            updateStatus("Initialisation du déploiement...");
-            setTimeout(checkLogs, 1000);
-
-            // Timeout global de sécurité (7 minutes)
-            globalTimeoutId = setTimeout(() => {
-               updateStatus("💥 Déploiement trop long - vérifiez les logs serveur");
-               showResult(false, "Timeout après 7 minutes - Le déploiement peut continuer en arrière-plan");
-            }, 420000);
-
-            // Lancer le déploiement après un court délai
-            setTimeout(() => {
-               const apiUrl = "?api=deploy&version=' . urlencode($githubVersion) . '&path=' . urlencode($targetDir) . '&confirm=yes&deploy_id=' . $deploymentId . '&lang=' . $lang . '&nocache=" + Date.now();
-               fetch(apiUrl)
-                  .then(response => {
-                     if (!response.ok) {
-                        throw new Error("HTTP error " + response.status);
-                     }
-                     return response.json();
-                  })
-                  .then(data => {
-                     // Ne pas s\'arrêter ici - le résultat vient des logs
-                     console.log("Déploiement lancé, suivi via logs...");
-                  })
-                 .catch(error => {
-                     // Ne pas bloquer l\'interface en cas d\'erreur de lancement
-                     // Le polling continuera à vérifier les logs
-                     console.error("Erreur lancement API:", error);
-                 });
-            }, 1500);
-        </script>
-      </body>
-   </html>';
-   exit;
-}*/
 
 function showAjaxDeployInterface() {
     global $lang;
@@ -2153,14 +1913,14 @@ function processMessagesSequentially(messages) {
             if (success) {
                 if (isUpdate) {
                     resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
-                        "<p><a href=\"admin.php\" class=\"btn\">'.t('go_admin',$lang).'</a></p>";
+                        "<p><a href=\"admin.php\" class=\"btn btn-success\">'.t('go_admin',$lang).'</a></p>";
                 } else {
                     resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
-                        "<p><a href=\"'.$targetDir.'/install.php?langue='.$lang.'&stage=1\" class=\"btn\">'.t('go_install',$lang).'</a></p>";
+                        "<p><a href=\"'.$targetDir.'/install.php?langue='.$lang.'&stage=1\" class=\"btn btn-success\">'.t('go_install',$lang).'</a></p>";
                 }
             } else {
                 resultElement.innerHTML = "<h2>❌ '.t('deployment_failed',$lang).'</h2><p>" + message + "</p>" +
-                    "<p><a href=\"?\" class=\"btn\">'.t('go_back',$lang).'</a></p>";
+                    "<p><a href=\"?\" class=\"btn btn-secondary\">'.t('go_back',$lang).'</a></p>";
             }
             // Scroller vers le résultat
             resultElement.scrollIntoView({ behavior: "smooth" });
@@ -2196,6 +1956,7 @@ function processMessagesSequentially(messages) {
     </body>
     </html>';
 }
+
 // ==================== INTERFACE PRINCIPALE ====================
 function showMainInterface() {
    global $lang;
