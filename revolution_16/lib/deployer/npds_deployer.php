@@ -1516,7 +1516,7 @@ function head_html_deploy($title = 'Déploiement en cours') {
          li { margin: 6px 0; }
          a { color: #007bff; text-decoration: none; }
          .small, small {font-size: .875em;}
-         #infos-system ul li {margin:0;}
+         .m-0 {margin:0;}
 
       </style>
    </head>
@@ -1606,10 +1606,10 @@ function foot_html_deploy() {
             <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.1</div>
             <div class="ms-auto small px-3">
                <ul id="infos-system">
-                  <li>PHP : <span class="">' .phpversion(). '</span></li>
-                  <li>'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
-                  <li>'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
-                  <li>'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
+                  <li class="m-0">PHP : <span class="">' .phpversion(). '</span></li>
+                  <li class="m-0">'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
+                  <li class="m-0">'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
+                  <li class="m-0">'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
                </ul>
             </div
          </footer>
@@ -1727,10 +1727,10 @@ function foot_html() {
             <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.1</div>
             <div class="ms-auto small px-3">
                <ul id="infos-system">
-                  <li>PHP : <span class="">' .phpversion(). '</span></li>
-                  <li>'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
-                  <li>'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
-                  <li>'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
+                  <li class="m-0">PHP : <span class="">' .phpversion(). '</span></li>
+                  <li class="m-0">'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
+                  <li class="m-0">'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
+                  <li class="m-0">'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
                </ul>
             </div
          </footer>
