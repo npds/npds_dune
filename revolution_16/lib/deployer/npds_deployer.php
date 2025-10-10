@@ -1491,7 +1491,7 @@ function head_html_deploy($title = 'Déploiement en cours') {
       }
 
          body {font-family: Arial, sans-serif; margin: 0; color:var(--bs-body-color);}
-         .container { max-width: 800px; margin: 0 auto; background: var(--bs-light); padding: 1rem; border-radius: 8px; }
+         .container { max-width: 800px; margin: 1.5rem auto; background: var(--bs-light); padding: 1rem; border-radius: 8px; }
          .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
          .status { text-align: center; font-size: 18px; margin: 20px 0; color: #333; }
@@ -1512,6 +1512,9 @@ function head_html_deploy($title = 'Déploiement en cours') {
          .d-flex {display: flex !important;}
          .align-items-center {align-items: center !important;}
          .ms-auto {margin-left: auto!important}
+         ul { list-style-type: none; padding: 0; }
+         li { margin: 6px 0; }
+         a { color: #007bff; text-decoration: none; }
       </style>
    </head>
    <body>
@@ -1593,7 +1596,9 @@ function head_html_deploy($title = 'Déploiement en cours') {
 }
 
 function foot_html_deploy() {
-    return '
+   global $lang;
+   return '
+         </div>
          <footer class="d-flex align-items-center bg-light">
             <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.0</div>
             <div class="ms-auto small px-3">
