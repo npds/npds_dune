@@ -1834,26 +1834,48 @@ let isProcessingQueue = false;
 let lastProcessedTimestamp = 0;
 
 function processMessageQueue() {
-    if (isProcessingQueue || messageQueue.length === 0) return;
-    
-    isProcessingQueue = true;
-    const message = messageQueue.shift();
-    
-    console.log("📝 Traitement message:", message.message.substring(0, 50));
-    
-    // Traitement des messages spéciaux (PROCESS:, PROGRESS:)
-    if (message.message.startsWith("PROCESS:")) {
-        const processName = message.message.split(":")[1];
-        changeProcess(processName);
-    } else if (message.message.startsWith("PROGRESS:")) {
-        const percent = parseInt(message.message.split(":")[1]);
-        updateProgressBar(percent);
-    } else {
-        // Message normal
-        updateStatus(message.message);
-    }
-    
-    lastProcessedTimestamp = message.timestamp;
+   if (isProcessingQueue || messageQueue.length === 0) return;
+   isProcessingQueue = true;
+   const message = messageQueue.shift();
+   console.log("📝 Traitement message:", message.message.substring(0, 50));
+
+   // Traitement des messages spéciaux (PROCESS:, PROGRESS:)
+   if (message.message.startsWith("PROCESS:")) {
+      const processName = message.message.split(":")[1];
+      changeProcess(processName);
+   } else if (message.message.startsWith("PROGRESS:")) {
+      const percent = parseInt(message.message.split(":")[1]);
+      updateProgressBar(percent);
+   } else {
+      // Message normal
+      updateStatus(message.message);
+   }
+
+   const isSuccessEnd = lastMessage.type === "success" || 
+                        lastMessage.type === "SUCCESS" || 
+                        lastMessage.message.includes("succès") || 
+                        lastMessage.message.includes("success") ||
+                        lastMessage.message.includes("terminé") ||
+                        lastMessage.message.includes("completed") ||
+                        lastMessage.message.includes("🎉") ||
+                        lastMessage.message.includes("Mise à jour terminée") ||
+                        lastMessage.message.includes("installation déployée");
+   const isErrorEnd = lastMessage.type === "error" || 
+                        lastMessage.message.includes("échec") || 
+                        lastMessage.message.includes("failed") ||
+                        lastMessage.message.includes("erreur") ||
+                        lastMessage.message.includes("error") ||
+                        lastMessage.message.includes("💥") ||
+                        lastMessage.message.includes("ERREUR");
+
+   // ⭐⭐ ARRÊTER SEULEMENT AU DERNIER MESSAGE
+   if ((isSuccessEnd || isErrorEnd) && messageQueue.length === 0) {
+      console.log("🎯 FIN DÉFINITIVE DÉTECTÉE - Tous les messages traités");
+      hideSpinner();
+      showResult(isSuccessEnd, message.message, phpIsUpdate);
+      if (globalTimeoutId) clearTimeout(globalTimeoutId);
+         return; // ⭐⭐ ARRÊT DÉFINITIF
+   }
     
     // Délai de 800ms entre chaque message
     setTimeout(() => {
@@ -1865,64 +1887,33 @@ function processMessageQueue() {
 }
 
 function checkLogs() {
-    fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
-        .then(response => {
-            if (!response.ok) throw new Error("HTTP " + response.status);
-            return response.json();
-        })
-        .then(data => {
-            if (data.messages && data.messages.length > 0) {
-                // ⭐⭐ AJOUTER LES NOUVEAUX MESSAGES À LA FILE D\'ATTENTE
-                messageQueue.push(...data.messages);
-                lastUpdateTime = data.last_update;
-                
-                // ⭐⭐ CORRECTION : Utiliser le timestamp du dernier message
-               if (data.messages.length > 0) {
-                  const lastMessage = data.messages[data.messages.length - 1];
-                  lastUpdateTime = lastMessage.timestamp; // ⭐⭐ TIMESTAMP DU MESSAGE
-               }
-                // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
-                if (!isProcessingQueue) {
-                    processMessageQueue();
-                }
-                
-                // Vérifier la fin du déploiement sur le dernier message
-                const lastMessage = data.messages[data.messages.length - 1];
-                const isSuccessEnd = lastMessage.type === "success" || 
-                                     lastMessage.type === "SUCCESS" || 
-                                     lastMessage.message.includes("succès") || 
-                                     lastMessage.message.includes("success") ||
-                                     lastMessage.message.includes("terminé") ||
-                                     lastMessage.message.includes("completed") ||
-                                     lastMessage.message.includes("🎉") ||
-                                     lastMessage.message.includes("Mise à jour terminée") ||
-                                     lastMessage.message.includes("installation déployée");
-
-                const isErrorEnd = lastMessage.type === "error" || 
-                                   lastMessage.message.includes("échec") || 
-                                   lastMessage.message.includes("failed") ||
-                                   lastMessage.message.includes("erreur") ||
-                                   lastMessage.message.includes("error") ||
-                                   lastMessage.message.includes("💥") ||
-                                   lastMessage.message.includes("ERREUR");
-
-                if (isSuccessEnd || isErrorEnd) {
-                    console.log("🎯 FIN DÉTECTÉE - Arrêt du polling");
-                    hideSpinner();
-                    showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
-                    if (globalTimeoutId) clearTimeout(globalTimeoutId);
-                    return;
-                }
+   fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
+      .then(response => {
+         if (!response.ok) throw new Error("HTTP " + response.status);
+         return response.json();
+      })
+      .then(data => {
+         if (data.messages && data.messages.length > 0) {
+            // ⭐⭐ AJOUTER LES NOUVEAUX MESSAGES À LA FILE D\'ATTENTE
+            messageQueue.push(...data.messages);
+            // ⭐⭐ CORRECTION : Utiliser le timestamp du dernier message
+            if (data.messages.length > 0) {
+               const lastMessage = data.messages[data.messages.length - 1];
+               lastUpdateTime = lastMessage.timestamp; // ⭐⭐ TIMESTAMP DU MESSAGE
             }
-            
-            // Continuer le polling
-            setTimeout(checkLogs, messageQueue.length > 0 ? 1000 : 3000);
-        })
-        .catch(error => {
-            console.error("💥 ERREUR:", error);
-            updateStatus("⏳ Reconnexion au serveur...");
-            setTimeout(checkLogs, 5000);
-        });
+            // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
+               if (!isProcessingQueue)
+                  processMessageQueue();
+         }
+         // ⭐⭐ CORRECTION : TOUJOURS CONTINUER LE POLLING
+         // sauf si la fin a été détectée dans processMessageQueue()
+         setTimeout(checkLogs, messageQueue.length > 0 ? 1000 : 3000);
+      })
+      .catch(error => {
+         console.error("💥 ERREUR:", error);
+         updateStatus("⏳ Reconnexion au serveur...");
+         setTimeout(checkLogs, 5000);
+      });
 }
 
 
