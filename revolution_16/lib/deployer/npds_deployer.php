@@ -1515,6 +1515,9 @@ function head_html_deploy($title = 'Déploiement en cours') {
          ul { list-style-type: none; padding: 0; }
          li { margin: 6px 0; }
          a { color: #007bff; text-decoration: none; }
+         .small, small {font-size: .875em;}
+         #infos-system ul li {margin:0;}
+
       </style>
    </head>
    <body>
@@ -1600,9 +1603,9 @@ function foot_html_deploy() {
    return '
          </div>
          <footer class="d-flex align-items-center bg-light">
-            <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.0</div>
+            <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.1</div>
             <div class="ms-auto small px-3">
-               <ul>
+               <ul id="infos-system">
                   <li>PHP : <span class="">' .phpversion(). '</span></li>
                   <li>'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
                   <li>'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
@@ -1702,6 +1705,7 @@ function head_html(){
             #language_selector ul {padding: 0; margin-left: 0.5rem !important;}
             .section-stable a {color:green; font-weight: bold;}
             .section-dev a {color: #DC3545; font-weight: bold;}
+            #infos-system ul li {margin:0;}
 
          </style>
       </head>
@@ -1720,9 +1724,9 @@ function foot_html() {
    return '
          </div>
          <footer class="d-flex align-items-center bg-light">
-            <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.0</div>
+            <div class="ps-3"><a href="https://www.npds.org" target="_blank">NPDS</a> <br />npds_deployer v.1.1</div>
             <div class="ms-auto small px-3">
-               <ul>
+               <ul id="infos-system">
                   <li>PHP : <span class="">' .phpversion(). '</span></li>
                   <li>'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
                   <li>'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
@@ -1904,7 +1908,6 @@ function processMessagesSequentially(messages) {
          // ⭐⭐ FONCTION showResult COMPLÈTE
          function showResult(success, message, isUpdate) {
             const progressContainer = document.querySelector(".progress-container");
-            // Cacher la barre de progression
             if (progressContainer)
                progressContainer.style.display = "none";
             resultElement.style.display = "block";
