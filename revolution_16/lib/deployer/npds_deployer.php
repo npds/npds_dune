@@ -1851,22 +1851,22 @@ function processMessageQueue() {
       updateStatus(message.message);
    }
 
-   const isSuccessEnd = lastMessage.type === "success" || 
-                        lastMessage.type === "SUCCESS" || 
-                        lastMessage.message.includes("succès") || 
-                        lastMessage.message.includes("success") ||
-                        lastMessage.message.includes("terminé") ||
-                        lastMessage.message.includes("completed") ||
-                        lastMessage.message.includes("🎉") ||
-                        lastMessage.message.includes("Mise à jour terminée") ||
-                        lastMessage.message.includes("installation déployée");
+   const isSuccessEnd = message.message.type === "success" || 
+                        message.message.type === "SUCCESS" || 
+                        message.message.includes("succès") || 
+                        message.message.includes("success") ||
+                        message.message.includes("terminé") ||
+                        message.message.includes("completed") ||
+                        message.message.includes("🎉") ||
+                        message.message.includes("Mise à jour terminée") ||
+                        message.message.includes("installation déployée");
    const isErrorEnd = lastMessage.type === "error" || 
-                        lastMessage.message.includes("échec") || 
-                        lastMessage.message.includes("failed") ||
-                        lastMessage.message.includes("erreur") ||
-                        lastMessage.message.includes("error") ||
-                        lastMessage.message.includes("💥") ||
-                        lastMessage.message.includes("ERREUR");
+                        message.message.includes("échec") || 
+                        message.message.includes("failed") ||
+                        message.message.includes("erreur") ||
+                        message.message.includes("error") ||
+                        message.message.includes("💥") ||
+                        message.message.includes("ERREUR");
 
    // ⭐⭐ ARRÊTER SEULEMENT AU DERNIER MESSAGE
    if ((isSuccessEnd || isErrorEnd) && messageQueue.length === 0) {
