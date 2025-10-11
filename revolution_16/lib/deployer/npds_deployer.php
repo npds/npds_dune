@@ -1816,29 +1816,42 @@ function showAjaxDeployInterface() {
          }
 
          function processMessageQueue() {
-            if (isProcessingQueue || messageQueue.length === 0) return;
-            isProcessingQueue = true;
-            const message = messageQueue.shift();
-            console.log("📝 Traitement message:", message.message.substring(0, 50));
          
-            // Traitement des messages spéciaux (PROCESS:, PROGRESS:)
-            if (message.message.startsWith("PROCESS:")) {
-               const processName = message.message.split(":")[1];
-               changeProcess(processName);
-            } else if (message.message.startsWith("PROGRESS:")) {
-               const percent = parseInt(message.message.split(":")[1]);
-               updateProgressBar(percent);
-            } else {
-               // Message normal
-               updateStatus(message.message);
+          console.log("🔍 processMessageQueue() - Début - isProcessingQueue:", isProcessingQueue, "Queue:", messageQueue.length);
+         
+            if (isProcessingQueue || messageQueue.length === 0) {
+               console.log("⏸️  processMessageQueue() SKIPPÉ");
+               return;
+            }
+            isProcessingQueue = true;
+            console.log("🚀 DEBUT processMessageQueue() - Flag TRUE");
+
+            try {
+               const message = messageQueue.shift();
+               console.log("📝 Traitement message:", message.message.substring(0, 50));
+         
+               // Traitement des messages spéciaux (PROCESS:, PROGRESS:)
+               if (message.message.startsWith("PROCESS:")) {
+                  const processName = message.message.split(":")[1];
+                  changeProcess(processName);
+               } else if (message.message.startsWith("PROGRESS:")) {
+                  const percent = parseInt(message.message.split(":")[1]);
+                  updateProgressBar(percent);
+               } else {
+                  updateStatus(message.message);
+               }
+            } catch (error) {
+               console.error("💥 ERREUR dans processMessageQueue():", error);
             }
          
             // Délai de 800ms entre chaque message
             setTimeout(() => {
+               console.log("🏁 FIN processMessageQueue() - Remise à FALSE");
                isProcessingQueue = false;
                if (messageQueue.length > 0) {
+                  console.log("🔄 Queue non vide - Rappel automatique");
                   processMessageQueue();
-               }
+               } else {console.log("💤 Queue vide - Attente");}
             }, 800);
          }
 
