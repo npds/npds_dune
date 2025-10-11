@@ -1900,15 +1900,15 @@ function checkLogs() {
                console.log("🕒 Nouveau lastUpdateTime:", lastUpdateTime);
             }
             // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
-               if (!isProcessingQueue) {
-                  console.log("🚀 Lancement processMessageQueue()");
-                  processMessageQueue();
-               } else {
-                    console.log("⏳ processMessageQueue() déjà en cours");
-                } else {
-                  console.log("📭 Aucun nouveau message");
-               }
-            }
+            if (!isProcessingQueue) {
+               console.log("🚀 Lancement processMessageQueue()");
+               processMessageQueue();
+            } else {
+               console.log("⏳ processMessageQueue() déjà en cours");
+            } 
+         }
+         else {
+            console.log("📭 Aucun nouveau message");
          }
          // ⭐️ CONTINUER LE POLLING SI PAS ARRÊTÉ
          if (!shouldStopPolling) {
@@ -1916,8 +1916,8 @@ function checkLogs() {
             console.log("⏱️ Prochain checkLogs() dans", nextDelay, "ms");
             setTimeout(checkLogs, nextDelay);
          } else {
-                console.log("🛑 Plus de polling - shouldStopPolling = true");
-            }
+            console.log("🛑 Plus de polling - shouldStopPolling = true");
+         }
       })
       .catch(error => {
          if (!shouldStopPolling) {
