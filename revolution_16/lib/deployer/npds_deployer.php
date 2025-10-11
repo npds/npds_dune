@@ -71,7 +71,6 @@ if ($isApiCall) {
 }
 
 // error_log("🧨 DÉPLOYEUR DÉMARRÉ - " . date('H:i:s') . " - " . $_SERVER['REQUEST_URI']);
-// ⭐⭐ LOGS DIFFÉRENCIÉS - INTELLIGENTS ET UTILES
 $requestUri = $_SERVER['REQUEST_URI'] ?? 'unknown';
 $queryString = $_SERVER['QUERY_STRING'] ?? '';
 // Analyse de la requête
@@ -684,10 +683,6 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
    header('Content-Type: application/json');
    $deploymentId = $_GET['deploy_id'] ?? '';
    $sinceTime = $_GET['since'] ?? 0;
-   
-   error_log("🔍 API LOGS - since: $sinceTime (" . date('d-M-Y H:i:s', $sinceTime) . ")");
-    error_log("🔍 Timezone PHP: " . date_default_timezone_get());
-   
    $targetDir = $_GET['target'] ?? '.';
    $lang = $_GET['lang'] ?: 'fr';
    // ⭐⭐ DEBUG CRITIQUE
@@ -722,18 +717,6 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
       if ($lines) {
          foreach ($lines as $line) {
             if (preg_match('/^\[([^\]]+)\]\s+\[([^\]]+)\]\s+\[([^\]]+)\]\s+(.+)$/', $line, $matches)) {
-
-
-$dateStr = $matches[1];
-$timestamp1 = strtotime($dateStr);
-$timestamp2 = DateTime::createFromFormat('d-M-Y H:i:s', $dateStr)->getTimestamp();
-error_log("🔍 Ligne $index - Date: $dateStr");
-error_log("🔍   strtotime(): $timestamp1 (" . date('d-M-Y H:i:s', $timestamp1) . ")");
-error_log("🔍   DateTime: $timestamp2 (" . date('d-M-Y H:i:s', $timestamp2) . ")");
-error_log("🔍   Since: $sinceTime (" . date('d-M-Y H:i:s', $sinceTime) . ")");
-error_log("🔍   Inclus: " . ($timestamp2 > $sinceTime ? 'OUI' : 'NON'));
-
-
                $timestamp = strtotime($matches[1]);
                $logDeployId = $matches[2];
                $type = $matches[3];
@@ -1819,6 +1802,10 @@ function showAjaxDeployInterface() {
          let resultElement = document.getElementById("result");
          let lastUpdateTime = 0;
          let globalTimeoutId = null;
+         let messageQueue = [];
+         let isProcessingQueue = false;
+         let lastProcessedTimestamp = 0;
+         let shouldStopPolling = false;
 
          function hideSpinner() {
             const spinner = document.querySelector(".spinner");
@@ -1826,124 +1813,117 @@ function showAjaxDeployInterface() {
                spinner.style.display = "none";
          }
 
-let messageQueue = [];
-let isProcessingQueue = false;
-let lastProcessedTimestamp = 0;
-let shouldStopPolling = false;
-
-function processMessageQueue() {
-   if (isProcessingQueue || messageQueue.length === 0) return;
-   isProcessingQueue = true;
-   const message = messageQueue.shift();
-   console.log("📝 Traitement message:", message.message.substring(0, 50));
-
-   // Traitement des messages spéciaux (PROCESS:, PROGRESS:)
-   if (message.message.startsWith("PROCESS:")) {
-      const processName = message.message.split(":")[1];
-      changeProcess(processName);
-   } else if (message.message.startsWith("PROGRESS:")) {
-      const percent = parseInt(message.message.split(":")[1]);
-      updateProgressBar(percent);
-   } else {
-      // Message normal
-      updateStatus(message.message);
-   }
-
-    
-    // Délai de 800ms entre chaque message
-    setTimeout(() => {
-        isProcessingQueue = false;
-        if (messageQueue.length > 0) {
-            processMessageQueue();
-        }
-    }, 800);
-}
-
-function checkLogs() {
-   console.log("🔄 checkLogs() appelé - shouldStopPolling:", shouldStopPolling, "lastUpdateTime:", lastUpdateTime);
-   if (shouldStopPolling) {
-      console.log("🛑 Polling déjà arrêté");
-      return;
-   }
-   fetch("?api=logs&deploy_id=" + deploymentId + "&since=0&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
-      .then(response => {
-         console.log("📨 Réponse status:", response.status);
-         if (!response.ok) throw new Error("HTTP " + response.status);
-         return response.json();
-      })
-      .then(data => {
-         console.log("📝 Données reçues - Messages:", data.messages ? data.messages.length : 0, "Last update:", data.last_update);
-         if (data.messages && data.messages.length > 0) {
-            console.log("🔍 Dernier message brut:", data.messages[data.messages.length - 1]);
-            const lastMessage = data.messages[data.messages.length - 1];
-            console.log("🔍 Dernier message analysé:", lastMessage);
-
-            const isSuccessEnd = lastMessage.type === "success" || 
-                                 lastMessage.type === "SUCCESS" || 
-                                 lastMessage.message.includes("succès") || 
-                                 lastMessage.message.includes("success") ||
-                                 lastMessage.message.includes("terminé") ||
-                                 lastMessage.message.includes("completed") ||
-                                 lastMessage.message.includes("🎉") ||
-                                 lastMessage.message.includes("Mise à jour terminée") ||
-                                 lastMessage.message.includes("installation déployée");
-            const isErrorEnd = lastMessage.type === "error" || 
-                              lastMessage.message.includes("échec") || 
-                              lastMessage.message.includes("failed") ||
-                              lastMessage.message.includes("erreur") ||
-                              lastMessage.message.includes("error") ||
-                              lastMessage.message.includes("💥") ||
-                              lastMessage.message.includes("ERREUR");
-            console.log("🎯 Détection fin - isSuccessEnd:", isSuccessEnd, "isErrorEnd:", isErrorEnd);
-            if (isSuccessEnd || isErrorEnd) {
-               console.log("🎯 FIN DÉTECTÉE DANS checkLogs() - Arrêt immédiat");
-               shouldStopPolling = true;
-               hideSpinner();
-               showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
-               if (globalTimeoutId) {
-                  console.log("⏰ Timeout global annulé");
-                  clearTimeout(globalTimeoutId);
-               }
-               return; // ⭐️ ARRÊT IMMÉDIAT
-            }
-            // ⭐⭐ AJOUTER LES NOUVEAUX MESSAGES À LA FILE D\'ATTENTE
-            console.log("➕ Ajout de", data.messages.length, "messages à la file");
-            messageQueue.push(...data.messages);
-            // ⭐⭐ CORRECTION : Utiliser le timestamp du dernier message
-            if (data.messages.length > 0) {
-               const lastMessage = data.messages[data.messages.length - 1];
-               lastUpdateTime = lastMessage.timestamp;
-               console.log("🕒 Nouveau lastUpdateTime:", lastUpdateTime);
-            }
-            // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
-            if (!isProcessingQueue) {
-               console.log("🚀 Lancement processMessageQueue()");
-               processMessageQueue();
+         function processMessageQueue() {
+            if (isProcessingQueue || messageQueue.length === 0) return;
+            isProcessingQueue = true;
+            const message = messageQueue.shift();
+            console.log("📝 Traitement message:", message.message.substring(0, 50));
+         
+            // Traitement des messages spéciaux (PROCESS:, PROGRESS:)
+            if (message.message.startsWith("PROCESS:")) {
+               const processName = message.message.split(":")[1];
+               changeProcess(processName);
+            } else if (message.message.startsWith("PROGRESS:")) {
+               const percent = parseInt(message.message.split(":")[1]);
+               updateProgressBar(percent);
             } else {
-               console.log("⏳ processMessageQueue() déjà en cours");
-            } 
+               // Message normal
+               updateStatus(message.message);
+            }
+         
+            // Délai de 800ms entre chaque message
+            setTimeout(() => {
+               isProcessingQueue = false;
+               if (messageQueue.length > 0) {
+                  processMessageQueue();
+               }
+            }, 800);
          }
-         else {
-            console.log("📭 Aucun nouveau message");
-         }
-         // ⭐️ CONTINUER LE POLLING SI PAS ARRÊTÉ
-         if (!shouldStopPolling) {
-            const nextDelay = messageQueue.length > 0 ? 1000 : 3000;
-            console.log("⏱️ Prochain checkLogs() dans", nextDelay, "ms");
-            setTimeout(checkLogs, nextDelay);
-         } else {
-            console.log("🛑 Plus de polling - shouldStopPolling = true");
-         }
-      })
-      .catch(error => {
-         if (!shouldStopPolling) {
-            console.error("💥 ERREUR:", error);
-            updateStatus("⏳ Reconnexion au serveur...");
-            console.log("🔁 Reconnexion dans 5s");
-            setTimeout(checkLogs, 5000);
-         }
-      });
-   }
+
+         function checkLogs() {
+            console.log("🔄 checkLogs() appelé - shouldStopPolling:", shouldStopPolling, "lastUpdateTime:", lastUpdateTime);
+            if (shouldStopPolling) {
+               console.log("🛑 Polling déjà arrêté");
+               return;
+            }
+            fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
+               .then(response => {
+                  console.log("📨 Réponse status:", response.status);
+                  if (!response.ok) throw new Error("HTTP " + response.status);
+                  return response.json();
+               })
+               .then(data => {
+                  console.log("📝 Données reçues - Messages:", data.messages ? data.messages.length : 0, "Last update:", data.last_update);
+                  if (data.messages && data.messages.length > 0) {
+                     console.log("🔍 Dernier message brut:", data.messages[data.messages.length - 1]);
+                     const lastMessage = data.messages[data.messages.length - 1];
+                     console.log("🔍 Dernier message analysé:", lastMessage);
+                     const isSuccessEnd = lastMessage.type === "success" || 
+                                          lastMessage.type === "SUCCESS" || 
+                                          lastMessage.message.includes("succès") || 
+                                          lastMessage.message.includes("success") ||
+                                          lastMessage.message.includes("terminé") ||
+                                          lastMessage.message.includes("completed") ||
+                                          lastMessage.message.includes("🎉") ||
+                                          lastMessage.message.includes("Mise à jour terminée") ||
+                                          lastMessage.message.includes("installation déployée");
+                     const isErrorEnd = lastMessage.type === "error" || 
+                                       lastMessage.message.includes("échec") || 
+                                       lastMessage.message.includes("failed") ||
+                                       lastMessage.message.includes("erreur") ||
+                                       lastMessage.message.includes("error") ||
+                                       lastMessage.message.includes("💥") ||
+                                       lastMessage.message.includes("ERREUR");
+                     console.log("🎯 Détection fin - isSuccessEnd:", isSuccessEnd, "isErrorEnd:", isErrorEnd);
+                     if (isSuccessEnd || isErrorEnd) {
+                        console.log("🎯 FIN DÉTECTÉE DANS checkLogs() - Arrêt immédiat");
+                        shouldStopPolling = true;
+                        hideSpinner();
+                        showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
+                        if (globalTimeoutId) {
+                           console.log("⏰ Timeout global annulé");
+                           clearTimeout(globalTimeoutId);
+                        }
+                        return; // ⭐️ ARRÊT IMMÉDIAT
+                     }
+                     // ⭐⭐ AJOUTER LES NOUVEAUX MESSAGES À LA FILE D\'ATTENTE
+                     console.log("➕ Ajout de", data.messages.length, "messages à la file");
+                     messageQueue.push(...data.messages);
+                     // ⭐⭐ CORRECTION : Utiliser le timestamp du dernier message
+                     if (data.messages.length > 0) {
+                        const lastMessage = data.messages[data.messages.length - 1];
+                        lastUpdateTime = lastMessage.timestamp;
+                        console.log("🕒 Nouveau lastUpdateTime:", lastUpdateTime);
+                     }
+                     // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
+                     if (!isProcessingQueue) {
+                        console.log("🚀 Lancement processMessageQueue()");
+                        processMessageQueue();
+                     } else {
+                        console.log("⏳ processMessageQueue() déjà en cours");
+                     } 
+                  }
+                  else {
+                     console.log("📭 Aucun nouveau message");
+                  }
+                  // ⭐️ CONTINUER LE POLLING SI PAS ARRÊTÉ
+                  if (!shouldStopPolling) {
+                     const nextDelay = messageQueue.length > 0 ? 1000 : 3000;
+                     console.log("⏱️ Prochain checkLogs() dans", nextDelay, "ms");
+                     setTimeout(checkLogs, nextDelay);
+                  } else {
+                     console.log("🛑 Plus de polling - shouldStopPolling = true");
+                  }
+               })
+               .catch(error => {
+                  if (!shouldStopPolling) {
+                     console.error("💥 ERREUR:", error);
+                     updateStatus("⏳ Reconnexion au serveur...");
+                     console.log("🔁 Reconnexion dans 5s");
+                     setTimeout(checkLogs, 5000);
+                  }
+               });
+            }
 
 
 /*
