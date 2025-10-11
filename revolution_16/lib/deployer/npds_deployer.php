@@ -1669,6 +1669,9 @@ function head_html(){
             .mb-0 {margin-bottom: 0 !important;}
             .mb-3 {margin-bottom: 1rem !important;}
             .mb-4 {margin-bottom: 1.5rem !important;}
+            .ps-1 {padding-left: 0.25rem !important;}
+            .ps-3 {padding-left: 1rem!important;}
+            .pe-3 {padding-right: 1rem!important}
             .display-6 { font-size: 2rem; font-weight: 300; }
             ul { list-style-type: none; padding: 0; }
             li { margin: 6px 0; }
@@ -1678,7 +1681,6 @@ function head_html(){
             .align-items-center {align-items: center !important;}
             .ms-auto {margin-left: auto!important}
             .small, small {font-size: .875em;}
-            .pe-3 {padding-right: 1rem!important}
             #language_selector a.active {color: black; font-weight: bold;}
             #language_selector a:hover{color: black;}
             #language_selector ul {padding: 0; margin-left: 0.5rem !important;}
@@ -1731,12 +1733,12 @@ function handleDeployOperation() {
    }
    if (!$isConfirmed) {
       echo head_html();
-      echo '<div class="section-danger">
+      echo '
+      <div class="section-danger">
          <h2>🚨 ' . t('warning', $lang) . '</h2>
          <p>' . t('overwrite_warning', $lang) . '</p>
-         <p>' . t('security_warning', $lang) . '</p>
-         <a href="?op=deploy&version=' . urlencode($_GET['version']) . '&path=' . urlencode($_GET['path']) . '&confirm=yes&lang=' . $lang . '" class="btn btn-danger">' . t('deploy', $lang) . '</a>
-         <a href="?" class="btn btn-secondary">' . t('cancel', $lang) . '</a>
+         <a href="?op=deploy&version=' . urlencode($_GET['version']) . '&path=' . urlencode($_GET['path']) . '&confirm=yes&lang=' . $lang . '" class="btn btn-danger mb-3">' . t('deploy', $lang) . '</a>
+         <a href="?" class="btn btn-secondary mb-3">' . t('cancel', $lang) . '</a>
       </div>';
       echo foot_html();
       return;
