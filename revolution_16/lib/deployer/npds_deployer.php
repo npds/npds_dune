@@ -38,7 +38,7 @@ if ($isApiCall) {
       if ($lockData && isset($lockData['timestamp'])) {
          $elapsed = time() - $lockData['timestamp'];
          $processId = $lockData['process_id'] ?? 'inconnu';
-         if ($elapsed < $lockTimeout) {
+         if ($elapsed > $lockTimeout) {
             error_log("🚨 DÉPLOYEUR BLOQUÉ - Processus $processId en cours depuis $elapsed secondes");
             error_log("🚨 URL bloquée: " . ($_SERVER['REQUEST_URI'] ?? 'inconnu'));
             header('Content-Type: application/json');
@@ -1650,7 +1650,7 @@ function head_html(){
                border-radius: 0.375rem; padding: 0.1rem 1rem; margin-bottom: 1rem; border-left: 1.2rem solid;
             }
             .section-stable {border-color: #198754; background-color: #e3eed7; color: var(--bs-success); }
-            .section-dev, .section-danger {border-color: #dc3545; background-color: #f4d2d3; color: var(--bs-danger); }
+            .section-dev, .section-danger {border-color: var(--bs-danger); background-color: #f4d2d3; color: var(--bs-danger); }
             .section-maintenance {border-color: #6c757d; background-color:#f6f7f9; color: #6c757d;}
             .section-advanced {border-color: #6c757d; background-color:#f6f7f9; }
             .btn { display: inline-block; padding: 0.375rem 0.75rem; border: 1px solid; border-radius: 0.375rem; text-decoration: none; margin: 0.25rem; }
