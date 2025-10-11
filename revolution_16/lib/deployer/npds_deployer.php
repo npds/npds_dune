@@ -684,6 +684,10 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
    header('Content-Type: application/json');
    $deploymentId = $_GET['deploy_id'] ?? '';
    $sinceTime = $_GET['since'] ?? 0;
+   
+   error_log("🔍 API LOGS - since: $sinceTime (" . date('d-M-Y H:i:s', $sinceTime) . ")");
+    error_log("🔍 Timezone PHP: " . date_default_timezone_get());
+   
    $targetDir = $_GET['target'] ?? '.';
    $lang = $_GET['lang'] ?: 'fr';
    // ⭐⭐ DEBUG CRITIQUE
@@ -718,6 +722,18 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
       if ($lines) {
          foreach ($lines as $line) {
             if (preg_match('/^\[([^\]]+)\]\s+\[([^\]]+)\]\s+\[([^\]]+)\]\s+(.+)$/', $line, $matches)) {
+
+
+$dateStr = $matches[1];
+$timestamp1 = strtotime($dateStr);
+$timestamp2 = DateTime::createFromFormat('d-M-Y H:i:s', $dateStr)->getTimestamp();
+error_log("🔍 Ligne $index - Date: $dateStr");
+error_log("🔍   strtotime(): $timestamp1 (" . date('d-M-Y H:i:s', $timestamp1) . ")");
+error_log("🔍   DateTime: $timestamp2 (" . date('d-M-Y H:i:s', $timestamp2) . ")");
+error_log("🔍   Since: $sinceTime (" . date('d-M-Y H:i:s', $sinceTime) . ")");
+error_log("🔍   Inclus: " . ($timestamp2 > $sinceTime ? 'OUI' : 'NON'));
+
+
                $timestamp = strtotime($matches[1]);
                $logDeployId = $matches[2];
                $type = $matches[3];
@@ -1849,7 +1865,7 @@ function checkLogs() {
       console.log("🛑 Polling déjà arrêté");
       return;
    }
-   fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
+   fetch("?api=logs&deploy_id=" + deploymentId + "&since=0&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
       .then(response => {
          console.log("📨 Réponse status:", response.status);
          if (!response.ok) throw new Error("HTTP " + response.status);
