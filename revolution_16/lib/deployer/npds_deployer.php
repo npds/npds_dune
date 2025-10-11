@@ -1870,9 +1870,14 @@ function showAjaxDeployInterface() {
                .then(data => {
                   console.log("📝 Données reçues - Messages:", data.messages ? data.messages.length : 0, "Last update:", data.last_update);
                   if (data.messages && data.messages.length > 0) {
-                     console.log("🔍 Dernier message brut:", data.messages[data.messages.length - 1]);
+                     console.log("➕ Ajout de", data.messages.length, "messages à la file");
+                     messageQueue.push(...data.messages);
                      const lastMessage = data.messages[data.messages.length - 1];
-                     console.log("🔍 Dernier message analysé:", lastMessage);
+                     if (data.messages.length > 0) {
+                        lastUpdateTime = lastMessage.timestamp;
+                        console.log("🕒 Nouveau lastUpdateTime:", lastUpdateTime);
+                     }
+                     console.log("🔍 Dernier message brut:", data.messages[data.messages.length - 1]);
                      const isSuccessEnd = lastMessage.type === "success" || 
                                           lastMessage.type === "SUCCESS" || 
                                           lastMessage.message.includes("succès") || 
@@ -1890,33 +1895,27 @@ function showAjaxDeployInterface() {
                                        lastMessage.message.includes("💥") ||
                                        lastMessage.message.includes("ERREUR");
                      console.log("🎯 Détection fin - isSuccessEnd:", isSuccessEnd, "isErrorEnd:", isErrorEnd);
+
                      if (isSuccessEnd || isErrorEnd) {
-                        console.log("🎯 FIN DÉTECTÉE DANS checkLogs() - Arrêt immédiat");
+                        console.log("🎯 FIN DÉTECTÉE DANS checkLogs() - Arrêt dans 5 secondes");
                         shouldStopPolling = true;
-
-                     setTimeout(() => {
-
-                        hideSpinner();
-                        showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
-                        if (globalTimeoutId) {
-                           console.log("⏰ Timeout global annulé");
-                           clearTimeout(globalTimeoutId);
-                        }
+                        setTimeout(() => {
+                           console.log("🏁 Affichage résultat final après 5 secondes");
+                           hideSpinner();
+                           showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
+                           if (globalTimeoutId) {
+                              console.log("⏰ Timeout global annulé");
+                              clearTimeout(globalTimeoutId);
+                           }
                         },5000);
 
-                        
+                        // ⭐⭐ DÉMARRER LE TRAITEMENT DES DERNIERS MESSAGES AVANT ARRÊT
+                        if (!isProcessingQueue && messageQueue.length > 0) {
+                           console.log("🚀 Lancement processMessageQueue() pour les derniers messages");
+                           processMessageQueue();
+                        }
                         return; // ⭐️ ARRÊT IMMÉDIAT
                      }
-                     // ⭐⭐ AJOUTER LES NOUVEAUX MESSAGES À LA FILE D\'ATTENTE
-                     console.log("➕ Ajout de", data.messages.length, "messages à la file");
-                     messageQueue.push(...data.messages);
-                     // ⭐⭐ CORRECTION : Utiliser le timestamp du dernier message
-                     if (data.messages.length > 0) {
-                        const lastMessage = data.messages[data.messages.length - 1];
-                        lastUpdateTime = lastMessage.timestamp;
-                        console.log("🕒 Nouveau lastUpdateTime:", lastUpdateTime);
-                     }
-                     // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
                      if (!isProcessingQueue) {
                         console.log("🚀 Lancement processMessageQueue()");
                         processMessageQueue();
