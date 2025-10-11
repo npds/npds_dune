@@ -1813,6 +1813,7 @@ function showAjaxDeployInterface() {
 let messageQueue = [];
 let isProcessingQueue = false;
 let lastProcessedTimestamp = 0;
+let shouldStopPolling = false;
 
 function processMessageQueue() {
    if (isProcessingQueue || messageQueue.length === 0) return;
@@ -1832,31 +1833,6 @@ function processMessageQueue() {
       updateStatus(message.message);
    }
 
-   const isSuccessEnd = message.message.type === "success" || 
-                        message.message.type === "SUCCESS" || 
-                        message.message.includes("succès") || 
-                        message.message.includes("success") ||
-                        message.message.includes("terminé") ||
-                        message.message.includes("completed") ||
-                        message.message.includes("🎉") ||
-                        message.message.includes("Mise à jour terminée") ||
-                        message.message.includes("installation déployée");
-   const isErrorEnd = message.message.type === "error" || 
-                        message.message.includes("échec") || 
-                        message.message.includes("failed") ||
-                        message.message.includes("erreur") ||
-                        message.message.includes("error") ||
-                        message.message.includes("💥") ||
-                        message.message.includes("ERREUR");
-
-   // ⭐⭐ ARRÊTER SEULEMENT AU DERNIER MESSAGE
-   if ((isSuccessEnd || isErrorEnd) && messageQueue.length === 0) {
-      console.log("🎯 FIN DÉFINITIVE DÉTECTÉE - Tous les messages traités");
-      hideSpinner();
-      showResult(isSuccessEnd, message.message, phpIsUpdate);
-      if (globalTimeoutId) clearTimeout(globalTimeoutId);
-         return; // ⭐⭐ ARRÊT DÉFINITIF
-   }
     
     // Délai de 800ms entre chaque message
     setTimeout(() => {
@@ -1868,34 +1844,89 @@ function processMessageQueue() {
 }
 
 function checkLogs() {
+   console.log("🔄 checkLogs() appelé - shouldStopPolling:", shouldStopPolling, "lastUpdateTime:", lastUpdateTime);
+   if (shouldStopPolling) {
+      console.log("🛑 Polling déjà arrêté");
+      return;
+   }
    fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
       .then(response => {
+         console.log("📨 Réponse status:", response.status);
          if (!response.ok) throw new Error("HTTP " + response.status);
          return response.json();
       })
       .then(data => {
+         console.log("📝 Données reçues - Messages:", data.messages ? data.messages.length : 0, "Last update:", data.last_update);
          if (data.messages && data.messages.length > 0) {
+            console.log("🔍 Dernier message brut:", data.messages[data.messages.length - 1]);
+            const lastMessage = data.messages[data.messages.length - 1];
+            console.log("🔍 Dernier message analysé:", lastMessage);
+
+            const isSuccessEnd = lastMessage.type === "success" || 
+                                 lastMessage.type === "SUCCESS" || 
+                                 lastMessage.message.includes("succès") || 
+                                 lastMessage.message.includes("success") ||
+                                 lastMessage.message.includes("terminé") ||
+                                 lastMessage.message.includes("completed") ||
+                                 lastMessage.message.includes("🎉") ||
+                                 lastMessage.message.includes("Mise à jour terminée") ||
+                                 lastMessage.message.includes("installation déployée");
+            const isErrorEnd = lastMessage.type === "error" || 
+                              lastMessage.message.includes("échec") || 
+                              lastMessage.message.includes("failed") ||
+                              lastMessage.message.includes("erreur") ||
+                              lastMessage.message.includes("error") ||
+                              lastMessage.message.includes("💥") ||
+                              lastMessage.message.includes("ERREUR");
+            console.log("🎯 Détection fin - isSuccessEnd:", isSuccessEnd, "isErrorEnd:", isErrorEnd);
+            if (isSuccessEnd || isErrorEnd) {
+               console.log("🎯 FIN DÉTECTÉE DANS checkLogs() - Arrêt immédiat");
+               shouldStopPolling = true;
+               hideSpinner();
+               showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
+               if (globalTimeoutId) {
+                  console.log("⏰ Timeout global annulé");
+                  clearTimeout(globalTimeoutId);
+               }
+               return; // ⭐️ ARRÊT IMMÉDIAT
+            }
             // ⭐⭐ AJOUTER LES NOUVEAUX MESSAGES À LA FILE D\'ATTENTE
+            console.log("➕ Ajout de", data.messages.length, "messages à la file");
             messageQueue.push(...data.messages);
             // ⭐⭐ CORRECTION : Utiliser le timestamp du dernier message
             if (data.messages.length > 0) {
                const lastMessage = data.messages[data.messages.length - 1];
-               lastUpdateTime = lastMessage.timestamp; // ⭐⭐ TIMESTAMP DU MESSAGE
+               lastUpdateTime = lastMessage.timestamp;
+               console.log("🕒 Nouveau lastUpdateTime:", lastUpdateTime);
             }
             // ⭐⭐ DÉMARRER LE TRAITEMENT SI PAS DÉJÀ EN COURS
-               if (!isProcessingQueue)
+               if (!isProcessingQueue) {
+                  console.log("🚀 Lancement processMessageQueue()");
                   processMessageQueue();
+               } else {
+                    console.log("⏳ processMessageQueue() déjà en cours");
+                } else {
+                console.log("📭 Aucun nouveau message");
+            }
          }
-         // ⭐⭐ CORRECTION : TOUJOURS CONTINUER LE POLLING
-         // sauf si la fin a été détectée dans processMessageQueue()
-         setTimeout(checkLogs, messageQueue.length > 0 ? 1000 : 3000);
+         // ⭐️ CONTINUER LE POLLING SI PAS ARRÊTÉ
+         if (!shouldStopPolling) {
+            const nextDelay = messageQueue.length > 0 ? 1000 : 3000;
+            console.log("⏱️ Prochain checkLogs() dans", nextDelay, "ms");
+            setTimeout(checkLogs, nextDelay);
+         } else {
+                console.log("🛑 Plus de polling - shouldStopPolling = true");
+            }
       })
       .catch(error => {
-         console.error("💥 ERREUR:", error);
-         updateStatus("⏳ Reconnexion au serveur...");
-         setTimeout(checkLogs, 5000);
+         if (!shouldStopPolling) {
+            console.error("💥 ERREUR:", error);
+            updateStatus("⏳ Reconnexion au serveur...");
+            console.log("🔁 Reconnexion dans 5s");
+            setTimeout(checkLogs, 5000);
+         }
       });
-}
+   }
 
 
 /*
