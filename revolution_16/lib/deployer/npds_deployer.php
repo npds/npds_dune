@@ -848,6 +848,9 @@ function executeDeployment($version, $targetDir) {
          throw new Exception("Échec extraction: " . $extractResult['message']);
       $logMessage("PROGRESS:80");
       $logMessage("✅ ".t('extraction_finished',$lang));
+      $logMessage("PROGRESS:85"); 
+      $logMessage("🔄 Préparation de la copie...");
+      sleep(2);
       $logMessage("PROCESS:COPY");
       $logMessage("PROGRESS:90");
       $logMessage("🔧 Copie finale des fichiers...");
@@ -1472,7 +1475,7 @@ function head_html_deploy($title = 'Déploiement en cours') {
          .status { text-align: center; font-size: 18px; margin: 20px 0; color: #333; }
          .progress-container { margin: 20px 0; text-align: center; }
          .progress-bar { width: 100%; height: 20px; background: #f0f0f0; border-radius: 10px; overflow: hidden; }
-         .progress-fill { height: 100%; background: linear-gradient(90deg, #2196F3, #1976D2); transition: width 1.5s ease; border-radius: 10px; }
+         .progress-fill { height: 100%; background: linear-gradient(90deg, #2196F3, #1976D2); transition: width 2.5s ease; border-radius: 10px; }
          .progress-text { margin-top: 5px; font-weight: bold; color: #333; }
          .process-label { margin-top: 3px; font-size: 12px; color: #666; font-style: italic; }
          .logs { background: #1e1e1e; color: #00ff00; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 12px; overflow-y: auto; margin-top: 20px; }
@@ -1816,20 +1819,16 @@ function showAjaxDeployInterface() {
          }
 
          function processMessageQueue() {
-         
           console.log("🔍 processMessageQueue() - Début - isProcessingQueue:", isProcessingQueue, "Queue:", messageQueue.length);
-         
             if (isProcessingQueue || messageQueue.length === 0) {
                console.log("⏸️  processMessageQueue() SKIPPÉ");
                return;
             }
             isProcessingQueue = true;
             console.log("🚀 DEBUT processMessageQueue() - Flag TRUE");
-
             try {
                const message = messageQueue.shift();
                console.log("📝 Traitement message:", message.message.substring(0, 50));
-         
                // Traitement des messages spéciaux (PROCESS:, PROGRESS:)
                if (message.message.startsWith("PROCESS:")) {
                   const processName = message.message.split(":")[1];
@@ -1843,7 +1842,6 @@ function showAjaxDeployInterface() {
             } catch (error) {
                console.error("💥 ERREUR dans processMessageQueue():", error);
             }
-         
             // Délai de 800ms entre chaque message
             setTimeout(() => {
                console.log("🏁 FIN processMessageQueue() - Remise à FALSE");
@@ -1852,7 +1850,7 @@ function showAjaxDeployInterface() {
                   console.log("🔄 Queue non vide - Rappel automatique");
                   processMessageQueue();
                } else {console.log("💤 Queue vide - Attente");}
-            }, 800);
+            }, 1200);
          }
 
          function checkLogs() {
@@ -1907,7 +1905,7 @@ function showAjaxDeployInterface() {
                               console.log("⏰ Timeout global annulé");
                               clearTimeout(globalTimeoutId);
                            }
-                        },5000);
+                        },7000);
 
                         // ⭐⭐ DÉMARRER LE TRAITEMENT DES DERNIERS MESSAGES AVANT ARRÊT
                         if (!isProcessingQueue && messageQueue.length > 0) {
@@ -1945,65 +1943,6 @@ function showAjaxDeployInterface() {
                });
             }
 
-
-/*
-         function checkLogs() {
-            console.log("🔄 checkLogs() appelé - lastUpdateTime:", lastUpdateTime); 
-            fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target=' . urlencode($targetDir) . '&lang=' . $lang . '&t=" + Date.now())
-                .then(response => {
-                    console.log("📡 Status:", response.status);
-                    if (!response.ok) throw new Error("HTTP " + response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("📨 Réponse reçue - Messages:", data.messages?.length || 0);
-                    if (data.messages && data.messages.length > 0) {
-                        console.log("📝 Traitement de", data.messages.length, "messages");
-                        data.messages.forEach(msg => {
-                            updateStatus(msg.message);
-                        });
-                        lastUpdateTime = data.last_update;
-                        // ⭐⭐ DÉTECTION DE LA FIN
-                        const lastMessage = data.messages[data.messages.length - 1];
-                        console.log("🔍 Dernier message analysé:", lastMessage);
-                        const isSuccessEnd = lastMessage.type === "success" || 
-                                             lastMessage.type === "SUCCESS" || 
-                                             lastMessage.message.includes("succès") || 
-                                             lastMessage.message.includes("success") ||
-                                             lastMessage.message.includes("terminé") ||
-                                             lastMessage.message.includes("completed") ||
-                                             lastMessage.message.includes("🎉");
-                        const isErrorEnd = lastMessage.type === "error" || 
-                                           lastMessage.message.includes("échec") || 
-                                           lastMessage.message.includes("failed") ||
-                                           lastMessage.message.includes("erreur") ||
-                                           lastMessage.message.includes("error") ||
-                                           lastMessage.message.includes("💥");
-                        if (isSuccessEnd || isErrorEnd) {
-                            console.log("🎯 FIN DÉTECTÉE - Success:", isSuccessEnd, "Update:", phpIsUpdate);
-                            hideSpinner();
-                            showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
-                            if (globalTimeoutId)
-                                clearTimeout(globalTimeoutId);
-                            return;
-                        }
-                    }
-                    // Continuer le polling
-                    if (data.messages && data.messages.length > 0)
-                        setTimeout(checkLogs, 1000); // ⭐⭐ 1s si activité
-                     else
-                        setTimeout(checkLogs, 3000); // 3s si inactif
-                })
-                .catch(error => {
-                    console.error("💥 ERREUR:", error);
-                    updateStatus("⏳ Reconnexion au serveur...");
-                    setTimeout(checkLogs, 5000);
-                });
-         }
-*/
-
-
-         // ⭐⭐ FONCTION showResult COMPLÈTE
          function showResult(success, message, isUpdate) {
             const progressContainer = document.querySelector(".progress-container");
             if (progressContainer)
