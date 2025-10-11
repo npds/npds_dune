@@ -1906,7 +1906,8 @@ function checkLogs() {
                } else {
                     console.log("⏳ processMessageQueue() déjà en cours");
                 } else {
-                console.log("📭 Aucun nouveau message");
+                  console.log("📭 Aucun nouveau message");
+               }
             }
          }
          // ⭐️ CONTINUER LE POLLING SI PAS ARRÊTÉ
