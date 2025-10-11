@@ -1893,12 +1893,18 @@ function showAjaxDeployInterface() {
                      if (isSuccessEnd || isErrorEnd) {
                         console.log("🎯 FIN DÉTECTÉE DANS checkLogs() - Arrêt immédiat");
                         shouldStopPolling = true;
+
+                     setTimeout(() => {
+
                         hideSpinner();
                         showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
                         if (globalTimeoutId) {
                            console.log("⏰ Timeout global annulé");
                            clearTimeout(globalTimeoutId);
                         }
+                        },5000);
+
+                        
                         return; // ⭐️ ARRÊT IMMÉDIAT
                      }
                      // ⭐⭐ AJOUTER LES NOUVEAUX MESSAGES À LA FILE D\'ATTENTE
