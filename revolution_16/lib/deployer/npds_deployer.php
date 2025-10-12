@@ -811,9 +811,9 @@ function executeDeployment($version, $targetDir) {
       error_log("📦 Téléchargement de $version...");
       $logMessage("PROCESS:DOWNLOAD");
       $logMessage("PROGRESS:0");
-      $logMessage("PROGRESS:25");
-      $logMessage("PROGRESS:50");
-      $logMessage("PROGRESS:75");
+      $logMessage("PROGRESS:5");
+      $logMessage("PROGRESS:10");
+      $logMessage("PROGRESS:15");
       $logMessage("📦 ".t('downloading')." de $version...");
       // URLs GitHub correctes
       if ($version === 'master')
@@ -823,29 +823,34 @@ function executeDeployment($version, $targetDir) {
       error_log("🔗 URL: $url");
       $tempFile = $deployer->getTempDir() . '/' . uniqid('github_') . '.zip';
       $downloadResult = $deployer->downloadFile($url, $tempFile);
-      $logMessage("PROGRESS:100");
+//      $logMessage("PROGRESS:100");
       if (!$downloadResult['success'])
          throw new Exception("Échec téléchargement: " . $downloadResult['message']);
       $fileSize = filesize($tempFile);
       $logMessage("✅ " .t('download_success').": " . round($fileSize/1024/1024, 2) . " MB");
       // Extraction
       $logMessage("PROCESS:EXTRACT");
-      $logMessage("PROGRESS:30");
+      $logMessage("PROGRESS:20");
       $logMessage("📂 ".t('extraction_progress')."...");
-      $logMessage("PROGRESS:60");
+      $logMessage("PROGRESS:35");
       $extractResult = $deployer->extractFirstFolderContent($tempFile, $targetDir, 'zip', $version, $isUpdate);
       if (!$extractResult['success']) 
          throw new Exception("Échec extraction: " . $extractResult['message']);
-      $logMessage("PROGRESS:80");
+      $logMessage("PROGRESS:50");
+      $logMessage("PROGRESS:57");
       $logMessage("✅ ".t('extraction_finished'));
-      $logMessage("PROGRESS:85"); 
+//      $logMessage("PROGRESS:85"); 
       $logMessage("🔄 Préparation de la copie...");
       sleep(2);
       $logMessage("PROCESS:COPY");
+      $logMessage("PROGRESS:65");
+      $logMessage("PROGRESS:80");
       $logMessage("PROGRESS:90");
+
       $logMessage("🔧 Copie finale des fichiers...");
-      $logMessage("PROGRESS:100");
+      $logMessage("PROGRESS:99");
       $logMessage("✅ Copie des fichiers terminée");
+      $logMessage("PROGRESS:100");
 
       // Nettoyage
       @unlink($tempFile);
