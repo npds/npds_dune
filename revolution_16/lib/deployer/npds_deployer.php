@@ -10,7 +10,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* The Free Software Foundation; either version 3 of the License.       */
 /*                                                                      */
-/* npds_deployer.php                                                    */
+/* npds_deployer.php  v.1.1                                             */
 /* jpb & DeepSeek 2025                                                  */
 /************************************************************************/
 if (ob_get_level() > 0) ob_end_clean();
@@ -591,15 +591,15 @@ if (!in_array($lang, ['fr', 'en', 'es', 'de', 'zh']))
    $lang = 'fr';
 $_SESSION['npds_lang'] = $lang;
 
-function t($key, $lang = 'fr') {
-   global $translations;
+function t($key) {
+   global $translations, $lang;
    return $translations[$lang][$key] ?? $translations['fr'][$key] ?? $key;
 }
 
 // ==================== MODE API POUR DÉPLOIEMENT ====================
 if (isset($_GET['api']) && $_GET['api'] === 'deploy') {
    header('Content-Type: application/json');
-   $lang = $_GET['lang'] ?: 'fr';
+   $lang = $_GET['lang'] ?: 'fr'; // probablement inutile !
    // ⭐⭐ VERROU API IMMÉDIAT - AVANT TOUT ⭐⭐
    $apiLockFile = __DIR__ . '/api_deploy.lock';
    $lockTimeout = 600; // 10 minutes
@@ -797,7 +797,7 @@ function executeDeployment($version, $targetDir) {
       }
    };
    try {
-      $logMessage("🚀 ".t('deployment_started',$lang)." - ".t('version',$lang)." : $version - ".t('path',$lang).": $targetDir - Type: " . ($isUpdate ? "Mise à jour" : "Nouvelle installation"));
+      $logMessage("🚀 ". t('deployment_started') ." - ".t('version')." : $version - ".t('path').": $targetDir - Type: " . ($isUpdate ? "Mise à jour" : "Nouvelle installation"));
       error_log("🚀 DÉPLOIEMENT DÉMARRÉ - Version: $version - Cible: $targetDir - Type: " . ($isUpdate ? "Mise à jour" : "Nouvelle installation"));
       $deployer = new GithubDeployer();
       // Backup si mise à jour
@@ -824,7 +824,7 @@ function executeDeployment($version, $targetDir) {
       $logMessage("PROGRESS:25");
       $logMessage("PROGRESS:50");
       $logMessage("PROGRESS:75");
-      $logMessage("📦 ".t('downloading', $lang)." de $version...");
+      $logMessage("📦 ".t('downloading')." de $version...");
       // URLs GitHub correctes
       if ($version === 'master')
          $url = $deployer->buildVersionUrl('https://github.com/npds/npds_dune/archive/refs/heads/', $version, 'zip');
@@ -837,17 +837,17 @@ function executeDeployment($version, $targetDir) {
       if (!$downloadResult['success'])
          throw new Exception("Échec téléchargement: " . $downloadResult['message']);
       $fileSize = filesize($tempFile);
-      $logMessage("✅ " .t('download_success',$lang).": " . round($fileSize/1024/1024, 2) . " MB");
+      $logMessage("✅ " .t('download_success').": " . round($fileSize/1024/1024, 2) . " MB");
       // Extraction
       $logMessage("PROCESS:EXTRACT");
       $logMessage("PROGRESS:30");
-      $logMessage("📂 ".t('extraction_progress',$lang)."...");
+      $logMessage("📂 ".t('extraction_progress')."...");
       $logMessage("PROGRESS:60");
       $extractResult = $deployer->extractFirstFolderContent($tempFile, $targetDir, 'zip', $version, $isUpdate);
       if (!$extractResult['success']) 
          throw new Exception("Échec extraction: " . $extractResult['message']);
       $logMessage("PROGRESS:80");
-      $logMessage("✅ ".t('extraction_finished',$lang));
+      $logMessage("✅ ".t('extraction_finished'));
       $logMessage("PROGRESS:85"); 
       $logMessage("🔄 Préparation de la copie...");
       sleep(2);
@@ -1113,7 +1113,7 @@ class GithubDeployer {
       $lockFile = $this->tempDir . '/deploy.lock';
       
       try {
-         $this->updateProgress('=== ' . t('deployment_started',$lang) . ' ===');
+         $this->updateProgress('=== ' . t('deployment_started') . ' ===');
          
          // ==================== BACKUP POUR LES MISES À JOUR ====================
          if ($isUpdate) {
@@ -1167,15 +1167,15 @@ class GithubDeployer {
             $lockTime = (int)file_get_contents($lockFile);
             $elapsed = time() - $lockTime;
             if ($elapsed < 600) {
-               $this->updateProgress('💥 '. t('deployment_in_progress', $lang) . ' ' . $elapsed . "s", 'ERROR');
-               return $this->createResult(false, t('deployment_in_progress', $lang) . " " . $elapsed . "s)");
+               $this->updateProgress('💥 '. t('deployment_in_progress') . ' ' . $elapsed . "s", 'ERROR');
+               return $this->createResult(false, t('deployment_in_progress') . " " . $elapsed . "s)");
             } else
                @unlink($lockFile);
          }
          file_put_contents($lockFile, time());
 
          // Téléchargement
-         $this->updateProgress('📦 ' . t('initializing', $lang));
+         $this->updateProgress('📦 ' . t('initializing'));
          $url = $this->buildVersionUrl($baseUrl, $version, $format);
          $tempFile = $this->tempDir . '/' . uniqid('github_') . '.' . $format;
          
@@ -1186,7 +1186,7 @@ class GithubDeployer {
          }
          
          // Extraction
-         $this->updateProgress('📂 ' . t('extracting', $lang));
+         $this->updateProgress('📂 ' . t('extracting'));
          $extractResult = $this->extractFirstFolderContent($tempFile, $targetDir, $format, $version, $isUpdate);
          if (!$extractResult['success']) {
             @unlink($tempFile);
@@ -1197,9 +1197,9 @@ class GithubDeployer {
          // Succès
          @unlink($tempFile);
          @unlink($lockFile);
-         $this->updateProgress('🎉 ' . t('deployment_complete', $lang));
+         $this->updateProgress('🎉 ' . t('deployment_complete'));
          
-         return $this->createResult(true, t('success', $lang), [
+         return $this->createResult(true, t('success'), [
             'url' => $url,
             'target_dir' => $targetDir,
             'version' => $version,
@@ -1208,7 +1208,7 @@ class GithubDeployer {
          
       } catch (Exception $e) {
          @unlink($lockFile);
-         return $this->createResult(false, t('error',$lang) . $e->getMessage());
+         return $this->createResult(false, t('error') . $e->getMessage());
       }
    }
 
@@ -1292,13 +1292,13 @@ class GithubDeployer {
       global $lang;
       $tempExtractDir = $this->tempDir . '/' . uniqid('extract_');
       if (!@mkdir($tempExtractDir, 0755, true))
-         return $this->createResult(false, t('temp_dir_error', $lang));
+         return $this->createResult(false, t('temp_dir_error'));
       try {
          if ($format === 'zip') {
             $zip = new ZipArchive();
             if ($zip->open($archivePath) !== true) {
                $this->removeDirectory($tempExtractDir);
-               return $this->createResult(false, t('zip_open_error', $lang));
+               return $this->createResult(false, t('zip_open_error'));
             }
             $zip->extractTo($tempExtractDir);
             $zip->close();
@@ -1306,9 +1306,9 @@ class GithubDeployer {
          $firstFolder = $this->findFirstFolder($tempExtractDir);
          if (!$firstFolder) {
             $this->removeDirectory($tempExtractDir);
-            return $this->createResult(false, t('no_folder_in_archive', $lang));
+            return $this->createResult(false, t('no_folder_in_archive'));
          }
-         error_log("✅ " . t('extraction_finished', $lang));
+         error_log("✅ " . t('extraction_finished'));
          error_log("🔍 Premier dossier trouvé: " . basename($firstFolder));
          $revolutionPath = $firstFolder . '/revolution_16';
          if (is_dir($revolutionPath)) {
@@ -1326,7 +1326,7 @@ class GithubDeployer {
         return $this->createResult(true, "Contenu extrait avec succès");
       } catch (Exception $e) {
          $this->removeDirectory($tempExtractDir);
-         return $this->createResult(false, t('extraction_error', $lang) . ': ' . $e->getMessage());
+         return $this->createResult(false, t('extraction_error') . ': ' . $e->getMessage());
       }
    }
 
@@ -1375,18 +1375,18 @@ class GithubDeployer {
       ]);
       $source = @fopen($url, 'rb', false, $context);
       if (!$source)
-         return $this->createResult(false, t('failed_download', $lang));
+         return $this->createResult(false, t('failed_download'));
       $dest = @fopen($destination, 'wb');
       if (!$dest) {
          fclose($source);
-         return $this->createResult(false, t('write_error', $lang));
+         return $this->createResult(false, t('write_error'));
       }
       stream_copy_to_stream($source, $dest);
       fclose($source);
       fclose($dest);
       $fileSize = filesize($destination);
       error_log("✅ Téléchargement réussi: " . round($fileSize/1024/1024, 2) . " MB");
-      return $this->createResult(true, t('download_success',$lang), ['size' => filesize($destination)]);
+      return $this->createResult(true, t('download_success'), ['size' => filesize($destination)]);
    }
 
    public function buildVersionUrl(string $baseUrl, string $version, string $format): string {
@@ -1434,7 +1434,7 @@ class GithubDeployer {
          $this->removeDirectory($directory);
          return $this->createResult(true, "Dossier nettoyé: " . $directory);
       } catch (Exception $e) {
-         return $this->createResult(false, t('cleanup_error', $lang) . ": " . $e->getMessage());
+         return $this->createResult(false, t('cleanup_error') . ": " . $e->getMessage());
       }
    }
    
@@ -1501,7 +1501,7 @@ function head_html_deploy($title = 'Déploiement en cours') {
    <body>
       <div id="page">
          <div class="d-flex align-items-center bg-light">
-            <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
+            <h1>NPDS<br /><small>' . t('welcome') . '</small><br /><span class="display-6">🚀</span></h1>
          </div>
          <div class="container">
             <div class="progress-container">
@@ -1586,9 +1586,9 @@ function foot_html_deploy() {
                <div class="ms-auto small px-3">
                   <ul id="infos-system">
                      <li class="m-0">PHP : <span class="">' .phpversion(). '</span></li>
-                     <li class="m-0">'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
-                     <li class="m-0">'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
-                     <li class="m-0">'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
+                     <li class="m-0">'.t('memory_limit').' : '. ini_get('memory_limit'). '</li>
+                     <li class="m-0">'.t('max_exec_time').' : '.ini_get('max_execution_time').'</li>
+                     <li class="m-0">'.t('server').' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
                   </ul>
                </div>
             </footer>
@@ -1629,7 +1629,7 @@ function head_html(){
    <html lang="'.$lang.'">
       <head>
          <meta charset="utf-8">
-         <title>' . t('welcome', $lang) . '</title>
+         <title>' . t('welcome') . '</title>
          <style>
             :root {
                --bs-body-color: #212529;
@@ -1696,7 +1696,7 @@ function head_html(){
       <body>
          <div id="page">
             <div class="d-flex align-items-center bg-light">
-               <h1>NPDS<br /><small>' . t('welcome', $lang) . '</small><br /><span class="display-6">🚀</span></h1>
+               <h1>NPDS<br /><small>' . t('welcome') . '</small><br /><span class="display-6">🚀</span></h1>
                <div class="ms-auto my-auto ps-3">
                '.renderLanguageSelector($lang).'
                </div>
@@ -1713,9 +1713,9 @@ function foot_html() {
                <div class="ms-auto small px-3">
                   <ul id="infos-system">
                      <li class="m-0">PHP : <span class="">' .phpversion(). '</span></li>
-                     <li class="m-0">'.t('memory_limit',$lang).' : '. ini_get('memory_limit'). '</li>
-                     <li class="m-0">'.t('max_exec_time',$lang).' : '.ini_get('max_execution_time').'</li>
-                     <li class="m-0">'.t('server',$lang).' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
+                     <li class="m-0">'.t('memory_limit').' : '. ini_get('memory_limit'). '</li>
+                     <li class="m-0">'.t('max_exec_time').' : '.ini_get('max_execution_time').'</li>
+                     <li class="m-0">'.t('server').' : '.$_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'.'</li>
                   </ul>
                </div
             </footer>
@@ -1738,10 +1738,10 @@ function handleDeployOperation() {
       echo head_html();
       echo '
       <div class="section-danger">
-         <h2>🚨 ' . t('warning', $lang) . '</h2>
-         <p>' . t('overwrite_warning', $lang) . '</p>
-         <a href="?op=deploy&version=' . urlencode($_GET['version']) . '&path=' . urlencode($_GET['path']) . '&confirm=yes&lang=' . $lang . '" class="btn btn-danger mb-3">' . t('deploy', $lang) . '</a>
-         <a href="?" class="btn btn-secondary mb-3">' . t('cancel', $lang) . '</a>
+         <h2>🚨 ' . t('warning') . '</h2>
+         <p>' . t('overwrite_warning') . '</p>
+         <a href="?op=deploy&version=' . urlencode($_GET['version']) . '&path=' . urlencode($_GET['path']) . '&confirm=yes&lang=' . $lang . '" class="btn btn-danger mb-3">' . t('deploy') . '</a>
+         <a href="?" class="btn btn-secondary mb-3">' . t('cancel') . '</a>
       </div>';
       echo foot_html();
       return;
@@ -1757,10 +1757,10 @@ function handleCleanOperation() {
    if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes') {
       echo head_html();
       echo '<div class="section-danger">
-         <h2>🚨 ' . t('warning', $lang) . '</h2>
+         <h2>🚨 ' . t('warning') . '</h2>
          <p>Cette action va supprimer tous les fichiers temporaires du déploiement.</p>
-         <p>' . t('security_warning', $lang) . '</p>
-         <a href="?op=clean&confirm=yes" class="btn btn-danger">' . t('clean_temp', $lang) . '</a>
+         <p>' . t('security_warning') . '</p>
+         <a href="?op=clean&confirm=yes" class="btn btn-danger">' . t('clean_temp') . '</a>
          <a href="?" class="btn btn-secondary">Annuler</a>
       </div>';
       echo foot_html();
@@ -1778,10 +1778,10 @@ function handleCleanOperation() {
       <p>Les fichiers temporaires ont été supprimés.</p>';
    else
       echo '
-      <h2 style="color: red;">❌ '.t('cleanup_error',$lang).'</h2>
+      <h2 style="color: red;">❌ '.t('cleanup_error').'</h2>
       <p>' . htmlspecialchars($result['message']) . '</p>';
    echo '
-      <p><a href="?" class="btn btn-secondary">'.t('go_back',$lang).'</a></p>
+      <p><a href="?" class="btn btn-secondary">'.t('go_back').'</a></p>
    </div>';
    echo foot_html();
 }
@@ -1859,7 +1859,7 @@ function showAjaxDeployInterface() {
                console.log("🛑 Polling déjà arrêté");
                return;
             }
-            fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&lang='.$lang.'&t=" + Date.now())
+            fetch("?api=logs&deploy_id=" + deploymentId + "&since=" + lastUpdateTime + "&target='.urlencode($targetDir).'&t=" + Date.now())
                .then(response => {
                   console.log("📨 Réponse status:", response.status);
                   if (!response.ok) throw new Error("HTTP " + response.status);
@@ -1951,15 +1951,15 @@ function showAjaxDeployInterface() {
             resultElement.className = success ? "success" : "error";
             if (success) {
                if (isUpdate) {
-                  resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
-                  "<p><a href=\"admin.php\" class=\"btn btn-success\">'.t('go_admin',$lang).'</a></p>";
+                  resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete').'!</h2><p>" + message + "</p>" +
+                  "<p><a href=\"admin.php\" class=\"btn btn-success\">'.t('go_admin').'</a></p>";
                } else {
-                  resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete',$lang).'!</h2><p>" + message + "</p>" +
-                  "<p><a href=\"'.$targetDir.'/install.php?langue='.$lang.'&stage=1\" class=\"btn btn-success\">'.t('go_install',$lang).'</a></p>";
+                  resultElement.innerHTML = "<h2>🎉 '.t('deployment_complete').'!</h2><p>" + message + "</p>" +
+                  "<p><a href=\"'.$targetDir.'/install.php?langue='.$lang.'&stage=1\" class=\"btn btn-success\">'.t('go_install').'</a></p>";
                }
             } else {
-               resultElement.innerHTML = "<h2>❌ '.t('deployment_failed',$lang).'</h2><p>" + message + "</p>" +
-               "<p><a href=\"?\" class=\"btn btn-secondary\">'.t('go_back',$lang).'</a></p>";
+               resultElement.innerHTML = "<h2>❌ '.t('deployment_failed').'</h2><p>" + message + "</p>" +
+               "<p><a href=\"?\" class=\"btn btn-secondary\">'.t('go_back').'</a></p>";
             }
             // Scroller vers le résultat
             resultElement.scrollIntoView({ behavior: "smooth" });
@@ -1976,7 +1976,7 @@ function showAjaxDeployInterface() {
 
          // Lancer le déploiement
          setTimeout(() => {
-            const apiUrl = "?api=deploy&version=' . urlencode($githubVersion) . '&path=' . urlencode($targetDir) . '&confirm=yes&deploy_id=' . $deploymentId . '&lang=' . $lang . '&nocache=" + Date.now();
+            const apiUrl = "?api=deploy&version=' . urlencode($githubVersion) . '&path=' . urlencode($targetDir) . '&confirm=yes&deploy_id=' . $deploymentId . '&nocache=" + Date.now();
             fetch(apiUrl)
             .then(response => {
                if (!response.ok)
@@ -2005,46 +2005,46 @@ function showMainInterface() {
          Déploiement d\'une nouvelle installation NPDS.</p>';
    echo '
    <div class="section-stable">
-      <h3 class="mb-0 mt-0"><span class="display-6">🧪 </span>' . t('stable_versions', $lang) . '</h3>
+      <h3 class="mb-0 mt-0"><span class="display-6">🧪 </span>' . t('stable_versions') . '</h3>
       <ul class="mt-0">
-         <li><a href="?op=deploy&version=v.16.4&path=npds_stable&lang=' . $lang . '">' . t('deploy_v164_stable', $lang) . '</a></li>
-         <li><a href="?op=deploy&version=v.16.4&path=.&lang=' . $lang . '">' . t('deploy_v164_root', $lang) . '</a></li>
+         <li><a href="?op=deploy&version=v.16.4&path=npds_stable">' . t('deploy_v164_stable') . '</a></li>
+         <li><a href="?op=deploy&version=v.16.4&path=.">' . t('deploy_v164_root') . '</a></li>
       </ul>
    </div>
    <div class="section-dev">
-      <h3 class="mb-0 mt-0"><span class="display-6">🌶 </span>' . t('development_version', $lang) . '</h3>
-      <p><small>' . t('dev_warning', $lang) . '</small></p>
+      <h3 class="mb-0 mt-0"><span class="display-6">🌶 </span>' . t('development_version') . '</h3>
+      <p><small>' . t('dev_warning') . '</small></p>
       <ul class="mt-0">
-         <li><a href="?op=deploy&version=master&path=npds_dev&lang=' . $lang . '">' . t('deploy_master_dev', $lang) . '</a></li>
-         <li><a href="?op=deploy&version=master&path=.&lang=' . $lang . '">' . t('deploy_master_root', $lang) . '</a></li>
+         <li><a href="?op=deploy&version=master&path=npds_dev">' . t('deploy_master_dev') . '</a></li>
+         <li><a href="?op=deploy&version=master&path=.">' . t('deploy_master_root') . '</a></li>
       </ul>
    </div>
    <div class="section-advanced">
-      <h3 class="mb-0 mt-0"><span class="display-6">⚙️ </span>' . t('advanced_options', $lang) . '</h3>
+      <h3 class="mb-0 mt-0"><span class="display-6">⚙️ </span>' . t('advanced_options') . '</h3>
       <form method="GET">
          <div class="row ps-3">
             <div class="col-sm-3">
                <select class="form-select" name="version" aria-label="version">
-                  <option value="">' . t('version', $lang) . '</option>
+                  <option value="">' . t('version') . '</option>
                   <option value="v.16.4">v.16.4</option>
                   <option value="v.16.3">v.16.3</option>
                   <option value="master">master</option>
                </select>
             </div>
             <div class="col ps-3">
-               <input class="form-control mb-3 w-90" type="text" name="path" id="choix_path" placeholder="'.t('path',$lang).'... '.t('let_emptyroot',$lang).'" aria-label="path" />
+               <input class="form-control mb-3 w-90" type="text" name="path" id="choix_path" placeholder="'.t('path').'... '.t('let_emptyroot').'" aria-label="path" />
             </div>
          </div>
          <div class="ps-1">
-            <button class="btn btn-success mb-3" type="submit" >' . t('deploy', $lang) . '</button>
+            <button class="btn btn-success mb-3" type="submit" >' . t('deploy') . '</button>
          </div>
          <input type="hidden" name="op" value="deploy" />
       </form>
    </div>
    <div class="section-maintenance">
-      <h3>🔧 ' . t('maintenance', $lang) . '</h3>
+      <h3>🔧 ' . t('maintenance') . '</h3>
       <ul>
-         <li><a href="?op=clean">' . t('clean_temp', $lang) . '</a></li>
+         <li><a href="?op=clean">' . t('clean_temp') . '</a></li>
       </ul>
    </div>';
    echo foot_html();
