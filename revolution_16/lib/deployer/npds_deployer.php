@@ -1870,10 +1870,10 @@ function showAjaxDeployInterface() {
                      console.log("🎯 Détection fin - isSuccessEnd:", isSuccessEnd, "isErrorEnd:", isErrorEnd);
 
                      if (isSuccessEnd || isErrorEnd) {
-                        console.log("🎯 FIN DÉTECTÉE DANS checkLogs() - Arrêt dans 5 secondes");
+                        console.log("🎯 FIN DÉTECTÉE DANS checkLogs() - Arrêt dans 7 secondes");
                         shouldStopPolling = true;
                         setTimeout(() => {
-                           console.log("🏁 Affichage résultat final après 5 secondes");
+                           console.log("🏁 Affichage résultat final après 7 secondes");
                            hideSpinner();
                            showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
                            if (globalTimeoutId) {
