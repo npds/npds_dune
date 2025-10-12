@@ -684,7 +684,7 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
    $deploymentId = $_GET['deploy_id'] ?? '';
    $sinceTime = $_GET['since'] ?? 0;
    $targetDir = $_GET['target'] ?? '.';
-   $lang = $_GET['lang'] ?: 'fr';
+   $lang = $_GET['lang'] ?: 'fr';// probablemnt inutile
    // ⭐⭐ DEBUG CRITIQUE
    error_log("🔍 API LOGS APPELÉE: deploy_id=$deploymentId, since=$sinceTime, target=$targetDir");
    // Lire le log depuis le dossier cible
@@ -771,10 +771,9 @@ if (!$headers_already_sent && !isset($_GET['api'])) {
 
 // ==================== FONCTION DE DÉPLOIEMENT API ====================
 function executeDeployment($version, $targetDir) {
-   global $lang;
    $start_time = time();
    $apiLockFile = __DIR__ . '/api_deploy.lock';
-   $globalLockFile = __DIR__ . '/global_deploy.lock'; // ⭐⭐ AJOUT
+   $globalLockFile = __DIR__ . '/global_deploy.lock';
    $deploymentId = $_GET['deploy_id'] ?? uniqid('deploy_');
    $deployer = new GithubDeployer();
    $isUpdate = $deployer->isNPDSInstalled($targetDir);
@@ -997,16 +996,13 @@ class NPDSBackupManager {
    * Crée un backup des fichiers critiques
    */
    public function backupCriticalFiles($targetDir) {
-      global $lang;
       error_log("💾 Démarrage du backup...");
       $timestamp = date('Y-m-d_His');
       $backupFile = $this->backupDir . '/files_backup_' . $timestamp . '.zip';
-      
       try {
          $zip = new ZipArchive();
          if ($zip->open($backupFile, ZipArchive::CREATE) === true) {
             $addedFiles = 0;
-            
             // Backup des fichiers critiques
             $criticalFiles = $this->getCriticalFilesList($targetDir);
             foreach ($criticalFiles as $filePattern) {
@@ -1021,7 +1017,6 @@ class NPDSBackupManager {
                         new RecursiveDirectoryIterator($file, RecursiveDirectoryIterator::SKIP_DOTS),
                         RecursiveIteratorIterator::SELF_FIRST
                      );
-
                      foreach ($iterator as $item) {
                         if ($item->isFile()) {
                            $relativePath = str_replace($targetDir . '/', '', $item->getRealPath());
@@ -1029,25 +1024,23 @@ class NPDSBackupManager {
                               $addedFiles++;
                         }
                      }
-                 }
-             }
+                  }
+               }
+            }
+            $zip->close();
+            if (file_exists($backupFile)) {
+               $size = filesize($backupFile);
+               $size_mb = round($size/1024/1024, 2);
+               error_log("✅ Backup TERMINÉ: " . $addedFiles . " fichiers (" . $size_mb . " MB)");
+               return [
+                   'success' => true,
+                   'message' => 'Backup fichiers créé',
+                   'file' => $backupFile,
+                   'size' => $size,
+                   'file_count' => $addedFiles
+               ];
+            }
          }
-         
-         $zip->close();
-         if (file_exists($backupFile)) {
-            $size = filesize($backupFile);
-            $size_mb = round($size/1024/1024, 2);
-            error_log("✅ Backup TERMINÉ: " . $addedFiles . " fichiers (" . $size_mb . " MB)");
-            
-            return [
-                'success' => true,
-                'message' => 'Backup fichiers créé',
-                'file' => $backupFile,
-                'size' => $size,
-                'file_count' => $addedFiles
-            ];
-         }
-      }
       } catch (Exception $e) {
          error_log("❌ Erreur backup fichiers: " . $e->getMessage());
       }
@@ -1105,13 +1098,12 @@ class GithubDeployer {
          @mkdir($this->tempDir, 0755, true);
       $this->cleanupOldFiles();
    }
-
+   // ==> obsolete
    public function deployVersion(string $baseUrl, string $version, string $format = 'zip', ?string $targetDir = null): array {
       global $lang;
-      
       $isUpdate = $this->isNPDSInstalled($targetDir);
       $lockFile = $this->tempDir . '/deploy.lock';
-      
+   
       try {
          $this->updateProgress('=== ' . t('deployment_started') . ' ===');
          
@@ -1178,13 +1170,13 @@ class GithubDeployer {
          $this->updateProgress('📦 ' . t('initializing'));
          $url = $this->buildVersionUrl($baseUrl, $version, $format);
          $tempFile = $this->tempDir . '/' . uniqid('github_') . '.' . $format;
-         
+
          $downloadResult = $this->downloadFile($url, $tempFile);
          if (!$downloadResult['success']) {
             @unlink($lockFile);
             return $downloadResult;
          }
-         
+
          // Extraction
          $this->updateProgress('📂 ' . t('extracting'));
          $extractResult = $this->extractFirstFolderContent($tempFile, $targetDir, $format, $version, $isUpdate);
@@ -1198,20 +1190,20 @@ class GithubDeployer {
          @unlink($tempFile);
          @unlink($lockFile);
          $this->updateProgress('🎉 ' . t('deployment_complete'));
-         
+
          return $this->createResult(true, t('success'), [
             'url' => $url,
             'target_dir' => $targetDir,
             'version' => $version,
             'is_update' => $isUpdate
          ]);
-         
+
       } catch (Exception $e) {
          @unlink($lockFile);
          return $this->createResult(false, t('error') . $e->getMessage());
       }
    }
-
+   // <== obsolete
    public function isNPDSInstalled($targetDir) {
       if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false)
          return true;
@@ -1252,10 +1244,9 @@ class GithubDeployer {
    }
 
    private function showInstallationWarnings($validation, $targetDir, $version) {
-      global $lang;
       echo head_html();
-      echo '<h2 class="ms-3"><span class="display-6">🚨 </span>Vérification du réceptacle</h2>';
       echo '
+      <h2 class="ms-3"><span class="display-6">🚨 </span>Vérification du réceptacle</h2>
       <div class="section-danger py-2">
          <h3>🚨 Réceptacle non sécurisé détecté</h3>
          <p>Le dossier <strong>' . htmlspecialchars($targetDir) . '</strong> contient des éléments problématiques :</p>
@@ -1320,10 +1311,10 @@ class GithubDeployer {
             $items = scandir($firstFolder);
             error_log("📁 Contenu du premier dossier: " . implode(', ', $items));
          }
-        error_log("🚀 Copie depuis: " . $firstFolder . " vers: " . $targetDir);
-        $this->copyDirectoryContentsFlat($firstFolder, $targetDir, $version, $isUpdate);
-        $this->removeDirectory($tempExtractDir);
-        return $this->createResult(true, "Contenu extrait avec succès");
+         error_log("🚀 Copie depuis: " . $firstFolder . " vers: " . $targetDir);
+         $this->copyDirectoryContentsFlat($firstFolder, $targetDir, $version, $isUpdate);
+         $this->removeDirectory($tempExtractDir);
+         return $this->createResult(true, "Contenu extrait avec succès");
       } catch (Exception $e) {
          $this->removeDirectory($tempExtractDir);
          return $this->createResult(false, t('extraction_error') . ': ' . $e->getMessage());
@@ -1331,7 +1322,6 @@ class GithubDeployer {
    }
 
    private function copyDirectoryContentsFlat(string $source, string $destination, $version = null, $isUpdate = false): void {
-      global $lang;
       if (!is_dir($destination))
          mkdir($destination, 0755, true);
       $iterator = new RecursiveIteratorIterator(
@@ -1368,7 +1358,6 @@ class GithubDeployer {
    }
 
    public function downloadFile(string $url, string $destination): array {
-      global $lang;
       $context = stream_context_create([
          'http' => ['timeout' => $this->timeout],
          'ssl' => ['verify_peer' => false]
@@ -1429,7 +1418,6 @@ class GithubDeployer {
    }
 
    public function cleanupDirectory(string $directory): array {
-      global $lang;
       try {
          $this->removeDirectory($directory);
          return $this->createResult(true, "Dossier nettoyé: " . $directory);
@@ -1578,7 +1566,6 @@ function head_html_deploy($title = 'Déploiement en cours') {
 }
 
 function foot_html_deploy() {
-   global $lang;
    return '
             </div>
             <footer class="d-flex align-items-center bg-light">
@@ -1705,7 +1692,6 @@ function head_html(){
 }
 
 function foot_html() {
-   global $lang;
    return '
             </div>
             <footer class="d-flex align-items-center bg-light">
@@ -1727,7 +1713,6 @@ function foot_html() {
 // ==================== GESTION DES OPÉRATIONS ====================
 
 function handleDeployOperation() {
-   global $lang;
    $isFromAdmin = isset($_GET['return_url']) || isset($_COOKIE['admin']);
    $isConfirmed = isset($_GET['confirm']) && $_GET['confirm'] === 'yes';
    if ($isFromAdmin && $isConfirmed) {
@@ -1740,7 +1725,7 @@ function handleDeployOperation() {
       <div class="section-danger">
          <h2>🚨 ' . t('warning') . '</h2>
          <p>' . t('overwrite_warning') . '</p>
-         <a href="?op=deploy&version=' . urlencode($_GET['version']) . '&path=' . urlencode($_GET['path']) . '&confirm=yes&lang=' . $lang . '" class="btn btn-danger mb-3">' . t('deploy') . '</a>
+         <a href="?op=deploy&version=' . urlencode($_GET['version']) . '&path=' . urlencode($_GET['path']) . '&confirm=yes" class="btn btn-danger mb-3">' . t('deploy') . '</a>
          <a href="?" class="btn btn-secondary mb-3">' . t('cancel') . '</a>
       </div>';
       echo foot_html();
@@ -1753,7 +1738,6 @@ function handleDeployOperation() {
 // ==================== FONCTION DE DÉPLOIEMENT API ====================
 
 function handleCleanOperation() {
-   global $lang;
    if (!isset($_GET['confirm']) || $_GET['confirm'] !== 'yes') {
       echo head_html();
       echo '<div class="section-danger">
@@ -1998,11 +1982,7 @@ function showAjaxDeployInterface() {
 
 // ==================== INTERFACE PRINCIPALE ====================
 function showMainInterface() {
-   global $lang;
    echo head_html();
-        echo '
-     <p><strong>🆕 Mode Nouvelle Installation </strong><br />
-         Déploiement d\'une nouvelle installation NPDS.</p>';
    echo '
    <div class="section-stable">
       <h3 class="mb-0 mt-0"><span class="display-6">🧪 </span>' . t('stable_versions') . '</h3>
