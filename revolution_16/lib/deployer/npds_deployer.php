@@ -599,7 +599,6 @@ function t($key) {
 // ==================== MODE API POUR DÉPLOIEMENT ====================
 if (isset($_GET['api']) && $_GET['api'] === 'deploy') {
    header('Content-Type: application/json');
-   $lang = $_GET['lang'] ?: 'fr'; // probablement inutile !
    // ⭐⭐ VERROU API IMMÉDIAT - AVANT TOUT ⭐⭐
    $apiLockFile = __DIR__ . '/api_deploy.lock';
    $lockTimeout = 600; // 10 minutes
@@ -684,7 +683,6 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
    $deploymentId = $_GET['deploy_id'] ?? '';
    $sinceTime = $_GET['since'] ?? 0;
    $targetDir = $_GET['target'] ?? '.';
-   $lang = $_GET['lang'] ?: 'fr';// probablemnt inutile
    // ⭐⭐ DEBUG CRITIQUE
    error_log("🔍 API LOGS APPELÉE: deploy_id=$deploymentId, since=$sinceTime, target=$targetDir");
    // Lire le log depuis le dossier cible
