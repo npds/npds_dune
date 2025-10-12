@@ -697,15 +697,8 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
         $timestamp = date('d-M-Y H:i:s');
         $initialMessage = "[$timestamp] [$deploymentId] [INFO] Déploiement initialisé...\n";
         file_put_contents($targetLogFile, $initialMessage);
-// ⭐⭐ AJOUT DU MESSAGE INITIAL DANS LA RÉPONSE
-        $messages[] = [
-            'timestamp' => time(),
-            'type' => 'info',
-            'message' => 'Déploiement initialisé...',
-            'time' => $timestamp
-        ];
     }
-   
+
    if (file_exists($targetLogFile)) {
       //error_log("📖 LECTURE DU FICHIER LOG...");
       $content = file_get_contents($targetLogFile);
