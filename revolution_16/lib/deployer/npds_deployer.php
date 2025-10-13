@@ -1672,8 +1672,8 @@ function head_html(){
             #language_selector ul {padding: 0; margin-left: 0.5rem !important;}
             .section-stable a {color:green; font-weight: bold;}
             .section-dev a {color: #DC3545; font-weight: bold;}
+            .section-danger a:hover{color:white;}
             #infos-system ul li {margin:0;}
-
          </style>
       </head>
       <body>
