@@ -841,7 +841,7 @@ function executeDeployment($version, $targetDir) {
       $logMessage("✅ ".t('extraction_finished'));
 //      $logMessage("PROGRESS:85"); 
       $logMessage("🔄 Préparation de la copie...");
-      sleep(2);
+//      sleep(2);
       $logMessage("PROCESS:COPY");
       $logMessage("PROGRESS:65");
       $logMessage("PROGRESS:80");
@@ -1518,14 +1518,14 @@ function head_html_deploy($title = 'Déploiement en cours') {
                   document.getElementById("status").textContent = cleanMessage;
                   addLog("> " + cleanMessage);
                }
-   
+
                function addLog(message) {
                   const logsElement = document.getElementById("logs");
                   const cleanMessage = message.replace(/[\r\n]+/g, " • ");
                   logsElement.innerHTML += cleanMessage + "<br>";
                   logsElement.scrollTop = logsElement.scrollHeight;
                }
-   
+
                function changeProcess(processName) {
                    console.log("🔄 Changement de processus:", processName);
                    const processLabel = document.getElementById("processLabel");
@@ -1533,10 +1533,10 @@ function head_html_deploy($title = 'Déploiement en cours') {
                    progressFill.style.width = "0%";
                    progressFill.style.transition = "none";
                    const colors = {
-                       "BACKUP": "linear-gradient(90deg, #FF9800, #F57C00)",
-                       "DOWNLOAD": "linear-gradient(90deg, #2196F3, #1976D2)", 
+                       "BACKUP": "linear-gradient(90deg, #4CAF50, #388E3C)",
+                       "DOWNLOAD": "linear-gradient(90deg, #4CAF50, #388E3C)", 
                        "EXTRACT": "linear-gradient(90deg, #4CAF50, #388E3C)",
-                       "COPY": "linear-gradient(90deg, #9C27B0, #7B1FA2)"
+                       "COPY": "linear-gradient(90deg, #4CAF50, #388E3C)"
                    };
                    progressFill.style.background = colors[processName] || colors["DOWNLOAD"];
                    const labels = {
@@ -1797,6 +1797,11 @@ function showAjaxDeployInterface() {
             if (spinner)
                spinner.style.display = "none";
          }
+         function hideStatus() {
+            const spinner = document.querySelector(".status");
+            if (status)
+               status.style.display = "none";
+         }
 
          function processMessageQueue() {
           console.log("🔍 processMessageQueue() - Début - isProcessingQueue:", isProcessingQueue, "Queue:", messageQueue.length);
@@ -1880,6 +1885,7 @@ function showAjaxDeployInterface() {
                         setTimeout(() => {
                            console.log("🏁 Affichage résultat final après 7 secondes");
                            hideSpinner();
+                           hideStatus();
                            showResult(isSuccessEnd, lastMessage.message, phpIsUpdate);
                            if (globalTimeoutId) {
                               console.log("⏰ Timeout global annulé");
