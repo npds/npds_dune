@@ -1797,8 +1797,9 @@ function showAjaxDeployInterface() {
             if (spinner)
                spinner.style.display = "none";
          }
+         
          function hideStatus() {
-            const spinner = document.querySelector(".status");
+            const status = document.querySelector(".status");
             if (status)
                status.style.display = "none";
          }
