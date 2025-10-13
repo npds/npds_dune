@@ -477,7 +477,7 @@ switch ($op) {
       settype($B1,'string');
       settype($raz_avatar,'integer');
       settype($add_send_email,'integer');
-   
+      $add_open_user = isset($add_open_user) ?: '0';
       if (isset($add_group)) $add_group = implode(',',$add_group); else $add_group = '';
       updateUser($chng_uid, $add_uname, $add_name, $add_url, $add_email, $add_femail, $add_user_from, $add_user_occ, $add_user_intrest, $add_user_viewemail, $add_avatar, $add_user_sig, $add_bio, $add_pass, $add_pass2, $add_level, $add_open_user, $add_group, $add_send_email, $add_is_visible, $add_mns, $C1,$C2,$C3,$C4,$C5,$C6,$C7,$C8,$M1,$M2,$T1,$T2,$B1,$raz_avatar,$chng_rank,$user_lnl);
    break;
