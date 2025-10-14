@@ -803,8 +803,10 @@ function executeDeployment($version, $targetDir) {
          if (!$backupResult['success'])
             throw new Exception("Échec du backup: " . $backupResult['message']);
          $logMessage("PROGRESS:100");
-
-         $logMessage("✅ Backup créé: X fichiers (Y MB)");
+         $addedFiles = $backupResult['file_count'];
+         $size = filesize($backupResult['file']);
+         $size_mb = round($size/1024/1024, 2);
+         $logMessage('✅ Backup créé: '.$addedFiles.' fichiers ('.$size_mb.' MB)');
          error_log("✅ Backup créé");
       }
       // Téléchargement
@@ -838,18 +840,16 @@ function executeDeployment($version, $targetDir) {
          throw new Exception("Échec extraction: " . $extractResult['message']);
       $logMessage("PROGRESS:50");
       $logMessage("PROGRESS:57");
-      $logMessage("✅ ".t('extraction_finished'));
-//      $logMessage("PROGRESS:85"); 
-      $logMessage("🔄 Préparation de la copie...");
+      $logMessage('✅ '.t('extraction_finished'));
+      $logMessage('🔄 '.t('copying_files').'...');
 //      sleep(2);
       $logMessage("PROCESS:COPY");
       $logMessage("PROGRESS:65");
       $logMessage("PROGRESS:80");
       $logMessage("PROGRESS:90");
-
-      $logMessage("🔧 Copie finale des fichiers...");
+      $logMessage('🔧 '.t('copied').'...');
       $logMessage("PROGRESS:99");
-      $logMessage("✅ Copie des fichiers terminée");
+      $logMessage('✅ '.t('copy_finished'));
       $logMessage("PROGRESS:100");
 
       // Nettoyage
@@ -859,8 +859,8 @@ function executeDeployment($version, $targetDir) {
       $completionMessage = $isUpdate ? 
             "Mise à jour terminée avec succès" : 
             "Nouvelle installation déployée avec succès";
-      error_log("🎉 " . $completionMessage . " en " . $duration . " secondes");
-      $logMessage("🎉 " . $completionMessage . " en $duration secondes", "SUCCESS");
+      error_log('🎉 ' . $completionMessage . ' : ' . $duration . " secondes");
+      $logMessage('🎉 ' . $completionMessage . ' : ' . $duration . ' secondes', "SUCCESS");
 
       // ⭐⭐ CORRECTION : SUPPRIMER LES DEUX VERROUS DIRECTEMENT
       if (file_exists($apiLockFile)) {
@@ -874,7 +874,7 @@ function executeDeployment($version, $targetDir) {
 
       return [
          'success' => true,
-         'message' => $completionMessage . " en " . $duration . " secondes",
+         'message' => $completionMessage . ' : ' . $duration . ' secondes',
          'duration' => $duration,
          'version' => $version,
          'is_update' => $isUpdate
