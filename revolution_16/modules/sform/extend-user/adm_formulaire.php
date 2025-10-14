@@ -26,7 +26,6 @@ if(!isset($attach)) $attach = '';
 if(!isset($chng_user_sig)) $chng_user_sig = '';
 if(!isset($chng_bio)) $chng_bio = '';
 if(!isset($user_lnl)) $user_lnl = '';
-if(!isset($attach)) $attach = '';
 if(!isset($chng_user_viewemail)) $chng_user_viewemail = '';
 if(!isset($mns)) $mns='';
 if(!isset($chng_avatar)) $chng_avatar = '';
@@ -35,6 +34,7 @@ if(!isset($chng_url)) $chng_url = '';
 if(!isset($open_user)) $open_user = '';
 if(!isset($referer)) $referer =' ';
 if(!isset($groupe)) $groupe = '';
+if(!isset($chng_is_visible)) $chng_is_visible = '';
 
 $m->add_title(adm_translate('Utilisateur'));
 $m->add_mess(adm_translate('* Désigne un champ obligatoire'));
@@ -104,17 +104,16 @@ $m->add_select('chng_rank', adm_translate("Rôle de l'Utilisateur"), $tmp_tempo,
 $les_groupes = explode(',',$groupe);
 $mX = liste_group();
 $nbg = 0;
-   foreach($mX as $groupe_id => $groupe_name) {
-      $tmp_groupe[$groupe_id]['en'] = $groupe_name;
-      $selectionne = 0;
-      if ($les_groupes) {
-         foreach ($les_groupes as $groupevalue) {
-            if (($groupe_id == $groupevalue) and ($groupe_id != 0)) $selectionne = 1;
-         }
+foreach($mX as $groupe_id => $groupe_name) {
+   $tmp_groupe[$groupe_id]['en'] = $groupe_name;
+   $selectionne = 0;
+   if ($les_groupes)
+      foreach ($les_groupes as $groupevalue) {
+         if (($groupe_id == $groupevalue) and ($groupe_id != 0)) $selectionne = 1;
       }
-      if ($selectionne == 1) $tmp_groupe[$groupe_id]['selected'] = true;
-      $nbg++;
-   }
+   if ($selectionne == 1) $tmp_groupe[$groupe_id]['selected'] = true;
+   $nbg++;
+}
 if ($nbg>7) $nbg=7;
 $m->add_select('add_group', adm_translate('Groupe'), $tmp_groupe, false, $nbg, true);
 // ---- Groupes
@@ -141,7 +140,7 @@ $m->add_extender('add_url', '', '<span class="help-block text-end" id="countcar_
 // ---- SUBSCRIBE and INVISIBLE
 $checked = $chng_send_email == 1 ? true : false ;
 $m->add_checkbox('add_send_email',adm_translate("M'envoyer un Mel lorsque qu'un Msg Int. arrive"), 1, false, $checked);
-$checked = $chng_is_visible == 1 ? true : false ;
+$checked = ($chng_is_visible == 1) ? false : true ;
 $m->add_checkbox('add_is_visible',adm_translate('Membre invisible'), 1, false, $checked);
 // ---- SUBSCRIBE and INVISIBLE
 
