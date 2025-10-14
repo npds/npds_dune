@@ -42,7 +42,7 @@ function get_table_def($table) {
    $schema_create = '';
    $schema_create .= "DROP TABLE IF EXISTS $table;$crlf";
    $schema_create .= "CREATE TABLE $table ($crlf";//
-   $result = sql_query("SHOW FIELDS FROM $table");
+   $result = sql_query('SHOW FIELDS FROM '.$table);
    while($row = sql_fetch_assoc($result)) {
       $schema_create .= " ".$row['Field']." ".$row['Type'];
       if(isset($row['Default']) && (!empty($row['Default']) || $row['Default'] == "0"))
@@ -54,7 +54,7 @@ function get_table_def($table) {
       if ($k < ($count - 1)) $schema_create .= ','.$crlf;
       $k++;
    }
-   $result = sql_query("SHOW KEYS FROM $table");
+   $result = sql_query('SHOW KEYS FROM '.$table);
    while($row = sql_fetch_assoc($result)) {
       $kname = $row['Key_name'];
       if(($kname != 'PRIMARY') && ($row['Non_unique'] == 0))
@@ -85,7 +85,7 @@ function get_table_def($table) {
 
       $table_list = '';
       $schema_insert = '';
-      $result = sql_query("SELECT * FROM $table");
+      $result = sql_query('SELECT * FROM '.$table);
       $count = sql_num_fields($result);
       while($row = sql_fetch_row($result)) {
          $schema_insert .= 'INSERT INTO '.$table.' VALUES (';
@@ -102,8 +102,7 @@ function get_table_def($table) {
          }
          $schema_insert .= ");$crlf";//
       }
-      if($schema_insert != '')
-      {
+      if($schema_insert != '') {
          $schema_insert = trim($schema_insert);
          return($schema_insert);
       }
@@ -124,8 +123,8 @@ function get_table_def($table) {
          $heure_jour = date('H:i');
          $data = "# ========================================================$crlf"
             ."# $crlf"
-            ."# ".adm_translate("Sauvegarde de la base de données")." : ".$dbname." $crlf"
-            ."# ".adm_translate("Effectuée le")." ".$date_jour." : ".$heure_jour." ".adm_translate("par")." ".$name." $crlf"
+            ."# ".adm_translate('Sauvegarde de la base de données')." : ".$dbname." $crlf"
+            ."# ".adm_translate('Effectuée le')." ".$date_jour." : ".$heure_jour." ".adm_translate("par")." ".$name." $crlf"
             ."# $crlf"
             ."# ========================================================$crlf";
          while($row = sql_fetch_row($tables)) {
@@ -133,12 +132,12 @@ function get_table_def($table) {
             $data .= "$crlf"
                ."# --------------------------------------------------------$crlf"
                ."# $crlf"
-               ."# ".adm_translate("Structure de la table")." '".$table."' $crlf"
+               ."# ".adm_translate('Structure de la table')." '".$table."' $crlf"
                ."# $crlf$crlf";
             $data .= get_table_def($table)
                ."$crlf$crlf"
                ."# $crlf"
-               ."# ".adm_translate("Contenu de la table")." '".$table."' $crlf"
+               ."# ".adm_translate('Contenu de la table')." '".$table."' $crlf"
                ."# $crlf$crlf";
             $data .= get_table_content($table)
                ."$crlf$crlf"
@@ -189,10 +188,10 @@ function get_table_def($table) {
                ."# $crlf"
                ."# Contenu de la table '".$table."' $crlf"
                ."# $crlf$crlf";
-            $result = sql_query("SELECT * FROM $table");
+            $result = sql_query('SELECT * FROM '.$table);
             $count_line = sql_num_fields($result);
             while($row = sql_fetch_row($result)) {
-               $schema_insert ="INSERT INTO $table VALUES (";
+               $schema_insert = 'INSERT INTO '.$table.' VALUES (';
                for($j = 0; $j < $count_line; $j++) {
                   if(!isset($row[$j]))
                      $schema_insert .= ' NULL';
