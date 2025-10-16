@@ -771,7 +771,7 @@ function ctrl_aff($ihome, $catid = 0) {
    elseif ($ihome == 0)
       $affich = true;
    elseif ($ihome == 1)
-      $affich = $catid > 0 ? false : true ;
+      $affich = true ; // plus de condition sur la catégorie
    elseif (($ihome > 1) and ($ihome <= 127)) {
       $tab_groupe = valid_group($user);
       if ($tab_groupe) {
@@ -808,7 +808,7 @@ function news_aff($type_req, $sel, $storynum, $oldnum) { // pas stabilisé ...!
    }
    if (($type_req == 'big_story') or ($type_req == 'big_topic')) {
 //      $Xstorynum=$oldnum*$coef;
-      $result = Q_select("SELECT sid, catid, ihome, counter FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum",0);
+      $result = Q_select("SELECT sid, topic, catid, ihome, counter FROM ".$NPDS_Prefix."stories $sel ORDER BY counter DESC LIMIT $storynum",0);
       $Znum = $oldnum;
    }
    if ($type_req == 'libre') {
@@ -832,6 +832,8 @@ function news_aff($type_req, $sel, $storynum, $oldnum) { // pas stabilisé ...!
       if ($ibid == $Znum) break;
       if ($type_req == 'libre') $catid = 0;
       if ($type_req == 'archive') $ihome = 0;
+      if ($type_req == 'big_story') $ihome = 0;
+
       if (ctrl_aff($ihome, $catid)) {
          if (($type_req == 'index') or ($type_req == 'libre'))
             $result2 = sql_query("SELECT sid, catid, aid, title, time, hometext, bodytext, comments, counter, topic, informant, notes FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
@@ -840,8 +842,7 @@ function news_aff($type_req, $sel, $storynum, $oldnum) { // pas stabilisé ...!
          if ($type_req == 'old_news')
             $result2 = sql_query("SELECT sid, title, time, comments, counter FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
          if (($type_req == 'big_story') or ($type_req == 'big_topic'))
-            $result2 = sql_query("SELECT sid, title FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
-
+            $result2 = sql_query("SELECT sid, title, topic FROM ".$NPDS_Prefix."stories WHERE sid='$s_sid' AND archive='0'");
          $tab[$ibid]=sql_fetch_row($result2);
          if (is_array($tab[$ibid]))
             $ibid++;
