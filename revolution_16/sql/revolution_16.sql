@@ -1023,7 +1023,7 @@ CREATE TABLE users (
   commentmax int(11) NOT NULL DEFAULT '4096',
   counter int(11) NOT NULL DEFAULT '0',
   send_email tinyint(1) unsigned NOT NULL DEFAULT '0',
-  is_visible tinyint(1) unsigned NOT NULL DEFAULT '1',
+  is_visible tinyint(1) unsigned DEFAULT NULL,
   mns tinyint(1) unsigned NOT NULL DEFAULT '0',
   user_langue varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   user_lastvisit varchar(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
