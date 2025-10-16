@@ -28,10 +28,9 @@ $lockTimeout = 420;
 $isApiCall = isset($_GET['api']) && $_GET['api'] === 'deploy';
 $isRealDeployment = $isApiCall || (isset($_GET['confirm']) && $_GET['confirm'] === 'yes');
 
-// ⭐⭐ VERROU GLOBAL : SEULEMENT POUR L'API (pas pour l'interface Ajax) ⭐⭐
+// ⭐ VERROU GLOBAL : SEULEMENT POUR L'API (pas pour l'interface Ajax)
 if ($isApiCall) {
    error_log("🔍 Lock file: " . $globalLockFile);
-   // ⭐⭐ VERROU PLUS ROBUSTE
    if (file_exists($globalLockFile)) {
       $lockContent = @file_get_contents($globalLockFile);
       $lockData = $lockContent ? json_decode($lockContent, true) : null;
@@ -133,6 +132,8 @@ $translations = [
       'already_installed_message' => 'NPDS est déjà installé sur ce site.',
       'already_installed_reinstall' => 'Si vous souhaitez réinstaller, supprimez d\'abord le fichier',
       'already_installed_title' => '🚫 NPDS Déjà Installé',
+      'backup_created' => 'Sauvegarde créée',
+      'backup' => 'Sauvegarde',
       'cancel' => 'Annuler',
       'clean_confirm' => 'Confirmez le nettoyage avec &confirm=yes',
       'clean_done' => 'Les fichiers temporaires ont été supprimés.',
@@ -147,8 +148,11 @@ $translations = [
       'copy_finished' => 'Copie terminée',
       'copy_started' => 'Début de la copie',
       'copying_files' => 'Début de la copie des fichiers',
+      'dangerous_path' => 'Chemin système dangereux détecté.',
       'deploy_master_dev' => 'Déployer MASTER dans /npds_dev',
       'deploy_master_root' => 'Déployer MASTER à la racine',
+      'deploy_succes_newinst' => 'Nouvelle installation déployée avec succès',
+      'deploy_succes_update' => 'Mise à jour déployée avec succès',
       'deploy_v163' => 'Déployer v.16.3 dans /npds_163',
       'deploy_v164_root' => 'Déployer v.16.4 à la racine',
       'deploy_v164_stable' => 'Déployer v.16.4 dans /npds_stable',
@@ -163,9 +167,14 @@ $translations = [
       'dev_version' => 'Version développement',
       'dev_warning' => 'La version master est une version de développement qui peut contenir des bugs, des fonctionnalités incomplètes ou être instable. Ne pas utiliser en production!',
       'development_version' => 'Version développement',
+      'double_slash_not_allowed' => 'Les chemins avec "//" ne sont pas autorisés.',
       'download_success' => 'Téléchargement réussi',
       'downloading' => 'Téléchargement',
       'error' => 'Erreur',
+      'example_parent' => 'dossier adjacent au site actuel',
+      'example_root' => 'racine du site actuel',
+      'example_subfolder' => 'dossier dans le site actuel',
+      'external_urls_not_allowed' => 'Les URLs externes ne sont pas autorisées.',
       'extracting' => 'Début de l\'extraction',
       'extraction_complete' => 'Extraction terminée avec succès',
       'extraction_error' => 'Erreur d\'extraction',
@@ -192,12 +201,15 @@ $translations = [
       'master_warning' => 'Master : Version de développement, peut être instable - Ne pas utiliser en production!',
       'max_exec_time' => 'Temps maxi d\'exécution',
       'memory_limit' => 'Mémoire limite',
+      'network_paths_not_allowed' => 'Les chemins réseau ne sont pas autorisés.',
       'new_install' => 'Nouvelle installation', 
       'no_files_to_copy' => 'Aucun fichier à copier dans',
       'no_folder_in_archive' => 'Aucun dossier trouvé dans l\'archive',
       'overwrite_warning' => 'Le déploiement écrase les fichiers existants!',
       'path' => 'Chemin',
       'processing_result' => 'Traitement terminé, analyse du résultat',
+      'protocols_not_allowed' => 'Les protocoles spéciaux ne sont pas autorisés.',
+      'secondes' => 'secondes',
       'security_warning' => 'Sécurité : Ajoutez &confirm=yes pour lancer le déploiement',
       'server' => 'Serveur',
       'stable_versions' => 'Versions stables',
@@ -207,10 +219,12 @@ $translations = [
       'target_dir_error' => 'Impossible de créer le répertoire cible',
       'target_permission_error' => 'Répertoire cible non accessible en écriture',
       'temp_dir_error' => 'Impossible de créer le répertoire temporaire',
+      'too_many_parent_dirs' => 'Trop de remontées de répertoire pour la sécurité.',
       'type' => 'Type',
       'update_interface' => 'Interface de mise à jour',
       'update_to_version' => 'Mettre à jour vers',
       'update' => 'Mise à jour',
+      'valid_examples' => 'Exemples valides',
       'version' => 'Version',
       'warning' => 'Attention',
       'welcome' => 'Déploiement',
@@ -225,6 +239,8 @@ $translations = [
       'already_installed_message' => 'NPDS is already installed on this site.',
       'already_installed_reinstall' => 'If you want to reinstall, first delete the file',
       'already_installed_title' => '🚫 NPDS Already Installed',
+      'backup_created' => 'Backup created',
+      'backup' => 'Backup',
       'cancel' => 'Cancel',
       'clean_confirm' => 'Confirm cleanup with &confirm=yes',
       'clean_done' => 'Temporary files have been deleted.',
@@ -239,8 +255,11 @@ $translations = [
       'copy_finished' => 'Copy finished',
       'copy_started' => 'Copy started',
       'copying_files' => 'Starting file copy',
+      'dangerous_path' => 'Dangerous system path detected.',
       'deploy_master_dev' => 'Deploy MASTER in /npds_dev',
       'deploy_master_root' => 'Deploy MASTER at root',
+      'deploy_succes_newinst' => 'New installation deployed successfully',
+      'deploy_succes_update' => 'Update deployed successfully',
       'deploy_v163' => 'Deploy v.16.3 in /npds_163',
       'deploy_v164_root' => 'Deploy v.16.4 at root',
       'deploy_v164_stable' => 'Deploy v.16.4 in /npds_stable',
@@ -255,9 +274,14 @@ $translations = [
       'dev_version' => 'Development version',
       'dev_warning' => 'The master version is a development version that may contain bugs, incomplete features, or be unstable. Do not use in production!',
       'development_version' => 'Development version',
+      'double_slash_not_allowed' => 'Paths with "//" are not allowed.',
       'download_success' => 'Download successful',
       'downloading' => 'Downloading',
       'error' => 'Error',
+      'example_parent' => 'folder adjacent to current site',
+      'example_root' => 'root of current site',
+      'example_subfolder' => 'subfolder in current site',
+      'external_urls_not_allowed' => 'External URLs are not allowed.',
       'extracting' => 'Starting extraction',
       'extraction_complete' => 'Extraction completed successfully',
       'extraction_error' => 'Extraction error',
@@ -284,12 +308,15 @@ $translations = [
       'master_warning' => 'Master: Development version, may be unstable - Do not use in production!',
       'max_exec_time' => 'Max execution time',
       'memory_limit' => 'Memory limit', 
+      'network_paths_not_allowed' => 'Network paths are not allowed.',
       'new_install' => 'New installation',
       'no_files_to_copy' => 'No files to copy in',
       'no_folder_in_archive' => 'No folder found in archive',
       'overwrite_warning' => 'Deployment overwrites existing files!',
       'path' => 'Path',
       'processing_result' => 'Processing complete, analyzing result',
+      'protocols_not_allowed' => 'Special protocols are not allowed.',
+      'secondes' => 'seconds',
       'security_warning' => 'Security: Add &confirm=yes to launch deployment',
       'stable_versions' => 'Stable versions',
       'start_extraction' => 'Start extraction',
@@ -298,10 +325,12 @@ $translations = [
       'target_dir_error' => 'Cannot create target directory',
       'target_permission_error' => 'Target directory not writable',
       'temp_dir_error' => 'Cannot create temporary directory',
+      'too_many_parent_dirs' => 'Too many parent directory traversals for security.',
       'type' => 'Type',
       'update_interface' => 'Update interface',
       'update_to_version' => 'Update to version',
       'update' => 'Update',
+      'valid_examples' => 'Valid examples',
       'version' => 'Version',
       'warning' => 'Warning',
       'welcome' => 'Deployment',
@@ -316,6 +345,8 @@ $translations = [
       'already_installed_message' => 'NPDS ya está instalado en este sitio.',
       'already_installed_reinstall' => 'Si desea reinstalar, primero elimine el archivo',
       'already_installed_title' => '🚫 NPDS Ya Instalado',
+      'backup_created' => 'Copia de seguridad creada',
+      'backup' => 'Copia de seguridad',
       'cancel' => 'Cancelar',
       'clean_confirm' => 'Confirme la limpieza con &confirm=yes',
       'clean_done' => 'Los archivos temporales han sido eliminados.',
@@ -330,8 +361,11 @@ $translations = [
       'copy_finished' => 'Copia terminada',
       'copy_started' => 'Copia iniciada',
       'copying_files' => 'Iniciando copia de archivos',
+      'dangerous_path' => 'Ruta del sistema peligrosa detectada.',
       'deploy_master_dev' => 'Implementar MASTER en /npds_dev',
       'deploy_master_root' => 'Implementar MASTER en raíz',
+      'deploy_succes_newinst' => 'Nueva instalación desplegada con éxito',
+      'deploy_succes_update' => 'Actualización desplegada con éxito',
       'deploy_v163' => 'Implementar v.16.3 en /npds_163',
       'deploy_v164_root' => 'Implementar v.16.4 en raíz',
       'deploy_v164_stable' => 'Implementar v.16.4 en /npds_stable',
@@ -346,9 +380,14 @@ $translations = [
       'dev_version' => 'Versión de desarrollo',
       'dev_warning' => 'La versión master es una versión de desarrollo que puede contener errores, características incompletas o ser inestable. ¡No usar en producción!',
       'development_version' => 'Versión de desarrollo',
+      'double_slash_not_allowed' => 'Las rutas con "//" no están permitidas.',
       'download_success' => 'Descarga exitosa',
       'downloading' => 'Descargando',
       'error' => 'Error',
+      'example_parent' => 'carpeta adyacente al sitio actual',
+      'example_root' => 'raíz del sitio actual',
+      'example_subfolder' => 'subcarpeta en el sitio actual',
+      'external_urls_not_allowed' => 'Las URLs externas no están permitidas.',
       'extracting' => 'Iniciando extracción',
       'extraction_complete' => 'Extracción completada con éxito',
       'extraction_error' => 'Error de extracción',
@@ -375,12 +414,15 @@ $translations = [
       'master_warning' => 'Master: Versión de desarrollo, puede ser inestable - ¡No usar en producción!',
       'max_exec_time' => 'Tiempo máximo de ejecución',
       'memory_limit' => 'Límite de memoria',
+      'network_paths_not_allowed' => 'Las rutas de red no están permitidas.',
       'new_install' => 'Nueva instalación',
       'no_files_to_copy' => 'No hay archivos para copiar en',
       'no_folder_in_archive' => 'No se encontró carpeta en el archivo',
       'overwrite_warning' => '¡La implementación sobrescribe los archivos existentes!',
       'path' => 'Ruta',
       'processing_result' => 'Procesamiento completado, analizando resultado',
+      'protocols_not_allowed' => 'Los protocolos especiales no están permitidos.',
+      'secondes' => 'segundos',
       'security_warning' => 'Seguridad: Agregue &confirm=yes para iniciar la implementación',
       'server' => 'Servidor',
       'stable_versions' => 'Versiones estables',
@@ -390,10 +432,12 @@ $translations = [
       'target_dir_error' => 'No se puede crear el directorio de destino',
       'target_permission_error' => 'Directorio de destino sin permisos de escritura',
       'temp_dir_error' => 'No se puede crear el directorio temporal',
+      'too_many_parent_dirs' => 'Demasiados directorios padre por seguridad.',
       'type' => 'Tipo',
       'update_interface' => 'Interfaz de actualización',
       'update_to_version' => 'Actualizar a versión',
       'update' => 'Actualización',
+      'valid_examples' => 'Ejemplos válidos',
       'version' => 'Versión',
       'warning' => 'Advertencia',
       'welcome' => 'Implementación',
@@ -408,6 +452,8 @@ $translations = [
       'already_installed_message' => 'NPDS ist bereits auf dieser Website installiert.',
       'already_installed_reinstall' => 'Wenn Sie neu installieren möchten, löschen Sie zuerst die Datei',
       'already_installed_title' => '🚫 NPDS Bereits Installiert',
+      'backup_created' => 'Sicherung erstellt',
+      'backup' => 'Sicherung',
       'cancel' => 'Abbrechen',
       'clean_confirm' => 'Bereinigung mit &confirm=yes bestätigen',
       'clean_done' => 'Die temporären Dateien wurden gelöscht.',
@@ -422,8 +468,11 @@ $translations = [
       'copy_finished' => 'Kopie beendet',
       'copy_started' => 'Kopie gestartet',
       'copying_files' => 'Beginne Dateikopie',
+      'dangerous_path' => 'Gefährlicher Systempfad erkannt.',
       'deploy_master_dev' => 'Stelle MASTER in /npds_dev bereit',
       'deploy_master_root' => 'Stelle MASTER im Stammverzeichnis bereit',
+      'deploy_succes_newinst' => 'Neue Installation erfolgreich bereitgestellt',
+      'deploy_succes_update' => 'Update erfolgreich bereitgestellt',
       'deploy_v163' => 'Stelle v.16.3 in /npds_163 bereit',
       'deploy_v164_root' => 'Stelle v.16.4 im Stammverzeichnis bereit',
       'deploy_v164_stable' => 'Stelle v.16.4 in /npds_stable bereit',
@@ -438,9 +487,14 @@ $translations = [
       'dev_version' => 'Entwicklungsversion',
       'dev_warning' => 'Die Master-Version ist eine Entwicklungsversion, die Fehler, unvollständige Funktionen enthalten oder instabil sein kann. Nicht in der Produktion verwenden!',
       'development_version' => 'Entwicklungsversion',
+      'double_slash_not_allowed' => 'Pfade mit "//" sind nicht erlaubt.',
       'download_success' => 'Download erfolgreich',
       'downloading' => 'Herunterladen',
       'error' => 'Fehler',
+      'example_parent' => 'Benachbarter Ordner zur aktuellen Website',
+      'example_root' => 'Wurzel der aktuellen Website',
+      'example_subfolder' => 'Unterordner in aktueller Website',
+      'external_urls_not_allowed' => 'Externe URLs sind nicht erlaubt.',
       'extracting' => 'Beginne Extraktion',
       'extraction_complete' => 'Extraktion erfolgreich abgeschlossen',
       'extraction_error' => 'Extraktionsfehler',
@@ -467,12 +521,15 @@ $translations = [
       'master_warning' => 'Master: Entwicklungsversion, kann instabil sein - Nicht in der Produktion verwenden!',
       'max_exec_time' => 'Maximale Ausführungszeit',
       'memory_limit' => 'Speicherlimit',
+      'network_paths_not_allowed' => 'Netzwerkpfade sind nicht erlaubt.',
       'new_install' => 'Neue Installation',
       'no_files_to_copy' => 'Keine Dateien zum Kopieren in',
       'no_folder_in_archive' => 'Kein Ordner im Archiv gefunden',
       'overwrite_warning' => 'Bereitstellung überschreibt vorhandene Dateien!',
       'path' => 'Pfad',
       'processing_result' => 'Verarbeitung abgeschlossen, analysiere Ergebnis',
+      'protocols_not_allowed' => 'Spezielle Protokolle sind nicht erlaubt.',
+      'secondes' => 'Sekunden',
       'security_warning' => 'Sicherheit: Fügen Sie &confirm=yes hinzu, um die Bereitstellung zu starten',
       'server' => 'Server',
       'stable_versions' => 'Stabile Versionen',
@@ -482,10 +539,12 @@ $translations = [
       'target_dir_error' => 'Zielverzeichnis kann nicht erstellt werden',
       'target_permission_error' => 'Zielverzeichnis nicht beschreibbar',
       'temp_dir_error' => 'Temporäres Verzeichnis kann nicht erstellt werden',
+      'too_many_parent_dirs' => 'Zu viele übergeordnete Verzeichnisse aus Sicherheitsgründen.',
       'type' => 'Typ',
       'update_interface' => 'Update-Schnittstelle',
       'update_to_version' => 'Aktualisieren auf Version',
       'update' => 'Aktualisierung',
+      'valid_examples' => 'Gültige Beispiele',
       'version' => 'Version',
       'warning' => 'Warnung',
       'welcome' => 'Bereitstellung',
@@ -500,6 +559,8 @@ $translations = [
       'already_installed_message' => 'NPDS 已在此站点上安装。',
       'already_installed_reinstall' => '如果您想重新安装，请先删除文件',
       'already_installed_title' => '🚫 NPDS 已安装',
+      'backup_created' => '备份已创建',
+      'backup' => '备份',
       'cancel' => '取消',
       'clean_confirm' => '使用 &confirm=yes 确认清理',
       'clean_done' => '临时文件已被删除。',
@@ -514,8 +575,11 @@ $translations = [
       'copy_finished' => '复制完成',
       'copy_started' => '复制开始',
       'copying_files' => '开始文件复制',
+      'dangerous_path' => '检测到危险的系统路径。',
       'deploy_master_dev' => '在 /npds_dev 中部署 MASTER',
       'deploy_master_root' => '在根目录部署 MASTER',
+      'deploy_succes_newinst' => '新安装部署成功',
+      'deploy_succes_update' => '更新部署成功',
       'deploy_v163' => '在 /npds_163 中部署 v.16.3',
       'deploy_v164_root' => '在根目录部署 v.16.4',
       'deploy_v164_stable' => '在 /npds_stable 中部署 v.16.4',
@@ -530,9 +594,14 @@ $translations = [
       'dev_version' => '开发版本',
       'dev_warning' => 'master版本是开发版本，可能包含错误、不完整的功能或不稳定。请勿在生产环境中使用！',
       'development_version' => '开发版本',
+      'double_slash_not_allowed' => '不允许使用带有"//"的路径。',
       'download_success' => '下载成功',
       'downloading' => '下载中',
       'error' => '错误',
+      'example_parent' => '当前站点相邻的文件夹',
+      'example_root' => '当前站点的根目录',
+      'example_subfolder' => '当前站点的子文件夹',
+      'external_urls_not_allowed' => '不允许使用外部URL。',
       'extracting' => '开始解压',
       'extraction_complete' => '提取成功完成',
       'extraction_error' => '解压错误',
@@ -559,12 +628,15 @@ $translations = [
       'master_warning' => 'Master：开发版本，可能不稳定 - 请勿在生产环境中使用！',
       'max_exec_time' => '最大执行时间',
       'memory_limit' => '内存限制',
+      'network_paths_not_allowed' => '不允许使用网络路径。',
       'new_install' => '新安装',
       'no_files_to_copy' => '没有文件可复制到',
       'no_folder_in_archive' => '在存档中未找到文件夹',
       'overwrite_warning' => '部署会覆盖现有文件！',
       'path' => '路径',
       'processing_result' => '处理完成，分析结果中',
+      'protocols_not_allowed' => '不允许使用特殊协议。',
+      'secondes' => '秒',
       'security_warning' => '安全：添加 &confirm=yes 以启动部署',
       'server' => '服务器',
       'stable_versions' => '稳定版本',
@@ -574,10 +646,12 @@ $translations = [
       'target_dir_error' => '无法创建目标目录',
       'target_permission_error' => '目标目录不可写',
       'temp_dir_error' => '无法创建临时目录',
+      'too_many_parent_dirs' => '出于安全原因，父目录遍历过多。',
       'type' => '类型',
       'update_interface' => '更新界面',
       'update_to_version' => '更新到版本',
       'update' => '更新',
+      'valid_examples' => '有效示例',
       'version' => '版本',
       'warning' => '警告',
       'welcome' => '部署',
@@ -594,6 +668,29 @@ $_SESSION['npds_lang'] = $lang;
 function t($key) {
    global $translations, $lang;
    return $translations[$lang][$key] ?? $translations['fr'][$key] ?? $key;
+}
+
+// ==================== VALIDATION DES CHEMINS ====================
+function validateTargetPath($path) {
+   $path = trim($path);
+   // URLs externes
+   if (preg_match('#^(https?|ftp)://#i', $path)) {
+      error_log("🚨 TENTATIVE DÉPLOIEMENT EXTERNE: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . " - " . $path);
+      return ['valid' => false, 'message' => t('external_urls_not_allowed')];
+   }
+   // Protocoles spéciaux
+   if (preg_match('#^[a-z]+:#i', $path)) 
+      return ['valid' => false, 'message' => t('protocols_not_allowed')];
+   // Double slash
+   if (strpos($path, '//') !== false) 
+      return ['valid' => false, 'message' => t('double_slash_not_allowed')];
+   // Chemins réseau
+   if (preg_match('#^\\\\\\\\#', $path))
+      return ['valid' => false, 'message' => t('network_paths_not_allowed')];
+   // Trop de remontées
+   if (substr_count($path, '..') > 2)
+      return ['valid' => false, 'message' => t('too_many_parent_dirs')];
+   return ['valid' => true, 'message' => ''];
 }
 
 // ==================== MODE API POUR DÉPLOIEMENT ====================
@@ -787,7 +884,7 @@ function executeDeployment($version, $targetDir) {
       }
    };
    try {
-      $logMessage("🚀 ". t('deployment_started') ." - ".t('version')." : $version - ".t('path').": $targetDir - Type: " . ($isUpdate ? "Mise à jour" : "Nouvelle installation"));
+      $logMessage('🚀 '. t('deployment_started') .' - '.t('version').' : '.$version.' - '.t('path').': '.$targetDir.' - '.t('type').': ' . ($isUpdate ? t('update') : t('new_install')));
       error_log("🚀 DÉPLOIEMENT DÉMARRÉ - Version: $version - Cible: $targetDir - Type: " . ($isUpdate ? "Mise à jour" : "Nouvelle installation"));
       $deployer = new GithubDeployer();
       // Backup si mise à jour
@@ -806,7 +903,7 @@ function executeDeployment($version, $targetDir) {
          $addedFiles = $backupResult['file_count'];
          $size = filesize($backupResult['file']);
          $size_mb = round($size/1024/1024, 2);
-         $logMessage('✅ Backup créé: '.$addedFiles.' fichiers ('.$size_mb.' MB)');
+         $logMessage('✅ Backup créé: '.$addedFiles.' '.t('files').' ('.$size_mb.' MB)');
          error_log("✅ Backup créé");
       }
       // Téléchargement
@@ -816,7 +913,7 @@ function executeDeployment($version, $targetDir) {
       $logMessage("PROGRESS:5");
       $logMessage("PROGRESS:10");
       $logMessage("PROGRESS:15");
-      $logMessage("📦 ".t('downloading')." de $version...");
+      $logMessage('📦 '.t('downloading').' : '.$version.'...');
       // URLs GitHub correctes
       if ($version === 'master')
          $url = $deployer->buildVersionUrl('https://github.com/npds/npds_dune/archive/refs/heads/', $version, 'zip');
@@ -857,12 +954,12 @@ function executeDeployment($version, $targetDir) {
 
       $duration = time() - $start_time;
       $completionMessage = $isUpdate ? 
-            "Mise à jour terminée avec succès" : 
-            "Nouvelle installation déployée avec succès";
-      error_log('🎉 ' . $completionMessage . ' : ' . $duration . " secondes");
-      $logMessage('🎉 ' . $completionMessage . ' : ' . $duration . ' secondes', "SUCCESS");
+            t('deploy_succes_update') : 
+            t('deploy_succes_newinst') ;
+      error_log('🎉 ' . $completionMessage . ' : ' . $duration . ' secondes');
+      $logMessage('🎉 ' . $completionMessage . ' : ' . $duration . ' '.t('secondes'), "SUCCESS");
 
-      // ⭐⭐ CORRECTION : SUPPRIMER LES DEUX VERROUS DIRECTEMENT
+      // SUPPRIMER LES DEUX VERROUS DIRECTEMENT
       if (file_exists($apiLockFile)) {
          @unlink($apiLockFile);
          error_log("🔓 VERROU API SUPPRIMÉ");
@@ -937,10 +1034,16 @@ class NPDSExclusions {
       'language/lang-mods.php',   // fichiers langue personnalisable
       'language/lang-multi.php',  // fichiers langue personnalisable
       'static/edito.txt',         // page statique
-      // === BACKUPS ET SAUVEGARDES === ????
+      // === IMAGES systeme PERSONALISABLE ===
+      'images/ogimg_square.png',
+      'images/ogimg_rect.png',
+      'images/favicon.ico',
+      'images/favicon-180.png',
+      'images/favicon-152.png',
+      'images/favicon-120.png',
+      // === BACKUPS ET SAUVEGARDES ===
       'backup/',
       'sauvegardes/',
-      '*.sql',                    // Tous les fichiers SQL
       '*.zip',                    // Archives de backup
       '*.tar.gz',
       '*.backup*',               // Fichiers de backup existants
@@ -1053,12 +1156,15 @@ class NPDSBackupManager {
          '.htaccess',
          'robots.txt',
          'users_private/*',
+         'static/*',
+         'meta/meta.php',
          'slogs/*',
          'images/*',
          'themes/*/images/*',
          'modules/*/config.php',
          'modules/*.conf.php',
-         'language/lang-*.php'
+         'language/lang-multi.php',
+         'language/lang-mods.php',
       ];
    }
 
@@ -2036,6 +2142,31 @@ function showMainInterface() {
 // ==================== ROUTAGE PRINCIPAL ====================
 try {
    $operation = $_GET['op'] ?? '';
+   
+   // ⭐⭐ VALIDATION GLOBALE - TOUTES LES REQUÊTES ⭐⭐
+    $targetDir = $_GET['path'] ?? '.';
+    $validation = validateTargetPath($targetDir);
+    if (!$validation['valid']) {
+        echo head_html();
+        echo '
+        <div class="section-danger">
+            <h2>🚨 '.t('error').'</h2>
+            <p>'.htmlspecialchars($validation['message']).'</p>
+            <p>'.t('path').' : <code>'.htmlspecialchars($targetDir).'</code></p>
+            <p><strong>'.t('valid_examples').' :</strong></p>
+            <ul>
+                <li><code>npds_stable</code> ('.t('example_subfolder').')</li>
+                <li><code>npds_dev</code> ('.t('example_subfolder').')</li>
+                <li><code>.</code> ('.t('example_root').')</li>
+                <li><code>../autre-projet</code> ('.t('example_parent').')</li>
+            </ul>
+            <a href="?" class="btn btn-secondary">'.t('go_back').'</a>
+        </div>';
+        echo foot_html();
+        exit;
+    }
+   
+   
    switch ($operation) {
       case 'deploy':
          handleDeployOperation();
