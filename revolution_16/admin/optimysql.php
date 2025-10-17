@@ -20,9 +20,8 @@ $f_titre = adm_translate('Optimisation de la base de données').' : '.$dbname;
 admindroits($aid,$f_meta_nom);
 //<== controle droit
 $hlpfile = 'manuels/'.$language.'/optimysql.html'; 
-
-$date_opt = date(adm_translate('dateforop'));
-$heure_opt = date('h:i a');
+$date_opt = formatTimes(time(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+$heure_opt = date('H:i:s');
 include 'header.php';
 GraphicAdmin($hlpfile);
 

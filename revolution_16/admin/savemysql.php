@@ -24,7 +24,6 @@ admindroits($aid,$f_meta_nom);
 //<== controle droit
 $name = $aid;
 include 'lib/archive.php';
-mysqli_set_charset($dblink,'utf8mb4');
 
 function PrepareString($a_string = '') {
    $search       = array('\\','\'',"\x00", "\x0a", "\x0d", "\x1a"); //\x08\\x09, not required
@@ -33,7 +32,7 @@ function PrepareString($a_string = '') {
 }
 
 function get_table_def($table) {
-   global $dbname, $crlf, $crlf2, $dblink;
+   global $dbname, $crlf, $dblink;
    settype($index, 'array');
    $k = 0;
    $result = sql_query('SELECT * FROM '.$table.' LIMIT 1');
@@ -81,7 +80,7 @@ function get_table_def($table) {
 
 
    function get_table_content($table) {
-      global $dbname, $crlf, $crlf2;
+      global $dbname, $crlf;
 
       $table_list = '';
       $schema_insert = '';
@@ -93,10 +92,10 @@ function get_table_def($table) {
             if(!isset($row[$j]))
                $schema_insert .= ' NULL';
             else
-            if ($row[$j] != '')
-               $schema_insert .= " '".PrepareString($row[$j])."'";
-            else
-               $schema_insert .= " ''";
+               if ($row[$j] != '')
+                  $schema_insert .= " '".PrepareString($row[$j])."'";
+               else
+                  $schema_insert .= " ''";
             if ($j < ($count -1))
                $schema_insert .= ",";
          }
@@ -112,19 +111,19 @@ function get_table_def($table) {
       global $dbname, $name, $MSos, $crlf;
 
       @set_time_limit(600);
-      $date_jour = date(adm_translate("dateforop"));
-      $date_op = date('mdy');
+      $date_jour = formatTimes(time(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+      $date_op = date('Ymd');
       $filename = $dbname.'-'.$date_op;
       $tables = sql_list_tables($dbname);
       $num_tables = sql_num_rows($tables);
       if($num_tables == 0)
-         echo '&nbsp;'.adm_translate("Aucune table n'a été trouvée")."\n";
+         echo '&nbsp;'.html_entity_decode(adm_translate("Aucune table n'a été trouvée"),ENT_COMPAT | ENT_HTML401,'UTF-8')."\n";
       else {
-         $heure_jour = date('H:i');
+         $heure_jour = date('H:i:s');
          $data = "# ========================================================$crlf"
             ."# $crlf"
-            ."# ".adm_translate('Sauvegarde de la base de données')." : ".$dbname." $crlf"
-            ."# ".adm_translate('Effectuée le')." ".$date_jour." : ".$heure_jour." ".adm_translate("par")." ".$name." $crlf"
+            ."# ".html_entity_decode(adm_translate("Sauvegarde de la base de données"),ENT_COMPAT | ENT_HTML401,'UTF-8')." : ".$dbname." $crlf"
+            ."# ".html_entity_decode(adm_translate("Effectuée le"),ENT_COMPAT | ENT_HTML401,'UTF-8')." ".$date_jour." : ".$heure_jour." ".html_entity_decode(adm_translate("par"),ENT_COMPAT | ENT_HTML401,'UTF-8')." ".$name." $crlf"
             ."# $crlf"
             ."# ========================================================$crlf";
          while($row = sql_fetch_row($tables)) {
@@ -132,12 +131,12 @@ function get_table_def($table) {
             $data .= "$crlf"
                ."# --------------------------------------------------------$crlf"
                ."# $crlf"
-               ."# ".adm_translate('Structure de la table')." '".$table."' $crlf"
+               ."# ".html_entity_decode(adm_translate("Structure de la table"),ENT_COMPAT | ENT_HTML401,'UTF-8')." '".$table."' $crlf"
                ."# $crlf$crlf";
             $data .= get_table_def($table)
                ."$crlf$crlf"
                ."# $crlf"
-               ."# ".adm_translate('Contenu de la table')." '".$table."' $crlf"
+               ."# ".html_entity_decode(adm_translate("Contenu de la table"),ENT_COMPAT | ENT_HTML401,'UTF-8')." '".$table."' $crlf"
                ."# $crlf$crlf";
             $data .= get_table_content($table)
                ."$crlf$crlf"
@@ -148,16 +147,16 @@ function get_table_def($table) {
    }
 
    function dbSave_tofile($repertoire, $linebyline = 0, $savemysql_size = 256) {
-      global $dbname, $name, $MSos, $crlf, $crlf2;
+      global $dbname, $name, $MSos, $crlf;
 
       @set_time_limit(600);
-      $date_jour = date(adm_translate('dateforop'));
-      $date_op = date('ymd');
+      $date_jour = formatTimes(time(), IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+      $date_op = date('dmY');
       $filename = $dbname.'-'.$date_op;
       $tables = sql_list_tables($dbname);
       $num_tables = sql_num_rows($tables);
       if($num_tables == 0)
-         echo '&nbsp;'.adm_translate("Aucune table n'a été trouvée")."\n";
+         echo '&nbsp;'.html_entity_decode(adm_translate("Aucune table n'a été trouvée"),ENT_COMPAT | ENT_HTML401,'UTF-8')."\n";
       else {
          if ((!isset($repertoire)) or ($repertoire == '')) $repertoire = '.';
          if (!is_dir($repertoire)) {
@@ -167,11 +166,11 @@ function get_table_def($table) {
             fclose($fp);
          }
 
-         $heure_jour = date('H:i');
+         $heure_jour = date('H:i:s');
          $data0 = "# ========================================================$crlf"
             ."# $crlf"
-            ."# Sauvegarde de la base de données : ".$dbname." $crlf"
-            ."# Effectuée le ".$date_jour." : ".$heure_jour." par ".$name." $crlf"
+            ."# ".html_entity_decode(adm_translate("Sauvegarde de la base de données"),ENT_COMPAT | ENT_HTML401,'UTF-8')." : ".$dbname." $crlf"
+            ."# ".html_entity_decode(adm_translate("Effectuée le"),ENT_COMPAT | ENT_HTML401,'UTF-8')." ".$date_jour." : ".$heure_jour." par ".$name." $crlf"
             ."# $crlf"
             ."# ========================================================$crlf";
          $data1 = '';
@@ -181,12 +180,12 @@ function get_table_def($table) {
             $data1 .= "$crlf"
                ."# --------------------------------------------------------$crlf"
                ."# $crlf"
-               ."# Structure de la table '".$table."' $crlf"
+               ."# ".html_entity_decode(adm_translate("Structure de la table"),ENT_COMPAT | ENT_HTML401,'UTF-8')." '".$table."' $crlf"
                ."# $crlf$crlf";
             $data1 .= get_table_def($table)
                ."$crlf$crlf"
                ."# $crlf"
-               ."# Contenu de la table '".$table."' $crlf"
+               ."# ".html_entity_decode(adm_translate("Contenu de la table"),ENT_COMPAT | ENT_HTML401,'UTF-8')." '".$table."' $crlf"
                ."# $crlf$crlf";
             $result = sql_query('SELECT * FROM '.$table);
             $count_line = sql_num_fields($result);
@@ -238,29 +237,22 @@ function get_table_def($table) {
    switch ($op) {
       case 'SavemySQL':
          $MSos = get_os();
-         if ($MSos) {
-            $crlf = "\r\n";
-            $crlf2 = "\\r\\n";
-         } else {
-            $crlf = "\n";
-            $crlf2 = "\\n";
-         }
-
+         $crlf = $MSos ? "\r\n" : "\n" ;
          if ($savemysql_mode == 2) {
             dbSave_tofile('slogs',0, $savemysql_size);
-            echo "<script type=\"text/javascript\">
+            echo '<script type="text/javascript">
                   //<![CDATA[
-                     alert('".html_entity_decode(adm_translate('Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs'),ENT_COMPAT | ENT_HTML401,'UTF-8')."');
+                     alert("'.html_entity_decode(adm_translate('Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs'),ENT_COMPAT | ENT_HTML401,'UTF-8').'");
                   //]]>
-                  </script>";
+                  </script>';
             redirect_url('admin.php');
          } else if ($savemysql_mode == 3) {
             dbSave_tofile('slogs',1, $savemysql_size);
-            echo "<script type=\"text/javascript\">
+            echo '<script type="text/javascript">
                   //<![CDATA[
-                     alert('".html_entity_decode(adm_translate('Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs'),ENT_COMPAT | ENT_HTML401,'UTF-8')."');
+                     alert("'.html_entity_decode(adm_translate('Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs'),ENT_COMPAT | ENT_HTML401,'UTF-8').'");
                   //]]>
-                  </script>";
+                  </script>';
             redirect_url('admin.php');
          } else {
             dbSave();

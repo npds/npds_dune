@@ -16,7 +16,6 @@ function adm_translate($phrase) {
    settype($englishname,'string');
    switch($phrase) {
       case "$englishname": $tmp="$englishname"; break;
-      case "dateforop": $tmp="d-m-y"; break;
       case "english": $tmp="Anglais"; break;
       case "french": $tmp="Français"; break;
       case "spanish": $tmp="Espagnol"; break;
