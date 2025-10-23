@@ -147,27 +147,35 @@ function nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon) {
       $display .= $reqsql;
       $display .= "<br />\n";
    } else {
+   
       if ($path_adm_module != '') {
       //controle si on a pas déja la fonction (si oui on efface sinon on renseigne)
-         $ck = sql_query("SELECT fnom FROM ".$NPDS_Prefix."fonctions WHERE fnom = '".$name_module."'");
-         if($ck)
-            sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$name_module."'");
-         sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', 0, '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 6, 'Modules', 0)") or sql_error();
-         $ibid = sql_last_id();
-         sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fdroits1 = ".$ibid." WHERE fid=".$ibid."");
-         //==> ajout des alertesadmin
-         if (file_exists('modules/'.$name_module.'/admin/adm_alertes.php')) {
-            include 'modules/'.$name_module.'/admin/adm_alertes.php';
-            if(count($reqalertes) != 0) {
-               foreach($reqalertes as $v){
-                  sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', ".$ibid.", '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 9, 'Modules', 0)") or sql_error();
-               }
+      $ck = sql_query("SELECT fnom FROM ".$NPDS_Prefix."fonctions WHERE fnom = '".$name_module."'");
+      if($ck)
+         sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$name_module."'");
+      sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', 0, '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 6, 'Modules', 0)") or sql_error();
+      $ibid = sql_last_id();
+      sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fdroits1 = ".$ibid." WHERE fid=".$ibid."");
+      //==> ajout des alertesadmin
+      if (file_exists('modules/'.$name_module.'/admin/adm_alertes.php')) {
+         include 'modules/'.$name_module.'/admin/adm_alertes.php';
+         if(count($reqalertes) != 0) {
+            foreach($reqalertes as $v){
+               sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', ".$ibid.", '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 9, 'Modules', 0)") or sql_error();
             }
          }
-         //<== ajout des alertesadmin
       }
+      //<== ajout des alertesadmin
+   }
+
+   
+   
+   
+   
+   
       $display .= '<p class="text-success"><strong>'.adm_translate('La configuration de la base de données MySql a réussie !').'</strong></p>';
-}   $display .= '
+   }
+   $display .= '
    </div>
    <div class="text-center">
    <br /><a href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e5" class="btn btn-primary">'.adm_translate('Etape suivante').'</a><br />
@@ -373,6 +381,7 @@ function nmig_txt($txtfin) {
       <a class="btn btn-primary" href="admin.php?op=Module-Install&amp;ModInstall='.$ModInstall.'&amp;nmig=e10" >'.adm_translate("Etape suivante").'</a><br />
    </div>'.nmig_copyright();
 }
+
 // e10 étape à fusionner avec la 9 ....
 function nmig_End($name_module, $end_link) {
    include 'header.php';
@@ -403,9 +412,32 @@ function nmig_clean($ModDesinstall) {
    if ($ModInstall != '' && $ModDesinstall == '') {
       if ($subop == 'install')
          $result = sql_query("UPDATE ".$NPDS_Prefix."modules SET minstall='1' WHERE mnom= '".$ModInstall."'");
-      if (file_exists("modules/".$ModInstall."/install.conf.php"))
+      if (file_exists("modules/".$ModInstall."/install.conf.php")) {
          include 'modules/'.$ModInstall.'/install.conf.php';
-      else {
+         
+         if (isset($sql[0]) && $sql[0] == '') {
+            if ($path_adm_module != '') {
+               //controle si on a pas déja la fonction (si oui on efface sinon on renseigne)
+               $ck = sql_query("SELECT fnom FROM ".$NPDS_Prefix."fonctions WHERE fnom = '".$name_module."'");
+               if($ck)
+                  sql_query("DELETE FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$name_module."'");
+               sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', 0, '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 6, 'Modules', 0)") or sql_error();
+               $ibid = sql_last_id();
+               sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fdroits1 = ".$ibid." WHERE fid=".$ibid."");
+               //==> ajout des alertesadmin
+               if (file_exists('modules/'.$name_module.'/admin/adm_alertes.php')) {
+                  include 'modules/'.$name_module.'/admin/adm_alertes.php';
+                  if(count($reqalertes) != 0) {
+                     foreach($reqalertes as $v){
+                        sql_query("INSERT INTO ".$NPDS_Prefix."fonctions (fid,fnom,fdroits1,fdroits1_descr,finterface,fetat,fretour,fretour_h,fnom_affich,ficone,furlscript,fcategorie,fcategorie_nom,fordre) VALUES (0, '".$ModInstall."', ".$ibid.", '', 1, 1, '', '', '".$affich."', '".$icon."', 'href=\"admin.php?op=Extend-Admin-SubModule&ModPath=".$ModInstall."&ModStart=".$path_adm_module."\"', 9, 'Modules', 0)") or sql_error();
+                     }
+                  }
+               }
+               //<== ajout des alertesadmin
+            }
+         }
+
+      } else {
          redirect_url('admin.php?op=modules');
          die();
       }
@@ -489,7 +521,6 @@ function nmig_clean($ModDesinstall) {
             $tabsblocs = 'include#modules/'.$ModDesinstall.'/';
          $lbmod = sql_num_rows(sql_query("SELECT id FROM ".$NPDS_Prefix."lblocks WHERE content LIKE '$tabsblocs%'"));
          $rbmod = sql_num_rows(sql_query("SELECT id FROM ".$NPDS_Prefix."rblocks WHERE content LIKE '$tabsblocs%'"));
-
          $fonct = sql_num_rows(sql_query("SELECT fid FROM ".$NPDS_Prefix."fonctions WHERE fnom='".$ModDesinstall."'"));
          if($fonct > 0) array_push($othertabinsert,'fonctions','droits');
       }
