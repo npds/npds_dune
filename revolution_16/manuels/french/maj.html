@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - Mise à jour</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">Syst&egrave;me</a></li>
+               <li class="breadcrumb-item active" aria-current="page" >Mise à jour</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administration - Mise à jour</h3>
+         <p class="lead">
+         <br />C'est ici que l'on peut mettre à jour la version en service de son portail par une version plus récente (ou égal) ou par la version de développement (master) !...<br />
+         Cette mise à jour s'effectue en deux étapes d'abord les fichiers puis la base de données.
+         L'interface surtout explicatif ne permet en fait que le choix d'un paramètre : la version qui va remplacer celle en service sur le portail.</p>
+         <p>Un premier écran présente : 
+            <ul>
+               <li>le récapitulatif des versions : version en service sur le portail et dernière version stable disponible</li>
+               <li>un message variable faisant le point</li>
+               <li>une liste déroulante permettant un choix orienté de la version pour préparer la mise à jour</li>
+               <li>le bouton <code>Préparer la mise à jour</code> qui vous permet après votre choix d'accéder au deuxième écran</li>
+            </ul>
+         </p>
+         <p>Le deuxième écran indique les recommandations préalables et le rappel des options choisies ou imposées pour la mise à jour. Il contient deux boutons :
+            <ul>
+               <li><code>Retour</code> ==> (retour au premier écran) ...</li>
+               <li><code>Lancer la mise à jour</code> ==> déclanche une alerte javascript de confirmation (ou pas) et lance la procédure de mise à jour dans le <b>déployeur</b> ...</li>
+            </ul>
+         </p>
+         <p>Vous voici dans l'interface progressive de contrôle et d'informations des process qui durent entre 2 et 3 minutes au total.<br />
+         En cas de succès un bouton <code>Accéder à l'administration</code> permet de revenir dans l'administration sur l'écran de confirmation de réussite de la mise à jour.</p>
+
+
+         <p><b>NB :</b> toute mise à jour génère automatiquement une sauvegarde des fichiers sensibles (une archive .zip : file_backup_ suivi de l'heurodatage) disponible dans <code>/lib/deployer/npds_backups/</code></p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Manuel administration</span></p>
+      </div>
+   </body>
+</html>

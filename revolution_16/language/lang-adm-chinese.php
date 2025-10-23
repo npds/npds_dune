@@ -57,6 +57,7 @@ function adm_translate($phrase) {
   case "14 ans": $tmp="14岁"; break;
   case "A ce jour, vous avez effectué ": $tmp="目前为止，您已经执行了 "; break;
   case "a été envoyée": $tmp="已经发送"; break;
+  case "À jour": $tmp="已更新"; break;
   case "a": $tmp="&#x6709;"; break;
   case "Abandonner": $tmp="取消"; break;
   case "Accepter": $tmp="接受"; break;
@@ -162,6 +163,7 @@ function adm_translate($phrase) {
   case "Ajouter une Sous-catégorie": $tmp="添加子分类"; break;
   case "Ajouter une URL": $tmp="添加一个URL地址"; break;
   case "Ajouter": $tmp="添加"; break;
+  case "Ancienne version": $tmp="旧版本"; break;
   case "Année": $tmp="年"; break;
   case "Annonceurs faisant de la publicité": $tmp="广告客户"; break;
   case "Annuler": $tmp="取消"; break;
@@ -190,6 +192,7 @@ function adm_translate($phrase) {
   case "ATTENTION !!!": $tmp="警告!!!"; break;
   case "Au format CSV": $tmp="为CSV格式"; break;
   case "Aucun lien brisé rapporté.": $tmp="没有断链接报告"; break;
+  case "Aucun log disponible": $tmp="无可用日志"; break;
   case "Aucun Sujet": $tmp="无主题"; break;
   case "Aucune catégorie": $tmp="没有目录"; break;
   case "Aucune critique à ajouter": $tmp="没有要添加的评论"; break;
@@ -214,6 +217,7 @@ function adm_translate($phrase) {
   case "Autoriser les Smilies": $tmp="允许使用表情符号"; break;
   case "Autoriser les utilisateurs à choisir leur mot de passe": $tmp=" 允许用户选择自己的密码？"; break;
   case "Autoriser les utilisateurs à voter plusieurs fois ?": $tmp="允许用户多次投票评论吗？"; break;
+  case "Avant de lancer la mise à jour, vous pouvez": $tmp="开始更新前，您可以"; break;
   case "Avant de supprimer le groupe": $tmp="Before to delete the group"; break;
   case "Bannières actives": $tmp="当前播放广告"; break;
   case "Bannières inactives": $tmp="当前非激活的Banners"; break;
@@ -269,6 +273,7 @@ function adm_translate($phrase) {
   case "Chemin des images des sujets": $tmp="主题图片路径:"; break;
   case "Chemin des images du menu administrateur": $tmp="管理员菜单的图片路径"; break;
   case "Chemin et nom de l'image du Smiley": $tmp="Directory and name of the picture of the Smiley"; break;
+  case "Choisir la version à installer": $tmp="选择要安装的版本"; break;
   case "Choisir les privilèges ? :": $tmp="选择优先权"; break;
   case "Choisir un groupe": $tmp=" 选择一个组"; break;
   case "Choisir un modérateur": $tmp="Choose one moderator."; break;
@@ -293,6 +298,7 @@ function adm_translate($phrase) {
   case "Configurer MySql (Recommandé)": $tmp="配置MySql（推荐）"; break;
   case "Confirmer la lecture": $tmp="确认阅读内容"; break;
   case "Connexion": $tmp="Login"; break;
+  case "Consulter les logs d'installation pour détecter d'éventuels problèmes": $tmp="检查安装日志以检测潜在问题"; break;
   case "Contacter l'administration du site.": $tmp="联系网站的管理部门。"; break;
   case "Contenu :": $tmp="内容:"; break;
   case "Contenu de la table": $tmp="表格的内容"; break;
@@ -320,14 +326,15 @@ function adm_translate($phrase) {
   case "Créer un nouveau Bloc": $tmp="增加一个新的页右栏目框"; break;
   case "Créer un nouveau Sondage": $tmp="创建一个新的调查"; break;
   case "Créer un nouveau": $tmp="Create a new"; break;
+  case "Créer une sauvegarde automatique": $tmp="创建自动备份"; break;
   case "Créer utilisateur": $tmp="Create user"; break;
   case "Créer": $tmp="创建"; break;
   case "Critique en attente de validation.": $tmp="Review awaiting validation"; break;
   case "Critiques en attente de validation": $tmp="等待生效中的评论"; break;
   case "Critiques": $tmp="评论"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
-  case "dans": $tmp="在"; break;
   case "dans le groupe": $tmp="在群里"; break;
+  case "dans": $tmp="在"; break;
   case "Date :": $tmp="日期：:"; break;
   case "Date de début": $tmp="起始日期"; break;
   case "Date de démarrage du site": $tmp="站点开通日期:"; break;
@@ -340,6 +347,7 @@ function adm_translate($phrase) {
   case "Demande refusée pour votre participation au groupe": $tmp="您参加群组的请求被拒绝"; break;  
   case "Déplier la liste": $tmp="Show list"; break;
   case "Dernière optimisation effectuée le": $tmp="最近一次优化"; break;
+  case "Dernière version": $tmp="最新版本"; break;
   case "Derniers": $tmp="最近"; break;
   case "des modérateurs du forum": $tmp="from the forum moderator"; break;
   case "des": $tmp="属于"; break;
@@ -480,6 +488,7 @@ function adm_translate($phrase) {
   case "Expédier en tant": $tmp="send as"; break;
   case "Extension des fichiers d'image": $tmp=" 图象文件的扩展"; break;
   case "Extraire l'annuaire": $tmp="通讯录"; break;
+  case "Faire une sauvegarde complète du site": $tmp="进行完整的站点备份"; break;
   case "Fait : ": $tmp="完成: "; break;
   case "FAQ": $tmp="FAQ"; break;
   case "Faq": $tmp="常见问题 (FAQ)"; break;
@@ -567,11 +576,13 @@ function adm_translate($phrase) {
   case "La configuration du(des) bloc(s) a réussi !": $tmp="The configuration of (the) block(s) succeeded!"; break;
   case "La désinstallation des modules n'est pas prise en charge de façon automatique à l'heure actuelle.": $tmp="The desinstallation of the addons is not dealt with automatic of way at the present time."; break;
   case "La Lettre": $tmp="信笺 NewsLetter"; break;
+  case "La mise à jour de NPDS a été effectuée avec succès": $tmp="NPDS 更新已成功完成"; break;
   case "La nuit commence à": $tmp="夜从此时开始？"; break;
   case "La nuit": $tmp="夜"; break;
   case "La publication que vous aviez en attente vient d'être validée.": $tmp="您等待中的发表文章刚得到最后生效"; break;
   case "La ré-affectation est terminée !": $tmp="转移操作完成！"; break;
   case "Laisser les utilisateurs anonymes poster de nouveaux liens ?": $tmp="允许匿名用户张贴新的链接？"; break;
+  case "Lancer la mise à jour": $tmp="开始更新"; break;
   case "Langue de Prévisualisation": $tmp=" 预览语言"; break;
   case "Langue du backend": $tmp="后台语言:"; break;
   case "Langue principale": $tmp="主要语言"; break;
@@ -620,6 +631,7 @@ function adm_translate($phrase) {
   case "Liste des rubriques": $tmp="Sections list"; break;
   case "Liste des sondages": $tmp="调查列表"; break;
   case "Logo du site pour les impressions": $tmp="站点Logo:"; break;
+  case "Logs de mise à jour": $tmp="更新日志"; break;
   case "Logs": $tmp="日志 Logs"; break;
   case "Longueur minimum du mot de passe des utilisateurs": $tmp="用户的密码的最小长度："; break;
   case "M'envoyer un Mel lorsque qu'un Msg Int. arrive": $tmp=" 有消息时，以邮件形式通知我"; break;
@@ -650,6 +662,11 @@ function adm_translate($phrase) {
   case "META-LANG": $tmp="META-LANG"; break;
   case "MétaTAGs": $tmp="页首的html代码"; break;
   case "Mettre à jour": $tmp="维护更新"; break;
+  case "Mise à jour disponible": $tmp="有可用更新"; break;
+  case "Mise à jour recommandée": $tmp="推荐更新"; break;
+  case "Mise à jour réussie": $tmp="更新成功"; break;
+  case "Mise à jour terminée": $tmp="更新完成"; break;
+  case "Mise à jour vers la dernière version de développement": $tmp="更新到最新开发版本"; break;
   case "mise à jour": $tmp="更新"; break;
   case "Mode": $tmp="方式"; break;
   case "Modérateur": $tmp="Moderator"; break;
@@ -692,8 +709,8 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="进入等级"; break;
   case "Niveau de l'Utilisateur": $tmp="会员等级"; break;
   case "Nom : ": $tmp="名字: "; break;
-  case "Nom d'utilisateur": $tmp="用户名"; break;
   case "Nom d'utilisateur anonyme": $tmp="匿名默认名:"; break;
+  case "Nom d'utilisateur": $tmp="用户名"; break;
   case "Nom de fichier": $tmp="文件名"; break;
   case "Nom de l'annonceur": $tmp="客户名"; break;
   case "Nom de la Catégorie : ": $tmp="分类名称: "; break;
@@ -729,6 +746,7 @@ function adm_translate($phrase) {
   case "Nommer": $tmp="Nominate"; break;
   case "non disponible": $tmp="无法找到"; break;
   case "non optimisée": $tmp="未优化"; break;
+  case "Non recommandé en production": $tmp="不推荐用于生产环境"; break;
   case "Non": $tmp="否"; break;
   case "Note : ": $tmp="记录:"; break;
   case "Note": $tmp="用户平均评价"; break;
@@ -741,6 +759,7 @@ function adm_translate($phrase) {
   case "Nouvel administrateur": $tmp="New administrator"; break;
   case "Nouvel Article": $tmp="新文章"; break;
   case "Nouvelle Catégorie ajoutée": $tmp="新分类已添加！!"; break;
+  case "Nouvelle version": $tmp="新版本"; break;
   case "Nouvelles du groupe": $tmp="Group news."; break;
   case "Ok": $tmp="完成"; break;
   case "Optimisation de la base de données": $tmp="优化数据库"; break;
@@ -749,6 +768,7 @@ function adm_translate($phrase) {
   case "OptimySQL": $tmp="优化 MySql"; break;
   case "Option : ": $tmp="选项: "; break;
   case "Option": $tmp="选项"; break;
+  case "Options de mise à jour": $tmp="更新选项"; break;
   case "Options des sondages": $tmp="调查的选项"; break;
   case "Options pour les Bannières": $tmp="Banners的选项"; break;
   case "Options pour les Commentaires": $tmp="评论的选项"; break;
@@ -785,9 +805,12 @@ function adm_translate($phrase) {
   case "Pour un passage automatique au contrôle du (des) prochain(s) lot : cocher.": $tmp="对于自动通过以控制下一批：检查。"; break;
   case "Précédent": $tmp="上一页"; break;
   case "Préférences": $tmp="参数"; break;
+  case "Préparation de la mise à jour": $tmp="更新准备"; break;
+  case "Préparer la mise à jour": $tmp="准备更新"; break;
   case "Prévisualiser l'Article": $tmp="预览"; break;
   case "Prévisualiser": $tmp="预览"; break;
   case "Privé": $tmp="非公开"; break;
+  case "Prochaines étapes recommandées": $tmp="推荐后续步骤"; break;
   case "Proposé": $tmp="建议的"; break;
   case "Proposition de modifications de Liens": $tmp="链接修改请求"; break;
   case "Propriétaire de la page Web : ": $tmp="该网页的主人是："; break;
@@ -810,9 +833,11 @@ function adm_translate($phrase) {
   case "Questions & Réponses": $tmp="问题和解答"; break;
   case "Qui parle de nous ?": $tmp="谁链接到了本站？?"; break;
   case "Rafraîchir": $tmp="刷新"; break;
+  case "Rappel des paramètres de mise à jour": $tmp="更新参数提醒"; break;
   case "Re-prévisualiser": $tmp="再次预览"; break;
   case "Recherche rapide": $tmp="Fast search"; break;
   case "Rechercher utilisateur": $tmp="Search for user"; break;
+  case "Recommandations préalables": $tmp="初步建议"; break;
   case "Réessayer avec chmod automatique": $tmp="Retry with auto chmod"; break;
   case "Remettre cet article en première position ? : ": $tmp="将本消息列于首位"; break;
   case "Replier la liste": $tmp="Hide list"; break;
@@ -847,8 +872,10 @@ function adm_translate($phrase) {
   case "Sans titre": $tmp="无标题"; break;
   case "Sauter cette étape et afficher le code du(des) bloc(s)": $tmp="Jump this stage and display (the) code of the block(s)"; break;
   case "Sauter cette étape": $tmp="Skip this stage"; break;
+  case "Sauvegarde automatique": $tmp="自动备份"; break;
   case "Sauvegarde de la base de données": $tmp="数据库备备份"; break;
   case "Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs": $tmp=" 已保存。文件保存在目录/slogs"; break;
+  case "Sauvegarder la base de données": $tmp="备份数据库"; break;
   case "Sauver l'Article Automatique": $tmp="保存自动文章"; break;
   case "Sauver les modifications": $tmp="保存更改"; break;
   case "Sauver": $tmp="Save"; break;
@@ -923,6 +950,7 @@ function adm_translate($phrase) {
   case "Téléchargements": $tmp="下载"; break;
   case "Télécharger URL": $tmp="下载地址："; break;
   case "Temps de rétention en secondes": $tmp="保留时间（秒）"; break;
+  case "Tester les fonctionnalités principales (articles, forums, membres)": $tmp="测试主要功能（文章、论坛、会员）"; break;
   case "Texte : ": $tmp="文本:"; break;
   case "Texte complet": $tmp="完整文章"; break;
   case "Texte d'introduction": $tmp="介绍文章"; break;
@@ -965,6 +993,7 @@ function adm_translate($phrase) {
   case "Une erreur est survenue lors de la configuration automatique du(des) bloc(s). Mysql a répondu :": $tmp="An error arose during the configuration of (the) block(s). Mysql answered:"; break;
   case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais. Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="一旦您使本发表文章确认生效，它将被保存在临时数据库中，系统同时通知管理员。管理员将浏览您的文章并尽快将其在线生效。<br/>因此，您当前在树型结构中还不能看到它。"; break;
   case "Une nouvelle version NPDS est disponible !": $tmp="新的 NPDS 版本现已推出！"; break;
+  case "Une nouvelle version stable de NPDS est disponible": $tmp="有新的 NPDS 稳定版本可用"; break;
   case "Upload": $tmp="Upload"; break;
   case "URL : ": $tmp="URL地址:"; break;
   case "URL de l'image du backend": $tmp="Backend图片的地址"; break;
@@ -985,8 +1014,14 @@ function adm_translate($phrase) {
   case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="如果启用了 TLS 加密，请使用 587"; break;  
   case "Validation de votre publication": $tmp=" 对你的发表文章进行确认生效"; break;
   case "Valider": $tmp="确定"; break;
-  case "Version": $tmp="版本"; break;
+  case "Vérifier la compatibilité des modules et thèmes": $tmp="检查模块和主题兼容性"; break;
+  case "Vérifier le fonctionnement général du site": $tmp="检查站点整体功能"; break;
+  case "Version avancée": $tmp="高级版本"; break;
+  case "Version développement": $tmp="开发版本"; break;
+  case "Version en service": $tmp="当前版本"; break;
   case "Version NPDS": $tmp="NPDS版本"; break;
+  case "Version stable": $tmp="稳定版本"; break;
+  case "Version": $tmp="版本"; break;
   case "Veuillez choisir un type de META-MOT": $tmp="Please choose a type of META-MOT"; break;
   case "Veuillez configurer manuellement le(s) bloc(s).": $tmp="Please configure manually the block(s)."; break;
   case "Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.": $tmp="Please edit this file manually or retry by trying to make an automatic chmod on the file(s) concerned."; break;
@@ -1010,6 +1045,7 @@ function adm_translate($phrase) {
   case "Vote": $tmp="Vote"; break;
   case "Votre adresse Email est incorrecte.": $tmp="您的电子邮件地址不正确。"; break;
   case "Votre adresse IP (= ne pas comptabiliser les hits qui en proviennent) :": $tmp="您的IP，不记入统计:"; break;
+  case "Votre installation NPDS est à jour avec la dernière version stable": $tmp="您的 NPDS 安装已更新到最新稳定版本"; break;
   case "Votre Lien": $tmp="您的链接在"; break;
   case "Votre situation géographique": $tmp="您的住址"; break;
   case "Vous allez exclure TOUS les membres du groupe": $tmp="You will exclude ALL members from the group"; break;
@@ -1027,6 +1063,7 @@ function adm_translate($phrase) {
   case "Vous pouvez simplement Effacer / Modifier les Critiques en naviguant sur": $tmp="您只要以管理员身份浏览便可以删除/修改评论。"; break;
   case "Vous pouvez supprimer la Catégorie, les Articles et Commentaires": $tmp="您会删除这个分类及其下所有文章和评语"; break;
   case "Vous pouvez utiliser notre moteur de recherche sur : ": $tmp="您可以使用我们的该搜索引擎： :"; break;
+  case "Vous utilisez une version plus récente que la dernière version stable": $tmp="您使用的版本比最新稳定版本更新"; break;
   default: $tmp="需要翻译稿 [** $phrase **]"; break;
  }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));

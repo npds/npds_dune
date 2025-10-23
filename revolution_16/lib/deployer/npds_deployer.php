@@ -2045,7 +2045,7 @@ function showAjaxDeployInterface() {
             if (success) {
                if (isUpdate) {
                   resultElement.innerHTML = "<h2>🚀 '.t('deployment_complete').'!</h2><p>" + message + "</p>" +
-                  "<p><a href=\"admin.php\" class=\"btn btn-success\">'.t('go_admin').'</a></p>";
+                  "<p><a href=\"admin.php?op=maj&version='.$version.'&action=success\" class=\"btn btn-success\">'.t('go_admin').'</a></p>";
                } else {
                   resultElement.innerHTML = "<h2>🚀 '.t('deployment_complete').'!</h2><p>" + message + "</p>" +
                   "<p><a href=\"'.$targetDir.'/install.php?langue='.$lang.'&stage=1\" class=\"btn btn-success\">'.t('go_install').'</a></p>";

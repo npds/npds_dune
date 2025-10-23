@@ -57,6 +57,7 @@ function adm_translate($phrase) {
   case "14 ans": $tmp="14 Jahren"; break;
   case "A ce jour, vous avez effectué ": $tmp="Bisher haben Sie "; break;
   case "a été envoyée": $tmp="übermittelt wurde"; break;
+  case "À jour": $tmp="Aktuell"; break;
   case "a": $tmp="hat"; break;
   case "Abandonner": $tmp="Aufgeben"; break;
   case "Accepter": $tmp="Akzeptieren"; break;
@@ -162,6 +163,7 @@ function adm_translate($phrase) {
   case "Ajouter une Sous-catégorie": $tmp="Unterkategorie hinzufügen"; break;
   case "Ajouter une URL": $tmp="URL hinzufügen"; break;
   case "Ajouter": $tmp="Hinzufügen"; break;
+  case "Ancienne version": $tmp="Vorherige Version"; break;
   case "Année": $tmp="Jahr"; break;
   case "Annonceurs faisant de la publicité": $tmp="Werber"; break;
   case "Annuler": $tmp="Abbrechen"; break;
@@ -190,6 +192,7 @@ function adm_translate($phrase) {
   case "ATTENTION !!!": $tmp="Achtung!!!"; break;
   case "Au format CSV": $tmp="CSV format"; break;
   case "Aucun lien brisé rapporté.": $tmp="Keine zerbrochenen Weblinks gemeldet."; break;
+  case "Aucun log disponible": $tmp="Keine Protokolle verfügbar"; break;
   case "Aucun Sujet": $tmp="Keine Thema"; break;
   case "Aucune catégorie": $tmp="Keine Kategorie"; break;
   case "Aucune critique à ajouter": $tmp="Keine Kritik hinzuzufügen"; break;
@@ -214,6 +217,7 @@ function adm_translate($phrase) {
   case "Autoriser les Smilies": $tmp="Allow Smilies"; break;
   case "Autoriser les utilisateurs à choisir leur mot de passe": $tmp="Erlaubt den Benutzern, ihr Passwort zu wählen"; break;
   case "Autoriser les utilisateurs à voter plusieurs fois": $tmp="Benutzer zur Mehrfachabstimmung ermächtigen"; break;
+  case "Avant de lancer la mise à jour, vous pouvez": $tmp="Vor dem Start des Updates können Sie"; break;
   case "Avant de supprimer le groupe": $tmp="Bevor Sie die Gruppe löschen"; break;
   case "Bannières actives": $tmp="Aktive Banners"; break;
   case "Bannières inactives": $tmp="Inaktive Banners"; break;
@@ -256,10 +260,10 @@ function adm_translate($phrase) {
   case "Cette Catégorie existe déjà !": $tmp="Diese Kategorie existiert bereits!"; break;
   case "Cette opération est irréversible elle va affecter votre base de données par la suppression de table(s) ou/et de ligne(s) et la suppression ou modification de certains fichiers.": $tmp="Diese Operation ist irreversibel und wird Ihre Datenbank durch Löschen von Tabelle(n) oder/und Zeile(n) und Löschen oder Ändern bestimmter Dateien beeinträchtigen."; break;
   case "Cette Rubrique a": $tmp="(This Section has)"; break;
-  case "Changer l'ordre": $tmp="Die Reihenfolge ändern"; break;
   case "Changer l'ordre des publications": $tmp="Reihenfolge der Veröffentlichungen ändern"; break;
   case "Changer l'ordre des rubriques": $tmp="Reihenfolge der Abschnitte ändern"; break;
   case "Changer l'ordre des sous-rubriques": $tmp="Reihenfolge der Unterabschnitte ändern"; break;
+  case "Changer l'ordre": $tmp="Die Reihenfolge ändern"; break;
   case "Changer la date": $tmp="Ändere das Datum"; break;
   case "Changer les Catégories : ": $tmp="Kategorien ändern:"; break;
   case "Changer les privilèges ? :": $tmp="Die Privilegien zu ändern? :"; break;
@@ -269,6 +273,7 @@ function adm_translate($phrase) {
   case "Chemin des images des sujets": $tmp="Pfad zu den Bildern der Themen"; break;
   case "Chemin des images du menu administrateur": $tmp="Pfad zu Bildern im Administratormenü"; break;
   case "Chemin et nom de l'image du Smiley": $tmp="Pfad und Name des Smiley-Bildes"; break;
+  case "Choisir la version à installer": $tmp="Version zur Installation auswählen"; break;
   case "Choisir les privilèges ? :": $tmp="Set Privileges? :"; break;
   case "Choisir un groupe": $tmp="Wählen Sie einen Gruppe"; break;
   case "Choisir un modérateur": $tmp="Wählen Sie einen Moderator"; break;
@@ -293,6 +298,7 @@ function adm_translate($phrase) {
   case "Configurer MySql (Recommandé)": $tmp="Konfiguriere MySql (Erforderlich)"; break;
   case "Confirmer la lecture": $tmp="Lesung bestätigt"; break;
   case "Connexion": $tmp="Login"; break;
+  case "Consulter les logs d'installation pour détecter d'éventuels problèmes": $tmp="Installationsprotokolle überprüfen, um mögliche Probleme zu erkennen"; break;
   case "Contacter l'administration du site.": $tmp="Kontaktieren Sie die Website-Verwaltung."; break;
   case "Contenu :": $tmp="Inhalt :"; break;
   case "Contenu de la table": $tmp="Inhalt der Tabelle"; break;
@@ -320,14 +326,15 @@ function adm_translate($phrase) {
   case "Créer un nouveau Bloc": $tmp="Einen neuen Block erstellen"; break;
   case "Créer un nouveau Sondage": $tmp="Eine neue Umfrage erstellen"; break;
   case "Créer un nouveau": $tmp="Schaffung eines neuen"; break;
+  case "Créer une sauvegarde automatique": $tmp="Automatisches Backup erstellen"; break;
   case "Créer utilisateur": $tmp="Einen Benutzer erstellen"; break;
   case "Créer": $tmp="Erstellen"; break;
   case "Critique en attente de validation.": $tmp="Kritische erwartet Validierung"; break;
   case "Critiques en attente de validation": $tmp="Kritische erwartet Validierung"; break;
   case "Critiques": $tmp="Kritische"; break;
   case "CSS Specifique": $tmp="Specific CSS"; break;
-  case "dans": $tmp="in"; break;
   case "dans le groupe": $tmp="in der Gruppe"; break;
+  case "dans": $tmp="in"; break;
   case "Date :": $tmp="Datum:"; break;
   case "Date de début": $tmp="Anfangsdatum"; break;
   case "Date de démarrage du site": $tmp="Site Start Date"; break;
@@ -340,6 +347,7 @@ function adm_translate($phrase) {
   case "Demande refusée pour votre participation au groupe": $tmp="Antrag für Ihre Teilnahme an der Gruppe abgelehnt"; break;  
   case "Déplier la liste": $tmp="Erweitern Sie die Liste"; break;
   case "Dernière optimisation effectuée le": $tmp="Letzte Optimierung erfolgt am"; break;
+  case "Dernière version": $tmp="Neueste Version"; break;
   case "Derniers": $tmp="Letzten"; break;
   case "des modérateurs du forum": $tmp="der Moderatoren"; break;
   case "des": $tmp="of"; break;
@@ -480,6 +488,7 @@ function adm_translate($phrase) {
   case "Expédier en tant": $tmp="Versenden als"; break;
   case "Extension des fichiers d'image": $tmp="Image files'extension"; break;
   case "Extraire l'annuaire": $tmp="Export Memberlist"; break;
+  case "Faire une sauvegarde complète du site": $tmp="Komplette Site-Sicherung durchführen"; break;
   case "Fait : ": $tmp="Made: "; break;
   case "Faq": $tmp="FAQ"; break;
   case "FAQ": $tmp="FAQ"; break;
@@ -567,11 +576,13 @@ function adm_translate($phrase) {
   case "La configuration du(des) bloc(s) a réussi !": $tmp="Konfiguration des (der) Blocks (Blöcke) war erfolgreich!"; break;
   case "La désinstallation des modules n'est pas prise en charge de façon automatique à l'heure actuelle.": $tmp="Die automatische Deinstallation des Modul ist derzeit nicht möglich."; break;
   case "La Lettre": $tmp="Newsletter"; break;
+  case "La mise à jour de NPDS a été effectuée avec succès": $tmp="NPDS-Update wurde erfolgreich abgeschlossen"; break;
   case "La nuit commence à": $tmp="Die Nacht beginnt um"; break;
   case "La nuit": $tmp="Die Nacht"; break;
   case "La publication que vous aviez en attente vient d'être validée.": $tmp="Die Veröffentlichung, auf die Sie gewartet haben, wurde gerade freigegeben."; break;
   case "La ré-affectation est terminée !": $tmp="Congratulations! The Move has been completed!"; break;
   case "Laisser les utilisateurs anonymes poster de nouveaux liens": $tmp="Anonyme Benutzer in die Lage versetzen, neue Links zu posten"; break;
+  case "Lancer la mise à jour": $tmp="Update starten"; break;
   case "Langue de Prévisualisation": $tmp="Sprache für die Vorschau"; break;
   case "Langue du backend": $tmp="Backend Language"; break;
   case "Langue principale": $tmp="Hauptsprache"; break;
@@ -620,6 +631,7 @@ function adm_translate($phrase) {
   case "Liste des rubriques": $tmp="Liste der Abschnitte"; break;
   case "Liste des sondages": $tmp="Liste der Umfragen"; break;
   case "Logo du site pour les impressions": $tmp="Site Logo (for printing functions)"; break;
+  case "Logs de mise à jour": $tmp="Update-Protokolle"; break;
   case "Logs": $tmp="Logs"; break;
   case "Longueur minimum du mot de passe des utilisateurs": $tmp="Minimale Passwortlänge für Benutzer"; break;
   case "M'envoyer un Mel lorsque qu'un Msg Int. arrive": $tmp="Schicken Sie mir eine E-Mail, wenn eine interne Nachricht eintrifft."; break;
@@ -650,6 +662,11 @@ function adm_translate($phrase) {
   case "META-LANG": $tmp="META-LANG"; break;
   case "MétaTAGs": $tmp="MetaTAGs"; break;
   case "Mettre à jour": $tmp="Aktualisieren"; break;
+  case "Mise à jour disponible": $tmp="Update verfügbar"; break;
+  case "Mise à jour recommandée": $tmp="Empfohlenes Update"; break;
+  case "Mise à jour réussie": $tmp="Update erfolgreich"; break;
+  case "Mise à jour terminée": $tmp="Update abgeschlossen"; break;
+  case "Mise à jour vers la dernière version de développement": $tmp="Auf neueste Entwicklungsversion aktualisieren"; break;
   case "mise à jour": $tmp="aktualisieren"; break;
   case "Mode": $tmp="Mode"; break;
   case "Modérateur": $tmp="Moderator"; break;
@@ -692,8 +709,8 @@ function adm_translate($phrase) {
   case "Niveau d'accès": $tmp="Access Level"; break;
   case "Niveau de l'Utilisateur": $tmp="User Level"; break;
   case "Nom : ": $tmp="Name: "; break;
-  case "Nom d'utilisateur": $tmp="Nutzername"; break;
   case "Nom d'utilisateur anonyme": $tmp="Name für anonyme Benutzer"; break;
+  case "Nom d'utilisateur": $tmp="Nutzername"; break;
   case "Nom de fichier": $tmp="Dateiname"; break;
   case "Nom de l'annonceur": $tmp="Werber Name"; break;
   case "Nom de la Catégorie : ": $tmp="Kategoriename: "; break;
@@ -729,6 +746,7 @@ function adm_translate($phrase) {
   case "Nommer": $tmp="namens"; break;
   case "non disponible": $tmp="Nicht verfügbar"; break;
   case "non optimisée": $tmp="Nicht optimiert"; break;
+  case "Non recommandé en production": $tmp="Nicht für Produktion empfohlen"; break;
   case "Non": $tmp="Nein"; break;
   case "Note : ": $tmp="Score:"; break;
   case "Note": $tmp="User AVG Rating"; break;
@@ -741,6 +759,7 @@ function adm_translate($phrase) {
   case "Nouvel administrateur": $tmp="Neuer Administrator"; break;
   case "Nouvel Article": $tmp="Neuer Artikel"; break;
   case "Nouvelle Catégorie ajoutée": $tmp="Neue Kategorie hinzugefügt!"; break;
+  case "Nouvelle version": $tmp="Neue Version"; break;
   case "Nouvelles du groupe": $tmp="News aus der Gruppe"; break;
   case "Ok": $tmp="Ja"; break;
   case "Optimisation de la base de données": $tmp="Datenbankoptimierung"; break;
@@ -749,6 +768,7 @@ function adm_translate($phrase) {
   case "OptimySQL": $tmp="OptimizeMySql"; break;
   case "Option : ": $tmp="Option: "; break;
   case "Option": $tmp="Option"; break;
+  case "Options de mise à jour": $tmp="Update-Optionen"; break;
   case "Options des sondages": $tmp="Optionen für Umfragen"; break;
   case "Options pour les Bannières": $tmp="Optionen für Banner"; break;
   case "Options pour les Commentaires": $tmp="Optionen für Kommentare"; break;
@@ -785,9 +805,12 @@ function adm_translate($phrase) {
   case "Pour un passage automatique au contrôle du (des) prochain(s) lot : cocher.": $tmp="Für den automatischen Übergang zur Steuerung der nächsten(n) Charge(n): prüfen."; break;
   case "Précédent": $tmp="Vorherige"; break;
   case "Préférences": $tmp="Einstellungen"; break;
+  case "Préparation de la mise à jour": $tmp="Update-Vorbereitung"; break;
+  case "Préparer la mise à jour": $tmp="Update vorbereiten"; break;
   case "Prévisualiser l'Article": $tmp="Preview Story"; break;
   case "Prévisualiser": $tmp="Vorschau"; break;
   case "Privé": $tmp="Privat"; break;
+  case "Prochaines étapes recommandées": $tmp="Empfohlene nächste Schritte"; break;
   case "Proposé": $tmp="Proposed"; break;
   case "Proposition de modifications de Liens": $tmp="Link Modification Requests"; break;
   case "Propriétaire de la page Web": $tmp="Inhaber der Webseite"; break;
@@ -810,9 +833,11 @@ function adm_translate($phrase) {
   case "Questions & Réponses": $tmp="Fragen und Antworten"; break;
   case "Qui parle de nous ?": $tmp="Wer redet von uns?"; break;
   case "Rafraîchir": $tmp="Aktualisierung"; break;
+  case "Rappel des paramètres de mise à jour": $tmp="Update-Parameter Erinnerung"; break;
   case "Re-prévisualiser": $tmp="Vorschau Wieder"; break;
   case "Recherche rapide": $tmp="Schnelle Suche"; break;
   case "Rechercher utilisateur": $tmp="Benutzer suchen"; break;
+  case "Recommandations préalables": $tmp="Vorläufige Empfehlungen"; break;
   case "Réessayer avec chmod automatique": $tmp="Mit automatischem chmod wiederholen"; break;
   case "Remettre cet article en première position ? : ": $tmp="Den Artikel wieder an die erste Stelle setzen? "; break;
   case "Replier la liste": $tmp="Falten Sie die Liste"; break;
@@ -847,8 +872,10 @@ function adm_translate($phrase) {
   case "Sans titre": $tmp="Ohne Titel"; break;
   case "Sauter cette étape et afficher le code du(des) bloc(s)": $tmp="Uberspringe diesen Schritt und zeige den Code des (der) Blocks (Blöcke)"; break;
   case "Sauter cette étape": $tmp="Diesen Schritt überspringen"; break;
+  case "Sauvegarde automatique": $tmp="Automatische Sicherung"; break;
   case "Sauvegarde de la base de données": $tmp="Datenbanksicherung"; break;
   case "Sauvegarde terminée. Les fichiers sont disponibles dans le répertoire /slogs": $tmp="Speichern abgeschlossen. Die Dateien sind im Verzeichnis/Slogs verfügbar"; break;
+  case "Sauvegarder la base de données": $tmp="Datenbank sichern"; break;
   case "Sauver l'Article Automatique": $tmp="Save Auto Story"; break;
   case "Sauver les modifications": $tmp="Änderungen speichern"; break;
   case "Sauver": $tmp="Sichern"; break;
@@ -923,6 +950,7 @@ function adm_translate($phrase) {
   case "Téléchargements": $tmp="Downloads"; break;
   case "Télécharger URL": $tmp="Download URL"; break;
   case "Temps de rétention en secondes": $tmp="Retentionszeit in Sekunden"; break;
+  case "Tester les fonctionnalités principales (articles, forums, membres)": $tmp="Hauptfunktionen testen (Artikel, Foren, Mitglieder)"; break;
   case "Texte : ": $tmp="Text:"; break;
   case "Texte complet": $tmp="Volltext"; break;
   case "Texte d'introduction": $tmp="Einleitender Text"; break;
@@ -965,6 +993,7 @@ function adm_translate($phrase) {
   case "Une erreur est survenue lors de la configuration du(des) bloc(s). Mysql a répondu :": $tmp="Es gab einen Fehler beim anlegen des (der) Blocks (Blöcke):"; break;
   case "Une fois que vous aurez validé cette publication, elle sera intégrée en base temporaire, et l'administrateur sera prévenu. Il visera cette publication et la mettra en ligne dans les meilleurs délais.Il est normal que pour l'instant, cette publication n'apparaisse pas dans l'arborescence.": $tmp="Once that you will have validated this publication, it will be integrated in temporary base, and the administrator will be warned. He will aim this publication.<br/> It is normal than for the moment, this publication does not appear in the tree structure."; break;
   case "Une nouvelle version NPDS est disponible !": $tmp="Eine neue NPDS-Version ist verfügbar!"; break;
+  case "Une nouvelle version stable de NPDS est disponible": $tmp="Eine neue stabile Version von NPDS ist verfügbar"; break;
   case "Upload": $tmp="Upload"; break;
   case "URL : ": $tmp="URL:"; break;
   case "URL de l'image du backend": $tmp="Backend Image URL"; break;
@@ -985,8 +1014,14 @@ function adm_translate($phrase) {
   case "Utiliser 587 si vous avez activé le chiffrement TLS": $tmp="Verwenden Sie 587, wenn Sie die TLS-Verschlüsselung aktiviert haben"; break;  
   case "Validation de votre publication": $tmp="Freigabe für Ihre Veröffentlichung"; break;
   case "Valider": $tmp="Akzeptieren"; break;
-  case "Version": $tmp="Version"; break;
+  case "Vérifier la compatibilité des modules et thèmes": $tmp="Kompatibilität von Modulen und Themes überprüfen"; break;
+  case "Vérifier le fonctionnement général du site": $tmp="Allgemeine Site-Funktionalität überprüfen"; break;
+  case "Version avancée": $tmp="Erweiterte Version"; break;
+  case "Version développement": $tmp="Entwicklungsversion"; break;
+  case "Version en service": $tmp="Aktuelle Version"; break;
   case "Version NPDS": $tmp="NPDS-Version"; break;
+  case "Version stable": $tmp="Stabile Version"; break;
+  case "Version": $tmp="Version"; break;
   case "Veuillez choisir un type de META-MOT": $tmp="Bitte wählen Sie einen META-MOT Typ"; break;
   case "Veuillez configurer manuellement le(s) bloc(s).": $tmp="Bitte konfigurieren Sie den (die) Block (Blöcke) manuell."; break;
   case "Veuillez éditer ce fichier manuellement ou réessayez en tentant de faire un chmod automatique sur le(s) fichier(s) concernés.": $tmp="Editieren Sie die Datei von Hand oder gehen Sie zurück und wählen Sie den automatischen chmod aus."; break;
@@ -1010,6 +1045,7 @@ function adm_translate($phrase) {
   case "Vote": $tmp="Abstimmung"; break;
   case "Votre adresse Email est incorrecte.": $tmp="Ihre E-Mail-Adresse ist falsch."; break;
   case "Votre adresse IP (= ne pas comptabiliser les hits qui en proviennent)": $tmp="Your IP for not counting hits"; break;
+  case "Votre installation NPDS est à jour avec la dernière version stable": $tmp="Ihre NPDS-Installation ist mit der neuesten stabilen Version aktuell"; break;
   case "Votre Lien": $tmp="Your Link at"; break;
   case "Votre situation géographique": $tmp="Location"; break;
   case "Vous allez exclure TOUS les membres du groupe": $tmp="Sie werden an alle Mitglieder der Gruppe ausgeschlossen"; break;
@@ -1027,6 +1063,7 @@ function adm_translate($phrase) {
   case "Vous pouvez simplement Effacer / Modifier les Critiques en naviguant sur": $tmp="Sie können hier einfach Kritiken löschen/ändern"; break;
   case "Vous pouvez supprimer la Catégorie, les Articles et Commentaires": $tmp="Sie können Kategorie, Artikel und Kommentare löschen"; break;
   case "Vous pouvez utiliser notre moteur de recherche sur : ": $tmp="You can browse our search engine at:"; break;
+  case "Vous utilisez eine version plus récente que la dernière version stable": $tmp="Sie verwenden eine neuere Version als die letzte stabile Version"; break;
   default: $tmp="Es gibt keine Übersetzung [** $phrase **]"; break;
   }
   return (htmlentities($tmp,ENT_QUOTES|ENT_SUBSTITUTE|ENT_HTML401,'UTF-8'));
