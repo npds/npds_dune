@@ -24,7 +24,7 @@
 # $push_titre         : Title of the block ("Npds Push Addon")
 # $push_logo          : Logo (gif or jpg)
 # $push_view_perpage  : Number of Web links per page (2 or more)
-# $push_orderby       : ASCendind or DESCending orderby trigger for Web links ("ASC" or "DESC")
+# $push_orderby       : ASCending or DESCending orderby trigger for Web links ("ASC" or "DESC")
 # $follow_links       : Follow <a Href ... Link in this module (True or False)
 #######################################################################################################
 $push_largeur = '100%';
