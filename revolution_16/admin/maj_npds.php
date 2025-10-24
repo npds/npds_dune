@@ -302,7 +302,7 @@ function maj_migrate_db() {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    $oldVersion = $_POST['old_version'] ?? '';
    $newVersion = $_POST['new_version'] ?? '';
-   $backupFile = $_POST['backup_file'] ?? '';
+   $backupFile = $_POST['backup_file'] ?? $_GET['backup_file'] ?? '';
    echo '
          <hr />
          <h3 class="mb-3">'.adm_translate('Migration de la base de données').'</h3>';
@@ -408,6 +408,7 @@ function maj_migrate_db() {
                   <input type="hidden" name="queries" value="' . htmlspecialchars(json_encode($allQueries)) . '" />
                   <input type="hidden" name="old_version" value="' . $oldVersion . '" />
                   <input type="hidden" name="new_version" value="' . $newVersion . '" />
+                  <input type="hidden" name="backup_file" value="' . $backupFile . '" />
                   <button type="submit" class="btn btn-success" onclick="return confirm(\''.html_entity_decode(adm_translate('EXÉCUTER les requêtes de migration? Cette action est irréversible.'),ENT_COMPAT | ENT_HTML401,'UTF-8').'\')">
                     '.adm_translate('Exécuter la Migration').'
                   </button>
@@ -438,7 +439,7 @@ function maj_execute_migration() {
    adminhead($f_meta_nom, $f_titre, $adminimg);
    echo '
    <hr />
-   <h3>'.adm_translate('Migration de la base de données').'</h3>';
+   <h3 class="mb-3">'.adm_translate('Migration de la base de données').'</h3>';
    require_once 'lib/deployer/database_migrator.php';
    try {
       $queriesJson = stripslashes($_POST['queries'] ?? '[]');
@@ -449,6 +450,8 @@ function maj_execute_migration() {
          throw new Exception('Aucune requête à exécuter');
       $oldVersion = $_POST['old_version'] ?? '';
       $newVersion = $_POST['new_version'] ?? '';
+         $backupFile = $_POST['backup_file'] ?? '';
+
       if (empty($queries))
          throw new Exception('Aucune requête à exécuter');
       // Créer un migrator temporaire pour exécution
@@ -468,15 +471,40 @@ function maj_execute_migration() {
                     <li>'.adm_translate('Consulter les logs d\'installation pour détecter d\'éventuels problèmes').'</li>
                 </ol>
          </div>';
-         $results['errors']= 'mon erreur';
+
+      $testMode = true; // ← À désactiver en production
+      if ($testMode) {
+         // SCÉNARIO SUCCÈS + ÉCHEC SIMULTANÉS
+         $results['errors'] = [
+            [
+               'query' => "ALTER TABLE test_table ADD COLUMN test_column INT;",
+               'error' => "Table 'test_table' doesn't exist"
+            ],
+            [
+               'query' => "UPDATE fonctions SET fnom='test' WHERE fid=999;", 
+               'error' => "Unknown column 'fnom' in 'field list'"
+            ]
+         ];
+         // Gardez aussi les succès réels
+         $results['success'] = array_slice($queries, 0, 10); // 10 premières requêtes
+      }
+         
       if (!empty($results['errors'])) {
          echo '
             <div class="alert alert-danger">
-            <h5>❌ '.adm_translate('Migration interrompue').'</h5>
+            <h4>❌ '.adm_translate('Migration base de données interrompue').'</h4>
             <p>'.adm_translate('La migration de la base de données a échoué').'.</p>
-            <h6>🚨 '.adm_translate('État actuel').'</h6>
+            <h5>Erreurs rencontrées : ' . count($results['errors']) . '</h5>';
+         foreach ($results['errors'] as $error) {
+            echo '
+            <div class="small mb-2">
+               <code>' . htmlspecialchars($error['query']) . '</code><br>
+               <strong>Erreur:</strong> ' . htmlspecialchars($error['error']) .'
+            </div>';
+         }
+         echo '
+            <h5>🚨 '.adm_translate('État actuel').'</h5>
             <ul>
-               <li>'.adm_translate('Les fichiers ont été mis à jour').'</li>
                <li>'.adm_translate('La structure de la base de données est partiellement migrée').'</li>
                <li>'.adm_translate('Certaines données système peuvent être incohérentes').'</li>
             </ul>
@@ -486,22 +514,11 @@ function maj_execute_migration() {
                <li><strong>'.adm_translate('Option avancée').' :</strong> '.adm_translate('Exécuter manuellement les requêtes restantes via phpMyAdmin').'</li>
                <li><strong>'.adm_translate('Option risquée').' :</strong> '.adm_translate('Relancer la migration depuis le début').'</li>
             </ol>
-            
-               <h4 class="mb-3">❌ '.adm_translate('Mise à jour du portail non terminée').'</h4>
-
-               <h5>Erreurs rencontrées:</h5>';
-               
-         foreach ($results['errors'] as $error) {
-            echo '
-               <div class="mb-2">
-                  <code>' . htmlspecialchars($error['query']) . '</code><br>
-                  <strong>Erreur:</strong> ' . htmlspecialchars($error['error']) .'
-               </div>';
-         }
+            <a href="admin.php?op=maj&action=migrate_db&old_version=' . urlencode($oldVersion) . '&new_version=' . urlencode($newVersion) . '&backup_file='.urlencode($backupFile).'" class="btn btn-warning me-2">'.adm_translate('Relancer la migration').'</a>
+            <h4 class="mb-3">❌ '.adm_translate('Mise à jour du portail non terminée').'</h4>';
          echo '
-            </div>';
-     }
-
+      </div>';
+      }
    } catch (Exception $e) {
       echo '
       <div class="alert alert-danger">

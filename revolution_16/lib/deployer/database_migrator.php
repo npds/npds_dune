@@ -222,82 +222,73 @@ class NPDSDatabaseMigrator {
       return $queries;
    }
 
-/**
- * Génère les requêtes de migration des données pour fonctions et metalang
- */
-public function generateDataMigrationQueries($newSqlContent, $structuralChanges = []) {
-    $queries = [];
-// DEBUG
-    error_log("=== DEBUG DATA MIGRATION ===");
-    error_log("StructuralChanges reçus: " . print_r($structuralChanges, true));
-    error_log("Fonctions modifiées: " . (isset($structuralChanges['modified_columns']['fonctions']) ? 'OUI' : 'NON'));
-    $fonctionsStructureChanged = true; // TEST FORCÉ
-    error_log("fonctionsStructureChanged: " . ($fonctionsStructureChanged ? 'TRUE' : 'FALSE'));
-    
-    // 1. FONCTIONS - Choix stratégique basé sur les modifications
-    $functionInserts = $this->extractInsertStatements($newSqlContent, 'fonctions');
-    $functionData = $this->parseFunctionInserts($functionInserts);
-    
-    $fonctionsStructureChanged = isset($structuralChanges['modified_columns']['fonctions']) 
+   /**
+   * Génère les requêtes de migration des données pour fonctions et metalang
+   */
+   public function generateDataMigrationQueries($newSqlContent, $structuralChanges = []) {
+      $queries = [];
+      // DEBUG
+      error_log("=== DEBUG DATA MIGRATION ===");
+      error_log("StructuralChanges reçus: " . print_r($structuralChanges, true));
+      error_log("Fonctions modifiées: " . (isset($structuralChanges['modified_columns']['fonctions']) ? 'OUI' : 'NON'));
+      $fonctionsStructureChanged = true; // TEST FORCÉ
+      error_log("fonctionsStructureChanged: " . ($fonctionsStructureChanged ? 'TRUE' : 'FALSE'));
+      // 1. FONCTIONS - Choix stratégique basé sur les modifications
+      $functionInserts = $this->extractInsertStatements($newSqlContent, 'fonctions');
+      $functionData = $this->parseFunctionInserts($functionInserts);
+      $fonctionsStructureChanged = isset($structuralChanges['modified_columns']['fonctions']) 
                               && !empty($structuralChanges['modified_columns']['fonctions']);
-    
-    $systemFunctionIds = range(1, 75);
-    
-    foreach ($systemFunctionIds as $id) {
-        if (isset($functionData[$id])) {
-//            $queries[] = "-- Mise à jour fonction ID $id";
-            
+      $systemFunctionIds = range(1, 75);
+ 
+      foreach ($systemFunctionIds as $id) {
+         if (isset($functionData[$id])) {
+            //$queries[] = "-- Mise à jour fonction ID $id";
             if ($fonctionsStructureChanged) {
-                // Structure modifiée → DELETE+INSERT (safe)
-                $queries[] = "DELETE FROM fonctions WHERE fid = $id;";
-                $queries[] = $functionData[$id]['full_insert'];
+               // Structure modifiée → DELETE+INSERT (safe)
+               $queries[] = "DELETE FROM fonctions WHERE fid = $id;";
+               $queries[] = $functionData[$id]['full_insert'];
             } else {
-                // Structure identique → UPDATE (performant)
-                $queries[] = $this->generateFunctionUpdate($functionData[$id]['full_insert'], $id);
+               // Structure identique → UPDATE (performant)
+               $queries[] = $this->generateFunctionUpdate($functionData[$id]['full_insert'], $id);
             }
-        }
-    }
-    
-    // 2. METALANG - Toujours DELETE+INSERT (structure simple + obligatoire='1')
-    $metalangInserts = $this->extractInsertStatements($newSqlContent, 'metalang');
-    $metalangData = $this->parseMetalangInserts($metalangInserts);
-    
-    foreach ($metalangData as $def => $data) {
-//        $queries[] = "-- Mise à jour metalang: $def";
-        $queries[] = "DELETE FROM metalang WHERE def = '$def' AND obligatoire = '1';";
-        $queries[] = $data['full_insert'];
-    }
-    
-    return $queries;
-}
+         }
+      }
+      // 2. METALANG - Toujours DELETE+INSERT (structure simple + obligatoire='1')
+      $metalangInserts = $this->extractInsertStatements($newSqlContent, 'metalang');
+      $metalangData = $this->parseMetalangInserts($metalangInserts);
+      foreach ($metalangData as $def => $data) {
+         //        $queries[] = "-- Mise à jour metalang: $def";
+         $queries[] = "DELETE FROM metalang WHERE def = '$def' AND obligatoire = '1';";
+         $queries[] = $data['full_insert'];
+      }
+      return $queries;
+   }
 
-/**
- * Génère un UPDATE pour une fonction à partir de son INSERT
- */
-private function generateFunctionUpdate($insert, $id) {
-    // Mix de champs avec et sans quotes : 'text', number, 'text', number...
-    if (preg_match("#VALUES\((\d+),\s*'([^']*)',\s*(\d+),\s*'([^']*)',\s*(\d+),\s*(\d+),\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*(\d+),\s*'([^']*)',\s*(\d+)\)#", $insert, $match)) {
-        return "UPDATE fonctions SET 
-            fnom = '{$match[2]}',
-            fdroits1 = {$match[3]},
-            fdroits1_descr = '{$match[4]}',
-            finterface = {$match[5]},
-            fetat = {$match[6]},
-            fretour = '{$match[7]}',
-            fretour_h = '{$match[8]}',
-            fnom_affich = '{$match[9]}',
-            ficone = '{$match[10]}',
-            furlscript = '{$match[11]}',
-            fcategorie = {$match[12]},
-            fcategorie_nom = '{$match[13]}',
-            fordre = {$match[14]}
-            WHERE fid = $id;";
-    }
-    
-    error_log("Échec parsing INSERT fonction ID $id");
-    return "DELETE FROM fonctions WHERE fid = $id;\n" . $insert;
-}
-
+   /**
+   * Génère un UPDATE pour une fonction à partir de son INSERT
+   */
+   private function generateFunctionUpdate($insert, $id) {
+      // Mix de champs avec et sans quotes : 'text', number, 'text', number...
+      if (preg_match("#VALUES\((\d+),\s*'([^']*)',\s*(\d+),\s*'([^']*)',\s*(\d+),\s*(\d+),\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*(\d+),\s*'([^']*)',\s*(\d+)\)#", $insert, $match)) {
+         return "UPDATE fonctions SET 
+               fnom = '{$match[2]}',
+               fdroits1 = {$match[3]},
+               fdroits1_descr = '{$match[4]}',
+               finterface = {$match[5]},
+               fetat = {$match[6]},
+               fretour = '{$match[7]}',
+               fretour_h = '{$match[8]}',
+               fnom_affich = '{$match[9]}',
+               ficone = '{$match[10]}',
+               furlscript = '{$match[11]}',
+               fcategorie = {$match[12]},
+               fcategorie_nom = '{$match[13]}',
+               fordre = {$match[14]}
+               WHERE fid = $id;";
+      }
+      error_log("Échec parsing INSERT fonction ID $id");
+      return "DELETE FROM fonctions WHERE fid = $id;\n" . $insert;
+   }
 
    /**
    * Exécute les requêtes de migration
@@ -334,7 +325,6 @@ private function generateFunctionUpdate($insert, $id) {
    /**
    * Extrait les statements INSERT d'une table spécifique
    */
-
    public function extractInsertStatements($sqlContent, $tableName) {
       // On cherche juste la présence de "INSERT" et du nom de la table
       $lines = explode("\n", $sqlContent);
@@ -342,10 +332,9 @@ private function generateFunctionUpdate($insert, $id) {
       foreach ($lines as $line) {
          $line = trim($line);
          // Vérifie que c'est bien un INSERT pour la table spécifique
-         if (strpos($line, "INSERT INTO $tableName") === 0) {
+         if (strpos($line, "INSERT INTO $tableName") === 0)
             $inserts[] = $line;
-         }
-      }    
+      }
       return $inserts;
    }
 
@@ -353,49 +342,32 @@ private function generateFunctionUpdate($insert, $id) {
    * Parse les INSERT de la table fonctions pour extraire les données par ID
    */
    public function parseFunctionInserts($insertStatements) {
-    $functions = [];
-    foreach ($insertStatements as $insert) {
-        // Debug: voir l'INSERT complet
-        error_log("INSERT FONCTION: " . $insert);
-        // Regex plus permissive
-        if (preg_match("#VALUES\(\s*(\d+)\s*,#", $insert, $match)) {
+      $functions = [];
+      foreach ($insertStatements as $insert) {
+         // Debug: voir l'INSERT complet
+         error_log("INSERT FONCTION: " . $insert);
+         // Regex plus permissive
+         if (preg_match("#VALUES\(\s*(\d+)\s*,#", $insert, $match)) {
             $id = (int)$match[1];
             $functions[$id] = [
-                'fid' => $id,
-                'full_insert' => $insert
+               'fid' => $id,
+               'full_insert' => $insert
             ];
             error_log("FONCTION CAPTURÉE: ID $id");
-        }
-    }
-    return $functions;
-}
+         }
+      }
+      return $functions;
+   }
 
    /**
    * Parse les INSERT de la table metalang 
    * Ne garde que les metamots avec obligatoire='1'
    */
-  /* public function parseMetalangInserts($insertStatements) {
+   public function parseMetalangInserts($insertStatements) {
       $metalangs = [];
       foreach ($insertStatements as $insert) {
-         // Cherche , '1') ou , '1'); à la fin
-        if (strpos($insert, ",'1');") !== false) {
-            // Extraire la valeur 'def' (premier champ)
-            if (preg_match("/VALUES\('([^']*)'/", $insert, $match)) {
-               $def = $match[1];
-               $metalangs[$def] = [
-                  'def' => $def,
-                  'full_insert' => $insert  // On garde tout l'INSERT
-               ];
-            }
-         }
-      }
-      return $metalangs;
-   }*/
-   public function parseMetalangInserts($insertStatements) {
-    $metalangs = [];
-    foreach ($insertStatements as $insert) {
-        // Vérifie que ça se termine par ,'1');
-        if (substr($insert, -6) === ",'1');" || substr($insert, -7) === ", '1');") {
+         // Vérifie que ça se termine par ,'1');
+         if (substr($insert, -6) === ",'1');" || substr($insert, -7) === ", '1');") {
             if (preg_match("#VALUES\(\s*'([^']*)'#", $insert, $match)) {
                 $def = $match[1];
                 $metalangs[$def] = [
@@ -403,21 +375,19 @@ private function generateFunctionUpdate($insert, $id) {
                     'full_insert' => $insert
                 ];
             }
-        }
-    }
-    return $metalangs;
-}
-   
+         }
+      }
+      return $metalangs;
+   }
+
    /**
    * Méthode simple pour analyser et exécuter une migration
    */
    public function runMigration() {
       // Analyser les différences
       $differences = $this->compareSchemas();
-      
       // Générer les requêtes de migration
       $queries = $this->generateMigrationSQL($differences);
-      
       if (empty($queries)) {
          return [
             'status' => 'no_changes',
@@ -426,13 +396,10 @@ private function generateFunctionUpdate($insert, $id) {
             'queries' => []
          ];
       }
-      
       // Exécuter les migrations
       $executionResults = $this->executeMigration($queries);
-      
       // Générer le rapport final
       $report = $this->generateReport($differences, $queries, $executionResults);
-      
       return [
          'status' => empty($executionResults['errors']) ? 'success' : 'partial_success',
          'executed_queries' => count($executionResults['success']),
@@ -478,6 +445,7 @@ private function generateFunctionUpdate($insert, $id) {
       }
       return $report;
    }
+
 }
 
 // ==================== UTILISATION ====================
