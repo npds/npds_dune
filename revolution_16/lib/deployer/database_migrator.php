@@ -261,6 +261,7 @@ class NPDSDatabaseMigrator {
          $queries[] = "DELETE FROM metalang WHERE def = '$def' AND obligatoire = '1';";
          $queries[] = $data['full_insert'];
       }
+      $queries[] = "ALTER TABLE fonctions ORDER BY fid;";
       return $queries;
    }
 
@@ -381,37 +382,6 @@ class NPDSDatabaseMigrator {
    }
 
    /**
-   * Méthode simple pour analyser et exécuter une migration
-   */
-   public function runMigration() {
-      // Analyser les différences
-      $differences = $this->compareSchemas();
-      // Générer les requêtes de migration
-      $queries = $this->generateMigrationSQL($differences);
-      if (empty($queries)) {
-         return [
-            'status' => 'no_changes',
-            'message' => 'Aucun changement détecté',
-            'differences' => $differences,
-            'queries' => []
-         ];
-      }
-      // Exécuter les migrations
-      $executionResults = $this->executeMigration($queries);
-      // Générer le rapport final
-      $report = $this->generateReport($differences, $queries, $executionResults);
-      return [
-         'status' => empty($executionResults['errors']) ? 'success' : 'partial_success',
-         'executed_queries' => count($executionResults['success']),
-         'errors' => count($executionResults['errors']),
-         'differences' => $differences,
-         'queries' => $queries,
-         'execution_results' => $executionResults,
-         'report' => $report
-      ];
-   }
-
-   /**
    * Génère un rapport de migration
    */
    public function generateReport($differences, $queries, $executionResults = null) {
@@ -457,28 +427,21 @@ try {
         'sql/revolution_16_current.sql',  // Version actuelle
         'sql/revolution_16_new.sql'       // Nouvelle version
     );
-    
     // Analyser les différences
     $differences = $migrator->compareSchemas();
-    
     // Générer les requêtes de migration
     $queries = $migrator->generateMigrationSQL($differences);
-    
     // Générer le rapport
     $report = $migrator->generateReport($differences, $queries);
-    
     // Sauvegarder le rapport
     file_put_contents('migration_report.txt', $report);
-    
     // Afficher un résumé
     echo "Migration analysée avec succès!\n";
     echo "Rapport sauvegardé dans: migration_report.txt\n";
     echo "Nombre de requêtes générées: " . count($queries) . "\n";
-    
     // Pour exécuter automatiquement (décommenter avec prudence)
     /*
-    $db = new mysqli('localhost', 'user', 'password', 'database');
-    $results = $migrator->executeMigration($db, $queries);
+    $results = $migrator->executeMigration($queries);
     $finalReport = $migrator->generateReport($differences, $queries, $results);
     file_put_contents('migration_execution_report.txt', $finalReport);
     *\/

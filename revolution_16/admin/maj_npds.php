@@ -215,7 +215,7 @@ function maj_preupdate() {
       <a href="admin.php?op=maj&action=update&version=' . urlencode($version) . '&path=' . urlencode(realpath(__DIR__ . '/..')) . '" class="btn btn-success me-2" onclick="return confirm(\'⚠️ Lancer la mise à jour vers ' . htmlspecialchars($version) . ' ?\')">
          🚀 '.adm_translate('Lancer la mise à jour').'
       </a>
-      <a href="admin.php?op=maj" class="btn btn-secondary">'.adm_translate('Retour').'</a>
+      <a href="admin.php?op=maj" class="btn btn-secondary">'.adm_translate('Retour en arrière').'</a>
    </div>';
    include 'footer.php';
 }
@@ -272,7 +272,7 @@ function maj_success() {
          echo '
             <div class="alert alert-danger">
                <h4>ℹ️ '.adm_translate('Migration BD non disponible').'</h4>
-               <p>'.adm_translate('La sauvegarde du schéma précédent n\'est pas disponible').'.</p>
+               <p>'.adm_translate('La sauvegarde du schéma sql précédent n\'est pas disponible').'.</p>
                <p>'.adm_translate('Seules les nouvelles tables seront créées automatiquement').'.</p>
             </div>';
       }
@@ -312,7 +312,7 @@ function maj_migrate_db() {
                 <h5>❌ '.adm_translate('Erreur').'</h5>
                 <p>'.adm_translate('Fichier de sauvegarde introuvable').'.</p>
                 <a href="admin.php?op=maj&action=success&version=' . $newVersion . '" class="btn btn-secondary">
-                    '.adm_translate('Retour').'
+                    '.adm_translate('Retour en arrière').'
                 </a>
             </div>';
       include 'footer.php';
@@ -335,12 +335,12 @@ function maj_migrate_db() {
       $backupContent = file_get_contents($backupFile);
       $newContent = file_get_contents($newSchemaFile);
       echo '
-         <div class="alert alert-info">
-            <h5>🔍 DEBUG Avant comparaison</h5>
+         <div class="alert alert-light">
+            <h5>🔍 '.adm_translate('Comparaison').'</h5>
             <p>
                <strong>Fichier de backup :</strong> <code>' . $backupFile . '</code> (' . strlen($backupContent) . ' octets)<br />
                <strong>Fichier nouveau :</strong> <code>' . $newSchemaFile . '</code> (' . strlen($newContent) . ' octets)<br />
-               <strong>Identiques ?</strong> : ' . ($backupContent === $newContent ? '✅ OUI' : '❌ NON') . '
+               <strong>'.adm_translate('Identiques').' ?</strong> : ' . ($backupContent === $newContent ? '✅ '.adm_translate('Oui') : '❌ '.adm_translate('Non')) . '
             </p>
          </div>';
       $migrator = new NPDSDatabaseMigrator($backupFile, $newSchemaFile);
@@ -370,7 +370,7 @@ function maj_migrate_db() {
       }
       // 2. GÉNÉRER les requêtes
       $structureQueries = $migrator->generateMigrationSQL($differences);
-      $dataQueries = $migrator->generateDataMigrationQueries(file_get_contents($newSchemaFile), $differences); // ← AJOUTEZ CETTE LIGNE
+      $dataQueries = $migrator->generateDataMigrationQueries(file_get_contents($newSchemaFile), $differences);
       $allQueries = array_merge($structureQueries, $dataQueries);
       if (empty($allQueries)) {
          echo '
@@ -409,7 +409,7 @@ function maj_migrate_db() {
                   <input type="hidden" name="old_version" value="' . $oldVersion . '" />
                   <input type="hidden" name="new_version" value="' . $newVersion . '" />
                   <input type="hidden" name="backup_file" value="' . $backupFile . '" />
-                  <button type="submit" class="btn btn-success" onclick="return confirm(\''.html_entity_decode(adm_translate('EXÉCUTER les requêtes de migration? Cette action est irréversible.'),ENT_COMPAT | ENT_HTML401,'UTF-8').'\')">
+                  <button type="submit" class="btn btn-success me-2" onclick="return confirm(\''.html_entity_decode(adm_translate('EXÉCUTER les requêtes de migration? Cette action est irréversible.'),ENT_COMPAT | ENT_HTML401,'UTF-8').'\')">
                     '.adm_translate('Exécuter la Migration').'
                   </button>
                   <a href="admin.php?op=maj&action=success&version=' . $newVersion . '" class="btn btn-secondary">
@@ -450,8 +450,7 @@ function maj_execute_migration() {
          throw new Exception('Aucune requête à exécuter');
       $oldVersion = $_POST['old_version'] ?? '';
       $newVersion = $_POST['new_version'] ?? '';
-         $backupFile = $_POST['backup_file'] ?? '';
-
+      $backupFile = $_POST['backup_file'] ?? '';
       if (empty($queries))
          throw new Exception('Aucune requête à exécuter');
       // Créer un migrator temporaire pour exécution
@@ -459,11 +458,11 @@ function maj_execute_migration() {
       $results = $migrator->executeMigration($queries);
       echo '
          <div class="alert alert-success">
-            <h4 class="mb-3">✅ Migration base de données terminée</h4>
-            <p>Requêtes exécutées: <strong>' . count($results['success']) . '</strong><br />
+            <h4 class="mb-3">✅ '.adm_translate('Migration base de données terminée').'</h4>
+            <p>'.adm_translate('Requêtes exécutées').' : <strong>' . count($results['success']) . '</strong><br />
             Erreurs: ' . count($results['errors']) . '</p>
-            <h4 class="mb-3">✅ Mise à jour du portail terminée</h4>
-            <h4 class="mb-3">📋 '.adm_translate('Prochaines étapes recommandées').'</h4>
+            <h4 class="mb-3">✅ '.adm_translate('Mise à jour du portail terminée').'</h4>
+            <h4 class="mb-3">💡 '.adm_translate('Prochaines étapes recommandées').'</h4>
                 <ol>
                     <li>'.adm_translate('Vérifier le fonctionnement général du site').'</li>
                     <li>'.adm_translate('Tester les fonctionnalités principales (articles, forums, membres)').'</li>
@@ -472,7 +471,7 @@ function maj_execute_migration() {
                 </ol>
          </div>';
 
-      $testMode = true; // ← À désactiver en production
+//      $testMode = true; // ← À désactiver en production
       if ($testMode) {
          // SCÉNARIO SUCCÈS + ÉCHEC SIMULTANÉS
          $results['errors'] = [
@@ -499,7 +498,7 @@ function maj_execute_migration() {
             echo '
             <div class="small mb-2">
                <code>' . htmlspecialchars($error['query']) . '</code><br>
-               <strong>Erreur:</strong> ' . htmlspecialchars($error['error']) .'
+               <strong>'.adm_translate('Erreur').' : </strong> ' . htmlspecialchars($error['error']) .'
             </div>';
          }
          echo '
@@ -508,13 +507,12 @@ function maj_execute_migration() {
                <li>'.adm_translate('La structure de la base de données est partiellement migrée').'</li>
                <li>'.adm_translate('Certaines données système peuvent être incohérentes').'</li>
             </ul>
-            <h6>💡 '.adm_translate('Recommandations').'</h6>
+            <h5>💡 '.adm_translate('Recommandations').'</h5>
             <ol>
-               <li><strong>'.adm_translate('Option recommandée').' :</strong> '.adm_translate('Restaurer la sauvegarde automatique et contacter le support').'</li>
-               <li><strong>'.adm_translate('Option avancée').' :</strong> '.adm_translate('Exécuter manuellement les requêtes restantes via phpMyAdmin').'</li>
-               <li><strong>'.adm_translate('Option risquée').' :</strong> '.adm_translate('Relancer la migration depuis le début').'</li>
+               <li><strong>'.adm_translate('Option recommandée').' :</strong> '.adm_translate('Contacter le support').'</li>
+               <li><strong>'.adm_translate('Option avancée').' :</strong> '.adm_translate('Exécuter manuellement les requêtes en erreur via phpMyAdmin').'</li>
+               <li><strong>'.adm_translate('Option risquée').' :</strong> <a class="alert-link" href="admin.php?op=maj&action=migrate_db&old_version=' . urlencode($oldVersion) . '&new_version=' . urlencode($newVersion) . '&backup_file='.urlencode($backupFile).'">'.adm_translate('Relancer la migration').'</a></li>
             </ol>
-            <a href="admin.php?op=maj&action=migrate_db&old_version=' . urlencode($oldVersion) . '&new_version=' . urlencode($newVersion) . '&backup_file='.urlencode($backupFile).'" class="btn btn-warning me-2">'.adm_translate('Relancer la migration').'</a>
             <h4 class="mb-3">❌ '.adm_translate('Mise à jour du portail non terminée').'</h4>';
          echo '
       </div>';

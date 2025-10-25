@@ -22,9 +22,10 @@
          <h3 class="mb-3">Administration - Mise à jour</h3>
          <p class="lead">
          <br />C'est ici que l'on peut mettre à jour la version en service de son portail par une version plus récente (ou égal) ou par la version de développement (master) !...<br />
-         Cette mise à jour s'effectue en deux étapes d'abord les fichiers puis la base de données.
-         L'interface surtout explicatif ne permet en fait que le choix d'un paramètre : la version qui va remplacer celle en service sur le portail.</p>
-         <p>Un premier écran présente : 
+         Cette mise à jour s'effectue en deux étapes d'abord les fichiers puis la base de données.</p>
+         <h4>Mise à jour des fichiers</h4>
+         <p>L'interface surtout explicatif ne permet en fait que le choix d'un paramètre : la version qui va remplacer celle en service sur le portail.<br />
+        Un premier écran présente : 
             <ul>
                <li>le récapitulatif des versions : version en service sur le portail et dernière version stable disponible</li>
                <li>un message variable faisant le point</li>
@@ -39,10 +40,26 @@
             </ul>
          </p>
          <p>Vous voici dans l'interface progressive de contrôle et d'informations des process qui durent entre 2 et 3 minutes au total.<br />
-         En cas de succès un bouton <code>Accéder à l'administration</code> permet de revenir dans l'administration sur l'écran de confirmation de réussite de la mise à jour.</p>
-
-
-         <p><b>NB :</b> toute mise à jour génère automatiquement une sauvegarde des fichiers sensibles (une archive .zip : file_backup_ suivi de l'heurodatage) disponible dans <code>/lib/deployer/npds_backups/</code></p>
+         En cas de succès un bouton <code>Accéder à l'administration</code> permet de revenir dans l'administration sur l'écran de confirmation de réussite de la mise à jour des fichiers.</p>
+         <h4>Migration base de données</h4>
+         <p>Si tout c'est bien passé vous avez maintenant accès au bouton <code>Migrer la base de données</code> qui déclanche une alerte javascript de confirmation (ou pas) et lance la migration de la base de données.<br />
+         <strong>Conseil :</strong> Avant de lancer une mise à jour, effectuez une sauvegarde complète de votre base de données via phpMyAdmin ou NPDS <code>/admin.php?op=SavemySQL</code>.<br />
+         L'écran suivant résume le contexte l'analyse des différences structurelle et les requêtes générées qui vont être exécutées grâce au bouton <code>Executer la migration</code> et modifier la base de donnée en service...</p>
+         <p>Un dernier écran affichera le résultat de la migration de la base de données et de la mise à jour dans son ensemble.</p>
+         <p>En cas d'échec de la migration de la base de données, un lien vous permettra de relancer la procédure sans perte des paramètres de mise à jour.</p>
+         <h4>Mémo technique</h4>
+         <p>
+         <ul>
+            <li>Toute mise à jour génère automatiquement une sauvegarde des fichiers sensibles (une archive .zip : file_backup_ suivi de l'heurodatage) disponible dans <code>/lib/deployer/npds_backups/</code></li>
+            <li>La migration de la base de données c'est une mise à jour de la structure et une mise à jour des données des tables <strong>fonctions</strong> et <strong>metalang</strong>. Elle est basée sur une comparaison des deux fichiers contenant le schéma SQL : le fichier en cours d'utilisation et le fichier provenant de la nouvelle version.
+               <ul>
+                  <li>pour la mise à jour structurelle, des requêtes UPDATE seront générées en fonction de la comparaison.</li>
+                  <li>pour la mise à jour des données des tables <strong>fonctions</strong> et <strong>metalang</strong>, des requêtes <code>UPDATE</code> ou <code>DELETE/INSERT</code> seront générées. Cette opération préserve vos customisations tout en mettant à jour le code système. (cette mise à jour de ces deux tables est systématique)</li>
+               </ul>
+            </li>
+            <li>Toute la procédure de mise à jour du portail est monitoré et consigné dans les logs de php et les logs de npds (<code>/slogs/install.log</code>)</li>
+         </ul>
+         </p>
          <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Manuel administration</span></p>
       </div>
    </body>
