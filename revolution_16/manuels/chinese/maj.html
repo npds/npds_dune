@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+   <head>
+      <meta charset="utf-8" />
+      <title>管理 - 更新</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">菜单</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">系统</a></li>
+               <li class="breadcrumb-item active" aria-current="page">更新</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">管理 - 更新</h3>
+         <p class="lead">
+         <br />在这里，您可以将门户的当前版本更新到较新版本（或相同版本）或开发版本（master）！...<br />
+         此更新分两个步骤执行：首先是文件，然后是数据库。</p>
+         <h4>文件更新</h4>
+         <p>该界面主要是解释性的，实际上只允许选择一个参数：将替换门户上当前使用版本的版本。<br />
+        第一个屏幕显示：
+            <ul>
+               <li>版本摘要：门户上的版本和最新的稳定版本</li>
+               <li>可变状态消息</li>
+               <li>下拉列表允许选择版本以准备更新</li>
+               <li><code>准备更新</code>按钮，允许您在选择后访问第二个屏幕</li>
+            </ul>
+         </p>
+         <p>第二个屏幕显示初步建议和更新所选或强制选项的提醒。它包含两个按钮：
+            <ul>
+               <li><code>返回</code> ==>（返回第一个屏幕）...</li>
+               <li><code>启动更新</code> ==> 触发javascript确认警报（或不触发）并在<b>部署器</b>中启动更新过程...</li>
+            </ul>
+         </p>
+         <p>您现在处于进程的渐进式控制和信息界面中，整个过程持续2到3分钟。<br />
+         如果成功，一个<code>访问管理</code>按钮允许您返回到文件更新成功确认屏幕的管理界面。</p>
+         <h4>数据库迁移</h4>
+         <p>如果一切顺利，您现在可以访问<code>迁移数据库</code>按钮，该按钮触发javascript确认警报（或不触发）并启动数据库迁移。<br />
+         <strong>建议：</strong>在启动更新之前，通过phpMyAdmin或NPDS <code>/admin.php?op=SavemySQL</code>执行数据库的完整备份。<br />
+         以下屏幕总结了上下文、结构差异分析和生成的查询，这些查询将通过<code>执行迁移</code>按钮执行并修改服务中的数据库...</p>
+         <p>最后一个屏幕将显示数据库迁移和整个更新的结果。</p>
+         <p>如果数据库迁移失败，链接将允许您重新启动过程而不会丢失更新参数。</p>
+         <h4>技术备忘录</h4>
+         <p>
+         <ul>
+            <li>每次更新都会自动生成敏感文件的备份（一个.zip存档：file_backup_后跟时间戳）可在<code>/lib/deployer/npds_backups/</code>中找到</li>
+            <li>数据库迁移是结构的更新和<strong>functions</strong>和<strong>metalang</strong>表中数据的更新。它基于包含SQL模式的两个文件的比较：当前使用的文件和来自新版本的文件。
+               <ul>
+                  <li>对于结构更新，将基于比较生成UPDATE查询。</li>
+                  <li>对于<strong>functions</strong>和<strong>metalang</strong>表的数据更新，将生成<code>UPDATE</code>或<code>DELETE/INSERT</code>查询。此操作在更新系统代码的同时保留您的自定义。（这两个表的更新是系统性的）</li>
+               </ul>
+            </li>
+            <li>整个门户更新过程被监控并记录在PHP日志和NPDS日志中（<code>/slogs/install.log</code>）</li>
+         </ul>
+         </p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - 管理手册</span></p>
+      </div>
+   </body>
+</html>

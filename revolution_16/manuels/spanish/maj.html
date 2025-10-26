@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administraci&oacute;n - Actualizaci&oacute;n</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uacute;</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">Sistema</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Actualizaci&oacute;n</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administraci&oacute;n - Actualizaci&oacute;n</h3>
+         <p class="lead">
+         <br />&iexcl;Aqu&iacute; es donde puede actualizar la versi&oacute;n actual de su portal a una versi&oacute;n m&aacute;s reciente (o igual) o a la versi&oacute;n de desarrollo (master)!...<br />
+         Esta actualizaci&oacute;n se realiza en dos pasos: primero archivos, luego base de datos.</p>
+         <h4>Actualizaci&oacute;n de Archivos</h4>
+         <p>La interfaz, principalmente explicativa, en realidad solo permite la elecci&oacute;n de un par&aacute;metro: la versi&oacute;n que reemplazar&aacute; la que est&aacute; actualmente en servicio en el portal.<br />
+        La primera pantalla presenta:
+            <ul>
+               <li>resumen de versiones: versi&oacute;n en servicio en el portal y &uacute;ltima versi&oacute;n estable disponible</li>
+               <li>un mensaje de estado variable</li>
+               <li>una lista desplegable que permite una elecci&oacute;n orientada de la versi&oacute;n para preparar la actualizaci&oacute;n</li>
+               <li>el bot&oacute;n <code>Preparar Actualizaci&oacute;n</code> que le permite acceder a la segunda pantalla despu&eacute;s de su elecci&oacute;n</li>
+            </ul>
+         </p>
+         <p>La segunda pantalla indica recomendaciones preliminares y recordatorios de opciones elegidas o impuestas para la actualizaci&oacute;n. Contiene dos botones:
+            <ul>
+               <li><code>Volver</code> ==> (regresar a la primera pantalla) ...</li>
+               <li><code>Lanzar Actualizaci&oacute;n</code> ==> activa una alerta de confirmaci&oacute;n javascript (o no) y lanza el procedimiento de actualizaci&oacute;n en el <b>implementador</b> ...</li>
+            </ul>
+         </p>
+         <p>Ahora se encuentra en la interfaz progresiva de control e informaci&oacute;n de procesos que duran entre 2 y 3 minutos en total.<br />
+         En caso de &eacute;xito, un bot&oacute;n <code>Acceder a Administraci&oacute;n</code> le permite regresar a la administraci&oacute;n en la pantalla de confirmaci&oacute;n de &eacute;xito de actualizaci&oacute;n de archivos.</p>
+         <h4>Migraci&oacute;n de Base de Datos</h4>
+         <p>Si todo fue bien, ahora tiene acceso al bot&oacute;n <code>Migrar Base de Datos</code> que activa una alerta de confirmaci&oacute;n javascript (o no) y lanza la migraci&oacute;n de la base de datos.<br />
+         <strong>Consejo:</strong> Antes de lanzar una actualizaci&oacute;n, realice una copia de seguridad completa de su base de datos mediante phpMyAdmin o NPDS <code>/admin.php?op=SavemySQL</code>.<br />
+         La siguiente pantalla resume el contexto, el an&aacute;lisis de diferencias estructurales y las consultas generadas que se ejecutar&aacute;n mediante el bot&oacute;n <code>Ejecutar Migraci&oacute;n</code> y modificar&aacute;n la base de datos en servicio...</p>
+         <p>Una pantalla final mostrar&aacute; el resultado de la migraci&oacute;n de la base de datos y la actualizaci&oacute;n en su conjunto.</p>
+         <p>En caso de fallo de migraci&oacute;n de la base de datos, un enlace le permitir&aacute; reiniciar el procedimiento sin perder los par&aacute;metros de actualizaci&oacute;n.</p>
+         <h4>Memo T&eacute;cnico</h4>
+         <p>
+         <ul>
+            <li>Cada actualizaci&oacute;n genera autom&aacute;ticamente una copia de seguridad de archivos sensibles (un archivo .zip: file_backup_ seguido de marca de tiempo) disponible en <code>/lib/deployer/npds_backups/</code></li>
+            <li>La migraci&oacute;n de base de datos es una actualizaci&oacute;n de la estructura y una actualizaci&oacute;n de datos en las tablas <strong>functions</strong> y <strong>metalang</strong>. Se basa en una comparaci&oacute;n de dos archivos que contienen el esquema SQL: el archivo actualmente en uso y el archivo de la nueva versi&oacute;n.
+               <ul>
+                  <li>para actualizaci&oacute;n estructural, se generar&aacute;n consultas UPDATE basadas en la comparaci&oacute;n.</li>
+                  <li>para actualizaci&oacute;n de datos de las tablas <strong>functions</strong> y <strong>metalang</strong>, se generar&aacute;n consultas <code>UPDATE</code> o <code>DELETE/INSERT</code>. Esta operaci&oacute;n preserva sus personalizaciones mientras actualiza el c&oacute;digo del sistema. (esta actualizaci&oacute;n de estas dos tablas es sistem&aacute;tica)</li>
+               </ul>
+            </li>
+            <li>Todo el procedimiento de actualizaci&oacute;n del portal es monitoreado y registrado en registros PHP y registros NPDS (<code>/slogs/install.log</code>)</li>
+         </ul>
+         </p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Manual de Administraci&oacute;n</span></p>
+      </div>
+   </body>
+</html>

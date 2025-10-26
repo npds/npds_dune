@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - Update</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Men&uuml;</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Update</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administration - Update</h3>
+         <p class="lead">
+         <br />Hier k&ouml;nnen Sie die aktuelle Version Ihres Portals auf eine neuere Version (oder gleiche) oder auf die Entwicklungsversion (master) aktualisieren!...<br />
+         Dieses Update wird in zwei Schritten durchgef&uuml;hrt: zuerst Dateien, dann Datenbank.</p>
+         <h4>Datei-Update</h4>
+         <p>Die Oberfl&auml;che, haupts&auml;chlich erkl&auml;rend, erlaubt tats&auml;chlich nur die Auswahl eines Parameters: die Version, die die aktuell auf dem Portal verwendete Version ersetzt.<br />
+        Der erste Bildschirm zeigt:
+            <ul>
+               <li>Versionszusammenfassung: Version auf dem Portal und neueste verf&uuml;gbare stabile Version</li>
+               <li>eine variable Statusmeldung</li>
+               <li>eine Dropdown-Liste zur Auswahl der Version zur Vorbereitung des Updates</li>
+               <li>die Schaltfl&auml;che <code>Update vorbereiten</code>, die Ihnen nach Ihrer Auswahl den Zugriff auf den zweiten Bildschirm erm&ouml;glicht</li>
+            </ul>
+         </p>
+         <p>Der zweite Bildschirm zeigt vorl&auml;ufige Empfehlungen und Erinnerungen an gew&auml;hlte oder vorgegebene Optionen f&uuml;r das Update. Er enth&auml;lt zwei Schaltfl&auml;chen:
+            <ul>
+               <li><code>Zur&uuml;ck</code> ==> (zur&uuml;ck zum ersten Bildschirm) ...</li>
+               <li><code>Update starten</code> ==> l&ouml;st eine Javascript-Best&auml;tigungsmeldung aus (oder nicht) und startet das Update-Verfahren im <b>Deployer</b> ...</li>
+            </ul>
+         </p>
+         <p>Sie befinden sich nun in der progressiven Steuerungs- und Informationsoberfl&auml;che der Prozesse, die insgesamt zwischen 2 und 3 Minuten dauern.<br />
+         Im Erfolgsfall erm&ouml;glicht eine Schaltfl&auml;che <code>Administration aufrufen</code> die R&uuml;ckkehr zur Administration auf dem Best&auml;tigungsbildschirm f&uuml;r erfolgreiche Dateiaktualisierung.</p>
+         <h4>Datenbank-Migration</h4>
+         <p>Wenn alles gut gelaufen ist, haben Sie jetzt Zugriff auf die Schaltfl&auml;che <code>Datenbank migrieren</code>, die eine Javascript-Best&auml;tigungsmeldung ausl&ouml;st (oder nicht) und die Datenbankmigration startet.<br />
+         <strong>Rat:</strong> F&uuml;hren Sie vor dem Start eines Updates eine vollst&auml;ndige Sicherung Ihrer Datenbank &uuml;ber phpMyAdmin oder NPDS <code>/admin.php?op=SavemySQL</code> durch.<br />
+         Der folgende Bildschirm fasst den Kontext, die Analyse struktureller Unterschiede und generierte Abfragen zusammen, die &uuml;ber die Schaltfl&auml;che <code>Migration ausf&uuml;hren</code> ausgef&uuml;hrt werden und die Datenbank im Betrieb &auml;ndern...</p>
+         <p>Ein letzter Bildschirm zeigt das Ergebnis der Datenbankmigration und des gesamten Updates an.</p>
+         <p>Im Falle eines Datenbank-Migrationsfehlers erm&ouml;glicht ein Link den Neustart des Verfahrens ohne Verlust der Update-Parameter.</p>
+         <h4>Technische Notiz</h4>
+         <p>
+         <ul>
+            <li>Jedes Update erzeugt automatisch ein Backup sensibler Dateien (ein .zip-Archiv: file_backup_ gefolgt von Zeitstempel) verf&uuml;gbar in <code>/lib/deployer/npds_backups/</code></li>
+            <li>Datenbankmigration ist ein Update der Struktur und ein Update der Daten in den Tabellen <strong>functions</strong> und <strong>metalang</strong>. Sie basiert auf einem Vergleich von zwei Dateien, die das SQL-Schema enthalten: die aktuell verwendete Datei und die Datei der neuen Version.
+               <ul>
+                  <li>F&uuml;r strukturelle Updates werden UPDATE-Abfragen basierend auf dem Vergleich generiert.</li>
+                  <li>F&uuml;r Datenupdates der Tabellen <strong>functions</strong> und <strong>metalang</strong> werden <code>UPDATE</code> oder <code>DELETE/INSERT</code> Abfragen generiert. Dieser Vorgang erh&auml;lt Ihre Anpassungen bei, w&auml;hrend der Systemcode aktualisiert wird. (Dieses Update dieser beiden Tabellen ist systematisch)</li>
+               </ul>
+            </li>
+            <li>Das gesamte Portal-Update-Verfahren wird &uuml;berwacht und in PHP-Logs und NPDS-Logs aufgezeichnet (<code>/slogs/install.log</code>)</li>
+         </ul>
+         </p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Administrationshandbuch</span></p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Administration - Update</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap-icons.css" />
+      <link rel="stylesheet" href="../../lib/font-awesome/css/all.min.css" />
+   </head>
+   <body>
+      <div class="container">
+         <nav class="my-3">
+            <ol class="breadcrumb bg-transparent">
+               <li><a href="admin.html"><img class="me-3 ms-n3" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy" /></a></li>
+               <li class="breadcrumb-item"><a href="men_gen.html">Menu</a></li>
+               <li class="breadcrumb-item"><a href="men_syst.html">System</a></li>
+               <li class="breadcrumb-item active" aria-current="page">Update</li>
+            </ol>
+         </nav>
+         <hr class="mt-n3" />
+         <h3 class="mb-3">Administration - Update</h3>
+         <p class="lead">
+         <br />This is where you can update your portal's current version to a newer version (or equal) or to the development version (master)!...<br />
+         This update is performed in two steps: first files, then database.</p>
+         <h4>File Update</h4>
+         <p>The interface, mainly explanatory, actually only allows the choice of one parameter: the version that will replace the one currently in service on the portal.<br />
+        The first screen presents:
+            <ul>
+               <li>version summary: version in service on the portal and latest stable version available</li>
+               <li>a variable status message</li>
+               <li>a dropdown list allowing an oriented choice of version to prepare the update</li>
+               <li>the <code>Prepare Update</code> button that allows you to access the second screen after your choice</li>
+            </ul>
+         </p>
+         <p>The second screen indicates preliminary recommendations and reminders of chosen or imposed options for the update. It contains two buttons:
+            <ul>
+               <li><code>Back</code> ==> (return to first screen) ...</li>
+               <li><code>Launch Update</code> ==> triggers a javascript confirmation alert (or not) and launches the update procedure in the <b>deployer</b> ...</li>
+            </ul>
+         </p>
+         <p>You are now in the progressive control and information interface of processes that last between 2 and 3 minutes total.<br />
+         In case of success, a <code>Access Administration</code> button allows you to return to administration on the file update success confirmation screen.</p>
+         <h4>Database Migration</h4>
+         <p>If everything went well, you now have access to the <code>Migrate Database</code> button which triggers a javascript confirmation alert (or not) and launches the database migration.<br />
+         <strong>Advice:</strong> Before launching an update, perform a complete backup of your database via phpMyAdmin or NPDS <code>/admin.php?op=SavemySQL</code>.<br />
+         The following screen summarizes the context, structural differences analysis and generated queries that will be executed via the <code>Execute Migration</code> button and modify the database in service...</p>
+         <p>A final screen will display the result of the database migration and the update as a whole.</p>
+         <p>In case of database migration failure, a link will allow you to restart the procedure without losing update parameters.</p>
+         <h4>Technical Memo</h4>
+         <p>
+         <ul>
+            <li>Every update automatically generates a backup of sensitive files (a .zip archive: file_backup_ followed by timestamp) available in <code>/lib/deployer/npds_backups/</code></li>
+            <li>Database migration is an update of the structure and an update of data in the <strong>functions</strong> and <strong>metalang</strong> tables. It is based on a comparison of two files containing the SQL schema: the file currently in use and the file from the new version.
+               <ul>
+                  <li>for structural update, UPDATE queries will be generated based on the comparison.</li>
+                  <li>for data update of the <strong>functions</strong> and <strong>metalang</strong> tables, <code>UPDATE</code> or <code>DELETE/INSERT</code> queries will be generated. This operation preserves your customizations while updating the system code. (this update of these two tables is systematic)</li>
+               </ul>
+            </li>
+            <li>The entire portal update procedure is monitored and recorded in PHP logs and NPDS logs (<code>/slogs/install.log</code>)</li>
+         </ul>
+         </p>
+         <p class="border-top mt-4 text-end pt-2"><img class="me-2" width="32" height="32" src="../../images/admin/message_npds.png" alt="logo_npds" loading="lazy"><span class="text-body-secondary font-italic small float-end">NPDS - Administration Manual</span></p>
+      </div>
+   </body>
+</html>
