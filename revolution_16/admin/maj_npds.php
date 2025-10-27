@@ -227,6 +227,8 @@ function maj_update() {
    $targetPath = $_GET['path'] ?? realpath(__DIR__ . '/..');
    // Étape 1: Sauvegarder le SQL actuel AVANT mise à jour
    $backupResult = backupCurrentSQL();
+   if ($backupResult['success'])
+      file_put_contents('sql/backups/last_backup.txt', $backupResult['file']);
    // Étape 2: Déployer les nouveaux fichiers
    $deployerUrl = "/lib/deployer/npds_deployer.php?op=deploy&version=$version&confirm=yes&path=" . 
                    urlencode($targetPath) . "&return_url=" . 
@@ -242,8 +244,16 @@ function maj_success() {
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
    $newVersion = $_GET['version'] ?? '16.8.0';
-   $backupFile = $_GET['backup_file'] ?? '';
+
    $oldVersion = $_GET['old_version'] ?? $Version_Num ;
+   $lockFile = 'sql/backups/last_backup.txt';
+   $backupFile = '';
+   if (file_exists($lockFile)) {
+      $backupFile = file_get_contents($lockFile);
+      unlink($lockFile);
+      if (!$backupFile || !file_exists($backupFile))
+         $backupFile = '';
+    }
    echo '
          <hr />
          <h3 class="mb-3">'.adm_translate('Mise à jour fichiers terminée').'</h3>
@@ -253,6 +263,7 @@ function maj_success() {
              <strong>'.adm_translate('Ancienne version').' :</strong> ' . $Version_Num . ' ==> <strong>'.adm_translate('Nouvelle version').' :</strong> ' . htmlspecialchars($newVersion) . '</p>
          </div>';
     // Vérifier si la migration BD est possible
+
     if ($backupFile && file_exists($backupFile)) {
         echo '
             <div class="alert alert-success">
