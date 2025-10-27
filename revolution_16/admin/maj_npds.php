@@ -47,7 +47,7 @@ if (isset($_GET['debug_success']) && empty($_POST)) {
 }
 // <== TEMPORAIRE - Pour debug à commenter
 
-#autodoc getlatestRelease() : retourne la dernière version contenue dans le fichier versus.txt de github sous forme v.16.8 ou  si non disponible 16.8.1
+#autodoc getlatestRelease() : retourne la dernière version contenue dans le fichier versus.txt de github sous forme v.16.8 ou si non disponible 16.8.1
 function getlatestRelease() {
    $getversustxt = @file_get_contents('https://raw.githubusercontent.com/npds/npds_dune/master/versus.txt');
    if (!$getversustxt)
@@ -88,13 +88,13 @@ function getUpdateLog() {
 }
 
 #autodoc backupCurrentSQL() : sauvegarde le schéma sql de la version en service dans /sql/backups/
-function backupCurrentSQL($newVersion) {
+function backupCurrentSQL() {
    global $Version_Num;
    $backupDir = 'sql/backups/';
    if (!is_dir($backupDir))
       mkdir($backupDir, 0755, true);
    $currentSqlFile = "sql/revolution_16.sql";
-   $backupFile = $backupDir . 'backup_'.$Version_Num.'_to_'.$newVersion.'_' . date('Y-m-d_His') . '.sql';
+   $backupFile = $backupDir . $Version_Num . '_' . time() . '.sql';
    if (file_exists($currentSqlFile)) {
       if (copy($currentSqlFile, $backupFile)) {
          return [
@@ -226,7 +226,7 @@ function maj_update() {
    $version = $_GET['version'] ?? getlatestRelease();
    $targetPath = $_GET['path'] ?? realpath(__DIR__ . '/..');
    // Étape 1: Sauvegarder le SQL actuel AVANT mise à jour
-   $backupResult = backupCurrentSQL($version);
+   $backupResult = backupCurrentSQL();
    // Étape 2: Déployer les nouveaux fichiers
    $deployerUrl = "/lib/deployer/npds_deployer.php?op=deploy&version=$version&confirm=yes&path=" . 
                    urlencode($targetPath) . "&return_url=" . 
