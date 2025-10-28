@@ -209,7 +209,7 @@ class NPDSDatabaseMigrator {
          foreach ($columns as $column) {
             if (isset($newSchema[$table]['columns'][$column])) {
                $definition = $newSchema[$table]['columns'][$column];
-               $queries[] = "ALTER TABLE `$table` ADD COLUMN `$column` $definition;";
+               $queries[] = "ALTER TABLE `$table` ADD COLUMN IF NOT EXISTS `$column` $definition;";
             }
          }
       }
