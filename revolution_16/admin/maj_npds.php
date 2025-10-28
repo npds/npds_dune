@@ -467,7 +467,7 @@ function maj_execute_migration() {
       $results = $migrator->executeMigration($queries);
       if (empty($results['errors'])) {
          $file = file('../config.php');
-         $file[13] = '# généré le : ' .date('d-M-Y H:i:s') .';' "\n";
+         $file[13] = '# généré le : ' .date('d-M-Y H:i:s') .';' . " \n";
          $file[321] = '$Version_Num = "' . $newVersion . '";' . "\n";
          $fic = fopen('../config.php', 'w');
          foreach($file as $n => $ligne) {
