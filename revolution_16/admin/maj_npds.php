@@ -466,7 +466,7 @@ function maj_execute_migration() {
       $migrator = new NPDSDatabaseMigrator('', '');
       $results = $migrator->executeMigration($queries);
       if (empty($results['errors'])) {
-         $configContent = file_get_contents('config.php');
+         $configContent = file_get_contents('../config.php');
          $newConfigContent = preg_replace(
             '/\$Version_Num\s*=\s*"[^"]*";/',
             '$Version_Num = "' . $newVersion . '";',
