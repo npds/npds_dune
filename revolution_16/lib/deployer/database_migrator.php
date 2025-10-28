@@ -231,33 +231,20 @@ class NPDSDatabaseMigrator {
       error_log("=== DEBUG DATA MIGRATION ===");
       error_log("StructuralChanges reçus: " . print_r($structuralChanges, true));
       error_log("Fonctions modifiées: " . (isset($structuralChanges['modified_columns']['fonctions']) ? 'OUI' : 'NON'));
-      $fonctionsStructureChanged = true; // TEST FORCÉ
-      error_log("fonctionsStructureChanged: " . ($fonctionsStructureChanged ? 'TRUE' : 'FALSE'));
       // 1. FONCTIONS - Choix stratégique basé sur les modifications
       $functionInserts = $this->extractInsertStatements($newSqlContent, 'fonctions');
       $functionData = $this->parseFunctionInserts($functionInserts);
-      $fonctionsStructureChanged = isset($structuralChanges['modified_columns']['fonctions']) 
-                              && !empty($structuralChanges['modified_columns']['fonctions']);
       $systemFunctionIds = range(1, 75);
- 
       foreach ($systemFunctionIds as $id) {
          if (isset($functionData[$id])) {
-            //$queries[] = "-- Mise à jour fonction ID $id";
-            if ($fonctionsStructureChanged) {
-               // Structure modifiée → DELETE+INSERT (safe)
-               $queries[] = "DELETE FROM fonctions WHERE fid = $id;";
-               $queries[] = $functionData[$id]['full_insert'];
-            } else {
-               // Structure identique → UPDATE (performant)
-               $queries[] = $this->generateFunctionUpdate($functionData[$id]['full_insert'], $id);
-            }
+            $queries[] = "DELETE FROM fonctions WHERE fid = $id;";
+            $queries[] = $functionData[$id]['full_insert'];
          }
       }
       // 2. METALANG - Toujours DELETE+INSERT (structure simple + obligatoire='1')
       $metalangInserts = $this->extractInsertStatements($newSqlContent, 'metalang');
       $metalangData = $this->parseMetalangInserts($metalangInserts);
       foreach ($metalangData as $def => $data) {
-         //        $queries[] = "-- Mise à jour metalang: $def";
          $queries[] = "DELETE FROM metalang WHERE def = '$def' AND obligatoire = '1';";
          $queries[] = $data['full_insert'];
       }
@@ -268,6 +255,7 @@ class NPDSDatabaseMigrator {
    /**
    * Génère un UPDATE pour une fonction à partir de son INSERT
    */
+/*
    private function generateFunctionUpdate($insert, $id) {
       // Mix de champs avec et sans quotes : 'text', number, 'text', number...
       if (preg_match("#VALUES\((\d+),\s*'([^']*)',\s*(\d+),\s*'([^']*)',\s*(\d+),\s*(\d+),\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*(\d+),\s*'([^']*)',\s*(\d+)\)#", $insert, $match)) {
@@ -290,6 +278,7 @@ class NPDSDatabaseMigrator {
       error_log("Échec parsing INSERT fonction ID $id");
       return "DELETE FROM fonctions WHERE fid = $id;\n" . $insert;
    }
+*/
 
    /**
    * Exécute les requêtes de migration

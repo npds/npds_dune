@@ -401,6 +401,7 @@ function maj_migrate_db() {
                   </div>';
          $i++;
       }
+      $encodedQueries = base64_encode(json_encode($allQueries));
       echo '
                </div>
                <div class="my-3">
@@ -409,7 +410,7 @@ function maj_migrate_db() {
                <form action="admin.php" method="post">
                   <input type="hidden" name="op" value="maj" />
                   <input type="hidden" name="action" value="execute_migration" />
-                  <input type="hidden" name="queries" value="' . htmlspecialchars(json_encode($allQueries)) . '" />
+                  <input type="hidden" name="queries" value="' . htmlspecialchars($encodedQueries) . '" />
                   <input type="hidden" name="old_version" value="' . $oldVersion . '" />
                   <input type="hidden" name="new_version" value="' . $newVersion . '" />
                   <input type="hidden" name="backup_file" value="' . $backupFile . '" />
@@ -445,7 +446,12 @@ function maj_execute_migration() {
    <h3 class="mb-3">'.adm_translate('Migration de la base de données').'</h3>';
    require_once 'lib/deployer/database_migrator.php';
    try {
-      $queriesJson = stripslashes($_POST['queries'] ?? '[]');
+      $encodedQueries = $_POST['queries'] ?? '';
+      if (empty($encodedQueries))
+         throw new Exception('Aucune donnée de requêtes reçue');
+      $queriesJson = base64_decode($encodedQueries);
+      if ($queriesJson === false)
+         throw new Exception('Erreur de décodage base64 des requêtes');
       $queries = json_decode($queriesJson, true);        // DEBUG
       if (json_last_error() !== JSON_ERROR_NONE)
          throw new Exception('Erreur JSON: ' . json_last_error_msg());
@@ -481,22 +487,6 @@ function maj_execute_migration() {
                     <li>'.adm_translate('Consulter les logs d\'installation pour détecter d\'éventuels problèmes').'</li>
                 </ol>
          </div>';
-         //$testMode = true; // ← À désactiver en production
-         if ($testMode) {
-            // SCÉNARIO SUCCÈS + ÉCHEC SIMULTANÉS
-            $results['errors'] = [
-               [
-                  'query' => "ALTER TABLE test_table ADD COLUMN test_column INT;",
-                  'error' => "Table 'test_table' doesn't exist"
-               ],
-               [
-                  'query' => "UPDATE fonctions SET fnom='test' WHERE fid=999;", 
-                  'error' => "Unknown column 'fnom' in 'field list'"
-               ]
-            ];
-            // Gardez aussi les succès réels
-            $results['success'] = array_slice($queries, 0, 10); // 10 premières requêtes
-         }
       } else {
          echo '
             <div class="alert alert-danger">
