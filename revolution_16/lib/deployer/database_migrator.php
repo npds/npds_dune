@@ -15,6 +15,7 @@
 /************************************************************************/
 if (!function_exists('admindroits'))
    include 'die.php';
+date_default_timezone_set('Europe/Paris');
 
 class NPDSDatabaseMigrator {
    private $currentSqlFile;
@@ -25,8 +26,6 @@ class NPDSDatabaseMigrator {
       error_log("MIGRATOR CONSTRUCT: newSqlFile = " . $newSqlFile);
       $this->currentSqlFile = $currentSqlFile;
       $this->newSqlFile = $newSqlFile;
-      //error_log("MIGRATOR CONSTRUCT: AFTER SET - current = " . $this->currentSqlFile);
-      //error_log("MIGRATOR CONSTRUCT: AFTER SET - new = " . $this->newSqlFile);
    }
 
    /**
@@ -42,7 +41,6 @@ class NPDSDatabaseMigrator {
       error_log("PARSING: Tables trouvées: " . count($matches));
       foreach ($matches as $i => $match) {
          error_log("PARSING: Table " . ($i+1) . ": " . $match[1]);
-         //error_log("PARSING: Définition: " . substr($match[2], 0, 100) . "...");
       }
       foreach ($matches as $match) {
          $tableName = $match[1];
