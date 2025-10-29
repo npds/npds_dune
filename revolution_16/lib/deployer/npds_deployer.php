@@ -932,10 +932,17 @@ function executeDeployment($version, $targetDir) {
       $logMessage("PROGRESS:20");
       $logMessage("📂 ".t('extraction_progress')."...");
       $logMessage("PROGRESS:35");
+            $logMessage("PROGRESS:38");
+            $logMessage("PROGRESS:41");
+            $logMessage("PROGRESS:44");
+            $logMessage("PROGRESS:47");
+
       $extractResult = $deployer->extractFirstFolderContent($tempFile, $targetDir, 'zip', $version, $isUpdate);
       if (!$extractResult['success']) 
          throw new Exception("Échec extraction: " . $extractResult['message']);
       $logMessage("PROGRESS:50");
+            $logMessage("PROGRESS:53");
+
       $logMessage("PROGRESS:57");
       $logMessage('✅ '.t('extraction_finished'));
       $logMessage('🔄 '.t('copying_files').'...');
@@ -1059,8 +1066,15 @@ class NPDSExclusions {
          return false; // Tout peut être écrasé
       // 🔥 Seulement en mise à jour : vérifier les exclusions
       foreach (self::$excludedFiles as $pattern) {
-         if (self::matchesPattern($filePath, $pattern)) 
-            return true;
+         if (self::matchesPattern($filePath, $pattern)) {
+            //return file_exists(getcwd() . '/' . $filePath);
+            $rootPath = dirname(__DIR__); // Remonte au dossier labo
+            $fullPath = $rootPath . '/' . $filePath;
+            
+            error_log("🔍 Exclusion: $filePath -> $fullPath : " . (file_exists($fullPath) ? 'EXISTE' : 'NEXISTE PAS'));
+            
+            return file_exists($fullPath);
+         }
       }
       return false;
    }
