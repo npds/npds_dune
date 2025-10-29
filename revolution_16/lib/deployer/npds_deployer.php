@@ -997,9 +997,11 @@ function executeDeployment($version, $targetDir) {
 
 // ==================== CLASSES PRINCIPALES ====================
 class NPDSExclusions {
-   private static $excludedFiles = [
-      // === FICHIERS/DOSSIERS INSTALLATION AUTO ===
+   private static $alwaysExcluded = [
       'install', 'install/', 'install/*', 'install.php',
+      // Ces éléments ne doivent JAMAIS être copiés en production
+   ];
+   private static $excludedIfExists = [
       // === FICHIERS DE CONFIGURATION CRITIQUES ===
       'config.php',               // configuration générale du site
       'IZ-Xinstall.ok',           // témoin d'install-auto
@@ -1074,7 +1076,13 @@ class NPDSExclusions {
       if (!$isUpdate)
          return false; // Tout peut être écrasé
       // 🔥 Seulement en mise à jour : vérifier les exclusions
-      foreach (self::$excludedFiles as $pattern) {
+      // 1. Vérifier les exclusions ABSOLUES (toujours exclure)
+      foreach (self::$alwaysExcluded as $pattern) {
+         if (self::matchesPattern($filePath, $pattern))
+            return true; // ← TOUJOURS exclure, peu importe l'existence
+      }
+      // 2. Vérifier les exclusions CONDITIONNELLES (uniquement si existent)
+      foreach (self::$excludedIfExists as $pattern) {
          if (self::matchesPattern($filePath, $pattern)) {
             $rootPath = self::getSiteRoot();
             $fullPath = $rootPath . '/' . $filePath;
