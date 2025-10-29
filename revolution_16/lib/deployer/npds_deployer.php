@@ -1055,7 +1055,16 @@ class NPDSExclusions {
       '*.tar.gz',
       '*.backup*',               // Fichiers de backup existants
    ];
+   private static $siteRoot = null;
 
+   private static function getSiteRoot() {
+      if (self::$siteRoot !== null)
+         return self::$siteRoot;
+      // Racine NPDS = 2 niveaux au-dessus de lib/deployer/
+      self::$siteRoot = dirname(dirname(__DIR__));
+      return self::$siteRoot;
+   }
+   
    /**
    * Vérifie si un fichier doit être exclu de l'écrasement
    * UNIQUEMENT en mise à jour
@@ -1067,12 +1076,9 @@ class NPDSExclusions {
       // 🔥 Seulement en mise à jour : vérifier les exclusions
       foreach (self::$excludedFiles as $pattern) {
          if (self::matchesPattern($filePath, $pattern)) {
-            //return file_exists(getcwd() . '/' . $filePath);
-            $rootPath = dirname(__DIR__); // Remonte au dossier labo
+            $rootPath = self::getSiteRoot();
             $fullPath = $rootPath . '/' . $filePath;
-            
-            error_log("🔍 Exclusion: $filePath -> $fullPath : " . (file_exists($fullPath) ? 'EXISTE' : 'NEXISTE PAS'));
-            
+            // Exclure le fichier SEULEMENT s'il existe déjà dans le site actuel
             return file_exists($fullPath);
          }
       }
