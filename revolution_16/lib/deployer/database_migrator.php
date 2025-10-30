@@ -251,34 +251,6 @@ class NPDSDatabaseMigrator {
    }
 
    /**
-   * Génère un UPDATE pour une fonction à partir de son INSERT
-   */
-/*
-   private function generateFunctionUpdate($insert, $id) {
-      // Mix de champs avec et sans quotes : 'text', number, 'text', number...
-      if (preg_match("#VALUES\((\d+),\s*'([^']*)',\s*(\d+),\s*'([^']*)',\s*(\d+),\s*(\d+),\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*'([^']*)',\s*(\d+),\s*'([^']*)',\s*(\d+)\)#", $insert, $match)) {
-         return "UPDATE fonctions SET 
-               fnom = '{$match[2]}',
-               fdroits1 = {$match[3]},
-               fdroits1_descr = '{$match[4]}',
-               finterface = {$match[5]},
-               fetat = {$match[6]},
-               fretour = '{$match[7]}',
-               fretour_h = '{$match[8]}',
-               fnom_affich = '{$match[9]}',
-               ficone = '{$match[10]}',
-               furlscript = '{$match[11]}',
-               fcategorie = {$match[12]},
-               fcategorie_nom = '{$match[13]}',
-               fordre = {$match[14]}
-               WHERE fid = $id;";
-      }
-      error_log("Échec parsing INSERT fonction ID $id");
-      return "DELETE FROM fonctions WHERE fid = $id;\n" . $insert;
-   }
-*/
-
-   /**
    * Exécute les requêtes de migration
    */
    public function executeMigration($queries) {
