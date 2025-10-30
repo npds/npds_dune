@@ -54,7 +54,7 @@
             <li>Datenbankmigration ist ein Update der Struktur und ein Update der Daten in den Tabellen <strong>functions</strong> und <strong>metalang</strong>. Sie basiert auf einem Vergleich von zwei Dateien, die das SQL-Schema enthalten: die aktuell verwendete Datei und die Datei der neuen Version.
                <ul>
                   <li>F&uuml;r strukturelle Updates werden UPDATE-Abfragen basierend auf dem Vergleich generiert.</li>
-                  <li>F&uuml;r Datenupdates der Tabellen <strong>functions</strong> und <strong>metalang</strong> werden <code>UPDATE</code> oder <code>DELETE/INSERT</code> Abfragen generiert. Dieser Vorgang erh&auml;lt Ihre Anpassungen bei, w&auml;hrend der Systemcode aktualisiert wird. (Dieses Update dieser beiden Tabellen ist systematisch)</li>
+                  <li>F&uuml;r Datenupdates der Tabellen <strong>functions</strong> und <strong>metalang</strong> werden <code>DELETE/INSERT</code> Abfragen generiert. Dieser Vorgang erh&auml;lt Ihre Anpassungen bei, w&auml;hrend der Systemcode aktualisiert wird. (Dieses Update dieser beiden Tabellen ist systematisch)</li>
                </ul>
             </li>
             <li>Das gesamte Portal-Update-Verfahren wird &uuml;berwacht und in PHP-Logs und NPDS-Logs aufgezeichnet (<code>/slogs/install.log</code>)</li>

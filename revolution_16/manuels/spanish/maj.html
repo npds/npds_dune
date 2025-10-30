@@ -54,7 +54,7 @@
             <li>La migraci&oacute;n de base de datos es una actualizaci&oacute;n de la estructura y una actualizaci&oacute;n de datos en las tablas <strong>functions</strong> y <strong>metalang</strong>. Se basa en una comparaci&oacute;n de dos archivos que contienen el esquema SQL: el archivo actualmente en uso y el archivo de la nueva versi&oacute;n.
                <ul>
                   <li>para actualizaci&oacute;n estructural, se generar&aacute;n consultas UPDATE basadas en la comparaci&oacute;n.</li>
-                  <li>para actualizaci&oacute;n de datos de las tablas <strong>functions</strong> y <strong>metalang</strong>, se generar&aacute;n consultas <code>UPDATE</code> o <code>DELETE/INSERT</code>. Esta operaci&oacute;n preserva sus personalizaciones mientras actualiza el c&oacute;digo del sistema. (esta actualizaci&oacute;n de estas dos tablas es sistem&aacute;tica)</li>
+                  <li>para actualizaci&oacute;n de datos de las tablas <strong>functions</strong> y <strong>metalang</strong>, se generar&aacute;n consultas <code>DELETE/INSERT</code>. Esta operaci&oacute;n preserva sus personalizaciones mientras actualiza el c&oacute;digo del sistema. (esta actualizaci&oacute;n de estas dos tablas es sistem&aacute;tica)</li>
                </ul>
             </li>
             <li>Todo el procedimiento de actualizaci&oacute;n del portal es monitoreado y registrado en registros PHP y registros NPDS (<code>/slogs/install.log</code>)</li>

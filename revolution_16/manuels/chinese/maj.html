@@ -54,7 +54,7 @@
             <li>数据库迁移是结构的更新和<strong>functions</strong>和<strong>metalang</strong>表中数据的更新。它基于包含SQL模式的两个文件的比较：当前使用的文件和来自新版本的文件。
                <ul>
                   <li>对于结构更新，将基于比较生成UPDATE查询。</li>
-                  <li>对于<strong>functions</strong>和<strong>metalang</strong>表的数据更新，将生成<code>UPDATE</code>或<code>DELETE/INSERT</code>查询。此操作在更新系统代码的同时保留您的自定义。（这两个表的更新是系统性的）</li>
+                  <li>对于<strong>functions</strong>和<strong>metalang</strong>表的数据更新，将生成<code>DELETE/INSERT</code>查询。此操作在更新系统代码的同时保留您的自定义。（这两个表的更新是系统性的）</li>
                </ul>
             </li>
             <li>整个门户更新过程被监控并记录在PHP日志和NPDS日志中（<code>/slogs/install.log</code>）</li>

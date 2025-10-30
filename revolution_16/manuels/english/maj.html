@@ -54,7 +54,7 @@
             <li>Database migration is an update of the structure and an update of data in the <strong>functions</strong> and <strong>metalang</strong> tables. It is based on a comparison of two files containing the SQL schema: the file currently in use and the file from the new version.
                <ul>
                   <li>for structural update, UPDATE queries will be generated based on the comparison.</li>
-                  <li>for data update of the <strong>functions</strong> and <strong>metalang</strong> tables, <code>UPDATE</code> or <code>DELETE/INSERT</code> queries will be generated. This operation preserves your customizations while updating the system code. (this update of these two tables is systematic)</li>
+                  <li>for data update of the <strong>functions</strong> and <strong>metalang</strong> tables, <code>DELETE/INSERT</code> queries will be generated. This operation preserves your customizations while updating the system code. (this update of these two tables is systematic)</li>
                </ul>
             </li>
             <li>The entire portal update procedure is monitored and recorded in PHP logs and NPDS logs (<code>/slogs/install.log</code>)</li>
