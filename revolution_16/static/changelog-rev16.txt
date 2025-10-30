@@ -1,5 +1,5 @@
 ################################################################################
-changelog-rev16.8 [ révision : 57 - jpb /08-07-2025 ]
+changelog-rev16.8 [ révision : 58 - jpb /30-10-2025 ]
 (non exhaustif...)
 pour des informations complètes et détaillées visitez la page de comparaison entre cette version et la précédente : https://github.com/npds/npds_dune/compare/v.16.4...v.16.8
 Cette version est la première compatible avec php8 et mysql8.
@@ -23,6 +23,7 @@ Cette version est la première compatible avec php8 et mysql8.
    geocoder 4.3.4
    
 - évolutions :
+Implémentation d'un déployeur (pour le déploiement et la mise à jour des portails) complété par un migrateur de la base de données (doc :voir manuels maj.html)
    pour les groupes : création d'un bloc des groupes actifs (avec membres) et possibilité aux utilisateur de faire une demande d'adhésion. Et de la gestion de ces demandes par les admins (avec une nouvelle fonction d'alerte).
    envoi d'email : intégrations de la librairie PHPmailer pour la gestion d'envoi des mails ce qui permet entre autres d'utiliser le protocole SMTP(S), envois avec authentification ... et côté code beaucoup de possibilité d'améliorations et de simplification
    suppression de l'option d'envoi des mails avec la fonction email() devenue obsolète
