@@ -94,6 +94,7 @@ else
    error_log("🔧 ACTION DÉPLOYEUR - " . date('H:i:s') . " - " . $requestUri);
 
 // ==================== GESTION DU BLOCAGE ====================
+/*
 function shouldBlockAccess() {
    // Si admin (cookie ou return_url) → jamais bloquer
    if (isset($_COOKIE['admin']) || isset($_GET['return_url']))
@@ -106,6 +107,29 @@ function shouldBlockAccess() {
    }
    return false;
 }
+*/
+function shouldBlockAccess() {
+    // ⭐⭐ AUTORISER UNIQUEMENT les admins (via cookie)
+    if (isset($_COOKIE['admin'])) {
+        return false; // Admin → JAMAIS bloqué
+    }
+    
+    // ⭐⭐ ICI : On est dans le cas d'un NON-ADMIN
+    // Vérifier si NPDS est déjà installé dans la racine du site
+    $rootDir = $_SERVER['DOCUMENT_ROOT'];
+    $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
+    
+    foreach ($installFiles as $file) {
+        if (file_exists($rootDir . '/' . $file)) {
+            // ⭐⭐ BLOQUER les non-admins si NPDS est déjà installé
+            return true; // ← BLOQUER l'accès
+        }
+    }
+    
+    // ⭐⭐ AUTORISER les non-admins SEULEMENT si NPDS n'est pas installé
+    return false; // ← NE PAS bloquer (installation neuve autorisée)
+}
+
 if (shouldBlockAccess()) {
    if (!$headers_already_sent)
       header('HTTP/1.0 403 Forbidden');
@@ -1336,10 +1360,22 @@ class GithubDeployer {
    public function isNPDSInstalled($targetDir) {
       if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false)
          return true;
+         
+         // Construire le chemin absolu de la cible
+    if ($targetDir === '.' || $targetDir === './') {
+        $absolutePath = $_SERVER['DOCUMENT_ROOT'];
+    } else if ($targetDir[0] !== '/') {
+        // Chemin relatif : on le rapporte à la racine du site
+        $absolutePath = $_SERVER['DOCUMENT_ROOT'] . '/' . $targetDir;
+    } else {
+        // Chemin absolu
+        $absolutePath = $targetDir;
+    }
+         
       // Vérifier les fichiers spécifiques à npds
       $installFiles = ['mainfile.php','config.php', 'grab_globals.php', 'IZ-Xinstall.ok'];
       foreach ($installFiles as $file) {
-         $fullPath = $targetDir . '/' . $file;
+         $fullPath = $absolutePath . '/' . $file;
          error_log("🔍 Vérification: $fullPath");
          if (file_exists($fullPath)) {
             error_log("🔍 💥 FICHIER TROUVÉ: $fullPath - MISE À JOUR");
