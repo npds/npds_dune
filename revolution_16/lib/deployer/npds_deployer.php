@@ -892,7 +892,15 @@ function executeDeployment($version, $targetDir) {
 // ✅ Détection d'installation : utilise déjà la logique correcte
     $isUpdate = $deployer->isNPDSInstalled($targetDir);
 
-   $logMessage = function($message, $type = 'INFO') use ($targetDir, $deploymentId) {
+// ⭐⭐ CORRECTION : Même logique pour les logs
+    $logTargetDir = $targetDir;
+    if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
+        $logTargetDir = '../../' . $targetDir;
+        error_log("🎯 CORRECTION LOGS: $targetDir → $logTargetDir");
+    }
+
+
+   $logMessage = function($message, $type = 'INFO') use ($logTargetDir, $deploymentId) {
       $timestamp = date('d-M-Y H:i:s');
       $logEntry = "[$timestamp] [$deploymentId] [$type] $message\n";
       // Créer slogs/ dans la cible du déploiement
@@ -971,7 +979,7 @@ function executeDeployment($version, $targetDir) {
         // Si le déployeur est dans lib/deployer/ ET que ce n'est pas une mise à jour de la racine
         if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
             // Pour les installations neuves dans des dossiers, cibler la racine du site
-            $extractionTarget = '../' . $targetDir;
+            $extractionTarget = '../../' . $targetDir;
             error_log("🎯 Correction chemin: $targetDir → $extractionTarget");
         }
 
