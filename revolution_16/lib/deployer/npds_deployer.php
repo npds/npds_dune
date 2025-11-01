@@ -804,11 +804,20 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
    $deploymentId = $_GET['deploy_id'] ?? '';
    $sinceTime = $_GET['since'] ?? 0;
    $targetDir = $_GET['target'] ?? '.';
+   
+   
+   // ⭐⭐ CORRECTION : Même logique pour l'API de logs
+    $logTargetDir = $targetDir;
+    if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
+        $logTargetDir = '../../' . $targetDir;
+        error_log("🎯 CORRECTION API LOGS: $targetDir → $logTargetDir");
+    }
+   
    // ⭐⭐ DEBUG CRITIQUE
    error_log("🔍 API LOGS APPELÉE: deploy_id=$deploymentId, since=$sinceTime, target=$targetDir");
    // Lire le log depuis le dossier cible
    $messages = [];
-   $targetLogFile = $targetDir . '/slogs/install.log';
+   $targetLogFile = $logTargetDir . '/slogs/install.log';
    //error_log("📁 FICHIER LOG RECHERCHÉ: $targetLogFile");
    //error_log("📁 EXISTE: " . (file_exists($targetLogFile) ? 'OUI' : 'NON'));
    if (!file_exists($targetLogFile)) {
