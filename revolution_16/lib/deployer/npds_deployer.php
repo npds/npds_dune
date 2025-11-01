@@ -804,20 +804,11 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
    $deploymentId = $_GET['deploy_id'] ?? '';
    $sinceTime = $_GET['since'] ?? 0;
    $targetDir = $_GET['target'] ?? '.';
-   
-   
-   // ⭐⭐ CORRECTION : Même logique pour l'API de logs
-    $logTargetDir = $targetDir;
-    if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
-        $logTargetDir = '../../' . $targetDir;
-        error_log("🎯 CORRECTION API LOGS: $targetDir → $logTargetDir");
-    }
-   
    // ⭐⭐ DEBUG CRITIQUE
    error_log("🔍 API LOGS APPELÉE: deploy_id=$deploymentId, since=$sinceTime, target=$targetDir");
    // Lire le log depuis le dossier cible
    $messages = [];
-   $targetLogFile = $logTargetDir . '/slogs/install.log';
+   $targetLogFile = $targetDir . '/slogs/install.log';
    //error_log("📁 FICHIER LOG RECHERCHÉ: $targetLogFile");
    //error_log("📁 EXISTE: " . (file_exists($targetLogFile) ? 'OUI' : 'NON'));
    if (!file_exists($targetLogFile)) {
@@ -900,16 +891,7 @@ function executeDeployment($version, $targetDir) {
 
 // ✅ Détection d'installation : utilise déjà la logique correcte
     $isUpdate = $deployer->isNPDSInstalled($targetDir);
-
-// ⭐⭐ CORRECTION : Même logique pour les logs
-    $logTargetDir = $targetDir;
-    if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
-        $logTargetDir = '../../' . $targetDir;
-        error_log("🎯 CORRECTION LOGS: $targetDir → $logTargetDir");
-    }
-
-
-   $logMessage = function($message, $type = 'INFO') use ($logTargetDir, $deploymentId) {
+   $logMessage = function($message, $type = 'INFO') use ($targetDir, $deploymentId) {
       $timestamp = date('d-M-Y H:i:s');
       $logEntry = "[$timestamp] [$deploymentId] [$type] $message\n";
       // Créer slogs/ dans la cible du déploiement
@@ -981,19 +963,7 @@ function executeDeployment($version, $targetDir) {
             $logMessage("PROGRESS:44");
             $logMessage("PROGRESS:47");
 
-
-// ⭐⭐ CORRECTION MINIMALE : Extraction vers la racine si besoin
-        $extractionTarget = $targetDir;
-        
-        // Si le déployeur est dans lib/deployer/ ET que ce n'est pas une mise à jour de la racine
-        if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
-            // Pour les installations neuves dans des dossiers, cibler la racine du site
-            $extractionTarget = '../../' . $targetDir;
-            error_log("🎯 Correction chemin: $targetDir → $extractionTarget");
-        }
-
-
-      $extractResult = $deployer->extractFirstFolderContent($tempFile, $extractionTarget, 'zip', $version, $isUpdate);
+      $extractResult = $deployer->extractFirstFolderContent($tempFile, $targetDir, 'zip', $version, $isUpdate);
       if (!$extractResult['success']) 
          throw new Exception("Échec extraction: " . $extractResult['message']);
       $logMessage("PROGRESS:50");
@@ -1478,14 +1448,6 @@ class GithubDeployer {
 
    public function extractFirstFolderContent(string $archivePath, string $targetDir, string $format, string $version, bool $isUpdate = false): array {
       global $lang;
-      // ⭐⭐ CORRECTION : Appliquer la même logique de chemin ici
-    
-    $extractionTarget = $targetDir;
-    if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
-        $extractionTarget = '../../' . $targetDir;
-        error_log("🎯 CORRECTION EXTRACTION: $targetDir → $extractionTarget");
-    }
-    
       $tempExtractDir = $this->tempDir . '/' . uniqid('extract_');
       if (!@mkdir($tempExtractDir, 0755, true))
          return $this->createResult(false, t('temp_dir_error'));
@@ -1517,7 +1479,7 @@ class GithubDeployer {
             error_log("📁 Contenu du premier dossier: " . implode(', ', $items));
          }
          error_log("🚀 Copie depuis: " . $firstFolder . " vers: " . $targetDir);
-         $this->copyDirectoryContentsFlat($firstFolder, $extractionTarget, $version, $isUpdate);
+         $this->copyDirectoryContentsFlat($firstFolder, $targetDir, $version, $isUpdate);
          $this->removeDirectory($tempExtractDir);
          return $this->createResult(true, "Contenu extrait avec succès");
       } catch (Exception $e) {
