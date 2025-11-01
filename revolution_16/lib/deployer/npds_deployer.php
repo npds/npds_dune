@@ -1465,7 +1465,7 @@ class GithubDeployer {
     
     $extractionTarget = $targetDir;
     if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
-        $extractionTarget = '../' . $targetDir;
+        $extractionTarget = '../../' . $targetDir;
         error_log("🎯 CORRECTION EXTRACTION: $targetDir → $extractionTarget");
     }
     
