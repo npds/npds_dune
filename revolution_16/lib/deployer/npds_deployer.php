@@ -146,6 +146,18 @@ if (shouldBlockAccess()) {
    </html>');
 }
 
+function getAbsoluteTargetPath($relativePath) {
+    if ($relativePath === '.' || $relativePath === './') {
+        return $_SERVER['DOCUMENT_ROOT'];
+    } else if ($relativePath[0] !== '/') {
+        return $_SERVER['DOCUMENT_ROOT'] . '/' . $relativePath;
+    } else {
+        return $relativePath;
+    }
+}
+
+
+
 // ==================== TRADUCTIONS ====================
 $translations = [
    'fr' => [
@@ -776,9 +788,14 @@ if (isset($_GET['api']) && $_GET['api'] === 'deploy') {
          throw new Exception("Confirmation manquante");
       $version = $_GET['version'];
       $targetDir = $_GET['path'] ?? '.';
+      
+      // ⭐⭐ UTILISER LE CHEMIN ABSOLU
+        $absoluteTargetPath = getAbsoluteTargetPath($targetDir);
+        error_log("🎯 API DEPLOY - Chemin absolu: $absoluteTargetPath");
+      
       error_log("📋 Paramètres API: version=$version, path=$targetDir");
       // Démarrer immédiatement le déploiement
-      $result = executeDeployment($version, $targetDir);
+      $result = executeDeployment($version, $absoluteTargetPath);
       error_log("✅ API DEPLOY SUCCESS: " . $result['message']);
       echo json_encode($result);
       // Supprimer le verrou API
@@ -804,11 +821,15 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
    $deploymentId = $_GET['deploy_id'] ?? '';
    $sinceTime = $_GET['since'] ?? 0;
    $targetDir = $_GET['target'] ?? '.';
+   
+   // ⭐⭐ UTILISER LE CHEMIN ABSOLU
+    $absoluteTargetPath = getAbsoluteTargetPath($targetDir);
+    $targetLogFile = $absoluteTargetPath . '/slogs/install.log';
    // ⭐⭐ DEBUG CRITIQUE
    error_log("🔍 API LOGS APPELÉE: deploy_id=$deploymentId, since=$sinceTime, target=$targetDir");
    // Lire le log depuis le dossier cible
    $messages = [];
-   $targetLogFile = $targetDir . '/slogs/install.log';
+   $targetLogFile = $absoluteTargetPath . '/slogs/install.log';
    //error_log("📁 FICHIER LOG RECHERCHÉ: $targetLogFile");
    //error_log("📁 EXISTE: " . (file_exists($targetLogFile) ? 'OUI' : 'NON'));
    if (!file_exists($targetLogFile)) {
@@ -883,6 +904,10 @@ if (!$headers_already_sent && !isset($_GET['api'])) {
 
 // ==================== FONCTION DE DÉPLOIEMENT API ====================
 function executeDeployment($version, $targetDir) {
+// ⭐⭐ UTILISER LE CHEMIN ABSOLU
+    $absoluteTargetPath = getAbsoluteTargetPath($targetDir);
+    error_log("🎯 EXECUTE DEPLOYMENT - Chemin absolu: $absoluteTargetPath");
+
    $start_time = time();
    $apiLockFile = __DIR__ . '/api_deploy.lock';
    $globalLockFile = __DIR__ . '/global_deploy.lock';
@@ -890,12 +915,12 @@ function executeDeployment($version, $targetDir) {
    $deployer = new GithubDeployer();
 
 // ✅ Détection d'installation : utilise déjà la logique correcte
-    $isUpdate = $deployer->isNPDSInstalled($targetDir);
-   $logMessage = function($message, $type = 'INFO') use ($targetDir, $deploymentId) {
+    $isUpdate = $deployer->isNPDSInstalled($absoluteTargetPath);
+   $logMessage = function($message, $type = 'INFO') use ($absoluteTargetPath, $deploymentId) {
       $timestamp = date('d-M-Y H:i:s');
       $logEntry = "[$timestamp] [$deploymentId] [$type] $message\n";
       // Créer slogs/ dans la cible du déploiement
-      $targetSlogsDir = $targetDir . '/slogs';
+      $targetSlogsDir = $absoluteTargetPath . '/slogs';
       if (!is_dir($targetSlogsDir))
          @mkdir($targetSlogsDir, 0755, true);
       $targetLogFile = $targetSlogsDir . '/install.log';
@@ -963,7 +988,7 @@ function executeDeployment($version, $targetDir) {
             $logMessage("PROGRESS:44");
             $logMessage("PROGRESS:47");
 
-      $extractResult = $deployer->extractFirstFolderContent($tempFile, $targetDir, 'zip', $version, $isUpdate);
+      $extractResult = $deployer->extractFirstFolderContent($tempFile, $absoluteTargetPath, 'zip', $version, $isUpdate);
       if (!$extractResult['success']) 
          throw new Exception("Échec extraction: " . $extractResult['message']);
       $logMessage("PROGRESS:50");
