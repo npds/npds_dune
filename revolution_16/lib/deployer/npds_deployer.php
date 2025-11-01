@@ -1461,6 +1461,14 @@ class GithubDeployer {
 
    public function extractFirstFolderContent(string $archivePath, string $targetDir, string $format, string $version, bool $isUpdate = false): array {
       global $lang;
+      // ⭐⭐ CORRECTION : Appliquer la même logique de chemin ici
+    
+    $extractionTarget = $targetDir;
+    if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
+        $extractionTarget = '../' . $targetDir;
+        error_log("🎯 CORRECTION EXTRACTION: $targetDir → $extractionTarget");
+    }
+    
       $tempExtractDir = $this->tempDir . '/' . uniqid('extract_');
       if (!@mkdir($tempExtractDir, 0755, true))
          return $this->createResult(false, t('temp_dir_error'));
@@ -1492,7 +1500,7 @@ class GithubDeployer {
             error_log("📁 Contenu du premier dossier: " . implode(', ', $items));
          }
          error_log("🚀 Copie depuis: " . $firstFolder . " vers: " . $targetDir);
-         $this->copyDirectoryContentsFlat($firstFolder, $targetDir, $version, $isUpdate);
+         $this->copyDirectoryContentsFlat($firstFolder, $extractionTarget, $version, $isUpdate);
          $this->removeDirectory($tempExtractDir);
          return $this->createResult(true, "Contenu extrait avec succès");
       } catch (Exception $e) {
