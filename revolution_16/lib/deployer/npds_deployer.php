@@ -888,7 +888,10 @@ function executeDeployment($version, $targetDir) {
    $globalLockFile = __DIR__ . '/global_deploy.lock';
    $deploymentId = $_GET['deploy_id'] ?? uniqid('deploy_');
    $deployer = new GithubDeployer();
-   $isUpdate = $deployer->isNPDSInstalled($targetDir);
+
+// ✅ Détection d'installation : utilise déjà la logique correcte
+    $isUpdate = $deployer->isNPDSInstalled($targetDir);
+
    $logMessage = function($message, $type = 'INFO') use ($targetDir, $deploymentId) {
       $timestamp = date('d-M-Y H:i:s');
       $logEntry = "[$timestamp] [$deploymentId] [$type] $message\n";
@@ -961,7 +964,19 @@ function executeDeployment($version, $targetDir) {
             $logMessage("PROGRESS:44");
             $logMessage("PROGRESS:47");
 
-      $extractResult = $deployer->extractFirstFolderContent($tempFile, $targetDir, 'zip', $version, $isUpdate);
+
+// ⭐⭐ CORRECTION MINIMALE : Extraction vers la racine si besoin
+        $extractionTarget = $targetDir;
+        
+        // Si le déployeur est dans lib/deployer/ ET que ce n'est pas une mise à jour de la racine
+        if (strpos(__DIR__, 'lib/deployer') !== false && $targetDir !== '.' && $targetDir !== './') {
+            // Pour les installations neuves dans des dossiers, cibler la racine du site
+            $extractionTarget = '../' . $targetDir;
+            error_log("🎯 Correction chemin: $targetDir → $extractionTarget");
+        }
+
+
+      $extractResult = $deployer->extractFirstFolderContent($tempFile, $extractionTarget, 'zip', $version, $isUpdate);
       if (!$extractResult['success']) 
          throw new Exception("Échec extraction: " . $extractResult['message']);
       $logMessage("PROGRESS:50");
