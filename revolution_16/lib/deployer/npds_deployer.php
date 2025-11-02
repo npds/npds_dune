@@ -116,6 +116,12 @@ function shouldBlockAccess() {
 }
 */
 function shouldBlockAccess() {
+
+// ⭐⭐ AJOUTER CETTE LIGNE POUR TEST - À RETIRER APRÈS
+    if (strpos($_SERVER['REQUEST_URI'], '/npds_test/') !== false) {
+        return false;
+    }
+
     $rootDir = $_SERVER['DOCUMENT_ROOT'];
     $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
     
