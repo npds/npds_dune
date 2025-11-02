@@ -979,7 +979,7 @@ function executeDeployment($version, $targetDir) {
          $addedFiles = $backupResult['file_count'];
          $size = filesize($backupResult['file']);
          $size_mb = round($size/1024/1024, 2);
-         $logMessage('✅ Backup créé: '.$addedFiles.' '.t('files').' ('.$size_mb.' MB)');
+         $logMessage('💾 Backup créé: '.$addedFiles.' '.t('files').' ('.$size_mb.' MB)');
          error_log("✅ Backup créé");
       }
       // Téléchargement
@@ -1002,7 +1002,7 @@ function executeDeployment($version, $targetDir) {
       if (!$downloadResult['success'])
          throw new Exception("Échec téléchargement: " . $downloadResult['message']);
       $fileSize = filesize($tempFile);
-      $logMessage("✅ " .t('download_success').": " . round($fileSize/1024/1024, 2) . " MB");
+      $logMessage("📦 " .t('download_success').": " . round($fileSize/1024/1024, 2) . " MB");
       // Extraction
       $logMessage("PROCESS:EXTRACT");
       $logMessage("PROGRESS:20");
@@ -1020,8 +1020,8 @@ function executeDeployment($version, $targetDir) {
             $logMessage("PROGRESS:53");
 
       $logMessage("PROGRESS:57");
-      $logMessage('✅ '.t('extraction_finished'));
-      $logMessage('🔄 '.t('copying_files').'...');
+      $logMessage('🔧 '.t('extraction_finished'));
+      $logMessage('📁 '.t('copying_files').'...');
 //      sleep(2);
       $logMessage("PROCESS:COPY");
       $logMessage("PROGRESS:65");
@@ -1029,7 +1029,7 @@ function executeDeployment($version, $targetDir) {
       $logMessage("PROGRESS:90");
       $logMessage('🔧 '.t('copied').'...');
       $logMessage("PROGRESS:99");
-      $logMessage('✅ '.t('copy_finished'));
+      $logMessage('📋 '.t('copy_finished'));
       $logMessage("PROGRESS:100");
 
       // Nettoyage
@@ -1040,7 +1040,7 @@ function executeDeployment($version, $targetDir) {
             t('deploy_succes_update') : 
             t('deploy_succes_newinst') ;
       error_log('🎉 ' . $completionMessage . ' : ' . $duration . ' secondes');
-      $logMessage('🎉 ' . $completionMessage . ' : ' . $duration . ' '.t('secondes'), "SUCCESS");
+      $logMessage('🎉 ' . $completionMessage . ' (' . $duration . ' '.t('secondes').')', "SUCCESS");
 
       // SUPPRIMER LES DEUX VERROUS DIRECTEMENT
       if (file_exists($apiLockFile)) {
@@ -1065,7 +1065,7 @@ function executeDeployment($version, $targetDir) {
       error_log("💥 ERREUR DÉPLOIEMENT: " . $e->getMessage());
       return [
          'success' => false,
-         'message' => $e->getMessage(),
+         'message' => '💥 ' . $e->getMessage(),
          'duration' => time() - $start_time
       ];
    }
@@ -2083,22 +2083,14 @@ function showAjaxDeployInterface() {
                         console.log("🕒 Nouveau lastUpdateTime:", lastUpdateTime);
                      }
                      console.log("🔍 Dernier message brut:", data.messages[data.messages.length - 1]);
-                     const isSuccessEnd = lastMessage.type === "success" || 
-                                          lastMessage.type === "SUCCESS" || 
-                                          lastMessage.message.includes("succès") || 
-                                          lastMessage.message.includes("success") ||
-                                          lastMessage.message.includes("terminé") ||
-                                          lastMessage.message.includes("completed") ||
-                                          lastMessage.message.includes("🎉") ||
-                                          lastMessage.message.includes("Mise à jour terminée") ||
-                                          lastMessage.message.includes("installation déployée");
-                     const isErrorEnd = lastMessage.type === "error" || 
-                                       lastMessage.message.includes("échec") || 
-                                       lastMessage.message.includes("failed") ||
-                                       lastMessage.message.includes("erreur") ||
-                                       lastMessage.message.includes("error") ||
-                                       lastMessage.message.includes("💥") ||
-                                       lastMessage.message.includes("ERREUR");
+                     const isSuccessEnd = 
+                                       lastMessage.message.includes("🎉") ||
+                                       lastMessage.type === "SUCCESS";
+                     const isErrorEnd = lastMessage.message.includes("💥") ||   // Erreur explosive
+                                        lastMessage.message.includes("🚨") ||   // Alerte bloquante  
+                                        lastMessage.message.includes("❌") ||    // Échec confirmé
+                                        lastMessage.type === "ERROR";           // Type système de log
+
                      console.log("🎯 Détection fin - isSuccessEnd:", isSuccessEnd, "isErrorEnd:", isErrorEnd);
 
                      if (isSuccessEnd || isErrorEnd) {
