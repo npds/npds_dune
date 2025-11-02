@@ -93,43 +93,68 @@ elseif ($isMainInterface)
 else
    error_log("🔧 ACTION DÉPLOYEUR - " . date('H:i:s') . " - " . $requestUri);
 
+$headers_already_sent = headers_sent();
+
 // ==================== GESTION DU BLOCAGE ====================
 /*
 function shouldBlockAccess() {
-   // Si admin (cookie ou return_url) → jamais bloquer
-   if (isset($_COOKIE['admin']) || isset($_GET['return_url']))
-      return false;
-   // Si NPDS installé → bloquer l'accès non-admin
+   // ⭐⭐ AUTORISER UNIQUEMENT les admins (via cookie)
+   if (isset($_COOKIE['admin']))
+     return false; // Admin → JAMAIS bloqué
+   // ⭐⭐ ICI : On est dans le cas d'un NON-ADMIN
+   // Vérifier si NPDS est déjà installé dans la racine du site
+   $rootDir = $_SERVER['DOCUMENT_ROOT'];
    $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
    foreach ($installFiles as $file) {
-      if (file_exists($file))
+      if (file_exists($rootDir . '/' . $file)) {
+         // ⭐⭐ BLOQUER les non-admins si NPDS est déjà installé
          return true;
+      }
    }
-   return false;
+    // ⭐⭐ AUTORISER les non-admins SEULEMENT si NPDS n'est pas installé
+    return false;
 }
 */
 function shouldBlockAccess() {
-    // ⭐⭐ AUTORISER UNIQUEMENT les admins (via cookie)
-    if (isset($_COOKIE['admin'])) {
-        return false; // Admin → JAMAIS bloqué
-    }
-    
-    // ⭐⭐ ICI : On est dans le cas d'un NON-ADMIN
-    // Vérifier si NPDS est déjà installé dans la racine du site
     $rootDir = $_SERVER['DOCUMENT_ROOT'];
     $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
     
+    // Vérifier si NPDS est installé dans la racine
+    $npdsInstalled = false;
     foreach ($installFiles as $file) {
         if (file_exists($rootDir . '/' . $file)) {
-            // ⭐⭐ BLOQUER les non-admins si NPDS est déjà installé
-            return true; // ← BLOQUER l'accès
+            $npdsInstalled = true;
+            break;
         }
     }
     
-    // ⭐⭐ AUTORISER les non-admins SEULEMENT si NPDS n'est pas installé
-    return false; // ← NE PAS bloquer (installation neuve autorisée)
+    // Détecter le contexte
+    $isStandalone = (strpos(__DIR__, 'lib/deployer') === false);
+    
+    // ⭐⭐ CORRECTION : Détecter si la cible est la racine
+    $targetDir = $_GET['path'] ?? '.';
+    $isRootTarget = ($targetDir === '.' || $targetDir === './' || 
+                    getAbsoluteTargetPath($targetDir) === $rootDir);
+    
+    // ⭐⭐ RÈGLE CRITIQUE : Standalone + installation racine avec NPDS installé → BLOQUER
+    if ($isStandalone && $npdsInstalled && $isRootTarget) {
+        return true; // ← Installation racine avec NPDS existant = BLOQUÉ
+    }
+    
+    // Admin dans lib/deployer/ → AUTORISER
+    if (isset($_COOKIE['admin'])) {
+        return false;
+    }
+    
+    // Non-admin avec NPDS installé → BLOQUER
+    if ($npdsInstalled) {
+        return true;
+    }
+    
+    // Non-admin sans NPDS installé → AUTORISER
+    return false;
 }
-
+    
 if (shouldBlockAccess()) {
    if (!$headers_already_sent)
       header('HTTP/1.0 403 Forbidden');
@@ -137,11 +162,11 @@ if (shouldBlockAccess()) {
    <!DOCTYPE html>
    <html>
       <head>
-         <title>🚫 NPDS Déjà Installé</title>
+         <title>🚫 Accès au déployeur refusé</title>
          <style>body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }</style>
       </head>
       <body>
-         <div><h1>🚫 Accès Refusé</h1><p>NPDS est déjà installé.</p><p><a href="admin.php">➡️ Accéder à l\'administration</a></p></div>
+         <div><h1>🚫 Accès au déployeur refusé</h1><<p>Vous devez être administrateur ! <strong>OU</strong> NPDS ne doit pas être déjà installé !</p></div>
       </body>
    </html>');
 }
@@ -876,7 +901,7 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
 }
 
 // ==================== DÉTECTION DU CONTEXTE AMÉLIORÉE ====================
-$headers_already_sent = headers_sent();
+// $headers_already_sent = headers_sent();
 
 // ==================== CONFIGURATIONS ====================
 set_time_limit(0);
