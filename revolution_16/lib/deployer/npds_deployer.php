@@ -96,69 +96,41 @@ else
 $headers_already_sent = headers_sent();
 
 // ==================== GESTION DU BLOCAGE ====================
-/*
+
 function shouldBlockAccess() {
-   // ⭐⭐ AUTORISER UNIQUEMENT les admins (via cookie)
-   if (isset($_COOKIE['admin']))
-     return false; // Admin → JAMAIS bloqué
-   // ⭐⭐ ICI : On est dans le cas d'un NON-ADMIN
-   // Vérifier si NPDS est déjà installé dans la racine du site
    $rootDir = $_SERVER['DOCUMENT_ROOT'];
    $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
+
+   // Vérifier si NPDS est installé dans la racine
+   $npdsInstalled = false;
    foreach ($installFiles as $file) {
       if (file_exists($rootDir . '/' . $file)) {
-         // ⭐⭐ BLOQUER les non-admins si NPDS est déjà installé
-         return true;
+         $npdsInstalled = true;
+         break;
       }
    }
-    // ⭐⭐ AUTORISER les non-admins SEULEMENT si NPDS n'est pas installé
-    return false;
-}
-*/
-function shouldBlockAccess() {
-
-// ⭐⭐ AJOUTER CETTE LIGNE POUR TEST - À RETIRER APRÈS
-    if (strpos($_SERVER['REQUEST_URI'], '/npds_test/') !== false) {
-        return false;
-    }
-
-    $rootDir = $_SERVER['DOCUMENT_ROOT'];
-    $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
-    
-    // Vérifier si NPDS est installé dans la racine
-    $npdsInstalled = false;
-    foreach ($installFiles as $file) {
-        if (file_exists($rootDir . '/' . $file)) {
-            $npdsInstalled = true;
-            break;
-        }
-    }
-    
-    // Détecter le contexte
-    $isStandalone = (strpos(__DIR__, 'lib/deployer') === false);
-    
-    // ⭐⭐ CORRECTION : Détecter si la cible est la racine
-    $targetDir = $_GET['path'] ?? '.';
-    $isRootTarget = ($targetDir === '.' || $targetDir === './' || 
+   // Détecter le contexte
+   $isStandalone = (strpos(__DIR__, 'lib/deployer') === false);
+   
+   // ⭐⭐ CORRECTION : Détecter si la cible est la racine
+   $targetDir = $_GET['path'] ?? '.';
+   $isRootTarget = ($targetDir === '.' || $targetDir === './' || 
                     getAbsoluteTargetPath($targetDir) === $rootDir);
-    
-    // ⭐⭐ RÈGLE CRITIQUE : Standalone + installation racine avec NPDS installé → BLOQUER
-    if ($isStandalone && $npdsInstalled && $isRootTarget) {
-        return true; // ← Installation racine avec NPDS existant = BLOQUÉ
-    }
-    
-    // Admin dans lib/deployer/ → AUTORISER
-    if (isset($_COOKIE['admin'])) {
-        return false;
-    }
-    
-    // Non-admin avec NPDS installé → BLOQUER
-    if ($npdsInstalled) {
-        return true;
-    }
-    
-    // Non-admin sans NPDS installé → AUTORISER
-    return false;
+
+   // ⭐⭐ RÈGLE CRITIQUE : Standalone + installation racine avec NPDS installé → BLOQUER
+   if ($isStandalone && $npdsInstalled && $isRootTarget) {
+      return true; // ← Installation racine avec NPDS existant = BLOQUÉ
+   }
+   // Admin dans lib/deployer/ → AUTORISER
+   if (isset($_COOKIE['admin'])) {
+      return false;
+   }
+   // Non-admin avec NPDS installé → BLOQUER
+   if ($npdsInstalled) {
+      return true;
+   }
+   // Non-admin sans NPDS installé → AUTORISER
+   return false;
 }
     
 if (shouldBlockAccess()) {
