@@ -98,6 +98,10 @@ $headers_already_sent = headers_sent();
 // ==================== GESTION DU BLOCAGE ====================
 
 function shouldBlockAccess() {
+
+   // ⭐⭐ TOUJOURS AUTORISER L'API LOGS - CRITIQUE
+   if (isset($_GET['api']) && $_GET['api'] === 'logs')
+      return false;
    $rootDir = $_SERVER['DOCUMENT_ROOT'];
    $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
 
@@ -1000,7 +1004,7 @@ function executeDeployment($version, $targetDir) {
       $logMessage("PROGRESS:57");
       $logMessage('🔧 '.t('extraction_finished'));
       $logMessage('📁 '.t('copying_files').'...');
-//      sleep(2);
+      sleep(2);
       $logMessage("PROCESS:COPY");
       $logMessage("PROGRESS:65");
       $logMessage("PROGRESS:80");
@@ -2027,7 +2031,7 @@ function showAjaxDeployInterface() {
             } catch (error) {
                console.error("💥 ERREUR dans processMessageQueue():", error);
             }
-            // Délai de 800ms entre chaque message
+            // Délai de 300ms entre chaque message
             setTimeout(() => {
                console.log("🏁 FIN processMessageQueue() - Remise à FALSE");
                isProcessingQueue = false;
@@ -2035,7 +2039,7 @@ function showAjaxDeployInterface() {
                   console.log("🔄 Queue non vide - Rappel automatique");
                   processMessageQueue();
                } else {console.log("💤 Queue vide - Attente");}
-            }, 1200);
+            }, 300);
          }
 
          function checkLogs() {
