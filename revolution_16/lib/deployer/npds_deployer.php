@@ -98,13 +98,11 @@ $headers_already_sent = headers_sent();
 // ==================== GESTION DU BLOCAGE ====================
 
 function shouldBlockAccess() {
-
    // ⭐⭐ TOUJOURS AUTORISER L'API LOGS - CRITIQUE
    if (isset($_GET['api']) && $_GET['api'] === 'logs')
       return false;
    $rootDir = $_SERVER['DOCUMENT_ROOT'];
    $installFiles = ['config.php', 'IZ-Xinstall.ok', 'mainfile.php', 'grab_globals.php'];
-
    // Vérifier si NPDS est installé dans la racine
    $npdsInstalled = false;
    foreach ($installFiles as $file) {
@@ -115,28 +113,26 @@ function shouldBlockAccess() {
    }
    // Détecter le contexte
    $isStandalone = (strpos(__DIR__, 'lib/deployer') === false);
-   
+
    // ⭐⭐ CORRECTION : Détecter si la cible est la racine
    $targetDir = $_GET['path'] ?? '.';
    $isRootTarget = ($targetDir === '.' || $targetDir === './' || 
                     getAbsoluteTargetPath($targetDir) === $rootDir);
 
-   // ⭐⭐ RÈGLE CRITIQUE : Standalone + installation racine avec NPDS installé → BLOQUER
-   if ($isStandalone && $npdsInstalled && $isRootTarget) {
-      return true; // ← Installation racine avec NPDS existant = BLOQUÉ
-   }
-   // Admin dans lib/deployer/ → AUTORISER
-   if (isset($_COOKIE['admin'])) {
-      return false;
-   }
-   // Non-admin avec NPDS installé → BLOQUER
-   if ($npdsInstalled) {
+   // RÈGLE CRITIQUE : Standalone + racine avec NPDS installé → BLOQUER
+   // Installation racine avec NPDS existant = BLOQUÉ
+   if ($isStandalone && $npdsInstalled && $isRootTarget)
       return true;
-   }
+   // Admin dans lib/deployer/ → AUTORISER
+   if (isset($_COOKIE['admin']))
+      return false;
+   // Non-admin avec NPDS installé → BLOQUER
+   if ($npdsInstalled)
+      return true;
    // Non-admin sans NPDS installé → AUTORISER
    return false;
 }
-    
+
 if (shouldBlockAccess()) {
    if (!$headers_already_sent)
       header('HTTP/1.0 403 Forbidden');
@@ -148,22 +144,19 @@ if (shouldBlockAccess()) {
          <style>body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }</style>
       </head>
       <body>
-         <div><h1>🚫 Accès au déployeur refusé</h1><<p>Vous devez être administrateur ! <strong>OU</strong> NPDS ne doit pas être déjà installé !</p></div>
+         <div><h1>🚫 Accès au déployeur refusé</h1><p>Vous devez être administrateur ! <strong>OU</strong> NPDS ne doit pas être déjà installé !</p></div>
       </body>
    </html>');
 }
 
 function getAbsoluteTargetPath($relativePath) {
-    if ($relativePath === '.' || $relativePath === './') {
-        return $_SERVER['DOCUMENT_ROOT'];
-    } else if ($relativePath[0] !== '/') {
-        return $_SERVER['DOCUMENT_ROOT'] . '/' . $relativePath;
-    } else {
-        return $relativePath;
-    }
+   if ($relativePath === '.' || $relativePath === './')
+      return $_SERVER['DOCUMENT_ROOT'];
+   else if ($relativePath[0] !== '/')
+      return $_SERVER['DOCUMENT_ROOT'] . '/' . $relativePath;
+   else
+      return $relativePath;
 }
-
-
 
 // ==================== TRADUCTIONS ====================
 $translations = [
