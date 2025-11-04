@@ -308,7 +308,7 @@ function maj_success() {
 
 #autodoc maj_migrate_db() : Affiche les résultats des comparaison structurelles des deux fichiers sql et des requêtes générées nécessaires
 function maj_migrate_db() {
-   global $hlpfile, $f_meta_nom, $f_titre, $adminimg;
+   global $hlpfile, $f_meta_nom, $f_titre, $adminimg, $NPDS_Prefix;
    include 'header.php';
    GraphicAdmin($hlpfile);
    adminhead($f_meta_nom, $f_titre, $adminimg);
@@ -355,7 +355,7 @@ function maj_migrate_db() {
                <strong>'.adm_translate('Identiques').' ?</strong> : ' . ($backupContent === $newContent ? '✅ '.adm_translate('Oui') : '❌ '.adm_translate('Non')) . '
             </p>
          </div>';
-      $migrator = new NPDSDatabaseMigrator($backupFile, $newSchemaFile);
+      $migrator = new NPDSDatabaseMigrator($backupFile, $newSchemaFile, $NPDS_Prefix);
       // 1. ANALYSER
       $differences = $migrator->compareSchemas();
       // SI DIFFÉRENCES AFFICHER

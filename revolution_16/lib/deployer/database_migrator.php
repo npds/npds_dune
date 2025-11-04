@@ -262,7 +262,7 @@ class NPDSDatabaseMigrator {
 
       foreach ($metalangData as $def => $data) {
          $queries[] = "DELETE FROM `$prefixedMetalang` WHERE def = '$def' AND obligatoire = '1';";
-         $insertQuery = str_replace(
+         $queries = str_replace(
             "INSERT INTO metalang", 
             "INSERT INTO `$prefixedMetalang`", 
             $data['full_insert']
