@@ -20,12 +20,14 @@ date_default_timezone_set('Europe/Paris');
 class NPDSDatabaseMigrator {
    private $currentSqlFile;
    private $newSqlFile;
+   private $prefix;
 
-   public function __construct($currentSqlFile, $newSqlFile) {
+   public function __construct($currentSqlFile, $newSqlFile, $prefix = '') {
       error_log("MIGRATOR CONSTRUCT: currentSqlFile = " . $currentSqlFile);
       error_log("MIGRATOR CONSTRUCT: newSqlFile = " . $newSqlFile);
       $this->currentSqlFile = $currentSqlFile;
       $this->newSqlFile = $newSqlFile;
+      $this->prefix = $prefix;
    }
 
    /**
@@ -187,18 +189,24 @@ class NPDSDatabaseMigrator {
       $queries = [];
       // Tables à supprimer (attention: données perdues!)
       foreach ($differences['dropped_tables'] as $table) {
-         $queries[] = "DROP TABLE IF EXISTS `$table`;";
+         $prefixedTable = $this->prefix . $table;
+         $queries[] = "DROP TABLE IF EXISTS `$prefixedTable`;";
       }
       // Nouvelles tables (à créer)
       $newSchema = $this->parseSQLFile($this->newSqlFile);
       foreach ($differences['new_tables'] as $table) {
-         if (isset($newSchema[$table]))
-            $queries[] = "CREATE TABLE IF NOT EXISTS `$table` (" . $newSchema[$table]['definition'] . ");";
+         if (isset($newSchema[$table])) {
+            $prefixedTable = $this->prefix . $table;
+//            $queries[] = "CREATE TABLE IF NOT EXISTS `$table` (" . $newSchema[$table]['definition'] . ");";
+            $queries[] = "CREATE TABLE IF NOT EXISTS `$prefixedTable` (" . $newSchema[$table]['definition'] . ");";
+
+         }
       }
       // Colonnes à supprimer
       foreach ($differences['dropped_columns'] as $table => $columns) {
          foreach ($columns as $column) {
-            $queries[] = "ALTER TABLE `$table` DROP COLUMN `$column`;";
+            $prefixedTable = $this->prefix . $table;
+            $queries[] = "ALTER TABLE `$prefixedTable` DROP COLUMN `$column`;";
          }
       }
       // Nouvelles colonnes
@@ -207,14 +215,16 @@ class NPDSDatabaseMigrator {
          foreach ($columns as $column) {
             if (isset($newSchema[$table]['columns'][$column])) {
                $definition = $newSchema[$table]['columns'][$column];
-               $queries[] = "ALTER TABLE `$table` ADD COLUMN IF NOT EXISTS `$column` $definition;";
+               $prefixedTable = $this->prefix . $table;
+               $queries[] = "ALTER TABLE `$prefixedTable` ADD COLUMN IF NOT EXISTS `$column` $definition;";
             }
          }
       }
       // Colonnes modifiées
       foreach ($differences['modified_columns'] as $table => $columns) {
          foreach ($columns as $column => $definitions) {
-            $queries[] = "ALTER TABLE `$table` MODIFY COLUMN `$column` " . $definitions['new'] . ";";
+            $prefixedTable = $this->prefix . $table;
+            $queries[] = "ALTER TABLE `$prefixedTable` MODIFY COLUMN `$column` " . $definitions['new'] . ";";
          }
       }
       return $queries;
@@ -233,20 +243,32 @@ class NPDSDatabaseMigrator {
       $functionInserts = $this->extractInsertStatements($newSqlContent, 'fonctions');
       $functionData = $this->parseFunctionInserts($functionInserts);
       $systemFunctionIds = range(1, 75);
+      $prefixedFonctions = $this->prefix . 'fonctions';
+
       foreach ($systemFunctionIds as $id) {
          if (isset($functionData[$id])) {
-            $queries[] = "DELETE FROM fonctions WHERE fid = $id;";
-            $queries[] = $functionData[$id]['full_insert'];
+            $queries[] = "DELETE FROM `$prefixedFonctions` WHERE fid = $id;";
+            $queries[] = str_replace(
+                "INSERT INTO fonctions", 
+                "INSERT INTO `$prefixedFonctions`", 
+                $functionData[$id]['full_insert']
+            );
          }
       }
       // 2. METALANG - Toujours DELETE+INSERT (structure simple + obligatoire='1')
       $metalangInserts = $this->extractInsertStatements($newSqlContent, 'metalang');
       $metalangData = $this->parseMetalangInserts($metalangInserts);
+      $prefixedMetalang = $this->prefix . 'metalang';
+
       foreach ($metalangData as $def => $data) {
-         $queries[] = "DELETE FROM metalang WHERE def = '$def' AND obligatoire = '1';";
-         $queries[] = $data['full_insert'];
+         $queries[] = "DELETE FROM `$prefixedMetalang` WHERE def = '$def' AND obligatoire = '1';";
+         $insertQuery = str_replace(
+            "INSERT INTO metalang", 
+            "INSERT INTO `$prefixedMetalang`", 
+            $data['full_insert']
+        );
       }
-      $queries[] = "ALTER TABLE fonctions ORDER BY fid;";
+      $queries[] = "ALTER TABLE `$prefixedFonctions` ORDER BY fid;";
       return $queries;
    }
 
