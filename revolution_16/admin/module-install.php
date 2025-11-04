@@ -130,25 +130,7 @@ function nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon) {
    <div class="lead">'.$name_module.'</div>
    <hr />
    <div>';
-   for ($i = 0; $i < count($sql) && !isset($erreur); $i++) {
-      sql_query($sql[$i]) or $erreur = sql_error();
-   }
-   if (isset($erreur)) {
-      $display .= '
-      <div class="alert alert-danger">
-         <p>'.adm_translate("Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :").'</p>
-         <p><strong>'.$erreur.'</strong></p>
-         <p>'.adm_translate("Veuillez l'exécuter manuellement via phpMyAdmin.").'</p>
-      </div>
-      <p>'.adm_translate("Voici le script SQL :").'</p>';
-      for ($i = 0; $i < count($sql); $i++) {
-         $reqsql .= '<pre class="language-sql"><code class="language-sql">'.$sql[$i].'</code></pre><br />';
-      }
-      $display .= $reqsql;
-      $display .= "<br />\n";
-   } else {
-   
-      if ($path_adm_module != '') {
+   if ($path_adm_module != '') {
       //controle si on a pas déja la fonction (si oui on efface sinon on renseigne)
       $ck = sql_query("SELECT fnom FROM ".$NPDS_Prefix."fonctions WHERE fnom = '".$name_module."'");
       if($ck)
@@ -167,13 +149,27 @@ function nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon) {
       }
       //<== ajout des alertesadmin
    }
-
-   
-   
-   
-   
-   
-      $display .= '<p class="text-success"><strong>'.adm_translate('La configuration de la base de données MySql a réussie !').'</strong></p>';
+   if (empty(array_filter($sql, 'strlen'))) {
+      for ($i = 0; $i < count($sql) && !isset($erreur); $i++) {
+         sql_query($sql[$i]) or $erreur = sql_error();
+      }
+      if (isset($erreur)) {
+         $display .= '
+         <div class="alert alert-danger">
+            <p>'.adm_translate("Une erreur est survenue lors de l'exécution du script SQL. Mysql a répondu :").'</p>
+            <p><strong>'.$erreur.'</strong></p>
+            <p>'.adm_translate("Veuillez l'exécuter manuellement via phpMyAdmin.").'</p>
+         </div>
+         <p>'.adm_translate("Voici le script SQL :").'</p>';
+         for ($i = 0; $i < count($sql); $i++) {
+            $reqsql .= '<pre class="language-sql"><code class="language-sql">'.$sql[$i].'</code></pre><br />';
+         }
+         $display .= $reqsql;
+         $display .= "<br />\n";
+      }
+      else {
+         $display .= '<p class="text-success"><strong>'.adm_translate('La configuration de la base de données MySql a réussie !').'</strong></p>';
+      }
    }
    $display .= '
    </div>
@@ -457,7 +453,7 @@ function nmig_clean($ModDesinstall) {
             else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>";
          break;
          case 'e4':
-            if (isset($sql[0]) && $sql[0] != '') nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon);
+            if (!empty(array_filter($sql, 'strlen')) || $path_adm_module != '') nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon);
             else echo "<script type=\"text/javascript\">\n//<![CDATA[\nwindow.location = \"admin.php?op=Module-Install&ModInstall=".$ModInstall."&nmig=e5\";\n//]]>\n</script>";
          break;
          case 'e5':
