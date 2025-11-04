@@ -915,7 +915,7 @@ function executeDeployment($version, $targetDir) {
    $deployer = new GithubDeployer();
 
 // ✅ Détection d'installation : utilise déjà la logique correcte
-    $isUpdate = $deployer->isNPDSInstalled($absoluteTargetPath);
+   $isUpdate = $deployer->isNPDSInstalled($absoluteTargetPath);
    $logMessage = function($message, $type = 'INFO') use ($absoluteTargetPath, $deploymentId) {
       $timestamp = date('d-M-Y H:i:s');
       $logEntry = "[$timestamp] [$deploymentId] [$type] $message\n";
@@ -983,17 +983,16 @@ function executeDeployment($version, $targetDir) {
       $logMessage("PROGRESS:20");
       $logMessage("📂 ".t('extraction_progress')."...");
       $logMessage("PROGRESS:35");
-            $logMessage("PROGRESS:38");
-            $logMessage("PROGRESS:41");
-            $logMessage("PROGRESS:44");
-            $logMessage("PROGRESS:47");
+      $logMessage("PROGRESS:38");
+      $logMessage("PROGRESS:41");
+      $logMessage("PROGRESS:44");
+      $logMessage("PROGRESS:47");
 
       $extractResult = $deployer->extractFirstFolderContent($tempFile, $absoluteTargetPath, 'zip', $version, $isUpdate);
       if (!$extractResult['success']) 
          throw new Exception("Échec extraction: " . $extractResult['message']);
       $logMessage("PROGRESS:50");
-            $logMessage("PROGRESS:53");
-
+      $logMessage("PROGRESS:53");
       $logMessage("PROGRESS:57");
       $logMessage('🔧 '.t('extraction_finished'));
       $logMessage('📁 '.t('copying_files').'...');
