@@ -118,18 +118,22 @@ function shouldBlockAccess() {
    $targetDir = $_GET['path'] ?? '.';
    $isRootTarget = ($targetDir === '.' || $targetDir === './' || 
                     getAbsoluteTargetPath($targetDir) === $rootDir);
-
-   // RÈGLE CRITIQUE : Standalone + racine avec NPDS installé → BLOQUER
-   // Installation racine avec NPDS existant = BLOQUÉ
-   if ($isStandalone && $npdsInstalled && $isRootTarget)
+   // 1. Mise à jour depuis l'admin (return_url contient admin.php) → TOUJOURS AUTORISÉ
+   if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false && isset($_COOKIE['admin']))
+      return false;
+   // 2. Admin direct + NPDS installé en racine + cible racine → BLOQUÉ
+   if (isset($_COOKIE['admin']) && $npdsInstalled && $isRootTarget)
       return true;
-   // Admin dans lib/deployer/ → AUTORISER
+   // 3. Admin avec cookie → AUTORISÉ (sauf cas bloqué ci-dessus)
    if (isset($_COOKIE['admin']))
       return false;
-   // Non-admin avec NPDS installé → BLOQUER
+   // 4. Standalone + NPDS installé + racine → BLOQUÉ (tentative de réinstallation directe)
+   if ($isStandalone && $npdsInstalled && $isRootTarget)
+      return true;
+   // 5. Non-admin avec NPDS installé → BLOQUÉ   if ($npdsInstalled)
    if ($npdsInstalled)
       return true;
-   // Non-admin sans NPDS installé → AUTORISER
+   // 6. Non-admin sans NPDS installé → AUTORISER
    return false;
 }
 
