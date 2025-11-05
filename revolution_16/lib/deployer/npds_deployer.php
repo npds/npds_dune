@@ -132,32 +132,38 @@ function shouldBlockAccess() {
                     
                     
    // 1. Mise à jour depuis l'admin (return_url contient admin.php) → TOUJOURS AUTORISÉ
-   if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false) {
+   if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false && isset($_COOKIE['admin'])) {
       error_log("✅ Condition 1 PASSÉE: Mise à jour admin autorisée");
       return false;
    }
-   // 2. Admin direct + NPDS installé en racine + cible racine → BLOQUÉ
-   if (isset($_COOKIE['admin']) && $npdsInstalled && $isRootTarget) {
-      error_log("🚨 Condition 2 PASSÉE: Admin direct bloqué");
-      return true;
-   }
-   // 3. Admin avec cookie → AUTORISÉ (sauf cas bloqué ci-dessus)
-   if (isset($_COOKIE['admin'])) {
-      error_log("✅ Condition 3 PASSÉE: Admin autorisé");
+// 2. API de déploiement avec cookie admin → AUTORISÉ (même sans return_url)
+   // C'est le cas des appels API légitimes depuis l'interface admin
+   if (isset($_GET['api']) && $_GET['api'] === 'deploy' && isset($_COOKIE['admin'])) {
+      error_log("✅ Condition 2 PASSÉE: API déploiement admin autorisée");
       return false;
    }
-   // 4. Standalone + NPDS installé + racine → BLOQUÉ (tentative de réinstallation directe)
+   // 3. Admin direct + NPDS installé en racine + cible racine → BLOQUÉ
+   if (isset($_COOKIE['admin']) && $npdsInstalled && $isRootTarget) {
+      error_log("🚨 Condition 3 PASSÉE: Admin direct bloqué");
+      return true;
+   }
+   // 4. Admin avec cookie → AUTORISÉ (sauf cas bloqué ci-dessus)
+   if (isset($_COOKIE['admin'])) {
+      error_log("✅ Condition 4 PASSÉE: Admin autorisé");
+      return false;
+   }
+   // 5. Standalone + NPDS installé + racine → BLOQUÉ (tentative de réinstallation directe)
    if ($isStandalone && $npdsInstalled && $isRootTarget) {
-      error_log("🚨 Condition 4 PASSÉE: Standalone bloqué");
+      error_log("🚨 Condition 5 PASSÉE: Standalone bloqué");
       return true;
    }
-   // 5. Non-admin avec NPDS installé → BLOQUÉ   if ($npdsInstalled)
+   // 6. Non-admin avec NPDS installé → BLOQUÉ   if ($npdsInstalled)
    if ($npdsInstalled) {
-      error_log("🚨 Condition 5 PASSÉE: Non-admin avec NPDS bloqué");
+      error_log("🚨 Condition 6 PASSÉE: Non-admin avec NPDS bloqué");
       return true;
    }
-   // 6. Non-admin sans NPDS installé → AUTORISER
-   error_log("✅ Condition 6 PASSÉE: Nouvelle installation autorisée");
+   // 7. Non-admin sans NPDS installé → AUTORISER
+   error_log("✅ Condition 7 PASSÉE: Nouvelle installation autorisée");
    return false;
 }
 
