@@ -13,7 +13,7 @@
 if (preg_match("#upload\.func\.forum\.php#", $_SERVER['PHP_SELF'])) die();
 
 if (!isset($upload_conf)) {
-   include_once 'modules/upload/lang/upload.lang-'.$language.'.php');
+   include_once 'modules/upload/lang/upload.lang-'.$language.'.php';
    include_once 'modules/upload/include_forum/upload.conf.forum.php';
    include_once 'lib/file.class.php';
 }
