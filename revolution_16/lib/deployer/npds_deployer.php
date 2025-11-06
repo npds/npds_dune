@@ -118,8 +118,6 @@ function shouldBlockAccess() {
    $targetDir = $_GET['path'] ?? '.';
    $isRootTarget = ($targetDir === '.' || $targetDir === './' || 
                     getAbsoluteTargetPath($targetDir) === $rootDir);
-                    
-                    
 // ⭐⭐ DEBUG : Log pour comprendre ce qui se passe
    error_log("🔍 DEBUG shouldBlockAccess:");
    error_log("  - return_url: " . ($_GET['return_url'] ?? 'NON'));
@@ -129,14 +127,12 @@ function shouldBlockAccess() {
    error_log("  - isStandalone: " . ($isStandalone ? 'OUI' : 'NON'));
    error_log("  - targetDir: " . $targetDir);
    error_log("  - rootDir: " . $rootDir);
-                    
-                    
    // 1. Mise à jour depuis l'admin (return_url contient admin.php) → TOUJOURS AUTORISÉ
    if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false && isset($_COOKIE['admin'])) {
       error_log("✅ Condition 1 PASSÉE: Mise à jour admin autorisée");
       return false;
    }
-// 2. API de déploiement avec cookie admin → AUTORISÉ (même sans return_url)
+   // 2. API de déploiement avec cookie admin → AUTORISÉ (même sans return_url)
    // C'est le cas des appels API légitimes depuis l'interface admin
    if (isset($_GET['api']) && $_GET['api'] === 'deploy' && isset($_COOKIE['admin'])) {
       error_log("✅ Condition 2 PASSÉE: API déploiement admin autorisée");
@@ -178,7 +174,7 @@ if (shouldBlockAccess()) {
          <style>body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }</style>
       </head>
       <body>
-         <div><h1>🚫 Accès au déployeur refusé</h1><p>Vous devez être administrateur ! <strong>OU</strong> NPDS ne doit pas être déjà installé !</p></div>
+         <div><h1>🚫 Accès au déployeur refusé</h1><p>Vous devez être administrateur ! <br /><strong>OU</strong><br /> NPDS ne doit pas être déjà installé !</p></div>
       </body>
    </html>');
 }
@@ -805,12 +801,9 @@ if (isset($_GET['api']) && $_GET['api'] === 'deploy') {
       ]);
       exit;
    }
-
    error_log("🔒 VERROU API CRÉÉ: $apiLockFile");
-
    // Mode API - traitement en arrière-plan
    // header('Content-Type: application/json');
-
    try {
       // Nettoyer tous les buffers
       while (ob_get_level() > 0) ob_end_clean();
@@ -822,11 +815,9 @@ if (isset($_GET['api']) && $_GET['api'] === 'deploy') {
          throw new Exception("Confirmation manquante");
       $version = $_GET['version'];
       $targetDir = $_GET['path'] ?? '.';
-      
       // ⭐⭐ UTILISER LE CHEMIN ABSOLU
-        $absoluteTargetPath = getAbsoluteTargetPath($targetDir);
-        error_log("🎯 API DEPLOY - Chemin absolu: $absoluteTargetPath");
-      
+      $absoluteTargetPath = getAbsoluteTargetPath($targetDir);
+      error_log("🎯 API DEPLOY - Chemin absolu: $absoluteTargetPath");
       error_log("📋 Paramètres API: version=$version, path=$targetDir");
       // Démarrer immédiatement le déploiement
       $result = executeDeployment($version, $absoluteTargetPath);
