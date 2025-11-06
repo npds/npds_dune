@@ -3340,7 +3340,7 @@ function dataimagetofileurl($base_64_string, $output_path) {
         die('Image non valide');
       $size = getImageSizeFromString($bin);
       $ext = substr($size['mime'], 6);
-      if (!in_array($ext, ['png', 'gif', 'jpeg']))
+      if (!in_array($ext, ['png', 'gif', 'jpeg', 'webp']))
          die('Image non supportée');
       $output_file = $output_path.$j."_".$ra."_".time().".".$ext;
       $base_64_string = preg_replace($rechdataimage, 'class="img-fluid" src="'.$output_file.'" loading="lazy"', $base_64_string,1);
@@ -3352,10 +3352,11 @@ function dataimagetofileurl($base_64_string, $output_path) {
          $args = [$th, $output_file];
       } else 
          $args = [$im, $output_file];
-      if ($ext == 'png')
-         $args[] = 0;
-      else if ($ext == 'jpeg')
-         $args[] = 100;
+      switch($ext) {
+         case 'png': $args[] = 0; break;
+         case 'jpeg': $args[] = 100; break;
+         case 'webp': $args[] = 80; break;
+      }
       $fonc = "image{$ext}";
       call_user_func_array($fonc, $args);
       $j++;
