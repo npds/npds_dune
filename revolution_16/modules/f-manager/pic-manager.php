@@ -187,8 +187,8 @@ function CreateThumb($Image, $Source, $Destination, $Max, $ext) {
 // Lancement sur un Répertoire en fonction d'un fichier de conf particulier
 if ($FmaRep) {
    if (filtre_module($FmaRep)) {
-      if (file_exists('modules/$ModPath/users/'.strtolower($FmaRep).'.conf.php')) {
-         include 'modules/$ModPath/users/'.strtolower($FmaRep).'.conf.php';
+      if (file_exists('modules/'.$ModPath.'/users/'.strtolower($FmaRep).'.conf.php')) {
+         include 'modules/'.$ModPath.'/users/'.strtolower($FmaRep).'.conf.php';
          if (fma_autorise('a', '')) {
             $theme_fma = $themeG_fma;
             $fic_minuscptr = 0;
