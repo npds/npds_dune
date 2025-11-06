@@ -299,7 +299,7 @@ if ($Max_thumb>0) {
    while ($obj->NextFile()) {
       if (fma_autorise('f', $obj->FieldName)) {
          $suf = strtolower($obj->FieldView);
-         if (($suf == 'gif') or ($suf == 'jpg') or ($suf == 'jpeg') or ($suf == 'png') or ($suf == 'swf') or ($suf == 'mp3') or ($suf == 'mp4') or ($suf == 'svg') ) {
+         if ($suf == 'gif' or $suf == 'jpg' or $suf == 'jpeg' or $suf == 'png' or $suf == 'swf' or $suf == 'mp3' or $suf == 'mp4' or $suf == 'svg' or $suf=='webp' ) {
             if ($ficpres_fma[1]) {
                $ibid = rawurlencode(encrypt(rawurldecode($cur_nav_encrypt).'#fma#'.encrypt($obj->FieldName)));
                $imagette = '';
@@ -339,9 +339,7 @@ if ($Max_thumb>0) {
                }
 
                switch ($suf) {
-                  case 'gif':
-                  case 'jpg':
-                  case 'png':
+                  case 'gif': case 'jpg': case 'png': case 'webp':
                      $PopUp = "'getfile.php?att_id=$ibid&amp;apli=f-manager','PicManager','menubar=no,location=no,directories=no,status=no,copyhistory=no,height=".($h_pi+40).",width=".($w_pi+40).",toolbar=no,scrollbars=yes,resizable=yes'";
                      $files .= '
                      <div class="imagethumb">
