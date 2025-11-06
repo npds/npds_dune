@@ -788,7 +788,7 @@ if ($obj->File_Navigator($base, $tri_fma['tri'], $tri_fma['sens'], $dirsize_fma)
 }
 
 // gestion des types d'extension de fichiers
-$extensions = ['asf', 'avi', 'bmp', 'box', 'cfg', 'cfm', 'conf', 'crypt', 'css', 'dia', 'dir', 'doc', 'dot', 'dwg', 'excel', 'exe', 'filebsd', 'filelinux', 'fla', 'flash', 'gif', 'gz', 'gzip', 'hlp', 'htaccess', 'htm', 'html', 'ico', 'image', 'img', 'indd', 'index', 'ini', 'iso', 'java', 'jpg', 'js', 'json', 'kml', 'lyx', 'mdb', 'mid', 'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'php', 'php3', 'php4', 'phps', 'png', 'pot', 'ppt', 'ps', 'psd', 'psp', 'ra', 'rar', 'rpm', 'rtf', 'search', 'sit', 'svg', 'swf', 'sxc', 'sxd', 'sxi', 'sys', 'tar', 'tgz', 'ttf', 'txt', 'unknown', 'vsd', 'wav', 'wbk', 'wma', 'wmf', 'wmv', 'word', 'xls', 'xml', 'xsl', 'zip'];
+$extensions = ['asf', 'avi', 'bmp', 'box', 'cfg', 'cfm', 'conf', 'crypt', 'css', 'dia', 'dir', 'doc', 'dot', 'dwg', 'excel', 'exe', 'filebsd', 'filelinux', 'fla', 'flash', 'gif', 'gz', 'gzip', 'hlp', 'htaccess', 'htm', 'html', 'ico', 'image', 'img', 'indd', 'index', 'ini', 'iso', 'java', 'jpg', 'js', 'json', 'kml', 'lyx', 'mdb', 'mid', 'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'php', 'php3', 'php4', 'phps', 'png', 'pot', 'ppt', 'ps', 'psd', 'psp', 'ra', 'rar', 'rpm', 'rtf', 'search', 'sit', 'svg', 'swf', 'sxc', 'sxd', 'sxi', 'sys', 'tar', 'tgz', 'ttf', 'txt', 'unknown', 'vsd', 'wav', 'wbk', 'webp', 'wma', 'wmf', 'wmv', 'word', 'xls', 'xml', 'xsl', 'zip'];
 foreach ($extensions as $extens) {
    $att_icons[$extens] = '
       <span class="fa-stack">
@@ -906,7 +906,7 @@ while ($obj->NextFile()) {
             }
          }
          if (!$ico_search) {
-            if (($obj->FieldView == 'jpg') or ($obj->FieldView == 'jpeg') or ($obj->FieldView == 'gif') or ($obj->FieldView == 'png') or ($obj->FieldView == 'svg'))
+            if (($obj->FieldView == 'jpg') or ($obj->FieldView == 'jpeg') or ($obj->FieldView == 'gif') or ($obj->FieldView == 'png') or ($obj->FieldView == 'svg') or ($obj->FieldView == 'webp'))
                $files .= "<img src=\"getfile.php?att_id=$ibid&amp;apli=f-manager\" width=\"32\" height=\"32\" loading=\"lazy\" />";
             else {
                if (isset($att_icons[$obj->FieldView]))

@@ -64,6 +64,7 @@ $mimetypes = array (
   'sxi'   => 'application/vnd.sun.xml.impress',
   'sxd'   => 'application/vnd.sun.xml.draw',
   'sxm'   => 'application/vnd.sun.xml.math',
+  'webp'  => 'image/webp',
 
   'zip'   => 'application/zip'
 );
@@ -81,6 +82,7 @@ $mime_dspfmt['image/x-png'] = ATT_DSP_IMG;
 $mime_dspfmt['image/jpeg'] = ATT_DSP_IMG;
 $mime_dspfmt['image/pjpeg'] = ATT_DSP_IMG;
 $mime_dspfmt['image/svg+xml'] = ATT_DSP_IMG;
+$mime_dspfmt['image/webp'] = ATT_DSP_IMG;
 $mime_dspfmt['text/html'] = ATT_DSP_HTML;
 $mime_dspfmt['text/plain'] = ATT_DSP_PLAINTEXT;
 $mime_dspfmt['application/x-shockwave-flash'] = ATT_DSP_SWF;
@@ -136,7 +138,7 @@ $mime_renderers[ATT_DSP_AUDIO]    = "
                </div>
             </div>";
 // iconographie des extension de fichiers
-$extensions = ['asf', 'avi', 'bmp', 'box', 'cfg', 'cfm', 'conf', 'crypt', 'css', 'dia', 'dir', 'doc', 'dot', 'dwg', 'excel', 'exe', 'filebsd', 'filelinux', 'fla', 'flash', 'gif', 'gz', 'gzip', 'hlp', 'htaccess', 'htm', 'html', 'ico', 'image', 'img', 'indd', 'index', 'ini', 'iso', 'java', 'jpg', 'js', 'json', 'kml', 'lyx', 'mdb', 'mid', 'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'php', 'php3', 'php4', 'phps', 'png', 'pot', 'ppt', 'ps', 'psd', 'psp', 'ra', 'rar', 'rpm', 'rtf', 'search', 'sit', 'svg', 'swf', 'sxc', 'sxd', 'sxi', 'sys', 'tar', 'tgz', 'ttf', 'txt', 'unknown', 'vsd', 'wav', 'wbk', 'wma', 'wmf', 'wmv', 'word', 'xls', 'xml', 'xsl', 'zip'];
+$extensions = ['asf', 'avi', 'bmp', 'box', 'cfg', 'cfm', 'conf', 'crypt', 'css', 'dia', 'dir', 'doc', 'dot', 'dwg', 'excel', 'exe', 'filebsd', 'filelinux', 'fla', 'flash', 'gif', 'gz', 'gzip', 'hlp', 'htaccess', 'htm', 'html', 'ico', 'image', 'img', 'indd', 'index', 'ini', 'iso', 'java', 'jpg', 'js', 'json', 'kml', 'lyx', 'mdb', 'mid', 'mov', 'mp3', 'mp4', 'mpeg', 'mpg', 'pdf', 'php', 'php3', 'php4', 'phps', 'png', 'pot', 'ppt', 'ps', 'psd', 'psp', 'ra', 'rar', 'rpm', 'rtf', 'search', 'sit', 'svg', 'swf', 'sxc', 'sxd', 'sxi', 'sys', 'tar', 'tgz', 'ttf', 'txt', 'unknown', 'vsd', 'wav', 'wbk', 'webp', 'wma', 'wmf', 'wmv', 'word', 'xls', 'xml', 'xsl', 'zip'];
 foreach ($extensions as $extens) {
    $att_icons[$extens] = '
       <span class="fa-stack">
