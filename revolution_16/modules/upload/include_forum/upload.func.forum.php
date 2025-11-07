@@ -360,38 +360,78 @@ function update_inline($inline_att) {
 /*****************************************************/
 function renomme_fichier($listeV, $listeU) {
    global $upload_table, $apli, $DOCUMENTROOT;
-   $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id in ($listeV) and visible=1";
-   $result = sql_query($query);
-   while ($attach = sql_fetch_assoc($result)) {
-      if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'])) {
-         rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name']);
+   // Première requête - seulement si $listeV n'est pas vide sinon IN vide == fatal error
+   if (!empty($listeV)) {
+      $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($listeV) AND visible=1";
+      error_log("🔍 renomme_fichier - Requête visible: " . $query);
+      $result = sql_query($query);
+      while ($attach = sql_fetch_assoc($result)) {
+         if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'])) {
+            rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name']);
+         }
       }
-   }
-   $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($listeU) AND visible=0";
-   $result = sql_query($query);
-   while ($attach = sql_fetch_assoc($result)) {
-      if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'])) {
-         rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name']);
+      sql_free_result($result);
+   } else
+      error_log("🔍 renomme_fichier - Liste visible vide, requête ignorée");
+   // Deuxième requête - seulement si $listeU n'est pas vide sinon IN vide == fatal error
+   if (!empty($listeU)) {
+      $query = "SELECT att_id, att_name, att_path FROM $upload_table WHERE att_id IN ($listeU) AND visible=0";
+      error_log("🔍 renomme_fichier - Requête invisible: " . $query);
+      $result = sql_query($query);
+      while ($attach = sql_fetch_assoc($result)) {
+         if (!file_exists($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name'])) {
+            rename($DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.'.$attach['att_name'],$DOCUMENTROOT.$attach['att_path'].$attach['att_id'].'.'.$apli.'.@'.$attach['att_name']);
+         }
       }
-   }
+      sql_free_result($result);
+   } else
+      error_log("🔍 renomme_fichier - Liste invisible vide, requête ignorée");
 }
-function update_visibilite($visible_att,$visible_list) {
+
+function update_visibilite($visible_att, $visible_list) {
+   error_log(print_r($visible_att, true) . '🔍 $visible_att');
+   error_log($visible_list . '🔍 $visible_list');
    global $upload_table;
-   if (is_array($visible_att)) {
-      $visible = implode (',', $visible_att);
-      $sql = "UPDATE $upload_table SET visible='1' WHERE att_id IN ($visible)";
-      sql_query($sql);
-      $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list) - 1));
-      $result = array_diff($visible_lst,$visible_att);
-      $unvisible = implode(',', $result);
-      $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
-      sql_query($sql);
-   } else {
-      $visible_lst = explode(',',substr($visible_list,0,strlen($visible_list) - 1));
-      $unvisible = implode(',', $visible_lst);
-      $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
-      sql_query($sql);
+   // Initialiser les variables
+   $visible = '';
+   $unvisible = '';
+   if (is_array($visible_att) && !empty($visible_att)) {
+      // Nettoyer $visible_att
+      $visible_att = array_filter($visible_att, function($value) {
+         return !empty($value) && is_numeric($value);
+      });
+      if (!empty($visible_att)) {
+         $visible = implode(',', $visible_att);
+         $sql = "UPDATE $upload_table SET visible='1' WHERE att_id IN ($visible)";
+         error_log($sql . '🩸 UPDATE visible=1');
+         sql_query($sql);
+      }
    }
-   renomme_fichier($visible,$unvisible);
+   // Traitement de $visible_list
+   if (!empty($visible_list)) {
+      $visible_list = trim($visible_list, ',');
+      $visible_lst = explode(',', $visible_list);
+      $visible_lst = array_filter($visible_lst, function($value) {
+         return !empty($value) && is_numeric($value);
+      });
+      if (!empty($visible_lst)) {
+         if (!empty($visible_att) && is_array($visible_att))
+            $result = array_diff($visible_lst, $visible_att);
+         else
+            $result = $visible_lst;
+         if (!empty($result)) {
+            $unvisible = implode(',', $result);
+            $sql = "UPDATE $upload_table SET visible='0' WHERE att_id IN ($unvisible)";
+            error_log($sql . '🩸 UPDATE visible=0');
+            sql_query($sql);
+         }
+      }
+   }
+   // Appeler renomme_fichier SEULEMENT si au moins une valeur existe
+   if (!empty($visible) || !empty($unvisible)) {
+      error_log("🔍 Appel renomme_fichier avec: visible='$visible', unvisible='$unvisible'");
+      renomme_fichier($visible, $unvisible);
+   } else
+      error_log("🔍 renomme_fichier non appelé car visible et unvisible sont vides");
 }
 ?>
