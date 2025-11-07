@@ -34,7 +34,7 @@ switch($apli) {
             switch($apli) {
                // Forum
                case 'forum_npds':
-                  $fic = 'modules/upload/upload_forum/'.$att_id.$apli.$att_name;
+                  $fic = 'modules/upload/upload_forum/'.$att_id.'.'.$apli.'.'.$att_name;
                break;
                // MiniSite
                case 'minisite':
@@ -42,7 +42,7 @@ switch($apli) {
                break;
                // Application générique : la présence de getfile.conf.php est nécessaire
                case 'getfile':
-                  if (file_exists($att_id.'/getfile.conf.php') or file_exists("$att_id/.getfile.conf.php"))// pourquoi deux fois la même condition
+                  if (file_exists($att_id.'/getfile.conf.php') or file_exists($att_id.'/.getfile.conf.php'))
                      $fic = "$att_id/$att_name";
                   else
                      header('Location: index.php');
