@@ -79,7 +79,7 @@
    // position 4 = Taille
    // position 5 = Permissions
    // position 6 = Pic-Manager
-   // => $dirpres_fma='111011';
+   // => $dirpres_fma = '111011';
    $dirpres_fma = '111011';
 
    // $dircmd_fma permet de contrôler les actions autorisées relatives aux répertoires (0 non-autorisé / 1 autorisé)
@@ -88,7 +88,7 @@
    // position 3 = delete
    // position 4 = chmod
    // position 5 = not used
-   // => $dircmd_fma = '10000';
+   // => $dircmd_fma=  '10000';
    $dircmd_fma = '11110';
 
 
@@ -96,7 +96,7 @@
 // FICHIERS ----
 // -------------
    // $extension_fma permet de définir la liste des extensions valide
-   // $extension_fma='doc xls pps ppt sxw xls sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf mp3';
+   // $extension_fma='doc xls svg pps ppt sxw xls sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf mp3 webp';
    // => Si $extension_fma = '*'; : tous les types de fichiers sont autorisés
    $extension_fma = '*';
 
@@ -104,8 +104,8 @@
    // $extension_Edit_fma = 'txt php js html htm';
    $extension_Edit_fma = 'txt php js html htm';
 
-   // $extension_Wysiwyg_fma permet de définir la liste des extensions éditables qui supporteront un editeur Wysiwyg (TinyMce par exemple)
-   // $extension_Wysiwyg_fma='html htm';
+   // $extension_Wysiwyg_fma permet de définir la liste des extensions Editables qui supporteront un editeur Wysiwyg (TinyMce par exemple)
+   // $extension_Wysiwyg_fma = 'html htm';
    $extension_Wysiwyg_fma = 'html htm';
 
    // $ficlimit_fma permet de contrôler l'affichage de certains fichiers (.htaccess, config.php ...)
@@ -124,6 +124,7 @@
    //       'config.php' => 'admin'
    // );
    $ficlimit_fma = array();
+
    // $infos_fma permet d'inclure automatiquement un fichier particulier (par exemple une bannière ...) s'il se trouve dans le répertoire courant
    $infos_fma = 'infos.txt';
 
@@ -187,6 +188,6 @@
    $uniq_fma = true;
 
    // $urlext_fma permet de passer une variable complémentaire définie localement dans le fichier de configuration
-   // $urlext_fma = "&amp;groupe=$groupe";
+   // $urlext_fma = '&amp;groupe='.$groupe;
    $urlext_fma = '';
 ?>

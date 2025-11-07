@@ -13,7 +13,7 @@
 // cette variable fonctionne si $url_fma_modifier=true;
 // $url_modifier permet de modifier le comportement du lien (a href ....) se trouvant sur les fichiers affichés par FMA
 
-if (($obj->FieldView == 'jpg') or ($obj->FieldView == 'gif') or ($obj->FieldView == 'png') or ($obj->FieldView == 'jpeg'))
+if ($obj->FieldView == 'jpg' or $obj->FieldView == 'gif' or $obj->FieldView == 'png' or $obj->FieldView == 'jpeg' or $obj->FieldView == 'webp')
    $url_modifier = $tiny_mce ?
       "\"#\" onclick=\"javascript:parent.tinymce.activeEditor.selection.setContent('<img class=img-fluid src=getfile.php?att_id=$ibid&amp;apli=f-manager />'); top.tinymce.activeEditor.windowManager.close();\"" :
       "\"#\"" ;

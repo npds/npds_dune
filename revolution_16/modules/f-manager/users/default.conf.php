@@ -106,9 +106,9 @@
 // FICHIERS ----
 // -------------
    // $extension_fma permet de définir la liste des extensions valide
-   // $extension_fma = 'doc xls pps ppt sxw xls sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf mp3';
+   // $extension_fma = 'doc xls pps ppt sxw xls svg sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf mp3 webp';
    // => Si $extension_fma = '*'; : tous les types de fichiers sont autorisés
-   $extension_fma = 'doc xls pps ppt sxw xls sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf mp3';
+   $extension_fma = 'doc xls pps ppt sxw xls svg sxi sxd sxg stw rtf txt pdf zip rar tar tgz gif jpg jpeg png swf mp3 webp';
 
    // $extension_Edit_fma permet de définir la liste des extensions qui seront éditables
    // $extension_Edit_fma = 'txt php js html htm';
