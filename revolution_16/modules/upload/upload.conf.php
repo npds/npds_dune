@@ -71,7 +71,7 @@ $ed_profil = '1111';
 $ed_nb_images = 10;
 
 // suffix des fichiers autorisés (séparé par un espace)
-$extension_autorise = 'doc docx gif jpeg jpg mpeg mp3 mp4 pdf png ppt pptx rtf svg swf sxd sxi sxw tar tgz txt xls xlsx zip';
+$extension_autorise = 'doc docx gif jpeg jpg mpeg mp3 mp4 pdf png ppt pptx rtf svg swf sxd sxi sxw tar tgz txt webp xls xlsx zip';
 
 // Taille maxi en affichage des images dans les banques de l'Editeur HTML
 $width_max = 50;
