@@ -359,6 +359,8 @@ function HTML_Add() {
                            <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code css]\',\'[/code]&lt;/pre&gt;\');">Css</a>
                            <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code js]\',\'[/code]&lt;/pre&gt;\');">js</a>
                            <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code sql]\',\'[/code]&lt;/pre&gt;\');">SQL</a>
+                           <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code md]\',\'[/code]&lt;/pre&gt;\');">Markdown</a>
+                           <a class="dropdown-item" href="javascript: addText(\'&lt;pre&gt;[code py]\',\'[/code]&lt;/pre&gt;\');">Python</a>
                         </div>
                      </div>
                      <div class="dropdown d-inline me-2 mb-3" title="'.translate('Vidéos').'" data-bs-toggle="tooltip" data-bs-placement="left">
