@@ -40,13 +40,6 @@ switch($apli) {
                case 'minisite':
                   $fic = "users_private/$att_id/mns/$att_name";
                break;
-               // Application générique : la présence de getfile.conf.php est nécessaire
-               case 'getfile':
-                  if (file_exists($att_id.'/getfile.conf.php') or file_exists($att_id.'/.getfile.conf.php'))
-                     $fic = "$att_id/$att_name";
-                  else
-                     header('Location: index.php');
-               break;
                case 'f-manager';
                   $fic = "$att_id/$att_name";
                break;
