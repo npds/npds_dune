@@ -15,7 +15,7 @@ Ses points forts : sa richesse fonctionnelle, sa sécurité, sa rapidité, sa fa
 ## Required  
 un serveur (local ou distant : Lamp, Wamp ...) avec
 - php >= 7.1  
-- mysql >= 5.5.3
+- mysql >= 5.7
 - une base de donnée existante 
 
 ## Installation
@@ -66,6 +66,6 @@ https://votre-domaine.com/npds_deployer.php
 
 ## Communauté
 
-- Besoin d'aide le [forum Npds](https://www.npds.org/forum.php)
-- Besoin de documentation le [dokuwiki de npds](https://bible.npds.org)
+- Besoin d'aide les [forums NPDS](https://www.npds.org/forum.php)
+- Besoin de documentation le [dokuwiki de NPDS](https://bible.npds.org)
 
