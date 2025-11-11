@@ -149,7 +149,7 @@ function nmig_WriteSql($sql, $path_adm_module, $name_module, $affich, $icon) {
       }
       //<== ajout des alertesadmin
    }
-   if (empty(array_filter($sql, 'strlen'))) {
+   if (isset($sql[0]) && $sql[0] !== '') {
       for ($i = 0; $i < count($sql) && !isset($erreur); $i++) {
          sql_query($sql[$i]) or $erreur = sql_error();
       }
