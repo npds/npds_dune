@@ -1073,7 +1073,7 @@ function executeDeployment($version, $targetDir) {
 // ==================== CLASSES PRINCIPALES ====================
 class NPDSExclusions {
    private static $alwaysExcluded = [
-      'install', 'install/', 'install/*', 'install.php',
+      'install/*', 'install.php',
       // Ces éléments ne doivent JAMAIS être copiés en production
    ];
    private static $excludedIfExists = [
@@ -1087,10 +1087,12 @@ class NPDSExclusions {
       'abla.log.php',             // statistiques
       'signat.php',               // pied d'email
       // === DOSSIERS UTILISATEURS COMPLETS (IMMUABLES) ===
-      'users_private/',           // Données utilisateurs et groupes
-      'slogs/',                   // Logs
-      'cache/',                   // Cache système
-      'meta/',                    // Stockage metatags
+      'users_private/groupe',           // Protège le dossier et son contenu existant
+      'users_private/user',             // Protège le dossier user si existe
+      'users_private/usersbadmail.txt', // Protège le fichier si existe
+      'slogs/*',                        // Logs
+      'cache/*',                        // Cache système
+      'meta/meta.php',                  // Stockage metatags
       // === FICHIERS/DOSSIERS CONFIGURATION ET DATA MODULES (À PRÉSERVER) ===
       'modules/archive-stories/archive-stories.conf.php',
       'modules/archive-stories/cache.timings.php',
@@ -1099,19 +1101,21 @@ class NPDSExclusions {
       'modules/push/push.conf.php',
       'modules/push/push.js',
       'modules/reseaux-sociaux/reseaux-sociaux.conf.php',
-      'modules/sform/contact/',
-      'modules/sform/forum/',
+      'modules/sform/contact/contact.php',
+      'modules/sform/contact/formulaire.php',
+      'modules/sform/forum/formulaire.php',
+      'modules/sform/forum/forum_extender.php',
       'modules/upload/upload.conf.php',
-      'modules/upload/tmp/',
-      'modules/upload/upload/',
-      'modules/upload/upload_forum/',
+      'modules/upload/tmp/*',
+      'modules/upload/upload/*',
+      'modules/upload/upload_forum/*',
       'modules/upload/include_editeur/upload.conf.editeur.php',
       'modules/upload/include_forum/upload.conf.forum.php',
       'modules/wspad/config.php',
-      'modules/wspad/locks/',
+      'modules/wspad/locks/*',
       // === FICHIERS DOSSIERS CONFIGURATION ET DATA DES LIB ===
       'lib/PHPMailer/PHPmailer.conf.php',     // conf npds de la lib
-      'lib/PHPMailer/key/',                   // stockage keys
+      'lib/PHPMailer/key/*',                   // stockage keys
       'lib/js/npds_tarteaucitron.js',         // paramètre initialisation
       'lib/js/npds_tarteaucitron_service.js', // paramètre services
       // === FICHIERS PERSONNALISÉS ===
@@ -1126,8 +1130,8 @@ class NPDSExclusions {
       'images/favicon-152.png',
       'images/favicon-120.png',
       // === BACKUPS ET SAUVEGARDES ===
-      'backup/',
-      'sauvegardes/',
+      'backup/*',
+      'sauvegardes/*',
       '*.zip',                    // Archives de backup
       '*.tar.gz',
       '*.backup*',               // Fichiers de backup existants
