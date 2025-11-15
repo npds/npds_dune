@@ -1315,7 +1315,12 @@ class NPDSBackupManager {
    * Nettoyage des vieux backups
    */
    public function cleanupOldBackups($keepLast = 5) {
-      $backupFiles = glob($this->backupDir . '/*.{zip,sql}', GLOB_BRACE);
+      $backupFiles = array_merge(
+         glob($this->backupDir . '/*.zip'),
+         glob($this->backupDir . '/*.sql'),
+         glob($this->backupDir . '/*.tar.gz'),
+         glob($this->backupDir . '/*.backup*')
+      );
       usort($backupFiles, function($a, $b) {
          return filemtime($b) - filemtime($a);
       });
@@ -1344,112 +1349,6 @@ class GithubDeployer {
       $this->cleanupOldFiles();
    }
 
-   // ==> obsolete
-   public function deployVersion(string $baseUrl, string $version, string $format = 'zip', ?string $targetDir = null): array {
-      global $lang;
-      $isUpdate = $this->isNPDSInstalled($targetDir);
-      $lockFile = $this->tempDir . '/deploy.lock';
-   
-      try {
-         $this->updateProgress('=== ' . t('deployment_started') . ' ===');
-         
-         // ==================== BACKUP POUR LES MISES À JOUR ====================
-         if ($isUpdate) {
-            $this->updateProgress("💾 Sauvegarde de sécurité (30s environ)...", 10);
-            
-            // Animation pendant le backup
-            echo '<script>
-              let dots = 0;
-              const backupInterval = setInterval(() => {
-                  dots = (dots + 1) % 4;
-                  document.getElementById("status").textContent = "💾 Sauvegarde de sécurité" + ".".repeat(dots);
-              }, 1000);
-            </script>';
-            echo str_repeat(' ', 1024);
-            if (ob_get_level() > 0) ob_flush();
-            flush();
-            
-            try {
-               $backupManager = new NPDSBackupManager();
-               $backupResult = $backupManager->backupCriticalFiles($targetDir);
-               if ($backupResult['success']) {
-                  $sizeMB = round($backupResult['size'] / 1024 / 1024, 2);
-                  echo '<script>clearInterval(backupInterval);</script>';
-                  $this->updateProgress("✅ Backup créé: " . $sizeMB . " MB", 20);
-               } else {
-                  echo '<script>clearInterval(backupInterval);</script>';
-                  $this->updateProgress("❌ Backup échoué - arrêt du déploiement", 20);
-                  @unlink($lockFile);
-                  return $this->createResult(false, "Échec du backup - déploiement annulé pour sécurité");
-               }
-            } catch (Exception $e) {
-               echo '<script>clearInterval(backupInterval);</script>';
-               $this->updateProgress("💥 Exception backup: " . $e->getMessage(), 20);
-               @unlink($lockFile);
-               return $this->createResult(false, "Erreur lors du backup: " . $e->getMessage());
-            }
-         }
-         
-         // Vérification pré-installation pour nouvelles installations uniquement
-         if (!$isUpdate) {
-            $validation = $this->validateReceptacle($targetDir);
-            if (!$validation['safe'] && (!isset($_GET['force']) || $_GET['force'] !== 'yes')) {
-               $this->showInstallationWarnings($validation, $targetDir, $version);
-               @unlink($lockFile);
-               return $this->createResult(false, "Réceptacle non sécurisé");
-            }
-         }
-
-         // Verrouillage
-         if (file_exists($lockFile)) {
-            $lockTime = (int)file_get_contents($lockFile);
-            $elapsed = time() - $lockTime;
-            if ($elapsed < 600) {
-               $this->updateProgress('💥 '. t('deployment_in_progress') . ' ' . $elapsed . "s", 'ERROR');
-               return $this->createResult(false, t('deployment_in_progress') . " " . $elapsed . "s)");
-            } else
-               @unlink($lockFile);
-         }
-         file_put_contents($lockFile, time());
-
-         // Téléchargement
-         $this->updateProgress('📦 ' . t('initializing'));
-         $url = $this->buildVersionUrl($baseUrl, $version, $format);
-         $tempFile = $this->tempDir . '/' . uniqid('github_') . '.' . $format;
-
-         $downloadResult = $this->downloadFile($url, $tempFile);
-         if (!$downloadResult['success']) {
-            @unlink($lockFile);
-            return $downloadResult;
-         }
-
-         // Extraction
-         $this->updateProgress('📂 ' . t('extracting'));
-         $extractResult = $this->extractFirstFolderContent($tempFile, $targetDir, $format, $version, $isUpdate);
-         if (!$extractResult['success']) {
-            @unlink($tempFile);
-            @unlink($lockFile);
-            return $extractResult;
-         }
-
-         // Succès
-         @unlink($tempFile);
-         @unlink($lockFile);
-         $this->updateProgress('🎉 ' . t('deployment_complete'));
-
-         return $this->createResult(true, t('success'), [
-            'url' => $url,
-            'target_dir' => $targetDir,
-            'version' => $version,
-            'is_update' => $isUpdate
-         ]);
-
-      } catch (Exception $e) {
-         @unlink($lockFile);
-         return $this->createResult(false, t('error') . $e->getMessage());
-      }
-   }
-   // <== obsolete
    public function isNPDSInstalled($targetDir) {
       if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false)
          return true;
