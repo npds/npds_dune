@@ -466,14 +466,16 @@ function maj_execute_migration() {
       $migrator = new NPDSDatabaseMigrator('', '');
       $results = $migrator->executeMigration($queries);
       if (empty($results['errors'])) {
-         $file = file('config.php');
-         $file[13] = '# généré le : ' .date('d-M-Y H:i:s') .';' . " \n";
-         $file[321] = '$Version_Num = "' . $newVersion . '";' . "\n";
-         $fic = fopen('config.php', 'w');
-         foreach($file as $n => $ligne) {
-            fwrite($fic, $ligne);
+         $configFile = 'config.php';
+         $content = file_get_contents($configFile);
+         $content = preg_replace('#^\$Version_Num\s*=\s*"[^"]*";#m','$Version_Num = "' . $newVersion . '";',$content);
+         file_put_contents($configFile, $content);
+         // Mettre à jour la date de modification (approche tableau pour la structure fixe)
+         $lines = file($configFile);
+         if (isset($lines[13])) {
+            $lines[13] = '# modifié le : ' . date('d-M-Y H:i:s') . ';' . " \n";
+            file_put_contents($configFile, implode('', $lines));
          }
-         fclose($fic);
          echo '
          <div class="alert alert-success">
             <h4 class="mb-3">✅ '.adm_translate('Migration base de données terminée').'</h4>
