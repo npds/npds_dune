@@ -738,7 +738,7 @@ function formatTimes($time, $dateStyle = IntlDateFormatter::SHORT, $timeStyle = 
    $date_au_format = ucfirst(htmlentities($fmt->format($timestamp), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8'));
    return $date_au_format;
 }
-#autodoc getPartOfTime($time) : découpe/extrait/formate et plus grâce au paramètre $format.... un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time -
+#autodoc getPartOfTime($time, $format, $timezone) : découpe/extrait/formate et plus grâce au paramètre $format.... un timestamp ou une chaine de date formatée correspondant à l'argument obligatoire $time -
 function getPartOfTime($time, $format, $timezone = null) {
    global $gmt;
    $locale = language_iso(1, '_', 1);
