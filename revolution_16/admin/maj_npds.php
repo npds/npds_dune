@@ -463,7 +463,7 @@ function maj_execute_migration() {
       if (empty($queries))
          throw new Exception('Aucune requête à exécuter');
       // Créer un migrator temporaire pour exécution
-      $migrator = new NPDSDatabaseMigrator('', '');
+      $migrator = new NPDSDatabaseMigrator('','');
       $results = $migrator->executeMigration($queries);
       if (empty($results['errors'])) {
          $configFile = 'config.php';
