@@ -116,9 +116,8 @@ function shouldBlockAccess() {
 
    // ⭐⭐ CORRECTION : Détecter si la cible est la racine
    $targetDir = $_GET['path'] ?? '.';
-   $isRootTarget = ($targetDir === '.' || $targetDir === './' || 
-                    getAbsoluteTargetPath($targetDir) === $rootDir);
-// ⭐⭐ DEBUG : Log pour comprendre ce qui se passe
+   $isRootTarget = ($targetDir === '.' || $targetDir === './' || getAbsoluteTargetPath($targetDir) === $rootDir);
+   // ⭐⭐ DEBUG : Log pour comprendre ce qui se passe
    error_log("🔍 DEBUG shouldBlockAccess:");
    error_log("  - return_url: " . ($_GET['return_url'] ?? 'NON'));
    error_log("  - cookie admin: " . (isset($_COOKIE['admin']) ? 'OUI' : 'NON'));
@@ -188,7 +187,7 @@ function getAbsoluteTargetPath($relativePath) {
       return $relativePath;
 }
 
-// ==================== TRADUCTIONS ====================
+// ==================== TRADUCTIONS ===========================
 $translations = [
    'fr' => [
       'access_url' => 'URL d\'accès',
@@ -779,10 +778,8 @@ if (isset($_GET['api']) && $_GET['api'] === 'deploy') {
               'message' => "🚨 Déploiement API déjà en cours (débuté il y a $elapsed secondes)"
             ]);
             exit;
-         } else {
-            // Verrou expiré, le supprimer
-            @unlink($apiLockFile);
-         }
+         } else 
+            @unlink($apiLockFile); // Verrou expiré, le supprimer
       }
    }
    // Créer un NOUVEAU verrou API
@@ -846,7 +843,7 @@ if (isset($_GET['api']) && $_GET['api'] === 'logs') {
    $deploymentId = $_GET['deploy_id'] ?? '';
    $sinceTime = $_GET['since'] ?? 0;
    $targetDir = $_GET['target'] ?? '.';
-   
+
    // ⭐⭐ UTILISER LE CHEMIN ABSOLU
     $absoluteTargetPath = getAbsoluteTargetPath($targetDir);
     $targetLogFile = $absoluteTargetPath . '/slogs/install.log';
@@ -1029,6 +1026,46 @@ function executeDeployment($version, $targetDir) {
       $logMessage('🔧 '.t('copied').'...');
       $logMessage("PROGRESS:99");
       $logMessage('📋 '.t('copy_finished'));
+
+      // === MISE À JOUR TIMEZONE CONFIG.PHP (VERSION SIMPLIFIÉE) ===
+      if ($isUpdate) {
+         $configFile = $absoluteTargetPath . '/config.php';
+         // Lire le fichier en tableau pour la date (ligne fixe) et en string pour le timezone (regex)
+         $lines = file($configFile);
+         $content = file_get_contents($configFile);
+         $timezoneUpdated = false;
+         $oldValue = '';
+         if (preg_match('#^\$gmt\s*=\s*"([^"]*)";#m', $content, $matches)) {
+            $fullMatch = $matches[0];  // La ligne
+            $value = $matches[1];      // La valeur
+            $oldValue = $value;
+            // Si la valeur ne contient aucune lettre (ancien format numérique)
+            if (!preg_match('#[a-zA-Z]#', $value)) {
+               // Remplacer l'ancienne ligne par la nouvelle dans le contenu
+               $newGmtLine = '$gmt = "' . date_default_timezone_get() . '";';
+               $content = str_replace($fullMatch, $newGmtLine, $content);
+               $timezoneUpdated = true;
+            }
+         }
+         // Si le timezone a été mis à jour, mettre à jour aussi la date de génération
+         if ($timezoneUpdated) {
+            // Mettre à jour la date de génération (ligne 14 = index 13 - structure fixe)
+            if (isset($lines[13]))
+               $lines[13] = '# modifié le : ' . date('d-M-Y H:i:s') . ';' . " \n";
+            // Réécrire le fichier avec les deux modifications
+            $fic = fopen($configFile, 'w');
+            foreach($lines as $ligne) {
+               fwrite($fic, $ligne);
+            }
+            fclose($fic);
+            $logMessage('🕒 Timezone config.php mis à jour: ' . $oldValue . ' → ' . date_default_timezone_get());
+         } else if ($oldValue)
+            $logMessage('✅ Timezone config.php déjà correct: ' . $oldValue);
+         else 
+            $logMessage('⚠️ Variable $gmt non trouvée dans config.php');
+      }
+      // === FIN MISE À JOUR ===
+      
       $logMessage("PROGRESS:100");
 
       // Nettoyage
@@ -1306,6 +1343,7 @@ class GithubDeployer {
          @mkdir($this->tempDir, 0755, true);
       $this->cleanupOldFiles();
    }
+
    // ==> obsolete
    public function deployVersion(string $baseUrl, string $version, string $format = 'zip', ?string $targetDir = null): array {
       global $lang;
@@ -1415,18 +1453,14 @@ class GithubDeployer {
    public function isNPDSInstalled($targetDir) {
       if (isset($_GET['return_url']) && strpos($_GET['return_url'], 'admin.php') !== false)
          return true;
-         
-         // Construire le chemin absolu de la cible
-    if ($targetDir === '.' || $targetDir === './') {
-        $absolutePath = $_SERVER['DOCUMENT_ROOT'];
-    } else if ($targetDir[0] !== '/') {
-        // Chemin relatif : on le rapporte à la racine du site
-        $absolutePath = $_SERVER['DOCUMENT_ROOT'] . '/' . $targetDir;
-    } else {
-        // Chemin absolu
-        $absolutePath = $targetDir;
-    }
-         
+      // Construire le chemin absolu de la cible
+      if ($targetDir === '.' || $targetDir === './')
+         $absolutePath = $_SERVER['DOCUMENT_ROOT'];
+      else if ($targetDir[0] !== '/') {
+         // Chemin relatif : on le rapporte à la racine du site
+         $absolutePath = $_SERVER['DOCUMENT_ROOT'] . '/' . $targetDir;
+      } else
+         $absolutePath = $targetDir; // Chemin absolu
       // Vérifier les fichiers spécifiques à npds
       $installFiles = ['mainfile.php','config.php', 'grab_globals.php', 'IZ-Xinstall.ok'];
       foreach ($installFiles as $file) {
@@ -2252,13 +2286,12 @@ function showMainInterface() {
 // ==================== ROUTAGE PRINCIPAL ====================
 try {
    $operation = $_GET['op'] ?? '';
-   
    // ⭐⭐ VALIDATION GLOBALE - TOUTES LES REQUÊTES ⭐⭐
-    $targetDir = $_GET['path'] ?? '.';
-    $validation = validateTargetPath($targetDir);
-    if (!$validation['valid']) {
-        echo head_html();
-        echo '
+   $targetDir = $_GET['path'] ?? '.';
+   $validation = validateTargetPath($targetDir);
+   if (!$validation['valid']) {
+      echo head_html();
+      echo '
         <div class="section-danger">
             <h2>🚨 '.t('error').'</h2>
             <p>'.htmlspecialchars($validation['message']).'</p>
@@ -2272,21 +2305,14 @@ try {
             </ul>
             <a href="?" class="btn btn-secondary">'.t('go_back').'</a>
         </div>';
-        echo foot_html();
-        exit;
-    }
-   
-   
+      echo foot_html();
+      exit;
+   }
+
    switch ($operation) {
-      case 'deploy':
-         handleDeployOperation();
-         break;
-      case 'clean':
-         handleCleanOperation();
-         break;
-      default:
-         showMainInterface();
-         break;
+      case 'deploy': handleDeployOperation(); break;
+      case 'clean': handleCleanOperation(); break;
+      default: showMainInterface(); break;
    }
 } catch (Exception $e) {
    error_log("ERREUR DÉPLOYEUR: " . $e->getMessage());
