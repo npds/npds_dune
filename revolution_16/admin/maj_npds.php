@@ -223,14 +223,15 @@ function maj_preupdate() {
 
 #autodoc maj_update() : sauvegarde le schéma sql de la version en service (/sql) et lance le déployeur
 function maj_update() {
+   global $nuke_url;
    $version = $_GET['version'] ?? getlatestRelease();
    $targetPath = $_GET['path'] ?? realpath(__DIR__ . '/..');
    // Étape 1: Sauvegarder le SQL actuel AVANT mise à jour
    $backupResult = backupCurrentSQL();
    if ($backupResult['success'])
-      file_put_contents('sql/backups/last_backup.txt', $backupResult['file']);
+      file_put_contents(dirname(__DIR__) . '/sql/backups/last_backup.txt', $backupResult['file']);
    // Étape 2: Déployer les nouveaux fichiers
-   $deployerUrl = "/lib/deployer/npds_deployer.php?op=deploy&version=$version&confirm=yes&path=" . 
+   $deployerUrl = $nuke_url ."/lib/deployer/npds_deployer.php?op=deploy&version=$version&confirm=yes&path=" . 
                    urlencode($targetPath) . "&return_url=" . 
                    urlencode("admin.php?op=maj");
    header("Location: $deployerUrl");
@@ -465,7 +466,7 @@ function maj_execute_migration() {
       // Créer un migrator temporaire pour exécution
       $migrator = new NPDSDatabaseMigrator('','');
       $results = $migrator->executeMigration($queries);
-      if (empty($results['errors'])) {
+     if (empty($results['errors'])) {
          $configFile = 'config.php';
          $content = file_get_contents($configFile);
          $content = preg_replace('#^\$Version_Num\s*=\s*"[^"]*";#m','$Version_Num = "' . $newVersion . '";',$content);
