@@ -1304,6 +1304,7 @@ class NPDSBackupManager {
          'slogs/*',
          'images/*',
          'themes/*/images/*',
+         'themes/pages.php',
          'modules/*/config.php',
          'modules/*.conf.php',
          'language/lang-multi.php',
