@@ -1110,7 +1110,7 @@ function executeDeployment($version, $targetDir) {
 // ==================== CLASSES PRINCIPALES ====================
 class NPDSExclusions {
    private static $alwaysExcluded = [
-      'install', 'install/*', 'install.php',
+      'install', 'install/', 'install/*', 'install.php',
       // Ces éléments ne doivent JAMAIS être copiés en production
    ];
    private static $excludedIfExists = [
