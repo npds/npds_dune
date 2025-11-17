@@ -317,44 +317,15 @@ function Configure() {
          </div>
          <div class="col-md-6">
             <div class="form-floating mb-3">
-               <select class="form-select" id="xgmt" name="xgmt">
-                  <option '.($gmt == 'Pacific/Kwajalein' ? 'selected="selected"' : '').' value="-12">UTC-12:00 Pacific/Kwajalein</option>
-                  <option '.($gmt == 'Pacific/Midway' ? 'selected="selected"' : '').' value="-11">UTC-11:00 Pacific/Midway</option>
-                  <option '.($gmt == 'Pacific/Honolulu' ? 'selected="selected"' : '').' value="-10">UTC-10:00 Pacific/Honolulu</option>
-                  <option '.($gmt == 'America/Anchorage' ? 'selected="selected"' : '').' value="-9">UTC-09:00 America/Anchorage</option>
-                  <option '.($gmt == 'America/Los_Angeles' ? 'selected="selected"' : '').' value="-8">UTC-08:00 America/Los_Angeles</option>
-                  <option '.($gmt == 'America/Denver' ? 'selected="selected"' : '').' value="-7">UTC-07:00 America/Denver</option>
-                  <option '.($gmt == 'America/Chicago' ? 'selected="selected"' : '').' value="-6">UTC-06:00 America/Chicago</option>
-                  <option '.($gmt == 'America/New_York' ? 'selected="selected"' : '').' value="-5">UTC-05:00 America/New_York</option>
-                  <option '.($gmt == 'America/Halifax' ? 'selected="selected"' : '').' value="-4">UTC-04:00 America/Halifax</option>
-                  <option '.($gmt == 'America/St_Johns' ? 'selected="selected"' : '').' value="-3.5">UTC-03:30 America/St_Johns</option>
-                  <option '.($gmt == 'America/Argentina/Buenos_Aires' ? 'selected="selected"' : '').' value="-3">UTC-03:00 America/Argentina/Buenos_Aires</option>
-                  <option '.($gmt == 'Atlantic/South_Georgia' ? 'selected="selected"' : '').' value="-2">UTC-02:00 Atlantic/South_Georgia</option>
-                  <option '.($gmt == 'Atlantic/Azores' ? 'selected="selected"' : '').' value="-1">UTC-01:00 Atlantic/Azores</option>
-                  <option '.($gmt == 'Europe/London' ? 'selected="selected"' : '').' value="0">UTC±00:00 Europe/London</option>
-                  <option '.($gmt == 'Europe/Paris' ? 'selected="selected"' : '').' value="1">UTC+01:00 Europe/Paris</option>
-                  <option '.($gmt == 'Europe/Helsinki' ? 'selected="selected"' : '').' value="2">UTC+02:00 Europe/Helsinki</option>
-                  <option '.($gmt == 'Europe/Moscow' ? 'selected="selected"' : '').' value="3">UTC+03:00 Europe/Moscow</option>
-                  <option '.($gmt == 'Asia/Tehran' ? 'selected="selected"' : '').' value="3.5">UTC+03:30 Asia/Tehran</option>
-                  <option '.($gmt == 'Asia/Dubai' ? 'selected="selected"' : '').' value="4">UTC+04:00 Asia/Dubai</option>
-                  <option '.($gmt == 'Asia/Kabul' ? 'selected="selected"' : '').' value="4.5">UTC+04:30 Asia/Kabul</option>
-                  <option '.($gmt == 'Asia/Karachi' ? 'selected="selected"' : '').' value="5">UTC+05:00 Asia/Karachi</option>
-                  <option '.($gmt == 'Asia/Kolkata' ? 'selected="selected"' : '').' value="5.5">UTC+05:30 Asia/Kolkata</option>
-                  <option '.($gmt == 'Asia/Kathmandu' ? 'selected="selected"' : '').' value="5.75">UTC+05:45 Asia/Kathmandu</option>
-                  <option '.($gmt == 'Asia/Dhaka' ? 'selected="selected"' : '').' value="6">UTC+06:00 Asia/Dhaka</option>
-                  <option '.($gmt == 'Asia/Rangoon' ? 'selected="selected"' : '').' value="6.5">UTC+06:30 Asia/Rangoon</option>
-                  <option '.($gmt == 'Asia/Bangkok' ? 'selected="selected"' : '').' value="7">UTC+07:00 Asia/Bangkok</option>
-                  <option '.($gmt == 'Asia/Singapore' ? 'selected="selected"' : '').' value="8">UTC+08:00 Asia/Singapore</option>
-                  <option '.($gmt == 'Australia/Eucla' ? 'selected="selected"' : '').' value="8.75">UTC+08:45 Australia/Eucla</option>
-                  <option '.($gmt == 'Asia/Tokyo' ? 'selected="selected"' : '').' value="9">UTC+09:00 Asia/Tokyo</option>
-                  <option '.($gmt == 'Australia/Adelaide' ? 'selected="selected"' : '').' value="9.5">UTC+09:30 Australia/Adelaide</option>
-                  <option '.($gmt == 'Australia/Sydney' ? 'selected="selected"' : '').' value="10">UTC+10:00 Australia/Sydney</option>
-                  <option '.($gmt == 'Australia/Lord_Howe' ? 'selected="selected"' : '').' value="10.5">UTC+10:30 Australia/Lord_Howe</option>
-                  <option '.($gmt == 'Pacific/Noumea' ? 'selected="selected"' : '').' value="11">UTC+11:00 Pacific/Noumea</option>
-                  <option '.($gmt == 'Pacific/Auckland' ? 'selected="selected"' : '').' value="12">UTC+12:00 Pacific/Auckland</option>
-                  <option '.($gmt == 'Pacific/Chatham' ? 'selected="selected"' : '').' value="12.75">UTC+12:45 Pacific/Chatham</option>
-                  <option '.($gmt == 'Pacific/Tongatapu' ? 'selected="selected"' : '').' value="13">UTC+13:00 Pacific/Tongatapu</option>
-                  <option '.($gmt == 'Pacific/Kiritimati' ? 'selected="selected"' : '').' value="14">UTC+14:00 Pacific/Kiritimati</option>
+               <select class="form-select" id="xgmt" name="xgmt">';
+      $maptimezone = ['-12'=>'Pacific/Kwajalein', '-11'=>'Pacific/Midway', '-10'=>'Pacific/Honolulu', '-9'=>'America/Anchorage', '-8'=>'America/Los_Angeles', '-7'=>'America/Denver', '-6'=>'America/Chicago', '-5'=>'America/New_York', '-4'=>'America/Halifax', '-3.5'=>'America/St_Johns', '-3'=>'America/Argentina/Buenos_Aires', '-2'=>'Atlantic/South_Georgia', '-1'=>'Atlantic/Azores', '0'=>'Europe/London', '1'=>'Europe/Paris', '2'=>'Europe/Helsinki', '3'=>'Europe/Moscow', '3.5'=>'Asia/Tehran', '4'=>'Asia/Dubai', '4.5'=>'Asia/Kabul', '5'=>'Asia/Karachi', '5.5'=>'Asia/Kolkata', '5.75'=>'Asia/Kathmandu', '6'=>'Asia/Dhaka', '6.5'=>'Asia/Rangoon', '7'=>'Asia/Bangkok', '8'=>'Asia/Singapore', '8.75'=>'Australia/Eucla', '9'=>'Asia/Tokyo', '9.5'=>'Australia/Adelaide', '10'=>'Australia/Sydney', '10.5'=>'Australia/Lord_Howe', '11'=>'Pacific/Noumea', '12'=>'Pacific/Auckland', '12.75'=>'Pacific/Chatham', '13'=>'Pacific/Tongatapu', '14'=>'Pacific/Kiritimati'];
+      foreach($maptimezone as $offset => $timezone) {
+         $selected = ($gmt == $timezone) ? 'selected="selected"' : '';
+         $displayOffset = ($offset >= 0) ? '+' . $offset : $offset;
+         echo '
+                  <option ' . $selected . ' value="' . $offset . '">UTC' . $displayOffset . ' ' . $timezone . '</option>';
+      }
+      echo '
                </select>
                <label for="xgmt">UTC</label>
             </div>
