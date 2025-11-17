@@ -11,7 +11,7 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 3 of the License.
 ######################################################################
-# généré le : 01-11-2024 10:30:09 
+# généré le : 17-11-2025 18:13:50 
 ######################################################################
 # ========================
 # Database & System Config
@@ -165,7 +165,7 @@ $npds_fcb = 0;
 #
 # $language:     Language of your site (You need to have lang-xxxxxx.php file for your selected language in the /language directory of your site)
 # $locale:       Locale configuration to correctly display date with your country format. (See /usr/share/locale)
-# $gmt:          Locale configuration to correctly display date with your GMT offset.
+# $gmt:          Time zone configuration to correctly display date with your GMT offset.
 # $lever:        HH:MM where Day become.
 # $coucher:      HH:MM where Night become.
 # $multi_langue: Activate Multi-langue NPDS'capability.
