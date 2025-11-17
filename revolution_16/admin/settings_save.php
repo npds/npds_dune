@@ -11,7 +11,6 @@
 /* the Free Software Foundation; either version 3 of the License.       */
 /************************************************************************/
 function gmt_to_timezone($gmt) {
-    $gmt = str_replace('+', '', $gmt); // Normalise "+2" en "2"
     $map = [
         '-12' => 'Pacific/Kwajalein',
         '-11' => 'Pacific/Midway',
@@ -291,7 +290,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "#\n";
    $content .= "# \$language:     Language of your site (You need to have lang-xxxxxx.php file for your selected language in the /language directory of your site)\n";
    $content .= "# \$locale:       Locale configuration to correctly display date with your country format. (See /usr/share/locale)\n";
-   $content .= "# \$gmt:          Locale configuration to correctly display date with your GMT offset.\n";
+   $content .= "# \$gmt:          Locale time zone configuration to correctly display date with your GMT offset.\n";
    $content .= "# \$lever:        HH:MM where Day become.\n";
    $content .= "# \$coucher:      HH:MM where Night become.\n";
    $content .= "# \$multi_langue: Activate Multi-langue NPDS'capability.\n";
