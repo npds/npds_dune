@@ -121,7 +121,7 @@ function GraphicAdmin($hlpfile) {
    array_pop($messages_npds);
    // traitement spécifique car message de version permanent "Versus"
    $versus_info = explode('|', $messages_npds[0]);
-   if($versus_info[1] == $Version_Sub and $versus_info[2] == $Version_Num)
+   if ($Version_Num === 'master' || ($versus_info[1] == $Version_Sub && $versus_info[2] == $Version_Num))
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='', fretour_h='".adm_translate('Version NPDS')." ".$Version_Sub." ".$Version_Num."', furlscript='' WHERE fid='36'");
    else
       sql_query("UPDATE ".$NPDS_Prefix."fonctions SET fetat='1', fretour='N', furlscript='data-bs-toggle=\"modal\" data-bs-target=\"#versusModal\"', fretour_h='".adm_translate('Une nouvelle version NPDS est disponible !')."<br />".$versus_info[1]." ".$versus_info[2]."<br />".adm_translate('Cliquez pour télécharger.')."' WHERE fid='36'"); 
