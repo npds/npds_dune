@@ -447,7 +447,7 @@ function ConfigSave($xdebugmysql,$xparse,$xsitename,$xnuke_url,$xsite_logo,$xslo
    $content .= "\$NPDS_Prefix = \"$NPDS_Prefix\";\n";
    if ($NPDS_Key == '') $NPDS_Key = uniqid('');
    $content .= "\$NPDS_Key = \"$NPDS_Key\";\n";
-   $content .= "\$Version_Num = \"v.16.8\";\n";
+   $content .= "\$Version_Num = \"$Version_Num\";\n";
    $content .= "\$Version_Id = \"NPDS\";\n";
    $content .= "\$Version_Sub = \"REvolution\";\n";
    $content .= "\n";
