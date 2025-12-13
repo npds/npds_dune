@@ -132,4 +132,5 @@ if (($cache_obj->genereting_output==1) or ($cache_obj->genereting_output==-1) or
 if ($SuperCache)
    $cache_obj->endCachingPage();
 include 'footer.php';
+
 ?>
