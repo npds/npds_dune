@@ -4,7 +4,7 @@
 /* ===========================                                          */
 /*                                                                      */
 /* DYNAMIC THEME engine for NPDS                                        */
-/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -38,9 +38,9 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
       ${$H_var} = true;
       $thetext = str_replace("!var!$H_var",'',$thetext);
    }
-   if ($notes!= '') $notes='<div class="note">'.translate("Note").' : '.$notes.'</div>';
+   if ($notes != '') $notes='<div class="note">'.translate('Note').' : '.$notes.'</div>';
    ob_start();
-   include($inclusion);
+   include $inclusion;
    $Xcontent = ob_get_contents();
    ob_end_clean();
 
@@ -55,7 +55,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
    if ($morelink[6]) $categorie=' : '.$morelink[6];
    $morel = $lire_la_suite.$commentaire.$morelink[4].' '.$morelink[5].$categorie;
 
-   $Xsujet ='';
+   $Xsujet = '';
    if($topicimage != '') {
       if (!$imgtmp = theme_image('topics/'.$topicimage)) $imgtmp = $tipath.$topicimage;
       $Xsujet = '<a href="search.php?query=&amp;topic='.$topic.'"><img class="img-fluid" src="'.$imgtmp.'" alt="'.translate('Rechercher dans').' : '.$topicname.'" title="'.translate('Rechercher dans').' : '.$topicname.'<hr />'.$topictext.'" data-bs-toggle="tooltip" data-bs-html="true" /></a>' ;
@@ -92,9 +92,9 @@ function themearticle ($aid, $informant, $time, $title, $thetext, $topic, $topic
    global $tipath, $theme, $nuke_url, $counter, $boxtitle, $boxstuff, $short_user,$user;
    $inclusion = false;
    if (file_exists('themes/'.$theme.'/html/detail-news.html'))
-      $inclusion='themes/'.$theme.'/html/detail-news.html';
+      $inclusion = 'themes/'.$theme.'/html/detail-news.html';
    elseif (file_exists('themes/default/html/detail-news.html'))
-      $inclusion='themes/default/html/detail-news.html';
+      $inclusion = 'themes/default/html/detail-news.html';
    else {
       echo 'detail-news.html manquant / not find !<br />';
       die();
@@ -168,10 +168,10 @@ function themesidebox($title, $content) {
       $title = '';
    }
    $npds_METALANG_words = array(
-   "'!B_title!'i"=>$title,
+   "'!B_title!'i" => $title,
    "'!B_class_title!'i" => isset($B_class_title) && $B_class_title !== '' ? $B_class_title : 'noclass',
    "'!B_class_content!'i" => isset($B_class_content) && $B_class_content !== '' ? $B_class_content : 'noclass',
-   "'!B_content!'i"=>$content
+   "'!B_content!'i" => $content
    );
    echo $htvar;// modif ji fantôme block
    echo meta_lang(preg_replace(array_keys($npds_METALANG_words),array_values($npds_METALANG_words), $Xcontent));
@@ -264,7 +264,7 @@ function userpopover($who,$dim,$avpop) {
       $userpop = $avpop == 1 ?
          '<img class="btn-outline-primary img-thumbnail img-fluid n-ava-'.$dim.' me-2" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" />' :
          '
-            <div class="dropdown d-inline-block me-4 dropend">
+            <div class="dropdown d-inline-block dropend">
                <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                   <img class=" btn-outline-primary img-fluid n-ava-'.$dim.' me-0" src="'.$imgtmp.'" alt="'.$temp_user['uname'].'" loading="lazy" />
                </a>
