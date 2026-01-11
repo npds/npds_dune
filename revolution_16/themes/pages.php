@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -197,7 +197,7 @@ if(isset($_POST['op'])){
    }
 }
 // page nécessitant tiny appelée par l'url admin.php + variable op transmise dans l'url
-$adm_op_url = array('adminStory','DisplayStory','PreviewAgain','EditStory','autoEdit','Edito_load','sections','sectionedit','new_rub_section','rubriquedit','secartedit','secartupdate','DownloadAdmin','DownloadEdit','email_user','FaqCatGo','lnl_Shw_Body','lnl_Shw_Footer','lnl_Shw_Header','links','LinksModLink','Add_Footer');
+$adm_op_url = array('adminStory','DisplayStory','PreviewAgain','EditStory','autoEdit','Edito_load','sections','sectionedit','new_rub_section','rubriquedit','secartedit','secartupdate','DownloadAdmin','DownloadEdit','email_user','FaqCatGo','lnl_Shw_Body','lnl_Shw_Footer','lnl_Shw_Header','links','LinksModLink','Add_Footer','Extend-Admin-SubModule');
 foreach($adm_op_url as $v){
    $PAGES['admin.php?op='.$v]['title'] = ''; // obligatoirement à vide
    $PAGES['admin.php?op='.$v]['blocs'] = '0';
