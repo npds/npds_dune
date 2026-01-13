@@ -5,7 +5,7 @@
 /*                                                                      */
 /* This module : MarqueTaPage  Copyright (c) 2012 by Philippe Brunier   */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2026 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,11 +16,11 @@ function marquetapage_add($uri, $topic, $action) {
    global $cookie, $NPDS_Prefix, $nuke_url;
    if (($action == 'ad_tapage') and ($cookie[0])) {
       $drname = dirname($uri);
-      if ($drname == '.') {
+      if ($drname == '.') 
          $uri = $nuke_url.'/'.$uri;
-      } elseif($drname == '/') {
+      elseif($drname == '/')
          $uri = $nuke_url.$uri;
-      } else {
+      else {
          if ($_SERVER['SERVER_PORT'] == '80')
             $uri = 'http://'.$_SERVER['SERVER_NAME'].$uri;
          else
@@ -50,8 +50,8 @@ function marquetapage() {
    global $cookie;
    if ($cookie[0] != '') {
       global $REQUEST_URI, $title, $post, $NPDS_Prefix;
-      if ($ibid=theme_image("modules/add.gif")) {$add=$ibid;} else {$add="modules/marquetapage/add.gif";}
-      if ($ibid=theme_image("modules/addj.gif")) {$addj=$ibid;} else {$addj="modules/marquetapage/addj.gif";}
+      if ($ibid = theme_image("modules/add.gif")) {$add=$ibid;} else {$add="modules/marquetapage/add.gif";}
+      if ($ibid = theme_image("modules/addj.gif")) {$addj=$ibid;} else {$addj="modules/marquetapage/addj.gif";}
       $result = sql_query("SELECT uri, topic FROM ".$NPDS_Prefix."marquetapage WHERE uid='$cookie[0]' ORDER BY topic ASC");
       $content = '';
       if (sql_num_rows($result)) {
@@ -72,7 +72,7 @@ function marquetapage() {
    </div>';
       }
       global $block_title;
-      $uri=urlencode($REQUEST_URI);
+      $uri = urlencode($REQUEST_URI);
       if ($post) $title .= '/'.$post;
       $title_MTP = $title == '' ? basename(urldecode($uri)) : $title ;
       $boxTitle = '<span class="me-2 fs-4"><a href="modules.php?ModPath=marquetapage&amp;ModStart=marquetapage&amp;op=add&amp;uri='.$uri.'&amp;topic='.urlencode($title_MTP).'"><i class="fas fa-bookmark align-middle" title="'.translate('Ajouter').' '.translate('favori').'" data-bs-toggle="tooltip"></i></a></span>';
@@ -80,6 +80,7 @@ function marquetapage() {
       themesidebox($boxTitle, $content);
    }
 }
+
 settype($op,'string');
 if ($op == 'add')
    marquetapage_add(removeHack($uri),removeHack($topic),'ad_tapage');

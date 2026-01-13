@@ -3,7 +3,7 @@
 /* SFORM Extender for Dune comments.                                    */
 /* ===========================                                          */
 /*                                                                      */
-/* P. Brunier 2002 - 2025                                               */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -24,7 +24,7 @@ $m->add_submit_value('submitS');
 $m->add_url('modules.php');
 
 /************************************************/
-include "modules/comments/$formulaire";
+include 'modules/comments/'.$formulaire;
 /************************************************/
 
 if( !isset($GLOBALS['submitS']) )

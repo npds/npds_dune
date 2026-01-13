@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -13,7 +13,7 @@
 global $C_start;
 
 // $file_name : racine du nom de ce fichier  (article, pollBoth, ...)
-$file_name=  'edito';
+$file_name = 'edito';
 
 // $forum : permet d'allouer un numéro de forum pour chaque 'type de commentaires' (article, sondage, ...) - le numéro de forum doit impérativement être NEGATIF
 $forum = -99;

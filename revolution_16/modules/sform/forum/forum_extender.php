@@ -3,7 +3,7 @@
 /* SFORM Extender for NPDS V Forum .                                    */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -28,7 +28,7 @@ $m->add_url('newtopic.php');
 include $sform_path.'forum/'.$formulaire;
 /************************************************/
 if(isset($submitS))
-   $message=$m->aff_response('','not_echo','');
+   $message = $m->aff_response('','not_echo','');
 else
    echo $m->print_form('');
 ?>

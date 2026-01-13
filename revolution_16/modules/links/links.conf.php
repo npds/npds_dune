@@ -5,7 +5,7 @@
 /*                                                                      */
 /* Based on PhpNuke 4.x source code                                     */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2026 by Philippe Brunier   */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -16,7 +16,7 @@
 $links_DB = '';
 
 // Allow to register http links (yes=>true, no=>false, both=>false-true => -1)
-$links_url=false-true;
+$links_url = false-true;
 
 // Allow to register links with the Topic's information (true) or not (false)
 $links_topic = true;

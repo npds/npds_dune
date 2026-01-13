@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier   */
+/* This version name NPDS Copyright (c) 2001-2026 by Philippe Brunier   */
 /*                                                                      */
 /* New Links.php Module with SFROM extentions : Create Table            */
 /*                                                                      */
@@ -16,7 +16,8 @@ if (!stristr($_SERVER['PHP_SELF'],'modules.php')) Access_Error();
 
 global $ModPath, $ModStart, $NPDS_Prefix;
 $pos = strpos($ModPath, '/admin');
-global $links_DB; include_once 'modules/'.substr($ModPath,0,$pos).'/links.conf.php';
+global $links_DB; 
+include_once 'modules/'.substr($ModPath,0,$pos).'/links.conf.php';
 if ($links_DB == '')
    $links_DB = $NPDS_Prefix;
 

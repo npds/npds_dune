@@ -3,7 +3,7 @@
 /* NPDS : Net Portal Dynamic System                                     */
 /* ===========================                                          */
 /*                                                                      */
-/*    WS-PAD Language File Copyright (c) 2013-2025 by Developpeur       */
+/*    WS-PAD Language File Copyright (c) 2013-2026 by Developpeur       */
 /*                                                                      */
 /************************************************************************/
 

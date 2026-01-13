@@ -3,7 +3,7 @@
 # DUNE by NPDS : Net Portal Dynamic System
 # ===================================================
 #
-# This version name NPDS Copyright (c) 2001-2025 by Philippe Brunier
+# This version name NPDS Copyright (c) 2001-2026 by Philippe Brunier
 #
 # This module is to configure the main options for your site
 #

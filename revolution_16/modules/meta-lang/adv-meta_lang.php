@@ -2,7 +2,7 @@
 /************************************************************************/
 /* DUNE by NPDS / META-LANG engine                                      */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -143,7 +143,7 @@ function meta_lang($Xcontent) {
    $Xcontent = $Ycontent;
    // Fin d'analyse / restauration du contenu original
 
-   $tab=array();
+   $tab = array();
 
    foreach($text as $word) {
       // longueur minimale du mot : 2 semble un bon compromis sauf pour les smilies ... (1 est donc le choix par défaut)
@@ -236,8 +236,8 @@ function meta_lang($Xcontent) {
                $Rword = 'MM_'.str_replace('!','',$Rword);
                if (!function_exists($Rword))
                   @eval($Cword);
-               $Cword=charg($Rword,$arguments);
-               $Rword=$word;
+               $Cword = charg($Rword,$arguments);
+               $Rword = $word;
             }
 
          // si le mot se termine par ^ : on supprime ^ | cela permet d'assurer la protection d'un mot (intouchable)

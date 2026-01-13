@@ -3,7 +3,7 @@
 /* DUNE by NPDS                                                         */
 /* ===========================                                          */
 /*                                                                      */
-/* NPDS Copyright (c) 2002-2025 by Philippe Brunier                     */
+/* NPDS Copyright (c) 2002-2026 by Philippe Brunier                     */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
@@ -38,6 +38,7 @@ if (isset($gr_from_ws) and ($gr_from_ws != 0)) {
    $uid_from_ws = '';
    $gr_from_ws = 0;
 }
+
 function alpha() {
    global $sortby, $list, $gr_from_ws, $uid_from_ws;
    $alphabet = array (translate('Tous'), 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',translate('Autres'));

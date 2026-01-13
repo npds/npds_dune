@@ -6,7 +6,7 @@
 /* Avantgo and others support as limited HTML set.                      */
 //* ===========================                                         */
 /*                                                                      */
-/* File Copyright (c) 2001 - 2025 by Philippe Brunier                   */
+/* File Copyright (c) 2001 - 2026 by Philippe Brunier                   */
 /*                                                                      */
 /************************************************************************/
 
